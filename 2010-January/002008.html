@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Compiling error occuring during Installation
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Compiling%20error%20occuring%20during%20Installation&In-Reply-To=%3C4B616542.8000908%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002007.html">
+   <LINK REL="Next"  HREF="002010.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Compiling error occuring during Installation</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Compiling%20error%20occuring%20during%20Installation&In-Reply-To=%3C4B616542.8000908%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Compiling error occuring during Installation">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Jan 28 11:21:54 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002007.html">[OpenIMSCore-CSCF] Compiling error occuring during Installation
+</A></li>
+        <LI>Next message: <A HREF="002010.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r832 - Dropped the Diameter	sessions on Cx and e2 interfaces immediately after message	creation. Diameter sessions must not be left locked while	sending messages. In the case of Cx and e2,	the sessions are stateless.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2008">[ date ]</a>
+              <a href="thread.html#2008">[ thread ]</a>
+              <a href="subject.html#2008">[ subject ]</a>
+              <a href="author.html#2008">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Rohini,
+
+that file is a symbolic link to another file (../scscf/cx_avp.c). This 
+error is usually occurring when that link is broken, so please check if 
+the link is broken.
+
+Cheers,
+-Dragos
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">rohini.n56 at wipro.com</A> wrote:
+&gt;<i> Hello Sir,
+</I>&gt;<i>
+</I>&gt;<i> I started compiling the codes, as mentioned in the installation guide 
+</I>&gt;<i> but in middle its coming error!!
+</I>&gt;<i> 1. choosen installation guide under OpenIMSCore.org
+</I>&gt;<i> 2. Started from Step 1 from quick install
+</I>&gt;<i> 3. mkdir /opt/OpenIMSCore
+</I>&gt;<i> cd /opt/OpenIMSCore
+</I>&gt;<i> mkdir FHoSS
+</I>&gt;<i> Build Successful
+</I>&gt;<i> cd FHoSS
+</I>&gt;<i> ant compile deploy is over
+</I>&gt;<i> cd ..
+</I>&gt;<i> cd ser_ims
+</I>&gt;<i> make install-libs all
+</I>&gt;<i> Here, I am getting error as given below
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> cx_avp.c:1: error: expected &#8216;=&#8217;, &#8216;,&#8217;, &#8216;;&#8217;, &#8216;asm&#8217; or &#8216;__attribute__&#8217; 
+</I>&gt;<i> before &#8216;.&#8217; token
+</I>&gt;<i> make[1]: *** [cx_avp.o] Error 1
+</I>&gt;<i> make[1]: Leaving directory `/root/opt/OpenIMSCore/ser_ims/modules/icscf'
+</I>&gt;<i> make: *** [modules] Error 1
+</I>&gt;<i>
+</I>&gt;<i> please help me to solve this. Any comments are wel-come.
+</I>&gt;<i> thank u.
+</I>&gt;<i> With Best Wishes,
+</I>&gt;<i> N.Rohini
+</I>&gt;<i>
+</I>&gt;<i> * Please do not print this email unless it is absolutely necessary. *
+</I>&gt;<i>
+</I>&gt;<i> The information contained in this electronic message and any 
+</I>&gt;<i> attachments to this message are intended for the exclusive use of the 
+</I>&gt;<i> addressee(s) and may contain proprietary, confidential or privileged 
+</I>&gt;<i> information. If you are not the intended recipient, you should not 
+</I>&gt;<i> disseminate, distribute or copy this e-mail. Please notify the sender 
+</I>&gt;<i> immediately and destroy all copies of this message and any attachments.
+</I>&gt;<i>
+</I>&gt;<i> WARNING: Computer viruses can be transmitted via email. The recipient 
+</I>&gt;<i> should check this email and any attachments for the presence of 
+</I>&gt;<i> viruses. The company accepts no liability for any damage caused by any 
+</I>&gt;<i> virus transmitted by this email.
+</I>&gt;<i>
+</I>&gt;<i> www.wipro.com
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002007.html">[OpenIMSCore-CSCF] Compiling error occuring during Installation
+</A></li>
+	<LI>Next message: <A HREF="002010.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r832 - Dropped the Diameter	sessions on Cx and e2 interfaces immediately after message	creation. Diameter sessions must not be left locked while	sending messages. In the case of Cx and e2,	the sessions are stateless.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2008">[ date ]</a>
+              <a href="thread.html#2008">[ thread ]</a>
+              <a href="subject.html#2008">[ subject ]</a>
+              <a href="author.html#2008">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

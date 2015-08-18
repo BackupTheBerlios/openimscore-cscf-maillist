@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] BUG in icscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20BUG%20in%20icscf&In-Reply-To=%3C851000.41598.qm%40web8802.mail.in.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000385.html">
+   <LINK REL="Next"  HREF="000389.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] BUG in icscf</H1>
+    <B>manikindhi jeelan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20BUG%20in%20icscf&In-Reply-To=%3C851000.41598.qm%40web8802.mail.in.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] BUG in icscf">jeelan14 at yahoo.co.in
+       </A><BR>
+    <I>Wed Apr  4 12:05:49 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000385.html">[OpenIMSCore-CSCF] BUG in icscf
+</A></li>
+        <LI>Next message: <A HREF="000389.html">[OpenIMSCore-CSCF] BUG in icscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#388">[ date ]</a>
+              <a href="thread.html#388">[ thread ]</a>
+              <a href="subject.html#388">[ subject ]</a>
+              <a href="author.html#388">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi 
+Prevesly we used  default loopback of stand alone,
+without changing domain and IP address it worked
+fine......
+ Now we changed by using a configure.sh to 
+      domain:open-ims.test
+   IP Adress:10.217.92.44
+And In  open-ims.dnszone file we changed the Ip
+Address 127.0.0.1 to 10.217.92.44 and also to the
+resolv.conf file as 
+nameserver 10.217.92.44
+search open-ims.test
+domain open-ims.test
+
+That's all we did
+
+You asked for a backtrace .....we don't know how to
+back trace... and we didn't changed any configuration
+files of all .xml .cfg .sh
+
+
+
+
+--- Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt;
+wrote:
+
+&gt;<i> Hi there,
+</I>&gt;<i> 
+</I>&gt;<i> could you please provide us with a backtrace and the
+</I>&gt;<i> configuration file
+</I>&gt;<i> that you are using?
+</I>&gt;<i> 
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> manikindhi jeelan wrote:
+</I>&gt;<i> &gt; hi
+</I>&gt;<i> &gt;  can any one help us in removing this WARNING and
+</I>&gt;<i> BUG
+</I>&gt;<i> &gt; while running icscf 
+</I>&gt;<i> &gt;  
+</I>&gt;<i> &gt; here it is
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at open-ims</A> root]# ./icscf.sh
+</I>&gt;<i> &gt; ./icscf.sh: line 3: killser: command not found
+</I>&gt;<i> &gt;  0(3994) WARNING: fix_socket_list: could not rev.
+</I>&gt;<i> &gt; resolve 10.217.92.44
+</I>&gt;<i> &gt;  0(3994) WARNING: fix_socket_list: could not rev.
+</I>&gt;<i> &gt; resolve 10.217.92.44
+</I>&gt;<i> &gt; Listening on
+</I>&gt;<i> &gt;              udp: 10.217.92.44 [10.217.92.44]:5060
+</I>&gt;<i> &gt;              tcp: 10.217.92.44 [10.217.92.44]:5060
+</I>&gt;<i> &gt; Aliases:
+</I>&gt;<i> &gt;              *: open-ims.test:*
+</I>&gt;<i> &gt;              *: icscf.open-ims.test:*
+</I>&gt;<i> &gt;  
+</I>&gt;<i> &gt;  0(3994) init_tcp: using sigio_rt as the io watch
+</I>&gt;<i> &gt; method (auto detected)
+</I>&gt;<i> &gt;  0(3994) Maxfwd module- initializing
+</I>&gt;<i> &gt;  0(3994) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> &gt; module
+</I>&gt;<i> &gt;  0(3994) BUG: qm_*: prev. fragm. tail
+</I>&gt;<i> overwritten(0,
+</I>&gt;<i> &gt; abcdefed)[0x81597e4:0x81597
+</I>&gt;<i> &gt; fc]!
+</I>&gt;<i> &gt; ./icscf.sh: line 4:  3994 Aborted                
+</I>&gt;<i> &gt; (core dumped) /root/jeelan/ser
+</I>&gt;<i> &gt; _ims/ser -f /root/icscf.cfg -D -D
+</I>&gt;<i> &gt;  
+</I>&gt;<i> &gt; ------ Semaphore Arrays --------
+</I>&gt;<i> &gt; key        semid      owner      perms      nsems
+</I>&gt;<i> &gt;  
+</I>&gt;<i> &gt; [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at open-ims</A> root]#
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; 		
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>__________________________________________________________
+&gt;<i> &gt; Yahoo! India Answers: Share what you know. Learn
+</I>&gt;<i> something new
+</I>&gt;<i> &gt; <A HREF="http://in.answers.yahoo.com/">http://in.answers.yahoo.com/</A>
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I><A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+&gt;<i> &gt;
+</I>&gt;<i> &gt;   
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> -- 
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+</I>&gt;<i> Web www.fokus.fraunhofer.de
+</I>&gt;<i> We could change the world if God would give us the
+</I>&gt;<i> source code...
+</I>&gt;<i>
+</I>-----------------------------------------------------------------
+&gt;<i> 
+</I>&gt;<i> 
+</I>
+
+
+		
+__________________________________________________________
+Yahoo! India Answers: Share what you know. Learn something new
+<A HREF="http://in.answers.yahoo.com/">http://in.answers.yahoo.com/</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000385.html">[OpenIMSCore-CSCF] BUG in icscf
+</A></li>
+	<LI>Next message: <A HREF="000389.html">[OpenIMSCore-CSCF] BUG in icscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#388">[ date ]</a>
+              <a href="thread.html#388">[ thread ]</a>
+              <a href="subject.html#388">[ subject ]</a>
+              <a href="author.html#388">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

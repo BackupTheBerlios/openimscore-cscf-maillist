@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS	Identity not registered
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DS-CSCF%20returns%20404%20Not%20Found%20-%20HSS%0A%09Identity%20not%20registered&In-Reply-To=%3C200704260618.l3Q6IaF1012465%40imj.m.ecl.ntt.co.jp%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000532.html">
+   <LINK REL="Next"  HREF="000534.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS	Identity not registered</H1>
+    <B>Hideyuki Yamashita</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DS-CSCF%20returns%20404%20Not%20Found%20-%20HSS%0A%09Identity%20not%20registered&In-Reply-To=%3C200704260618.l3Q6IaF1012465%40imj.m.ecl.ntt.co.jp%3E"
+       TITLE="[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS	Identity not registered">yamashita.hideyuki at lab.ntt.co.jp
+       </A><BR>
+    <I>Thu Apr 26 08:23:53 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000532.html">[OpenIMSCore-CSCF] scscf-crash at Re-REGISTER (r254)
+</A></li>
+        <LI>Next message: <A HREF="000534.html">[OpenIMSCore-CSCF] Memory leaks in P-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#533">[ date ]</a>
+              <a href="thread.html#533">[ thread ]</a>
+              <a href="subject.html#533">[ subject ]</a>
+              <a href="author.html#533">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi 
+
+I hava a question about S-CSCF response.
+
+[Question]
+When a user(i.e. <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>) is not registered, 
+S-CSCF responses 404(Not Found -HSS Identity not registered)
+to INVITE request to that user. 
+
+I have read RFC 3261 and felt that 480 is more appropriate 
+response than 404 in this situation.
+
+I quoted related description from RFC3261 below.
+How do you say about that?
+----------------------------------------------------------------
+21.4.5 404 Not Found
+
+   The server has definitive information that the user does not exist at
+   the domain specified in the Request-URI.  This status is also
+   returned if the domain in the Request-URI does not match any of the
+   domains handled by the recipient of the request.
+----------------------------------------------------------------
+21.4.18 480 Temporarily Unavailable
+
+   The callee's end system was contacted successfully but the callee is
+   currently unavailable (for example, is not logged in, logged in but
+   in a state that precludes communication with the callee, or has
+   activated the &quot;do not disturb&quot; feature).  The response MAY indicate a
+   better time to call in the Retry-After header field.  The user could
+   also be available elsewhere (unbeknownst to this server).  The reason
+   phrase SHOULD indicate a more precise cause as to why the callee is
+   unavailable.  This value SHOULD be settable by the UA.  Status 486
+   (Busy Here) MAY be used to more precisely indicate a particular
+   reason for the call failure.
+
+   This status is also returned by a redirect or proxy server that
+   recognizes the user identified by the Request-URI, but does not
+   currently have a valid forwarding location for that user.
+-------------------------------------------------------------
+
+[OpenIMSCore Release I use]
+CSCFs:ser_ims2007327.r0202
+HSS  :FHoSS2007329.r0204
+
+Best Regards,
+Hideyuki
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000532.html">[OpenIMSCore-CSCF] scscf-crash at Re-REGISTER (r254)
+</A></li>
+	<LI>Next message: <A HREF="000534.html">[OpenIMSCore-CSCF] Memory leaks in P-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#533">[ date ]</a>
+              <a href="thread.html#533">[ thread ]</a>
+              <a href="subject.html#533">[ subject ]</a>
+              <a href="author.html#533">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

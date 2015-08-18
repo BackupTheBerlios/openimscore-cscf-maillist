@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Quries regarding the value of s-cscf capabilities
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Quries%20regarding%20the%20value%20of%20s-cscf%20capabilities&In-Reply-To=%3C9c9388470911210810w7804ce51r164b1e59d14af0fa%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001867.html">
+   <LINK REL="Next"  HREF="001869.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Quries regarding the value of s-cscf capabilities</H1>
+    <B>Bipul Mandal</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Quries%20regarding%20the%20value%20of%20s-cscf%20capabilities&In-Reply-To=%3C9c9388470911210810w7804ce51r164b1e59d14af0fa%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Quries regarding the value of s-cscf capabilities">bipul.itbhu at gmail.com
+       </A><BR>
+    <I>Sat Nov 21 17:10:45 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001867.html">[OpenIMSCore-CSCF] Type of Capabilities returned by HSS to	I-CSCFfor various S-CSCF
+</A></li>
+        <LI>Next message: <A HREF="001869.html">[OpenIMSCore-CSCF] Quries regarding the value of s-cscf	capabilities
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1868">[ date ]</a>
+              <a href="thread.html#1868">[ thread ]</a>
+              <a href="subject.html#1868">[ subject ]</a>
+              <a href="author.html#1868">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Sir,
+I was analysing the data pre-requisites of I-CSCF code module, where a
+structure for s-cscf capabilities was dumped in a mysql database and it's
+capabilities were set in a table format like shown below-
+
+
+DROP TABLE IF EXISTS `s_cscf_capabilities
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/icscf_8sql.html#589f66fa1be04e2610116f9114651efb">http://www.openimscore.org/docs/ser_ims/icscf_8sql.html#589f66fa1be04e2610116f9114651efb</A>&gt;`;
+CREATE TABLE `s_cscf_capabilities` (
+  `id` int(11) NOT NULL
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#33e474276d7440bd82b5b8bbbfbafe74">http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#33e474276d7440bd82b5b8bbbfbafe74</A>&gt;
+auto_increment,
+  `id_s_cscf &lt;<A HREF="http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#90cae98826984cef7adaf78ef646c79a">http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#90cae98826984cef7adaf78ef646c79a</A>&gt;`
+int(11) NOT NULL
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#33e474276d7440bd82b5b8bbbfbafe74">http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#33e474276d7440bd82b5b8bbbfbafe74</A>&gt;
+default '0',
+  `capability` int(11) NOT NULL
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#33e474276d7440bd82b5b8bbbfbafe74">http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#33e474276d7440bd82b5b8bbbfbafe74</A>&gt;
+default '0',
+  PRIMARY KEY &lt;<A HREF="http://www.openimscore.org/docs/ser_ims/add-imscore-user_8sh.html#6ae70ce7b1b294c469f11cbabb8f30d6">http://www.openimscore.org/docs/ser_ims/add-imscore-user_8sh.html#6ae70ce7b1b294c469f11cbabb8f30d6</A>&gt;
+ (`id`),
+  KEY &lt;<A HREF="http://www.openimscore.org/docs/ser_ims/add-imscore-user_8sh.html#6ae70ce7b1b294c469f11cbabb8f30d6">http://www.openimscore.org/docs/ser_ims/add-imscore-user_8sh.html#6ae70ce7b1b294c469f11cbabb8f30d6</A>&gt;
+`idx_capability` (`capability`),
+  KEY &lt;<A HREF="http://www.openimscore.org/docs/ser_ims/add-imscore-user_8sh.html#6ae70ce7b1b294c469f11cbabb8f30d6">http://www.openimscore.org/docs/ser_ims/add-imscore-user_8sh.html#6ae70ce7b1b294c469f11cbabb8f30d6</A>&gt;
+`idx_id_s_cscf` (`id_s_cscf
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#90cae98826984cef7adaf78ef646c79a">http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#90cae98826984cef7adaf78ef646c79a</A>&gt;`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+;;;;;;;
+
+LOCK TABLES `s_cscf_capabilities` WRITE;
+INSERT INTO `s_cscf_capabilities` VALUES (1,1,0),(2,1,1);
+UNLOCK TABLES;;
+;;;;;;
+
+Now, if the operator sets id to 1, id_s_cscf to 1 and idx_capability to 0, what
+
+conclusion can be drawn from these integers. If the default to any of
+these parameters
+
+is set to zero or incremented by one, in what way one can
+differentiates these two values
+
+Kindly, please guide me to my above queries.
+
+
+
+
+-- 
+Bipul Mandal
+Research Engineer
+C-DOT
+New Delhi.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20091121/c390182b/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20091121/c390182b/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001867.html">[OpenIMSCore-CSCF] Type of Capabilities returned by HSS to	I-CSCFfor various S-CSCF
+</A></li>
+	<LI>Next message: <A HREF="001869.html">[OpenIMSCore-CSCF] Quries regarding the value of s-cscf	capabilities
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1868">[ date ]</a>
+              <a href="thread.html#1868">[ thread ]</a>
+              <a href="subject.html#1868">[ subject ]</a>
+              <a href="author.html#1868">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

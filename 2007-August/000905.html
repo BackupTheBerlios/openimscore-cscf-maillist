@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r429 - Fixed STR_SHM/PKG_DUP()	macros to prevent seg faults when out of memory.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r429%20-%20Fixed%20STR_SHM/PKG_DUP%28%29%0A%09macros%20to%20prevent%20seg%20faults%20when%20out%20of%20memory.&In-Reply-To=%3C200708011015.l71AFXPN013814%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000904.html">
+   <LINK REL="Next"  HREF="000906.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r429 - Fixed STR_SHM/PKG_DUP()	macros to prevent seg faults when out of memory.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r429%20-%20Fixed%20STR_SHM/PKG_DUP%28%29%0A%09macros%20to%20prevent%20seg%20faults%20when%20out%20of%20memory.&In-Reply-To=%3C200708011015.l71AFXPN013814%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r429 - Fixed STR_SHM/PKG_DUP()	macros to prevent seg faults when out of memory.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Aug  1 12:15:33 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000904.html">[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?
+</A></li>
+        <LI>Next message: <A HREF="000906.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r430 - Fixed - reg NOTIFY not	being sent - introduced since last revision Added more safety	checks for out of memory conditions.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#905">[ date ]</a>
+              <a href="thread.html#905">[ thread ]</a>
+              <a href="subject.html#905">[ subject ]</a>
+              <a href="author.html#905">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-08-01 12:15:27 +0200 (Wed, 01 Aug 2007)
+New Revision: 429 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=429">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=429</A> 
+
+Log:
+Fixed STR_SHM/PKG_DUP() macros to prevent seg faults when out of memory.
+
+
+Modified:
+   U	ser_ims/trunk/modules/icscf/mod.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/mod.h?rev=429&amp;view=diff&amp;r1=429&amp;r2=428">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/mod.h?rev=429&amp;view=diff&amp;r1=429&amp;r2=428</A>
+   U	ser_ims/trunk/modules/isc/mod.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/mod.h?rev=429&amp;view=diff&amp;r1=429&amp;r2=428">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/mod.h?rev=429&amp;view=diff&amp;r1=429&amp;r2=428</A>
+   U	ser_ims/trunk/modules/pcscf/bin_pcscf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_pcscf.c?rev=429&amp;view=diff&amp;r1=429&amp;r2=428">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_pcscf.c?rev=429&amp;view=diff&amp;r1=429&amp;r2=428</A>
+   U	ser_ims/trunk/modules/pcscf/mod.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.h?rev=429&amp;view=diff&amp;r1=429&amp;r2=428">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.h?rev=429&amp;view=diff&amp;r1=429&amp;r2=428</A>
+   U	ser_ims/trunk/modules/scscf/bin_scscf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_scscf.c?rev=429&amp;view=diff&amp;r1=429&amp;r2=428">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_scscf.c?rev=429&amp;view=diff&amp;r1=429&amp;r2=428</A>
+   U	ser_ims/trunk/modules/scscf/mod.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.h?rev=429&amp;view=diff&amp;r1=429&amp;r2=428">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.h?rev=429&amp;view=diff&amp;r1=429&amp;r2=428</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000904.html">[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?
+</A></li>
+	<LI>Next message: <A HREF="000906.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r430 - Fixed - reg NOTIFY not	being sent - introduced since last revision Added more safety	checks for out of memory conditions.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#905">[ date ]</a>
+              <a href="thread.html#905">[ thread ]</a>
+              <a href="subject.html#905">[ subject ]</a>
+              <a href="author.html#905">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

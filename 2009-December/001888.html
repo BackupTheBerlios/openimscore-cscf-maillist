@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] p-cscf: cscf_get_first_route need to reparse the	route header
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%3A%20cscf_get_first_route%20need%20to%20reparse%0A%20the%09route%20header&In-Reply-To=%3C4B2A522B.70001%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001883.html">
+   <LINK REL="Next"  HREF="001893.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] p-cscf: cscf_get_first_route need to reparse the	route header</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%3A%20cscf_get_first_route%20need%20to%20reparse%0A%20the%09route%20header&In-Reply-To=%3C4B2A522B.70001%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] p-cscf: cscf_get_first_route need to reparse the	route header">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Dec 17 16:45:47 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001883.html">[OpenIMSCore-CSCF] p-cscf: cscf_get_first_route need to reparse the	route header
+</A></li>
+        <LI>Next message: <A HREF="001893.html">[OpenIMSCore-CSCF] p-cscf: cscf_get_first_route need to reparse	the	route header
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1888">[ date ]</a>
+              <a href="thread.html#1888">[ thread ]</a>
+              <a href="subject.html#1888">[ subject ]</a>
+              <a href="author.html#1888">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Min,
+
+before I commit your patch, could you please just check if this won't 
+cause a memory leak? Shouldn't there also be a free on the h-&gt;parsed if 
+it is !=0, before resetting it?
+
+Cheers,
+-Dragos
+
+Min Wang wrote:
+&gt;<i> Hi 
+</I>&gt;<i>     The p-cscf ( with cdp enabled) crashed when there are 183 and 200
+</I>&gt;<i> reply.
+</I>&gt;<i>
+</I>&gt;<i>     cscf_get_first_route seems need to reparse the route header
+</I>&gt;<i>  since parse_rr uses pkg_malloc.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>      The following are details:
+</I>&gt;<i>
+</I>&gt;<i> On p-cscf the reply route :
+</I>&gt;<i>
+</I>&gt;<i> onreply_route[Orig_Initial_reply]
+</I>&gt;<i> {
+</I>&gt;<i> ....
+</I>&gt;<i>         if ((t_check_status(&quot;183&quot;)||t_check_status(&quot;200&quot;)) &amp;&amp;
+</I>&gt;<i> P_generates_aar(&quot;0&quot;)) {
+</I>&gt;<i>                 if (!P_AAR(&quot;0&quot;)) {
+</I>&gt;<i>                         P_release_call_onreply(&quot;orig&quot;);
+</I>&gt;<i>                 } else {
+</I>&gt;<i>                         if (!P_security_relay()) P_NAT_relay();
+</I>&gt;<i>                 }
+</I>&gt;<i> ....
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i>    A sip client may reply with 183/200 which cause
+</I>&gt;<i> cscf_get_mobile_side ( in p-cscf)  being called multiple times in
+</I>&gt;<i> difference
+</I>&gt;<i> processes.
+</I>&gt;<i>
+</I>&gt;<i>    cscf_get_mobile_side -&gt; cscf_get_request_from_reply use tm to
+</I>&gt;<i> get the request, which was cloned into shared memory (parsed
+</I>&gt;<i> headers are not cloned, see sip_msg_cloner).
+</I>&gt;<i>
+</I>&gt;<i>     Thus cscf_get_mobile_side -&gt; cscf_get_first_route -&gt; parse_rr
+</I>&gt;<i> should reparse route headers in those different processes
+</I>&gt;<i> as it use pkg_malloc to store the parsed result.
+</I>&gt;<i>
+</I>&gt;<i>      Please see the following patch.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>      Or you may have a better idea how to handle it.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> modules/scscf/sip.c |    3 +++
+</I>&gt;<i>  1 files changed, 3 insertions(+), 0 deletions(-)
+</I>&gt;<i>
+</I>&gt;<i> diff --git a/modules/scscf/sip.c b/modules/scscf/sip.c
+</I>&gt;<i> index 022148a..a43f174 100644
+</I>&gt;<i> --- a/modules/scscf/sip.c
+</I>&gt;<i> +++ b/modules/scscf/sip.c
+</I>&gt;<i> @@ -959,6 +959,9 @@ str cscf_get_first_route(struct sip_msg *msg,struct
+</I>&gt;<i> hdr_field **hr)
+</I>&gt;<i>                 return route;
+</I>&gt;<i>         }
+</I>&gt;<i>         if (hr) *hr = h;
+</I>&gt;<i> +
+</I>&gt;<i> +       // force to reparse since parse_rr use pkg_malloc
+</I>&gt;<i> +       h-&gt;parsed = 0;
+</I>&gt;<i>         if (parse_rr(h)&lt;0){
+</I>&gt;<i>                 LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:cscf_get_first_route: Error
+</I>&gt;<i> parsing as Route header\n&quot;);
+</I>&gt;<i>                 return route;
+</I>&gt;<i> --
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Kind Regards
+</I>&gt;<i>  
+</I>&gt;<i> Min Wang
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001883.html">[OpenIMSCore-CSCF] p-cscf: cscf_get_first_route need to reparse the	route header
+</A></li>
+	<LI>Next message: <A HREF="001893.html">[OpenIMSCore-CSCF] p-cscf: cscf_get_first_route need to reparse	the	route header
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1888">[ date ]</a>
+              <a href="thread.html#1888">[ thread ]</a>
+              <a href="subject.html#1888">[ subject ]</a>
+              <a href="author.html#1888">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

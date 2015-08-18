@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Call Session Control Functions bug] Wrong	identification of UE when using IPSec
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20bug%5D%20Wrong%0A%09identification%20of%20UE%20when%20using%20IPSec&In-Reply-To=%3Ctype%3Dproject%26nid%3D54%26cid%3D31%26host%3D%40www.openimscore.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000813.html">
+   <LINK REL="Next"  HREF="000815.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Call Session Control Functions bug] Wrong	identification of UE when using IPSec</H1>
+    <B>flp</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20bug%5D%20Wrong%0A%09identification%20of%20UE%20when%20using%20IPSec&In-Reply-To=%3Ctype%3Dproject%26nid%3D54%26cid%3D31%26host%3D%40www.openimscore.org%3E"
+       TITLE="[OpenIMSCore-CSCF] [Call Session Control Functions bug] Wrong	identification of UE when using IPSec">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Jun 29 12:50:48 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000813.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] Drop the	r_ipsec on failure to set SAs
+</A></li>
+        <LI>Next message: <A HREF="000815.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r362 - I-CSCF support for routing	initial requests on unsuccessful user location query when the	response from the HSS indicates that the user does not exist,	according to 3GPP TS 24.229 V7.7.0. Example scenario: an AS initiates	a call to a SIP or tel URI belonging to another IMS/SIP	domain or to PSTN.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#814">[ date ]</a>
+              <a href="thread.html#814">[ thread ]</a>
+              <a href="subject.html#814">[ subject ]</a>
+              <a href="author.html#814">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Issue status update for 
+<A HREF="http://www.openimscore.org/node/54">http://www.openimscore.org/node/54</A>
+Post a follow up: 
+<A HREF="http://www.openimscore.org/project/comments/add/54">http://www.openimscore.org/project/comments/add/54</A>
+
+ Project:      Call Session Control Functions
+ Version:      &lt;none&gt;
+ Component:    Code
+ Category:     bug reports
+ Priority:     normal
+ Assigned to:  vingarzan
+ Reported by:  vingarzan
+ Updated by:   flp
+-Status:       fixed
++Status:       closed
+
+Please check How do I make a successfull registration over IPSec? FAQ
+for IPSEC related problems.
+
+
+
+
+flp
+
+
+
+Previous comments:
+------------------------------------------------------------------------
+
+Thu, 12 Apr 2007 10:00:59 +0000 : vingarzan
+
+P-CSCF bug: when using IPSec the P-CSCF saves the port_uc. However, the
+client is supposed to send from port_uc but use port_us in the Via
+header. Then the contact identification does not work because it is
+based on the first Via header.
+
+
+Reported by Kevin Chen.
+
+
+
+
+------------------------------------------------------------------------
+
+Thu, 12 Apr 2007 10:23:57 +0000 : vingarzan
+
+Applied a fix in r223.
+
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000813.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] Drop the	r_ipsec on failure to set SAs
+</A></li>
+	<LI>Next message: <A HREF="000815.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r362 - I-CSCF support for routing	initial requests on unsuccessful user location query when the	response from the HSS indicates that the user does not exist,	according to 3GPP TS 24.229 V7.7.0. Example scenario: an AS initiates	a call to a SIP or tel URI belonging to another IMS/SIP	domain or to PSTN.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#814">[ date ]</a>
+              <a href="thread.html#814">[ thread ]</a>
+              <a href="subject.html#814">[ subject ]</a>
+              <a href="author.html#814">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

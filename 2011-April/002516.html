@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] NOTIFY issue
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20NOTIFY%20issue&In-Reply-To=%3C690044.34122.qm%40web113610.mail.gq1.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002515.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] NOTIFY issue</H1>
+    <B>Mohsen Emami-Nouri</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20NOTIFY%20issue&In-Reply-To=%3C690044.34122.qm%40web113610.mail.gq1.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] NOTIFY issue">memamin at yahoo.com
+       </A><BR>
+    <I>Sat Apr 30 01:20:25 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002515.html">[OpenIMSCore-CSCF] NOTIFY issue
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2516">[ date ]</a>
+              <a href="thread.html#2516">[ thread ]</a>
+              <a href="subject.html#2516">[ subject ]</a>
+              <a href="author.html#2516">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Franz,
+Thanks for the catch, makes totally sense. Now it works when it goes unprotected; but when I try to do the same use case over ip-sec; REGISTER is fine , but P-CSCF rejects the SUBSCRIBE with &quot;403 Forbidden - Not Registered! You must register first a S-CSCF&quot; ; I have attached P-CSCF/S-CSCF display log and UE-P-CSCF messaging.
+appreciate your help a lot,
+best,
+~Mohsen
+
+--- On Thu, 4/28/11, Franz Edler &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at technikum-wien.at</A>&gt; wrote:
+
+&gt;<i> From: Franz Edler &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at technikum-wien.at</A>&gt;
+</I>&gt;<i> Subject: RE: [OpenIMSCore-CSCF] NOTIFY issue
+</I>&gt;<i> To: &quot;'Mohsen Emami-Nouri'&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">memamin at yahoo.com</A>&gt;, <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Date: Thursday, April 28, 2011, 8:47 PM
+</I>&gt;<i> Hi Mohsen,
+</I>&gt;<i> 
+</I>&gt;<i> &gt; Thanks for the reply. as you mentioned , UE sends all
+</I>&gt;<i> requests to the
+</I>&gt;<i> P-CSCF
+</I>&gt;<i> &gt; regardless of the route set. Please find enclosed 2
+</I>&gt;<i> log files; one
+</I>&gt;<i> includes
+</I>&gt;<i> &gt; messages exchanged between UE and P-CSCF, for
+</I>&gt;<i> simplicity I have omitted
+</I>&gt;<i> &gt; the re-registrations and notifies, just wanted to show
+</I>&gt;<i> that P-CSCF rejects
+</I>&gt;<i> the
+</I>&gt;<i> &gt; re-SUBSCRIBE. And the other one includes the display
+</I>&gt;<i> logs from P-CSCF and
+</I>&gt;<i> &gt; S-CSCF.
+</I>&gt;<i> 
+</I>&gt;<i> The situation is clear when you look at the Route header
+</I>&gt;<i> field in the second
+</I>&gt;<i> SUBSCRIBE request.
+</I>&gt;<i> It contains 2 Route header fields:
+</I>&gt;<i> &#160;&#160;&#160; Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+</I>&gt;<i> 
+</I>&gt;<i> &#160;&#160;&#160; Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+</I>&gt;<i> 
+</I>&gt;<i> But the previously received 200 OK to the SUBSCRIBE request
+</I>&gt;<i> contains only
+</I>&gt;<i> one Record-Route header field:
+</I>&gt;<i> &#160;&#160;&#160; Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+</I>&gt;<i> This is the dialog route for the SUBSCRIBE initiated dialog
+</I>&gt;<i> which the P-CSCF
+</I>&gt;<i> checks.
+</I>&gt;<i> 
+</I>&gt;<i> Therefore the P-CSCF recognizes that the UE does not honor
+</I>&gt;<i> the dialog route:
+</I>&gt;<i> &#160;&#160;&#160; SIP/2.0 400 Bad Request - Not following
+</I>&gt;<i> indicated dialog routes
+</I>&gt;<i> 
+</I>&gt;<i>  Just omit the 2nd Route header field and it will work..
+</I>&gt;<i> -Franz
+</I>&gt;<i> 
+</I>&gt;<i>
+</I>-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: mtIpsecSubRej.txt
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110429/8caca483/attachment.txt">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110429/8caca483/attachment.txt</A>&gt;
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: psIpsecSubscribeRejected.txt
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110429/8caca483/attachment-0001.txt">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110429/8caca483/attachment-0001.txt</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002515.html">[OpenIMSCore-CSCF] NOTIFY issue
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2516">[ date ]</a>
+              <a href="thread.html#2516">[ thread ]</a>
+              <a href="subject.html#2516">[ subject ]</a>
+              <a href="author.html#2516">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

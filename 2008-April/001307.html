@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] sems+ser with open ims core
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20sems%2Bser%20with%20open%20ims%20core&In-Reply-To=%3C45236.82.137.200.18.1209215440.squirrel%40wmail.cec.sy%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001311.html">
+   <LINK REL="Next"  HREF="001308.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] sems+ser with open ims core</H1>
+    <B>mustafa at cec.sy</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20sems%2Bser%20with%20open%20ims%20core&In-Reply-To=%3C45236.82.137.200.18.1209215440.squirrel%40wmail.cec.sy%3E"
+       TITLE="[OpenIMSCore-CSCF] sems+ser with open ims core">mustafa at cec.sy
+       </A><BR>
+    <I>Sat Apr 26 15:10:40 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001311.html">[OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 18, Issue 11
+</A></li>
+        <LI>Next message: <A HREF="001308.html">[OpenIMSCore-CSCF] sems+ser with open ims core
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1307">[ date ]</a>
+              <a href="thread.html#1307">[ thread ]</a>
+              <a href="subject.html#1307">[ subject ]</a>
+              <a href="author.html#1307">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi all,
+i try to add the sems+ser to open ims core as a conference server, i add
+the service profile and the application server and the trigger point to
+ims user profile, i but the sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">600 at neotech-s.com</A> as sip uri for the
+conference room and when the sems see this uri its add the user who send
+the INVITE msg to the conference room
+but i have the following problem :
+the INVITE msg goes from user Agent to ims core then arrive to sems+ser
+conference server the the sems+ser return it to IMS core which search
+about the user (<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">600 at neotech-s.com</A>) in it`s data base but it could not find
+it the return this error :
+&quot; 604 Does not exist anywhere - HSS User Unknown&quot;
+any one can help us to determine the problem.
+
+this is the message flow:
+
+192.168.0.220	192.168.0.220	SIP/SDP	Request: INVITE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">600 at neotech-s.com</A>,
+with session description.
+
+192.168.0.220	192.168.0.220	SIP	Status: 100 trying -- your call is
+important to us.
+
+192.168.0.220	192.168.0.220	SIP/SDP	Request: INVITE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">600 at neotech-s.com</A>,
+with session description
+
+192.168.0.220	192.168.0.220	SIP	Status: 100 trying -- your call is
+important to us
+
+192.168.0.220	192.168.0.220	SIP	Status: 604 Does not exist anywhere - HSS
+User Unknown
+
+192.168.0.220	192.168.0.220	SIP	Request: ACK sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">600 at neotech-s.com</A>
+
+192.168.0.220	192.168.0.220	SIP	Status: 604 Does not exist anywhere - HSS
+User Unknown
+
+192.168.0.220	192.168.0.220	SIP	Request: ACK sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">600 at neotech-s.com</A>
+
+
+thanks.
+Best Regards
+Rifae`e
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001311.html">[OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 18, Issue 11
+</A></li>
+	<LI>Next message: <A HREF="001308.html">[OpenIMSCore-CSCF] sems+ser with open ims core
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1307">[ date ]</a>
+              <a href="thread.html#1307">[ thread ]</a>
+              <a href="subject.html#1307">[ subject ]</a>
+              <a href="author.html#1307">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Registration from HSS user unknown error
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Registration%20from%20HSS%20user%20unknown%20error&In-Reply-To=%3C000001cc810c%248adb24b0%24a0916e10%24%40technikum-wien.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002678.html">
+   <LINK REL="Next"  HREF="002680.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Registration from HSS user unknown error</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Registration%20from%20HSS%20user%20unknown%20error&In-Reply-To=%3C000001cc810c%248adb24b0%24a0916e10%24%40technikum-wien.at%3E"
+       TITLE="[OpenIMSCore-CSCF] Registration from HSS user unknown error">franz.edler at technikum-wien.at
+       </A><BR>
+    <I>Sun Oct  2 16:06:55 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002678.html">[OpenIMSCore-CSCF] Registration from HSS user unknown error
+</A></li>
+        <LI>Next message: <A HREF="002680.html">[OpenIMSCore-CSCF] Registration from HSS user unknown error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2679">[ date ]</a>
+              <a href="thread.html#2679">[ thread ]</a>
+              <a href="subject.html#2679">[ subject ]</a>
+              <a href="author.html#2679">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi lb,
+ 
+&gt;<i> So I created one sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">12123335555 at open-ims.test</A> URI and I could move
+</I>&gt;<i> forward and I'm ran into this problem which seem like solved it before
+</I>&gt;<i> but I'm not able to see the fix. I got &quot;SIP/2.0 500 Server Internal
+</I>&gt;<i> Error - while packing auth vectors&quot; and checked the code but didn't
+</I>&gt;<i> gain anything. I found one response but could some tell me what steps
+</I>&gt;<i> are taken?
+</I>&gt;<i> <A HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-">http://lists.berlios.de/pipermail/openimscore-cscf/2007-</A>
+</I>&gt;<i> December/001100.html
+</I>
+Before starting to guess what might be wrong you should add a tracefile
+including SIP and Diameter messages from the core.
+This can be best done with the command:  tcpdump -i any -s 3000 -w
+/var/tmp/trace.pcap
+
+Br
+Franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002678.html">[OpenIMSCore-CSCF] Registration from HSS user unknown error
+</A></li>
+	<LI>Next message: <A HREF="002680.html">[OpenIMSCore-CSCF] Registration from HSS user unknown error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2679">[ date ]</a>
+              <a href="thread.html#2679">[ thread ]</a>
+              <a href="subject.html#2679">[ subject ]</a>
+              <a href="author.html#2679">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Send B2B BYE on INVITE dialog expiration
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Send%20B2B%20BYE%20on%20INVITE%20dialog%20expiration&In-Reply-To=%3Cb33002040707090247r1fa9ae51ue4fc45162dc3d25e%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000841.html">
+   <LINK REL="Next"  HREF="000846.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Send B2B BYE on INVITE dialog expiration</H1>
+    <B>JF</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Send%20B2B%20BYE%20on%20INVITE%20dialog%20expiration&In-Reply-To=%3Cb33002040707090247r1fa9ae51ue4fc45162dc3d25e%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Send B2B BYE on INVITE dialog expiration">jfkavaka at gmail.com
+       </A><BR>
+    <I>Mon Jul  9 11:47:13 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000841.html">[OpenIMSCore-CSCF] Send B2B BYE on INVITE dialog expiration
+</A></li>
+        <LI>Next message: <A HREF="000846.html">[OpenIMSCore-CSCF] Send B2B BYE on INVITE dialog expiration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#842">[ date ]</a>
+              <a href="thread.html#842">[ thread ]</a>
+              <a href="subject.html#842">[ subject ]</a>
+              <a href="author.html#842">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>But on top of that you have e.g. section 5.4.5 of 3GPP TS 24.229-730
+for the S-CSCF.
+The question is: does session expiration constitute &quot;an network
+internal indication to release a session&quot;? Section 5.4.5.3 seems to
+imply that it should only delete the dialog state, not terminate it...
+What do you think?
+
+JF
+
+5.4.5	Call release
+5.4.5.1	S-CSCF-initiated session release
+5.4.5.1.1	Cancellation of a session currently being established
+Upon receipt of an network internal indication to release a session
+which is currently being established, the S-CSCF shall cancel the
+related dialogs by sending the CANCEL request according to the
+procedures described in RFC 3261 [26].
+5.4.5.1.2	Release of an existing session
+Upon receipt of a network internal indication to release an existing
+multimedia session, the S-CSCF shall:
+1)	generate the first BYE request for the called user based on the
+information saved for the related dialog, including:
+-	a Request-URI, set to the stored Contact header provided by the called user;
+-	a To header, set to the To header value as received in the 200 OK
+response for the initial INVITE request;
+-	a From header, set to the From header value as received in the
+initial INVITE request;
+-	a Call-ID header, set to the Call-Id header value as received in the
+initial INVITE request;
+-	a CSeq header, set to the CSeq value that was stored for the
+direction from the calling to the called user, incremented by one;
+-	a Route header, set to the routeing information towards the called
+user as stored for the dialog;
+-	a Reason header that contains proper SIP response code;
+-	further headers, based on local policy.
+2)	generate the second BYE request for the calling user based on the
+information saved for the related dialog, including:
+-	a Request-URI, set to the stored Contact header provided by the calling user;
+-	a To header, set to the From header value as received in the initial
+INVITE request;
+-	a From header, set to the To header value as received in the 200 OK
+response for the initial INVITE request;
+-	a Call-ID header, set to the Call-Id header value as received in the
+initial INVITE request;
+-	a CSeq header, set to the CSeq value that was stored for the
+direction from the called to the calling user, incremented by one &#168;C if
+no CSeq value was stored for that session it shall generate and apply
+a random number within the valid range for CSeqs;
+-	a Route header, set to the routeing information towards the calling
+user as stored for the dialog;
+-	a Reason header that contains proper SIP response code;
+-	further headers, based on local policy.
+3)	if the S-CSCF serves the calling user, treat the first BYE request
+as if received directly from the calling user, i.e. send it to
+internal service control and based on the outcome further on towards
+the called user;
+4)	if the S-CSCF serves the calling user, send the second BYE request
+directly to the calling user.
+5)	if the S-CSCF serves the called user, send the first BYE request
+directly to the called user;
+6)	if the S-CSCF serves the called user, treat the second BYE request
+as if received directly from the called user, i.e. shall send it to
+internal service control and based on the outcome further on towards
+to the calling user.
+Upon receipt of the 2xx responses for both BYE requests, the S-CSCF
+shall release all information related to the dialog and the related
+multimedia session.
+5.4.5.1.2A	Release of the existing dialogs due to registration expiration
+When the registration lifetime of the only public user identity
+currently registered with its associated set of implicitly registered
+public user identities (i.e. no other is registered) expires while
+there are still active multimedia sessions that includes this user,
+where the session was initiated with the public user identity
+currently registered or with one of the implicitly registered public
+used identities, the S-CSCF shall release each of these multimedia
+sessions by applying the steps listed in the subclause 5.4.5.1.2.
+5.4.5.1.3	Abnormal cases
+Upon receipt of a request on a dialog for which the S-CSCF initiated
+session release, the S-CSCF shall terminate the received request and
+answer it with a 481 (Call/Transaction Does Not Exist) response.
+5.4.5.2	Session release initiated by any other entity
+Upon receipt of a 2xx response for a BYE request matching an existing
+dialog, the S-CSCF shall delete all the stored information related to
+the dialog.
+5.4.5.3	Session expiration
+If the S-CSCF requested the session to be refreshed periodically, and
+the S-CSCF got the indication that the session will be refreshed, when
+the session timer expires, the S-CSCF shall delete all the stored
+information related to the dialog.
+
+
+On 7/9/07, fancy_xiao &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">fancy_xiao at astrocom.cn</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> openimscore-cscf&#163;&#172;&#196;&#227;&#186;&#195;
+</I>&gt;<i>
+</I>&gt;<i>  See RFC 4028,the proxy behavior about session expires,the proxy must not
+</I>&gt;<i> send BYE.
+</I>&gt;<i>
+</I>&gt;<i> ///////////////////////////////////////////////////////////////////////////////////
+</I>&gt;<i> 8.3.  Session Expiration
+</I>&gt;<i>    When the current time equals or passes the session expiration for a
+</I>&gt;<i>    session, the proxy MAY remove associated call state, and MAY free any
+</I>&gt;<i>    resources associated with the call.  Unlike the UA, it MUST NOT send
+</I>&gt;<i>    a BYE.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> fancy_xiao&#163;&#172;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">fancy_xiao at astrocom.cn</A>
+</I>&gt;<i> 2007-07-09
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I></PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000841.html">[OpenIMSCore-CSCF] Send B2B BYE on INVITE dialog expiration
+</A></li>
+	<LI>Next message: <A HREF="000846.html">[OpenIMSCore-CSCF] Send B2B BYE on INVITE dialog expiration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#842">[ date ]</a>
+              <a href="thread.html#842">[ thread ]</a>
+              <a href="subject.html#842">[ subject ]</a>
+              <a href="author.html#842">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

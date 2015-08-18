@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 3rd Party REGISTER: iFC does not trigger at	de-registration
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%203rd%20Party%20REGISTER%3A%20iFC%20does%20not%20trigger%20at%0A%09de-registration&In-Reply-To=%3C003701c7301c%24a75324d0%240200a8c0%40notebookFE%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000084.html">
+   <LINK REL="Next"  HREF="000092.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 3rd Party REGISTER: iFC does not trigger at	de-registration</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%203rd%20Party%20REGISTER%3A%20iFC%20does%20not%20trigger%20at%0A%09de-registration&In-Reply-To=%3C003701c7301c%24a75324d0%240200a8c0%40notebookFE%3E"
+       TITLE="[OpenIMSCore-CSCF] 3rd Party REGISTER: iFC does not trigger at	de-registration">franz.edler at inode.at
+       </A><BR>
+    <I>Thu Jan  4 17:23:17 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000084.html">[OpenIMSCore-CSCF] 3rd Party REGISTER
+</A></li>
+        <LI>Next message: <A HREF="000092.html">[OpenIMSCore-CSCF] 3rd Party REGISTER: iFC does not trigger at	de-registration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#91">[ date ]</a>
+              <a href="thread.html#91">[ thread ]</a>
+              <a href="subject.html#91">[ subject ]</a>
+              <a href="author.html#91">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all and Erling,
+
+&gt;<i> Thanks to Erling, we have now 3rd party REGISTER. To use it you will
+</I>&gt;<i> need to update to revision 79 and use the new scscf.cfg. Then you will
+</I>&gt;<i> need to configure a Filter Criteria for matching the REGISTER message
+</I>&gt;<i> and sending the 3rd party REGISTER to the corresponding Application
+</I>&gt;<i> Server.
+</I>
+I have just tested the 3rd-party registration and found that the
+filter-criteria only match at registration but not at de-registration. I
+used revision 80.
+
+Any idea on that?
+
+I have attached:
+- a SIP-szenario-trace file (osims8015-net1_index.html)
+- the wireshark-tracefile (osims8015-net1.pcap)
+- the output of S-CSCF showing &quot;No REGISTER match found in filter criteria&quot;
+  at de-registration (s-cscf8015.log)
+- the iFC as transmitted in SAA (iFC-8015.txt)
+
+Cheers
+Franz
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: 3rd-party-registration.zip
+Type: application/x-zip-compressed
+Size: 12132 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070104/a95a2097/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070104/a95a2097/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000084.html">[OpenIMSCore-CSCF] 3rd Party REGISTER
+</A></li>
+	<LI>Next message: <A HREF="000092.html">[OpenIMSCore-CSCF] 3rd Party REGISTER: iFC does not trigger at	de-registration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#91">[ date ]</a>
+              <a href="thread.html#91">[ thread ]</a>
+              <a href="subject.html#91">[ subject ]</a>
+              <a href="author.html#91">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

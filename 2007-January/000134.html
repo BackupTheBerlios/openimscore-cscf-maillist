@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Disabling the challenge
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Disabling%20the%20challenge&In-Reply-To=%3C45AE2E1C.1010208%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000133.html">
+   <LINK REL="Next"  HREF="000135.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Disabling the challenge</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Disabling%20the%20challenge&In-Reply-To=%3C45AE2E1C.1010208%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Disabling the challenge">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Jan 17 15:09:32 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000133.html">[OpenIMSCore-CSCF] Disabling the challenge
+</A></li>
+        <LI>Next message: <A HREF="000135.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r93 - ser_ims/trunk/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#134">[ date ]</a>
+              <a href="thread.html#134">[ thread ]</a>
+              <a href="subject.html#134">[ subject ]</a>
+              <a href="author.html#134">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Well, yes, there is, by changing the scscf.cfg. But then, you might run
+into some issues on the initial registration... not sure about it
+though, never tried this myself, but I received some feedback that
+indicated a lot of open issues.
+
+For subsequent registration, if you have a client that can do IPSec (or
+if you hack the pcscf.cfg) then the Authorization header will contain a
+&quot;integrity-protected=yes&quot; parameter. If the S-CSCF finds this, it will
+not challenge you anymore as the channels that the request was received
+is considered to be secure.
+
+-Dragos
+
+Babu George wrote:
+&gt;<i>
+</I>&gt;<i> All,
+</I>&gt;<i>
+</I>&gt;<i>   Is there a way I can disable the challenge thrown by Scscf?
+</I>&gt;<i>
+</I>&gt;<i> Thanks
+</I>&gt;<i>
+</I>&gt;<i> Babu
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000133.html">[OpenIMSCore-CSCF] Disabling the challenge
+</A></li>
+	<LI>Next message: <A HREF="000135.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r93 - ser_ims/trunk/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#134">[ date ]</a>
+              <a href="thread.html#134">[ thread ]</a>
+              <a href="subject.html#134">[ subject ]</a>
+              <a href="author.html#134">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

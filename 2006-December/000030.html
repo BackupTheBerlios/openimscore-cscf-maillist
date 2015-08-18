@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r65 - ser_ims/trunk/modules/pcscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r65%20-%20ser_ims/trunk/modules/pcscf&In-Reply-To=%3C200612091938.kB9Jcp7o026475%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000029.html">
+   <LINK REL="Next"  HREF="000031.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r65 - ser_ims/trunk/modules/pcscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r65%20-%20ser_ims/trunk/modules/pcscf&In-Reply-To=%3C200612091938.kB9Jcp7o026475%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r65 - ser_ims/trunk/modules/pcscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Sat Dec  9 20:38:51 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000029.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r60 - ser_ims/trunk/modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000031.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r66 - in ser_ims/trunk: cfg	modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#30">[ date ]</a>
+              <a href="thread.html#30">[ thread ]</a>
+              <a href="subject.html#30">[ subject ]</a>
+              <a href="author.html#30">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2006-12-09 20:38:48 +0100 (Sat, 09 Dec 2006)
+New Revision: 65
+
+Modified:
+   ser_ims/trunk/modules/pcscf/registration.c
+Log:
+Fixed P_asserted_called_identity() - missing &quot;&lt;&quot; after fix of P_assert_identity().
+
+
+Modified: ser_ims/trunk/modules/pcscf/registration.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/registration.c	2006-12-09 12:44:16 UTC (rev 64)
++++ ser_ims/trunk/modules/pcscf/registration.c	2006-12-09 19:38:48 UTC (rev 65)
+@@ -673,7 +673,7 @@
+ 	if (!called.len){
+ 		ret = CSCF_RETURN_FALSE;	
+ 	}else{
+-		x.len = p_asserted_identity_s.len+called.len+p_asserted_identity_e.len;
++		x.len = p_asserted_identity_s.len+p_asserted_identity_m.len+called.len+p_asserted_identity_e.len;
+ 		x.s = pkg_malloc(x.len);
+ 		if (!x.s){
+ 			LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:P_assert_called_identity: Error allocating %d bytes\n&quot;,
+@@ -683,6 +683,7 @@
+ 		}
+ 		x.len=0;
+ 		STR_APPEND(x,p_asserted_identity_s);
++		STR_APPEND(x,p_asserted_identity_m);
+ 		STR_APPEND(x,called);
+ 		STR_APPEND(x,p_asserted_identity_e);
+ 		
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000029.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r60 - ser_ims/trunk/modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000031.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r66 - in ser_ims/trunk: cfg	modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#30">[ date ]</a>
+              <a href="thread.html#30">[ thread ]</a>
+              <a href="subject.html#30">[ subject ]</a>
+              <a href="author.html#30">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

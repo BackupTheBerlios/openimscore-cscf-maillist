@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] sCSCF and IMS GWF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20sCSCF%20and%20IMS%20GWF&In-Reply-To=%3CAANLkTi%3DTJ1k0Ak8opMOcHZAgee8pM5PWUcw5WJDShi%2Bq%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002447.html">
+   <LINK REL="Next"  HREF="002450.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] sCSCF and IMS GWF</H1>
+    <B>Jason Penton</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20sCSCF%20and%20IMS%20GWF&In-Reply-To=%3CAANLkTi%3DTJ1k0Ak8opMOcHZAgee8pM5PWUcw5WJDShi%2Bq%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] sCSCF and IMS GWF">jason.penton at gmail.com
+       </A><BR>
+    <I>Mon Mar 28 12:12:27 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002447.html">[OpenIMSCore-CSCF] Not able to register UE in Ipsec setup
+</A></li>
+        <LI>Next message: <A HREF="002450.html">[OpenIMSCore-CSCF] sCSCF and IMS GWF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2448">[ date ]</a>
+              <a href="thread.html#2448">[ thread ]</a>
+              <a href="subject.html#2448">[ subject ]</a>
+              <a href="author.html#2448">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi All,
+
+I have been trauling through the 3GPP IMS specs, specifically the ones
+related to Online Charging (OCS) and am puzzled by the architecture:
+
+Why is it mandatory that all online charging requests are proxied to an IMS
+GWF (which for all intents and purposes is an app server / SLEE of some
+sort). Surely it would be more efficient to let the sCSCF talk Diameter (Ro
+interface) to the OCS directly, as the SCSCF is already session aware and is
+the master of the call. I am battling to find any reasoning behind this
+architecture. I also find it crazy to route every single call in an IMS
+network through a SIP AS, simply for billing purposes. Sure, if there are
+additional 3rd party / supplementary services then I see how we could use
+the IMS GWF, BUT for basic calling, surely this is inefficient?
+
+I am interested in your thought on this topic and what you think the value
+of adding an Ro interface to sCSCF would be (which I am quite happy to do)?
+
+Kind regards
+Jason
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110328/f68ea365/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110328/f68ea365/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002447.html">[OpenIMSCore-CSCF] Not able to register UE in Ipsec setup
+</A></li>
+	<LI>Next message: <A HREF="002450.html">[OpenIMSCore-CSCF] sCSCF and IMS GWF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2448">[ date ]</a>
+              <a href="thread.html#2448">[ thread ]</a>
+              <a href="subject.html#2448">[ subject ]</a>
+              <a href="author.html#2448">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] problem starting pcscf and scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20problem%20starting%20pcscf%20and%20scscf&In-Reply-To=%3C201008121051.44544.thilo.bangert%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002305.html">
+   <LINK REL="Next"  HREF="002309.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] problem starting pcscf and scscf</H1>
+    <B>Thilo Bangert</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20problem%20starting%20pcscf%20and%20scscf&In-Reply-To=%3C201008121051.44544.thilo.bangert%40gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] problem starting pcscf and scscf">thilo.bangert at gmail.com
+       </A><BR>
+    <I>Thu Aug 12 10:51:42 CEST 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002305.html">[OpenIMSCore-CSCF] problem starting pcscf and scscf
+</A></li>
+        <LI>Next message: <A HREF="002309.html">[OpenIMSCore-CSCF] problem starting pcscf and scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2306">[ date ]</a>
+              <a href="thread.html#2306">[ thread ]</a>
+              <a href="subject.html#2306">[ subject ]</a>
+              <a href="author.html#2306">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&quot;Mohsen Emami-Nouri&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">memamin at yahoo.com</A>&gt; said:
+&gt;<i> Hi Franz,
+</I>&gt;<i> I did follow the installayion guide provided by the  URL you mentioned.
+</I>
+then  something went wrong ;-)
+
+ser loads modules specified in  it configuration (the .cfg files - have a 
+look).
+
+in your case it seems to find the pcscf.o module, but not one of its 
+dependencies.
+
+make sure the LD_LIBRARY_PATH variable in the pcscf.sh file you use at 
+startup points to the directory in which the lib_ser_cds.so resides.
+
+or the other way around. if make sure lib_ser_cds.so is where 
+LD_LIBRARY_PATH points to.
+
+HTH
+
+kind regards
+Thilo
+
+&gt;<i> best,
+</I>&gt;<i> ~Mohsen
+</I>&gt;<i> 
+</I>&gt;<i> --- On Wed, 8/11/10, Franz Edler &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at technikum-wien.at</A>&gt; wrote:
+</I>&gt;<i> &gt; From: Franz Edler &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at technikum-wien.at</A>&gt;
+</I>&gt;<i> &gt; Subject: RE: [OpenIMSCore-CSCF] problem starting pcscf and scscf
+</I>&gt;<i> &gt; To: &quot;'Mohsen Emami-Nouri'&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">memamin at yahoo.com</A>&gt;,
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A> Date: Wednesday, August 11, 2010,
+</I>&gt;<i> &gt; 7:33 PM
+</I>&gt;<i> &gt; Hi Mohsen,
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; &gt; I have installed from
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; JavaDiameterPeer20081023.r0595.tgz ,
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; &gt; ser_ims20081023.r0595.tgz , FHoSS20081023.r0595.tgz
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; from
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; &gt; ftp.berlios.de/pub/openimscore/snapshots and configure
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; it as instructed;
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Why do you not install the platform according to
+</I>&gt;<i> &gt; <A HREF="http://www.openimscore.org/installation_guide">http://www.openimscore.org/installation_guide</A> ?
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; BR
+</I>&gt;<i> &gt; Franz
+</I>&gt;<i> 
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002305.html">[OpenIMSCore-CSCF] problem starting pcscf and scscf
+</A></li>
+	<LI>Next message: <A HREF="002309.html">[OpenIMSCore-CSCF] problem starting pcscf and scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2306">[ date ]</a>
+              <a href="thread.html#2306">[ thread ]</a>
+              <a href="subject.html#2306">[ subject ]</a>
+              <a href="author.html#2306">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

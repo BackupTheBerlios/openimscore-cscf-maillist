@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] help-registration of client fails
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20help-registration%20of%20client%20fails&In-Reply-To=%3C1210673285.4829688583eb2%40webmail.uoa.gr%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001339.html">
+   <LINK REL="Next"  HREF="001341.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] help-registration of client fails</H1>
+    <B>std03096 at di.uoa.gr</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20help-registration%20of%20client%20fails&In-Reply-To=%3C1210673285.4829688583eb2%40webmail.uoa.gr%3E"
+       TITLE="[OpenIMSCore-CSCF] help-registration of client fails">std03096 at di.uoa.gr
+       </A><BR>
+    <I>Tue May 13 12:08:05 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001339.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r559 - Added support for q-value	in Contact header. It's also added to the reg-info XML
+</A></li>
+        <LI>Next message: <A HREF="001341.html">[OpenIMSCore-CSCF] help-registration of client fails
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1340">[ date ]</a>
+              <a href="thread.html#1340">[ thread ]</a>
+              <a href="subject.html#1340">[ subject ]</a>
+              <a href="author.html#1340">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE><A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">pinelopi at pinelopi-desktop</A>:/opt/OpenIMSCore/FHoSS/deploy$ sudo ./startup.sh
+Building Classpath
+Classpath is
+lib/xml-apis.jar:lib/xercesImpl.jar:lib/xerces-2.4.0.jar:lib/xalan-2.4.0.jar:lib/tomcat-util.jar:lib/tomcat-http.jar:lib/tomcat-coyote.jar:lib/struts.jar:lib/servlets-default.jar:lib/servlet-api.jar:lib/naming-resources.jar:lib/naming-factory.jar:lib/mysql-connector-java-3.1.12-bin.jar:lib/mx4j-3.0.1.jar:lib/log4j.jar:lib/junit.jar:lib/junitee.jar:lib/jta.jar:lib/jsp-api.jar:lib/jmx.jar:lib/jdp.jar:lib/jasper-runtime.jar:lib/jasper-compiler-jdt.jar:lib/jasper-compiler.jar:lib/hibernate3.jar:lib/FHoSS.jar:lib/ehcache-1.1.jar:lib/dom4j-1.6.1.jar:lib/commons-validator.jar:lib/commons-modeler.jar:lib/commons-logging.jar:lib/commons-logging-1.0.4.jar:lib/commons-lang.jar:lib/commons-fileupload.jar:lib/commons-el.jar:lib/commons-digester.jar:lib/commons-collections-3.1.jar:lib/commons-beanutils.jar:lib/cglib-2.1.3.jar:lib/catalina-optional.jar:lib/catalina.jar:lib/c3p0-0.9.1.jar:lib/base64.jar:lib/asm.jar:lib/asm-attrs.jar:lib/antlr-2.7.6.jar::log4j.properties:..
+2008-05-13 08:48:38,266 INFO  de.fhg.fokus.hss.main.TomcatServer - startTomcat
+Tomcat-Server is started.
+2008-05-13 08:48:39,233 WARN  org.apache.catalina.connector.MapperListener -
+registerEngine Unknown default host: 127.0.0.1
+2008-05-13 08:48:40,033 INFO  de.fhg.fokus.hss.web.servlet.ResponseFilter - init
+Response Filter Initialisation!
+2008-05-13 08:48:40,715 INFO  de.fhg.fokus.hss.main.TomcatServer - startTomcat
+WebConsole of FHoSS was started !
+2008-05-13 08:48:42,921 WARN  org.hibernate.impl.SessionFactoryObjectFactory -
+addInstance InitialContext did not implement EventContext
+2008-05-13 08:48:43,051 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+&lt;init&gt; FQDN: hss.open-ims.test
+2008-05-13 08:48:43,052 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+&lt;init&gt; Realm: open-ims.test
+2008-05-13 08:48:43,053 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+&lt;init&gt; Vendor_ID : 10415
+2008-05-13 08:48:43,053 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+&lt;init&gt; Product Name: JavaDiameterPeer
+2008-05-13 08:48:43,053 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+&lt;init&gt; AcceptUnknwonPeers: true
+2008-05-13 08:48:43,054 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+&lt;init&gt; DropUnknownOnDisconnect: true
+2008-05-13 08:48:43,069 INFO  de.fhg.fokus.hss.main.HSSContainer - waitForExit 
+Type &quot;exit&quot; to stop FHoSS!
+
+
+----------------------------------
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">pinelopi at pinelopi-desktop</A>:/opt/OpenIMSCore/FHoSS/deploy$ sudo uctimsclient
+
+i have fixed the ims preferences 
+but when i choose &quot;register as alice&quot;, i get 
+
+08:58:55&gt; REGISTER
+08:58:55&gt; Temporarily Unavailable - Diameter Cx interface failed (for REGISTER)
+
+DISPLAY
+
+Registration failed for unknown reason
+
+Most probably incorrect credentials
+Check Preferences
+
+
+i can't find out what goes wrong;;;;;;;;;;
+
+&gt;<i>cat /etc/resolv.conf
+</I>
+search open-ims.test
+nameserver 127.0.0.1
+domain open-ims.test
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001339.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r559 - Added support for q-value	in Contact header. It's also added to the reg-info XML
+</A></li>
+	<LI>Next message: <A HREF="001341.html">[OpenIMSCore-CSCF] help-registration of client fails
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1340">[ date ]</a>
+              <a href="thread.html#1340">[ thread ]</a>
+              <a href="subject.html#1340">[ subject ]</a>
+              <a href="author.html#1340">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

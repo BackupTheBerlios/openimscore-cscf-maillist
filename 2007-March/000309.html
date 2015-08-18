@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Problem with Service-Route header field when roaming
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Problem%20with%20Service-Route%20header%20field%20when%0A%20roaming&In-Reply-To=%3C45F69DE1.1080305%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000303.html">
+   <LINK REL="Next"  HREF="000310.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Problem with Service-Route header field when roaming</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Problem%20with%20Service-Route%20header%20field%20when%0A%20roaming&In-Reply-To=%3C45F69DE1.1080305%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Problem with Service-Route header field when roaming">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Mar 13 13:49:37 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000303.html">[OpenIMSCore-CSCF] Problem with Service-Route header field when	roaming
+</A></li>
+        <LI>Next message: <A HREF="000310.html">[OpenIMSCore-CSCF] Problem with Service-Route header field when	roaming
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#309">[ date ]</a>
+              <a href="thread.html#309">[ thread ]</a>
+              <a href="subject.html#309">[ subject ]</a>
+              <a href="author.html#309">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Franz,
+
+Indeed, the scscf.cfg was wrong. The lines were supposed to be commented
+out (and I did so now in r194). They were there just to illustrate how
+you would use the THIG I-CSCF. Because there was a check for the home
+domain, this issue failed to surface until somebody tried roaming.
+
+However, this is no reason for the P-CSCF to reject it. I did a patch in
+r191 that fixed the P-CSCF P_follows_service_routes(), so if you tested
+with something older, it was failing because of the first Route to
+P-CSCF itself. Anyway, I will investigate this further to make sure
+about the P-CSCF...
+
+Cheers,
+-Dragos
+
+Franz Edler wrote:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> I have tested a roaming scenario with the UCT-IMS client and found that the
+</I>&gt;<i> Service-Route header provided in 200 OK of REGISTER is not accepted by
+</I>&gt;<i> P-CSCF in subsequent Requests. The first situation is the SUBSCRIBE request
+</I>&gt;<i> for the reg event: It is blocked by P-CSCF with &quot;400 Bad Request - Not
+</I>&gt;<i> following indicated Service-Routes&quot;.
+</I>&gt;<i>
+</I>&gt;<i> I have attached a Wireshark trace-file and the SIP-scenario files from the
+</I>&gt;<i> visited network.	The three important packets are:
+</I>&gt;<i>
+</I>&gt;<i> Packet 54: 200 OK - SAR successful and registrar saved
+</I>&gt;<i> Packet 55: SUBSCRIBE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at net1.test</A> SIP/2.0
+</I>&gt;<i> Packet 56: 400 Bad Request - Not following indicated Service-Routes
+</I>&gt;<i>
+</I>&gt;<i> 192.168.0.13 ... UCT-IMS client of <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at net1.test</A> (port 5060)
+</I>&gt;<i> 192.168.0.11 ... visited network (net2.test)
+</I>&gt;<i> 192.168.0.7  ... home network (net1.test)
+</I>&gt;<i>
+</I>&gt;<i> I have further analysed scscf.cfg to understand the problem above and came
+</I>&gt;<i> to the following conclusion:
+</I>&gt;<i> The additional statement S_add_service_route(&quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">thig at icscf.net1.test</A>&quot;) in
+</I>&gt;<i> scscf.cfg in route[Service_Route] could be eliminated as a quick workaround.
+</I>&gt;<i> It is not required to insert an I-SCSCF in the non-THIG case. Without this
+</I>&gt;<i> extra Service-Route P-CSCF is happy when checking Service-Route.
+</I>&gt;<i>
+</I>&gt;<i> But the THIG-case requires further investigation in P-CSCF when storing and
+</I>&gt;<i> checking the Service-Route header. 
+</I>&gt;<i>
+</I>&gt;<i> Cheers
+</I>&gt;<i> Franz
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000303.html">[OpenIMSCore-CSCF] Problem with Service-Route header field when	roaming
+</A></li>
+	<LI>Next message: <A HREF="000310.html">[OpenIMSCore-CSCF] Problem with Service-Route header field when	roaming
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#309">[ date ]</a>
+              <a href="thread.html#309">[ thread ]</a>
+              <a href="subject.html#309">[ subject ]</a>
+              <a href="author.html#309">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

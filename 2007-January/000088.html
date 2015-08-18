@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P-CSCF reg-event re-subscription does not re-use	initial From-tag
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20reg-event%20re-subscription%20does%20not%0A%20re-use%09initial%20From-tag&In-Reply-To=%3C459A79AB.5030200%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000079.html">
+   <LINK REL="Next"  HREF="000080.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P-CSCF reg-event re-subscription does not re-use	initial From-tag</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20reg-event%20re-subscription%20does%20not%0A%20re-use%09initial%20From-tag&In-Reply-To=%3C459A79AB.5030200%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] P-CSCF reg-event re-subscription does not re-use	initial From-tag">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Jan  2 16:26:35 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000079.html">[OpenIMSCore-CSCF] P-CSCF reg-event re-subscription does not re-use	initial From-tag
+</A></li>
+        <LI>Next message: <A HREF="000080.html">[OpenIMSCore-CSCF] Comment on [ Bug #9615 ] The P-CSCF SUBSCRIBEs	to &quot;reg&quot; on de-registration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#88">[ date ]</a>
+              <a href="thread.html#88">[ thread ]</a>
+              <a href="subject.html#88">[ subject ]</a>
+              <a href="author.html#88">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Franz,
+
+Yes, you are right - the P-CSCF does not care about dialogs in the reg
+subscription. This needs some work though, so I filled it as a feature
+request:
+
+<A HREF="http://developer.berlios.de/feature/index.php?func=detailfeature&amp;feature_id=3003&amp;group_id=7589">http://developer.berlios.de/feature/index.php?func=detailfeature&amp;feature_id=3003&amp;group_id=7589</A>
+
+-Dragos
+
+
+Franz Edler wrote:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> I just found that the P-CSCF does not re-use the initial From-tag on
+</I>&gt;<i> re-subscription to the reg-event. The Call-Id is the same one but the
+</I>&gt;<i> From-tag is a new one and therefore it is not the same dialog as requested
+</I>&gt;<i> by RFC 3265.
+</I>&gt;<i>
+</I>&gt;<i> See the attached Wireshark trace-file.
+</I>&gt;<i> - Initial subscription to reg-event of Bob in packet 32
+</I>&gt;<i> - Re-subscription to reg-event of Bob in packet 106
+</I>&gt;<i> - Initial subscription to reg-event of Alice in packet 89
+</I>&gt;<i> - Re-subscription to reg-event of Alice in packet 135
+</I>&gt;<i>
+</I>&gt;<i> I think that's a bug.
+</I>&gt;<i>
+</I>&gt;<i> cheers 
+</I>&gt;<i> Franz
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000079.html">[OpenIMSCore-CSCF] P-CSCF reg-event re-subscription does not re-use	initial From-tag
+</A></li>
+	<LI>Next message: <A HREF="000080.html">[OpenIMSCore-CSCF] Comment on [ Bug #9615 ] The P-CSCF SUBSCRIBEs	to &quot;reg&quot; on de-registration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#88">[ date ]</a>
+              <a href="thread.html#88">[ thread ]</a>
+              <a href="subject.html#88">[ subject ]</a>
+              <a href="author.html#88">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

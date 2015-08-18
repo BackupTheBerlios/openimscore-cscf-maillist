@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P-CSCF doesn't support multiple URIs on same	ip&amp;port
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20doesn%27t%20support%20multiple%20URIs%20on%20same%0A%09ip%26port&In-Reply-To=%3C6B7B1A20E3B05A46A8AFF312316329D201590A36%40exchange01.pacifica.ca%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001564.html">
+   <LINK REL="Next"  HREF="001565.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P-CSCF doesn't support multiple URIs on same	ip&amp;port</H1>
+    <B>Oren K.</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20doesn%27t%20support%20multiple%20URIs%20on%20same%0A%09ip%26port&In-Reply-To=%3C6B7B1A20E3B05A46A8AFF312316329D201590A36%40exchange01.pacifica.ca%3E"
+       TITLE="[OpenIMSCore-CSCF] P-CSCF doesn't support multiple URIs on same	ip&amp;port">oren at summit-tech.ca
+       </A><BR>
+    <I>Tue Feb  3 00:10:43 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001564.html">[OpenIMSCore-CSCF] [Call Session Control Functions task] Several	application servers
+</A></li>
+        <LI>Next message: <A HREF="001565.html">[OpenIMSCore-CSCF] P-CSCF doesn't support multiple URIs on same ip&amp;port
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1554">[ date ]</a>
+              <a href="thread.html#1554">[ thread ]</a>
+              <a href="subject.html#1554">[ subject ]</a>
+              <a href="author.html#1554">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+Behavior of P-CSCF may be invalid in the following scenario:
+
+1. REGISTER sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at mydomain.com</A>, sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user2 at mydomain.com</A> both using
+same ip/port header
+   Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at 10.0.100.189</A>:3621&gt;;expires=900
+   Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user2 at 10.0.100.189</A>:3621&gt;;expires=900
+
+   .. Both receive 200 OK
+
+2. (un)REGISTER _only_ user2
+   Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user2 at 10.0.100.189</A>:3621&gt;;expires=0
+
+   .. Receives 200 OK
+
+3. PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at mydomain.com</A>
+   Via: SIP/2.0/UDP 10.0.100.189:3621;branch=...
+
+   .. Receives 403 Forbidden - Not Registered! You must register first
+with a S-CSCF
+
+Strangely, at this point <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at mydomain.com</A> is still REGISTERED in the
+HSS database. I've tracked the problem to code in
+modules/pcscf/registrar_storage.c: r_contact structs are searched in
+get_r_contact by the host/port combination in the Contact header but it
+disregards the SIP URI (username). In addition, the S-CSCF behaves
+differently and searches contacts by their uri (see
+modules/scscf/registrar_storage.c)
+
+Attached is the Wireshark capture of the sequence described.
+
+Regards,
+Oren K.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: PCSCF_Bug-Multiple_Contacts_Same_IP_and_Port.pcap
+Type: application/octet-stream
+Size: 50834 bytes
+Desc: PCSCF_Bug-Multiple_Contacts_Same_IP_and_Port.pcap
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090202/e6172606/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090202/e6172606/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001564.html">[OpenIMSCore-CSCF] [Call Session Control Functions task] Several	application servers
+</A></li>
+	<LI>Next message: <A HREF="001565.html">[OpenIMSCore-CSCF] P-CSCF doesn't support multiple URIs on same ip&amp;port
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1554">[ date ]</a>
+              <a href="thread.html#1554">[ thread ]</a>
+              <a href="subject.html#1554">[ subject ]</a>
+              <a href="author.html#1554">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Registration from HSS user unknown error
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Registration%20from%20HSS%20user%20unknown%20error&In-Reply-To=%3CCAAJ5KhFtZy%3DQTKC%2BAyA53nY5sfC61hzhWFLVkcBJYytYnBsbLw%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002680.html">
+   <LINK REL="Next"  HREF="002685.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Registration from HSS user unknown error</H1>
+    <B>Lakshman Bana</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Registration%20from%20HSS%20user%20unknown%20error&In-Reply-To=%3CCAAJ5KhFtZy%3DQTKC%2BAyA53nY5sfC61hzhWFLVkcBJYytYnBsbLw%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Registration from HSS user unknown error">lakshman.bana at gmail.com
+       </A><BR>
+    <I>Tue Oct  4 15:53:59 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002680.html">[OpenIMSCore-CSCF] Registration from HSS user unknown error
+</A></li>
+        <LI>Next message: <A HREF="002685.html">[OpenIMSCore-CSCF] Registration from HSS user unknown error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2684">[ date ]</a>
+              <a href="thread.html#2684">[ thread ]</a>
+              <a href="subject.html#2684">[ subject ]</a>
+              <a href="author.html#2684">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi All,
+I'm not sure what am I missing. In packet capture I see MAA with
+NASS-Bundled AVP.
+
+I do not know if UA makes any difference. Basically I wasn't sure how
+to send &quot;P-Access-Network-Info&quot; header from Twinkle so I captured all
+headers and netcated it from linux (nc -u 127.0.0.1 4060 &lt; reg_req).
+
+Thanks
+lb
+
+
+On Sun, Oct 2, 2011 at 11:19 AM, Lakshman Bana &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">lakshman.bana at gmail.com</A>&gt; wrote:
+&gt;<i> Mr. Franz,
+</I>&gt;<i> Please see the attached pcap file. Thank you very much.
+</I>&gt;<i> -lb
+</I>&gt;<i>
+</I>&gt;<i> On Sun, Oct 2, 2011 at 10:06 AM, Franz Edler
+</I>&gt;<i> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at technikum-wien.at</A>&gt; wrote:
+</I>&gt;&gt;<i> Hi lb,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> So I created one sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">12123335555 at open-ims.test</A> URI and I could move
+</I>&gt;&gt;&gt;<i> forward and I'm ran into this problem which seem like solved it before
+</I>&gt;&gt;&gt;<i> but I'm not able to see the fix. I got &quot;SIP/2.0 500 Server Internal
+</I>&gt;&gt;&gt;<i> Error - while packing auth vectors&quot; and checked the code but didn't
+</I>&gt;&gt;&gt;<i> gain anything. I found one response but could some tell me what steps
+</I>&gt;&gt;&gt;<i> are taken?
+</I>&gt;&gt;&gt;<i> <A HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-">http://lists.berlios.de/pipermail/openimscore-cscf/2007-</A>
+</I>&gt;&gt;&gt;<i> December/001100.html
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Before starting to guess what might be wrong you should add a tracefile
+</I>&gt;&gt;<i> including SIP and Diameter messages from the core.
+</I>&gt;&gt;<i> This can be best done with the command: &#160;tcpdump -i any -s 3000 -w
+</I>&gt;&gt;<i> /var/tmp/trace.pcap
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Br
+</I>&gt;&gt;<i> Franz
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002680.html">[OpenIMSCore-CSCF] Registration from HSS user unknown error
+</A></li>
+	<LI>Next message: <A HREF="002685.html">[OpenIMSCore-CSCF] Registration from HSS user unknown error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2684">[ date ]</a>
+              <a href="thread.html#2684">[ thread ]</a>
+              <a href="subject.html#2684">[ subject ]</a>
+              <a href="author.html#2684">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

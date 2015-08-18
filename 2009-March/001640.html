@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Patch for PCSCF Record Route Audit . Feature Request.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Patch%20for%20PCSCF%20Record%20Route%20Audit%20.%20Feature%0A%20Request.&In-Reply-To=%3C49B92C58.30009%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001634.html">
+   <LINK REL="Next"  HREF="001635.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Patch for PCSCF Record Route Audit . Feature Request.</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Patch%20for%20PCSCF%20Record%20Route%20Audit%20.%20Feature%0A%20Request.&In-Reply-To=%3C49B92C58.30009%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Patch for PCSCF Record Route Audit . Feature Request.">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Mar 12 16:38:00 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001634.html">[OpenIMSCore-CSCF] Patch for PCSCF Record Route Audit . Feature	Request.
+</A></li>
+        <LI>Next message: <A HREF="001635.html">[OpenIMSCore-CSCF] Term-PCSCF Adds it's own Route while	generating ACK for failure response
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1640">[ date ]</a>
+              <a href="thread.html#1640">[ thread ]</a>
+              <a href="subject.html#1640">[ subject ]</a>
+              <a href="author.html#1640">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Arjun,
+
+I have committed your patch, with changes from my side:
+- cosmetic code alignments
+- the reply routes were already parsed in cscf_get_next_record()
+- the request routes must be freed or there will be memory leaks (the 
+request was retrieved from the transaction and it is handled differently)
+- changing the rr_t-&gt;next has adverse effects when the memory is freed
+- some fixes on the enforce part too
+
+All is committed since r628. Please tell me if there are any issues.
+
+Thanx&amp;Cheers,
+-Dragos
+
+
+Arjun Ramachandran wrote:
+&gt;<i> My mistake. The cfg patch did not get generated properly. Please find the patch attached.
+</I>&gt;<i>
+</I>&gt;<i> -Arjun
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]
+</I>&gt;<i> Sent: Fri 3/6/2009 7:34 PM
+</I>&gt;<i> To: Arjun Ramachandran
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] Patch for PCSCF Record Route Audit . Feature Request.
+</I>&gt;<i>  
+</I>&gt;<i> Great, thanx! I will check and commit it shortly. What about changes to 
+</I>&gt;<i> the pcscf.cfg? You probably already have them...
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> Arjun Ramachandran wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I have attached the patches required for the feature request named PCSCF record route audit.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> The basic idea behind the implementation was to add 2 commands which would verify and if required enforce
+</I>&gt;&gt;<i>  record routes keeping in mind how via list were audited.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> security.c - Contains the implementation of P_follows_record_routes() and P_enforce_record_rotues()
+</I>&gt;&gt;<i> pcscf.cfg - Here the functions get called in Term_Initial_reply routing alg.
+</I>&gt;&gt;<i> mod.c - Commands P_follows_record_routes() and P_enforce_record_rotues() gets included
+</I>&gt;&gt;<i> security.h - P_follows_record_routes() and P_enforce_record_rotues() gets declared.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Regards,
+</I>&gt;&gt;<i> Arjun
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i> ------------------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001634.html">[OpenIMSCore-CSCF] Patch for PCSCF Record Route Audit . Feature	Request.
+</A></li>
+	<LI>Next message: <A HREF="001635.html">[OpenIMSCore-CSCF] Term-PCSCF Adds it's own Route while	generating ACK for failure response
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1640">[ date ]</a>
+              <a href="thread.html#1640">[ thread ]</a>
+              <a href="subject.html#1640">[ subject ]</a>
+              <a href="author.html#1640">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

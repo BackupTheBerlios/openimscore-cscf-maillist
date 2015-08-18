@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Call Session Control Functions feature] PCSCF	Error
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20feature%5D%20PCSCF%0A%09Error&In-Reply-To=%3Ctype%3Dproject%26nid%3D84%26host%3D%40www.openimscore.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000771.html">
+   <LINK REL="Next"  HREF="000773.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Call Session Control Functions feature] PCSCF	Error</H1>
+    <B>punaik</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20feature%5D%20PCSCF%0A%09Error&In-Reply-To=%3Ctype%3Dproject%26nid%3D84%26host%3D%40www.openimscore.org%3E"
+       TITLE="[OpenIMSCore-CSCF] [Call Session Control Functions feature] PCSCF	Error">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Jun 22 11:27:10 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000771.html">[OpenIMSCore-CSCF] [Serusers] loose_route behaviour,	detecting single Route with myself
+</A></li>
+        <LI>Next message: <A HREF="000773.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] PCSCF	Error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#772">[ date ]</a>
+              <a href="thread.html#772">[ thread ]</a>
+              <a href="subject.html#772">[ subject ]</a>
+              <a href="author.html#772">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Issue status update for 
+<A HREF="http://www.openimscore.org/node/84">http://www.openimscore.org/node/84</A>
+Post a follow up: 
+<A HREF="http://www.openimscore.org/project/comments/add/84">http://www.openimscore.org/project/comments/add/84</A>
+
+ Project:      Call Session Control Functions
+ Version:      &lt;none&gt;
+ Component:    User interface
+ Category:     feature requests
+ Priority:     critical
+ Assigned to:  punaik
+ Reported by:  punaik
+ Updated by:   punaik
+ Status:       active
+
+Hi,
+
+
+ i have a desktop setup which is running RHEL WS-4,  i have made
+required setup for IMS, Now my pcscf/icscf/scscf running normally ,
+also i have started startup.sh from HSS/deploy ,this is also running
+fine. CSCF and HSS are running in the same machine with loop back
+setup. Now I have made an attempt to make registration using IMS client
+, OpenIC (downloaded from net). Since my setup is loopback and i have
+configured subscriber (alice and bob), i am trying to configure the
+user from OpenIC. As per the HSS-&gt;install.txt , bob and alice will be
+preconfigured. Now the problem is when ever i hit Save and Exit button
+from OpenIC (configured with Bob). i get an error on console , where
+Pcscf running saying that,
+
+
+4(4179) DBG:P-CSCF:P_check_sent_by(): Received from &lt;127.0.0.1&gt;
+ 4(4179) DBG:P-CSCF:P_check_sent_by(): Via sent-by=&lt;&gt;
+ 4(4179) DBG:P-CSCF:P_check_sent_by(): Via does not contain a sent-by
+parameter
+ 1(4176) DBG:P-CSCF:P_check_sent_by(): Received from &lt;127.0.0.1&gt;
+ 1(4176) DBG:P-CSCF:P_check_sent_by(): Via sent-by=&lt;&gt;
+ 1(4176) DBG:P-CSCF:P_check_sent_by(): Via does not contain a sent-by
+parameter
+
+
+can someone help me out regarding tthis, Here i have problem with Via
+field, can some one tell me where i can lookup actulal SIP registration
+message or where i can configure via field.
+
+
+Pushparaj Naik
+Senior Software Engineer
+Aricent.
+Off: +91-80-41069420
+Mobile: 09972088444
+
+
+
+
+punaik
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000771.html">[OpenIMSCore-CSCF] [Serusers] loose_route behaviour,	detecting single Route with myself
+</A></li>
+	<LI>Next message: <A HREF="000773.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] PCSCF	Error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#772">[ date ]</a>
+              <a href="thread.html#772">[ thread ]</a>
+              <a href="subject.html#772">[ subject ]</a>
+              <a href="author.html#772">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] RTR tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20RTR%20tests&In-Reply-To=%3Cb33002040711290218i598418e7p7fc2f4294965b09c%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001076.html">
+   <LINK REL="Next"  HREF="001082.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] RTR tests</H1>
+    <B>JF</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20RTR%20tests&In-Reply-To=%3Cb33002040711290218i598418e7p7fc2f4294965b09c%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] RTR tests">jfkavaka at gmail.com
+       </A><BR>
+    <I>Thu Nov 29 11:18:19 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001076.html">[OpenIMSCore-CSCF] RTR tests
+</A></li>
+        <LI>Next message: <A HREF="001082.html">[OpenIMSCore-CSCF] RTR tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1078">[ date ]</a>
+              <a href="thread.html#1078">[ thread ]</a>
+              <a href="subject.html#1078">[ subject ]</a>
+              <a href="author.html#1078">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I guess you were referring to 29.228.
+According to the spec, you're right: the SAA should return DIAMETER_SUCCESS.
+But should the S-CSCF really send a SAR in this situation? There's no
+need for it.
+
+JF
+
+On Nov 28, 2007 10:31 PM, Dragos Vingarzan
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>&gt; wrote:
+&gt;<i> Hmm... I think you might be right for the RTR... but just for some RTR
+</I>&gt;<i> cases - there are many - when the user is de-registered immediately.
+</I>&gt;<i>
+</I>&gt;<i> We implemented it a little bit different as the SAR is not failing in
+</I>&gt;<i> this case. So your HSS is a little wrong if you look at 24.229 (I was
+</I>&gt;<i> looking at v7.4.0) as 6.1.2.1 the response for the
+</I>&gt;<i> TIMEOUT_DEREGISTRATION, USER_DEREGISTRATION,
+</I>&gt;<i> DEREGISTRATION_TOO_MUCH_DATA or ADMINISTRATIVE_DEREGISTRATION is always
+</I>&gt;<i> DIAMETER_SUCCESS. As far as I see from this document, even error cases
+</I>&gt;<i> like the one that you have are covered, yet no failure...
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Jo&#227;o Filipe Pl&#225;cido wrote:
+</I>&gt;<i> &gt; Hi,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; We've been testing RTR and noticed that the S-CSCF is sending a SAR
+</I>&gt;<i> &gt; after the RTR is answered.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; &gt;From 24.229 &#167;5.4.1.5 Network-initiated deregistration, it seems that
+</I>&gt;<i> &gt; the SAR should only be sent if the S-CSCF itself decides to terminate
+</I>&gt;<i> &gt; the registration.
+</I>&gt;<i> &gt; If it's the HSS who decides to terminate a registration, the HSS sends
+</I>&gt;<i> &gt; the RTR and the S-CSCF should just reply with RTA and NOTIFY
+</I>&gt;<i> &gt; subscribers of the reg event package.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I think the current behaviour results from the fact that on reception
+</I>&gt;<i> &gt; of a RTR, the scscf is just expiring the IMPI or IMPU(s), and then a
+</I>&gt;<i> &gt; registrar timer runs and decides to inform the HSS of an expired
+</I>&gt;<i> &gt; registration.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; An even worse consequence is a loop of SARs, because the HSS we're
+</I>&gt;<i> &gt; trying to use replies to these SARs with an error because the user is
+</I>&gt;<i> &gt; not registered anymore in the HSS. The S-CSCF receiving an error in a
+</I>&gt;<i> &gt; SAA never cleans up the expired IMPI or IMPU(s) and retries the SAR
+</I>&gt;<i> &gt; every 10 seconds.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; JF
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001076.html">[OpenIMSCore-CSCF] RTR tests
+</A></li>
+	<LI>Next message: <A HREF="001082.html">[OpenIMSCore-CSCF] RTR tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1078">[ date ]</a>
+              <a href="thread.html#1078">[ thread ]</a>
+              <a href="subject.html#1078">[ subject ]</a>
+              <a href="author.html#1078">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

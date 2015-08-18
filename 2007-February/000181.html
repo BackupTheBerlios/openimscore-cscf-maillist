@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20bug%20reporting%20for%20the%20snapshot%20at%202/3&In-Reply-To=%3C002d01c74a5b%24adfdcfc0%24408110ac%40cosmobic.local%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000178.html">
+   <LINK REL="Next"  HREF="000182.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3</H1>
+    <B>Kevin Chen</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20bug%20reporting%20for%20the%20snapshot%20at%202/3&In-Reply-To=%3C002d01c74a5b%24adfdcfc0%24408110ac%40cosmobic.local%3E"
+       TITLE="[OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3">kevin.chen at cosmobic.com
+       </A><BR>
+    <I>Wed Feb  7 03:00:02 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000178.html">[OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3
+</A></li>
+        <LI>Next message: <A HREF="000182.html">[OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#181">[ date ]</a>
+              <a href="thread.html#181">[ thread ]</a>
+              <a href="subject.html#181">[ subject ]</a>
+              <a href="author.html#181">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Dragos:
+    Yes, I agree with you about 3GPP require the Expire as mandatory. But
+Open IMS is a test system,  to be compatible with some trial or testing, I
+think  such support is required.
+    In addition, I also think the current behavior is also strange, if
+Expire is mandatory, IMS core shall reject it explictly by send error reply,
+but currently the behavior is very strange, the register is ok and from
+client point of view there is nothing wrong, but can not make any call.
+    So I suggest 2 solutions:
+1. fix this problem by do not take &quot;expire&quot; as mandatory(give a warning in
+log or something else will be helpful ) ; or
+2. check the &quot;expire&quot; header strictly and reply error message by S-CSCF.
+
+In fact in the &quot;old&quot; release the policy is like 1. but now it changed .
+
+BR
+
+K.Chen
+
+2007.2.7
+----- Original Message ----- 
+From: &quot;Dragos Vingarzan&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt;
+To: &quot;Sudhakar Patil&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">spatil4572 at yahoo.com</A>&gt;
+Cc: &quot;Kevin Chen&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">kevin.chen at cosmobic.com</A>&gt;;
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>&gt;
+Sent: Wednesday, February 07, 2007 3:44 AM
+Subject: Re: [OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3
+
+
+&gt;<i> Still, the same problem applies: I have the identity registered in the
+</I>&gt;<i> core and then I get such a register request. Now what should I do?
+</I>&gt;<i> Refresh the registration for a default period or deregister it?
+</I>&gt;<i>
+</I>&gt;<i> Personally, I hate to fix &quot;effects&quot; and not &quot;causes&quot;. I looked into
+</I>&gt;<i> 24.229 v7.6.0 in A.2.1.4.12 and at line 16 it is indicated that Expires
+</I>&gt;<i> is mandatory in received REGISTER messages. As such, a compliant IMS
+</I>&gt;<i> core would probably reject this message quite early.
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> Sudhakar Patil wrote:
+</I>&gt;<i> &gt; Hi Dragos,
+</I>&gt;<i> &gt; I have a similar issue with SJPhone. SJPhone does not
+</I>&gt;<i> &gt; send expires header and expects the server to provide
+</I>&gt;<i> &gt; it. It is mentioned elsewhere that SJPhone is the most
+</I>&gt;<i> &gt; fully SIP client around. Not sure of this claim, but
+</I>&gt;<i> &gt; it might be a good idea to cover this scenario.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Regards,
+</I>&gt;<i> &gt; Sudhakar.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; --- Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt;
+</I>&gt;<i> &gt; wrote:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; Hello Kevin,
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; I think that the Expires header or parameters are
+</I>&gt;<i> &gt;&gt; mandatory. Or else,
+</I>&gt;<i> &gt;&gt; how could the core tell if you are attempting a
+</I>&gt;<i> &gt;&gt; registration or a
+</I>&gt;<i> &gt;&gt; de-registration?
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; -Dragos
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Kevin Chen wrote:
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Hello:
+</I>&gt;<i> &gt;&gt;&gt;     I tried the snapshot release at 2/3 and find
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; there is a &quot;bug&quot; in  scscf
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; module. The bug will cause register request always
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; fail when register
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; request do not include &quot;Expire&quot; header neither in
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; contact.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;     Before if register request do not include
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; &quot;Expire&quot; header, scscf will
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; use default value 3600, but current implementation
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; in sip.c line 282 cause
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; variable &quot;expire&quot; always be -1 when register
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; message do not have &quot;Expire&quot;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; header neither in &quot;contact&quot;. (Using 3rd part VoIP
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; client will meet this
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; trouble--I use SJphone).
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; BR
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; K.Chen
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; 2007.2.3
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; -- 
+</I>&gt;<i> &gt;&gt; -----------------------------------------
+</I>&gt;<i> &gt;&gt; Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> &gt;&gt; FOKUS/NGNI
+</I>&gt;<i> &gt;&gt; Kaiserin-Augusta-Allee 31
+</I>&gt;<i> &gt;&gt; 10589 Berlin,Germany
+</I>&gt;<i> &gt;&gt; Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> &gt;&gt; Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> &gt;&gt; eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+</I>&gt;<i> &gt;&gt; Web www.fokus.fraunhofer.de
+</I>&gt;<i> &gt;&gt; We could change the world if God would give us the
+</I>&gt;<i> &gt;&gt; source code...
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; -----------------------------------------------------------------
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>____________________________________________________________________________
+________
+&gt;<i> &gt; Do you Yahoo!?
+</I>&gt;<i> &gt; Everyone is raving about the all-new Yahoo! Mail beta.
+</I>&gt;<i> &gt; <A HREF="http://new.mail.yahoo.com">http://new.mail.yahoo.com</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> -- 
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+</I>&gt;<i> Web www.fokus.fraunhofer.de
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000178.html">[OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3
+</A></li>
+	<LI>Next message: <A HREF="000182.html">[OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#181">[ date ]</a>
+              <a href="thread.html#181">[ thread ]</a>
+              <a href="subject.html#181">[ subject ]</a>
+              <a href="author.html#181">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

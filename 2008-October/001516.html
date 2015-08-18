@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r594 - user preferences rfc3840	and its successor
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r594%20-%20user%20preferences%20rfc3840%0A%09and%20its%20successor&In-Reply-To=%3C200810201241.m9KCf8n3031904%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001523.html">
+   <LINK REL="Next"  HREF="001517.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r594 - user preferences rfc3840	and its successor</H1>
+    <B>jsbach at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r594%20-%20user%20preferences%20rfc3840%0A%09and%20its%20successor&In-Reply-To=%3C200810201241.m9KCf8n3031904%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r594 - user preferences rfc3840	and its successor">jsbach at users.berlios.de
+       </A><BR>
+    <I>Mon Oct 20 14:41:08 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001523.html">[OpenIMSCore-CSCF] core dump due to checking trigger point,	session description
+</A></li>
+        <LI>Next message: <A HREF="001517.html">[OpenIMSCore-CSCF] RTR tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1516">[ date ]</a>
+              <a href="thread.html#1516">[ thread ]</a>
+              <a href="subject.html#1516">[ subject ]</a>
+              <a href="author.html#1516">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jsbach
+Date: 2008-10-20 14:41:06 +0200 (Mon, 20 Oct 2008)
+New Revision: 594 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=594">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=594</A> 
+
+Log:
+user preferences rfc3840 and its successor
+
+
+
+Added:
+   A	ser_ims/branches/11_caller_preferences/modules/scscf/upref.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/upref.c?rev=594&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/upref.c?rev=594&amp;view=markup</A>
+   A	ser_ims/branches/11_caller_preferences/modules/scscf/upref.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/upref.h?rev=594&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/upref.h?rev=594&amp;view=markup</A>
+Modified:
+   U	ser_ims/branches/11_caller_preferences/modules/scscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/dlg_state.c?rev=594&amp;view=diff&amp;r1=594&amp;r2=593">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/dlg_state.c?rev=594&amp;view=diff&amp;r1=594&amp;r2=593</A>
+   U	ser_ims/branches/11_caller_preferences/modules/scscf/mod.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/mod.h?rev=594&amp;view=diff&amp;r1=594&amp;r2=593">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/mod.h?rev=594&amp;view=diff&amp;r1=594&amp;r2=593</A>
+   U	ser_ims/branches/11_caller_preferences/modules/scscf/registrar.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/registrar.c?rev=594&amp;view=diff&amp;r1=594&amp;r2=593">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/registrar.c?rev=594&amp;view=diff&amp;r1=594&amp;r2=593</A>
+   U	ser_ims/branches/11_caller_preferences/modules/scscf/registrar_notify.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/registrar_notify.c?rev=594&amp;view=diff&amp;r1=594&amp;r2=593">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/registrar_notify.c?rev=594&amp;view=diff&amp;r1=594&amp;r2=593</A>
+   U	ser_ims/branches/11_caller_preferences/modules/scscf/registrar_storage.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/registrar_storage.c?rev=594&amp;view=diff&amp;r1=594&amp;r2=593">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/registrar_storage.c?rev=594&amp;view=diff&amp;r1=594&amp;r2=593</A>
+   U	ser_ims/branches/11_caller_preferences/modules/scscf/registrar_storage.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/registrar_storage.h?rev=594&amp;view=diff&amp;r1=594&amp;r2=593">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/registrar_storage.h?rev=594&amp;view=diff&amp;r1=594&amp;r2=593</A>
+   U	ser_ims/branches/11_caller_preferences/modules/scscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/registration.c?rev=594&amp;view=diff&amp;r1=594&amp;r2=593">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/11_caller_preferences/modules/scscf/registration.c?rev=594&amp;view=diff&amp;r1=594&amp;r2=593</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001523.html">[OpenIMSCore-CSCF] core dump due to checking trigger point,	session description
+</A></li>
+	<LI>Next message: <A HREF="001517.html">[OpenIMSCore-CSCF] RTR tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1516">[ date ]</a>
+              <a href="thread.html#1516">[ thread ]</a>
+              <a href="subject.html#1516">[ subject ]</a>
+              <a href="author.html#1516">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

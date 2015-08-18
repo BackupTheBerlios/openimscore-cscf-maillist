@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Missing Contact addresses in case of multiple registrations
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Missing%20Contact%20addresses%20in%20case%20of%0A%20multiple%20registrations&In-Reply-To=%3C459A789F.8000900%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000086.html">
+   <LINK REL="Next"  HREF="000090.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Missing Contact addresses in case of multiple registrations</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Missing%20Contact%20addresses%20in%20case%20of%0A%20multiple%20registrations&In-Reply-To=%3C459A789F.8000900%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Missing Contact addresses in case of multiple registrations">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Jan  2 16:22:07 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000086.html">[OpenIMSCore-CSCF] Scscf does not treat RTR and PPR messages
+</A></li>
+        <LI>Next message: <A HREF="000090.html">[OpenIMSCore-CSCF] Missing Contact addresses in case of	multiple registrations
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#87">[ date ]</a>
+              <a href="thread.html#87">[ thread ]</a>
+              <a href="subject.html#87">[ subject ]</a>
+              <a href="author.html#87">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Franz,
+
+It's not a bug, it's a feature ;-).
+
+Hmm... I never thought about it in this way because you only get what
+you have registered with that UE. If you want the rest of contacts, you
+can subscribe to the reg event and receive this information in the
+notifications.
+
+It's not a big deal to change this behavior, but should it really be
+like that?
+
+-Dragos
+
+Franz Edler wrote:
+&gt;<i> Hi, 
+</I>&gt;<i>
+</I>&gt;<i> I just tested forking (o.k.) and found, that in case of multiple
+</I>&gt;<i> registrations of the same public user identity the Contact header in the
+</I>&gt;<i> 200 OK response of the REGISTER request does not list all registered contact
+</I>&gt;<i> addresses. It only lists the actually registered contact address.
+</I>&gt;<i>
+</I>&gt;<i> I assume this is a (minor) bug.
+</I>&gt;<i>
+</I>&gt;<i> See the attached scenario-trace. Alice registers with 2 UEs.
+</I>&gt;<i> F43 should also contain the contact address of F23.
+</I>&gt;<i>
+</I>&gt;<i> cheers
+</I>&gt;<i> Franz
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000086.html">[OpenIMSCore-CSCF] Scscf does not treat RTR and PPR messages
+</A></li>
+	<LI>Next message: <A HREF="000090.html">[OpenIMSCore-CSCF] Missing Contact addresses in case of	multiple registrations
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#87">[ date ]</a>
+              <a href="thread.html#87">[ thread ]</a>
+              <a href="subject.html#87">[ subject ]</a>
+              <a href="author.html#87">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

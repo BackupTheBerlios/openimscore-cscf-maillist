@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] OPTION Message not getting through with Tel URI
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OPTION%20Message%20not%20getting%20through%20with%20Tel%20URI&In-Reply-To=%3CH000008e0007b03e.1166762761.dakghar.aylus.com%40MHS%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000070.html">
+   <LINK REL="Next"  HREF="000069.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] OPTION Message not getting through with Tel URI</H1>
+    <B>Babu George</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OPTION%20Message%20not%20getting%20through%20with%20Tel%20URI&In-Reply-To=%3CH000008e0007b03e.1166762761.dakghar.aylus.com%40MHS%3E"
+       TITLE="[OpenIMSCore-CSCF] OPTION Message not getting through with Tel URI">bgeorge at aylus.com
+       </A><BR>
+    <I>Fri Dec 22 05:46:01 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000070.html">[OpenIMSCore-CSCF] Problem adding new user to FHoSS database &amp;	registration of Kphone
+</A></li>
+        <LI>Next message: <A HREF="000069.html">[OpenIMSCore-CSCF] OPTION Message not getting through with Tel URI
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#63">[ date ]</a>
+              <a href="thread.html#63">[ thread ]</a>
+              <a href="subject.html#63">[ subject ]</a>
+              <a href="author.html#63">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>All,
+
+  I modified the cfg files with the entry &#147;OPTIONS&#148; for handling this
+message.
+
+  Alice&amp;Bob are assigned tel no. +10987654321&amp;+11234567890 respectively.
+
+  Registered both the users and try to send an OPTIONS message from
+Alice to Bob
+
+ using the Tel URI.But the message is not getting routed towards
+Bob.Scscf should derive the 
+
+ Public user ID from the tel no(Here +11234567890) and route message
+towards Bob.
+
+ Is this functionality supported?
+
+Here is the error message I get at Scscf.Ethereal trace is also
+attached.Can someone help me?
+
+ 
+
+5(7573) INF:S-CSCF:           UA: &lt;Unknown UA&gt;
+
+ 5(7573) INF:S-CSCF:         S: Event[0] Exp:[994357]
+&lt;sip:pcscf.open-ims.test:5060&gt;
+
+ 5(7573) INF:S-CSCF:----------  Registrar Contents end ----------
+
+ 4(7572) &gt;&gt;       Orig
+
+ 4(7572) DBG:S-CSCF:S_save_dialog(orig): Call-ID &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9790 at 192.168.20.13</A>&gt;
+
+ 4(7572) INFO:ISC:ISC_match_filter(orig): Checking triggers
+
+ 4(7572) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+
+ 4(7572) INFO:ISC:ISC_match_filter(orig): Starting triggering
+
+ 4(7572) INFO:ISC:ISC_match_filter(orig): Orig User
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt; [1]
+
+ 4(7572) INFO:ISC:isc_checker_find: starting search
+
+ 4(7572) ERROR: sip_hostport2su: could not resolve hostname: &quot;&quot;
+
+ 4(7572) ERROR: uri2dst: failed to resolve &quot;&quot;
+
+ 4(7572) ERROR: t_forward_nonack: failure to add branches
+
+17(7585) --- Peer List: ---
+
+17(7585)  S[I_Open] hss.open-ims.test:3868 D[ ]
+
+17(7585) ------------------
+
+17(7585) DBG:peer_timer(): Peer hss.open-ims.test       State
+
+Thanks
+
+Babu
+
+ 
+
+ 
+
+ 
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20061222/60c09491/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20061222/60c09491/attachment.html</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: OPTIONS-3
+Type: application/octet-stream
+Size: 3601 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20061222/60c09491/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20061222/60c09491/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000070.html">[OpenIMSCore-CSCF] Problem adding new user to FHoSS database &amp;	registration of Kphone
+</A></li>
+	<LI>Next message: <A HREF="000069.html">[OpenIMSCore-CSCF] OPTION Message not getting through with Tel URI
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#63">[ date ]</a>
+              <a href="thread.html#63">[ thread ]</a>
+              <a href="subject.html#63">[ subject ]</a>
+              <a href="author.html#63">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

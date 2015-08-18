@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] NOTIFY issue
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20NOTIFY%20issue&In-Reply-To=%3C003a01cc0620%2418d564a0%244a802de0%24%40technikum-wien.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002514.html">
+   <LINK REL="Next"  HREF="002516.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] NOTIFY issue</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20NOTIFY%20issue&In-Reply-To=%3C003a01cc0620%2418d564a0%244a802de0%24%40technikum-wien.at%3E"
+       TITLE="[OpenIMSCore-CSCF] NOTIFY issue">franz.edler at technikum-wien.at
+       </A><BR>
+    <I>Fri Apr 29 05:47:01 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002514.html">[OpenIMSCore-CSCF] NOTIFY issue
+</A></li>
+        <LI>Next message: <A HREF="002516.html">[OpenIMSCore-CSCF] NOTIFY issue
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2515">[ date ]</a>
+              <a href="thread.html#2515">[ thread ]</a>
+              <a href="subject.html#2515">[ subject ]</a>
+              <a href="author.html#2515">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Mohsen,
+
+&gt;<i> Thanks for the reply. as you mentioned , UE sends all requests to the
+</I>P-CSCF
+&gt;<i> regardless of the route set. Please find enclosed 2 log files; one
+</I>includes
+&gt;<i> messages exchanged between UE and P-CSCF, for simplicity I have omitted
+</I>&gt;<i> the re-registrations and notifies, just wanted to show that P-CSCF rejects
+</I>the
+&gt;<i> re-SUBSCRIBE. And the other one includes the display logs from P-CSCF and
+</I>&gt;<i> S-CSCF.
+</I>
+The situation is clear when you look at the Route header field in the second
+SUBSCRIBE request.
+It contains 2 Route header fields:
+	Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt; 
+	Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+
+But the previously received 200 OK to the SUBSCRIBE request contains only
+one Record-Route header field:
+	Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+This is the dialog route for the SUBSCRIBE initiated dialog which the P-CSCF
+checks.
+
+Therefore the P-CSCF recognizes that the UE does not honor the dialog route:
+	SIP/2.0 400 Bad Request - Not following indicated dialog routes
+
+ Just omit the 2nd Route header field and it will work..
+-Franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002514.html">[OpenIMSCore-CSCF] NOTIFY issue
+</A></li>
+	<LI>Next message: <A HREF="002516.html">[OpenIMSCore-CSCF] NOTIFY issue
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2515">[ date ]</a>
+              <a href="thread.html#2515">[ thread ]</a>
+              <a href="subject.html#2515">[ subject ]</a>
+              <a href="author.html#2515">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

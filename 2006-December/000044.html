@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Scscf-crash
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Scscf-crash&In-Reply-To=%3C458443C2.7090202%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000043.html">
+   <LINK REL="Next"  HREF="000048.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Scscf-crash</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Scscf-crash&In-Reply-To=%3C458443C2.7090202%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Scscf-crash">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Sat Dec 16 20:06:42 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000043.html">[OpenIMSCore-CSCF] Scscf not responding to INVITE message
+</A></li>
+        <LI>Next message: <A HREF="000048.html">[OpenIMSCore-CSCF] Scscf-crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#44">[ date ]</a>
+              <a href="thread.html#44">[ thread ]</a>
+              <a href="subject.html#44">[ subject ]</a>
+              <a href="author.html#44">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi George,
+
+Could you please send us a SIPp scenario or a way to replicate the
+traffic, so that we could debug this? The logs/traces only show the
+effects, but finding the cause is in most cases almost impossible
+without re-running the test.
+
+Thanx,
+-Dragos
+
+Babu George wrote:
+&gt;<i> All,
+</I>&gt;<i>  Got the following SCSCF crash, while making an IMS call(with message PRACK)
+</I>&gt;<i>
+</I>&gt;<i> 5(11930) INF:S-CSCF:           UA: &lt;Unknown UA&gt;
+</I>&gt;<i>  5(11930) INF:S-CSCF:[ 230] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at tv.comcast.com</A>&gt; R[ 1]
+</I>&gt;<i>  5(11930) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 192.168.20.13</A>:5054;transport=UDP&gt; Exp:[999814]
+</I>&gt;<i>  5(11930) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:5060;lr&gt;
+</I>&gt;<i>  5(11930) INF:S-CSCF:           UA: &lt;Unknown UA&gt;
+</I>&gt;<i>  5(11930) INF:S-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i> 17(11942) --- Peer List: ---
+</I>&gt;<i> 17(11942)  S[I_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(11942) ------------------
+</I>&gt;<i> 17(11942) --- Peer List: ---
+</I>&gt;<i> 17(11942)  S[I_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(11942) ------------------
+</I>&gt;<i> 17(11942) --- Peer List: ---
+</I>&gt;<i> 17(11942)  S[I_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(11942) ------------------
+</I>&gt;<i> 17(11942) --- Peer List: ---
+</I>&gt;<i> 17(11942)  S[I_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(11942) ------------------
+</I>&gt;<i>  5(11930) INF:S-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(11930) INF:S-CSCF:[   3] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt; R[ 1]
+</I>&gt;<i>  5(11930) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 192.168.20.13</A>:5054;transport=UDP&gt; Exp:[999858]
+</I>&gt;<i>  5(11930) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:5060;lr&gt;
+</I>&gt;<i>  5(11930) INF:S-CSCF:           UA: &lt;Unknown UA&gt;
+</I>&gt;<i>  5(11930) INF:S-CSCF:[  52] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt; R[ 1]
+</I>&gt;<i>  5(11930) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 192.168.20.13</A>:5055;transport=UDP&gt; Exp:[999861]
+</I>&gt;<i>  5(11930) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:5060;lr&gt;
+</I>&gt;<i>  5(11930) INF:S-CSCF:           UA: &lt;Unknown UA&gt;
+</I>&gt;<i>  5(11930) INF:S-CSCF:[ 230] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at tv.comcast.com</A>&gt; R[ 1]
+</I>&gt;<i>  5(11930) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 192.168.20.13</A>:5054;transport=UDP&gt; Exp:[999804]
+</I>&gt;<i>  5(11930) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:5060;lr&gt;
+</I>&gt;<i>  5(11930) INF:S-CSCF:           UA: &lt;Unknown UA&gt;
+</I>&gt;<i>  5(11930) INF:S-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i> 17(11942) --- Peer List: ---
+</I>&gt;<i> 17(11942)  S[I_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(11942) ------------------
+</I>&gt;<i>  5(11930) &gt;&gt;       Term_failure
+</I>&gt;<i>  3(11928) &gt;&gt;       Term
+</I>&gt;<i>  3(11928) INFO:ISC:ISC_match_filter(term): Checking triggers
+</I>&gt;<i>  4(11929) INFO:ISC:isc_failure: reached with s=1;h=0;d=1
+</I>&gt;<i>  4(11929) DBG:ISC:isc_bootstrap(): marking for bootstrap
+</I>&gt;<i>  4(11929) INFO:ISC:isc_mark_set: NEW mark &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0;d=1&gt;
+</I>&gt;<i>  4(11929) BUG: qm_free: bad pointer 0xb5d60338 (out of memory block!) - aborting
+</I>&gt;<i>  2(11927) &gt;&gt;       Term_reply
+</I>&gt;<i>  0(11924) 11(11936) ERROR: receive_fd: EOF on 9
+</I>&gt;<i> child process 11929 exited by a signal 6
+</I>&gt;<i>
+</I>&gt;<i>  0(11924) INFO: terminating due to SIGCHLD
+</I>&gt;<i>  0(11924) Process Table:
+</I>&gt;<i>  0(11924)  0. (11924) &gt; attendant
+</I>&gt;<i>  0(11924)  1. (11926) &gt; udp
+</I>&gt;<i>  0(11924)  2. (11927) &gt; udp
+</I>&gt;<i>  0(11924)  3. (11928) &gt; udp
+</I>&gt;<i>  0(11924)  4. (11929) &gt; udp
+</I>&gt;<i>  0(11924)  5. (11930) &gt; slow timer
+</I>&gt;<i>  0(11924)  6. (11931) &gt; timer
+</I>&gt;<i>  0(11924)  7. (11932) &gt; tcp receiver child=0
+</I>&gt;<i>  0(11924)  8. (11933) &gt; tcp receiver child=1
+</I>&gt;<i>  0(11924)  9. (11934) &gt; tcp receiver child=2
+</I>&gt;<i>  0(11924) 10. (11935) &gt; tcp receiver child=3
+</I>&gt;<i>  0(11924) 11. (11936) &gt; tcp main process
+</I>&gt;<i>  0(11924) 12. (11937) &gt; cdp_acceptor
+</I>&gt;<i>  0(11924) 13. (11938) &gt; cdp worker child=0
+</I>&gt;<i>  0(11924) 14. (11939) &gt; cdp worker child=1
+</I>&gt;<i>  0(11924) 15. (11940) &gt; cdp worker child=2
+</I>&gt;<i>  0(11924) 16. (11941) &gt; cdp worker child=3
+</I>&gt;<i>  0(11924) 17. (11942) &gt; cdp_timer
+</I>&gt;<i>  0(11924) 18. (11944) &gt; receiver I
+</I>&gt;<i>  1(11926) INFO: signal 15 received
+</I>&gt;<i> 11(11936) ERROR: receive_fd: EOF on 6
+</I>&gt;<i>  2(11927) INFO: signal 15 received
+</I>&gt;<i>  3(11928) INFO: signal 15 received
+</I>&gt;<i>  5(11930) 11(11936) INFO: signal 15 received
+</I>&gt;<i>  6(11931) INFO: signal 15 received
+</I>&gt;<i>  8(11933)  7(11932) INFO: signal 15 received
+</I>&gt;<i>  9(11934) INFO: signal 15 received
+</I>&gt;<i> INFO: signal 15 received
+</I>&gt;<i> 12(11937) INFO: signal 15 received
+</I>&gt;<i> 10(11935) INFO: signal 15 received
+</I>&gt;<i> 17(11942) INFO: signal 15 received
+</I>&gt;<i> 18(11944) INFO: signal 15 received
+</I>&gt;<i> 13(11938) 15(11940) INFO: signal 15 received
+</I>&gt;<i> 11(11936) INFO: signal 15 received
+</I>&gt;<i> 14(11939) INFO: signal 15 received
+</I>&gt;<i> INFO: signal 15 received
+</I>&gt;<i> 16(11941) INFO: signal 15 received
+</I>&gt;<i>  0(11924) INFO:cdp:cdp_exit(): CDiameterPeer stoping ...
+</I>&gt;<i>  0(11924) INFO:destroy_diameter_peer(): Terminating all childs...
+</I>&gt;<i>  0(11924) INFO:destroy_diameter_peer(): Waiting for child [11944] to terminate...
+</I>&gt;<i>  0(11924) INFO:destroy_diameter_peer(): Waiting for child [11942] to terminate...
+</I>&gt;<i>  0(11924) INFO:destroy_diameter_peer(): Waiting for child [11941] to terminate...
+</I>&gt;<i>  0(11924) INFO:destroy_diameter_peer(): Waiting for child [11940] to terminate...
+</I>&gt;<i>  0(11924) INFO:destroy_diameter_peer(): Waiting for child [11939] to terminate...
+</I>&gt;<i>  0(11924) INFO:destroy_diameter_peer(): Waiting for child [11938] to terminate...
+</I>&gt;<i>  0(11924) INFO:destroy_diameter_peer(): Waiting for child [11937] to terminate...
+</I>&gt;<i>  0(11924) INFO:destroy_diameter_peer(): All processes terminated. Cleaning up.
+</I>&gt;<i>  0(11924) INFO:destroy_diameter_peer(): Bye Bye from C Diameter Peer test
+</I>&gt;<i>  0(11924) INFO:cdp:cdp_exit(): ... CDiameterPeer stoped
+</I>&gt;<i>  0(11924) INFO:ISC: - child exit
+</I>&gt;<i>  0(11924) INFO:S-CSCF:mod_destroy: child exit
+</I>&gt;<i>
+</I>&gt;<i> ------ Semaphore Arrays --------
+</I>&gt;<i> key        semid      owner      perms      nsems
+</I>&gt;<i> 0x00000000 0          www-data  600        1
+</I>&gt;<i> 0x00000000 6848513    root      666        1
+</I>&gt;<i> 0x00000000 6881282    root      666        1
+</I>&gt;<i>
+</I>&gt;<i> Aylus-QA-20-13:/opt/OpenIMSCore#
+</I>&gt;<i>
+</I>&gt;<i> -----Original Message-----
+</I>&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">nakshatra.gupta at tcs.com</A> [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">nakshatra.gupta at tcs.com</A>] 
+</I>&gt;<i> Sent: Friday, December 15, 2006 2:19 PM
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: [OpenIMSCore-CSCF] problem building test folder ,triggering stack
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i> I have just downloaded the openImscore for your site.
+</I>&gt;<i>
+</I>&gt;<i> Kindly let me know how to give input to the ser stack.
+</I>&gt;<i> I have tried with sipsak useragent but was not able to trigger the stack.
+</I>&gt;<i>
+</I>&gt;<i> More over kindly provide me the information of how to use the ims
+</I>&gt;<i> components like pcscf icscf etc with the ser stack.
+</I>&gt;<i>
+</I>&gt;<i> I am also not able to build the files under test folder by using make
+</I>&gt;<i> present in ser_ims folder.
+</I>&gt;<i>
+</I>&gt;<i> Is there any other method to build files under test folder.
+</I>&gt;<i> Are the files present under test folder can be used to trigger serstack
+</I>&gt;<i>
+</I>&gt;<i> Kindly respond soon.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> regards,
+</I>&gt;<i> Nakshatra Gupta
+</I>&gt;<i> Tata Consultancy Services
+</I>&gt;<i> Cell:- 9910273459
+</I>&gt;<i> Mailto: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">nakshatra.gupta at tcs.com</A>
+</I>&gt;<i> Website: <A HREF="http://www.tcs.com">http://www.tcs.com</A>
+</I>&gt;<i> =====-----=====-----=====
+</I>&gt;<i> Notice: The information contained in this e-mail
+</I>&gt;<i> message and/or attachments to it may contain 
+</I>&gt;<i> confidential or privileged information. If you are 
+</I>&gt;<i> not the intended recipient, any dissemination, use, 
+</I>&gt;<i> review, distribution, printing or copying of the 
+</I>&gt;<i> information contained in this e-mail message 
+</I>&gt;<i> and/or attachments to it are strictly prohibited. If 
+</I>&gt;<i> you have received this communication in error, 
+</I>&gt;<i> please notify us by reply e-mail or telephone and 
+</I>&gt;<i> immediately and permanently delete the message 
+</I>&gt;<i> and any attachments. Thank you
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> Thanks
+</I>&gt;<i> Babu
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000043.html">[OpenIMSCore-CSCF] Scscf not responding to INVITE message
+</A></li>
+	<LI>Next message: <A HREF="000048.html">[OpenIMSCore-CSCF] Scscf-crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#44">[ date ]</a>
+              <a href="thread.html#44">[ thread ]</a>
+              <a href="subject.html#44">[ subject ]</a>
+              <a href="author.html#44">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r666 - Commit patch from Bjorn	Persson. Store SPI values as unsigned int and make port	numbers more consistent.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r666%20-%20Commit%20patch%20from%20Bjorn%0A%09Persson.%20Store%20SPI%20values%20as%20unsigned%20int%20and%20make%20port%0A%09numbers%20more%20consistent.&In-Reply-To=%3C200906021251.n52Cpb1Y032163%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="001706.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r666 - Commit patch from Bjorn	Persson. Store SPI values as unsigned int and make port	numbers more consistent.</H1>
+    <B>letiemble at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r666%20-%20Commit%20patch%20from%20Bjorn%0A%09Persson.%20Store%20SPI%20values%20as%20unsigned%20int%20and%20make%20port%0A%09numbers%20more%20consistent.&In-Reply-To=%3C200906021251.n52Cpb1Y032163%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r666 - Commit patch from Bjorn	Persson. Store SPI values as unsigned int and make port	numbers more consistent.">letiemble at users.berlios.de
+       </A><BR>
+    <I>Tue Jun  2 14:51:37 CEST 2009</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="001706.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r667 - added/updated the license
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1705">[ date ]</a>
+              <a href="thread.html#1705">[ thread ]</a>
+              <a href="subject.html#1705">[ subject ]</a>
+              <a href="author.html#1705">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: letiemble
+Date: 2009-06-02 14:51:10 +0200 (Tue, 02 Jun 2009)
+New Revision: 666 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=666">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=666</A> 
+
+Log:
+Commit patch from Bjorn Persson. Store SPI values as unsigned int and make port numbers more consistent.
+
+Modified:
+   U	ser_ims/trunk/modules/pcscf/bin_pcscf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_pcscf.c?rev=666&amp;view=diff&amp;r1=666&amp;r2=665">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_pcscf.c?rev=666&amp;view=diff&amp;r1=666&amp;r2=665</A>
+   U	ser_ims/trunk/modules/pcscf/registrar_storage.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_storage.c?rev=666&amp;view=diff&amp;r1=666&amp;r2=665">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_storage.c?rev=666&amp;view=diff&amp;r1=666&amp;r2=665</A>
+   U	ser_ims/trunk/modules/pcscf/registrar_storage.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_storage.h?rev=666&amp;view=diff&amp;r1=666&amp;r2=665">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_storage.h?rev=666&amp;view=diff&amp;r1=666&amp;r2=665</A>
+   U	ser_ims/trunk/modules/pcscf/security.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/security.c?rev=666&amp;view=diff&amp;r1=666&amp;r2=665">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/security.c?rev=666&amp;view=diff&amp;r1=666&amp;r2=665</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="001706.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r667 - added/updated the license
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1705">[ date ]</a>
+              <a href="thread.html#1705">[ thread ]</a>
+              <a href="subject.html#1705">[ subject ]</a>
+              <a href="author.html#1705">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

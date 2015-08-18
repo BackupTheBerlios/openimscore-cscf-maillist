@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Two problems in cdp module
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Two%20problems%20in%20cdp%20module&In-Reply-To=%3C1209988066.6371.10.camel%40lt-mats%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001331.html">
+   <LINK REL="Next"  HREF="001327.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Two problems in cdp module</H1>
+    <B>Mats Cullberg</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Two%20problems%20in%20cdp%20module&In-Reply-To=%3C1209988066.6371.10.camel%40lt-mats%3E"
+       TITLE="[OpenIMSCore-CSCF] Two problems in cdp module">mats.cullberg at operax.com
+       </A><BR>
+    <I>Mon May  5 13:47:46 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001331.html">[OpenIMSCore-CSCF] ISC triggering issue with Cancels
+</A></li>
+        <LI>Next message: <A HREF="001327.html">[OpenIMSCore-CSCF] Two problems in cdp module
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1326">[ date ]</a>
+              <a href="thread.html#1326">[ thread ]</a>
+              <a href="subject.html#1326">[ subject ]</a>
+              <a href="author.html#1326">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi !
+
+Using branches/08_cdp_sessions, I have found two problems.
+
+1. Diameter messages are not sent/received with end-to-end and
+hop-by-hop id in network-byte-order. According to RFC 3588 ch. 3.
+
+A fix could be:
+
+Index: /home/mx/workspace/ser_ims/modules/cdp/diameter_msg.c
+===================================================================
+--- /home/mx/workspace/ser_ims/modules/cdp/diameter_msg.c	(revision 554)
++++ /home/mx/workspace/ser_ims/modules/cdp/diameter_msg.c	(working copy)
+@@ -113,10 +113,10 @@
+ 	((unsigned int*)p)[0] = htonl(msg-&gt;applicationId);
+ 	p += APPLICATION_ID_SIZE;
+ 	/* hop by hop id */
+-	((unsigned int*)p)[0] = msg-&gt;hopbyhopId;
++	((unsigned int*)p)[0] = htonl(msg-&gt;hopbyhopId);
+ 	p += HOP_BY_HOP_IDENTIFIER_SIZE;
+ 	/* end to end id */
+-	((unsigned int*)p)[0] = msg-&gt;endtoendId;
++	((unsigned int*)p)[0] = htonl(msg-&gt;endtoendId);
+ 	p += END_TO_END_IDENTIFIER_SIZE;
+ 
+
+@@ -485,11 +487,11 @@
+ 	ptr += APPLICATION_ID_SIZE;
+ 
+ 	/* Hop-by-Hop-Id */
+-	msg-&gt;hopbyhopId = *((unsigned int*)ptr);
++	msg-&gt;hopbyhopId = ntohl(*((unsigned int*)ptr));
+ 	ptr += HOP_BY_HOP_IDENTIFIER_SIZE;
+ 
+ 	/* End-to-End-Id */
+-	msg-&gt;endtoendId = *((unsigned int*)ptr);
++	msg-&gt;endtoendId = ntohl(*((unsigned int*)ptr));
+ 	ptr += END_TO_END_IDENTIFIER_SIZE;
+ 
+ 	/* start decoding the AVPS */
+
+
+2. Result Code AVP is not sent in DPA according to RFC 3588 ch. 5.4.2.
+
+A fix could be.
+
+Index: /home/mx/workspace/ser_ims/modules/cdp/peerstatemachine.c
+===================================================================
+--- /home/mx/workspace/ser_ims/modules/cdp/peerstatemachine.c	(revision
+554)
++++ /home/mx/workspace/ser_ims/modules/cdp/peerstatemachine.c	(working
+copy)
+@@ -793,7 +793,12 @@
+ 	AAAMessage *dpa;
+ 
+ 	dpa = AAANewMessage(Code_DP,0,0,dpr);	
+-	if (dpa) peer_send_msg(p,dpa);
++	if (dpa) {
++	    char x[4];
++	    set_4bytes(x,AAA_SUCCESS);
++
+AAACreateAndAddAVPToMessage(dpa,AVP_Result_Code,AAA_AVP_FLAG_MANDATORY,0,x,4);
++	    peer_send_msg(p,dpa);
++	}
+ 	AAAFreeMessage(&amp;dpr);
+ }
+ 
+/Mats
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001331.html">[OpenIMSCore-CSCF] ISC triggering issue with Cancels
+</A></li>
+	<LI>Next message: <A HREF="001327.html">[OpenIMSCore-CSCF] Two problems in cdp module
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1326">[ date ]</a>
+              <a href="thread.html#1326">[ thread ]</a>
+              <a href="subject.html#1326">[ subject ]</a>
+              <a href="author.html#1326">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

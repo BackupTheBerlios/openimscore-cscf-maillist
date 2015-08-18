@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] p-cscf multiple processes and AAR
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%20multiple%20processes%20and%20AAR&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A0217FC2C%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001908.html">
+   <LINK REL="Next"  HREF="001898.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] p-cscf multiple processes and AAR</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%20multiple%20processes%20and%20AAR&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A0217FC2C%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] p-cscf multiple processes and AAR">wang at basis-audionet.com
+       </A><BR>
+    <I>Thu Dec 17 20:09:05 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001908.html">[OpenIMSCore-CSCF] pid_list need to be initiliazed 0
+</A></li>
+        <LI>Next message: <A HREF="001898.html">[OpenIMSCore-CSCF] 400 Bad Request
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1896">[ date ]</a>
+              <a href="thread.html#1896">[ thread ]</a>
+              <a href="subject.html#1896">[ subject ]</a>
+              <a href="author.html#1896">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi
+
+  This following issue related to 
+
+UE1 -&gt; p-cscf  --.....-&gt; UE2
+
+UE1 calls UE2, UE2 reply with 183 and 200 OK
+
+
+p-cscf got it in different process.
+
+
+e.g: 
+
+183 in process 1: send AAR to  PRCF and waiting
+
+200 in process 2, try to send AAR to PRCF.
+
+Now we got error:
+
+On the second process we got:
+
+ERR:auth_client_statefull_sm_process(): Received invalid event 1 while
+in 
+state Pending!
+
+( by the way: modules/cdp/authstatemachine.c around 200 it should
+auth_client_statefull_sm_process instead of
+auth_client_statefull_sm_process)
+
+After that no more invite/phone calls is possible, the peer state
+machine seems in a messy and eventually there is &quot;Too many open files&quot;,
+system crashed.
+
+
+should proc2 wait before proc1 get response or timeout?
+Or should there be any lock for AAASession? Or should AAASession be
+serialized for msg 183/200 ??? 
+    
+
+
+
+/////////////////////// some logs //////////////
+
+
+Dec 16 15:25:33 im1 /usr/sbin/ser[15940]: DEBUG:check_content_type: type
+&lt;application/sdp&gt; found valid
+Dec 16 15:25:33 im1 /usr/sbin/ser[15940]:
+PCC_add_media_component_description() : starting
+Dec 16 15:25:33 im1 /usr/sbin/ser[15940]: PCC_add_media_subcomponents()
+:<i> starting
+</I>Dec 16 15:25:33 im1 /usr/sbin/ser[15940]: PCC_add_media_subcomponents()
+:<i> ending
+</I>Dec 16 15:25:33 im1 /usr/sbin/ser[15940]:
+PCC_add_media_component_description() : about to end
+Dec 16 15:25:33 im1 /usr/sbin/ser[15940]:
+PCC_add_media_component_description() : bandwidths
+Dec 16 15:25:33 im1 /usr/sbin/ser[15940]:
+PCC_add_media_component_description() : RS RSS
+Dec 16 15:25:33 im1 /usr/sbin/ser[15940]:
+PCC_add_media_component_description() : media type and codec-data
+Dec 16 15:25:33 im1 /usr/sbin/ser[15940]: ADDING SUBSCRIPTION ID
+Dec 16 15:25:33 im1 /usr/sbin/ser[15940]: PCC_AAR() : sending AAR to
+PCRF
+Dec 16 15:25:33 im1 /usr/sbin/ser[15940]: DBG:sm_process(): Peer
+pcrf.xxxx.net ^IState R_Open ^IEvent Send_Message
+Dec 16 15:25:33 im1 /usr/sbin/ser[15940]: Snd_Message called to peer
+[pcrf.xxxx.net] for request with code 265
+Dec 16 15:25:33 im1 /usr/sbin/ser[15940]: calling get session with id
+pcscf.xxxx.net;1442005407;4 and hash 75
+Dec 16 15:25:33 im1 /usr/sbin/ser[15940]: looking for
+|<i>pcscf.xxxx.net;1442005407;4| in |pcscf.xxxx.net;1442005407;4|
+</I>Dec 16 15:25:33 im1 /usr/sbin/ser[15940]: There is a session of type 272
+Dec 16 15:25:33 im1 /usr/sbin/ser[15940]:
+ERR:auth_client_statefull_sm_process(): Received invalid event 1 while
+in state Pending!
+
+
+ec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:receive_loop(): [] Recv
+Version 1 Length 236
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:receive_message(): [] Recv
+msg 257
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:receive_message():
+[pcrf.xxxx.net] This receiver has no peer associated
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): Peer
+pcrf.xxxx.net ^IState R_Open ^IEvent R_Conn_CER
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: ERROR:select_recv(): Bad file
+descriptor
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: INFO:drop_serviced_peer():
+[pcrf.xxxx.net] Disconnecting from peer 
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: INFO:drop_serviced_peer():
+[pcrf.xxxx.net] Disconnecting from peer 
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): Peer
+pcrf.xxxx.net ^IState R_Open ^IEvent I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): In state
+R_Open invalid event I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: INFO:drop_serviced_peer():
+[pcrf.xxxx.net] Disconnecting from peer 
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): Peer
+pcrf.xxxx.net ^IState R_Open ^IEvent I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): In state
+R_Open invalid event I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: INFO:drop_serviced_peer():
+[pcrf.xxxx.net] Disconnecting from peer 
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): Peer
+pcrf.xxxx.net ^IState R_Open ^IEvent I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): In state
+R_Open invalid event I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: INFO:drop_serviced_peer():
+[pcrf.xxxx.net] Disconnecting from peer 
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): Peer
+pcrf.xxxx.net ^IState R_Open ^IEvent I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): In state
+R_Open invalid event I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: INFO:drop_serviced_peer():
+[pcrf.xxxx.net] Disconnecting from peer 
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): Peer
+pcrf.xxxx.net ^IState R_Open ^IEvent I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): In state
+R_Open invalid event I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: INFO:drop_serviced_peer():
+[pcrf.xxxx.net] Disconnecting from peer 
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): Peer
+pcrf.xxxx.net ^IState R_Open ^IEvent I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): In state
+R_Open invalid event I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: INFO:drop_serviced_peer():
+[pcrf.xxxx.net] Disconnecting from peer 
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): Peer
+pcrf.xxxx.net ^IState R_Open ^IEvent I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): In state
+R_Open invalid event I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: INFO:drop_serviced_peer():
+[pcrf.xxxx.net] Disconnecting from peer 
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): Peer
+pcrf.xxxx.net ^IState R_Open ^IEvent I_Peer_Disc
+Dec 16 15:54:47 im1 /usr/sbin/ser[15948]: DBG:sm_process(): In state
+R_Open invalid event I_Peer_Disc
+@
+
+16 23:44:48 im1 /usr/sbin/ser[15949]: DBG:accept_loop(): No connection
+attempts
+Dec 16 23:45:20 im1 last message repeated 16 times
+Dec 16 23:45:46 im1 last message repeated 13 times
+Dec 16 23:45:46 im1 /usr/sbin/ser[15949]: INFO:accept_connection(): new
+tcp connection accepted!
+Dec 16 23:45:46 im1 /usr/sbin/ser[15948]: DBG:select_recv(): There is
+something on the fd exchange pipe
+Dec 16 23:45:46 im1 /usr/sbin/ser[15948]: DBG:select_recv(): fd exchange
+pipe says fd [22] for peer (nil):[]
+Dec 16 23:45:46 im1 /usr/sbin/ser[15948]: INFO:add_serviced_peer():
+Adding serviced_peer_t to receiver for peer []
+Dec 16 23:45:46 im1 /usr/sbin/ser[15948]: ERROR:receiver_init(): FIFO
+open for write (keep-alive) failed &gt; Too many open files
+open files
+Dec 16 23:45:46 im1 /usr/sbin/ser[15937]: child process 15948 exited by
+a signal 11
+Dec 16 23:45:46 im1 /usr/sbin/ser[15937]: core was generated
+Dec 16 23:45:46 im1 /usr/sbin/ser[15937]: INFO: terminating due to
+SIGCHLD
+Dec 16 23:45:46 im1 /usr/sbin/ser[15965]: INFO: signal 15 received
+Dec 16 23:45:46 im1 /usr/sbin/ser[15964]: INFO: signal 15 received
+Dec 16 23:45:46 im1 /usr/sbin/ser[15943]: INFO: signal 15 received
+Dec 16 23:45:46 im1 /usr/sbin/ser[15949]: INFO: signal 15 received
+Dec 16 23:45:46 im1 /usr/sbin/ser[15949]: qm_sums (0x8144f60):
+PKG[cdp_acceptor]
+Dec 16 23:45:46 im1 /usr/sbin/ser[15965]: qm_sums (0x8144f60): PKG[tcp
+receiver child=0]
+Dec 16 23:45:46 im1 /usr/sbin/ser[15949]: summarizing all alloc'ed.
+fragments:
+Dec 16 23:45:46
+
+
+Kind Regards
+ 
+Min Wang
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001908.html">[OpenIMSCore-CSCF] pid_list need to be initiliazed 0
+</A></li>
+	<LI>Next message: <A HREF="001898.html">[OpenIMSCore-CSCF] 400 Bad Request
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1896">[ date ]</a>
+              <a href="thread.html#1896">[ thread ]</a>
+              <a href="subject.html#1896">[ subject ]</a>
+              <a href="author.html#1896">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

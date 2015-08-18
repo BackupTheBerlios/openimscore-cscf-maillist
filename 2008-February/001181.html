@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ERROR: slow timer too slow
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ERROR%3A%20slow%20timer%20too%20slow&In-Reply-To=%3Cf422dca90802121403l31ca4843qd7e7941e9585fa53%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001180.html">
+   <LINK REL="Next"  HREF="001192.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ERROR: slow timer too slow</H1>
+    <B>Nuno Ribeiro</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ERROR%3A%20slow%20timer%20too%20slow&In-Reply-To=%3Cf422dca90802121403l31ca4843qd7e7941e9585fa53%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] ERROR: slow timer too slow">nribeiro82 at gmail.com
+       </A><BR>
+    <I>Tue Feb 12 23:03:54 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001180.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r524 - Fixed CDiameterPeer AVP	Host-IP sent in CER/CEA for IPv6. Tested against	JavaDiameterPeer, which works without changes.
+</A></li>
+        <LI>Next message: <A HREF="001192.html">[OpenIMSCore-CSCF] ERROR: slow timer too slow
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1181">[ date ]</a>
+              <a href="thread.html#1181">[ thread ]</a>
+              <a href="subject.html#1181">[ subject ]</a>
+              <a href="author.html#1181">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos and all,
+
+We are trying to debug it as you  told us.
+The problem that we are facing in the moment is the following one:
+We have 15 processes (s-cscf) running when the ser_ims is running but in the
+log files when we kill them (using the stopser command) we only the log some
+of the processes- 6, 8 ( the number is not equal in each time). I send as
+annex two different logs (one when we finish of registering 200 users and a
+second one when this users made calls between them - note that I only sent
+the critical part that we are looking for).
+How can we see all the traces of all the processes? We need it in order to
+be possible to check the memory leaks.
+
+Thanks in advance,
+
+
+Nuno Ribeiro
+
+
+
+
+On Jan 15, 2008 6:55 PM, Dragos Vingarzan &lt;
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>&gt; wrote:
+
+&gt;<i> Hi Jose,
+</I>&gt;<i>
+</I>&gt;<i> ;-) use files for persistency.
+</I>&gt;<i>
+</I>&gt;<i> For debugging memory leaks, when you stop the CSCFs, first the usual
+</I>&gt;<i> memory free functions are called. I have tried in the IMS modules to
+</I>&gt;<i> free all the memory accounted at the module description. But then the
+</I>&gt;<i> rest of SER does not really do that. Our ser_ims frees though more than
+</I>&gt;<i> just the CVS SER, yet there is a lot of memory that is almost impossible
+</I>&gt;<i> to free as you don't really know what there is anymore so easily (if
+</I>&gt;<i> anybody has too much spare time and wants to help reduce residues,
+</I>&gt;<i> please do). The result is that you always will see lots of stuff still
+</I>&gt;<i> allocated on shutdown. Try to remember what is there always by checking
+</I>&gt;<i> one output without traffic/registered users. The *_sums functions will
+</I>&gt;<i> print out summarized info on each memory pool (one pkg per process + one
+</I>&gt;<i> shm global). Here is how an shm output looks like:
+</I>&gt;<i>
+</I>&gt;<i>  0(16273) -----------------------------
+</I>&gt;<i>  0(16273) qm_sums (0xb5a87000): PKG[0]/SHM
+</I>&gt;<i>  0(16273) summarizing all alloc'ed. fragments:
+</I>&gt;<i>  0(16273)  count=     1 size=         4 bytes from pt.c: init_pt(79)
+</I>&gt;<i>  0(16273)  count=     1 size=         4 bytes from pt.c: init_pt(74)
+</I>&gt;<i>  0(16273)  count=     1 size=         4 bytes from transaction.c:
+</I>&gt;<i> trans_init(78)
+</I>&gt;<i>  0(16273)  count=     1 size=        12 bytes from transaction.c:
+</I>&gt;<i> trans_init(71)
+</I>&gt;<i>  0(16273)  count=     1 size=        32 bytes from mod.c: isc_init(219)
+</I>&gt;<i>  0(16273)  count=     1 size=         4 bytes from mod.c: mod_init(689)
+</I>&gt;<i>  0(16273)  count=     4 size=       160 bytes from timer.c:
+</I>&gt;<i> register_timer(931)
+</I>&gt;<i>  0(16273)  count=     1 size=         4 bytes from mod.c: mod_init(521)
+</I>&gt;<i>  0(16273)  count=     1 size=         4 bytes from mod.c: mod_init(519)
+</I>&gt;<i>  0(16273)  count=     1 size=         4 bytes from usr_avp.c:
+</I>&gt;<i> init_avps(97)
+</I>&gt;<i>  0(16273)  count=     1 size=         4 bytes from usr_avp.c:
+</I>&gt;<i> init_avps(96)
+</I>&gt;<i>  0(16273)  count=     1 size=         4 bytes from mem/shm_mem.c:
+</I>&gt;<i> shm_mem_init_mallocs(195)
+</I>&gt;<i>  0(16273)  count=    15 size=       240 bytes in total
+</I>&gt;<i>  0(16273) -----------------------------
+</I>&gt;<i>
+</I>&gt;<i> you have the count, total size in bytes and place of alloc. It's easier
+</I>&gt;<i> if you cut down on the number of processes as you will have less table
+</I>&gt;<i> to look through.
+</I>&gt;<i>
+</I>&gt;<i> Then try and do a full scenario including de-registration so that you
+</I>&gt;<i> bring your CSCF to as much as the initial state as possible (let it also
+</I>&gt;<i> run empty for a while to drop all transactions) and then compare with
+</I>&gt;<i> the new outputs.
+</I>&gt;<i>
+</I>&gt;<i> What I usually do is run the scenario for something like 1000 times. The
+</I>&gt;<i> easier leaks show be easier to spot then with a count of k*1000 (for
+</I>&gt;<i> shm... for pkg it's all split over the processes).
+</I>&gt;<i>
+</I>&gt;<i> I also use something like 10 users and then run the scenario for a long
+</I>&gt;<i> time. If you stop it in the middle of things, just look over it and you
+</I>&gt;<i> should spot the things that should not be allocated anymore.
+</I>&gt;<i>
+</I>&gt;<i> At the beginning it is a little hard and you will have a lot of false
+</I>&gt;<i> ones, but after a time you don't see the code anymore ;-) (hope you took
+</I>&gt;<i> the red pill though).
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Carlos Amorim wrote:
+</I>&gt;<i> &gt; Hi Dragos,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; You where right about the timers, the problem was because my S-CSCF was
+</I>&gt;<i> taking to long to insert in the snapshot table, when we have allot of
+</I>&gt;<i> registered users it starts becoming to slow inserting into the DB(we will
+</I>&gt;<i> try to put some effort to optimize this).
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Now I started doing some long run tests and I noticed that the S-CSF
+</I>&gt;<i> after 200 thousand calls with 10 thousand registered users got an error
+</I>&gt;<i> indicating that there was no more memory. The test consisted on 2 calls per
+</I>&gt;<i> second with the duration of 5 seconds and I used revision 502.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Are there any known memory leaks with the S-CSCF up to this revision?
+</I>&gt;<i> Also is there any document indicating how to interpret the memory dump so I
+</I>&gt;<i> could try to debug the problem?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Best Regards,
+</I>&gt;<i> &gt; Jos&#233; Carlos Silva
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; -----Mensagem original-----
+</I>&gt;<i> &gt; De: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]
+</I>&gt;<i> &gt; Enviada: quinta-feira, 10 de Janeiro de 2008 17:20
+</I>&gt;<i> &gt; Para: Jos&#233; Carlos Amorim
+</I>&gt;<i> &gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; Assunto: Re: [OpenIMSCore-CSCF] ERROR: slow timer too slow
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; you have put too much load on it and that warning is noticing you that
+</I>&gt;<i> &gt; the operations that normally happen on timer registered events (like the
+</I>&gt;<i> &gt; dialog/user checks for expiration) take too long. In fact so long that
+</I>&gt;<i> &gt; they can not be executed until the next timer hits. try and relax the
+</I>&gt;<i> &gt; timers a little - if not configurable, some timers can be changed from
+</I>&gt;<i> &gt; the modules/*cscf/mod.c in the mod_init() lines that assign them.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; -Dragos
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Jos&#233; Carlos Amorim wrote:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; Hi,
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; I was doing some tests with OpenIMSCore revision 502 and encountered
+</I>&gt;<i> &gt;&gt; an error saying &quot;ERROR: slow timer too slow: overflow...&quot;, I have no
+</I>&gt;<i> &gt;&gt; clue what it means, does anybody have any idea what this means.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Best Regards,
+</I>&gt;<i> &gt;&gt; Jos&#233; Carlos Silva
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>
+
+
+-- 
+Nuno Ribeiro
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080212/997111d1/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080212/997111d1/attachment.html</A>&gt;
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: scscf_reg_100users.txt
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080212/997111d1/attachment.txt">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080212/997111d1/attachment.txt</A>&gt;
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: scscf_chamadas_100.txt
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080212/997111d1/attachment-0001.txt">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080212/997111d1/attachment-0001.txt</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001180.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r524 - Fixed CDiameterPeer AVP	Host-IP sent in CER/CEA for IPv6. Tested against	JavaDiameterPeer, which works without changes.
+</A></li>
+	<LI>Next message: <A HREF="001192.html">[OpenIMSCore-CSCF] ERROR: slow timer too slow
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1181">[ date ]</a>
+              <a href="thread.html#1181">[ thread ]</a>
+              <a href="subject.html#1181">[ subject ]</a>
+              <a href="author.html#1181">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

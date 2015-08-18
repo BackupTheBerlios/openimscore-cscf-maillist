@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] BUG in REGISTER message trigger point handling
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20BUG%20in%20REGISTER%20message%20trigger%20point%20handling&In-Reply-To=%3C598c7fdf0803280622h1f03d4e0lbaf5fa0abaf9859e%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001267.html">
+   <LINK REL="Next"  HREF="001270.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] BUG in REGISTER message trigger point handling</H1>
+    <B>Vladimir Romanov</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20BUG%20in%20REGISTER%20message%20trigger%20point%20handling&In-Reply-To=%3C598c7fdf0803280622h1f03d4e0lbaf5fa0abaf9859e%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] BUG in REGISTER message trigger point handling">vromanov at gmail.com
+       </A><BR>
+    <I>Fri Mar 28 14:22:41 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001267.html">[OpenIMSCore-CSCF] 08_cdp_sessions AVP problems
+</A></li>
+        <LI>Next message: <A HREF="001270.html">[OpenIMSCore-CSCF] BUG in REGISTER message trigger point	handling
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1268">[ date ]</a>
+              <a href="thread.html#1268">[ thread ]</a>
+              <a href="subject.html#1268">[ subject ]</a>
+              <a href="author.html#1268">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi All!
+I found problem in REGISTER trigger point. Even if I register new user
+isc_is_registered always return true. As result registration_type
+never get value of IFC_INITIAL_REGISTRATION. At this time i don't have
+ideas how to fix this problem fast.
+
+isc_match* isc_checker_find(str uri,char direction,int skip,struct sip_msg *msg)
+{
+......
+    registered = isc_is_registered(&amp;uri);
+    expires = isc_get_expires(msg);
+    if (!registered) registration_type = IFC_INITIAL_REGISTRATION;
+    else if (expires&gt;0) registration_type = IFC_RE_REGISTRATION;
+         else registration_type = IFC_DE_REGISTRATION;
+....
+
+-- 
+Vladimir Romanov
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001267.html">[OpenIMSCore-CSCF] 08_cdp_sessions AVP problems
+</A></li>
+	<LI>Next message: <A HREF="001270.html">[OpenIMSCore-CSCF] BUG in REGISTER message trigger point	handling
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1268">[ date ]</a>
+              <a href="thread.html#1268">[ thread ]</a>
+              <a href="subject.html#1268">[ subject ]</a>
+              <a href="author.html#1268">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] registration procedure at P-CSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20registration%20procedure%20at%20P-CSCF&In-Reply-To=%3C006a01c94e2f%249bc9c190%244a29a8c0%40LocalHost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001530.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] registration procedure at P-CSCF</H1>
+    <B>&#52572;&#54788;&#44397;</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20registration%20procedure%20at%20P-CSCF&In-Reply-To=%3C006a01c94e2f%249bc9c190%244a29a8c0%40LocalHost%3E"
+       TITLE="[OpenIMSCore-CSCF] registration procedure at P-CSCF">hkchoi at xener.com
+       </A><BR>
+    <I>Mon Nov 24 13:24:29 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001530.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r604 - Fixed the use of barred	IMPUs - a flag per r_public has been introduced - a barred	identity is saved fully, just like normal one,	including the contacts. 24.229 says that the contacts should not be	saved,	but then how can one tell when it is expired? - P-Associated-URI may	be empty now if the only identity in the implicit set is	barred - this is OK according to RFC3455
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1531">[ date ]</a>
+              <a href="thread.html#1531">[ thread ]</a>
+              <a href="subject.html#1531">[ subject ]</a>
+              <a href="author.html#1531">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+I&#8217;m studying P-CSCF role with OpenIMSCore source and have the following
+question.
+
+When Open IMS P-CSCF receives 200 OK response to REGISTER, It manages all
+contacts in the response.
+
+(You can refer to this page (update_contacts function at
+<A HREF="http://www.openimscore.org/docs/ser_ims/pcscf_2registrar_8c.html#bfcaa2cb5ed">http://www.openimscore.org/docs/ser_ims/pcscf_2registrar_8c.html#bfcaa2cb5ed</A>
+e9ea0f9e0002324b25875
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/pcscf_2registrar_8c.html#684a72863f">http://www.openimscore.org/docs/ser_ims/pcscf_2registrar_8c.html#684a72863f</A>
+cd2757623299315fecb081)&gt; ))
+
+I think P-CSCF needs to manage only the contact in the REGISTER request not
+all contacts in the 200 OK response.
+
+I don&#8217;t know the purpose that P-CSCF does so.
+
+ 
+
+Thanks in advance.
+
+ 
+
+Choi.
+
+ 
+
+ 
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20081124/fcf99387/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20081124/fcf99387/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001530.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r604 - Fixed the use of barred	IMPUs - a flag per r_public has been introduced - a barred	identity is saved fully, just like normal one,	including the contacts. 24.229 says that the contacts should not be	saved,	but then how can one tell when it is expired? - P-Associated-URI may	be empty now if the only identity in the implicit set is	barred - this is OK according to RFC3455
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1531">[ date ]</a>
+              <a href="thread.html#1531">[ thread ]</a>
+              <a href="subject.html#1531">[ subject ]</a>
+              <a href="author.html#1531">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

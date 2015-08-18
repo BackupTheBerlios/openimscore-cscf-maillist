@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] INVITE not forwarded by S-CSCF in case of AS-proxy
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20INVITE%20not%20forwarded%20by%20S-CSCF%20in%20case%20of%0A%20AS-proxy&In-Reply-To=%3C46FA8312.4030601%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000961.html">
+   <LINK REL="Next"  HREF="000965.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] INVITE not forwarded by S-CSCF in case of AS-proxy</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20INVITE%20not%20forwarded%20by%20S-CSCF%20in%20case%20of%0A%20AS-proxy&In-Reply-To=%3C46FA8312.4030601%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] INVITE not forwarded by S-CSCF in case of AS-proxy">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Sep 26 18:04:34 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000961.html">[OpenIMSCore-CSCF] SCSCF crash on PPR
+</A></li>
+        <LI>Next message: <A HREF="000965.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r451 - Fixed infinite loop in	Cx_RTA when public identity AVP was last.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#964">[ date ]</a>
+              <a href="thread.html#964">[ thread ]</a>
+              <a href="subject.html#964">[ subject ]</a>
+              <a href="author.html#964">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Franz,
+
+This was also discovered by Marius Patea it seems. A fix has been
+committed in r449 - actually it is exactly what you have also suggested.
+
+I think that the new RR is OK... The dialog path would the be
+UE-Porig-Sorig-AS-Sorig-...
+
+The first dialog completes very nicely in your trace.
+
+But then, the last BYE in your trace comes from another transaction... I
+can't identify it in the trace... is it some B2B issue there? Strange
+why the AS sends it after it has seen the first BYE and responded.
+
+Cheers,
+-Dragos
+
+Franz Edler wrote:
+&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i> I have made some tests with an Application Server (Micromethod) acting as a
+</I>&gt;<i> simple loose routing Proxy. Thereby I got a problem within function
+</I>&gt;<i> S_save_dialog. The INVITE request which is returned from the AS leads to the
+</I>&gt;<i> S-CSCF debug-log below:
+</I>&gt;<i>
+</I>&gt;<i> 	INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+</I>&gt;<i> message                                  
+</I>&gt;<i> 	INFO:ISC:isc_mark_get_from_msg: Found
+</I>&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.net1.test</A>:6060;d=0;s=1;lr;h=1&gt;                  
+</I>&gt;<i> 	INFO:ISC:ISC_from_AS(orig): Message returned s=1;h=1;d=0
+</I>&gt;<i>
+</I>&gt;<i> 	&gt;&gt;       Orig
+</I>&gt;<i>
+</I>&gt;<i> 	DBG:S-CSCF:S_save_dialog(orig): Call-ID &lt;call1///<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-2151 at 192.168.0.7</A>&gt;
+</I>&gt;<i>
+</I>&gt;<i> 	ERR:S-CSCF:S_save_dialog: dialog already exists!
+</I>&gt;<i>
+</I>&gt;<i> The statement &quot;S_save_dialog: dialog already exists!&quot; seems to be correct,
+</I>&gt;<i> because the AS does not modify the dialog, but the problem is that the
+</I>&gt;<i> INVITE is not forwarded by S-CSCF in this case. 
+</I>&gt;<i>
+</I>&gt;<i> Looking into the code of dlg_state.c I see in this case the return parameter
+</I>&gt;<i> &quot;CSCF_RETURN_BREAK&quot; which obviously leads to not continuing the scscf.cfg
+</I>&gt;<i> script and eventually forwarding the INVITE from the AS. I changed as a
+</I>&gt;<i> quick fix the return parameter value to &quot;CSCF_RETURN_TRUE&quot; and now the
+</I>&gt;<i> dialog handling seems to work, but the fix is obviously too quick. S-CSCF
+</I>&gt;<i> now inserts an additional Record-Route header field
+</I>&gt;<i> (&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at scscf.net1.test</A>:6060;lr&gt;).
+</I>&gt;<i>
+</I>&gt;<i> I have attached the wireshark pcap-trace and SIP-scenario-files from both
+</I>&gt;<i> cases:
+</I>&gt;<i> - osi43312.zip	the case where INVITE is not forwarded by S-CSCF
+</I>&gt;<i> - osi43313.zip	the quick fix scenario
+</I>&gt;<i>
+</I>&gt;<i> Any comments on my findings?
+</I>&gt;<i>
+</I>&gt;<i> cheers
+</I>&gt;<i> Franz
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000961.html">[OpenIMSCore-CSCF] SCSCF crash on PPR
+</A></li>
+	<LI>Next message: <A HREF="000965.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r451 - Fixed infinite loop in	Cx_RTA when public identity AVP was last.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#964">[ date ]</a>
+              <a href="thread.html#964">[ thread ]</a>
+              <a href="subject.html#964">[ subject ]</a>
+              <a href="author.html#964">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

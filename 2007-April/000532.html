@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] scscf-crash at Re-REGISTER (r254)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20scscf-crash%20at%20Re-REGISTER%20%28r254%29&In-Reply-To=%3C001201c787c6%249f5f8460%240200a8c0%40notebookFE%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000531.html">
+   <LINK REL="Next"  HREF="000533.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] scscf-crash at Re-REGISTER (r254)</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20scscf-crash%20at%20Re-REGISTER%20%28r254%29&In-Reply-To=%3C001201c787c6%249f5f8460%240200a8c0%40notebookFE%3E"
+       TITLE="[OpenIMSCore-CSCF] scscf-crash at Re-REGISTER (r254)">franz.edler at inode.at
+       </A><BR>
+    <I>Thu Apr 26 07:49:10 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000531.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r254 - Commited safety patch for	cdp module provided by Marius Patea.
+</A></li>
+        <LI>Next message: <A HREF="000533.html">[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS	Identity not registered
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#532">[ date ]</a>
+              <a href="thread.html#532">[ thread ]</a>
+              <a href="subject.html#532">[ subject ]</a>
+              <a href="author.html#532">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+
+I just installed a fresh copy of OpenIMSCore (revision 254) and made first
+tests. Thereby I always got a crash when I re-registerd bob in my SIPp
+scenario. This is reproducible.
+
+Please find below the scscf-log and attached the pcap-file + scenario-trace.
+
+cheers
+franz
+
+
+5(2055) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(2055) INF:S-CSCF:[  24] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at net2.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; 
+ 5(2055) INF:S-CSCF:         CCF1: &lt;prim_chrg&gt; CCF2: &lt;sec_chrg&gt; 
+ 5(2055) INF:S-CSCF:         ECF1: &lt;pri_event&gt; ECF2: &lt;sec_event&gt; 
+ 5(2055) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 192.168.0.11</A>:3061&gt; Exp:[3463]
+ 5(2055) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.net2.test</A>:4060;lr&gt;
+ 5(2055) INF:S-CSCF:           UA: &lt;Sipp v1.1-TLS, version 20061124&gt;
+ 5(2055) INF:S-CSCF:         S: Event[0] Exp:[3495]
+&lt;sip:pcscf.net2.test:4060&gt; 
+ 5(2055) INF:S-CSCF:[ 171] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at net2.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; 
+ 5(2055) INF:S-CSCF:         CCF1: &lt;prim_chrg&gt; CCF2: &lt;sec_chrg&gt; 
+ 5(2055) INF:S-CSCF:         ECF1: &lt;pri_event&gt; ECF2: &lt;sec_event&gt; 
+ 5(2055) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 192.168.0.11</A>:3062&gt; Exp:[3472]
+ 5(2055) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.net2.test</A>:4060;lr&gt;
+ 5(2055) INF:S-CSCF:           UA: &lt;Sipp v1.1-TLS, version 20061124&gt;
+ 5(2055) INF:S-CSCF:         S: Event[0] Exp:[3505]
+&lt;sip:pcscf.net2.test:4060&gt; 
+ 5(2055) INF:S-CSCF:----------  Registrar Contents end ----------
+12(2062) --- Peer List: ---
+12(2062)  S[I_Open] hss.net2.test:3868 D[ ]
+12(2062) ------------------
+18(2068) DBG:sm_process(): Peer hss.net2.test State I_Open Event
+I_Rcv_Message
+ 4(2054) DBG:S-CSCF:S_is_authorized: UE said:
+59035466cc9031d0ae1fcbd5e351795d and we  expect
+59035466cc9031d0ae1fcbd5e351795d ha1 3b6c74c3ec0f3ebbc0375d21c2c714af
+ 4(2054) INFO:ISC:ISC_match_filter_reg(): Checking triggers
+ 4(2054) INFO:ISC:ISC_match_filter_reg(): Starting triggering
+ 4(2054) INFO:ISC:ISC_match_filter_reg(): Orig User &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at net2.test</A>&gt; [1]
+ 4(2054) INFO:ISC:isc_checker_find: starting search
+ 4(2054) INFO:ISC:ISC_match_filter_reg(): No REGISTER match found in filter
+criteria
+18(2068) DBG:sm_process(): Peer hss.net2.test State I_Open Event
+I_Rcv_Message
+ 4(2054) ERR:S-CSCF:new_r_public(): Unable to alloc -1212354322 bytes
+ 3(2053) Trans already in processing... skip
+17(2067) ERROR: receive_fd: EOF on 9
+ 0(2050) child process 2054 exited by a signal 11
+ 0(2050) core was generated
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: scscf_crash.zip
+Type: application/x-zip-compressed
+Size: 17410 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070426/86238123/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070426/86238123/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000531.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r254 - Commited safety patch for	cdp module provided by Marius Patea.
+</A></li>
+	<LI>Next message: <A HREF="000533.html">[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS	Identity not registered
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#532">[ date ]</a>
+              <a href="thread.html#532">[ thread ]</a>
+              <a href="subject.html#532">[ subject ]</a>
+              <a href="author.html#532">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

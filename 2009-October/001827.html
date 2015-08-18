@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] open-ims.test could be resolved
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20open-ims.test%20could%20be%20resolved&In-Reply-To=%3C86485aee0910310551xa74463ei132be5c4db2673e5%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001826.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] open-ims.test could be resolved</H1>
+    <B>rivaldo guedes corr&#234;a j&#250;nior</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20open-ims.test%20could%20be%20resolved&In-Reply-To=%3C86485aee0910310551xa74463ei132be5c4db2673e5%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] open-ims.test could be resolved">rivaldo.correa at ig.com.br
+       </A><BR>
+    <I>Sat Oct 31 13:51:57 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001826.html">[OpenIMSCore-CSCF] problem to start CSCFs
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1827">[ date ]</a>
+              <a href="thread.html#1827">[ thread ]</a>
+              <a href="subject.html#1827">[ subject ]</a>
+              <a href="author.html#1827">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all
+
+I'm user Open Source IMS Core on Ubuntu Jaunty 9.04 kernel 2.6.28.16
+I have configured the DNS (Bind) Server according to installation guide but
+after start the Core Components the domain &quot;open-ims.test&quot; can be resolved
+and the S-csfc and I-cscsf can't connect to HSS.
+I checked the config files with the files that are running in &quot;IMS in a
+Bottle&quot; in other machine, but I didn't find the problem.
+
+*Messages:*
+HSS:
+2009-10-31 10:34:14,762 ERROR
+de.fhg.fokus.diameter.DiameterPeer.peer.StateMachine - I_Snd_Conn_Req
+StateMachine: Peer icscf.open-ims.test cannot be resolved.
+2009-10-31 10:34:35,778 ERROR
+de.fhg.fokus.diameter.DiameterPeer.peer.StateMachine - I_Snd_Conn_Req
+StateMachine: Peer scscf.open-ims.test cannot be resolved.
+I-CSCF and S-CSCF:
+14(4382) WARNING:peer_connect(): Error opening connection to
+hss.open-ims.test:3868 &gt;No address associated with hostname
+14(4382) --- Peer List: ---
+14(4382)  S[Closed] hss.open-ims.test:3868 D[ ]
+
+
+*My DNS config are:*
+*named.conf in chroot/named/etc:*
+options {
+   directory       &quot;/conf&quot;;
+   pid-file        &quot;/var/run/named.pid&quot;;
+   statistics-file &quot;/var/run/named.stats&quot;;
+   dump-file       &quot;/var/run/named.db&quot;;
+
+   # hide our &quot;real&quot; version number
+   version         &quot;[secured]&quot;;
+};
+
+listen-on-v6 { ;;; };
+liste-on { 127.0.0.1; 0.0.0.0 };
+
+# The root nameservers
+zone &quot;.&quot; IN {
+   type   hint;
+   file   &quot;chroot/named/conf/db.rootcache&quot;;
+};
+
+# localhost - forward zone
+zone   &quot;localhost&quot; IN {
+   type    master;
+   file   &quot;chroot/named/conf/db.localhost&quot;;
+   notify  no;
+};
+
+# localhost - inverse zone
+zone    &quot;0.0.127.in-addr.arpa&quot; IN {
+   type   master;
+   file   &quot;chroot/named/conf/db.127.0.0&quot;;
+   notify no;
+};
+
+# IMS Zone
+zone &quot;open-ims.test&quot; IN {
+    type master;
+    file &quot;chroot/named/etc/open-ims.dnszone&quot;;
+    allow-update {none; };
+    notify no;
+};
+
+*open-ims.dnszone in /chroot/named/etc:*
+$ORIGIN open-ims.test.
+$TTL 1W
+@                       1D IN SOA       localhost. root.localhost. (
+                                        2006101001      ; serial
+                                        3H              ; refresh
+                                        15M             ; retry
+                                        1W              ; expiry
+                                        1D )            ; minimum
+
+                        1D IN NS        ns
+ns                      1D IN A         127.0.0.1
+
+pcscf                   1D IN A         127.0.0.1
+_sip.pcscf              1D SRV 0 0 4060 pcscf
+_sip._udp.pcscf         1D SRV 0 0 4060 pcscf
+_sip._tcp.pcscf         1D SRV 0 0 4060 pcscf
+
+
+icscf                   1D IN A         127.0.0.1
+_sip                    1D SRV 0 0 5060 icscf
+_sip._udp               1D SRV 0 0 5060 icscf
+_sip._tcp               1D SRV 0 0 5060 icscf
+
+open-ims.test.          1D IN A         127.0.0.1
+open-ims.test.          1D IN NAPTR 10 50 &quot;s&quot; &quot;SIP+D2U&quot;    &quot;&quot;
+_sip._udp.open-ims.test
+open-ims.test.          1D IN NAPTR 20 50 &quot;s&quot; &quot;SIP+D2T&quot;    &quot;&quot;
+_sip._tcp.open-ims.test
+
+
+scscf                   1D IN A         127.0.0.1
+_sip.scscf              1D SRV 0 0 6060 scscf
+_sip._udp.scscf         1D SRV 0 0 6060 scscf
+_sip._tcp.scscf         1D SRV 0 0 6060 scscf
+
+
+trcf                    1D IN A         127.0.0.1
+_sip.trcf               1D SRV 0 0 3060 trcf
+_sip._udp.trcf          1D SRV 0 0 3060 trcf
+_sip._tcp.trcf          1D SRV 0 0 3060 trcf
+
+
+bgcf                    1D IN A         127.0.0.1
+_sip.bgcf               1D SRV 0 0 7060 bgcf
+_sip._udp.bgcf          1D SRV 0 0 7060 bgcf
+_sip._tcp.bgcf          1D SRV 0 0 7060 bgcf
+
+
+mgcf                    1D IN A         127.0.0.1
+_sip.mgcf               1D SRV 0 0 8060 mgcf
+_sip._udp.mgcf          1D SRV 0 0 8060 mgcf
+_sip._tcp.mgcf          1D SRV 0 0 8060 mgcf
+
+
+hss                     1D IN A         127.0.0.1
+
+ue                      1D IN A         127.0.0.1
+
+presence                1D IN A         127.0.0.1
+
+pcrf                    1D IN A            127.0.0.1
+clf                    1D IN A            127.0.0.1
+
+*resolv.conf in /etc:*
+# Generated by NetworkManager
+nameserver 192.168.1.1 (my gateway for wlan0)
+nameserver 127.0.0.1
+
+*hosts in /etc:*
+127.0.0.1    localhost
+127.0.1.1    open-ims.test    open-ims
+192.168.1.34    desktop.open-ims.test desktop
+# The following lines are desirable for IPv6 capable hosts
+::<i>1     localhost ip6-localhost ip6-loopback
+</I>fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhost
+
+Someone could help me?
+
+Thanks
+Rivaldo
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20091031/fd4a6cb9/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20091031/fd4a6cb9/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001826.html">[OpenIMSCore-CSCF] problem to start CSCFs
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1827">[ date ]</a>
+              <a href="thread.html#1827">[ thread ]</a>
+              <a href="subject.html#1827">[ subject ]</a>
+              <a href="author.html#1827">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Modified%20Invite%20coming%20back%20from%20TAS%20not%0A%20recognized%20as%20different%20%28Call%20Forwarding%20on%20Busy%29&In-Reply-To=%3C48BD82EF.6040903%40alcatel-lucent.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001482.html">
+   <LINK REL="Next"  HREF="001481.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)</H1>
+    <B>Dick Gooris</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Modified%20Invite%20coming%20back%20from%20TAS%20not%0A%20recognized%20as%20different%20%28Call%20Forwarding%20on%20Busy%29&In-Reply-To=%3C48BD82EF.6040903%40alcatel-lucent.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)">gooris at alcatel-lucent.com
+       </A><BR>
+    <I>Tue Sep  2 20:16:15 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001482.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+        <LI>Next message: <A HREF="001481.html">[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1475">[ date ]</a>
+              <a href="thread.html#1475">[ thread ]</a>
+              <a href="subject.html#1475">[ subject ]</a>
+              <a href="author.html#1475">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Enrique,
+
+Have you been able to add the functionality as you suggested. In case 
+you want us to test the new functionality (e.g. as a separate non 
+official patch), then let me know.
+
+Many thanks in advance and kind regards,
+
+    - Dick Gooris
+
+
+Hi,
+
+&gt;<i> - then this 486 goes back, via the S-CSCF to the TAS
+</I>&gt;<i> - and this TAS sends basically the same Invite back again, but now with
+</I>&gt;<i> the R-URI of subscriber 2695, and a 181 back to the originating party to
+</I>&gt;<i> indicate call forwarding is ongoing.
+</I>
+I'm trying to make a patch to solve this. Scscf should detect that RURI
+in a INVITE Request back from an AS (ISC dialog) has changed and then
+re-send this INVITE Request to the new destination (without checking if
+the new RURI is registered or so on...and acting almost as a new call).
+
+This is the thread in the list (subjetc is a little bit confussing):
+<A HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-March/001697.html">http://lists.berlios.de/pipermail/openimscore-cscf/2008-March/001697.html</A>
+
+and what I try to implement is the redirection showed in  the book &quot;3G
+IP Multimedia Subsystem IMS&quot; with OpenIMScore. In chapter 5.8.
+&quot;Application Servers: providing services to users&quot; there is &quot;An example
+of service execution&quot;.
+
+Regards,
+
+Enrique
+
+
+&gt;<i> From: Dick Gooris &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">gooris at alcatel-lucent.com</A>&gt;
+</I>&gt;<i> Date: Fri, 25 Jul 2008 15:19:41 +0200
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> CC: &quot;Gooris, D A (Dick Gooris.)&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">gooris at alcatel-lucent.com</A>&gt;
+</I>&gt;<i>
+</I>&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i> When attaching a TAS to the OpenImsCore, I have the scenario that a 
+</I>&gt;<i> call gets forwarded due to a Busy number.
+</I>&gt;<i> The Invite that addresses the new number is received by the s-cscf, 
+</I>&gt;<i> but not treated in such way it actually sends it to the
+</I>&gt;<i> alternative subscriber.  The s-cscf log says 'Trans already in 
+</I>&gt;<i> processing... skip', so it apparently cannot distinguish it as a new call.
+</I>&gt;<i> The result is that the call forwarding does not take place.
+</I>&gt;<i>
+</I>&gt;<i> The Tas is based on a stateless proxy, and therefore does not deal 
+</I>&gt;<i> with any alterations in the call-id's, tags, etc.
+</I>&gt;<i>
+</I>&gt;<i>   Attached the call-trace for wireshark. This ends with the new Invite.
+</I>&gt;<i>      ( please set your preferences--&gt;protocols--&gt;ip--&gt;reassemble fragmented ip datagrams to OFF )
+</I>&gt;<i>
+</I>&gt;<i>   Attached a one-page .png diagram of the call scenario illustrating 
+</I>&gt;<i> the issue including addresses, numbers, ifc's etc..
+</I>&gt;<i>
+</I>&gt;<i>   Attached the relevant piece of the s-cscf logfile that ends with the 'skip'.*
+</I>&gt;<i>
+</I>&gt;<i> *I would assume that the s-cscf can distinguish the new call due to 
+</I>&gt;<i> its new request uri. How should this work ?
+</I>&gt;<i>
+</I>&gt;<i> The software version of OpenIMSCore is of end of April.
+</I>&gt;<i>
+</I>&gt;<i> Thanks in advance, and kind regards,
+</I>&gt;<i>
+</I>&gt;<i>        - Dick Gooris
+</I>&gt;<i>     
+</I>&gt;<i>    
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i>------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> SIP Request:
+</I>&gt;<i>  method:  &lt;INVITE&gt;
+</I>&gt;<i>  uri:     &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">+31356872695 at ims.xcsl.nl</A>&gt;
+</I>&gt;<i>  version: &lt;SIP/2.0&gt;
+</I>&gt;<i> parse_headers: flags=2
+</I>&gt;<i> Found param type 232, &lt;branch&gt; = &lt;z9hG4bK_xtastermunreg&gt;; state=16
+</I>&gt;<i> end of header reached, state=5
+</I>&gt;<i> parse_headers: Via found, flags=2
+</I>&gt;<i> parse_headers: this is the first via
+</I>&gt;<i> After parse_msg...
+</I>&gt;<i> preparing to run routing scripts...
+</I>&gt;<i> parse_headers: flags=100
+</I>&gt;<i> Found param type 232, &lt;branch&gt; = &lt;z9hG4bKadd8.0c576366.0&gt;; state=16
+</I>&gt;<i> end of header reached, state=5
+</I>&gt;<i> parse_headers: Via found, flags=100
+</I>&gt;<i> parse_headers: this is the second via
+</I>&gt;<i> Found param type 232, &lt;branch&gt; = &lt;z9hG4bK_xtastermreg&gt;; state=16
+</I>&gt;<i> end of header reached, state=5
+</I>&gt;<i> parse_headers: Via found, flags=100
+</I>&gt;<i> Found param type 232, &lt;branch&gt; = &lt;z9hG4bKadd8.fb576366.0&gt;; state=16
+</I>&gt;<i> end of header reached, state=5
+</I>&gt;<i> parse_headers: Via found, flags=100
+</I>&gt;<i> Found param type 232, &lt;branch&gt; = &lt;z9hG4bKadd8.eb576366.0&gt;; state=16
+</I>&gt;<i> end of header reached, state=5
+</I>&gt;<i> parse_headers: Via found, flags=100
+</I>&gt;<i> Found param type 232, &lt;branch&gt; = &lt;z9hG4bK_xtasorig&gt;; state=16
+</I>&gt;<i> end of header reached, state=5
+</I>&gt;<i> parse_headers: Via found, flags=100
+</I>&gt;<i> Found param type 232, &lt;branch&gt; = &lt;z9hG4bKadd8.db576366.0&gt;; state=16
+</I>&gt;<i> end of header reached, state=5
+</I>&gt;<i> parse_headers: Via found, flags=100
+</I>&gt;<i> Found param type 232, &lt;branch&gt; = &lt;z9hG4bKadd8.bacafe57.0&gt;; state=16
+</I>&gt;<i> end of header reached, state=5
+</I>&gt;<i> parse_headers: Via found, flags=100
+</I>&gt;<i> Found param type 232, &lt;branch&gt; = &lt;z9hG4bKdf527765a&gt;; state=6
+</I>&gt;<i> Found param type 235, &lt;rport&gt; = &lt;3060&gt;; state=16
+</I>&gt;<i> end of header reached, state=5
+</I>&gt;<i> parse_headers: Via found, flags=100
+</I>&gt;<i> end of header reached, state=9
+</I>&gt;<i> DEBUG: get_hdr_field: &lt;To&gt; [24]; uri=[sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">2696 at ims.xcsl.nl</A>] 
+</I>&gt;<i> DEBUG: to body [&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">2696 at ims.xcsl.nl</A>&gt;]
+</I>&gt;<i> DEBUG:maxfwd:is_maxfwd_present: value = 9 
+</I>&gt;<i> Calling SELECT 0x819f294 
+</I>&gt;<i> parse_headers: flags=ffffffffffffffff
+</I>&gt;<i> get_hdr_field: cseq &lt;CSeq&gt;: &lt;8&gt; &lt;INVITE&gt;
+</I>&gt;<i> DEBUG: get_hdr_body : content_length=176
+</I>&gt;<i> found end of header
+</I>&gt;<i> DEBUG: t_check: msg id=19 global id=18 T start=0xffffffff
+</I>&gt;<i> parse_headers: flags=ffffffffffffffff
+</I>&gt;<i> DEBUG: add_param: tag=xg924c591e
+</I>&gt;<i> end of header reached, state=29
+</I>&gt;<i> parse_headers: flags=78
+</I>&gt;<i> t_lookup_request: start searching: hash=36314, isACK=0
+</I>&gt;<i> DEBUG: RFC3261 transaction matched, tid=_xtastermunreg
+</I>&gt;<i> DEBUG: t_lookup_request: transaction found (T=0xb5d2751c)
+</I>&gt;<i> DEBUG: t_check: msg id=19 global id=19 T end=0xb5d2751c
+</I>&gt;<i> Trans already in processing... skip                        &lt;&lt;&lt;===------  
+</I>&gt;<i> DEBUG:destroy_avp_list: destroying list (nil)
+</I>&gt;<i> DEBUG:destroy_avp_list: destroying list (nil)
+</I>&gt;<i> DEBUG:destroy_avp_list: destroying list (nil)
+</I>&gt;<i> DEBUG:destroy_avp_list: destroying list (nil)
+</I>&gt;<i> DEBUG:destroy_avp_list: destroying list (nil)
+</I>&gt;<i> DEBUG:destroy_avp_list: destroying list (nil)
+</I>&gt;<i> receive_msg: cleaning up
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001482.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+	<LI>Next message: <A HREF="001481.html">[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1475">[ date ]</a>
+              <a href="thread.html#1475">[ thread ]</a>
+              <a href="subject.html#1475">[ subject ]</a>
+              <a href="author.html#1475">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

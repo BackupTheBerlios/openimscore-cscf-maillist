@@ -1,0 +1,396 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] scscf resolving error for presence server	address localhost:5065
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20scscf%20resolving%20error%20for%20presence%20server%0A%09address%20localhost%3A5065&In-Reply-To=%3C17558de60706060043l2999b7fau6a7260f30d3ac818%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000708.html">
+   <LINK REL="Next"  HREF="000710.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] scscf resolving error for presence server	address localhost:5065</H1>
+    <B>sravan kumar</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20scscf%20resolving%20error%20for%20presence%20server%0A%09address%20localhost%3A5065&In-Reply-To=%3C17558de60706060043l2999b7fau6a7260f30d3ac818%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] scscf resolving error for presence server	address localhost:5065">jcskreddy at gmail.com
+       </A><BR>
+    <I>Wed Jun  6 09:43:52 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000708.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] P-CSCF	dialogs wrongfully identified
+</A></li>
+        <LI>Next message: <A HREF="000710.html">[OpenIMSCore-CSCF] scscf resolving error for presence server address localhost:5065
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#709">[ date ]</a>
+              <a href="thread.html#709">[ thread ]</a>
+              <a href="subject.html#709">[ subject ]</a>
+              <a href="author.html#709">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi dragos,
+
+when i enable the presence and try to Publish my details using UCT client i
+get the following error in SCSCF trace...i dont no where to modify the
+localhost:5065..pls let me know the error...
+
+S[I_Open] hss.open-ims.test:3868 D[ ]
+12(11423) ------------------
+12(11423) --- Peer List: ---
+12(11423)  S[I_Open] hss.open-ims.test:3868 D[ ]
+12(11423) ------------------
+ 2(11413) &gt;&gt;       Orig
+ 2(11413) INFO:ISC:ISC_match_filter(orig): Checking triggers
+ 2(11413) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+ 2(11413) INFO:ISC:ISC_match_filter(orig): Starting triggering
+ 2(11413) INFO:ISC:ISC_match_filter(orig): Orig User &lt;
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt; [1]
+ 2(11413) INFO:ISC:isc_checker_find: starting search
+ 2(11413) INFO:ISC:isc_checker_find: MATCH -&gt; sip:localhost:5065 () handling
+0
+ 2(11413) INFO:ISC:isc_mark_set: NEW mark &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>
+:<i>6060;lr;s=1;h=0;d=0&gt;
+</I> 2(11413) ERROR: sip_hostport2su: could not resolve hostname: &quot;localhost&quot;
+ 2(11413) ERROR: uri2dst: failed to resolve &quot;localhost&quot;
+ 2(11413) ERROR: t_forward_nonack: failure to add branches
+ 2(11413) INF:ISC:cscf_get_transaction: Transaction 48816 1097002821
+exists.Retransmission?
+
+
+
+Also i checked the hssdb for the default_sp
+mysql&gt; select * from apsvr;
++----------+------------+--------------------+------------------+
+|<i> apsvr_id | name       | address            | default_handling |
+</I>+----------+------------+--------------------+------------------+
+|<i>        1 | default_as | sip:127.0.0.1:5065 |                0 |
+</I>+----------+------------+--------------------+------------------+
+1 row in set (0.00 sec)
+
+Rgds
+sravan reddy..
+One convergence,
+Banjara hills,
+hyderabad-500032
+
+On 6/5/07, <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A> &lt;
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i> Send OpenIMSCore-CSCF mailing list submissions to
+</I>&gt;<i>         <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> To subscribe or unsubscribe via the World Wide Web, visit
+</I>&gt;<i>         <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> or, via email, send a message with subject or body 'help' to
+</I>&gt;<i>         <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> You can reach the person managing the list at
+</I>&gt;<i>         <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-owner at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> When replying, please edit your Subject line so it is more specific
+</I>&gt;<i> than &quot;Re: Contents of OpenIMSCore-CSCF digest...&quot;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Today's Topics:
+</I>&gt;<i>
+</I>&gt;<i>    1. [SVN-ser_ims] r305 - Added Dialog update for      calls to PSTN -
+</I>&gt;<i>       patch provided by Jose Carlos Silva. (<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>)
+</I>&gt;<i>    2. P-Charging-Vector parameter (Jos? Carlos Amorim)
+</I>&gt;<i>    3. [SVN-ser_ims] r306 - Patched the cfg files to     exit and not
+</I>&gt;<i>       break from Sanity_Checks. Patched the pcscf.cfg   to remove
+</I>&gt;<i>       sec-agree tags from Require/Proxy-Require headers.        Patched
+</I>&gt;<i> the
+</I>&gt;<i>       pcscf.cfg to remove the Security-Verify() headers. Patched the
+</I>&gt;<i>       pcscf.cfg to identify CANCEL      transactions as
+</I>&gt;<i>       Orig/Term_Standalone. Patched the scscf   module to fix
+</I>&gt;<i>       P_remove_header_tag() when the first value was    removed and a
+</I>&gt;<i>       comma was starting the new header. (<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>)
+</I>&gt;<i>    4. [SVN-ser_ims] r307 - Removed quotes from  icid-generated-at
+</I>&gt;<i>       parameter of the P-Charging-Vector header.
+</I>&gt;<i>       (<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>)
+</I>&gt;<i>    5. Re: P-Charging-Vector parameter (Dragos Vingarzan)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Message: 1
+</I>&gt;<i> Date: Mon, 4 Jun 2007 19:21:27 +0200
+</I>&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>
+</I>&gt;<i> Subject: [OpenIMSCore-CSCF] [SVN-ser_ims] r305 - Added Dialog update
+</I>&gt;<i>         for     calls to PSTN - patch provided by Jose Carlos Silva.
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">200706041721.l54HLRHb021316 at sheep.berlios.de</A>&gt;
+</I>&gt;<i> Content-Type: text/plain; charset=UTF-8
+</I>&gt;<i>
+</I>&gt;<i> Author: vingarzan
+</I>&gt;<i> Date: 2007-06-04 19:21:26 +0200 (Mon, 04 Jun 2007)
+</I>&gt;<i> New Revision: 305
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=305">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=305</A>
+</I>&gt;<i>
+</I>&gt;<i> Log:
+</I>&gt;<i> Added Dialog update for calls to PSTN - patch provided by Jose Carlos
+</I>&gt;<i> Silva.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Modified:
+</I>&gt;<i>    U    ser_ims/trunk/cfg/scscf.cfg
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=305&amp;view=diff&amp;r1=305&amp;r2=304">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=305&amp;view=diff&amp;r1=305&amp;r2=304</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Message: 2
+</I>&gt;<i> Date: Mon, 4 Jun 2007 18:57:57 +0100
+</I>&gt;<i> From: Jos? Carlos Amorim &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jose-c-amorim at ptinovacao.pt</A>&gt;
+</I>&gt;<i> Subject: [OpenIMSCore-CSCF] P-Charging-Vector parameter
+</I>&gt;<i> To: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>&gt;
+</I>&gt;<i> Message-ID:
+</I>&gt;<i>         &lt;
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">0AE2132CE51D1943A20F450AA7258E5C025A2BDA at INOAVREX05.ptin.corpPT.com</A>&gt;
+</I>&gt;<i> Content-Type: text/plain; charset=&quot;iso-8859-1&quot;
+</I>&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> We had some problems with our AS when parsing the P-Charging-Vector, this
+</I>&gt;<i> was because one of the P-Charging-Vector parameters is incorrect, the
+</I>&gt;<i> icid-generated-at parameter should not be quoted.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I changed the following lines of the modules/pcscf/sip.c file:
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> static str p_charging_vector_s={&quot;P-Charging-Vector: icid-value=\&quot;&quot;,31};
+</I>&gt;<i>
+</I>&gt;<i> - static str p_charging_vector_1={&quot;\&quot;; icid-generated-at=&quot;,22};
+</I>&gt;<i>
+</I>&gt;<i> - static str p_charging_vector_2={&quot;; orig-ioi=\&quot;&quot;,13};
+</I>&gt;<i>
+</I>&gt;<i> +static str p_charging_vector_1={&quot;\&quot;; icid-generated-at=&quot;,22};
+</I>&gt;<i>
+</I>&gt;<i> +static str p_charging_vector_2={&quot;; orig-ioi=\&quot;&quot;,13};
+</I>&gt;<i>
+</I>&gt;<i> static str p_charging_vector_e={&quot;\&quot;\r\n&quot;,3};
+</I>&gt;<i>
+</I>&gt;<i> static char hex_chars[16]=&quot;0123456789abcdef&quot;;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i>
+</I>&gt;<i> Jos? Carlos Silva
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> -------------- next part --------------
+</I>&gt;<i> An HTML attachment was scrubbed...
+</I>&gt;<i> URL:
+</I>&gt;<i> <A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070604/1d6db887/attachment-0001.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070604/1d6db887/attachment-0001.html</A>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Message: 3
+</I>&gt;<i> Date: Mon, 4 Jun 2007 20:00:56 +0200
+</I>&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>
+</I>&gt;<i> Subject: [OpenIMSCore-CSCF] [SVN-ser_ims] r306 - Patched the cfg files
+</I>&gt;<i>         to      exit and not break from Sanity_Checks. Patched the
+</I>&gt;<i> pcscf.cfg    to
+</I>&gt;<i>         remove sec-agree tags from Require/Proxy-Require headers.
+</I>&gt;<i> Patched the
+</I>&gt;<i>         pcscf.cfg to remove the Security-Verify()       headers. Patched
+</I>&gt;<i> the
+</I>&gt;<i>         pcscf.cfg to identify CANCEL    transactions as
+</I>&gt;<i> Orig/Term_Standalone.
+</I>&gt;<i>         Patched the scscf       module to fix P_remove_header_tag() when
+</I>&gt;<i> the first
+</I>&gt;<i>         value was       removed and a comma was starting the new header.
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">200706041800.l54I0u4f024909 at sheep.berlios.de</A>&gt;
+</I>&gt;<i> Content-Type: text/plain; charset=UTF-8
+</I>&gt;<i>
+</I>&gt;<i> Author: vingarzan
+</I>&gt;<i> Date: 2007-06-04 20:00:50 +0200 (Mon, 04 Jun 2007)
+</I>&gt;<i> New Revision: 306
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=306">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=306</A>
+</I>&gt;<i>
+</I>&gt;<i> Log:
+</I>&gt;<i> Patched the cfg files to exit and not break from Sanity_Checks.
+</I>&gt;<i> Patched the pcscf.cfg to remove sec-agree tags from Require/Proxy-Require
+</I>&gt;<i> headers.
+</I>&gt;<i> Patched the pcscf.cfg to remove the Security-Verify() headers.
+</I>&gt;<i> Patched the pcscf.cfg to identify CANCEL transactions as
+</I>&gt;<i> Orig/Term_Standalone.
+</I>&gt;<i> Patched the scscf module to fix P_remove_header_tag() when the first value
+</I>&gt;<i> was removed and a comma was starting the new header.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Modified:
+</I>&gt;<i>    U    ser_ims/trunk/cfg/icscf.cfg
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/icscf.cfg?rev=306&amp;view=diff&amp;r1=306&amp;r2=305">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/icscf.cfg?rev=306&amp;view=diff&amp;r1=306&amp;r2=305</A>
+</I>&gt;<i>    U    ser_ims/trunk/cfg/pcscf.cfg
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=306&amp;view=diff&amp;r1=306&amp;r2=305">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=306&amp;view=diff&amp;r1=306&amp;r2=305</A>
+</I>&gt;<i>    U    ser_ims/trunk/cfg/scscf.cfg
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=306&amp;view=diff&amp;r1=306&amp;r2=305">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=306&amp;view=diff&amp;r1=306&amp;r2=305</A>
+</I>&gt;<i>    U    ser_ims/trunk/modules/pcscf/security.c
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/security.c?rev=306&amp;view=diff&amp;r1=306&amp;r2=305">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/security.c?rev=306&amp;view=diff&amp;r1=306&amp;r2=305</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Message: 4
+</I>&gt;<i> Date: Mon, 4 Jun 2007 20:04:21 +0200
+</I>&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>
+</I>&gt;<i> Subject: [OpenIMSCore-CSCF] [SVN-ser_ims] r307 - Removed quotes from
+</I>&gt;<i>         icid-generated-at parameter of the P-Charging-Vector header.
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">200706041804.l54I4LeL025120 at sheep.berlios.de</A>&gt;
+</I>&gt;<i> Content-Type: text/plain; charset=UTF-8
+</I>&gt;<i>
+</I>&gt;<i> Author: vingarzan
+</I>&gt;<i> Date: 2007-06-04 20:04:20 +0200 (Mon, 04 Jun 2007)
+</I>&gt;<i> New Revision: 307
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=307">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=307</A>
+</I>&gt;<i>
+</I>&gt;<i> Log:
+</I>&gt;<i> Removed quotes from icid-generated-at parameter of the P-Charging-Vector
+</I>&gt;<i> header.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Modified:
+</I>&gt;<i>    U    ser_ims/trunk/modules/scscf/sip.c
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.c?rev=307&amp;view=diff&amp;r1=307&amp;r2=306">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.c?rev=307&amp;view=diff&amp;r1=307&amp;r2=306</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Message: 5
+</I>&gt;<i> Date: Mon, 04 Jun 2007 20:04:28 +0200
+</I>&gt;<i> From: Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt;
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] P-Charging-Vector parameter
+</I>&gt;<i> To: Jos? Carlos Amorim &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jose-c-amorim at ptinovacao.pt</A>&gt;
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4664542C.9050300 at fokus.fraunhofer.de</A>&gt;
+</I>&gt;<i> Content-Type: text/plain; charset=ISO-8859-1
+</I>&gt;<i>
+</I>&gt;<i> Fixed in r307.
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> Jos? Carlos Amorim wrote:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Hi,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; We had some problems with our AS when parsing the P-Charging-Vector,
+</I>&gt;<i> &gt; this was because one of the P-Charging-Vector parameters is incorrect,
+</I>&gt;<i> &gt; the icid-generated-at parameter should not be quoted.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I changed the following lines of the modules/pcscf/sip.c file:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; static str p_charging_vector_s={&quot;P-Charging-Vector: icid-value=\&quot;&quot;,31};
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; - static str p_charging_vector_1={&quot;\&quot;; icid-generated-at=&quot;,22};
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; - static str p_charging_vector_2={&quot;; orig-ioi=\&quot;&quot;,13};
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; +static str p_charging_vector_1={&quot;\&quot;; icid-generated-at=&quot;,22};
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; +static str p_charging_vector_2={&quot;; orig-ioi=\&quot;&quot;,13};
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; static str p_charging_vector_e={&quot;\&quot;\r\n&quot;,3};
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; static char hex_chars[16]=&quot;0123456789abcdef&quot;;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Regards,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Jos? Carlos Silva
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ------------------------------------------------------------------------
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> End of OpenIMSCore-CSCF Digest, Vol 8, Issue 5
+</I>&gt;<i> **********************************************
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070606/e1ae34c1/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070606/e1ae34c1/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000708.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] P-CSCF	dialogs wrongfully identified
+</A></li>
+	<LI>Next message: <A HREF="000710.html">[OpenIMSCore-CSCF] scscf resolving error for presence server address localhost:5065
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#709">[ date ]</a>
+              <a href="thread.html#709">[ thread ]</a>
+              <a href="subject.html#709">[ subject ]</a>
+              <a href="author.html#709">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

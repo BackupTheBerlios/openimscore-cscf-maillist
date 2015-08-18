@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] core dump due to checking trigger point,	session description
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20core%20dump%20due%20to%20checking%20trigger%20point%2C%0A%09session%20description&In-Reply-To=%3CB7B40D44871EC84496E2BACA7CADE77B639436%40spqcexc04.exfo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001514.html">
+   <LINK REL="Next"  HREF="001523.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] core dump due to checking trigger point,	session description</H1>
+    <B>Bin Zhou</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20core%20dump%20due%20to%20checking%20trigger%20point%2C%0A%09session%20description&In-Reply-To=%3CB7B40D44871EC84496E2BACA7CADE77B639436%40spqcexc04.exfo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] core dump due to checking trigger point,	session description">bin.zhou at exfo.com
+       </A><BR>
+    <I>Thu Oct 16 00:21:46 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001514.html">[OpenIMSCore-CSCF] New 10_persistency_big branch
+</A></li>
+        <LI>Next message: <A HREF="001523.html">[OpenIMSCore-CSCF] core dump due to checking trigger point,	session description
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1515">[ date ]</a>
+              <a href="thread.html#1515">[ thread ]</a>
+              <a href="subject.html#1515">[ subject ]</a>
+              <a href="author.html#1515">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+
+I got core dump when I using an iFC with session description. Is there
+anything wrong with my iFC? Here is the debug info:
+
+4(16885) INFO:ISC:isc_checker_find: starting search
+ 4(16885) DEBUG:ISC:ifc_checker_trigger: Starting expression check: 
+ 4(16885) DEBUG:ISC:ifc_check_spt:             SPT type 2 -&gt; Method ==
+INVITE ?
+ 4(16885) DEBUG:ISC:ifc_check_spt:               Found method INVITE 
+ 4(16885) DEBUG:ISC:ifc_checker_trigger:       - group compromised,
+skipping to next group
+ 4(16885) DEBUG:ISC:ifc_check_spt:             SPT type 5 -&gt; Session
+Desc.[o]  %= 100.250.200.200 ?
+ 4(16885) parse_headers: flags=1800
+ 4(16885) DEBUG:ISC:ifc_check_session_desc:      Found Content-Type ==
+appliction/sdp
+ 4(16885) parse_headers: flags=ffffffffffffffff
+ 4(16885) BUG: qm_*: fragm. 0x81b5c08 (address 0x81b5c20) end
+overwritten(35322e30, 30322e30)!
+17(16898) ERROR: receive_fd: EOF on 9
+17(16898) DBG: handle_ser_child: dead child 4, pid 16885 (shutting
+down?)
+17(16898) DBG: io_watch_del (0x814f380, 9, -1, 0x0) fd_no=21 called
+
+Regards,
+
+Bin
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001514.html">[OpenIMSCore-CSCF] New 10_persistency_big branch
+</A></li>
+	<LI>Next message: <A HREF="001523.html">[OpenIMSCore-CSCF] core dump due to checking trigger point,	session description
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1515">[ date ]</a>
+              <a href="thread.html#1515">[ thread ]</a>
+              <a href="subject.html#1515">[ subject ]</a>
+              <a href="author.html#1515">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

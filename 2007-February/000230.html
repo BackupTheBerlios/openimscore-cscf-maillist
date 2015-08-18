@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r148 - ser_ims/trunk/modules/cdp
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r148%20-%20ser_ims/trunk/modules/cdp&In-Reply-To=%3C200702202013.l1KKDVBC030222%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000229.html">
+   <LINK REL="Next"  HREF="000232.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r148 - ser_ims/trunk/modules/cdp</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r148%20-%20ser_ims/trunk/modules/cdp&In-Reply-To=%3C200702202013.l1KKDVBC030222%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r148 - ser_ims/trunk/modules/cdp">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Feb 20 21:13:31 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000229.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r147 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000232.html">[OpenIMSCore-CSCF] Path header is not removed by S-CSCF ,	in 200 OK to UE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#230">[ date ]</a>
+              <a href="thread.html#230">[ thread ]</a>
+              <a href="subject.html#230">[ subject ]</a>
+              <a href="author.html#230">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-20 21:13:28 +0100 (Tue, 20 Feb 2007)
+New Revision: 148
+
+Modified:
+   ser_ims/trunk/modules/cdp/diameter_ims.h
+Log:
+Introduced new AVPs for Cx Rel.7
+
+
+Modified: ser_ims/trunk/modules/cdp/diameter_ims.h
+===================================================================
+--- ser_ims/trunk/modules/cdp/diameter_ims.h	2007-02-19 19:06:45 UTC (rev 147)
++++ ser_ims/trunk/modules/cdp/diameter_ims.h	2007-02-20 20:13:28 UTC (rev 148)
+@@ -180,6 +180,8 @@
+ 	AVP_IMS_Feature_List_ID								= 629,
+ 	AVP_IMS_Feature_List								= 630,
+ 	AVP_IMS_Supported_Applications						= 631,
++	AVP_IMS_Associated_Identities						= 632,
++	AVP_IMS_Originating_Request							= 633,
+ /** 700 to 799 reserved for TS29.329											*/
+ 	AVP_IMS_User_Identity								= 700,
+ 	AVP_IMS_MSISDN										= 701,
+@@ -227,6 +229,11 @@
+ 	AVP_IMS_UAR_REGISTRATION_AND_CAPABILITIES			= 2
+ };
+ 
++/** Originating-Request Enumerated AVP */
++enum {
++	AVP_IMS_LIR_ORIGINATING_REQUEST						= 0	
++};
++
+ /** Data-Reference AVP */
+ enum {
+ 	AVP_IMS_Data_Reference_Repository_Data				= 0,
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000229.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r147 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000232.html">[OpenIMSCore-CSCF] Path header is not removed by S-CSCF ,	in 200 OK to UE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#230">[ date ]</a>
+              <a href="thread.html#230">[ thread ]</a>
+              <a href="subject.html#230">[ subject ]</a>
+              <a href="author.html#230">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

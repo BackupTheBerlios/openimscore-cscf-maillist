@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Quries regarding the value of s-cscf	capabilities
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Quries%20regarding%20the%20value%20of%20s-cscf%0A%09capabilities&In-Reply-To=%3CC8F10CE7A8C340DEA927EB9192B40E33%40FRANZNOTEBOOK%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001868.html">
+   <LINK REL="Next"  HREF="001874.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Quries regarding the value of s-cscf	capabilities</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Quries%20regarding%20the%20value%20of%20s-cscf%0A%09capabilities&In-Reply-To=%3CC8F10CE7A8C340DEA927EB9192B40E33%40FRANZNOTEBOOK%3E"
+       TITLE="[OpenIMSCore-CSCF] Quries regarding the value of s-cscf	capabilities">franz-edler at aon.at
+       </A><BR>
+    <I>Sat Nov 21 18:28:20 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001868.html">[OpenIMSCore-CSCF] Quries regarding the value of s-cscf capabilities
+</A></li>
+        <LI>Next message: <A HREF="001874.html">[OpenIMSCore-CSCF] Quries regarding the value of	s-cscf	capabilities
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1869">[ date ]</a>
+              <a href="thread.html#1869">[ thread ]</a>
+              <a href="subject.html#1869">[ subject ]</a>
+              <a href="author.html#1869">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Bipul,
+
+ 
+
+the situation is as follows:
+
+ 
+
+Within a network you can define capability sets (see in HSS GUI  &#147;Network
+Configuration&#148;).
+
+Capability sets consist of different capabilities which can be given a name
+and which can be set to mandatory or optional.
+
+ 
+
+These capability sets can be assigned 
+
+- to the subscriber  (see HSS GUI &#147;IMS Subscription&#148;), and
+
+- to S-CSCF (see I-CSCF tables &#147;scscf&#148; and &#147;scscf-capabilities&#148;). There is
+obviously no GUI to set these values.
+
+ 
+
+During initial registration (see TS 24.229 &#167;5.3.1.2) the I-CSCF selects the
+S-CSCF which fits best for the subscriber based on the capability data
+received in UAA.
+
+The ICSCF 
+ select a S-CSCF that fulfils the indicated mandatory
+capabilities &#150; if more than one S-CSCFs fulfils the indicated mandatory
+capabilities the S-CSCF which fulfils most of the possibly additionally
+indicated optional capabilities;
+
+ 
+
+Maybe that helps, or what is your question again?
+
+ 
+
+Regards
+
+Franz
+
+ 
+
+ 
+
+  _____  
+
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+[mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>] On Behalf Of Bipul Mandal
+Sent: Saturday, November 21, 2009 5:11 PM
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: [OpenIMSCore-CSCF] Quries regarding the value of s-cscf
+capabilities
+
+ 
+
+Sir, 
+
+I was analysing the data pre-requisites of I-CSCF code module, where a
+structure for s-cscf capabilities was dumped in a mysql database and it's
+capabilities were set in a table format like shown below-
+
+  
+
+ 
+DROP TABLE IF EXISTS `
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/icscf_8sql.html#589f66fa1be04e26101">http://www.openimscore.org/docs/ser_ims/icscf_8sql.html#589f66fa1be04e26101</A>
+16f9114651efb&gt; s_cscf_capabilities`;
+
+
+
+
+
+
+CREATE TABLE `s_cscf_capabilities` (
+
+
+  `id` int(11) NOT
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#33e474276d7440b">http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#33e474276d7440b</A>
+d82b5b8bbbfbafe74&gt; NULL auto_increment,
+
+
+
+
+
+
+  `
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#90cae98826984ce">http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#90cae98826984ce</A>
+f7adaf78ef646c79a&gt; id_s_cscf` int(11) NOT
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#33e474276d7440b">http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#33e474276d7440b</A>
+d82b5b8bbbfbafe74&gt; NULL default '0',
+
+
+
+
+
+
+  `capability` int(11) NOT
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#33e474276d7440b">http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#33e474276d7440b</A>
+d82b5b8bbbfbafe74&gt; NULL default '0',
+
+
+
+
+
+
+  PRIMARY
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/add-imscore-user_8sh.html#6ae70ce7b">http://www.openimscore.org/docs/ser_ims/add-imscore-user_8sh.html#6ae70ce7b</A>
+1b294c469f11cbabb8f30d6&gt; KEY  (`id`),
+
+
+
+
+
+
+ 
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/add-imscore-user_8sh.html#6ae70ce7b">http://www.openimscore.org/docs/ser_ims/add-imscore-user_8sh.html#6ae70ce7b</A>
+1b294c469f11cbabb8f30d6&gt; KEY `idx_capability` (`capability`),
+
+
+
+
+
+
+ 
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/add-imscore-user_8sh.html#6ae70ce7b">http://www.openimscore.org/docs/ser_ims/add-imscore-user_8sh.html#6ae70ce7b</A>
+1b294c469f11cbabb8f30d6&gt; KEY `idx_id_s_cscf` (`
+&lt;<A HREF="http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#90cae98826984ce">http://www.openimscore.org/docs/ser_ims/icscf__pg_8sql.html#90cae98826984ce</A>
+f7adaf78ef646c79a&gt; id_s_cscf`)
+
+
+
+
+
+
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+;;;;;;;
+ 
+ 
+LOCK TABLES `s_cscf_capabilities` WRITE;
+
+
+INSERT INTO `s_cscf_capabilities` VALUES (1,1,0),(2,1,1);
+
+
+UNLOCK TABLES;;
+
+
+;;;;;;
+ 
+Now, if the operator sets id to 1, id_s_cscf to 1 and idx_capability to 0,
+what 
+ 
+conclusion can be drawn from these integers. If the default to any of these
+parameters
+ 
+is set to zero or incremented by one, in what way one can differentiates
+these two values
+ 
+Kindly, please guide me to my above queries.
+ 
+ 
+
+
+
+-- 
+Bipul Mandal
+Research Engineer
+C-DOT
+New Delhi.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20091121/59103cb0/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20091121/59103cb0/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001868.html">[OpenIMSCore-CSCF] Quries regarding the value of s-cscf capabilities
+</A></li>
+	<LI>Next message: <A HREF="001874.html">[OpenIMSCore-CSCF] Quries regarding the value of	s-cscf	capabilities
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1869">[ date ]</a>
+              <a href="thread.html#1869">[ thread ]</a>
+              <a href="subject.html#1869">[ subject ]</a>
+              <a href="author.html#1869">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

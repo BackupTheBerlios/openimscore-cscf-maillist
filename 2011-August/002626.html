@@ -1,0 +1,396 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SR-Users] Kamailio on a server with,	different network cards
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSR-Users%5D%20Kamailio%20on%20a%20server%20with%2C%0A%09different%20network%20cards&In-Reply-To=%3C804B13F8F3D94A4AB18B9B01ACB68FA10450877E%40EXCHSRV.fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002625.html">
+   <LINK REL="Next"  HREF="002627.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SR-Users] Kamailio on a server with,	different network cards</H1>
+    <B>Corici, Andreea Ancuta</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSR-Users%5D%20Kamailio%20on%20a%20server%20with%2C%0A%09different%20network%20cards&In-Reply-To=%3C804B13F8F3D94A4AB18B9B01ACB68FA10450877E%40EXCHSRV.fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SR-Users] Kamailio on a server with,	different network cards">andreea.ancuta.corici at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Aug  5 14:05:18 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002625.html">[OpenIMSCore-CSCF] [SR-Users] Kamailio on a server with, different network cards
+</A></li>
+        <LI>Next message: <A HREF="002627.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1131 - PCSCF module: some fixes	related to PCC: the IPv6 without brackets is sent in the flow	description added parameters for enabling/disabling inclusion	of (udp/tcp) protocol in the flow description added	parameters for replacing the hard-coded values of the service	id for ims registration and ims call in the AAR requests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2626">[ date ]</a>
+              <a href="thread.html#2626">[ thread ]</a>
+              <a href="subject.html#2626">[ subject ]</a>
+              <a href="author.html#2626">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+After a small test I can tell you that OpenIMSCore supports more than listening 2IPs.
+So, if you want to run it on a machine with 2 different network card, you can try:
+
+listen=109.239.50.67
+listen=109.239.50.68
+
+for the P-CSCF.
+I think that the S-CSCF and I-CSCF can listen to only one of the IPs (but it has to be the one from the dns zone).
+
+Best regards,
+Ancuta Corici
+
+On 08/05/11 12:40, Andreea Ancuta Corici wrote:
+&gt;<i>
+</I>&gt;<i> Dear RR,
+</I>&gt;<i>
+</I>&gt;<i> In the P-CSCF module the parameters ipv4_for_signalling and ipv6_for_signalling are used for the Rx interface towards a PCRF (Policy and Charging Rule Function).
+</I>&gt;<i>
+</I>&gt;<i> I am sorry if the name of the parameter miss lead you.
+</I>&gt;<i>
+</I>&gt;<i> If you want to have 2 different network card, you can setup 2 P-CSCFs, each for every IP. OpenIMSCore might support using more than 1 IP for listening (
+</I>&gt;<i>
+</I>&gt;<i> listen=109.239.50.67
+</I>&gt;<i> listen=109.239.50.68
+</I>&gt;<i>
+</I>&gt;<i> )
+</I>&gt;<i> , but I will have to test.
+</I>&gt;<i>
+</I>&gt;<i> Best regards,
+</I>&gt;<i> Ancuta Corici 
+</I>
+-----Original Message-----
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> on behalf of <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A>
+Sent: Fri 8/5/2011 12:00 PM
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: OpenIMSCore-CSCF Digest, Vol 58, Issue 5
+ 
+Send OpenIMSCore-CSCF mailing list submissions to
+	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+
+To subscribe or unsubscribe via the World Wide Web, visit
+	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+or, via email, send a message with subject or body 'help' to
+	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A>
+
+You can reach the person managing the list at
+	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-owner at lists.berlios.de</A>
+
+When replying, please edit your Subject line so it is more specific
+than &quot;Re: Contents of OpenIMSCore-CSCF digest...&quot;
+
+
+Today's Topics:
+
+   1. Problem starting Fhoss (Roc?o Ruz)
+   2. Re: [SR-Users] Kamailio on a server with	different network
+      cards (Roc?o Ruz)
+   3. Re: [SR-Users] Kamailio on a server with	different network
+      cards (Roc?o Ruz)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Thu, 4 Aug 2011 15:55:49 +0200
+From: Roc?o Ruz &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">rociorsr at gmail.com</A>&gt;
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">sr-users-request at lists.sip-router.org</A>,
+	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: [OpenIMSCore-CSCF] Problem starting Fhoss
+Message-ID:
+	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">CALursqb1hgCwANFspKgbj-PRna1XwCv7an416cUeuzPCH2-95g at mail.gmail.com</A>&gt;
+Content-Type: text/plain; charset=&quot;iso-8859-1&quot;
+
+Hello,
+
+When I tray to start/restart my Fhoss : /etc/inti.d/openimscore-fhoss
+restart, it fails and I get this on log file:
+
+
+2011-08-04 15:44:33,383 [main] WARN
+org.apache.catalina.connector.MapperListener  - Unknown default host:
+192.168.20.6
+2011-08-04 15:44:40,841 [main] ERROR
+de.fhg.fokus.hss.db.hibernate.HibernateUtil  - Initial SessionFactory
+creation failed.
+java.lang.NoClassDefFoundError: net.sf.cglib.core.DebuggingClassWriter$1
+   at java.lang.Class.initializeClass(libgcj.so.10)
+   at
+net.sf.cglib.core.DebuggingClassWriter.toByteArray(DebuggingClassWriter.java:73)
+   at
+net.sf.cglib.core.DefaultGeneratorStrategy.generate(DefaultGeneratorStrategy.java:26)
+   at
+net.sf.cglib.core.AbstractClassGenerator.create(AbstractClassGenerator.java:216)
+   at net.sf.cglib.core.KeyFactory$Generator.create(KeyFactory.java:145)
+   at net.sf.cglib.core.KeyFactory.create(KeyFactory.java:117)
+   at net.sf.cglib.core.KeyFactory.create(KeyFactory.java:108)
+   at net.sf.cglib.core.KeyFactory.create(KeyFactory.java:104)
+   at net.sf.cglib.proxy.Enhancer.&lt;clinit&gt;(Enhancer.java:69)
+   at java.lang.Class.initializeClass(libgcj.so.10)
+   at
+org.hibernate.proxy.pojo.cglib.CGLIBLazyInitializer.getProxyFactory(CGLIBLazyInitializer.java:107)
+   at
+org.hibernate.proxy.pojo.cglib.CGLIBProxyFactory.postInstantiate(CGLIBProxyFactory.java:43)
+   at
+org.hibernate.tuple.entity.PojoEntityTuplizer.buildProxyFactory(PojoEntityTuplizer.java:162)
+   at
+org.hibernate.tuple.entity.AbstractEntityTuplizer.&lt;init&gt;(AbstractEntityTuplizer.java:135)
+   at
+org.hibernate.tuple.entity.PojoEntityTuplizer.&lt;init&gt;(PojoEntityTuplizer.java:55)
+   at
+org.hibernate.tuple.entity.EntityEntityModeToTuplizerMapping.&lt;init&gt;(EntityEntityModeToTuplizerMapping.java:56)
+   at
+org.hibernate.tuple.entity.EntityMetamodel.&lt;init&gt;(EntityMetamodel.java:269)
+   at
+org.hibernate.persister.entity.AbstractEntityPersister.&lt;init&gt;(AbstractEntityPersister.java:425)
+   at
+org.hibernate.persister.entity.SingleTableEntityPersister.&lt;init&gt;(SingleTableEntityPersister.java:109)
+   at
+org.hibernate.persister.PersisterFactory.createClassPersister(PersisterFactory.java:55)
+   at
+org.hibernate.impl.SessionFactoryImpl.&lt;init&gt;(SessionFactoryImpl.java:226)
+   at
+org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1291)
+   at
+de.fhg.fokus.hss.db.hibernate.HibernateUtil.&lt;clinit&gt;(HibernateUtil.java:79)
+   at java.lang.Class.initializeClass(libgcj.so.10)
+   at de.fhg.fokus.hss.main.HSSContainer.&lt;init&gt;(HSSContainer.java:83)
+   at de.fhg.fokus.hss.main.HSSContainer.main(HSSContainer.java:110)
+Caused by: java.lang.ClassNotFoundException:
+org.objectweb.asm.util.TraceClassVi
+Loader{urls=[file:lib/xml-apis.jar,file:lib/xercesImpl.jar,file:lib/xerces-2.4.0
+util.jar,file:lib/tomcat-http.jar,file:lib/tomcat-coyote.jar,file:lib/struts.jar
+t-api.jar,file:lib/naming-resources.jar,file:lib/naming-factory.jar,file:lib/mys
+-3.0.1.jar,file:lib/log4j.jar,file:lib/junit.jar,file:lib/junitee.jar,file:lib/j
+ile:lib/jdp.jar,file:lib/jasper-runtime.jar,file:lib/jasper-compiler-jdt.jar,fil
+jar,file:lib/FHoSS.jar,file:lib/ehcache-1.1.jar,file:lib/dom4j-1.6.1.jar,file:li
+er.jar,file:lib/commons-logging.jar,file:lib/commons-logging-1.0.4.jar,file:lib/
+ar,file:lib/commons-el.jar,file:lib/commons-digester.jar,file:lib/commons-collec
+ile:lib/cglib-2.1.3.jar,file:lib/catalina-optional.jar,file:lib/catalina.jar,fil
+lib/asm.jar,file:lib/asm-attrs.jar,file:lib/antlr-2.7.6.jar,file:./,file:log4j.p
+ensionClassLoader{urls=[], parent=null}}
+   at java.net.URLClassLoader.findClass(libgcj.so.10)
+   at gnu.gcj.runtime.SystemClassLoader.findClass(libgcj.so.10)
+   at java.lang.ClassLoader.loadClass(libgcj.so.10)
+   at java.lang.ClassLoader.loadClass(libgcj.so.10)
+   at java.lang.Class.forName(libgcj.so.10)
+   at java.lang.Class.initializeClass(libgcj.so.10)
+   ...25 more
+
+Somebody could please help me?
+
+Thank you.
+
+RR
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110804/6b15bea9/attachment-0001.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110804/6b15bea9/attachment-0001.html</A>&gt;
+
+------------------------------
+
+Message: 2
+Date: Thu, 4 Aug 2011 17:32:32 +0200
+From: Roc?o Ruz &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">rociorsr at gmail.com</A>&gt;
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">miconda at gmail.com</A>
+Cc: &quot;SIP Router - Kamailio \(OpenSER\) and SIP Express Router \(SER\)
+	- Users	Mailing List&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">sr-users at lists.sip-router.org</A>&gt;,
+	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] [SR-Users] Kamailio on a server with
+	different network cards
+Message-ID:
+	&lt;CALursqb=<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">kRZa+V-24UWX8v8xOX0ApEuVDEa5qr7kyMjUT9mZpA at mail.gmail.com</A>&gt;
+Content-Type: text/plain; charset=&quot;iso-8859-1&quot;
+
+Thank you!
+
+And isn't there an impact on the line
+
+modparam(&quot;pcscf&quot;,&quot;ipv4_for_signaling&quot;,&quot;192.168.106.162&quot;)
+
+las well?How do I add my second IP?
+
+Thank you.
+
+RR
+
+El 3 de agosto de 2011 00:23, Daniel-Constantin Mierla
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">miconda at gmail.com</A>&gt;escribi?:
+
+&gt;<i>  Hello,
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> On 8/2/11 11:19 PM, Roc?o Ruz wrote:
+</I>&gt;<i>
+</I>&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i>  My server has two different network cards with different IPs.
+</I>&gt;<i> I want kamailio to use both; the network card to be used depends on the
+</I>&gt;<i> destination.
+</I>&gt;<i> My problem is that I have to add an IP in the configuration file
+</I>&gt;<i> kamailio.cfg:
+</I>&gt;<i>
+</I>&gt;<i>  listen=109.239.50.67
+</I>&gt;<i>
+</I>&gt;<i>  Will Kamailio listen only to packets sent to this IP?
+</I>&gt;<i>
+</I>&gt;<i> if you have just one listen parameter, then it will listen only on that
+</I>&gt;<i> respective IP.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>  Can I add the two IPs corresponding to my two network cards here?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> You can add as many listen parameter as you need, for example:
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> listen=109.239.50.67
+</I>&gt;<i> listen=109.239.50.68
+</I>&gt;<i>
+</I>&gt;<i> and kamailio will listen on the two IP addresses.
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> Daniel
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> Daniel-Constantin Mierla -- <A HREF="http://www.asipto.com">http://www.asipto.com</A>
+</I>&gt;<i> Kamailio Advanced Training, Oct 10-13, Berlin: <A HREF="http://asipto.com/u/kathttp://linkedin.com/in/miconda">http://asipto.com/u/kathttp://linkedin.com/in/miconda</A> -- <A HREF="http://twitter.com/miconda">http://twitter.com/miconda</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110804/2844fe62/attachment-0001.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110804/2844fe62/attachment-0001.html</A>&gt;
+
+------------------------------
+
+Message: 3
+Date: Thu, 4 Aug 2011 17:36:06 +0200
+From: Roc?o Ruz &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">rociorsr at gmail.com</A>&gt;
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">miconda at gmail.com</A>
+Cc: &quot;SIP Router - Kamailio \(OpenSER\) and SIP Express Router \(SER\)
+	- Users	Mailing List&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">sr-users at lists.sip-router.org</A>&gt;,
+	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] [SR-Users] Kamailio on a server with
+	different network cards
+Message-ID:
+	&lt;CALursqa3spEA35of9bXAEL3yW=<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">gfx-xVNHCjyF68TQOOoEShDA at mail.gmail.com</A>&gt;
+Content-Type: text/plain; charset=&quot;iso-8859-1&quot;
+
+And this one too : modparam(&quot;pcscf&quot;,&quot;gg_ip&quot;,&quot;192.168.106.162&quot;)
+
+Thank you.
+
+RR
+
+
+
+2011/8/4 Roc?o Ruz &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">rociorsr at gmail.com</A>&gt;
+
+&gt;<i> Thank you!
+</I>&gt;<i>
+</I>&gt;<i> And isn't there an impact on the line
+</I>&gt;<i>
+</I>&gt;<i> modparam(&quot;pcscf&quot;,&quot;ipv4_for_signaling&quot;,&quot;192.168.106.162&quot;)
+</I>&gt;<i>
+</I>&gt;<i> las well?How do I add my second IP?
+</I>&gt;<i>
+</I>&gt;<i> Thank you.
+</I>&gt;<i>
+</I>&gt;<i> RR
+</I>&gt;<i>
+</I>&gt;<i> El 3 de agosto de 2011 00:23, Daniel-Constantin Mierla &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">miconda at gmail.com</A>&gt;escribi?:
+</I>&gt;<i>
+</I>&gt;<i>  Hello,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> On 8/2/11 11:19 PM, Roc?o Ruz wrote:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Hello,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  My server has two different network cards with different IPs.
+</I>&gt;&gt;<i> I want kamailio to use both; the network card to be used depends on the
+</I>&gt;&gt;<i> destination.
+</I>&gt;&gt;<i> My problem is that I have to add an IP in the configuration file
+</I>&gt;&gt;<i> kamailio.cfg:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  listen=109.239.50.67
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  Will Kamailio listen only to packets sent to this IP?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> if you have just one listen parameter, then it will listen only on that
+</I>&gt;&gt;<i> respective IP.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  Can I add the two IPs corresponding to my two network cards here?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> You can add as many listen parameter as you need, for example:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> listen=109.239.50.67
+</I>&gt;&gt;<i> listen=109.239.50.68
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> and kamailio will listen on the two IP addresses.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Cheers,
+</I>&gt;&gt;<i> Daniel
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> --
+</I>&gt;&gt;<i> Daniel-Constantin Mierla -- <A HREF="http://www.asipto.com">http://www.asipto.com</A>
+</I>&gt;&gt;<i> Kamailio Advanced Training, Oct 10-13, Berlin: <A HREF="http://asipto.com/u/kathttp://linkedin.com/in/miconda">http://asipto.com/u/kathttp://linkedin.com/in/miconda</A> -- <A HREF="http://twitter.com/miconda">http://twitter.com/miconda</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110804/733bbbfe/attachment-0001.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110804/733bbbfe/attachment-0001.html</A>&gt;
+
+------------------------------
+
+_______________________________________________
+OpenIMSCore-CSCF mailing list
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+
+
+End of OpenIMSCore-CSCF Digest, Vol 58, Issue 5
+***********************************************
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: winmail.dat
+Type: application/ms-tnef
+Size: 7609 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110805/5f7f1040/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110805/5f7f1040/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002625.html">[OpenIMSCore-CSCF] [SR-Users] Kamailio on a server with, different network cards
+</A></li>
+	<LI>Next message: <A HREF="002627.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1131 - PCSCF module: some fixes	related to PCC: the IPv6 without brackets is sent in the flow	description added parameters for enabling/disabling inclusion	of (udp/tcp) protocol in the flow description added	parameters for replacing the hard-coded values of the service	id for ims registration and ims call in the AAR requests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2626">[ date ]</a>
+              <a href="thread.html#2626">[ thread ]</a>
+              <a href="subject.html#2626">[ subject ]</a>
+              <a href="author.html#2626">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

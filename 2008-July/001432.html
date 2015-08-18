@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r575 - Extracted qop as the	registration_qop parameter for the scscf module. Fixed P-CSCF	buggy removal of CK, IK.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r575%20-%20Extracted%20qop%20as%20the%0A%09registration_qop%20parameter%20for%20the%20scscf%20module.%20Fixed%20P-CSCF%0A%09buggy%20removal%20of%20CK%2C%20IK.&In-Reply-To=%3C200807281508.m6SF8Mu4001176%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001431.html">
+   <LINK REL="Next"  HREF="001433.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r575 - Extracted qop as the	registration_qop parameter for the scscf module. Fixed P-CSCF	buggy removal of CK, IK.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r575%20-%20Extracted%20qop%20as%20the%0A%09registration_qop%20parameter%20for%20the%20scscf%20module.%20Fixed%20P-CSCF%0A%09buggy%20removal%20of%20CK%2C%20IK.&In-Reply-To=%3C200807281508.m6SF8Mu4001176%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r575 - Extracted qop as the	registration_qop parameter for the scscf module. Fixed P-CSCF	buggy removal of CK, IK.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Mon Jul 28 17:08:22 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001431.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r574 - Fixed compilation issue for	IPv6 data structures and newer system headers.
+</A></li>
+        <LI>Next message: <A HREF="001433.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r576 - Applied Sebastian Felis	patches/updaates for building debian packages
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1432">[ date ]</a>
+              <a href="thread.html#1432">[ thread ]</a>
+              <a href="subject.html#1432">[ subject ]</a>
+              <a href="author.html#1432">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2008-07-28 17:08:20 +0200 (Mon, 28 Jul 2008)
+New Revision: 575 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=575">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=575</A> 
+
+Log:
+Extracted qop as the registration_qop parameter for the scscf module. Fixed P-CSCF buggy removal of CK, IK.
+
+
+Modified:
+   U	ser_ims/trunk/cfg/scscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=575&amp;view=diff&amp;r1=575&amp;r2=574">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=575&amp;view=diff&amp;r1=575&amp;r2=574</A>
+   U	ser_ims/trunk/modules/pcscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.c?rev=575&amp;view=diff&amp;r1=575&amp;r2=574">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.c?rev=575&amp;view=diff&amp;r1=575&amp;r2=574</A>
+   U	ser_ims/trunk/modules/scscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=575&amp;view=diff&amp;r1=575&amp;r2=574">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=575&amp;view=diff&amp;r1=575&amp;r2=574</A>
+   U	ser_ims/trunk/modules/scscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registration.c?rev=575&amp;view=diff&amp;r1=575&amp;r2=574">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registration.c?rev=575&amp;view=diff&amp;r1=575&amp;r2=574</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001431.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r574 - Fixed compilation issue for	IPv6 data structures and newer system headers.
+</A></li>
+	<LI>Next message: <A HREF="001433.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r576 - Applied Sebastian Felis	patches/updaates for building debian packages
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1432">[ date ]</a>
+              <a href="thread.html#1432">[ thread ]</a>
+              <a href="subject.html#1432">[ subject ]</a>
+              <a href="author.html#1432">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Scscf not responding to INVITE message
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Scscf%20not%20responding%20to%20INVITE%20message&In-Reply-To=%3CH000008e00077a78.1166289031.dakghar.aylus.com%40MHS%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000040.html">
+   <LINK REL="Next"  HREF="000044.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Scscf not responding to INVITE message</H1>
+    <B>Babu George</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Scscf%20not%20responding%20to%20INVITE%20message&In-Reply-To=%3CH000008e00077a78.1166289031.dakghar.aylus.com%40MHS%3E"
+       TITLE="[OpenIMSCore-CSCF] Scscf not responding to INVITE message">bgeorge at aylus.com
+       </A><BR>
+    <I>Sat Dec 16 18:10:32 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000040.html">[OpenIMSCore-CSCF] Scscf-crash
+</A></li>
+        <LI>Next message: <A HREF="000044.html">[OpenIMSCore-CSCF] Scscf-crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#43">[ date ]</a>
+              <a href="thread.html#43">[ thread ]</a>
+              <a href="subject.html#43">[ subject ]</a>
+              <a href="author.html#43">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>All,
+
+ It is observed that occasionally SCSCF stop responding to the INVITE
+message.I get the following error messages on console.Is it a known
+problem?
+
+5(28946) INF:S-CSCF:
+Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:5060;lr&gt;
+
+ 5(28946) INF:S-CSCF:           UA: &lt;Unknown UA&gt;
+
+ 5(28946) INF:S-CSCF:----------  Registrar Contents end ----------
+
+17(28958) --- Peer List: ---
+
+17(28958)  S[R_Open] hss.open-ims.test:3868 D[ ]
+
+17(28958) ------------------
+
+ 3(28944) &gt;&gt;       Orig
+
+ 3(28944) DBG:S-CSCF:S_save_dialog(orig): Call-ID
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-29068 at 192.168.20.13</A>&gt;
+
+ 3(28944) ERR:S-CSCF:S_save_dialog: dialog already exists!
+
+ 3(28944) INFO:ISC:ISC_match_filter(orig): Checking triggers
+
+ 3(28944) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from
+the message
+
+ 3(28944) INFO:ISC:ISC_match_filter(orig): Starting triggering
+
+18(28996) DBG:sm_process(): Peer hss.open-ims.test      State R_Open
+Event R_Rcv_DWR
+
+17(28958) --- Peer List: ---
+
+17(28958)  S[R_Open] hss.open-ims.test:3868 D[ ]
+
+17(28958) ------------------
+
+ 2(28943) &gt;&gt;       Orig
+
+ 2(28943) DBG:S-CSCF:S_save_dialog(orig): Call-ID
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-29068 at 192.168.20.13</A>&gt;
+
+ 2(28943) ERR:S-CSCF:S_save_dialog: dialog already exists!
+
+ 2(28943) INFO:ISC:ISC_match_filter(orig): Checking triggers
+
+ 2(28943) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from
+the message
+
+ 2(28943) INFO:ISC:ISC_match_filter(orig): Starting triggering
+
+17(28958) --- Peer List: ---
+
+17(28958)  S[R_Open] hss.open-ims.test:3868 D[ ]
+
+17(28958) ------------------
+
+ 5(28946) INF:S-CSCF:----------  Registrar Contents begin --------
+
+ 5(28946) INF:S-CSCF:[  52] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt; R[ 1]
+
+ 5(28946) INF:S-CSCF:         C:
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 192.168.20.13</A>:5055;transport=UDP&gt; Exp:[999872]
+
+ 5(28946) INF:S-CSCF:
+Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:5060;lr&gt;
+
+ 5(28946) INF:S-CSCF:           UA: &lt;Unknown UA&gt;
+
+ 5(28946) INF:S-CSCF:         S: Event[0] Exp:[999873]
+&lt;sip:pcscf.open-ims.test:5060&gt;
+
+ 5(28946) INF:S-CSCF:[ 230] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at tv.comcast.com</A>&gt; R[ 1]
+
+ 5(28946) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 192.168.20.13</A>:5054;tra
+
+ 
+
+ 
+
+Thanks
+
+Babu
+
+ 
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20061216/58337e1a/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20061216/58337e1a/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000040.html">[OpenIMSCore-CSCF] Scscf-crash
+</A></li>
+	<LI>Next message: <A HREF="000044.html">[OpenIMSCore-CSCF] Scscf-crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#43">[ date ]</a>
+              <a href="thread.html#43">[ thread ]</a>
+              <a href="subject.html#43">[ subject ]</a>
+              <a href="author.html#43">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

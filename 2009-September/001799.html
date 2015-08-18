@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] PCSCF rejects CANCEL with 403 Forbidden - You	must register first with a S-CSCF when ECSCF and LRF is configured
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PCSCF%20rejects%20CANCEL%20with%20403%20Forbidden%20-%20You%0A%09must%20register%20first%20with%20a%20S-CSCF%20when%20ECSCF%20and%20LRF%20is%20configured&In-Reply-To=%3Ca0ccca020909300442s70de00canaae7a48deee89287%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001798.html">
+   <LINK REL="Next"  HREF="001800.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] PCSCF rejects CANCEL with 403 Forbidden - You	must register first with a S-CSCF when ECSCF and LRF is configured</H1>
+    <B>Sathiyamoorthy natarajan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PCSCF%20rejects%20CANCEL%20with%20403%20Forbidden%20-%20You%0A%09must%20register%20first%20with%20a%20S-CSCF%20when%20ECSCF%20and%20LRF%20is%20configured&In-Reply-To=%3Ca0ccca020909300442s70de00canaae7a48deee89287%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] PCSCF rejects CANCEL with 403 Forbidden - You	must register first with a S-CSCF when ECSCF and LRF is configured">n.sathiyamoorthy at gmail.com
+       </A><BR>
+    <I>Wed Sep 30 13:42:48 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001798.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r736 - Added more 3GPP EPC	constants
+</A></li>
+        <LI>Next message: <A HREF="001800.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r737 - Added one more constant
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1799">[ date ]</a>
+              <a href="thread.html#1799">[ thread ]</a>
+              <a href="subject.html#1799">[ subject ]</a>
+              <a href="author.html#1799">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+ With emergency trunk enabled, static PSAP configuration and LRF up and running,
+
+I'm able to make a emergency calls and even normal calls. But when I'm
+trying to Cancel the call PCSCF is rejecting with 403-You must
+register first with a S-CSCF.
+
+I went through the pcscf.cfg but I couldn't resolve.
+
+Please help me regarding this.
+
+This is the log printed by PCSCF when it received CANCEL
+
+DEBUG: relay_reply: branch=0, save=0, relay=0
+ 4(4244)  old size: 557, new size: 491
+ 4(4244) build_res_from_sip_res: copied size: orig:254, new: 188, rest: 303 msg=
+SIP/2.0 200 OK
+From: &quot;311&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">311 at open-ims.test</A>&gt;;tag=782407792036711505
+To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">211 at open-ims.test</A>;user=dialstring&gt;;tag=694201831948505595
+Call-ID: 875329102129632811
+CSeq: 2 PRACK
+Via: SIP/2.0/UDP 172.16.8.237:5060;rport=5060;branch=z9hG4bK531143681785447400
+Max-Forwards: 70
+Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">211 at 172.16.8.240</A>&gt;
+P-Access-Network-Info: DOCSIS
+Content-Length: 0
+Allow: INVITE,ACK,OPTIONS,BYE,CANCEL,REGISTER,NOTIFY,SUBSCRIBE,INFO,PRACK,UPDATE
+Session-Expires: 1800; refresher=uac
+
+
+ 4(4244) WARNING:vqm_resize: resize(0) called
+..., shmem=0xb61560b0: SIP/2.0 2 totag_retr=0 SIP/2.0 200 OK
+ 4(4244) DEBUG: cleanup_uac_timers: RETR/FR timers reset
+ 4(4244) DEBUG:destroy_avp_list: destroying list (nil)
+ 4(4244) DEBUG:destroy_avp_list: destroying list (nil)
+ 4(4244) DEBUG:destroy_avp_list: destroying list (nil)
+ 4(4244) DEBUG:destroy_avp_list: destroying list (nil)
+ 4(4244) DEBUG:destroy_avp_list: destroying list (nil)
+ 4(4244) DEBUG:destroy_avp_list: destroying list (nil)
+ 4(4244) receive_msg: cleaning up
+ 1(4241) SIP Request:
+ 1(4241)  method:  &lt;CANCEL&gt;
+ 1(4241)  uri:     &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">211 at open-ims.test</A>;user=dialstring&gt;
+ 1(4241)  version: &lt;SIP/2.0&gt;
+ 1(4241) parse_headers: flags=2
+ 1(4241) end of header reached, state=9
+ 1(4241) DEBUG: get_hdr_field: &lt;To&gt; [41];
+uri=[sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">211 at open-ims.test</A>;user=dialstring]
+ 1(4241) DEBUG: to body [&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">211 at open-ims.test</A>;user=dialstring&gt;
+]
+ 1(4241) get_hdr_field: cseq &lt;CSeq&gt;: &lt;1&gt; &lt;CANCEL&gt;
+ 1(4241) Found param type 235, &lt;rport&gt; = &lt;n/a&gt;; state=6
+ 1(4241) Found param type 232, &lt;branch&gt; = &lt;z9hG4bK1340031622594335337&gt;; state=16
+ 1(4241) end of header reached, state=5
+ 1(4241) parse_headers: Via found, flags=2
+ 1(4241) parse_headers: this is the first via
+ 1(4241) After parse_msg...
+ 1(4241) preparing to run routing scripts...
+ 1(4241) parse_headers: flags=100
+ 1(4241) DEBUG:maxfwd:is_maxfwd_present: value = 70
+ 1(4241) DBG:maxfwd:process_maxfwd_header: value 70 decreased to 16
+ 1(4241) Calling SELECT 0x819dfd0
+ 1(4241) parse_headers: flags=ffffffffffffffff
+ 1(4241) DEBUG: get_hdr_body : content_length=0
+ 1(4241) found end of header
+ 1(4241) DBG:P-CSCF:P_check_sent_by(): Received from &lt;172.16.8.237&gt;
+ 1(4241) parse_headers: flags=ffffffffffffffff
+ 1(4241) DBG:P-CSCF:P_check_sent_by(): Via sent-by=&lt;172.16.8.237&gt;
+ 1(4241) DBG:P-CSCF:P_check_sent_by(): sent-by matches the actual IP
+received from
+ 1(4241) parse_headers: flags=200
+ 1(4241) DBG:P-CSCF:P_mobile_terminating: Term indication not found in
+&lt;sip:pcscf.open-ims.test:4060&gt; as &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060&gt;.
+ 1(4241) DBG:P-CSCF:cscf_get_originating_contact: 1://172.16.8.237:5060
+ 1(4241) parse_headers: flags=40
+ 1(4241) &gt;&gt;       Orig_Standalone
+ 1(4241) parse_headers: flags=200
+ 1(4241) grep_sock_info - checking if host==us: 13==12 &amp;&amp;
+[open-ims.test] == [172.16.8.234]
+ 1(4241) grep_sock_info - checking if port 4060 matches port 5060
+ 1(4241) grep_sock_info - checking if host==us: 13==12 &amp;&amp;
+[open-ims.test] == [172.16.8.234]
+ 1(4241) grep_sock_info - checking if port 4060 matches port 5060
+ 1(4241) check_self: host != me
+ 1(4241) loose_route: RURI is NOT myself
+ 1(4241) grep_sock_info - checking if host==us: 19==12 &amp;&amp;
+[pcscf.open-ims.test] == [172.16.8.234]
+ 1(4241) grep_sock_info - checking if port 4060 matches port 4060
+ 1(4241) grep_sock_info - checking if host==us: 19==12 &amp;&amp;
+[pcscf.open-ims.test] == [172.16.8.234]
+ 1(4241) grep_sock_info - checking if port 4060 matches port 4060
+ 1(4241) after_loose: Topmost route URI:
+'sip:pcscf.open-ims.test:4060;lr;transport=UDP' is me
+ 1(4241) after_loose: URI to be processed:
+'sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr'
+ 1(4241) after_loose: Next URI is a loose router
+ 1(4241) DEBUG: t_newtran: msg id=52 , global msg id=51 , T on
+entrance=0xffffffff
+ 1(4241) parse_headers: flags=ffffffffffffffff
+ 1(4241) parse_headers: flags=78
+ 1(4241) t_lookup_request: start searching: hash=31005, isACK=0
+ 1(4241) DEBUG: RFC3261 transaction matching failed
+ 1(4241) DEBUG: t_lookup_request: no transaction found
+ 1(4241) DBG:P-CSCF:P_emergency_ruri:checking if the ruri
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">211 at open-ims.test</A>;user=dialstring is an emergency ruri
+ 1(4241) DBG:P-CSCF:is_emerg_ruri: sip URI
+ 1(4241) DBG:P-CSCF:check_emerg_number: checking 211
+ 1(4241) DBG:P-CSCF:check_emerg_number: comparing to 911
+ 1(4241) DBG:P-CSCF:check_emerg_number: comparing to 112
+ 1(4241) DBG:P-CSCF:P_is_registered: Looking if registered
+ 1(4241) DBG:P-CSCF:P_is_registered: Looking for &lt;1://172.16.8.237:5060&gt;
+ 1(4241) DEBUG: t_check: msg id=52 global id=52 T start=0xb6163a7c
+ 1(4241) DEBUG: t_check: T already found!
+ 1(4241) parse_headers: flags=ffffffffffffffff
+ 1(4241) check_via_address(172.16.8.237, 172.16.8.237, 0)
+ 1(4241) WARNING:vqm_resize: resize(0) called
+ 1(4241) DEBUG: cleanup_uac_timers: RETR/FR timers reset
+ 1(4241) DEBUG: reply sent out. buf=0x81c2814: SIP/2.0 4...,
+shmem=0xb6157acc: SIP/2.0 4
+ 1(4241) DEBUG: _reply_light: finished
+ 1(4241) DEBUG:destroy_avp_list: destroying list (nil)
+ 1(4241) DEBUG:destroy_avp_list: destroying list (nil)
+ 1(4241) DEBUG:destroy_avp_list: destroying list (nil)
+ 1(4241) DEBUG:destroy_avp_list: destroying list (nil)
+ 1(4241) DEBUG:destroy_avp_list: destroying list (nil)
+ 1(4241) DEBUG:destroy_avp_list: destroying list (nil)
+ 1(4241) receive_msg: cleaning up
+ 5(4245) DBG:P-CSCF:registrar_timer: Called at 15995453
+
+Please help me regarding this.
+
+-- 
+Sathiya
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001798.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r736 - Added more 3GPP EPC	constants
+</A></li>
+	<LI>Next message: <A HREF="001800.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r737 - Added one more constant
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1799">[ date ]</a>
+              <a href="thread.html#1799">[ thread ]</a>
+              <a href="subject.html#1799">[ subject ]</a>
+              <a href="author.html#1799">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

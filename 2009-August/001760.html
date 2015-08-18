@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r702 - Rewrote the receiver.c for	sip-router adaptation reasons. Also it seems that the old	implementation might have been in conflict with assumptions	on the static nature of the process table in ser. The	receiver processes are no longer dynamic,	but static. There is one receiver process for each initially	configured peer and one for all the other unknown peers.	Potentially all receivers could handle multiple peers,	in case some more advanced load balancing would be required. The file	descriptors of the TCP sockets are passed between processes	to achieve this effect: - from acceptor to respective	receiver - from receiver for unknown peers to dedicated	receiver after capabilities exchange and identification of a	pre-configure peer - from timer process to receiver on	locally initiated connection.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r702%20-%20Rewrote%20the%20receiver.c%20for%0A%09sip-router%20adaptation%20reasons.%20Also%20it%20seems%20that%20the%20old%0A%09implementation%20might%20have%20been%20in%20conflict%20with%20assumptions%0A%09on%20the%20static%20nature%20of%20the%20process%20table%20in%20ser.%20The%0A%09receiver%20processes%20are%20no%20longer%20dynamic%2C%0A%09but%20static.%20There%20is%20one%20receiver%20process%20for%20each%20initially%0A%09configured%20peer%20and%20one%20for%20all%20the%20other%20unknown%20peers.%0A%09Potentially%20all%20receivers%20could%20handle%20multiple%20peers%2C%0A%09in%20case%20some%20more%20advanced%20load%20balancing%20would%20be%20required.%20The%20file%0A%09descriptors%20of%20the%20TCP%20sockets%20are%20passed%20between%20processes%0A%09to%20achieve%20this%20effect%3A%20-%20from%20acceptor%20to%20respective%0A%09receiver%20-%20from%20receiver%20for%20unknown%20peers%20to%20dedicated%0A%09receiver%20after%20capabilities%20exchange%20and%20identification%20of%20a%0A%09pre-configure%20peer%20-%20from%20timer%20process%20to%20receiver%20on%0A%09locally%20initiated%20connection.&In-Reply-To=%3C200908041758.n74HwiKP017272%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001759.html">
+   <LINK REL="Next"  HREF="001761.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r702 - Rewrote the receiver.c for	sip-router adaptation reasons. Also it seems that the old	implementation might have been in conflict with assumptions	on the static nature of the process table in ser. The	receiver processes are no longer dynamic,	but static. There is one receiver process for each initially	configured peer and one for all the other unknown peers.	Potentially all receivers could handle multiple peers,	in case some more advanced load balancing would be required. The file	descriptors of the TCP sockets are passed between processes	to achieve this effect: - from acceptor to respective	receiver - from receiver for unknown peers to dedicated	receiver after capabilities exchange and identification of a	pre-configure peer - from timer process to receiver on	locally initiated connection.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r702%20-%20Rewrote%20the%20receiver.c%20for%0A%09sip-router%20adaptation%20reasons.%20Also%20it%20seems%20that%20the%20old%0A%09implementation%20might%20have%20been%20in%20conflict%20with%20assumptions%0A%09on%20the%20static%20nature%20of%20the%20process%20table%20in%20ser.%20The%0A%09receiver%20processes%20are%20no%20longer%20dynamic%2C%0A%09but%20static.%20There%20is%20one%20receiver%20process%20for%20each%20initially%0A%09configured%20peer%20and%20one%20for%20all%20the%20other%20unknown%20peers.%0A%09Potentially%20all%20receivers%20could%20handle%20multiple%20peers%2C%0A%09in%20case%20some%20more%20advanced%20load%20balancing%20would%20be%20required.%20The%20file%0A%09descriptors%20of%20the%20TCP%20sockets%20are%20passed%20between%20processes%0A%09to%20achieve%20this%20effect%3A%20-%20from%20acceptor%20to%20respective%0A%09receiver%20-%20from%20receiver%20for%20unknown%20peers%20to%20dedicated%0A%09receiver%20after%20capabilities%20exchange%20and%20identification%20of%20a%0A%09pre-configure%20peer%20-%20from%20timer%20process%20to%20receiver%20on%0A%09locally%20initiated%20connection.&In-Reply-To=%3C200908041758.n74HwiKP017272%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r702 - Rewrote the receiver.c for	sip-router adaptation reasons. Also it seems that the old	implementation might have been in conflict with assumptions	on the static nature of the process table in ser. The	receiver processes are no longer dynamic,	but static. There is one receiver process for each initially	configured peer and one for all the other unknown peers.	Potentially all receivers could handle multiple peers,	in case some more advanced load balancing would be required. The file	descriptors of the TCP sockets are passed between processes	to achieve this effect: - from acceptor to respective	receiver - from receiver for unknown peers to dedicated	receiver after capabilities exchange and identification of a	pre-configure peer - from timer process to receiver on	locally initiated connection.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Aug  4 19:58:44 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001759.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r701 - Added discrimination on	peer list debug based on debug level to cdp module.
+</A></li>
+        <LI>Next message: <A HREF="001761.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r703 - Modifications to the cdp	receiver.c - added more safety checks - wrote documentation	comments - removed unused code
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1760">[ date ]</a>
+              <a href="thread.html#1760">[ thread ]</a>
+              <a href="subject.html#1760">[ subject ]</a>
+              <a href="author.html#1760">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2009-08-04 19:58:43 +0200 (Tue, 04 Aug 2009)
+New Revision: 702 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=702">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=702</A> 
+
+Log:
+Rewrote the receiver.c for sip-router adaptation reasons. Also it seems that the old implementation might have been in conflict with assumptions on the static nature of the process table in ser.
+The receiver processes are no longer dynamic, but static. There is one receiver process for each initially configured peer and one for all the other unknown peers. Potentially all receivers could handle multiple peers, in case some more advanced load balancing would be required.
+The file descriptors of the TCP sockets are passed between processes to achieve this effect:
+- from acceptor to respective receiver
+- from receiver for unknown peers to dedicated receiver after capabilities exchange and identification of a pre-configure peer
+- from timer process to receiver on locally initiated connection.
+
+Modified:
+   U	ser_ims/trunk/modules/cdp/diameter_peer.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_peer.c?rev=702&amp;view=diff&amp;r1=702&amp;r2=701">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_peer.c?rev=702&amp;view=diff&amp;r1=702&amp;r2=701</A>
+   U	ser_ims/trunk/modules/cdp/mod.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/mod.h?rev=702&amp;view=diff&amp;r1=702&amp;r2=701">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/mod.h?rev=702&amp;view=diff&amp;r1=702&amp;r2=701</A>
+   U	ser_ims/trunk/modules/cdp/peer.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peer.h?rev=702&amp;view=diff&amp;r1=702&amp;r2=701">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peer.h?rev=702&amp;view=diff&amp;r1=702&amp;r2=701</A>
+   U	ser_ims/trunk/modules/cdp/peerstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peerstatemachine.c?rev=702&amp;view=diff&amp;r1=702&amp;r2=701">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peerstatemachine.c?rev=702&amp;view=diff&amp;r1=702&amp;r2=701</A>
+   U	ser_ims/trunk/modules/cdp/receiver.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/receiver.c?rev=702&amp;view=diff&amp;r1=702&amp;r2=701">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/receiver.c?rev=702&amp;view=diff&amp;r1=702&amp;r2=701</A>
+   U	ser_ims/trunk/modules/cdp/receiver.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/receiver.h?rev=702&amp;view=diff&amp;r1=702&amp;r2=701">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/receiver.h?rev=702&amp;view=diff&amp;r1=702&amp;r2=701</A>
+   U	ser_ims/trunk/modules/cdp/tcp_accept.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/tcp_accept.c?rev=702&amp;view=diff&amp;r1=702&amp;r2=701">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/tcp_accept.c?rev=702&amp;view=diff&amp;r1=702&amp;r2=701</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001759.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r701 - Added discrimination on	peer list debug based on debug level to cdp module.
+</A></li>
+	<LI>Next message: <A HREF="001761.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r703 - Modifications to the cdp	receiver.c - added more safety checks - wrote documentation	comments - removed unused code
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1760">[ date ]</a>
+              <a href="thread.html#1760">[ thread ]</a>
+              <a href="subject.html#1760">[ subject ]</a>
+              <a href="author.html#1760">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

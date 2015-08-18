@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Regarding error in openimscore
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Regarding%20error%20in%20openimscore&In-Reply-To=%3C4D7E4F15.2090207%40acision.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002429.html">
+   <LINK REL="Next"  HREF="002431.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Regarding error in openimscore</H1>
+    <B>Daniel Ciprus</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Regarding%20error%20in%20openimscore&In-Reply-To=%3C4D7E4F15.2090207%40acision.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Regarding error in openimscore">daniel.ciprus at acision.com
+       </A><BR>
+    <I>Mon Mar 14 18:23:33 CET 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002429.html">[OpenIMSCore-CSCF] Regarding error in openimscore
+</A></li>
+        <LI>Next message: <A HREF="002431.html">[OpenIMSCore-CSCF] Problem regarding error in icscf that visiting network identity is not found...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2430">[ date ]</a>
+              <a href="thread.html#2430">[ thread ]</a>
+              <a href="subject.html#2430">[ subject ]</a>
+              <a href="author.html#2430">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>1. Please reply to the conference so members will know the progress of 
+the case
+2. Please follow the steps I described below otherwise I can't help you 
+at all.
+
+Trace you sent is not really trace but odt file which describes what is 
+SIP protocol for. For your reference : name of the file - vissu.odt
+
+On 03/14/2011 01:19 PM, viswavardhanreddy karna wrote:
+&gt;<i> Hi daniel,
+</I>&gt;<i>                below ia m attaching the wire shark trace..... please 
+</I>&gt;<i> find the attachment and inform me where i did wrong....
+</I>&gt;<i>
+</I>&gt;<i> please help me danile i would be more thank ful to you....
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> best regards,
+</I>&gt;<i> viswa
+</I>&gt;<i>
+</I>&gt;<i> On Mon, Mar 14, 2011 at 5:42 PM, Daniel Ciprus 
+</I>&gt;<i> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">daniel.ciprus at acision.com</A> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">daniel.ciprus at acision.com</A>&gt;&gt; wrote:
+</I>&gt;<i>
+</I>&gt;<i>     Hi,
+</I>&gt;<i>
+</I>&gt;<i>     I hope your experiments won't have an impact on Japan ..
+</I>&gt;<i>
+</I>&gt;<i>     Could you please post a snippet of the log file you're retrieving
+</I>&gt;<i>     these errors + binary snoop of the traffic so we'll know what
+</I>&gt;<i>     you're sending from the client ?
+</I>&gt;<i>
+</I>&gt;<i>     Secondly : OpenIMS is delivered with the scripts which can
+</I>&gt;<i>     provision all necessary attributes for you. When you download svn
+</I>&gt;<i>     version script is located :
+</I>&gt;<i>
+</I>&gt;<i>     ./cfg/add-imscore-user_newdb.sh
+</I>&gt;<i>
+</I>&gt;<i>     Please go through this script and once you're done with
+</I>&gt;<i>     provisioning send us a snoop from the traffic you're sending. Also
+</I>&gt;<i>     the procedure you've done with provisioning might help to
+</I>&gt;<i>     understand what happened.
+</I>&gt;<i>
+</I>&gt;<i>     Dan.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>     On 03/14/2011 12:33 PM, viswavardhanreddy karna wrote:
+</I>&gt;&gt;<i>     Hi everyone,
+</I>&gt;&gt;<i>                          I am doing some experiments on how to
+</I>&gt;&gt;<i>     register a client at openimscore. i am using sipp as client  and
+</I>&gt;&gt;<i>     when i send register message from the command to openimscore...
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     ia m getting an error like
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     err:i-cscf:i_uar: visited network identity not found, responding
+</I>&gt;&gt;<i>     with 400
+</I>&gt;&gt;<i>     rr:i-cscf:i_uar: visited network identity not found, responding
+</I>&gt;&gt;<i>     with 400
+</I>&gt;&gt;<i>     rr:i-cscf:i_uar: visited network identity not found, responding
+</I>&gt;&gt;<i>     with 400
+</I>&gt;&gt;<i>     rr:i-cscf:i_uar: visited network identity not found, responding
+</I>&gt;&gt;<i>     with 400
+</I>&gt;&gt;<i>     rr:i-cscf:i_uar: visited network identity not found, responding
+</I>&gt;&gt;<i>     with 400
+</I>&gt;&gt;<i>     rr:i-cscf:i_uar: visited network identity not found, responding
+</I>&gt;&gt;<i>     with 400
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     any one help me how to point out my error and how can i register
+</I>&gt;&gt;<i>     a client.... i have made changes in FHOSS webconsole by
+</I>&gt;&gt;<i>     configuring every thing but i dont whether i am doing right or
+</I>&gt;&gt;<i>     wrong...
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     iam really stuck in the middle please me...
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     Awaiting for the reply as earliest as possible,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     with regards,
+</I>&gt;&gt;<i>     viswavardhan
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>     -- 
+</I>&gt;<i>     *Daniel Ciprus*
+</I>&gt;<i>     Integration engineer
+</I>&gt;<i>     ------------------------------------------------------
+</I>&gt;<i>     *<A HREF="http://www.acision.com*">http://www.acision.com*</A>
+</I>&gt;<i>     4870 Sadler Rd
+</I>&gt;<i>     Suite 200
+</I>&gt;<i>     Glen Allen, VA 23060
+</I>&gt;<i>     USA
+</I>&gt;<i>     T: +1 804 762 5601 &lt;tel:%2B1%20804%20762%205601&gt;
+</I>&gt;<i>     E: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">daniel.ciprus at acision.com</A> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">daniel.ciprus at acision.com</A>&gt;
+</I>&gt;<i>
+</I>&gt;<i>     This e-mail and any attachment is for authorised use by the
+</I>&gt;<i>     intended recipient(s) only. It may contain proprietary material,
+</I>&gt;<i>     confidential information and/or be subject to legal privilege. It
+</I>&gt;<i>     should not be copied, disclosed to, retained or used by, any other
+</I>&gt;<i>     party. If you are not an intended recipient then please promptly
+</I>&gt;<i>     delete this e-mail and any attachment and all copies and inform
+</I>&gt;<i>     the sender. Thank you.
+</I>&gt;<i>
+</I>&gt;<i>     _______________________________________________
+</I>&gt;<i>     OpenIMSCore-CSCF mailing list
+</I>&gt;<i>     <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i>     &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>&gt;
+</I>&gt;<i>     <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+-- 
+*Daniel Ciprus*
+Integration engineer
+------------------------------------------------------
+*<A HREF="http://www.acision.com*">http://www.acision.com*</A>
+4870 Sadler Rd
+Suite 200
+Glen Allen, VA 23060
+USA
+T: +1 804 762 5601
+E: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">daniel.ciprus at acision.com</A>
+
+
+This e-mail and any attachment is for authorised use by the intended recipient(s) only. It may contain proprietary material, confidential information and/or be subject to legal privilege. It should not be copied, disclosed to, retained or used by, any other party. If you are not an intended recipient then please promptly delete this e-mail and any attachment and all copies and inform the sender. Thank you.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110314/55a3d97d/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110314/55a3d97d/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002429.html">[OpenIMSCore-CSCF] Regarding error in openimscore
+</A></li>
+	<LI>Next message: <A HREF="002431.html">[OpenIMSCore-CSCF] Problem regarding error in icscf that visiting network identity is not found...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2430">[ date ]</a>
+              <a href="thread.html#2430">[ thread ]</a>
+              <a href="subject.html#2430">[ subject ]</a>
+              <a href="author.html#2430">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

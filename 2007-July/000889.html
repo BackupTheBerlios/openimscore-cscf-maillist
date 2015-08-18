@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] DNS setting for pcscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20DNS%20setting%20for%20pcscf&In-Reply-To=%3C46A8D256.7080109%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000886.html">
+   <LINK REL="Next"  HREF="000866.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] DNS setting for pcscf</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20DNS%20setting%20for%20pcscf&In-Reply-To=%3C46A8D256.7080109%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] DNS setting for pcscf">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Jul 26 18:56:54 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000886.html">[OpenIMSCore-CSCF] DNS setting for pcscf
+</A></li>
+        <LI>Next message: <A HREF="000866.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r400 - fixed bug when more than	one trigger fails
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#889">[ date ]</a>
+              <a href="thread.html#889">[ thread ]</a>
+              <a href="subject.html#889">[ subject ]</a>
+              <a href="author.html#889">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>So there is no configuration for strict-outbound proxy (the P-CSCF)
+separate from the registration domain? If there is not, it won't work
+(unless you put another proxy or something between the phone and the
+P-CSCF - but it should work in B2B mode to be 100% trouble free)...
+
+-Dragos
+
+Rishin Chakraborty wrote:
+&gt;<i> Hi, 
+</I>&gt;<i>
+</I>&gt;<i> The Cisco phone is behaving in an unexpected manner. It does not use the
+</I>&gt;<i> domain name in the REGISTER URI. Instead it uses the entry for Proxy as the
+</I>&gt;<i> REGISTER URI. 
+</I>&gt;<i>
+</I>&gt;<i> As a result, both the phone and the P-CSCF are making queries that resolve
+</I>&gt;<i> to the same IP address and port. This is causing the REGISTER message to go
+</I>&gt;<i> into loop and 483 response thereby.
+</I>&gt;<i>
+</I>&gt;<i> Dragos,
+</I>&gt;<i> Thanks for your suggestion. I tried with playing around with the SRV
+</I>&gt;<i> entries, but because of the above problem I am not able to get the phone
+</I>&gt;<i> working with OpenIMS.
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i> Rishin
+</I>&gt;<i>
+</I>&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>] 
+</I>&gt;<i> Sent: Monday, July 23, 2007 6:32 PM
+</I>&gt;<i> To: Rishin Chakraborty
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] DNS setting for pcscf
+</I>&gt;<i>
+</I>&gt;<i> Hello Rishin,
+</I>&gt;<i>
+</I>&gt;<i> Looks like the Cisco phone does a SRV query. There is already an example
+</I>&gt;<i> of SRV entries in the default DNS zone file, but for
+</I>&gt;<i> _sip._udp/_tcp.open-ims.test. It looks like you just need to add some
+</I>&gt;<i> entries for _sip._udp/_tcp.pcscf.open-ims.test...
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Rishin Chakraborty wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I am facing a problem with DNS configuration on my setup.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> In my OpenIMS setup, I am running pcscf on one machine (say machine X)
+</I>&gt;&gt;<i> and s/icscf and HSS on the other (machine Y). The DNS server is set on
+</I>&gt;&gt;<i> the same machine (Y) running HSS and s/icscsf. The pcscf entry in the
+</I>&gt;&gt;<i> dnszone file points to the machine X's address.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Now, when I try to register an X-lite user, it registers fine.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> The same thing when I try with a Cisco phone, it does not work. The
+</I>&gt;&gt;<i> problem lies with the phone's settings. I cannot assign an IP address
+</I>&gt;&gt;<i> for the proxy address. To have the Cisco phone work properly, a DNS
+</I>&gt;&gt;<i> name must be assigned to the proxy address. But since the pcscf is now
+</I>&gt;&gt;<i> on a different machine, the proxy entry on the phone looks like this
+</I>&gt;&gt;<i> &quot;pcscf.open-ims.test&quot;. This leads to a DNS query for
+</I>&gt;&gt;<i> _sip._udp.pcscf.open-ims.test from the phone, which doesn't look
+</I>&gt;&gt;<i> correct to me. The DNS server responds with a &quot;no such name&quot; response.
+</I>&gt;&gt;<i> There is no such problem with X-Lite as X-Lite allows IP address for
+</I>&gt;&gt;<i> proxy entry.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Can anyone give me some pointers to resolve this issue?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Thanks,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Rishin
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ------------------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000886.html">[OpenIMSCore-CSCF] DNS setting for pcscf
+</A></li>
+	<LI>Next message: <A HREF="000866.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r400 - fixed bug when more than	one trigger fails
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#889">[ date ]</a>
+              <a href="thread.html#889">[ thread ]</a>
+              <a href="subject.html#889">[ subject ]</a>
+              <a href="author.html#889">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

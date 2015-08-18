@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Destination unreachable (port unreachable)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Destination%20unreachable%20%28port%20unreachable%29&In-Reply-To=%3C1180015002.16221.28.camel%40salvoxia%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000644.html">
+   <LINK REL="Next"  HREF="000646.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Destination unreachable (port unreachable)</H1>
+    <B>Umut Emin</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Destination%20unreachable%20%28port%20unreachable%29&In-Reply-To=%3C1180015002.16221.28.camel%40salvoxia%3E"
+       TITLE="[OpenIMSCore-CSCF] Destination unreachable (port unreachable)">umut.emin at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu May 24 15:56:42 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000644.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r287 - - replaced acc_rf.c header	with the correct OpenIMSCore header and copyright info -	added interim request sending on UPDATE and re-INVITE
+</A></li>
+        <LI>Next message: <A HREF="000646.html">[OpenIMSCore-CSCF] FW: S-CSCF crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#645">[ date ]</a>
+              <a href="thread.html#645">[ thread ]</a>
+              <a href="subject.html#645">[ subject ]</a>
+              <a href="author.html#645">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hei Johannes,
+
+-all- cscf components listen default the udp and tcp ports at the same
+time. You can see this on the logs as you start the components. Run your
+core and make a &quot;udp&quot; grep on your socket list with:
+
+$&gt;netstat -a | grep udp
+
+an example from my machine is:
+udp        0      0 semiconductor.jsbach:6060 *.*
+udp        0      0 semiconductor.jsbach:5060 *.* 
+udp        0      0 semiconductor.jsbach:4060 *:*
+
+the log at startup says [taken as example only from pcscf]:     
+...
+Listening on 
+             udp: 10.147.65.147 [10.147.65.147]:4060
+             tcp: 10.147.65.147 [10.147.65.147]:4060
+Aliases: 
+             tcp: semiconductor.jsbach:4060
+             udp: semiconductor.jsbach:4060
+             *: pcscf.semiconductor.jsbach:*
+....
+
+And the problem with screenshot: &quot;could not rev.resolve 127.0.0.1&quot;
+means that the dns configuration[particularly reverse dns resolution] is
+not properly done. See the 
+<A HREF="http://openimscore.org/openimscore/?q=installation_guide#annexa">http://openimscore.org/openimscore/?q=installation_guide#annexa</A>
+
+Cheers,
+Umut
+
+
+On Wed, 2007-05-23 at 12:22 +0200, Johannes Sanderse wrote:
+&gt;<i> I already found out what (I think) causes the problem! The core is
+</I>&gt;<i> only listening on port 5060 an 4060 on TCP. The client sends UDP
+</I>&gt;<i> messages, so the core doesn't understand because he is listening on
+</I>&gt;<i> TCP.
+</I>&gt;<i> 
+</I>&gt;<i> Is there a possibility to change the listening socket from TCP to
+</I>&gt;<i> UDP???? 
+</I>&gt;<i> 
+</I>&gt;<i> I can send you also the traces, but I think this question I asked you
+</I>&gt;<i> is enough for now.....
+</I>&gt;<i> 
+</I>&gt;<i> Gr. Johannes
+</I>&gt;<i> 
+</I>&gt;<i> 2007/5/23, Umut Emin &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">umut.emin at fokus.fraunhofer.de</A>&gt;:
+</I>&gt;<i>         Hei Johannes,
+</I>&gt;<i>         
+</I>&gt;<i>         Please send diameter &amp; sip network trace of the core, so that
+</I>&gt;<i>         we 
+</I>&gt;<i>         solve the problem.
+</I>&gt;<i>         
+</I>&gt;<i>         -Umut
+</I>&gt;<i>         
+</I>&gt;<i>         
+</I>&gt;<i>         On Tue, 2007-05-22 at 14:51 +0200, Johannes Sanderse wrote:
+</I>&gt;<i>         &gt; Hi!
+</I>&gt;<i>         &gt;
+</I>&gt;<i>         &gt; I have installed all the prequisites and the core seems to
+</I>&gt;<i>         run
+</I>&gt;<i>         &gt; properly. When I try to connect a client (X-lite) then the
+</I>&gt;<i>         client 
+</I>&gt;<i>         &gt; sends a register message and the reponse from the core is:
+</I>&gt;<i>         Destination
+</I>&gt;<i>         &gt; unreachable (port unreachable)!!!!
+</I>&gt;<i>         &gt;
+</I>&gt;<i>         &gt; Does someone faced the same problem or does someone know
+</I>&gt;<i>         about this
+</I>&gt;<i>         &gt; problem??? 
+</I>&gt;<i>         &gt;
+</I>&gt;<i>         &gt; Thankx in advance!
+</I>&gt;<i>         &gt;
+</I>&gt;<i>         &gt; Johannes Sanderse
+</I>&gt;<i>         &gt; Holland
+</I>&gt;<i>         &gt; _______________________________________________
+</I>&gt;<i>         &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i>         &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i>         &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>         
+</I>&gt;<i> 
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000644.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r287 - - replaced acc_rf.c header	with the correct OpenIMSCore header and copyright info -	added interim request sending on UPDATE and re-INVITE
+</A></li>
+	<LI>Next message: <A HREF="000646.html">[OpenIMSCore-CSCF] FW: S-CSCF crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#645">[ date ]</a>
+              <a href="thread.html#645">[ thread ]</a>
+              <a href="subject.html#645">[ subject ]</a>
+              <a href="author.html#645">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

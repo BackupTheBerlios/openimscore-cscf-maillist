@@ -1,0 +1,502 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r136 - in ser_ims/trunk: . mem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r136%20-%20in%20ser_ims/trunk%3A%20.%20mem&In-Reply-To=%3C200702131758.l1DHwnUs015250%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000210.html">
+   <LINK REL="Next"  HREF="000212.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r136 - in ser_ims/trunk: . mem</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r136%20-%20in%20ser_ims/trunk%3A%20.%20mem&In-Reply-To=%3C200702131758.l1DHwnUs015250%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r136 - in ser_ims/trunk: . mem">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Feb 13 18:58:49 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000210.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r135 - in ser_ims/trunk/modules:	isc scscf
+</A></li>
+        <LI>Next message: <A HREF="000212.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r137 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#211">[ date ]</a>
+              <a href="thread.html#211">[ thread ]</a>
+              <a href="subject.html#211">[ subject ]</a>
+              <a href="author.html#211">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-13 18:58:42 +0100 (Tue, 13 Feb 2007)
+New Revision: 136
+
+Modified:
+   ser_ims/trunk/main.c
+   ser_ims/trunk/mem/f_malloc.c
+   ser_ims/trunk/mem/f_malloc.h
+   ser_ims/trunk/mem/mem.h
+   ser_ims/trunk/mem/q_malloc.c
+   ser_ims/trunk/mem/q_malloc.h
+   ser_ims/trunk/mem/shm_mem.h
+   ser_ims/trunk/mem/vq_malloc.c
+   ser_ims/trunk/mem/vq_malloc.h
+Log:
+Memory sums for leak detection (submitted also to serdev for inclusion).
+
+
+Modified: ser_ims/trunk/main.c
+===================================================================
+--- ser_ims/trunk/main.c	2007-02-13 15:25:46 UTC (rev 135)
++++ ser_ims/trunk/main.c	2007-02-13 17:58:42 UTC (rev 136)
+@@ -272,7 +272,7 @@
+ /* debugging level for memory stats */
+ int memlog = L_DBG;
+ /* debugging level for the malloc debug messages */
+-int memdbg = L_DBG;
++int memdbg = L_MEM;
+ /* debugging level for timer debugging */
+ int timerlog = L_WARN;
+ /* should replies include extensive warnings? by default yes,
+@@ -428,6 +428,9 @@
+ 	if (show_status){
+ 		LOG(memlog, &quot;Memory status (pkg):\n&quot;);
+ 		pkg_status();
++#ifdef pkg_sums		
++		pkg_sums();
++#endif		
+ 	}
+ #endif
+ #ifdef SHM_MEM
+@@ -436,6 +439,9 @@
+ 	if (show_status){
+ 			LOG(memlog, &quot;Memory status (shm):\n&quot;);
+ 			shm_status();
++#ifdef shm_sums
++			shm_sums();
++#endif			
+ 	}
+ 	/* zero all shmem alloc vars that we still use */
+ 	shm_mem_destroy();
+@@ -634,6 +640,9 @@
+ 					#ifdef PKG_MALLOC
+ 					LOG(memlog, &quot;Memory status (pkg):\n&quot;);
+ 					pkg_status();
++					#ifdef pkg_sums
++						pkg_sums();
++					#endif					
+ 					#endif
+ 					exit(0);
+ 					break;
+
+Modified: ser_ims/trunk/mem/f_malloc.c
+===================================================================
+--- ser_ims/trunk/mem/f_malloc.c	2007-02-13 15:25:46 UTC (rev 135)
++++ ser_ims/trunk/mem/f_malloc.c	2007-02-13 17:58:42 UTC (rev 136)
+@@ -601,4 +601,81 @@
+ }
+ 
+ 
++#ifdef DBG_F_MALLOC
++
++	typedef struct _mem_counter{
++		const char *file;
++		const char *func;
++		unsigned long line;
++		
++		unsigned long size;
++		int count;
++		
++		struct _mem_counter *next;
++	} mem_counter;
++	
++	mem_counter* get_mem_counter(mem_counter **root,struct fm_frag* f)
++	{
++		mem_counter *x;
++		if (!*root) goto make_new;
++		for(x=*root;x;x=x-&gt;next)
++			if (x-&gt;file == f-&gt;file &amp;&amp; x-&gt;func == f-&gt;func &amp;&amp; x-&gt;line == f-&gt;line)
++				return x;
++	make_new:	
++		x = malloc(sizeof(mem_counter));
++		x-&gt;file = f-&gt;file;
++		x-&gt;func = f-&gt;func;
++		x-&gt;line = f-&gt;line;
++		x-&gt;count = 0;
++		x-&gt;size = 0;
++		x-&gt;next = *root;
++		*root = x;
++		return x;
++	}
++	
++	#include &quot;../locking.h&quot;
++	#include &quot;../pt.h&quot;
++	
++	extern gen_lock_t* process_lock;
++	extern struct process_table *pt;
++	extern int process_no;
++	
++	void fm_sums(struct fm_block* qm)
++	{
++		struct fm_frag* f;
++		int i;
++		int memlog=L_ERR;
++		mem_counter *root=0,*x;
++		lock_get(process_lock);
++		if (process_no!=0)
++			LOG(memlog, &quot;fm_sums (%p): PKG[%s]\n&quot;, qm,pt[process_no].desc);
++		else 
++			LOG(memlog, &quot;fm_sums (%p): PKG[0]/SHM \n&quot;,qm);
++		if (!qm) return;
++	
++		LOG(memlog, &quot;summarizing all alloc'ed. fragments:\n&quot;);
++		
++		for (f=qm-&gt;first_frag, i=0;(char*)f&lt;(char*)qm-&gt;last_frag_end;f=FRAG_NEXT(f),i++){
++			if (! f-&gt;u.is_free){
++				x = get_mem_counter(&amp;root,f);
++				x-&gt;count++;
++				x-&gt;size+=f-&gt;size;
++			}
++		}
++		x = root;
++		while(x){
++			LOG(memlog, &quot; count=%6d size=%10lu bytes from %s: %s(%ld)\n&quot;,
++				x-&gt;count,x-&gt;size,
++				x-&gt;file, x-&gt;func, x-&gt;line
++				);
++			root = x-&gt;next;
++			free(x);
++			x = root;
++		}
++		LOG(memlog, &quot;-----------------------------\n&quot;);
++		lock_release(process_lock);
++	}
+ #endif
++
++
++#endif
+
+Modified: ser_ims/trunk/mem/f_malloc.h
+===================================================================
+--- ser_ims/trunk/mem/f_malloc.h	2007-02-13 15:25:46 UTC (rev 135)
++++ ser_ims/trunk/mem/f_malloc.h	2007-02-13 17:58:42 UTC (rev 136)
+@@ -138,6 +138,9 @@
+ 
+ void  fm_status(struct fm_block*);
+ void  fm_info(struct fm_block*, struct mem_info*);
++#ifdef DBG_F_MALLOC
++void  fm_sums(struct fm_block* qm);
++#endif
+ 
+ 
+ #endif
+
+Modified: ser_ims/trunk/mem/mem.h
+===================================================================
+--- ser_ims/trunk/mem/mem.h	2007-02-13 15:25:46 UTC (rev 135)
++++ ser_ims/trunk/mem/mem.h	2007-02-13 17:58:42 UTC (rev 136)
+@@ -109,10 +109,19 @@
+ #	endif
+ #	ifdef VQ_MALLOC
+ #		define pkg_status()  vqm_status(mem_block)
++#		ifdef DBG_QM_MALLOC
++#			define pkg_sums()  	 vqm_sums(mem_block)
++#		endif
+ #	elif defined F_MALLOC
+ #		define pkg_status()  fm_status(mem_block)
++#		ifdef DBG_F_MALLOC
++#			define pkg_sums()  	 fm_sums(mem_block)
++#		endif
+ #	else
+ #		define pkg_status()  qm_status(mem_block)
++#		ifdef DBG_QM_MALLOC
++#			define pkg_sums()  	 qm_sums(mem_block)
++#		endif
+ #	endif
+ #elif defined(SHM_MEM) &amp;&amp; defined(USE_SHM_MEM)
+ #	include &quot;shm_mem.h&quot;
+
+Modified: ser_ims/trunk/mem/q_malloc.c
+===================================================================
+--- ser_ims/trunk/mem/q_malloc.c	2007-02-13 15:25:46 UTC (rev 135)
++++ ser_ims/trunk/mem/q_malloc.c	2007-02-13 17:58:42 UTC (rev 136)
+@@ -714,5 +714,80 @@
+ }
+ 
+ 
++#ifdef DBG_QM_MALLOC
+ 
++	typedef struct _mem_counter{
++		const char *file;
++		const char *func;
++		unsigned long line;
++		
++		unsigned long size;
++		int count;
++		
++		struct _mem_counter *next;
++	} mem_counter;
++	
++	mem_counter* get_mem_counter(mem_counter **root,struct qm_frag* f)
++	{
++		mem_counter *x;
++		if (!*root) goto make_new;
++		for(x=*root;x;x=x-&gt;next)
++			if (x-&gt;file == f-&gt;file &amp;&amp; x-&gt;func == f-&gt;func &amp;&amp; x-&gt;line == f-&gt;line)
++				return x;
++	make_new:	
++		x = malloc(sizeof(mem_counter));
++		x-&gt;file = f-&gt;file;
++		x-&gt;func = f-&gt;func;
++		x-&gt;line = f-&gt;line;
++		x-&gt;count = 0;
++		x-&gt;size = 0;
++		x-&gt;next = *root;
++		*root = x;
++		return x;
++	}
++	
++	#include &quot;../locking.h&quot;
++	#include &quot;../pt.h&quot;
++	
++	extern gen_lock_t* process_lock;
++	extern struct process_table *pt;
++	extern int process_no;
++	
++	void qm_sums(struct qm_block* qm)
++	{
++		struct qm_frag* f;
++		int i;
++		int memlog=L_ERR;
++		mem_counter *root=0,*x;
++		lock_get(process_lock);
++		if (process_no!=0)
++			LOG(memlog, &quot;qm_sums (%p): PKG[%s]\n&quot;, qm,pt[process_no].desc);
++		else 
++			LOG(memlog, &quot;qm_sums (%p): PKG[0]/SHM \n&quot;,qm);
++		if (!qm) return;
++	
++		LOG(memlog, &quot;summarizing all alloc'ed. fragments:\n&quot;);
++		
++		for (f=qm-&gt;first_frag, i=0;(char*)f&lt;(char*)qm-&gt;last_frag_end;f=FRAG_NEXT(f),i++){
++			if (! f-&gt;u.is_free){
++				x = get_mem_counter(&amp;root,f);
++				x-&gt;count++;
++				x-&gt;size+=f-&gt;size;
++			}
++		}
++		x = root;
++		while(x){
++			LOG(memlog, &quot; count=%6d size=%10lu bytes from %s: %s(%ld)\n&quot;,
++				x-&gt;count,x-&gt;size,
++				x-&gt;file, x-&gt;func, x-&gt;line
++				);
++			root = x-&gt;next;
++			free(x);
++			x = root;
++		}
++		LOG(memlog, &quot;-----------------------------\n&quot;);
++		lock_release(process_lock);
++	}
+ #endif
++
++#endif
+
+Modified: ser_ims/trunk/mem/q_malloc.h
+===================================================================
+--- ser_ims/trunk/mem/q_malloc.h	2007-02-13 15:25:46 UTC (rev 135)
++++ ser_ims/trunk/mem/q_malloc.h	2007-02-13 17:58:42 UTC (rev 136)
+@@ -150,5 +150,9 @@
+ void  qm_status(struct qm_block*);
+ void  qm_info(struct qm_block*, struct mem_info*);
+ 
++#ifdef DBG_QM_MALLOC
++void  qm_sums(struct qm_block* qm);
++#endif
+ 
++
+ #endif
+
+Modified: ser_ims/trunk/mem/shm_mem.h
+===================================================================
+--- ser_ims/trunk/mem/shm_mem.h	2007-02-13 15:25:46 UTC (rev 135)
++++ ser_ims/trunk/mem/shm_mem.h	2007-02-13 17:58:42 UTC (rev 136)
+@@ -79,6 +79,9 @@
+ #	define MY_MALLOC vqm_malloc
+ #	define MY_FREE vqm_free
+ #	define MY_STATUS vqm_status
++#	ifdef pkg_sums
++#		define MY_SUMS vqm_sums
++#	endif
+ #	define  shm_malloc_init vqm_malloc_init
+ #	warn &quot;no proper vq_realloc implementation, try another memory allocator&quot;
+ #elif defined F_MALLOC
+@@ -89,6 +92,9 @@
+ #	define MY_REALLOC fm_realloc
+ #	define MY_STATUS fm_status
+ #	define MY_MEMINFO	fm_info
++#	ifdef pkg_sums
++#		define MY_SUMS fm_sums
++#	endif
+ #	define  shm_malloc_init fm_malloc_init
+ #else
+ #	include &quot;q_malloc.h&quot;
+@@ -98,6 +104,9 @@
+ #	define MY_REALLOC qm_realloc
+ #	define MY_STATUS qm_status
+ #	define MY_MEMINFO	qm_info
++#	ifdef pkg_sums
++#		define MY_SUMS qm_sums
++#	endif
+ #	define  shm_malloc_init qm_malloc_init
+ #endif
+ 
+@@ -240,6 +249,14 @@
+ 	shm_unlock(); \
+ }while(0)
+ 
++#ifdef MY_SUMS
++	#define shm_sums() \
++	do { \
++			shm_lock(); \
++			MY_SUMS(shm_block); \
++			shm_unlock(); \
++	}while(0)
++#endif
+ 
+ #endif
+ 
+
+Modified: ser_ims/trunk/mem/vq_malloc.c
+===================================================================
+--- ser_ims/trunk/mem/vq_malloc.c	2007-02-13 15:25:46 UTC (rev 135)
++++ ser_ims/trunk/mem/vq_malloc.c	2007-02-13 17:58:42 UTC (rev 136)
+@@ -472,6 +472,80 @@
+ 	LOG(memlog, &quot;-----------------------------\n&quot;);
+ }
+ 
++#ifdef DBG_QM_MALLOC
+ 
++	typedef struct _mem_counter{
++		const char *file;
++		const char *func;
++		unsigned long line;
++		
++		unsigned long size;
++		int count;
++		
++		struct _mem_counter *next;
++	} mem_counter;
++	
++	mem_counter* get_mem_counter(mem_counter **root,struct vqm_frag* f)
++	{
++		mem_counter *x;
++		if (!*root) goto make_new;
++		for(x=*root;x;x=x-&gt;next)
++			if (x-&gt;file == f-&gt;file &amp;&amp; x-&gt;func == f-&gt;func &amp;&amp; x-&gt;line == f-&gt;line)
++				return x;
++	make_new:	
++		x = malloc(sizeof(mem_counter));
++		x-&gt;file = f-&gt;file;
++		x-&gt;func = f-&gt;func;
++		x-&gt;line = f-&gt;line;
++		x-&gt;count = 0;
++		x-&gt;size = 0;
++		x-&gt;next = *root;
++		*root = x;
++		return x;
++	}
++	
++	#include &quot;../locking.h&quot;
++	#include &quot;../pt.h&quot;
++	
++	extern gen_lock_t* process_lock;
++	extern struct process_table *pt;
++	extern int process_no;
++	
++	void qm_sums(struct vqm_block* qm)
++	{
++		struct vqm_frag* f;
++		int i;
++		int memlog=L_ERR;
++		mem_counter *root=0,*x;
++		lock_get(process_lock);
++		if (process_no!=0)
++			LOG(memlog, &quot;vqm_sums (%p): PKG[%s]\n&quot;, qm,pt[process_no].desc);
++		else 
++			LOG(memlog, &quot;vqm_sums (%p): PKG[0]/SHM \n&quot;,qm);
++		if (!qm) return;
++	
++		LOG(memlog, &quot;summarizing all alloc'ed. fragments:\n&quot;);
++		
++		for (f=qm-&gt;first_frag, i=0;(char*)f&lt;(char*)qm-&gt;last_frag_end;f=FRAG_NEXT(f),i++){
++			if (! f-&gt;u.is_free){
++				x = get_mem_counter(&amp;root,f);
++				x-&gt;count++;
++				x-&gt;size+=f-&gt;size;
++			}
++		}
++		x = root;
++		while(x){
++			LOG(memlog, &quot; count=%6d size=%10lu bytes from %s: %s(%ld)\n&quot;,
++				x-&gt;count,x-&gt;size,
++				x-&gt;file, x-&gt;func, x-&gt;line
++				);
++			root = x-&gt;next;
++			free(x);
++			x = root;
++		}
++		LOG(memlog, &quot;-----------------------------\n&quot;);
++		lock_release(process_lock);
++	}
++#endif
+ 
+ #endif
+
+Modified: ser_ims/trunk/mem/vq_malloc.h
+===================================================================
+--- ser_ims/trunk/mem/vq_malloc.h	2007-02-13 15:25:46 UTC (rev 135)
++++ ser_ims/trunk/mem/vq_malloc.h	2007-02-13 17:58:42 UTC (rev 136)
+@@ -149,6 +149,9 @@
+ #endif
+ 
+ void  vqm_status(struct vqm_block*);
++#ifdef DBG_QM_MALLOC
++void  vqm_sums(struct vqm_block* qm);
++#endif
+ 
+ 
+ #endif
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000210.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r135 - in ser_ims/trunk/modules:	isc scscf
+</A></li>
+	<LI>Next message: <A HREF="000212.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r137 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#211">[ date ]</a>
+              <a href="thread.html#211">[ thread ]</a>
+              <a href="subject.html#211">[ subject ]</a>
+              <a href="author.html#211">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

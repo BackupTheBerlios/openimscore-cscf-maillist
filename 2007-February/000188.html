@@ -1,0 +1,1080 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r126 - in	ser_ims/branches/01_persistency: cfg lib/cds lib/presence	lib/xcap modules/pcscf modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r126%20-%20in%0A%09ser_ims/branches/01_persistency%3A%20cfg%20lib/cds%20lib/presence%0A%09lib/xcap%20modules/pcscf%20modules/scscf&In-Reply-To=%3C200702072116.l17LG66v001008%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000187.html">
+   <LINK REL="Next"  HREF="000189.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r126 - in	ser_ims/branches/01_persistency: cfg lib/cds lib/presence	lib/xcap modules/pcscf modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r126%20-%20in%0A%09ser_ims/branches/01_persistency%3A%20cfg%20lib/cds%20lib/presence%0A%09lib/xcap%20modules/pcscf%20modules/scscf&In-Reply-To=%3C200702072116.l17LG66v001008%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r126 - in	ser_ims/branches/01_persistency: cfg lib/cds lib/presence	lib/xcap modules/pcscf modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Feb  7 22:16:06 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000187.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r125 - ser_ims/trunk/cfg
+</A></li>
+        <LI>Next message: <A HREF="000189.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r127 - in	ser_ims/branches/01_persistency/lib: cds presence xcap
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#188">[ date ]</a>
+              <a href="thread.html#188">[ thread ]</a>
+              <a href="subject.html#188">[ subject ]</a>
+              <a href="author.html#188">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-07 22:15:16 +0100 (Wed, 07 Feb 2007)
+New Revision: 126
+
+Modified:
+   ser_ims/branches/01_persistency/cfg/pcscf.cfg
+   ser_ims/branches/01_persistency/lib/cds/
+   ser_ims/branches/01_persistency/lib/presence/
+   ser_ims/branches/01_persistency/lib/xcap/
+   ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.c
+   ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.h
+   ser_ims/branches/01_persistency/modules/pcscf/dlg_state.c
+   ser_ims/branches/01_persistency/modules/pcscf/mod.c
+   ser_ims/branches/01_persistency/modules/pcscf/registrar_subscribe.c
+   ser_ims/branches/01_persistency/modules/pcscf/registrar_subscribe.h
+   ser_ims/branches/01_persistency/modules/scscf/bin.c
+   ser_ims/branches/01_persistency/modules/scscf/dlg_state.c
+   ser_ims/branches/01_persistency/modules/scscf/registrar_notify.c
+   ser_ims/branches/01_persistency/modules/scscf/sip.c
+Log:
+Revamped the P-CSCF subscriptions by using partitioned hash-tables.
+Revamped the P-CSCF subscriptions to the reg event by using dialogs.
+Minor fixes in the S-CSCF handling subscriptions to reg.
+
+
+Modified: ser_ims/branches/01_persistency/cfg/pcscf.cfg
+===================================================================
+--- ser_ims/branches/01_persistency/cfg/pcscf.cfg	2007-02-07 19:34:20 UTC (rev 125)
++++ ser_ims/branches/01_persistency/cfg/pcscf.cfg	2007-02-07 21:15:16 UTC (rev 126)
+@@ -40,6 +40,8 @@
+ modparam(&quot;pcscf&quot;,&quot;registrar_hash_size&quot;,256)
+ modparam(&quot;pcscf&quot;,&quot;reginfo_dtd&quot;,&quot;/opt/OpenIMSCore/ser_ims/modules/pcscf/reginfo.dtd&quot;)
+ 
++modparam(&quot;pcscf&quot;,&quot;subscriptions_hash_size&quot;,256)
++
+ modparam(&quot;pcscf&quot;,&quot;dialogs_hash_size&quot;,256)
+ 
+ modparam(&quot;pcscf&quot;,&quot;dialogs_expiration_time&quot;,3600)
+
+
+Property changes on: ser_ims/branches/01_persistency/lib/cds
+___________________________________________________________________
+Name: svn:ignore
+   + *.d *.so
+
+
+
+Property changes on: ser_ims/branches/01_persistency/lib/presence
+___________________________________________________________________
+Name: svn:ignore
+   + *.d *.so
+
+
+
+Property changes on: ser_ims/branches/01_persistency/lib/xcap
+___________________________________________________________________
+Name: svn:ignore
+   + *.d *.so
+
+
+Modified: ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.c	2007-02-07 19:34:20 UTC (rev 125)
++++ ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.c	2007-02-07 21:15:16 UTC (rev 126)
+@@ -143,7 +143,7 @@
+ 	d-&gt;routes_cnt = k;
+ 
+ 	len = sizeof(str)*d-&gt;routes_cnt;
+-	d = (p_dialog*) shm_malloc(len);
++	d-&gt;routes = (str*) shm_malloc(len);
+ 	if (!d) {
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_p_dialog: Error allocating %d bytes.\n&quot;,len);
+ 		goto error;
+@@ -558,5 +558,134 @@
+ 
+ 
+ 
+-
+-
++//
++///**
++// * Encode a r_subscription into a binary form
++// * @param x - binary data to append to
++// * @param p - the r_subscription to encode
++// * @returns 1 on succcess or 0 on error
++// */
++//int bin_encode_r_subscription(bin_data *x,r_subscription *s)
++//{
++//	int k,i;
++//	
++//	if (!bin_encode_str(x,&amp;(c-&gt;host))) goto error;
++//	k = c-&gt;port;
++//	if (!bin_encode_int2(x,k)) goto error;
++//	k = c-&gt;transport;
++//	if (!bin_encode_int1(x,k)) goto error;
++//	
++//	if (!bin_encode_ipsec(x,c-&gt;ipsec)) goto error;
++//	
++//	if (!bin_encode_str(x,&amp;(c-&gt;uri))) goto error;
++//	
++//	k = c-&gt;reg_state+5;
++//	if (!bin_encode_int1(x,k)) goto error;
++//
++//	if (!bin_encode_int4(x,c-&gt;expires)) goto error;
++//
++//	k = c-&gt;service_route_cnt;
++//	if (!bin_encode_int2(x,k)) goto error;
++//	for(i=0;i&lt;c-&gt;service_route_cnt;i++)
++//		if (!bin_encode_str(x,c-&gt;service_route+i)) goto error;
++//		
++//	if (!bin_encode_pinhole(x,c-&gt;pinhole)) goto error;
++//	
++//	k=0;
++//	for(p=c-&gt;head;p;p=p-&gt;next)
++//		k++;
++//	if (!bin_encode_int2(x,k)) goto error;
++//	for(p=c-&gt;head;p;p=p-&gt;next)
++//		if (!bin_encode_r_public(x,p)) goto error;	
++//	
++//	return 1;
++//error:
++//	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_encode_r_subscription: Error while encoding.\n&quot;);
++//	return 0;		
++//}
++//
++///**
++// *	Decode a r_subscription from a binary data structure
++// * @param x - binary data to decode from
++// * @returns the r_subscription* where the data has been decoded
++// */
++//r_subscription* bin_decode_r_subscription(bin_data *x)
++//{
++//	r_subscription *c=0;
++//	r_public *p=0,*pn=0;
++//	int len,k,i;
++//	str st;
++//	
++//	len = sizeof(r_subscription);
++//	c = (r_subscription*) shm_malloc(len);
++//	if (!c) {
++//		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_subscription: Error allocating %d bytes.\n&quot;,len);
++//		goto error;
++//	}
++//	memset(c,0,len);
++//	
++//	if (!bin_decode_str(x,&amp;st)||!str_shm_dup(&amp;(c-&gt;host),&amp;st)) goto error;
++//	if (!bin_decode_int2(x,&amp;k)) goto error;
++//	c-&gt;port = k;
++//	if (!bin_decode_int1(x,&amp;k)) goto error;
++//	c-&gt;transport = k;
++//
++//	c-&gt;hash = get_contact_hash(c-&gt;host,c-&gt;port,c-&gt;transport,r_hash_size);
++//	
++//	if (!bin_decode_ipsec(x,&amp;(c-&gt;ipsec ))) goto error;
++//	
++//	if (!bin_decode_str(x,&amp;st)||!str_shm_dup(&amp;(c-&gt;uri),&amp;st)) goto error;
++//	
++//	if (!bin_decode_int1(x,&amp;k)) goto error;
++//	c-&gt;reg_state = k-5;
++//
++//	if (!bin_decode_int4(x,&amp;k)) goto error;
++//	c-&gt;expires = k;
++//	
++//	if (!bin_decode_int2(x,	&amp;k)) goto error;
++//	c-&gt;service_route_cnt = k;
++//
++//	len = sizeof(str)*c-&gt;service_route_cnt;
++//	c-&gt;service_route = (str*) shm_malloc(len);
++//	if (!c-&gt;service_route) {
++//		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_subscription: Error allocating %d bytes.\n&quot;,len);
++//		goto error;
++//	}
++//	memset(c-&gt;service_route,0,len);	
++//	for(i=0;i&lt;c-&gt;service_route_cnt;i++)
++//		if (!bin_decode_str(x,&amp;st)||!str_shm_dup(c-&gt;service_route+i,&amp;st)) goto error;
++//	
++//	if (!bin_decode_pinhole(x,&amp;(c-&gt;pinhole ))) goto error;
++//		
++//	if (!bin_decode_int2(x,&amp;k)) goto error;
++//	for(i=0;i&lt;k;i++){
++//		p = bin_decode_r_public(x);
++//		if (!p) goto error;
++//		p-&gt;prev = c-&gt;tail;
++//		p-&gt;next = 0;
++//		if (c-&gt;tail) c-&gt;tail-&gt;next = p;
++//		c-&gt;tail = p;
++//		if (!c-&gt;head) c-&gt;head = p;
++//	}
++//	return c;
++//error:
++//	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_subscription: Error while decoding (at %d (%04x)).\n&quot;,x-&gt;max,x-&gt;max);
++//	if (c) {
++//		if (c-&gt;host.s) shm_free(c-&gt;host.s);		
++//		if (c-&gt;ipsec) shm_free(c-&gt;ipsec);
++//		if (c-&gt;uri.s) shm_free(c-&gt;uri.s);
++//		if (c-&gt;pinhole) shm_free(c-&gt;pinhole);
++//		while(c-&gt;head){
++//			p = c-&gt;head;
++//			pn = p-&gt;next;
++//			free_r_public(p);
++//			c-&gt;head = pn;
++//		}
++//		shm_free(c);
++//	}
++//	return 0;
++//}
++//
++//
++//
++//
+
+Modified: ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.h	2007-02-07 19:34:20 UTC (rev 125)
++++ ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.h	2007-02-07 21:15:16 UTC (rev 126)
+@@ -60,6 +60,7 @@
+ #include &quot;bin.h&quot;
+ #include &quot;registrar_storage.h&quot;
+ #include &quot;dlg_state.h&quot;
++#include &quot;registrar_subscribe.h&quot;
+ 
+ #define BIN_INITIAL_ALLOC_SIZE 256
+ 
+
+Modified: ser_ims/branches/01_persistency/modules/pcscf/dlg_state.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/pcscf/dlg_state.c	2007-02-07 19:34:20 UTC (rev 125)
++++ ser_ims/branches/01_persistency/modules/pcscf/dlg_state.c	2007-02-07 21:15:16 UTC (rev 126)
+@@ -683,11 +683,11 @@
+ 					if (req &amp;&amp; req-&gt;first_line.u.request.method.len==6 &amp;&amp;
+ 						strncasecmp(req-&gt;first_line.u.request.method.s,&quot;NOTIFY&quot;,6)==0){
+ 						expires = cscf_get_subscription_state(req);
+-						if (expires==-2){						
++						if (expires==0){						
+ 							d-&gt;state = DLG_STATE_TERMINATED;
+ 							d_unlock(d-&gt;hash);				
+ 							return P_drop_dialog(msg,str1,str2);
+-						}else if (expires&gt;=0){
++						}else if (expires&gt;0){
+ 							d-&gt;expires = expires;
+ 						}
+ 					}
+
+Modified: ser_ims/branches/01_persistency/modules/pcscf/mod.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/pcscf/mod.c	2007-02-07 19:34:20 UTC (rev 125)
++++ ser_ims/branches/01_persistency/modules/pcscf/mod.c	2007-02-07 21:15:16 UTC (rev 126)
+@@ -120,6 +120,8 @@
+ char *pcscf_reginfo_dtd=&quot;/opt/OpenIMSCore/ser_ims/pcscf/modules/pcscf/reginfo.dtd&quot;;/**&lt; DTD to check the reginfo/xml in the NOTIFY to reg */
+ int pcscf_subscribe_retries = 1;			/**&lt; times to retry subscribe to reg on failure 	*/
+ 
++int subscriptions_hash_size=1024;			/**&lt; the size of the hash table for subscriptions	*/
++
+ int pcscf_dialogs_hash_size=1024;			/**&lt; the size of the hash table for dialogs			*/
+ int pcscf_dialogs_expiration_time=3600;		/**&lt; expiration time for a dialog					*/
+ 
+@@ -278,6 +280,7 @@
+  * &lt;p&gt;  
+  * - registrar_hash_size - size of the registrar hash table
+  * - reginfo_dtd - DTD file for checking the reginfo/xml in the NOTIFY to reg event
++ * - subscriptions_hash_size - size of the subscriptions hash table
+  * &lt;p&gt;
+  * - dialogs_hash_size - size of the dialog hash table
+  * - dialogs_expiration_time - time-out for dialog expiration
+@@ -317,6 +320,7 @@
+ 
+ 	{&quot;registrar_hash_size&quot;,		INT_PARAM, &amp;registrar_hash_size},
+ 	{&quot;reginfo_dtd&quot;, 			STR_PARAM, &amp;pcscf_reginfo_dtd},
++	{&quot;subscriptions_hash_size&quot;,	INT_PARAM, &amp;subscriptions_hash_size},
+ 
+ 	{&quot;dialogs_hash_size&quot;,		INT_PARAM, &amp;pcscf_dialogs_hash_size},
+ 	{&quot;dialogs_expiration_time&quot;,	INT_PARAM, &amp;pcscf_dialogs_expiration_time},
+
+Modified: ser_ims/branches/01_persistency/modules/pcscf/registrar_subscribe.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/pcscf/registrar_subscribe.c	2007-02-07 19:34:20 UTC (rev 125)
++++ ser_ims/branches/01_persistency/modules/pcscf/registrar_subscribe.c	2007-02-07 21:15:16 UTC (rev 126)
+@@ -66,9 +66,11 @@
+ #include &quot;../../parser/parse_uri.h&quot;
+ #include &quot;../../locking.h&quot;
+ #include &quot;../tm/tm_load.h&quot;
++#include &quot;../dialog/dlg_mod.h&quot;
+ #include &quot;sip.h&quot;
+ 
+ extern struct tm_binds tmb;   		/**&lt; Structure with pointers to tm funcs 		*/
++extern dlg_func_t dialogb;			/**&lt; Structure with pointers to dialog funcs			*/
+ 
+ extern str pcscf_name_str;			/**&lt; fixed SIP URI of this P-CSCF 				*/
+ extern str pcscf_path_str;			/**&lt; fixed Path URI  							*/
+@@ -80,20 +82,74 @@
+ 
+ extern int pcscf_subscribe_retries;	/**&lt; times to retry subscribe to reg on failure */
+ 
+-r_subscription_list *subscription_list=0;/**&lt; list of subscriptions					*/
++r_subscription_hash_slot *subscriptions=0;/**&lt; list of subscriptions					*/
++extern int subscriptions_hash_size;	/**&lt; the size of the hash table for subscriptions	*/
+ 
++
+ /**
++ * Computes the hash for a contact.
++ * @param aor - the string of the contact
++ * @param port - the port of the contact
++ * @param transport - transport for the contact - ignored for now
++ * @param hash_size - size of the hash, to % with
++ * @returns the hash for the contact
++ */
++inline unsigned int get_subscription_hash(str uri)
++{
++#define h_inc h+=v^(v&gt;&gt;3)
++   char* p;
++   register unsigned v;
++   register unsigned h;
++   h=0;
++   for (p=uri.s; p&lt;=(uri.s+uri.len-4); p+=4){
++       v=(*p&lt;&lt;24)+(p[1]&lt;&lt;16)+(p[2]&lt;&lt;8)+p[3];
++       h_inc;
++   }
++   v=0;
++   for (;p&lt;(uri.s+uri.len); p++) {
++       v&lt;&lt;=8;
++       v+=*p;
++   }
++   h_inc;
++   h=((h)+(h&gt;&gt;11))+((h&gt;&gt;13)+(h&gt;&gt;23));
++   return (h)%subscriptions_hash_size;
++#undef h_inc 
++}
++
++/**
++ * Lock a subscription hash slot.
++ * @param hash - index to lock
++ */
++inline void subs_lock(unsigned int hash)
++{
++//	LOG(L_CRIT,&quot;GET %d\n&quot;,hash);
++	lock_get(subscriptions[hash].lock);
++//	LOG(L_CRIT,&quot;GOT %d\n&quot;,hash);
++}
++/**
++ * UnLock a subscriptions hash slot.
++ * @param hash - index to unlock
++ */
++inline void subs_unlock(unsigned int hash)
++{
++//	LOG(L_CRIT,&quot;REL %d\n&quot;,hash);	
++	lock_release(subscriptions[hash].lock);
++}
++/**
+  * Initialize the subscription list.
+  * @returns 1 if ok, 0 on error
+  */
+ int r_subscription_init()
+ {
+-	subscription_list = shm_malloc(sizeof(r_subscription_list));
+-	if (!subscription_list) return 0;
+-	memset(subscription_list,0,sizeof(r_subscription_list));
+-	subscription_list-&gt;lock = lock_alloc();
+-	if (!subscription_list-&gt;lock) return 0;
+-	subscription_list-&gt;lock = lock_init(subscription_list-&gt;lock);
++	int i;
++	subscriptions = shm_malloc(sizeof(r_subscription_hash_slot)*subscriptions_hash_size);
++	if (!subscriptions) return 0;
++	memset(subscriptions,0,sizeof(r_subscription_hash_slot)*subscriptions_hash_size);
++	for(i=0;i&lt;subscriptions_hash_size;i++){
++		subscriptions[i].lock = lock_alloc();
++		if (!subscriptions[i].lock) return 0;
++		subscriptions[i].lock = lock_init(subscriptions[i].lock);
++	}
+ 	return 1;
+ }
+ 
+@@ -102,18 +158,21 @@
+  */
+ void r_subscription_destroy()
+ {
++	int i;
+ 	r_subscription *s,*ns;
+-	lock_get(subscription_list-&gt;lock);
+-	s = subscription_list-&gt;head;
+-	while(s){
+-		ns = s-&gt;next;
+-		//TODO send out unSUBSCRIBE
+-		free_r_subscription(s);
+-		s = ns;
+-	}
+-	lock_destroy(subscription_list-&gt;lock);
+-	lock_dealloc(subscription_list-&gt;lock);	
+-	shm_free(subscription_list);
++	for(i=0;i&lt;subscriptions_hash_size;i++){
++		subs_lock(i);
++		s = subscriptions[i].head;
++		while(s){
++			ns = s-&gt;next;
++			//TODO send out unSUBSCRIBE
++			free_r_subscription(s);
++			s = ns;
++		}
++		lock_destroy(subscriptions[i].lock);
++		lock_dealloc(subscriptions[i].lock);
++	}	
++	shm_free(subscriptions);
+ }
+ 
+ 
+@@ -183,18 +242,22 @@
+ int r_subscribe(str uri,int duration)
+ {
+ 	r_subscription *s;
+-	str asserted_id={0,0};
+-	asserted_id.s = pcscf_path_str.s;
+-	asserted_id.len = pcscf_path_str.len;
+ 	/* first we try to update. if not found, add it */
+-	if (!is_r_subscription(uri)){			
+-		s = new_r_subscription(uri,pcscf_name_str,duration,asserted_id);
++	s = get_r_subscription(uri);	
++	if (s){
++		s-&gt;duration = duration;
++		s-&gt;attempts_left=pcscf_subscribe_retries;
++		subs_unlock(s-&gt;hash);
++	}else{			
++		s = new_r_subscription(uri,duration);
+ 		if (!s){
+ 			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:r_subscribe: Error creating new subscription\n&quot;);
+ 			return 0;
+ 		}
+ 		add_r_subscription(s);
++		s-&gt;attempts_left=pcscf_subscribe_retries;
+ 	}
++		
+ 	return 1;
+ }
+ 
+@@ -228,8 +291,8 @@
+ 	h.len += expires_s.len + 12 + expires_e.len;
+ 
+ 	h.len += contact_s.len + pcscf_name_str.len + contact_e.len;
+-	if (s-&gt;asserted_identity.len) h.len += p_asserted_identity_s.len + 
+-		p_asserted_identity_e.len + s-&gt;asserted_identity.len;
++	if (pcscf_name_str.len) h.len += p_asserted_identity_s.len + 
++		p_asserted_identity_e.len + pcscf_name_str.len;
+ 
+ 	h.s = pkg_malloc(h.len);
+ 	if (!h.s){
+@@ -253,20 +316,30 @@
+ 	STR_APPEND(h,pcscf_name_str);
+ 	STR_APPEND(h,contact_e);
+ 	
+-	if (s-&gt;asserted_identity.len) {
++	if (pcscf_name_str.len) {
+ 		STR_APPEND(h,p_asserted_identity_s);
+-		STR_APPEND(h,s-&gt;asserted_identity);
++		STR_APPEND(h,pcscf_name_str);
+ 		STR_APPEND(h,p_asserted_identity_e);
+ 	}
+ 	
+-	if (tmb.t_request(&amp;method, &amp;(s-&gt;req_uri), &amp;(s-&gt;req_uri), &amp;(s-&gt;from), &amp;h, 0, 0,
+-		 r_subscribe_response, &amp;(s-&gt;req_uri))&lt;0)
+-	{
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:r_send_subscribe: Error sending in transaction\n&quot;);
+-		goto error;
++	if (!s-&gt;dialog){
++		/* this is the first request in the dialog */
++		if (tmb.new_dlg_uac(0,0,1,&amp;pcscf_name_str,&amp;s-&gt;req_uri,&amp;s-&gt;dialog)&lt;0){
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:r_send_subscribe: Error creating a dialog for SUBSCRIBE\n&quot;);
++			goto error;
++		}
++		if (dialogb.request_outside(&amp;method, &amp;h, 0, s-&gt;dialog, r_subscribe_response,  &amp;(s-&gt;req_uri)) &lt; 0){
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:r_send_subscribe: Error sending initial request in a SUBSCRIBE dialog\n&quot;);
++			goto error;
++		}		
++	}else{
++		/* this is a subsequent subscribe */
++		if (dialogb.request_inside(&amp;method, &amp;h, 0, s-&gt;dialog, r_subscribe_response,  &amp;(s-&gt;req_uri)) &lt; 0){
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:r_send_subscribe: Error sending subsequent request in a SUBSCRIBE dialog\n&quot;);
++			goto error;
++		}				
+ 	}
+ 
+-
+ 	if (h.s) pkg_free(h.s);
+ 	return 1;
+ 
+@@ -282,24 +355,31 @@
+ {
+ 	str req_uri;
+ 	int expires;
++	r_subscription *s=0;
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_subscribe_response: code %d\n&quot;,ps-&gt;code);
+ 	if (!ps-&gt;rpl) {
+ 		LOG(L_ERR,&quot;INF:&quot;M_NAME&quot;:r_subscribe_response: No reply\n&quot;);
+ 		return;	
+ 	}
++	req_uri = *((str*) *(ps-&gt;param));		
++	s = get_r_subscription(req_uri);
++	if (!s){
++		LOG(L_ERR,&quot;INF:&quot;M_NAME&quot;:r_subscribe_response: received a SUBSCRIBE response but no subscription for &lt;%.*s&gt;\n&quot;,
++			req_uri.len,req_uri.s);
++		return;
++	}
+ 	if (ps-&gt;code&gt;=200 &amp;&amp; ps-&gt;code&lt;300){
+-		if (ps-&gt;rpl)
+-			expires = cscf_get_expires_hdr(ps-&gt;rpl);
+-		else 
+-			return;	
+-		req_uri = *((str*) *(ps-&gt;param));
+-		update_r_subscription(req_uri,expires);
++		expires = cscf_get_expires_hdr(ps-&gt;rpl);
++		update_r_subscription(s,expires);
++		tmb.dlg_response_uac(s-&gt;dialog, ps-&gt;rpl, IS_TARGET_REFRESH);
+ 	}else
+-	if (ps-&gt;code==404){
+-		update_r_subscription(req_uri,-1);			
+-	}else{
+-		LOG(L_INFO,&quot;INF:&quot;M_NAME&quot;:r_subscribe_response: code %d\n&quot;,ps-&gt;code);				
+-	}	
++		if (ps-&gt;code==404){
++			update_r_subscription(s,0);			
++			//tmb.dlg_response_uac(s-&gt;dialog, ps-&gt;rpl, IS_TARGET_REFRESH);
++		}else{
++			LOG(L_INFO,&quot;INF:&quot;M_NAME&quot;:r_subscribe_response: SUBSCRIRE response code %d ignored\n&quot;,ps-&gt;code);				
++		}	
++	if (s) subs_unlock(s-&gt;hash);		
+ }
+ 
+ /**
+@@ -310,47 +390,48 @@
+ void subscription_timer(unsigned int ticks, void* param)
+ {
+ 	r_subscription *s,*ns;
+-	lock_get(subscription_list-&gt;lock);
+-	s = subscription_list-&gt;head;
+-	r_act_time();
+-	while(s){
+-		ns = s-&gt;next;
+-		/* send initial subscribe */
+-		if (s-&gt;expires == 0){
+-			if (s-&gt;attempts&gt;=pcscf_subscribe_retries){
++	int i;
++	for(i=0;i&lt;subscriptions_hash_size;i++){
++		subs_lock(i);
++		s = subscriptions[i].head;
++		r_act_time();
++		while(s){
++			ns = s-&gt;next;			
++			if (s-&gt;attempts_left &gt; 0 ){
++				/* attempt to send a subscribe */
++				if (!r_send_subscribe(s,s-&gt;duration)){
++					LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:subscription_timer: Error on SUBSCRIBE (%d times)... droping\n&quot;,
++						pcscf_subscribe_retries);
++					del_r_subscription_nolock(s);
++				}else{
++					s-&gt;attempts_left--;
++				}
++			}else if (s-&gt;attempts_left==0) {
++				/* we failed to many times, drop the subscription */
+ 				LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:subscription_timer: Error on SUBSCRIBE for %d times... aborting\n&quot;,pcscf_subscribe_retries);
+-				del_r_subscription_nolock(s);			
+-			}else
+-			if (!r_send_subscribe(s,s-&gt;duration)){
+-				LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:subscription_timer: Error on initial SUBSCRIBE... droping\n&quot;);
+-				del_r_subscription_nolock(s);
++				del_r_subscription_nolock(s);										
+ 			}else{
+-				s-&gt;attempts ++;
++				/* we are subscribed already */
++//		Commented as the S-CSCF should adjust the subscription time accordingly				
++//				if ((s-&gt;duration&lt;1200 &amp;&amp; s-&gt;expires-time_now&lt;s-&gt;duration/2)||
++//					(s-&gt;duration&gt;=1200 &amp;&amp; s-&gt;expires-time_now&lt;600))
++//				{
++//					/* if we need a resubscribe, we mark it as such and try to subscribe again */					
++//					s-&gt;attempts_left = pcscf_subscribe_retries;
++//					ns = s;
++//				}
+ 			}
+-		}else
+-		if ((s-&gt;duration&lt;1200 &amp;&amp; s-&gt;expires-time_now&lt;s-&gt;duration/2)||
+-			(s-&gt;duration&gt;=1200 &amp;&amp; s-&gt;expires-time_now&lt;600))
+-		{
+-			if (s-&gt;attempts&gt;=3){
+-				LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:subscription_timer: Error on SUBSCRIBE for 3 times... aborting\n&quot;);
+-				del_r_subscription_nolock(s);			
+-			}else
+-			if (!r_send_subscribe(s,s-&gt;duration)){
+-				LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:subscription_timer: Error on initial SUBSCRIBE... droping\n&quot;);
+-				del_r_subscription_nolock(s);
+-			}else{
+-				del_r_subscription_nolock(s);			
+-				s-&gt;attempts++;
+-			}
+-		}
+-
+-		s = ns;
+-	}	
+-	lock_release(subscription_list-&gt;lock);
++			s = ns;
++		}	
++		subs_unlock(i);
++	}
++	print_subs(L_INFO);
+ }
+ 
+ 
+ 
++
++
+ /**
+  * Creates a subscription based on the given parameters.
+  * @param req_uri - the AOR of the user to subcribe to
+@@ -359,7 +440,7 @@
+  * @param asserted_identity - P-Asserted-Identity-Header to use
+  * @returns the r_notification or NULL on error
+  */
+-r_subscription* new_r_subscription(str req_uri,str from,int duration,str asserted_identity)
++r_subscription* new_r_subscription(str req_uri,int duration)
+ {
+ 	r_subscription *s=0;
+ 	
+@@ -373,22 +454,13 @@
+ 	
+ 	STR_SHM_DUP(s-&gt;req_uri,req_uri,&quot;new_r_subscription&quot;);
+ 	if (!s-&gt;req_uri.s) goto error;
+-	
+-	STR_SHM_DUP(s-&gt;from,from,&quot;new_r_subscription&quot;);
+-	if (!s-&gt;from.s) goto error;
+-	
++		
+ 	s-&gt;duration = duration;
+ 	s-&gt;expires = 0;
+ 	
+-	STR_SHM_DUP(s-&gt;asserted_identity,asserted_identity,&quot;new_r_subscription&quot;);
+-	if (!s-&gt;asserted_identity.s) goto error;
+-	
+-	
+ 	return s;
+ error:
+ 	if (s-&gt;req_uri.s) shm_free(s-&gt;req_uri.s);
+-	if (s-&gt;from.s) shm_free(s-&gt;from.s);
+-	if (s-&gt;asserted_identity.s) shm_free(s-&gt;asserted_identity.s);
+ 	if (s) shm_free(s);	
+ 	return 0;
+ }
+@@ -400,16 +472,14 @@
+ void add_r_subscription(r_subscription *s)
+ {
+ 	if (!s) return;
+-	lock_get(subscription_list-&gt;lock);
+-	s-&gt;next = 0;
+-	s-&gt;prev = subscription_list-&gt;tail;
+-	if (subscription_list-&gt;tail) {
+-		subscription_list-&gt;tail-&gt;next = s;
+-		subscription_list-&gt;tail = s;
+-	}
+-	else subscription_list-&gt;tail = s;
+-	if (!subscription_list-&gt;head) subscription_list-&gt;head = s;		
+-	lock_release(subscription_list-&gt;lock);
++	s-&gt;hash = get_subscription_hash(s-&gt;req_uri);
++	subs_lock(s-&gt;hash);
++		s-&gt;next = 0;
++		s-&gt;prev = subscriptions[s-&gt;hash].tail;
++		if (subscriptions[s-&gt;hash].tail) subscriptions[s-&gt;hash].tail-&gt;next = s;			
++		subscriptions[s-&gt;hash].tail = s;
++		if (!subscriptions[s-&gt;hash].head) subscriptions[s-&gt;hash].head = s;		
++	subs_unlock(s-&gt;hash);
+ }
+ 
+ /**
+@@ -419,54 +489,62 @@
+  * @param expires - new expiration time
+  * @returns 1 if found, 0 if not
+  */
+-int update_r_subscription(str aor,int expires)
++int update_r_subscription(r_subscription *s,int expires)
+ {
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:update_r_subscription: refreshing subscription for &lt;%.*s&gt; [%d]\n&quot;,
++		s-&gt;req_uri.len,s-&gt;req_uri.s,expires);
++	s-&gt;attempts_left = -1;
++	if (expires == 0) del_r_subscription_nolock(s);
++	else s-&gt;expires = expires+time_now;;
++	subs_unlock(s-&gt;hash);	
++	return 1;
++}
++
++/**
++ * Returns a subscription if it exists
++ * \note - this returns with a lock on the subscriptions[s-&gt;hash] if found. Don't forget to unlock when done!!!
++ * @param aor - AOR to look for
++ * @returns 1 if found, 0 if not
++ */
++r_subscription* get_r_subscription(str aor)
++{
+ 	r_subscription *s;
+-	lock_get(subscription_list-&gt;lock);
+-	s = subscription_list-&gt;head;
+-	r_act_time();
+-	while(s){
+-		if (s-&gt;req_uri.len == aor.len &amp;&amp;
+-			strncasecmp(s-&gt;req_uri.s,aor.s,aor.len)==0)
+-		{
+-			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:update_r_subscription: refreshing subscription for &lt;%.*s&gt; [%d]\n&quot;,
+-				aor.len,aor.s,expires);
+-			s-&gt;attempts = 0;
+-			if (expires == 0){
+-				del_r_subscription_nolock(s);
+-			}else{
+-				s-&gt;expires = expires+time_now;;
++	unsigned int hash = get_subscription_hash(aor);
++	subs_lock(hash);
++		s = subscriptions[hash].head;
++		while(s){
++			if (s-&gt;req_uri.len == aor.len &amp;&amp;
++				strncasecmp(s-&gt;req_uri.s,aor.s,aor.len)==0)
++			{
++				return s;
+ 			}
+-			lock_release(subscription_list-&gt;lock);	
+-			return 1;
++			s = s-&gt;next;
+ 		}
+-		s = s-&gt;next;
+-	}
+-	lock_release(subscription_list-&gt;lock);	
++	subs_unlock(hash);	
+ 	return 0;
+ }
+ 
+ /**
+  * Finds out if a subscription exists
+- * \todo Maybe we should use a hash here to index it as this is called for every notification
+  * @param aor - AOR to look for
+  * @returns 1 if found, 0 if not
+  */
+ int is_r_subscription(str aor)
+ {
+ 	r_subscription *s;
+-	lock_get(subscription_list-&gt;lock);
+-	s = subscription_list-&gt;head;
+-	while(s){
+-		if (s-&gt;req_uri.len == aor.len &amp;&amp;
+-			strncasecmp(s-&gt;req_uri.s,aor.s,aor.len)==0)
+-		{
+-			lock_release(subscription_list-&gt;lock);	
+-			return 1;
++	unsigned int hash = get_subscription_hash(aor);
++	subs_lock(hash);
++		s = subscriptions[hash].head;
++		while(s){
++			if (s-&gt;req_uri.len == aor.len &amp;&amp;
++				strncasecmp(s-&gt;req_uri.s,aor.s,aor.len)==0)
++			{
++				subs_unlock(hash);	
++				return 1;
++			}
++			s = s-&gt;next;
+ 		}
+-		s = s-&gt;next;
+-	}
+-	lock_release(subscription_list-&gt;lock);	
++	subs_unlock(hash);	
+ 	return 0;
+ }
+ 
+@@ -477,12 +555,12 @@
+ void del_r_subscription(r_subscription *s)
+ {
+ 	if (!s) return;
+-	lock_get(subscription_list-&gt;lock);
+-	if (subscription_list-&gt;head == s) subscription_list-&gt;head = s-&gt;next;
+-	else s-&gt;prev-&gt;next = s-&gt;next;
+-	if (subscription_list-&gt;tail == s) subscription_list-&gt;tail = s-&gt;prev;
+-	else s-&gt;next-&gt;prev = s-&gt;prev;
+-	lock_release(subscription_list-&gt;lock);
++	subs_lock(s-&gt;hash);
++		if (subscriptions[s-&gt;hash].head == s) subscriptions[s-&gt;hash].head = s-&gt;next;
++		else s-&gt;prev-&gt;next = s-&gt;next;
++		if (subscriptions[s-&gt;hash].tail == s) subscriptions[s-&gt;hash].tail = s-&gt;prev;
++		else s-&gt;next-&gt;prev = s-&gt;prev;
++	subs_unlock(s-&gt;hash);
+ 	free_r_subscription(s);
+ }
+ 
+@@ -494,9 +572,9 @@
+ void del_r_subscription_nolock(r_subscription *s)
+ {
+ 	if (!s) return;
+-	if (subscription_list-&gt;head == s) subscription_list-&gt;head = s-&gt;next;
++	if (subscriptions[s-&gt;hash].head == s) subscriptions[s-&gt;hash].head = s-&gt;next;
+ 	else s-&gt;prev-&gt;next = s-&gt;next;
+-	if (subscription_list-&gt;tail == s) subscription_list-&gt;tail = s-&gt;prev;
++	if (subscriptions[s-&gt;hash].tail == s) subscriptions[s-&gt;hash].tail = s-&gt;prev;
+ 	else s-&gt;next-&gt;prev = s-&gt;prev;
+ 	free_r_subscription(s);
+ }
+@@ -509,12 +587,29 @@
+ {
+ 	if (s){
+ 		if (s-&gt;req_uri.s) shm_free(s-&gt;req_uri.s);
+-		if (s-&gt;from.s) shm_free(s-&gt;from.s);
+-		if (s-&gt;asserted_identity.s) shm_free(s-&gt;asserted_identity.s);
++		if (s-&gt;dialog) tmb.free_dlg(s-&gt;dialog);
+ 		shm_free(s);
+ 	}
+ }
+ 
++void print_subs(int log_level)
++{
++	r_subscription *s;
++	int i;
++	LOG(log_level,ANSI_GREEN&quot;INF:&quot;M_NAME&quot;:----------  Subscription list begin ---------\n&quot;);
++	for(i=0;i&lt;subscriptions_hash_size;i++){
++		subs_lock(i);
++		s = subscriptions[i].head;
++		r_act_time();
++		while(s){
++			LOG(log_level,ANSI_GREEN&quot;INF:&quot;M_NAME&quot;:[%4u]\tP: &lt;&quot;ANSI_BLUE&quot;%.*s&quot;ANSI_GREEN&quot;&gt; D:[&quot;ANSI_CYAN&quot;%5d&quot;ANSI_GREEN&quot;] E:[&quot;ANSI_MAGENTA&quot;%5d&quot;ANSI_GREEN&quot;] Att:[%2d]\n&quot;,
++				s-&gt;hash,s-&gt;req_uri.len,s-&gt;req_uri.s,s-&gt;duration,(int)(s-&gt;expires-time_now),s-&gt;attempts_left);
++			s = s-&gt;next;			
++		}
++		subs_unlock(i);
++	}
++	LOG(log_level,ANSI_GREEN&quot;INF:&quot;M_NAME&quot;:----------  Subscription list end -----------\n&quot;);	
++}
+ 
+ 
+ 
+@@ -523,7 +618,6 @@
+ 
+ 
+ 
+-
+ char *pcscf_reginfo_dtd;/**&lt; DTD to check the reginfo/xml in the NOTIFY to reg */
+ 
+ static xmlDtdPtr	dtd=0;	/**&lt; DTD file */
+@@ -782,6 +876,7 @@
+ 	struct sip_uri puri;
+ 	enum Reg_States reg_state;
+ 	int expires2;
++	r_subscription *s=0;
+ 	
+ 	r_notification_print(n);	
+ 	if (!n) return 0;
+@@ -823,8 +918,11 @@
+ next:				
+ 			rc = rc-&gt;next;	
+ 		}
+-		
+-		update_r_subscription(r-&gt;aor,expires);
++		s = get_r_subscription(r-&gt;aor);
++		if (s){
++			update_r_subscription(s,expires);
++			subs_unlock(s-&gt;hash);
++		}
+ 		r = r-&gt;next;
+ 	}
+ 
+@@ -841,14 +939,14 @@
+ 	r_regcontact *c;
+ 	
+ 	if (!n) return;
+-	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_notification_process: State %d\n&quot;,n-&gt;state);
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_notification_print: State %d\n&quot;,n-&gt;state);
+ 	r = n-&gt;registration;
+ 	while(r){
+-		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_notification_process: \tR [%d] ID&lt;%.*s&gt; AOR&lt;%.*s&gt;\n&quot;,r-&gt;state,
++		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_notification_print: \tR [%d] ID&lt;%.*s&gt; AOR&lt;%.*s&gt;\n&quot;,r-&gt;state,
+ 			r-&gt;id.len,r-&gt;id.s,r-&gt;aor.len,r-&gt;aor.s);
+ 		c = r-&gt;contact;
+ 		while(c){
+-			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_notification_process: \t\tC [%d]&gt;[%d] ID&lt;%.*s&gt; URI&lt;%.*s&gt;\n&quot;,c-&gt;state,
++			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_notification_print: \t\tC [%d]&gt;[%d] ID&lt;%.*s&gt; URI&lt;%.*s&gt;\n&quot;,c-&gt;state,
+ 				c-&gt;event,c-&gt;id.len,c-&gt;id.s,c-&gt;uri.len,c-&gt;uri.s);
+ 			c = c-&gt;next;
+ 		}
+
+Modified: ser_ims/branches/01_persistency/modules/pcscf/registrar_subscribe.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/pcscf/registrar_subscribe.h	2007-02-07 19:34:20 UTC (rev 125)
++++ ser_ims/branches/01_persistency/modules/pcscf/registrar_subscribe.h	2007-02-07 21:15:16 UTC (rev 126)
+@@ -90,12 +90,14 @@
+ 
+ /** reg Subscription Structure */
+ typedef struct _r_subscription {
+-	str req_uri;		/**&lt; public id of the user, same thing for To: 	*/
+-	str from;			/**&lt; own uri									*/
+-	int duration;		/**&lt; duration of subscription					*/
+-	int expires;		/**&lt; time of expiration							*/
+-	int attempts;		/**&lt; number of unsuccesful attempts to subscribe*/
+-	str asserted_identity; /**&lt; uri inserted into path					*/ 
++	unsigned int hash;
++	str req_uri;			/**&lt; public id of the user, same thing for To: 	*/
++//	str from;				/**&lt; own uri									*/
++	int duration;			/**&lt; duration of subscription					*/
++	int expires;			/**&lt; time of expiration							*/
++	int attempts_left;		/**&lt; number of unsuccesful attempts to subscribe*/
++//	str asserted_identity; 	/**&lt; uri inserted into path					*/
++	dlg_t *dialog; 
+ 		
+ 	struct _r_subscription *next, *prev;
+ } r_subscription;
+@@ -105,7 +107,7 @@
+ 	gen_lock_t *lock;		/**&lt; lock fo subscription list operations 	*/
+ 	r_subscription *head;	/**&lt; first subscription in the list			*/
+ 	r_subscription *tail;	/**&lt; last subscription in the list			*/ 
+-} r_subscription_list;
++} r_subscription_hash_slot;
+ 
+ 
+  
+@@ -126,13 +128,15 @@
+ 
+ void subscription_timer(unsigned int ticks, void* param);
+ 
+-r_subscription* new_r_subscription(str req_uri,str from,int duration,str asserted_identity);
++r_subscription* new_r_subscription(str req_uri,int duration);
+ void add_r_subscription(r_subscription *s);
+-int update_r_subscription(str aor,int expires);
++int update_r_subscription(r_subscription *s,int expires);
++r_subscription* get_r_subscription(str aor);
+ int is_r_subscription(str aor);
+ void del_r_subscription(r_subscription *s);
+ void del_r_subscription_nolock(r_subscription *s);
+ void free_r_subscription(r_subscription *s);
++void print_subs(int log_level);
+ 
+ /** reg Contact structure */
+ typedef struct _r_regcontact {
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin.c	2007-02-07 19:34:20 UTC (rev 125)
++++ ser_ims/branches/01_persistency/modules/scscf/bin.c	2007-02-07 21:15:16 UTC (rev 126)
+@@ -222,20 +222,6 @@
+ }
+ 
+ 
+-/**
+- *	Append a regular expression
+- */
+-#define bin_encode_REGEX(X,R) {\
+-	int len;    \
+-	len = sizeof(*(R));\
+-	BIN_REALLOC(x,2+len);\
+-	if (len&gt;65535)\
+-		LOG(L_ERR,&quot;ERROR:&quot;M_NAME&quot;:bin_encode_REGEX: Possible loss of characters in encoding (regex &gt; 65535bytes) %d bytes \n&quot;,len);\
+-	x-&gt;s[x-&gt;len++]=len &amp; 0x000000FF;\
+-	x-&gt;s[x-&gt;len++]=(len &amp; 0x0000FF00)&gt;&gt;8;\
+-	memcpy(x-&gt;s+x-&gt;len,(R),len);\
+-	x-&gt;len+=len;\
+-}
+ 
+ 
+ /* advanced data type reprezentation functions */
+@@ -318,16 +304,6 @@
+ 	return 1;
+ }
+ 
+-/**
+- *	Decode of a regular expression
+- */
+-#define BIN_DECODE_REGEX(R,X,PTR) {\
+-	int len;\
+-	len = (unsigned char)x-&gt;s[(*(PTR))] |\
+-	      (unsigned char)x-&gt;s[(*(PTR))+1]&lt;&lt;8;\
+-	(R)=*((regex_t*) (x-&gt;s+(*PTR)+2));		\
+-	(*(PTR))+= 2+len;\
+-}
+ 
+ 
+ extern dlg_func_t dialogb;							/**&lt; Structure with pointers to dialog funcs			*/
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/dlg_state.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/dlg_state.c	2007-02-07 19:34:20 UTC (rev 125)
++++ ser_ims/branches/01_persistency/modules/scscf/dlg_state.c	2007-02-07 21:15:16 UTC (rev 126)
+@@ -697,12 +697,12 @@
+ 					if (req &amp;&amp; req-&gt;first_line.u.request.method.len==6 &amp;&amp;
+ 						strncasecmp(req-&gt;first_line.u.request.method.s,&quot;NOTIFY&quot;,6)==0){
+ 						expires = cscf_get_subscription_state(req);
+-						if (expires==-2){						
++						if (expires==0){						
+ 							d-&gt;state = DLG_STATE_TERMINATED;
+ 							d_unlock(d-&gt;hash);				
+ 							return S_drop_dialog(msg,str1,str2);
+ 						}
+-					}else if (expires&gt;=0){
++					}else if (expires&gt;0){
+ 						d-&gt;expires = expires;
+ 					}
+ 					break;
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/registrar_notify.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/registrar_notify.c	2007-02-07 19:34:20 UTC (rev 125)
++++ ser_ims/branches/01_persistency/modules/scscf/registrar_notify.c	2007-02-07 21:15:16 UTC (rev 126)
+@@ -534,8 +534,8 @@
+ 	c = p-&gt;head;
+ 	while(c){
+ 		if (r_valid_contact(c)){
+-			if (c-&gt;expires-time_now&gt;expires)
+-				expires = c-&gt;expires-time_now;
++			if (c-&gt;expires-time_now+30&gt;expires)
++				expires = c-&gt;expires-time_now+30;
+ 			cnt++;
+ 		}
+ 		c = c-&gt;next;
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/sip.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/sip.c	2007-02-07 19:34:20 UTC (rev 125)
++++ ser_ims/branches/01_persistency/modules/scscf/sip.c	2007-02-07 21:15:16 UTC (rev 126)
+@@ -1283,7 +1283,7 @@
+ 			}				
+ 			
+ 			if (state.len&gt;=s_terminated.len &amp;&amp; strncasecmp(state.s,s_terminated.s,s_terminated.len)==0)
+-				return -2;
++				return 0;
+ 			else if (state.len&gt;=s_active.len &amp;&amp; strncasecmp(state.s,s_active.s,s_active.len)==0){
+ 				i=0;
+ 				while(i&lt;state.len-s_expires.len &amp;&amp; strncasecmp(state.s+i,s_expires.s,s_expires.len)!=0)
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000187.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r125 - ser_ims/trunk/cfg
+</A></li>
+	<LI>Next message: <A HREF="000189.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r127 - in	ser_ims/branches/01_persistency/lib: cds presence xcap
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#188">[ date ]</a>
+              <a href="thread.html#188">[ thread ]</a>
+              <a href="subject.html#188">[ subject ]</a>
+              <a href="author.html#188">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

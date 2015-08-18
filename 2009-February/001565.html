@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P-CSCF doesn't support multiple URIs on same ip&amp;port
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20doesn%27t%20support%20multiple%20URIs%20on%20same%0A%20ip%26port&In-Reply-To=%3C4992A4C9.4060809%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001554.html">
+   <LINK REL="Next"  HREF="001555.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P-CSCF doesn't support multiple URIs on same ip&amp;port</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20doesn%27t%20support%20multiple%20URIs%20on%20same%0A%20ip%26port&In-Reply-To=%3C4992A4C9.4060809%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] P-CSCF doesn't support multiple URIs on same ip&amp;port">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Feb 11 11:13:29 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001554.html">[OpenIMSCore-CSCF] P-CSCF doesn't support multiple URIs on same	ip&amp;port
+</A></li>
+        <LI>Next message: <A HREF="001555.html">[OpenIMSCore-CSCF] P-CSCF doesn't support multiple bindings on same	user
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1565">[ date ]</a>
+              <a href="thread.html#1565">[ thread ]</a>
+              <a href="subject.html#1565">[ subject ]</a>
+              <a href="author.html#1565">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Oren,
+
+Indeed, there is a different interpretation of the contact uri on the 
+P-CSCF and S-CSCF. Unfortunately I don't recall any standard or 
+specification which would indicate the format of the contact uri. So on 
+the P-CSCF, for security reasons, we are using only the IP:port part of 
+it and not the arbitrary username or parameters. So I would identify 
+this as an issue on the S-CSCF, but I would not be sure. If we would be 
+to remove all contacts from the S-CSCF with the same IP:port, we might 
+get into trouble when different clients behind different NATs have the 
+same private IP address.
+
+In any case, I would recommend that you use contact addresses which 
+would not be confusing. What is the purpose of having 2 such contacts, 
+on the same IP:port? The registrar would associate them with the same 
+public identity and on a call to that, your requests will fork and then 
+arrive in the same place. So I would say that this is not a realistic 
+use situation and it is quite hard for us to cover all those.
+
+Also, please note that in our rush to get it working, the S-CSCF URI 
+comparison is actually a string based one and not as the RFC3261 
+specifies equality between 2 URIs.
+
+Cheers,
+-Dragos
+
+
+Oren K. wrote:
+&gt;<i> Hi,
+</I>&gt;<i> Behavior of P-CSCF may be invalid in the following scenario:
+</I>&gt;<i>
+</I>&gt;<i> 1. REGISTER sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at mydomain.com</A>, sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user2 at mydomain.com</A> both using
+</I>&gt;<i> same ip/port header
+</I>&gt;<i>    Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at 10.0.100.189</A>:3621&gt;;expires=900
+</I>&gt;<i>    Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user2 at 10.0.100.189</A>:3621&gt;;expires=900
+</I>&gt;<i>
+</I>&gt;<i>    .. Both receive 200 OK
+</I>&gt;<i>
+</I>&gt;<i> 2. (un)REGISTER _only_ user2
+</I>&gt;<i>    Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user2 at 10.0.100.189</A>:3621&gt;;expires=0
+</I>&gt;<i>
+</I>&gt;<i>    .. Receives 200 OK
+</I>&gt;<i>
+</I>&gt;<i> 3. PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at mydomain.com</A>
+</I>&gt;<i>    Via: SIP/2.0/UDP 10.0.100.189:3621;branch=...
+</I>&gt;<i>
+</I>&gt;<i>    .. Receives 403 Forbidden - Not Registered! You must register first
+</I>&gt;<i> with a S-CSCF
+</I>&gt;<i>
+</I>&gt;<i> Strangely, at this point <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at mydomain.com</A> is still REGISTERED in the
+</I>&gt;<i> HSS database. I've tracked the problem to code in
+</I>&gt;<i> modules/pcscf/registrar_storage.c: r_contact structs are searched in
+</I>&gt;<i> get_r_contact by the host/port combination in the Contact header but it
+</I>&gt;<i> disregards the SIP URI (username). In addition, the S-CSCF behaves
+</I>&gt;<i> differently and searches contacts by their uri (see
+</I>&gt;<i> modules/scscf/registrar_storage.c)
+</I>&gt;<i>
+</I>&gt;<i> Attached is the Wireshark capture of the sequence described.
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i> Oren K.
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001554.html">[OpenIMSCore-CSCF] P-CSCF doesn't support multiple URIs on same	ip&amp;port
+</A></li>
+	<LI>Next message: <A HREF="001555.html">[OpenIMSCore-CSCF] P-CSCF doesn't support multiple bindings on same	user
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1565">[ date ]</a>
+              <a href="thread.html#1565">[ thread ]</a>
+              <a href="subject.html#1565">[ subject ]</a>
+              <a href="author.html#1565">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

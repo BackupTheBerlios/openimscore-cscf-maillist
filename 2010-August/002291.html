@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] missing mysql.h!
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20missing%20mysql.h%21&In-Reply-To=%3C844222.76492.qm%40web113606.mail.gq1.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002290.html">
+   <LINK REL="Next"  HREF="002292.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] missing mysql.h!</H1>
+    <B>Mohsen Emami-Nouri</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20missing%20mysql.h%21&In-Reply-To=%3C844222.76492.qm%40web113606.mail.gq1.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] missing mysql.h!">memamin at yahoo.com
+       </A><BR>
+    <I>Thu Aug  5 01:19:58 CEST 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002290.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r969 - vq:fixed some locking
+</A></li>
+        <LI>Next message: <A HREF="002292.html">[OpenIMSCore-CSCF] missing mysql.h!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2291">[ date ]</a>
+              <a href="thread.html#2291">[ thread ]</a>
+              <a href="subject.html#2291">[ subject ]</a>
+              <a href="author.html#2291">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi ,
+I am trying to build CSCF's and running into compilation issue; it looks like the mysql.h is missing in the directory mysql (please see the following for the compiler output) ; could you please help.
+best regards,
+~Mohsen
+
+dbase.c:34:25: error: mysql/mysql.h: No such file or directory
+dbase.c:35:26: error: mysql/errmsg.h: No such file or directory
+In file included from dbase.c:42:
+val.h:44: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+In file included from dbase.c:43:
+my_con.h:43: error: expected specifier-qualifier-list before &#8216;MYSQL&#8217;
+In file included from dbase.c:44:
+res.h:37: error: expected specifier-qualifier-list before &#8216;MYSQL_RES&#8217;
+dbase.c: In function &#8216;submit_query&#8217;:
+dbase.c:69: error: &#8216;struct my_con&#8217; has no member named &#8216;timestamp&#8217;
+dbase.c:70: warning: implicit declaration of function &#8216;mysql_ping&#8217;
+dbase.c:70: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:74: error: &#8216;struct my_con&#8217; has no member named &#8216;timestamp&#8217;
+dbase.c:92: warning: implicit declaration of function &#8216;mysql_query&#8217;
+dbase.c:92: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:95: warning: implicit declaration of function &#8216;mysql_errno&#8217;
+dbase.c:95: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:96: error: &#8216;CR_SERVER_GONE_ERROR&#8217; undeclared (first use in this function)
+dbase.c:96: error: (Each undeclared identifier is reported only once
+dbase.c:96: error: for each function it appears in.)
+dbase.c:96: error: &#8216;CR_SERVER_LOST&#8217; undeclared (first use in this function)
+dbase.c:100: warning: implicit declaration of function &#8216;mysql_error&#8217;
+dbase.c:100: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:100: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:100: warning: format &#8216;%s&#8217; expects type &#8216;char *&#8217;, but argument 3 has type &#8216;int&#8217;
+dbase.c:100: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:100: warning: format &#8216;%s&#8217; expects type &#8216;char *&#8217;, but argument 3 has type &#8216;int&#8217;
+dbase.c:100: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:100: warning: format &#8216;%s&#8217; expects type &#8216;char *&#8217;, but argument 3 has type &#8216;int&#8217;
+dbase.c:100: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:100: warning: format &#8216;%s&#8217; expects type &#8216;char *&#8217;, but argument 3 has type &#8216;int&#8217;
+dbase.c:100: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:100: warning: format &#8216;%s&#8217; expects type &#8216;char *&#8217;, but argument 3 has type &#8216;int&#8217;
+dbase.c:100: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:100: warning: format &#8216;%s&#8217; expects type &#8216;char *&#8217;, but argument 3 has type &#8216;int&#8217;
+dbase.c:100: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:100: warning: format &#8216;%s&#8217; expects type &#8216;char *&#8217;, but argument 3 has type &#8216;int&#8217;
+dbase.c: At top level:
+dbase.c:140: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+dbase.c:168: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+dbase.c:214: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+dbase.c: In function &#8216;store_result&#8217;:
+dbase.c:346: error: &#8216;struct my_res&#8217; has no member named &#8216;res&#8217;
+dbase.c:346: warning: implicit declaration of function &#8216;mysql_store_result&#8217;
+dbase.c:346: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:347: error: &#8216;struct my_res&#8217; has no member named &#8216;res&#8217;
+dbase.c:348: warning: implicit declaration of function &#8216;mysql_field_count&#8217;
+dbase.c:348: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:353: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:353: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:353: warning: format &#8216;%s&#8217; expects type &#8216;char *&#8217;, but argument 3 has type &#8216;int&#8217;
+dbase.c:353: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:353: warning: format &#8216;%s&#8217; expects type &#8216;char *&#8217;, but argument 3 has type &#8216;int&#8217;
+dbase.c:353: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:353: warning: format &#8216;%s&#8217; expects type &#8216;char *&#8217;, but argument 3 has type &#8216;int&#8217;
+dbase.c:353: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:353: warning: format &#8216;%s&#8217; expects type &#8216;char *&#8217;, but argument 3 has type &#8216;int&#8217;
+dbase.c:353: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:353: warning: format &#8216;%s&#8217; expects type &#8216;char *&#8217;, but argument 3 has type &#8216;int&#8217;
+dbase.c:353: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:353: warning: format &#8216;%s&#8217; expects type &#8216;char *&#8217;, but argument 3 has type &#8216;int&#8217;
+dbase.c:353: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:353: warning: format &#8216;%s&#8217; expects type &#8216;char *&#8217;, but argument 3 has type &#8216;int&#8217;
+dbase.c:362: warning: implicit declaration of function &#8216;mysql_free_result&#8217;
+dbase.c:362: error: &#8216;struct my_res&#8217; has no member named &#8216;res&#8217;
+dbase.c: In function &#8216;db_query&#8217;:
+dbase.c:440: warning: implicit declaration of function &#8216;print_where&#8217;
+dbase.c:440: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c: In function &#8216;db_insert&#8217;:
+dbase.c:513: warning: implicit declaration of function &#8216;print_values&#8217;
+dbase.c:513: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c: In function &#8216;db_delete&#8217;:
+dbase.c:558: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c: In function &#8216;db_update&#8217;:
+dbase.c:601: warning: implicit declaration of function &#8216;print_set&#8217;
+dbase.c:601: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c:610: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+dbase.c: In function &#8216;db_replace&#8217;:
+dbase.c:653: error: &#8216;struct my_con&#8217; has no member named &#8216;con&#8217;
+make[1]: *** [dbase.o] Error 1
+make[1]: Leaving directory `/opt/OpenIMSCore/ser_ims/modules/mysql'
+make: *** [modules] Error 1
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002290.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r969 - vq:fixed some locking
+</A></li>
+	<LI>Next message: <A HREF="002292.html">[OpenIMSCore-CSCF] missing mysql.h!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2291">[ date ]</a>
+              <a href="thread.html#2291">[ thread ]</a>
+              <a href="subject.html#2291">[ subject ]</a>
+              <a href="author.html#2291">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

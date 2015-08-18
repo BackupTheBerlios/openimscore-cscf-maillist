@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Correct behaviour of an AS acting as B2BUA
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Correct%20behaviour%20of%20an%20AS%20acting%20as%20B2BUA&In-Reply-To=%3Cb33002040706040348j7e680322gb9db23f321cb1974%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000715.html">
+   <LINK REL="Next"  HREF="000686.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Correct behaviour of an AS acting as B2BUA</H1>
+    <B>JF</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Correct%20behaviour%20of%20an%20AS%20acting%20as%20B2BUA&In-Reply-To=%3Cb33002040706040348j7e680322gb9db23f321cb1974%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Correct behaviour of an AS acting as B2BUA">jfkavaka at gmail.com
+       </A><BR>
+    <I>Mon Jun  4 12:48:36 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000715.html">[OpenIMSCore-CSCF] A principle question on IPsec implementation
+</A></li>
+        <LI>Next message: <A HREF="000686.html">[OpenIMSCore-CSCF] Correct behaviour of an AS acting as B2BUA
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#683">[ date ]</a>
+              <a href="thread.html#683">[ thread ]</a>
+              <a href="subject.html#683">[ subject ]</a>
+              <a href="author.html#683">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+
+This seems to have been forgotten.
+Dragos, do you agree with having an original dialog id in the Route
+header of the triggered message instead of the current parameters?
+
+One other limitation of the current approach is that it is not
+possible to detect that an AS changed the Request-URI in the
+terminating case.
+
+I would propose to store this Request-URI with the dialog state, and
+maybe the P-Asserted-Identity sent to each AS (?).
+
+Should I post a feature request for &quot;Detection of changes in
+Request-URI for MT triggers&quot;?
+
+Thanks,
+JF
+
+
+On 4/12/07, JF &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jfkavaka at gmail.com</A>&gt; wrote:
+&gt;<i> I don't think it should be encoded in the Route, because an AS may
+</I>&gt;<i> want to change or remove the P-Asserted-Identity in the new leg...
+</I>&gt;<i> like an anonymizing AS, as defined in some ETSI specs for the OIP
+</I>&gt;<i> (Originating Identity Presentation) service, ETSI (TISPAN) TS 183 007.
+</I>&gt;<i>
+</I>&gt;<i> IMHO the S-CSCF should be able to identify the &quot;session&quot; correctly
+</I>&gt;<i> without having to look into P-Asserted-Identity. 3GPP TS 24.229 talks
+</I>&gt;<i> about an &quot;original dialog identifier&quot; that should go in the Route
+</I>&gt;<i> header, and this should be sufficient. Maybe the Route header
+</I>&gt;<i> parameters currently used need to be reviewed...
+</I>&gt;<i>
+</I>&gt;<i> JF
+</I>&gt;<i>
+</I>&gt;<i> On 4/12/07, Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt; wrote:
+</I>&gt;<i> &gt; The problem was that the AS did not introduced a P-Asserted-Identity
+</I>&gt;<i> &gt; header.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Hmm... this brings up an interesting question: should we also pass this
+</I>&gt;<i> &gt; value in the iscmark Route header or should the AS put it always? I am
+</I>&gt;<i> &gt; afraid that we will have to encode it too in order to identify the
+</I>&gt;<i> &gt; session correctly. What do you think? Other opinions?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; -Dragos
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Franz Edler wrote:
+</I>&gt;<i> &gt; &gt; Hi all,
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; I made some tests with an application server and used a simple scenario,
+</I>&gt;<i> &gt; &gt; where the AS acts as a B2BUA. Unfortunately the new INVITE on the 2nd call
+</I>&gt;<i> &gt; &gt; leg is not well accepted by the S-CSCF. The logfile of SCSCF says:
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;     S-CSCF:S_save_dialog(): Error retrieving orig contact
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; I tried to find something in the standards on the correct behavior of an AS
+</I>&gt;<i> &gt; &gt; regarding the various header fields. In particular the question is if an AS
+</I>&gt;<i> &gt; &gt; acting as B2BUA has to use the remaining Route header from the 1st leg on
+</I>&gt;<i> &gt; &gt; the 2nd leg when initiating a new dialog. I think this should be done to
+</I>&gt;<i> &gt; &gt; give the S-CSCF a chance to check correctly for further iFCs.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; TS 24.228 and TS 24.229 do not say anything about that.
+</I>&gt;<i> &gt; &gt; Maybe anyone can shed some light on this question.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; I have attached the wireshark tracefile and the S-CSCF logfile of the test.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; cheers
+</I>&gt;<i> &gt; &gt; Franz
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; ------------------------------------------------------------------------
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; _______________________________________________
+</I>&gt;<i> &gt; &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; --
+</I>&gt;<i> &gt; -----------------------------------------
+</I>&gt;<i> &gt; Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> &gt; FOKUS/NGNI
+</I>&gt;<i> &gt; Kaiserin-Augusta-Allee 31
+</I>&gt;<i> &gt; 10589 Berlin,Germany
+</I>&gt;<i> &gt; Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> &gt; Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> &gt; eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+</I>&gt;<i> &gt; Web www.fokus.fraunhofer.de
+</I>&gt;<i> &gt; We could change the world if God would give us the source code...
+</I>&gt;<i> &gt; -----------------------------------------------------------------
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000715.html">[OpenIMSCore-CSCF] A principle question on IPsec implementation
+</A></li>
+	<LI>Next message: <A HREF="000686.html">[OpenIMSCore-CSCF] Correct behaviour of an AS acting as B2BUA
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#683">[ date ]</a>
+              <a href="thread.html#683">[ thread ]</a>
+              <a href="subject.html#683">[ subject ]</a>
+              <a href="author.html#683">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

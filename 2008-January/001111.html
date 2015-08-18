@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r511 - New Server StateFul	Authentication State Machine in the CDiameterPeer. New	Subscription-Id included in the AAR from PCSCF Solved Bug for	CSeq and UAC BYE generated in the PCSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r511%20-%20New%20Server%20StateFul%0A%09Authentication%20State%20Machine%20in%20the%20CDiameterPeer.%20New%0A%09Subscription-Id%20included%20in%20the%20AAR%20from%20PCSCF%20Solved%20Bug%20for%0A%09CSeq%20and%20UAC%20BYE%20generated%20in%20the%20PCSCF&In-Reply-To=%3C200801021612.m02GCS31005484%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001114.html">
+   <LINK REL="Next"  HREF="001112.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r511 - New Server StateFul	Authentication State Machine in the CDiameterPeer. New	Subscription-Id included in the AAR from PCSCF Solved Bug for	CSeq and UAC BYE generated in the PCSCF</H1>
+    <B>albertoberlios at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r511%20-%20New%20Server%20StateFul%0A%09Authentication%20State%20Machine%20in%20the%20CDiameterPeer.%20New%0A%09Subscription-Id%20included%20in%20the%20AAR%20from%20PCSCF%20Solved%20Bug%20for%0A%09CSeq%20and%20UAC%20BYE%20generated%20in%20the%20PCSCF&In-Reply-To=%3C200801021612.m02GCS31005484%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r511 - New Server StateFul	Authentication State Machine in the CDiameterPeer. New	Subscription-Id included in the AAR from PCSCF Solved Bug for	CSeq and UAC BYE generated in the PCSCF">albertoberlios at users.berlios.de
+       </A><BR>
+    <I>Wed Jan  2 17:12:28 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001114.html">[OpenIMSCore-CSCF] [OpenIMSCore-HSS] [OpenIMSCore-Users] Could I change port number in 200 ok message so the client will sent INVITE to p
+</A></li>
+        <LI>Next message: <A HREF="001112.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r512 - Session Timers support for	Authorization State Machine,	session will expire now after 30times Tc from last activity... (15	minutes default..)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1111">[ date ]</a>
+              <a href="thread.html#1111">[ thread ]</a>
+              <a href="subject.html#1111">[ subject ]</a>
+              <a href="author.html#1111">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: albertoberlios
+Date: 2008-01-02 17:12:26 +0100 (Wed, 02 Jan 2008)
+New Revision: 511 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=511">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=511</A> 
+
+Log:
+
+New Server StateFul Authentication State Machine in the CDiameterPeer.
+
+New Subscription-Id included in the AAR from PCSCF
+
+Solved Bug for CSeq and UAC BYE generated in the PCSCF
+
+
+
+Modified:
+   U	ser_ims/branches/08_cdp_sessions/doc/README.PCC
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/doc/README.PCC?rev=511&amp;view=diff&amp;r1=511&amp;r2=510">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/doc/README.PCC?rev=511&amp;view=diff&amp;r1=511&amp;r2=510</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.c?rev=511&amp;view=diff&amp;r1=511&amp;r2=510">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.c?rev=511&amp;view=diff&amp;r1=511&amp;r2=510</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.h?rev=511&amp;view=diff&amp;r1=511&amp;r2=510">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.h?rev=511&amp;view=diff&amp;r1=511&amp;r2=510</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_ims.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_ims.h?rev=511&amp;view=diff&amp;r1=511&amp;r2=510">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_ims.h?rev=511&amp;view=diff&amp;r1=511&amp;r2=510</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/peerstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/peerstatemachine.c?rev=511&amp;view=diff&amp;r1=511&amp;r2=510">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/peerstatemachine.c?rev=511&amp;view=diff&amp;r1=511&amp;r2=510</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/session.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.h?rev=511&amp;view=diff&amp;r1=511&amp;r2=510">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.h?rev=511&amp;view=diff&amp;r1=511&amp;r2=510</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/pcscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/dlg_state.c?rev=511&amp;view=diff&amp;r1=511&amp;r2=510">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/dlg_state.c?rev=511&amp;view=diff&amp;r1=511&amp;r2=510</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc.c?rev=511&amp;view=diff&amp;r1=511&amp;r2=510">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc.c?rev=511&amp;view=diff&amp;r1=511&amp;r2=510</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.c?rev=511&amp;view=diff&amp;r1=511&amp;r2=510">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.c?rev=511&amp;view=diff&amp;r1=511&amp;r2=510</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.h?rev=511&amp;view=diff&amp;r1=511&amp;r2=510">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.h?rev=511&amp;view=diff&amp;r1=511&amp;r2=510</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/pcscf/release_call.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/release_call.c?rev=511&amp;view=diff&amp;r1=511&amp;r2=510">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/release_call.c?rev=511&amp;view=diff&amp;r1=511&amp;r2=510</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001114.html">[OpenIMSCore-CSCF] [OpenIMSCore-HSS] [OpenIMSCore-Users] Could I change port number in 200 ok message so the client will sent INVITE to p
+</A></li>
+	<LI>Next message: <A HREF="001112.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r512 - Session Timers support for	Authorization State Machine,	session will expire now after 30times Tc from last activity... (15	minutes default..)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1111">[ date ]</a>
+              <a href="thread.html#1111">[ thread ]</a>
+              <a href="subject.html#1111">[ subject ]</a>
+              <a href="author.html#1111">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

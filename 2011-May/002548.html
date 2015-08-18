@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] bug in CDP routing.c
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20bug%20in%20CDP%20routing.c&In-Reply-To=%3CBANLkTikb4gTowsMPjs77yf3z-E3Akt%2BAOw%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002547.html">
+   <LINK REL="Next"  HREF="002549.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] bug in CDP routing.c</H1>
+    <B>Jason Penton</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20bug%20in%20CDP%20routing.c&In-Reply-To=%3CBANLkTikb4gTowsMPjs77yf3z-E3Akt%2BAOw%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] bug in CDP routing.c">jason.penton at gmail.com
+       </A><BR>
+    <I>Tue May 17 15:05:55 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002547.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1106 - Client_Rf: some cleanup	and extracting the term-ioi as well from the	P-Charging-Vector header
+</A></li>
+        <LI>Next message: <A HREF="002549.html">[OpenIMSCore-CSCF] bug in CDP routing.c
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2548">[ date ]</a>
+              <a href="thread.html#2548">[ thread ]</a>
+              <a href="subject.html#2548">[ subject ]</a>
+              <a href="author.html#2548">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi All,
+
+I came across a possible bug today in the CDP w.r.t Vendor-Specific-IDs and
+the routing function:
+
+in the following function of CDP's routing.c - I would suggest removing the
+line in bold. My reasoning:
+
+1. vendor_id is set to 0 at the start of the function (default)
+2. If there is a vendor-specific-app-id and it is set, THEN in this line -
+we will be overwriting it with 0 should there be a base-level Vendor-ID. In
+any case the more specific vendorID should be used.
+
+peer* get_routing_peer(AAAMessage *m)
+{
+        str destination_realm={0,0},destination_host={0,0};
+        AAA_AVP *avp,*avp_vendor,*avp2;
+        AAA_AVP_LIST group;
+        peer *p;
+        routing_realm *rr;
+        int app_id=0,vendor_id=0;
+
+        app_id = m-&gt;applicationId;
+        avp =
+AAAFindMatchingAVP(m,0,AVP_Vendor_Specific_Application_Id,0,AAA_FORWARD_SEARCH);
+        if (avp){
+                group = AAAUngroupAVPS(avp-&gt;data);
+                avp_vendor =
+AAAFindMatchingAVPList(group,group.head,AVP_Vendor_Id,0,0);
+                avp2 =
+AAAFindMatchingAVPList(group,group.head,AVP_Auth_Application_Id,0,0);
+                if (avp_vendor&amp;&amp;avp2){
+                        vendor_id = get_4bytes(avp_vendor-&gt;data.s);
+                        app_id = get_4bytes(avp2-&gt;data.s);
+                }
+                avp2 =
+AAAFindMatchingAVPList(group,group.head,AVP_Acct_Application_Id,0,0);
+                if (avp_vendor&amp;&amp;avp2){
+                        vendor_id = get_4bytes(avp_vendor-&gt;data.s);
+                        app_id = get_4bytes(avp2-&gt;data.s);
+                }
+                AAAFreeAVPList(&amp;group);
+        }
+
+        avp_vendor =
+AAAFindMatchingAVP(m,0,AVP_Vendor_Id,0,AAA_FORWARD_SEARCH);
+        avp =
+AAAFindMatchingAVP(m,0,AVP_Auth_Application_Id,0,AAA_FORWARD_SEARCH);
+        if (avp){
+                if (avp_vendor) vendor_id = get_4bytes(avp_vendor-&gt;data.s);
+                *else vendor_id = 0;*
+                app_id = get_4bytes(avp-&gt;data.s);
+                LOG(L_INFO, &quot;JASON3: [%i:%i]\n&quot;, app_id, vendor_id);
+        }
+
+        avp =
+AAAFindMatchingAVP(m,0,AVP_Acct_Application_Id,0,AAA_FORWARD_SEARCH);
+        if (avp){
+                if (avp_vendor) vendor_id = get_4bytes(avp_vendor-&gt;data.s);
+                else vendor_id = 0;
+                app_id = get_4bytes(avp-&gt;data.s);
+                LOG(L_INFO, &quot;JASON4: [%i:%i]\n&quot;, app_id, vendor_id);
+        }
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110517/68c5e4cc/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110517/68c5e4cc/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002547.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1106 - Client_Rf: some cleanup	and extracting the term-ioi as well from the	P-Charging-Vector header
+</A></li>
+	<LI>Next message: <A HREF="002549.html">[OpenIMSCore-CSCF] bug in CDP routing.c
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2548">[ date ]</a>
+              <a href="thread.html#2548">[ thread ]</a>
+              <a href="subject.html#2548">[ subject ]</a>
+              <a href="author.html#2548">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

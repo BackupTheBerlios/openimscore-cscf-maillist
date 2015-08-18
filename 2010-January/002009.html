@@ -1,0 +1,690 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on	cdp(s-cscf deadlock!!!)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r821%20-%20Further%20fixes%20on%0A%09cdp%28s-cscf%20deadlock%21%21%21%29&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BCD40%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002006.html">
+   <LINK REL="Next"  HREF="002011.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on	cdp(s-cscf deadlock!!!)</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r821%20-%20Further%20fixes%20on%0A%09cdp%28s-cscf%20deadlock%21%21%21%29&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BCD40%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on	cdp(s-cscf deadlock!!!)">wang at basis-audionet.com
+       </A><BR>
+    <I>Thu Jan 28 16:19:56 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002006.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp(s-cscf crashed !)
+</A></li>
+        <LI>Next message: <A HREF="002011.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp(s-cscf deadlock!!!)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2009">[ date ]</a>
+              <a href="thread.html#2009">[ thread ]</a>
+              <a href="subject.html#2009">[ subject ]</a>
+              <a href="author.html#2009">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos:
+
+Now it is deadlock!!
+
+Checking the code:
+
+Cx_MAR -&gt; session = cdpb.AAACreateSession(0); --&gt; cdp_new_session
+
+       --&gt;     cdp_add_session 
+
+Get the lock
+
+then in the  Snd_Message, there is: 
+
+         session = cdp_get_session(msg-&gt;sessionId-&gt;data);
+
+try to get a lock which already being locked!!!
+
+
+Thus deadlock.
+
+
+I guess we really need to define/document a clean API at least for the
+session.c.
+
+Another tips maybe useful is to add some ref_count like tm cell for some
+kind of reading locks
+
+     /* how many processes are currently processing this transaction ;
+           note that only processes working on a request/reply belonging
+           to a transaction increase ref_count -- timers don't, since we
+           rely on transaction state machine to clean-up all but wait
+timer
+           when entering WAIT state and the wait timer is the only place
+           from which a transaction can be deleted (if ref_count==0);
+good
+           for protecting from conditions in which wait_timer hits and
+           tries to delete a transaction whereas at the same time
+           a delayed message belonging to the transaction is received */
+        volatile unsigned int ref_count;
+
+
+
+
+
+
+
+Kind Regards
+ 
+Min Wang
+
+&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]
+</I>&gt;<i> Sent: Thursday, January 28, 2010 4:11 AM
+</I>&gt;<i> To: Min Wang
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on
+</I>&gt;<i> cdp(s-cscf crashed !)
+</I>&gt;<i> 
+</I>&gt;<i> Ah, that explains it. I was only looking at the drop and not at
+</I>create.
+&gt;<i> Should be fixed now...
+</I>&gt;<i> 
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> Min Wang wrote:
+</I>&gt;<i> &gt; Hi Dragos
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I tried again ( two times ) always crashed in the same place when UE
+</I>&gt;<i> &gt; registers.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; It is in modules/scscf/cx.c around line 224 for
+</I>&gt;<i> &gt; cdpb.AAADropSession(session);
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ( I added the log there )
+</I>&gt;<i> &gt;     222
+</I>&gt;<i> &gt;     223         LOG(L_ERR,&quot;INF:&quot;M_NAME&quot;:Cx_MAR: before
+</I>&gt;<i> &gt; cdpb.AAADropSession, maa is %x \n&quot;, maa);
+</I>&gt;<i> &gt;     224         cdpb.AAADropSession(session);
+</I>&gt;<i> &gt;     225         LOG(L_ERR,&quot;INF:&quot;M_NAME&quot;:Cx_MAR: after
+</I>&gt;<i> &gt; cdpb.AAADropSession \n&quot;);
+</I>&gt;<i> &gt;     226         cdpb.AAADropTransaction(trans);
+</I>&gt;<i> &gt;     227
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; The log file shows:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; +++++++++++++++++++++++++++++++++++++++++++++++++
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]: INF:S-CSCF:Cx_MAR: before
+</I>&gt;<i> &gt; cdpb.AAADropSession, maa is b5a66e74
+</I>&gt;<i> &gt; +++++++++++++++++++++++++++++++++++++++++++++++++++
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I just looked at it roughtly:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Cx_MAR -&gt; session = cdpb.AAACreateSession(0); --&gt; cdp_new_session
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;          But no cdp_add_session in AAACreateSession
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; But when cdpb.AAADropSession(session);-&gt; del_session
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;         It try to delete it from session list, thus crash.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;     I did not look it in further detail on how to fix it since I
+</I>guess
+&gt;<i> &gt; you are in the middle of making changes so I do not want to
+</I>interrupt
+&gt;<i> &gt; you.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; The core dump file show
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; [New process 9205]
+</I>&gt;<i> &gt; #0  0xb78acbc0 in del_session () from /usr/lib/ser/modules/cdp.so
+</I>&gt;<i> &gt; (gdb) bt
+</I>&gt;<i> &gt; #0  0xb78acbc0 in del_session () from /usr/lib/ser/modules/cdp.so
+</I>&gt;<i> &gt; #1  0xb78accca in AAADropSession () from /usr/lib/ser/modules/cdp.so
+</I>&gt;<i> &gt; #2  0xb7a20918 in Cx_MAR () from /usr/lib/ser/modules/scscf.so
+</I>&gt;<i> &gt; #3  0xb7a4eac6 in S_MAR () from /usr/lib/ser/modules/scscf.so
+</I>&gt;<i> &gt; #4  0xb7a5159f in S_challenge () from /usr/lib/ser/modules/scscf.so
+</I>&gt;<i> &gt; #5  0x08054727 in do_action ()
+</I>&gt;<i> &gt; #6  0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #7  0x080544bc in do_action ()
+</I>&gt;<i> &gt; #8  0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #9  0x080544bc in do_action ()
+</I>&gt;<i> &gt; #10 0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #11 0x080544bc in do_action ()
+</I>&gt;<i> &gt; #12 0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #13 0x08054616 in do_action ()
+</I>&gt;<i> &gt; #14 0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #15 0x080544bc in do_action ()
+</I>&gt;<i> &gt; #16 0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #17 0x080916bf in receive_msg ()
+</I>&gt;<i> &gt; #18 0x080c920d in udp_rcv_loop ()
+</I>&gt;<i> &gt; #19 0x0807a2e0 in main_loop ()
+</I>&gt;<i> &gt; #20 0x0807c29d in main ()
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ////////// log file /////////////////////
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]: DBG:sm_process(): Peer
+</I>&gt;<i> &gt; hss.centercall.net ^IState I_Open ^IEvent Send_Message
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]: Snd_Message called to peer
+</I>&gt;<i> &gt; [hss.centercall.net] for request with code 303
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]: calling get session with
+</I>id
+&gt;<i> &gt; scscf.centercall.net;1724423355;1 and hash 126
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]: DEBUG: AAABuildMsgBuffer -
+</I>&gt;<i> &gt; 0xb5a66e74
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]: DEBUG: AAA_MESSAGE -
+</I>&gt;<i> &gt; 0xb5a66e74
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]: ^ICode = 303
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]: ^IFlags = c0
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]:  AVP((nil) &lt; 0xb5a66780
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a668ac);code=263,flags=40; DataType=1;VendorID=0;DataLen=33;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; String: &lt;scscf.centercall.net;1724423355;1&gt;
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]:  AVP(0xb5a66780 &lt;
+</I>0xb5a668ac
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a66938);code=264,flags=40; DataType=1;VendorID=0;DataLen=20;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; String: &lt;scscf.centercall.net&gt;
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]:  AVP(0xb5a668ac &lt;
+</I>0xb5a66938
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a669c0);code=296,flags=40; DataType=1;VendorID=0;DataLen=14;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; String: &lt;centercall.net&gt;
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]:  AVP(0xb5a66938 &lt;
+</I>0xb5a669c0
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a66adc);code=283,flags=40; DataType=1;VendorID=0;DataLen=14;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; String: &lt;centercall.net&gt;
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]:  AVP(0xb5a669c0 &lt;
+</I>0xb5a66adc
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a66a54);code=260,flags=40; DataType=0;VendorID=0;DataLen=24;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; 001a4000c0028af00124000c1000
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]:  AVP(0xb5a66adc &lt;
+</I>0xb5a66a54
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a66c00);code=277,flags=40; DataType=0;VendorID=0;DataLen=4;
+</I>0001
+&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]:  AVP(0xb5a66a54 &lt;
+</I>0xb5a66c00
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a66ca8);code=601,flags=c0;
+</I>DataType=0;VendorID=10415;DataLen=22;
+&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; 7369703a626f624063656e74657263616c6c2e6e6574
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]:  AVP(0xb5a66c00 &lt;
+</I>0xb5a66ca8
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a66f60);code=1,flags=40; DataType=1;VendorID=0;DataLen=18;
+</I>String:
+&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at centercall.net</A>&gt;
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]:  AVP(0xb5a66ca8 &lt;
+</I>0xb5a66f60
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a66ee8);code=607,flags=c0; DataType=0;VendorID=10415;DataLen=4;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; 0001
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]:  AVP(0xb5a66f60 &lt;
+</I>0xb5a66ee8
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a68870);code=612,flags=c0;
+</I>DataType=0;VendorID=10415;DataLen=24;
+&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; 00260c000160028af4469676573742d4d443500
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]:  AVP(0xb5a66ee8 &lt;
+</I>0xb5a68870
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; (nil));code=602,flags=c0; DataType=0;VendorID=10415;DataLen=29;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; 7369703a73637363662e63656e74657263616c6c2e6e65743a36303630
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]: AAABuildMsgBuffer():
+</I>len=344
+&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]: DBG:peer_send_msg(): Pipe
+</I>push
+&gt;<i> &gt; [0xb5a66e74]
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]: DBG:select_recv(): There
+</I>is
+&gt;<i> &gt; something on the send pipe
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]: DBG:select_recv(): Send
+</I>pipe
+&gt;<i> &gt; says [0xb5a66e74] 4
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]: DBG:AAAFreeMessage:
+</I>Freeing
+&gt;<i> &gt; message (0xb5a66e74) 303
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]: DBG:receive_loop():
+</I>&gt;<i> &gt; [hss.centercall.net] Recv Version 1 Length 348
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]: DEBUG: AAA_MESSAGE -
+</I>&gt;<i> &gt; 0xb5a66e74
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]: ^ICode = 303
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]: ^IFlags = 40
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]:  AVP((nil) &lt; 0xb5a68870
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a66f60);code=263,flags=40; DataType=1;VendorID=0;DataLen=33;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; String: &lt;scscf.centercall.net;1724423355;1&gt;
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]:  AVP(0xb5a68870 &lt;
+</I>0xb5a66f60
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a66ca8);code=264,flags=40; DataType=1;VendorID=0;DataLen=18;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; String: &lt;hss.centercall.net&gt;
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]:  AVP(0xb5a66f60 &lt;
+</I>0xb5a66ca8
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a66fb4);code=296,flags=40; DataType=1;VendorID=0;DataLen=14;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; String: &lt;centercall.net&gt;
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]:  AVP(0xb5a66ca8 &lt;
+</I>0xb5a66fb4
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a66c00);code=277,flags=40; DataType=0;VendorID=0;DataLen=4;
+</I>0001
+&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]:  AVP(0xb5a66adc &lt;
+</I>0xb5a66bac
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a669c0);code=612,flags=c0;
+</I>DataType=0;VendorID=10415;DataLen=84;
+&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>00265c000100028af000100260c000160028af4469676573742d4d44350000261c0001c0
+&gt;<i> &gt; 028af8c2ea889e07afd512736c40eb7eb07e00262c000f0028af626f620
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]:  AVP(0xb5a66bac &lt;
+</I>0xb5a669c0
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; (nil));code=268,flags=40; DataType=3;VendorID=0;DataLen=4; Int32:
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; &lt;2001&gt;(7d1)
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]: DBG:receive_message():
+</I>&gt;<i> &gt; [hss.centercall.net] Recv msg 303
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]: DBG:sm_process(): Peer
+</I>&gt;<i> &gt; hss.centercall.net ^IState I_Open ^IEvent I_Rcv_Message
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]: calling get session with
+</I>id
+&gt;<i> &gt; scscf.centercall.net;1724423355;1 and hash 126
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9214]: DBG:worker_process(): [2]
+</I>got
+&gt;<i> &gt; task Q(1/1)
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; +++++++++++++++++++++++++++++++++++++++++++++++++
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]: INF:S-CSCF:Cx_MAR: before
+</I>&gt;<i> &gt; cdpb.AAADropSession, maa is b5a66e74
+</I>&gt;<i> &gt; +++++++++++++++++++++++++++++++++++++++++++++++++++
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9225]: ERROR: receive_fd: EOF on
+</I>9
+&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9225]: DBG: handle_ser_child:
+</I>dead
+&gt;<i> &gt; child 1, pid 9205 (shutting down?)
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9225]: DBG: io_watch_del
+</I>(0x8134340,
+&gt;<i> &gt; 9, -1, 0x0) fd_no=24 called
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9202]: child process 9205 exited
+</I>by a
+&gt;<i> &gt; signal 11
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9202]: core was generated
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9202]: INFO: terminating due to
+</I>&gt;<i> &gt; SIGCHLD
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9206]: INFO: signal 15 received
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9207]: INFO: signal 15 received
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9206]: qm_sums (0x8144f60):
+</I>&gt;<i> &gt; PKG[receiver child=1 sock=67.154.255.45:6060]
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9207]: qm_sums (0x8144f60):
+</I>&gt;<i> &gt; PKG[receiver child=2 sock=67.154.255.45:6060]
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9206]: summarizing all alloc'ed.
+</I>&gt;<i> &gt; fragments:
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9207]: summarizing all alloc'ed.
+</I>&gt;<i> &gt; fragments:
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9207]:  count=     1 size=
+</I>32
+&gt;<i> &gt; bytes from textops.c: sel_hf_value_name(1711)
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9206]:  count=     1 size=
+</I>32
+&gt;<i> &gt; bytes from textops.c: sel_hf_value_name(1711)
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9206]:  count=     4 size=
+</I>128
+&gt;<i> &gt; bytes from sr_module.c: fix_param(660)
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9208]: INFO: signal 15 received
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9208]: qm_sums (0x8144f60):
+</I>&gt;<i> &gt; PKG[receiver child=3 sock=67.154.255.45:6060]
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9212]: INFO: signal 15 received
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9212]: qm_sums (0x8144f60):
+</I>PKG[cdp
+&gt;<i> &gt; worker child=0]
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]:  AVP(0xb5a66adc &lt;
+</I>0xb5a66bac
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; 0xb5a669c0);code=612,flags=c0;
+</I>DataType=0;VendorID=10415;DataLen=84;
+&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>00265c000100028af000100260c000160028af4469676573742d4d44350000261c0001c0
+&gt;<i> &gt; 028af8c2ea889e07afd512736c40eb7eb07e00262c000f0028af626f620
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]:  AVP(0xb5a66bac &lt;
+</I>0xb5a669c0
+&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; (nil));code=268,flags=40; DataType=3;VendorID=0;DataLen=4; Int32:
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; &lt;2001&gt;(7d1)
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]: DBG:receive_message():
+</I>&gt;<i> &gt; [hss.centercall.net] Recv msg 303
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]: DBG:sm_process(): Peer
+</I>&gt;<i> &gt; hss.centercall.net ^IState I_Open ^IEvent I_Rcv_Message
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9216]: calling get session with
+</I>id
+&gt;<i> &gt; scscf.centercall.net;1724423355;1 and hash 126
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9214]: DBG:worker_process(): [2]
+</I>got
+&gt;<i> &gt; task Q(1/1)
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9205]: INF:S-CSCF:Cx_MAR: before
+</I>&gt;<i> &gt; cdpb.AAADropSession, maa is b5a66e74
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9225]: ERROR: receive_fd: EOF on
+</I>9
+&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9225]: DBG: handle_ser_child:
+</I>dead
+&gt;<i> &gt; child 1, pid 9205 (shutting down?)
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9225]: DBG: io_watch_del
+</I>(0x8134340,
+&gt;<i> &gt; 9, -1, 0x0) fd_no=24 called
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9202]: child process 9205 exited
+</I>by a
+&gt;<i> &gt; signal 11
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9202]: core was generated
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9202]: INFO: terminating due to
+</I>&gt;<i> &gt; SIGCHLD
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9206]: INFO: signal 15 received
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9207]: INFO: signal 15 received
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9206]: qm_sums (0x8144f60):
+</I>&gt;<i> &gt; PKG[receiver child=1 sock=67.154.255.45:6060]
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9207]: qm_sums (0x8144f60):
+</I>&gt;<i> &gt; PKG[receiver child=2 sock=67.154.255.45:6060]
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9206]: summarizing all alloc'ed.
+</I>&gt;<i> &gt; fragments:
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9207]: summarizing all alloc'ed.
+</I>&gt;<i> &gt; fragments:
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9207]:  count=     1 size=
+</I>32
+&gt;<i> &gt; bytes from textops.c: sel_hf_value_name(1711)
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9206]:  count=     1 size=
+</I>32
+&gt;<i> &gt; bytes from textops.c: sel_hf_value_name(1711)
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9206]:  count=     4 size=
+</I>128
+&gt;<i> &gt; bytes from sr_module.c: fix_param(660)
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9208]: INFO: signal 15 received
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9208]: qm_sums (0x8144f60):
+</I>&gt;<i> &gt; PKG[receiver child=3 sock=67.154.255.45:6060]
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9212]: INFO: signal 15 received
+</I>&gt;<i> &gt; Jan 27 15:06:39 sip1 /usr/sbin/ser[9212]: qm_sums (0x8144f60):
+</I>PKG[cdp
+&gt;<i> &gt; worker child=0]
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Kind Regards
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Min Wang
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; -----Original Message-----
+</I>&gt;<i> &gt;&gt; From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; [mailto:openimscore-cscf-
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bounces at lists.berlios.de</A>] On Behalf Of Min Wang
+</I>&gt;<i> &gt;&gt; Sent: Wednesday, January 27, 2010 9:45 AM
+</I>&gt;<i> &gt;&gt; To: Dragos Vingarzan
+</I>&gt;<i> &gt;&gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt; Subject: Re: [OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes
+</I>on
+&gt;<i> &gt;&gt; cdp(s-cscf crashed !)
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Hi Dragos
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; I can try to test it again.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Have you checked in all your changes to the svn repo?
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Kind Regards
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Min Wang
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; -----Original Message-----
+</I>&gt;<i> &gt;&gt;&gt; From: Dragos Vingarzan
+</I>[mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]
+&gt;<i> &gt;&gt;&gt; Sent: Tuesday, January 26, 2010 1:04 PM
+</I>&gt;<i> &gt;&gt;&gt; To: Min Wang
+</I>&gt;<i> &gt;&gt;&gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt; Subject: Re: [OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt; on
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; cdp
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; (s-cscf crashed !)
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Hi Min,
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; it's very helpful that you are reporting this, so that I can look
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt; for
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt; the issue early!
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; But... unfortunately I can't really find the bug here... all seems
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt; to
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; be
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; ok... Could you maybe run it from the ser_ims directory, so that
+</I>we
+&gt;<i> &gt;&gt;&gt; could also see the source code line that it crashes at?
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Cheers,
+</I>&gt;<i> &gt;&gt;&gt; -Dragos
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Min Wang wrote:
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Just FYI:
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; With this version, the s-cscf crashed on the UE registeration.
+</I>&gt;<i> &gt;&gt;&gt;&gt; (I understand seems Dragos are in the middle of big changes of
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; cdp,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; so
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; it is just FYI)
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; [New process 6342]
+</I>&gt;<i> &gt;&gt;&gt;&gt; #0  0xb7909bc0 in del_session () from /usr/lib/ser/modules/cdp.so
+</I>&gt;<i> &gt;&gt;&gt;&gt; (gdb) bt
+</I>&gt;<i> &gt;&gt;&gt;&gt; #0  0xb7909bc0 in del_session () from /usr/lib/ser/modules/cdp.so
+</I>&gt;<i> &gt;&gt;&gt;&gt; #1  0xb7909cca in AAADropSession () from
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; /usr/lib/ser/modules/cdp.so
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; #2  0xb7a7d867 in Cx_MAR () from /usr/lib/ser/modules/scscf.so
+</I>&gt;<i> &gt;&gt;&gt;&gt; #3  0xb7aab966 in S_MAR () from /usr/lib/ser/modules/scscf.so
+</I>&gt;<i> &gt;&gt;&gt;&gt; #4  0xb7aae43f in S_challenge () from
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; /usr/lib/ser/modules/scscf.so
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; #5  0x08054727 in do_action ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #6  0x08056471 in run_actions ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #7  0x080544bc in do_action ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #8  0x08056471 in run_actions ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #9  0x080544bc in do_action ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #10 0x08056471 in run_actions ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #11 0x080544bc in do_action ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #12 0x08056471 in run_actions ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #13 0x08054616 in do_action ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #14 0x08056471 in run_actions ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #15 0x080544bc in do_action ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #16 0x08056471 in run_actions ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #17 0x080916bf in receive_msg ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #18 0x080c920d in udp_rcv_loop ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #19 0x0807a2e0 in main_loop ()
+</I>&gt;<i> &gt;&gt;&gt;&gt; #20 0x0807c29d in main ()
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Kind Regards
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Min Wang
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; -----Original Message-----
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; [mailto:openimscore-cscf-
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bounces at lists.berlios.de</A>] On Behalf Of
+</I><A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>
+&gt;<i> &gt;&gt;&gt;&gt;&gt; Sent: Friday, January 22, 2010 2:35 PM
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Subject: [OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes
+</I>on
+&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; cdp
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Author: vingarzan
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Date: 2010-01-22 20:34:58 +0100 (Fri, 22 Jan 2010)
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; New Revision: 821
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=821">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=821</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Log:
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Further fixes on cdp
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Modified:
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;    U	ser_ims/branches/13_pcc_fixing/modules/cdp/mod.c
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; xing/modules/cdp/mod.c?rev=821&amp;view=diff&amp;r1=821&amp;r2=820
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;    U
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; ser_ims/branches/13_pcc_fixing/modules/cdp/peerstatemachine.c
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; xing/modules/cdp/peerstatemachine.c?rev=821&amp;view=diff&amp;r1=821&amp;r2=820
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;    U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; xing/modules/pcscf/pcc.c?rev=821&amp;view=diff&amp;r1=821&amp;r2=820
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; --
+</I>&gt;<i> &gt;&gt;&gt; -----------------------------------------
+</I>&gt;<i> &gt;&gt;&gt; Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> &gt;&gt;&gt; Fraunhofer FOKUS/NGNI
+</I>&gt;<i> &gt;&gt;&gt; Kaiserin-Augusta-Allee 31
+</I>&gt;<i> &gt;&gt;&gt; 10589 Berlin,Germany
+</I>&gt;<i> &gt;&gt;&gt; Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> &gt;&gt;&gt; Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> &gt;&gt;&gt; Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> &gt;&gt;&gt; We could change the world if God would give us the source code...
+</I>&gt;<i> &gt;&gt;&gt; -----------------------------------------------------------------
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002006.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp(s-cscf crashed !)
+</A></li>
+	<LI>Next message: <A HREF="002011.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp(s-cscf deadlock!!!)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2009">[ date ]</a>
+              <a href="thread.html#2009">[ thread ]</a>
+              <a href="subject.html#2009">[ subject ]</a>
+              <a href="author.html#2009">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

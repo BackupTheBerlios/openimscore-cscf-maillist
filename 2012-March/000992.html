@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> No subject
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2012-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20No%20subject&In-Reply-To=%3Cmailman.6.1331735576.7402.openimscore-cscf%40lists.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000977.html">
+   <LINK REL="Next"  HREF="002729.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>No subject</H1>
+    <B></B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20No%20subject&In-Reply-To=%3Cmailman.6.1331735576.7402.openimscore-cscf%40lists.berlios.de%3E"
+       TITLE="No subject">
+       </A><BR>
+    <I>Wed Mar 14 15:32:39 CET 2012</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000977.html">No subject
+</A></li>
+        <LI>Next message: <A HREF="002729.html">[OpenIMSCore-CSCF] ICSCF not coming up
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#992">[ date ]</a>
+              <a href="thread.html#992">[ thread ]</a>
+              <a href="subject.html#992">[ subject ]</a>
+              <a href="author.html#992">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&quot;If the P-Asserted-Identity header contains only a tel URI, the S-CSCF
+shall add a second P-Asserted-Identity header containing a SIP URI. The
+added SIP URI shall contain in the user part a &quot;+&quot; followed by the
+international public telecommunication number contained in tel URI, and
+user's home domain name in the hostport part. The added SIP URI shall
+contain the same value in the display name as contained in the tel URI.
+The S-CSCF shall also add a user parameter equals &quot;phone&quot; to the SIP
+URI;&quot;
+
+This means IMO &quot;tel:+1234567&quot; -&gt; &quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">+1234567 at open_ims.test</A>;user=phone&quot;.
+
+This is not related to alias (implicit) identities, as in (c).
+
+IMHO the domain part in should be the IMS domain configured in the S-CSCF.
+If the S-CSCF is configured to server several IMS domains, then maybe
+we can think about searching for a SIP public identity that is an
+alias (implicit) of the tel URI and use its domain.
+
+Hope this helps,
+
+JF
+
+
+On 10/9/07, Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>&gt; wrote:
+&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Stefan.Brozinski at materna.de</A> wrote:
+</I>&gt;<i> &gt;&gt; Hmm... no... I would say that it does not support b - btw:
+</I>&gt;<i> &gt;&gt; where do you extract the user domain from?
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I don't understand this question. Could you clarify please?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> When you do &quot;tel:+1234567&quot; -&gt; &quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user_public at open_ims.test</A>&quot;, how do
+</I>&gt;<i> you know the &quot;open_ims.test&quot; part? I ask because it is not contained in
+</I>&gt;<i> the original tel uri...
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> &gt; The unexpected thing is that the second P-Asserted-Identity header (the
+</I>&gt;<i> &gt; one containing the tel-uri) is the VERY FIRST header of the SIP message,
+</I>&gt;<i> &gt; immediately after the Request-Line.
+</I>&gt;<i> &gt;
+</I>&gt;<i> well... yes, this was the easiest way to do it in code... is this a
+</I>&gt;<i> problem?... could be easily added after the old one or wherever we like,
+</I>&gt;<i> it was just trivial to insert it there.
+</I>&gt;<i> &gt; BTW: The indentation of registrar.c:1579 is broken (one indent more than
+</I>&gt;<i> &gt; correct).
+</I>&gt;<i> &gt;
+</I>&gt;<i> yup, fixed.
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000977.html">No subject
+</A></li>
+	<LI>Next message: <A HREF="002729.html">[OpenIMSCore-CSCF] ICSCF not coming up
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#992">[ date ]</a>
+              <a href="thread.html#992">[ thread ]</a>
+              <a href="subject.html#992">[ subject ]</a>
+              <a href="author.html#992">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

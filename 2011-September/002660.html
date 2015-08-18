@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r1154 - Client_Rf: initialized the	hash for the list of rf session data,	implemented adding and retrieving a new rf session data
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1154%20-%20Client_Rf%3A%20initialized%20the%0A%09hash%20for%20the%20list%20of%20rf%20session%20data%2C%0A%09implemented%20adding%20and%20retrieving%20a%20new%20rf%20session%20data&In-Reply-To=%3C20110909155643.6E8AC481270%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002659.html">
+   <LINK REL="Next"  HREF="002661.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r1154 - Client_Rf: initialized the	hash for the list of rf session data,	implemented adding and retrieving a new rf session data</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1154%20-%20Client_Rf%3A%20initialized%20the%0A%09hash%20for%20the%20list%20of%20rf%20session%20data%2C%0A%09implemented%20adding%20and%20retrieving%20a%20new%20rf%20session%20data&In-Reply-To=%3C20110909155643.6E8AC481270%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r1154 - Client_Rf: initialized the	hash for the list of rf session data,	implemented adding and retrieving a new rf session data">aon at users.berlios.de
+       </A><BR>
+    <I>Fri Sep  9 17:56:43 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002659.html">[OpenIMSCore-CSCF] IMS registartion without authentication.
+</A></li>
+        <LI>Next message: <A HREF="002661.html">[OpenIMSCore-CSCF] problems during run scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2660">[ date ]</a>
+              <a href="thread.html#2660">[ thread ]</a>
+              <a href="subject.html#2660">[ subject ]</a>
+              <a href="author.html#2660">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2011-09-09 17:56:42 +0200 (Fri, 09 Sep 2011)
+New Revision: 1154 <A HREF="http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1154">http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1154</A> 
+
+Log:
+Client_Rf: initialized the hash for the list of rf session data, implemented adding and retrieving a new rf session data
+
+
+Added:
+   A	ser_ims/trunk/modules/Client_Rf/rf_session.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/rf_session.c?rev=1154&amp;peg=1154">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/rf_session.c?rev=1154&amp;peg=1154</A>
+   A	ser_ims/trunk/modules/Client_Rf/rf_session.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/rf_session.h?rev=1154&amp;peg=1154">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/rf_session.h?rev=1154&amp;peg=1154</A>
+Modified:
+   U	ser_ims/trunk/modules/Client_Rf/diameter_rf.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/diameter_rf.c?op=diff&amp;rev=1154&amp;peg=1154">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/diameter_rf.c?op=diff&amp;rev=1154&amp;peg=1154</A>
+   U	ser_ims/trunk/modules/Client_Rf/diameter_rf.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/diameter_rf.h?op=diff&amp;rev=1154&amp;peg=1154">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/diameter_rf.h?op=diff&amp;rev=1154&amp;peg=1154</A>
+   U	ser_ims/trunk/modules/Client_Rf/mod_wharf.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/mod_wharf.c?op=diff&amp;rev=1154&amp;peg=1154">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/mod_wharf.c?op=diff&amp;rev=1154&amp;peg=1154</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002659.html">[OpenIMSCore-CSCF] IMS registartion without authentication.
+</A></li>
+	<LI>Next message: <A HREF="002661.html">[OpenIMSCore-CSCF] problems during run scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2660">[ date ]</a>
+              <a href="thread.html#2660">[ thread ]</a>
+              <a href="subject.html#2660">[ subject ]</a>
+              <a href="author.html#2660">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

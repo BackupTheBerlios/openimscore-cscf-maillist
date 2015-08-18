@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Problem with memory allocation/segfault with S-CSCF Kamailio 3.1.4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Problem%20with%20memory%20allocation/segfault%20with%0A%20S-CSCF%20Kamailio%203.1.4&In-Reply-To=%3CCAKeJbHUqGTHPEdZD_R%3D%2BMHcivvvpirRjgB4rypD_N%2B6sQfnhPQ%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002628.html">
+   <LINK REL="Next"  HREF="002635.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Problem with memory allocation/segfault with S-CSCF Kamailio 3.1.4</H1>
+    <B>Carsten Bock</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Problem%20with%20memory%20allocation/segfault%20with%0A%20S-CSCF%20Kamailio%203.1.4&In-Reply-To=%3CCAKeJbHUqGTHPEdZD_R%3D%2BMHcivvvpirRjgB4rypD_N%2B6sQfnhPQ%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Problem with memory allocation/segfault with S-CSCF Kamailio 3.1.4">carsten at ng-voice.com
+       </A><BR>
+    <I>Wed Aug 10 17:11:31 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002628.html">[OpenIMSCore-CSCF] Problem with memory allocation/segfault with	S-CSCF Kamailio 3.1.4
+</A></li>
+        <LI>Next message: <A HREF="002635.html">[OpenIMSCore-CSCF] Problem with memory allocation/segfault with S-CSCF Kamailio 3.1.4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2634">[ date ]</a>
+              <a href="thread.html#2634">[ thread ]</a>
+              <a href="subject.html#2634">[ subject ]</a>
+              <a href="author.html#2634">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+can you provide the original SIP-messages, that caused that problem?
+What User-Agent are you using?
+Note: Both the original OpenIMS-Core and my merge with Kamailio are
+currently not (yet) ready for production use.
+
+Carsten
+
+2011/8/8 Roc&#237;o Ruz &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">rociorsr at gmail.com</A>&gt;:
+&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i> I am trying to use isc interface of s-cscf Kamailio module.
+</I>&gt;<i> I have a problem with isc_checker_find () function.
+</I>&gt;<i> This function generates this on the logs:
+</I>&gt;<i>
+</I>&gt;<i> Aug&#160; 8 18:22:04 invlcscs /usr/sbin/kamailio[1128]: INFO: isc
+</I>&gt;<i> [checker.c:407]: INFO:ISC:isc_checker_find: starting search
+</I>&gt;<i> Aug&#160; 8 18:22:04 invlcscs kernel: [&#160;&#160; 93.571026] kamailio[1128]: segfault at
+</I>&gt;<i> 88 ip b772de1f sp bf8ad9a4 error 6 in libc-2.11.2.so[b767c000+140000]
+</I>&gt;<i> Aug&#160; 8 18:22:04 invlcscs /usr/sbin/kamailio[1147]: : &lt;core&gt; [pass_fd.c:293]:
+</I>&gt;<i> ERROR: receive_fd: EOF on 14
+</I>&gt;<i> Aug&#160; 8 18:22:04 invlcscs /usr/sbin/kamailio[1122]: ALERT: &lt;core&gt;
+</I>&gt;<i> [main.c:741]: child process 1128 exited by a signal 11
+</I>&gt;<i> Aug&#160; 8 18:22:04 invlcscs /usr/sbin/kamailio[1122]: ALERT: &lt;core&gt;
+</I>&gt;<i> [main.c:744]: core was not generated
+</I>&gt;<i> Aug&#160; 8 18:22:04 invlcscs /usr/sbin/kamailio[1122]: INFO: &lt;core&gt;
+</I>&gt;<i> [main.c:756]: INFO: terminating due to SIGCHLD
+</I>&gt;<i> Aug&#160; 8 18:22:04 invlcscs /usr/sbin/kamailio[1146]: INFO: &lt;core&gt;
+</I>&gt;<i> [main.c:807]: INFO: signal 15 received
+</I>&gt;<i> Aug&#160; 8 18:22:04 invlcscs /usr/sbin/kamailio[1145]: INFO: &lt;core&gt;
+</I>&gt;<i> [main.c:807]: INFO: signal 15 received
+</I>&gt;<i> Aug&#160; 8 18:22:04 invlcscs /usr/sbin/kamailio[1144]: INFO: &lt;core&gt;
+</I>&gt;<i> [main.c:807]: INFO: signal 15 received
+</I>&gt;<i> Aug&#160; 8 18:22:04 invlcscs /usr/sbin/kamailio[1143]: INFO: &lt;core&gt;
+</I>&gt;<i> [main.c:807]: INFO: signal 15 received
+</I>&gt;<i> Aug&#160; 8 18:22:04 invlcscs /usr/sbin/kamailio[1142]: INFO: &lt;core&gt;
+</I>&gt;<i> [main.c:807]: INFO: signal 15 received
+</I>&gt;<i> Aug&#160; 8 18:22:04 invlcscs /usr/sbin/kamailio[1141]: INFO: &lt;core&gt;
+</I>&gt;<i> [main.c:807]: INFO: signal 15 received
+</I>&gt;<i> Aug&#160; 8 18:22:04 invlcscs /usr/sbin/kamailio[1139]: INFO: &lt;core&gt;
+</I>&gt;<i> [main.c:807]: INFO: signal 15 received
+</I>&gt;<i> ...
+</I>&gt;<i> And Kamailio process is killed.
+</I>&gt;<i>
+</I>&gt;<i> I have taken a look at the code:
+</I>&gt;<i>
+</I>&gt;<i> 00407     if (skip==0) LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:isc_checker_find: starting
+</I>&gt;<i> search\n&quot;);
+</I>&gt;<i> 00408     else LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:isc_checker_find: resuming search
+</I>&gt;<i> from %d\n&quot;,skip);
+</I>&gt;<i> 00409
+</I>&gt;<i> 00410     expires = isc_get_expires(msg);
+</I>&gt;<i> 00411     if (!registered) registration_type = IFC_INITIAL_REGISTRATION;
+</I>&gt;<i> 00412     else if (expires&gt;0) registration_type = IFC_RE_REGISTRATION;
+</I>&gt;<i> 00413          else registration_type = IFC_DE_REGISTRATION;
+</I>&gt;<i> 00414
+</I>&gt;<i> 00415     /* get the user profile from the scscf module */
+</I>&gt;<i> 00416     i=0;
+</I>&gt;<i> 00417
+</I>&gt;<i> 00418     while(i&lt;uri.len &amp;&amp; uri.s[i]!='@')
+</I>&gt;<i> 00419         i++;
+</I>&gt;<i> 00420     domain.s = uri.s+i+1;
+</I>&gt;<i> 00421     domain.len = uri.len - i - 1;
+</I>&gt;<i> 00422
+</I>&gt;<i> 00423     p = isc_scscfb.get_r_public(uri);
+</I>&gt;<i>
+</I>&gt;<i> As in the logs I can see
+</I>&gt;<i>
+</I>&gt;<i> Aug&#160; 8 18:22:04 invlcscs /usr/sbin/kamailio[1128]: INFO: isc
+</I>&gt;<i> [checker.c:407]: INFO:ISC:isc_checker_find: starting search
+</I>&gt;<i>
+</I>&gt;<i> So I assume that the problem is lauched by:
+</I>&gt;<i>
+</I>&gt;<i> expires = isc_get_expires(msg)
+</I>&gt;<i>
+</I>&gt;<i> or
+</I>&gt;<i>
+</I>&gt;<i> p = isc_scscfb.get_r_public(uri);
+</I>&gt;<i>
+</I>&gt;<i> I think there could be a problem with memory allocation...
+</I>&gt;<i> Could somebody help me, please?
+</I>&gt;<i>
+</I>&gt;<i> Thank you
+</I>&gt;<i>
+</I>&gt;<i> RR
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+
+-- 
+Carsten Bock
+<A HREF="http://www.ng-voice.com">http://www.ng-voice.com</A>
+mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">carsten at ng-voice.com</A>
+
+Schomburgstr. 80
+22767 Hamburg
+Germany
+
+Mobile +49 179 2021244
+Office +49 40 34927219
+Fax +49 40 34927220
+
+~~~~~~~~~~~~~~~~~~~~
+Upcoming Events: &quot;10 years of SER&quot; in Berlin on September 2nd, 2011 (@
+Fraunhofer Institute, Berlin):
+<A HREF="http://sip-router.org/10-years-ser/">http://sip-router.org/10-years-ser/</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002628.html">[OpenIMSCore-CSCF] Problem with memory allocation/segfault with	S-CSCF Kamailio 3.1.4
+</A></li>
+	<LI>Next message: <A HREF="002635.html">[OpenIMSCore-CSCF] Problem with memory allocation/segfault with S-CSCF Kamailio 3.1.4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2634">[ date ]</a>
+              <a href="thread.html#2634">[ thread ]</a>
+              <a href="subject.html#2634">[ subject ]</a>
+              <a href="author.html#2634">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

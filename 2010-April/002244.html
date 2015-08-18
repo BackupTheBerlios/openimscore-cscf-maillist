@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r935 - Changed the way the first	connections are made - were done by the diameter_peer_start()	by calling the peer_timer();	now they are actually called from the timer.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r935%20-%20Changed%20the%20way%20the%20first%0A%09connections%20are%20made%20-%20were%20done%20by%20the%20diameter_peer_start%28%29%0A%09by%20calling%20the%20peer_timer%28%29%3B%0A%09now%20they%20are%20actually%20called%20from%20the%20timer.&In-Reply-To=%3C201004281032.o3SAWe8T030672%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002243.html">
+   <LINK REL="Next"  HREF="002245.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r935 - Changed the way the first	connections are made - were done by the diameter_peer_start()	by calling the peer_timer();	now they are actually called from the timer.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r935%20-%20Changed%20the%20way%20the%20first%0A%09connections%20are%20made%20-%20were%20done%20by%20the%20diameter_peer_start%28%29%0A%09by%20calling%20the%20peer_timer%28%29%3B%0A%09now%20they%20are%20actually%20called%20from%20the%20timer.&In-Reply-To=%3C201004281032.o3SAWe8T030672%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r935 - Changed the way the first	connections are made - were done by the diameter_peer_start()	by calling the peer_timer();	now they are actually called from the timer.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Apr 28 12:32:40 CEST 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002243.html">[OpenIMSCore-CSCF] E-CSCF query to LRF [OPTIONS]
+</A></li>
+        <LI>Next message: <A HREF="002245.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r936 - More fixes for the	fd_exchange_pipe
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2244">[ date ]</a>
+              <a href="thread.html#2244">[ thread ]</a>
+              <a href="subject.html#2244">[ subject ]</a>
+              <a href="author.html#2244">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2010-04-28 12:32:33 +0200 (Wed, 28 Apr 2010)
+New Revision: 935 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=935">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=935</A> 
+
+Log:
+Changed the way the first connections are made - were done by the diameter_peer_start() by calling the peer_timer(); now they are actually called from the timer.
+
+
+Modified:
+   U	ser_ims/trunk/modules/cdp/diameter_peer.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_peer.c?rev=935&amp;view=diff&amp;r1=935&amp;r2=934">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_peer.c?rev=935&amp;view=diff&amp;r1=935&amp;r2=934</A>
+   U	ser_ims/trunk/modules/cdp/peermanager.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peermanager.c?rev=935&amp;view=diff&amp;r1=935&amp;r2=934">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peermanager.c?rev=935&amp;view=diff&amp;r1=935&amp;r2=934</A>
+   U	ser_ims/trunk/modules/cdp/peermanager.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peermanager.h?rev=935&amp;view=diff&amp;r1=935&amp;r2=934">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peermanager.h?rev=935&amp;view=diff&amp;r1=935&amp;r2=934</A>
+   U	ser_ims/trunk/modules/cdp/peerstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peerstatemachine.c?rev=935&amp;view=diff&amp;r1=935&amp;r2=934">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peerstatemachine.c?rev=935&amp;view=diff&amp;r1=935&amp;r2=934</A>
+   U	ser_ims/trunk/modules/cdp/session.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/session.c?rev=935&amp;view=diff&amp;r1=935&amp;r2=934">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/session.c?rev=935&amp;view=diff&amp;r1=935&amp;r2=934</A>
+   U	ser_ims/trunk/modules/cdp/session.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/session.h?rev=935&amp;view=diff&amp;r1=935&amp;r2=934">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/session.h?rev=935&amp;view=diff&amp;r1=935&amp;r2=934</A>
+   U	ser_ims/trunk/modules/cdp/timer.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/timer.c?rev=935&amp;view=diff&amp;r1=935&amp;r2=934">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/timer.c?rev=935&amp;view=diff&amp;r1=935&amp;r2=934</A>
+   U	ser_ims/trunk/modules/cdp/timer.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/timer.h?rev=935&amp;view=diff&amp;r1=935&amp;r2=934">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/timer.h?rev=935&amp;view=diff&amp;r1=935&amp;r2=934</A>
+   U	ser_ims/trunk/modules/cdp/transaction.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/transaction.c?rev=935&amp;view=diff&amp;r1=935&amp;r2=934">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/transaction.c?rev=935&amp;view=diff&amp;r1=935&amp;r2=934</A>
+   U	ser_ims/trunk/modules/cdp/transaction.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/transaction.h?rev=935&amp;view=diff&amp;r1=935&amp;r2=934">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/transaction.h?rev=935&amp;view=diff&amp;r1=935&amp;r2=934</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002243.html">[OpenIMSCore-CSCF] E-CSCF query to LRF [OPTIONS]
+</A></li>
+	<LI>Next message: <A HREF="002245.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r936 - More fixes for the	fd_exchange_pipe
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2244">[ date ]</a>
+              <a href="thread.html#2244">[ thread ]</a>
+              <a href="subject.html#2244">[ subject ]</a>
+              <a href="author.html#2244">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

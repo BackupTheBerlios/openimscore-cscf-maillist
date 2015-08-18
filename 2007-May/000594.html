@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Question]Request Timeout of INVITE message	hasdetected by P-CSCF and S-CSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DRequest%20Timeout%20of%20INVITE%20message%0A%09hasdetected%20by%20P-CSCF%20and%20S-CSCF&In-Reply-To=%3C200705100938.l4A9cLgL021654%40imj.m.ecl.ntt.co.jp%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000589.html">
+   <LINK REL="Next"  HREF="000592.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Question]Request Timeout of INVITE message	hasdetected by P-CSCF and S-CSCF</H1>
+    <B>Hideyuki Yamashita</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DRequest%20Timeout%20of%20INVITE%20message%0A%09hasdetected%20by%20P-CSCF%20and%20S-CSCF&In-Reply-To=%3C200705100938.l4A9cLgL021654%40imj.m.ecl.ntt.co.jp%3E"
+       TITLE="[OpenIMSCore-CSCF] [Question]Request Timeout of INVITE message	hasdetected by P-CSCF and S-CSCF">yamashita.hideyuki at lab.ntt.co.jp
+       </A><BR>
+    <I>Thu May 10 11:43:35 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000589.html">[OpenIMSCore-CSCF] [Question]Request Timeout of INVITE message	hasdetected by P-CSCF and S-CSCF
+</A></li>
+        <LI>Next message: <A HREF="000592.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r266 - Fixed the I-CSCF response	code for LIA - user not registered from 404 to 480 as	indicated by Hideyuki Yamashita.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#594">[ date ]</a>
+              <a href="thread.html#594">[ thread ]</a>
+              <a href="subject.html#594">[ subject ]</a>
+              <a href="author.html#594">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Franz,
+
+Thanks for your information.
+I will check your information and will test again in my 
+enviroment.
+
+Regards,
+Hideyuki
+
+
+&gt;<i> Hi Hideyuki,
+</I>&gt;<i> 
+</I>&gt;<i> &gt; I have tested under Proxy time-out situation.
+</I>&gt;<i> 
+</I>&gt;<i> I also have done now - in my own interest.
+</I>&gt;<i> I could not reproduce any issue. I have tested two cases
+</I>&gt;<i> 
+</I>&gt;<i> 1. Alice only answers with 180 Ringing (trace: osi26105-net1)
+</I>&gt;<i> 2. Alice does not even answer (trace: osi26106-net1)
+</I>&gt;<i> 
+</I>&gt;<i> In both cases S-CSCF-term sends 408 timeout to S-CSCF-orig. So the flow is
+</I>&gt;<i> o.k. (see the scenarios attached).
+</I>&gt;<i> 
+</I>&gt;<i> The problem in your scenario is that you send CANCEL directly to S-CSCF,
+</I>&gt;<i> that's not allowed in IMS, and in addition CANCEL is never sent end-to-end
+</I>&gt;<i> (also in pure SIP world). CANCEL is a hop-by-hop request.
+</I>&gt;<i> 
+</I>&gt;<i> Cheers
+</I>&gt;<i> franz
+</I>
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000589.html">[OpenIMSCore-CSCF] [Question]Request Timeout of INVITE message	hasdetected by P-CSCF and S-CSCF
+</A></li>
+	<LI>Next message: <A HREF="000592.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r266 - Fixed the I-CSCF response	code for LIA - user not registered from 404 to 480 as	indicated by Hideyuki Yamashita.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#594">[ date ]</a>
+              <a href="thread.html#594">[ thread ]</a>
+              <a href="subject.html#594">[ subject ]</a>
+              <a href="author.html#594">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r75 - in ser_ims/trunk/modules:	cdp scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r75%20-%20in%20ser_ims/trunk/modules%3A%0A%09cdp%20scscf&In-Reply-To=%3C200612191220.kBJCKRp2022404%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000046.html">
+   <LINK REL="Next"  HREF="000052.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r75 - in ser_ims/trunk/modules:	cdp scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r75%20-%20in%20ser_ims/trunk/modules%3A%0A%09cdp%20scscf&In-Reply-To=%3C200612191220.kBJCKRp2022404%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r75 - in ser_ims/trunk/modules:	cdp scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Dec 19 13:20:27 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000046.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r74 - in ser_ims/trunk: cfg	modules/pcscf
+</A></li>
+        <LI>Next message: <A HREF="000052.html">[OpenIMSCore-CSCF] [Fwd: [OpenIMSCore-HSS] Can't connect through	/tmp/mysql.sock]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#51">[ date ]</a>
+              <a href="thread.html#51">[ thread ]</a>
+              <a href="subject.html#51">[ subject ]</a>
+              <a href="author.html#51">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2006-12-19 13:20:23 +0100 (Tue, 19 Dec 2006)
+New Revision: 75
+
+Modified:
+   ser_ims/trunk/modules/cdp/cdp_load.h
+   ser_ims/trunk/modules/cdp/diameter_api.h
+   ser_ims/trunk/modules/cdp/diameter_msg.c
+   ser_ims/trunk/modules/cdp/peerstatemachine.c
+   ser_ims/trunk/modules/scscf/cx_avp.c
+Log:
+Re-fixed AAAFreeAVPList bug.
+
+
+Modified: ser_ims/trunk/modules/cdp/cdp_load.h
+===================================================================
+--- ser_ims/trunk/modules/cdp/cdp_load.h	2006-12-16 21:17:22 UTC (rev 74)
++++ ser_ims/trunk/modules/cdp/cdp_load.h	2006-12-19 12:20:23 UTC (rev 75)
+@@ -110,7 +110,7 @@
+ typedef AAAReturnCode (*AAAFreeAVP_f)(
+ 										AAA_AVP **avp);
+ 		
+-typedef AAAReturnCode  (*AAAFreeAVPList_f)(AAA_AVP_LIST avpList);
++typedef AAAReturnCode  (*AAAFreeAVPList_f)(AAA_AVP_LIST *avpList);
+ 
+ typedef str (*AAAGroupAVPS_f)(AAA_AVP_LIST avps);
+ 
+
+Modified: ser_ims/trunk/modules/cdp/diameter_api.h
+===================================================================
+--- ser_ims/trunk/modules/cdp/diameter_api.h	2006-12-16 21:17:22 UTC (rev 74)
++++ ser_ims/trunk/modules/cdp/diameter_api.h	2006-12-19 12:20:23 UTC (rev 75)
+@@ -113,7 +113,7 @@
+ 		AAAMessage *request);
+ 
+ AAAReturnCode AAAFreeAVPList(
+-		AAA_AVP_LIST avpList);
++		AAA_AVP_LIST *avpList);
+ 
+ AAAReturnCode AAAFreeMessage(
+ 		AAAMessage **message);
+
+Modified: ser_ims/trunk/modules/cdp/diameter_msg.c
+===================================================================
+--- ser_ims/trunk/modules/cdp/diameter_msg.c	2006-12-16 21:17:22 UTC (rev 74)
++++ ser_ims/trunk/modules/cdp/diameter_msg.c	2006-12-19 12:20:23 UTC (rev 75)
+@@ -352,20 +352,20 @@
+  * @param avpList - list to be freed
+  * @returns AAA_ERR_SUCCESS 
+  */
+-AAAReturnCode  AAAFreeAVPList(AAA_AVP_LIST avpList)
++AAAReturnCode  AAAFreeAVPList(AAA_AVP_LIST *avpList)
+ {
+ 	AAA_AVP *avp_t;
+ 	AAA_AVP *avp;
+ 	/* free the avp list */
+-	avp = avpList.head;
++	avp = avpList-&gt;head;
+ 	while (avp) {
+ 		avp_t = avp;
+ 		avp = avp-&gt;next;
+ 		/*free the avp*/
+ 		AAAFreeAVP(&amp;avp_t);
+ 	}
+-	avpList.head = 0;
+-	avpList.tail = 0;
++	avpList-&gt;head = 0;
++	avpList-&gt;tail = 0;
+ 	return AAA_ERR_SUCCESS;
+ }
+ 
+@@ -382,7 +382,7 @@
+ 		goto done;
+ 
+ 	/* free the avp list */
+-	AAAFreeAVPList((*msg)-&gt;avpList);
++	AAAFreeAVPList(&amp;((*msg)-&gt;avpList));
+ 
+ 	/* free the buffer (if any) */
+ 	if ( (*msg)-&gt;buf.s )
+
+Modified: ser_ims/trunk/modules/cdp/peerstatemachine.c
+===================================================================
+--- ser_ims/trunk/modules/cdp/peerstatemachine.c	2006-12-16 21:17:22 UTC (rev 74)
++++ ser_ims/trunk/modules/cdp/peerstatemachine.c	2006-12-19 12:20:23 UTC (rev 75)
+@@ -501,7 +501,7 @@
+ 			AAAAddAVPToAVPList(&amp;list,avp2);
+ 		
+ 			group = AAAGroupAVPS(list);	
+-			AAAFreeAVPList(list);
++			AAAFreeAVPList(&amp;list);
+ 			
+ 			AAACreateAndAddAVPToMessage(msg,
+ 				AVP_Vendor_Specific_Application_Id,
+@@ -776,7 +776,7 @@
+ 							config-&gt;applications[i].type==DP_ACCOUNTING) common_app++;	
+ 					
+ 				}
+-				AAAFreeAVPList(group);
++				AAAFreeAVPList(&amp;group);
+ 				break;
+ 				
+ 		}
+
+Modified: ser_ims/trunk/modules/scscf/cx_avp.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/cx_avp.c	2006-12-16 21:17:22 UTC (rev 74)
++++ ser_ims/trunk/modules/scscf/cx_avp.c	2006-12-19 12:20:23 UTC (rev 75)
+@@ -299,7 +299,7 @@
+ 	if (!list.head) return 1;
+ 	group = cdpb.AAAGroupAVPS(list);
+ 	
+-	cdpb.AAAFreeAVPList(list);
++	cdpb.AAAFreeAVPList(&amp;list);
+ 	
+ 	return 
+ 	Cx_add_avp(msg,group.s,group.len,
+@@ -401,7 +401,7 @@
+ 	
+ 	group = cdpb.AAAGroupAVPS(list);
+ 	
+-	cdpb.AAAFreeAVPList(list);
++	cdpb.AAAFreeAVPList(&amp;list);
+ 	
+ 	return 
+ 	Cx_add_avp(msg,group.s,group.len,
+@@ -461,7 +461,7 @@
+ 	
+ 	group = cdpb.AAAGroupAVPS(list);
+ 	
+-	cdpb.AAAFreeAVPList(list);
++	cdpb.AAAFreeAVPList(&amp;list);
+ 	
+ 	return 
+ 	Cx_add_avp(msg,group.s,group.len,
+@@ -674,12 +674,12 @@
+ 	
+ 	avp = cdpb.AAAFindMatchingAVPList(list,0,AVP_IMS_Experimental_Result_Code,0,0);
+ 	if (!avp||!avp-&gt;data.s) {
+-		cdpb.AAAFreeAVPList(list);
++		cdpb.AAAFreeAVPList(&amp;list);
+ 		return 0;
+ 	}
+ 
+ 	*data = get_4bytes(avp-&gt;data.s);
+-	cdpb.AAAFreeAVPList(list);
++	cdpb.AAAFreeAVPList(&amp;list);
+ 
+ 	return 1;
+ }
+@@ -740,7 +740,7 @@
+ 			(*o)[(*o_cnt)++]=get_4bytes(avp-&gt;data.s);
+ 		avp = avp-&gt;next;
+ 	}
+-	cdpb.AAAFreeAVPList(list);
++	cdpb.AAAFreeAVPList(&amp;list);
+ 	return 1;
+ }
+ 
+@@ -786,7 +786,7 @@
+ 	avp = cdpb.AAAFindMatchingAVPList(list,0,AVP_IMS_SIP_Authentication_Scheme,
+ 		IMS_vendor_id,0);
+ 	if (!avp||!avp-&gt;data.s) {
+-		cdpb.AAAFreeAVPList(list);
++		cdpb.AAAFreeAVPList(&amp;list);
+ 		return 0;
+ 	}
+ 	*auth_scheme = avp-&gt;data;
+@@ -796,7 +796,7 @@
+ 	if (avp) *authorization = avp-&gt;data;
+ 	else {authorization-&gt;s=0;authorization-&gt;len=0;}		
+ 
+-	cdpb.AAAFreeAVPList(list);
++	cdpb.AAAFreeAVPList(&amp;list);
+ 	return 1;
+ }
+ 
+@@ -859,7 +859,7 @@
+ 	if (!avp||!avp-&gt;data.s) {ik-&gt;s=0;ik-&gt;len=0;}
+ 	else *ik = avp-&gt;data;
+ 
+-	cdpb.AAAFreeAVPList(list);
++	cdpb.AAAFreeAVPList(&amp;list);
+ 	return 1;
+ }
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000046.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r74 - in ser_ims/trunk: cfg	modules/pcscf
+</A></li>
+	<LI>Next message: <A HREF="000052.html">[OpenIMSCore-CSCF] [Fwd: [OpenIMSCore-HSS] Can't connect through	/tmp/mysql.sock]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#51">[ date ]</a>
+              <a href="thread.html#51">[ thread ]</a>
+              <a href="subject.html#51">[ subject ]</a>
+              <a href="author.html#51">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

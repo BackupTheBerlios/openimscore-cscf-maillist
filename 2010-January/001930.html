@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] p-cscf crash if PRCF not running, hang in del_session
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%20crash%20if%20PRCF%20not%20running%2C%0A%20hang%20in%20del_session&In-Reply-To=%3C4B471708.7070803%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001923.html">
+   <LINK REL="Next"  HREF="001936.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] p-cscf crash if PRCF not running, hang in del_session</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%20crash%20if%20PRCF%20not%20running%2C%0A%20hang%20in%20del_session&In-Reply-To=%3C4B471708.7070803%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] p-cscf crash if PRCF not running, hang in del_session">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Jan  8 12:29:12 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001923.html">[OpenIMSCore-CSCF] p-cscf crash if PRCF not running,	hang in del_session
+</A></li>
+        <LI>Next message: <A HREF="001936.html">[OpenIMSCore-CSCF] p-cscf crash if PRCF not running,	hang in del_session
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1930">[ date ]</a>
+              <a href="thread.html#1930">[ thread ]</a>
+              <a href="subject.html#1930">[ subject ]</a>
+              <a href="author.html#1930">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Min,
+
+
+Min Wang wrote:
+&gt;<i> One more question: 
+</I>&gt;<i>    AAACreateAuthSession &amp; AAAGetAuthSession --&gt; calls
+</I>&gt;<i> AAASessionsLock(hash)
+</I>&gt;<i>  which is the lock to protect manipulation of sessions[hash], but seems
+</I>&gt;<i> not on the session itself??
+</I>&gt;<i>   
+</I>yes, this is correct.
+&gt;<i>   Look at the following:
+</I>&gt;<i>   e.g.: session1/session2 may belong to the same hash
+</I>&gt;<i> sessions[hash1]--&gt;session1 --&gt; session2 ...
+</I>&gt;<i> sessions[hash2]--&gt;session3 --&gt; session4 ...
+</I>&gt;<i>
+</I>&gt;<i>    when the hash1 is lock, session1 and session2 ... are locked, but I
+</I>&gt;<i> guess what we really want is to get the lock of session1.
+</I>&gt;<i>
+</I>&gt;<i>    So seems need to add lock to cdp_session_t? 
+</I>&gt;<i>   
+</I>errm... yes and no. Adding a lock on every session would actually 
+complicate a lot things. This is because we can't really give-up the 
+slot lock, as we'll still need to lock it whenever we do changes to the 
+list - additions and deletions. Of course some complex solutions would 
+be possible, but I doubt the benefits.
+
+After all, locking the entire hash-slot is not that bad. The number of 
+hash slots is configurable and I usually recommend to keep this within 
+an order of magnitude of the estimated typical number of elements. So if 
+you'd say that you have 10M sessions, 1M for the hash size would be a 
+good choice. This would take 1M*sizeof(void*) bytes when empty and would 
+reduce the lock collision domain to 10 sessions, which is 
+probabilistically quite low to happen.
+
+Also the slots should not be locked for long periods of time, but should 
+be used in an &quot;asynchronous&quot; model: retrieve+lock -&gt; process -&gt; unlock 
+-&gt; wait for data -&gt; retrieve+lock -&gt; process -&gt; unlock ...
+
+Which reminds me that I should change the current behavior of waiting 
+for the response and then unlocking - this might actually generate the 
+dead-locks as the session would be processed in the state machine for 
+the response, but that can't get the lock on the session cause it is 
+already taken.
+
+
+&gt;<i>    It is : mwang
+</I>&gt;<i>   
+</I>done.
+
+svn+<A HREF="ssh://mwang@svn.berlios.de/svnroot/repos/openimscore/ser_ims/branches/13_pcc_fixing">ssh://mwang@svn.berlios.de/svnroot/repos/openimscore/ser_ims/branches/13_pcc_fixing</A>
+
+
+Cheers,
+-Dragos
+
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001923.html">[OpenIMSCore-CSCF] p-cscf crash if PRCF not running,	hang in del_session
+</A></li>
+	<LI>Next message: <A HREF="001936.html">[OpenIMSCore-CSCF] p-cscf crash if PRCF not running,	hang in del_session
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1930">[ date ]</a>
+              <a href="thread.html#1930">[ thread ]</a>
+              <a href="subject.html#1930">[ subject ]</a>
+              <a href="author.html#1930">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

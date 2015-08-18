@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Proper%20flow%20between%20OpenIMS%20and%20AS&In-Reply-To=%3C006401c856ab%24a70702b0%240901a8c0%40AUB30306LAD830%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001121.html">
+   <LINK REL="Next"  HREF="001116.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS</H1>
+    <B>Andreas H&#228;ber</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Proper%20flow%20between%20OpenIMS%20and%20AS&In-Reply-To=%3C006401c856ab%24a70702b0%240901a8c0%40AUB30306LAD830%3E"
+       TITLE="[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS">andreas.haber at uia.no
+       </A><BR>
+    <I>Mon Jan 14 13:47:33 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001121.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+        <LI>Next message: <A HREF="001116.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature]	Additional parameters for Authorization headers	&quot;integrity-protected&quot; parameter
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1137">[ date ]</a>
+              <a href="thread.html#1137">[ thread ]</a>
+              <a href="subject.html#1137">[ subject ]</a>
+              <a href="author.html#1137">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+ 
+I think it would be helpful for you to also check out 3GPP TS 23.218,
+especially chapter 9, as it specifies the call model used in IMS.
+ 
+Chapter 9 considers Application Servers in particular, and specifies 5
+&quot;modes of operation&quot; for AS: terminating UA, originating UA, proxy,
+3PCC/B2BUA, and &quot;no involvement&quot;. The last one applies to both sessions
+where the AS never was involved in, and for sessions where it was part in
+for example during establishing the session but not mid-session. An example
+of the latter is a redirect server.
+ 
+Then, refer to RFC3261 &amp; friends
+(<A HREF="http://tools.ietf.org/html/draft-ietf-sip-hitchhikers-guide">http://tools.ietf.org/html/draft-ietf-sip-hitchhikers-guide</A> is a good place
+to find out who the &quot;friends&quot; are) for the details.
+ 
+Best regards,
+Andreas
+ 
+
+  _____  
+
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+[mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>] On Behalf Of gary none
+Sent: 7. januar 2008 08:43
+To: Franz Edler; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+
+
+
+Hello again,
+
+thank you very much for these explanations! I think I was confused because I
+thought 
+that if AS works as a proxy, than all responses following a request that
+reaches AS 
+must pass through the same path backwards, no matter what the Route or
+Record-Route 
+Header contains. I will study again on 3261 taking your helpful notes into
+account, and 
+provide you with feedback, i hope a successful one next time!
+
+Thank you, 
+
+Gary
+
+
+
+On Jan 4, 2008 1:57 PM, Franz Edler &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at inode.at</A>&gt; wrote:
+
+
+&gt;<i> If I understand this, the AS must send the original message exactly as it
+</I>&gt;<i> was received,
+</I>&gt;<i> with the difference that the Route Header must only contain the second
+</I>&gt;<i> address that was in the request' s 
+</I>&gt;<i> Route Header (SCSCF Address).
+</I>
+
+Yes. This also results from basic SIP routing behaviour. If a server
+receives a request it has to look into the Route header and according to RFC
+3261 &#167;16.4: ... If the first value in the Route header field indicates this 
+proxy, the proxy MUST remove that value from the request.
+
+
+&gt;<i> In this case, the request will travel
+</I>&gt;<i> towards SCSCF and the next hop will
+</I>&gt;<i> be handled by it as it would if a simple client (and not an AS) had sent 
+</I>&gt;<i> this request? I assume no other header
+</I>&gt;<i> should be touched for this task?
+</I>
+
+This depends on the behaviour of the AS. It might act as a proxy or as a
+B2BUA or as an originating UA. This requires to act on various headers 
+accordingly.
+
+
+&gt;<i> Is this the way that all the next requests/responses for this call will
+</I>&gt;<i> not be forwarded to AS (and leave
+</I>&gt;<i> all routing from this point on to OpenIMS) ?
+</I>
+
+If the AS acts as a proxy and it does not set Record-Route it will not see
+any further request/response of the dialog. If the AS acts as a B2BUA it
+will.
+
+Regards
+Franz
+
+
+
+Hi Gary,
+
+well, the AS can in any case modify the request if it wants to. Some 
+things should remain the same, like the Call-ID, or else this will be
+consider another dialog (which is not that bad if the first one is also
+handled - the B2BUA AS case);. In any case, for the ISC to work the AS 
+should just behave according to RFC 3261 and do the loose-routing on the
+Route headers. The first one is itself and as such would be removed and
+the 2nd is the S-CSCF which will allow the message to return the the 
+proper S-CSCF. Nothing but proper SIP routing.
+
+Then if it wants to see the rest of the dialog, it should add a
+Record-Route to itself, just as any other SIP proxy would. If not, it
+shouldn't. Then all in-dialog routing would happen as standard SIP RFC 
+mentions.
+
+Simple SIP routing, nothing fancy ;-)
+
+Cheers,
+-Dragos 
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080114/b1eb936c/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080114/b1eb936c/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001121.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+	<LI>Next message: <A HREF="001116.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature]	Additional parameters for Authorization headers	&quot;integrity-protected&quot; parameter
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1137">[ date ]</a>
+              <a href="thread.html#1137">[ thread ]</a>
+              <a href="subject.html#1137">[ subject ]</a>
+              <a href="author.html#1137">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

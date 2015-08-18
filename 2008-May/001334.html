@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Two problems in cdp module
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Two%20problems%20in%20cdp%20module&In-Reply-To=%3C1210075945.6371.40.camel%40lt-mats%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001332.html">
+   <LINK REL="Next"  HREF="001335.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Two problems in cdp module</H1>
+    <B>Mats Cullberg</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Two%20problems%20in%20cdp%20module&In-Reply-To=%3C1210075945.6371.40.camel%40lt-mats%3E"
+       TITLE="[OpenIMSCore-CSCF] Two problems in cdp module">mats.cullberg at operax.com
+       </A><BR>
+    <I>Tue May  6 14:12:25 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001332.html">[OpenIMSCore-CSCF] Two problems in cdp module
+</A></li>
+        <LI>Next message: <A HREF="001335.html">[OpenIMSCore-CSCF] Two problems in cdp module
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1334">[ date ]</a>
+              <a href="thread.html#1334">[ thread ]</a>
+              <a href="subject.html#1334">[ subject ]</a>
+              <a href="author.html#1334">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hope I interpret the question correctly. Cdp already monotonically
+increase end-to-end and hop-by-hop for each new request. The patch fixes
+getting and setting packet from/to the network.
+
+Otherwise, the openims software has been a nice acquaintance. 
+
+Thanks all.
+
+/Mats
+
+
+
+ 
+On Tue, 2008-05-06 at 13:39 +0200, Dragos Vingarzan wrote:
+&gt;<i> Hi Mats,
+</I>&gt;<i> 
+</I>&gt;<i> I agree with you and I will include in the patch directly in the main 
+</I>&gt;<i> trunk. But before I do that - this is for getting the ids... what about 
+</I>&gt;<i> setting them? Is that part OK?
+</I>&gt;<i> 
+</I>&gt;<i> I would say that we were lucky as the bug is not critical. But 
+</I>&gt;<i> nevertheless, according to the specs, it's a bug.
+</I>&gt;<i> 
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> Mats Cullberg wrote:
+</I>&gt;<i> &gt; Hi Alberto.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Yes, you are right, the standard is weak on that issue. But the
+</I>&gt;<i> &gt; receivers job regarding duplicate checking is too hard if it's a 32-bit
+</I>&gt;<i> &gt; random number.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; So when openims already implements the &quot;normally&quot; behavior, but is
+</I>&gt;<i> &gt; missing the network-byte-order thing I saw a potential improvement with
+</I>&gt;<i> &gt; the patch. It not a big issue, but it will  help diameter peers during
+</I>&gt;<i> &gt; duplicate checking.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; /Mats
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;   
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>-- 
+Mats Cullberg 
+Software Engineer
+
+Operax 
+Dynamic Resource and Admission Control for IP Service Quality
+
+Aurorum Science Park 8, SE-977 75 Lule&#229;, Sweden 
+Mobile: +46 (0) 70 91 92 477 
+Tel: +46 (0) 920 465026 
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mats.cullberg at operax.com</A> 
+www.operax.com
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001332.html">[OpenIMSCore-CSCF] Two problems in cdp module
+</A></li>
+	<LI>Next message: <A HREF="001335.html">[OpenIMSCore-CSCF] Two problems in cdp module
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1334">[ date ]</a>
+              <a href="thread.html#1334">[ thread ]</a>
+              <a href="subject.html#1334">[ subject ]</a>
+              <a href="author.html#1334">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

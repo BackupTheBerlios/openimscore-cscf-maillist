@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r1020 - Added CC/NAS	AVP	declarations
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1020%20-%20Added%20CC/NAS%0A%09AVP%09declarations&In-Reply-To=%3C4D5449E2.3000900%40acision.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002393.html">
+   <LINK REL="Next"  HREF="002395.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r1020 - Added CC/NAS	AVP	declarations</H1>
+    <B>Daniel Ciprus</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1020%20-%20Added%20CC/NAS%0A%09AVP%09declarations&In-Reply-To=%3C4D5449E2.3000900%40acision.com%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r1020 - Added CC/NAS	AVP	declarations">daniel.ciprus at acision.com
+       </A><BR>
+    <I>Thu Feb 10 21:26:10 CET 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002393.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1020 - Added CC/NAS AVP	declarations
+</A></li>
+        <LI>Next message: <A HREF="002395.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1021 - Added 3GPP codes for	Offline Charging
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2394">[ date ]</a>
+              <a href="thread.html#2394">[ thread ]</a>
+              <a href="subject.html#2394">[ subject ]</a>
+              <a href="author.html#2394">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Is it just me who's receiving this error ?
+
+
+pcc_avp.c: In function 'extract_id':
+pcc_avp.c:1459: error: 'AVP_IMS_Subscription_Id_Type_E164' undeclared 
+(first use in this function)
+pcc_avp.c:1459: error: (Each undeclared identifier is reported only once
+pcc_avp.c:1459: error: for each function it appears in.)
+pcc_avp.c:1461: error: 'AVP_IMS_Subscription_Id_Type_SIP_URI' undeclared 
+(first use in this function)
+make[2]: *** [pcc_avp.o] Error 1
+make[2]: Leaving directory `/root/dev/openimscore/modules/pcscf'
+make[1]: *** [modules] Error 1
+make[1]: Leaving directory `/root/dev/openimscore'
+make: *** [install] Error 2
+dpkg-buildpackage: error: debian/rules binary gave error exit status 2
+
+
+On 02/10/2011 12:59 PM, <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A> wrote:
+&gt;<i> Author: vingarzan
+</I>&gt;<i> Date: 2011-02-10 18:59:40 +0100 (Thu, 10 Feb 2011)
+</I>&gt;<i> New Revision: 1020 <A HREF="http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1020">http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1020</A>
+</I>&gt;<i>
+</I>&gt;<i> Log:
+</I>&gt;<i> Added CC/NAS AVP declarations
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Modified:
+</I>&gt;<i>     U	ser_ims/trunk/modules/cdp_avp/ccapp.h
+</I>&gt;<i> 		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/cdp_avp/ccapp.h?op=diff&amp;rev=1020&amp;peg=1020">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/cdp_avp/ccapp.h?op=diff&amp;rev=1020&amp;peg=1020</A>
+</I>&gt;<i>     U	ser_ims/trunk/modules/cdp_avp/nasapp.h
+</I>&gt;<i> 		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/cdp_avp/nasapp.h?op=diff&amp;rev=1020&amp;peg=1020">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/cdp_avp/nasapp.h?op=diff&amp;rev=1020&amp;peg=1020</A>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>
+-- 
+*Daniel Ciprus*
+Integration engineer
+------------------------------------------------------
+*<A HREF="http://www.acision.com*">http://www.acision.com*</A>
+4870 Sadler Rd
+Suite 200
+Glen Allen, VA 23060
+USA
+T: +1 804 762 5601
+E: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">daniel.ciprus at acision.com</A>
+
+
+This e-mail and any attachment is for authorised use by the intended recipient(s) only. It may contain proprietary material, confidential information and/or be subject to legal privilege. It should not be copied, disclosed to, retained or used by, any other party. If you are not an intended recipient then please promptly delete this e-mail and any attachment and all copies and inform the sender. Thank you.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110210/3c911949/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110210/3c911949/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002393.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1020 - Added CC/NAS AVP	declarations
+</A></li>
+	<LI>Next message: <A HREF="002395.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1021 - Added 3GPP codes for	Offline Charging
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2394">[ date ]</a>
+              <a href="thread.html#2394">[ thread ]</a>
+              <a href="subject.html#2394">[ subject ]</a>
+              <a href="author.html#2394">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

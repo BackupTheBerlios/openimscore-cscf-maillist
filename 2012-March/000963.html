@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> No subject
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2012-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20No%20subject&In-Reply-To=%3Cmailman.4.1331735576.7402.openimscore-cscf%40lists.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000620.html">
+   <LINK REL="Next"  HREF="000097.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>No subject</H1>
+    <B></B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20No%20subject&In-Reply-To=%3Cmailman.4.1331735576.7402.openimscore-cscf%40lists.berlios.de%3E"
+       TITLE="No subject">
+       </A><BR>
+    <I>Wed Mar 14 15:32:39 CET 2012</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000620.html">No subject
+</A></li>
+        <LI>Next message: <A HREF="000097.html">No subject
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#963">[ date ]</a>
+              <a href="thread.html#963">[ thread ]</a>
+              <a href="subject.html#963">[ subject ]</a>
+              <a href="author.html#963">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>the AS is indeed part of the trust domain.
+
+
+We could also approach the question from another angle: Section 5.4.1.7
+says that 'P-Access-Network-Info' should be copied when
+'P-Visited-Network-ID' is copied. Just use the same condition.
+
+Best regards
+Stefan
+
+
+&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]=20
+</I>&gt;<i> Sent: Wednesday, September 26, 2007 5:48 PM
+</I>&gt;<i> To: Brozinski, Stefan
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at bat.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] 3rd-Party-REGISTER requires=20
+</I>&gt;<i> P-Access-Network-Infoheader
+</I>&gt;<i>=20
+</I>&gt;<i>=20
+</I>&gt;<i> Hello Stefan,
+</I>&gt;<i>=20
+</I>&gt;<i> The original author of the 3rd party reg code has given me a patch.
+</I>&gt;<i> Because I was not sure if it was correct, I have delayed it until now.
+</I>&gt;<i> So it is committed in r450. This patch uses the P-Visited-Network-ID
+</I>&gt;<i> header instead of the P-Access-Network-Info. My doubts go towards the
+</I>&gt;<i> fact that the P-Access-Network-Info might still be required=20
+</I>&gt;<i> to be copied
+</I>&gt;<i> if it exists. Anybody can bring some light into this issue? (I know, I
+</I>&gt;<i> should read the specs...)
+</I>&gt;<i>=20
+</I>&gt;<i> -Dragos
+</I>&gt;<i>=20
+</I>&gt;<i>=20
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Stefan.Brozinski at materna.de</A> wrote:
+</I>&gt;<i> &gt; Hi everybody,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; after updating to OpenImsCore r448, the S-CSCF stopped creating
+</I>&gt;<i> &gt; 3rd-party REGISTERS for the AS when a client registers.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; This happens because the code in=20
+</I>&gt;<i> 'ser_ims/modules/isc/third_party_reg.c'
+</I>&gt;<i> &gt; (function 'new_r_third_party_reg') requires a P-Access-Network-Info
+</I>&gt;<i> &gt; header: &quot;if (!r-&gt;pani.s) goto error&quot;.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; In my test environment the PC-based client does not create=20
+</I>&gt;<i> this header.
+</I>&gt;<i> &gt; As far as I understand 3GPP 24.229 V7.7.0, a client should=20
+</I>&gt;<i> populate this
+</I>&gt;<i> &gt; header only if the access technology is known -- so this header is
+</I>&gt;<i> &gt; optional.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Is this a bug in the S-CSCF? Or is every IMS client=20
+</I>&gt;<i> *required* to create
+</I>&gt;<i> &gt; this header and I misunderstood the specification?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Regards
+</I>&gt;<i> &gt; Stefan
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;  =20
+</I>&gt;<i>=20
+</I>&gt;<i>=20
+</I>&gt;<i> --=20
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i>=20
+</I>&gt;<i>=20
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000620.html">No subject
+</A></li>
+	<LI>Next message: <A HREF="000097.html">No subject
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#963">[ date ]</a>
+              <a href="thread.html#963">[ thread ]</a>
+              <a href="subject.html#963">[ subject ]</a>
+              <a href="author.html#963">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

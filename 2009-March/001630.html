@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] CDiameterPeer timers
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20CDiameterPeer%20timers&In-Reply-To=%3C004401c99e56%2415744fd0%24405cef70%24%40ee.uct.ac.za%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001613.html">
+   <LINK REL="Next"  HREF="001632.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] CDiameterPeer timers</H1>
+    <B>Vitalis G. Ozianyi</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20CDiameterPeer%20timers&In-Reply-To=%3C004401c99e56%2415744fd0%24405cef70%24%40ee.uct.ac.za%3E"
+       TITLE="[OpenIMSCore-CSCF] CDiameterPeer timers">vitozy at crg.ee.uct.ac.za
+       </A><BR>
+    <I>Fri Mar  6 13:21:31 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001613.html">[OpenIMSCore-CSCF] CDiameterPeer timers
+</A></li>
+        <LI>Next message: <A HREF="001632.html">[OpenIMSCore-CSCF] CDiameterPeer timers
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1630">[ date ]</a>
+              <a href="thread.html#1630">[ thread ]</a>
+              <a href="subject.html#1630">[ subject ]</a>
+              <a href="author.html#1630">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Richard,
+ As we discussed earlier, you need to modify the attached files to set a
+higher timer resolution.
+
+In the cdp folder the main timer file is :
+
+timer.c
+
+The affected functions are:
+
+int add_timer(int expires_in, int one-time, callback_f cb, void *ptr)
+
+void timer_loop()
+
+See the changes in the attached file; basically I used gettimeofday()
+instead of time() to get a theoretical resolution of 1 microsecond. In
+add_timer(), the value of expires_in is expected to be in miliseconds and
+not seconds are before.
+
+In the same file you need to set the value of TIMER_RESOLUTION; I used a
+vule of 1000 microseconds, or 1 milisecond (#define u_TIMER_RESOLUTION
+1000). And somewhere at top add the following header file
+
+#include &lt;sys/timer.h&gt;
+
+The default cdp implementation uses the timer function in the following
+files:
+
+transaction.c
+peermanager.c
+globals.h
+
+The affected function and parameters are:
+In transaction.c, the function trans_init() uses add_timer(), so we change
+the value of expires_in from seconds to miliseconds, i.e., from 1 second to
+1000 milisecond - in order to retain the current timer resolution, you may
+lower this value down to 1, i.e., 1 milisecond.
+
+In peermanager.c, the function peer_manager_init() uses add_timer(). We
+change the value of the expires_in argument, defined in globals.h (#define
+PEER_MANAGER_TIMER 3) to 3000. I.e., from 3 seconds to 3000 miliseconds. You
+may set a higher resolution as well.
+
+PS: Did you manage to get sendReceiveMessageToPeer() working using the
+bypass I told you about?
+
+Cheers.
+
+
+---
+Regards,
+Vitalis G. Ozianyi,
+PhD Candidate,
+Electrical Engineering,
+University of Cape Town
+Mob: +27 73 317 1507
+Web: <A HREF="http://coe.uct.ac.za">http://coe.uct.ac.za</A>
+
+-----Original Message-----
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+[mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>] On Behalf Of Richard Good
+Sent: Wednesday, March 04, 2009 3:11 PM
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: [OpenIMSCore-CSCF] CDiameterPeer timers
+
+Hi,
+
+I'm using the CDiameterPeer package and have a Q about the timers.  
+There is a built in timer that allows you to execute a callback every X 
+number of seconds by creating a timer for the relevant method e.g. 
+add_timer(1,0,&amp;sip_msg_callback,0).
+
+However the minimum timer expiration is 1 second, so if for for example 
+you want to use this built in timer to check the network for SIP 
+messages, the callback can only happen once per second.  This would 
+significantly increase session setup delay and could result in lost SIP 
+messages. To do this you need the timer resolution to be in the order of 
+milliseconds or even microseconds.
+
+Is there any reason that the minimum timer expiration is 1 second?? Is 
+there any way to use this timer for higher timer resolution in the order 
+of ms or us??
+
+Regards,
+Richard.
+_______________________________________________
+OpenIMSCore-CSCF mailing list
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: globals.h
+Type: application/octet-stream
+Size: 3329 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090306/2220aac1/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090306/2220aac1/attachment.obj</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: timer.c
+Type: application/octet-stream
+Size: 6973 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090306/2220aac1/attachment-0001.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090306/2220aac1/attachment-0001.obj</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: transaction.c
+Type: application/octet-stream
+Size: 6095 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090306/2220aac1/attachment-0002.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090306/2220aac1/attachment-0002.obj</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: peermanager.c
+Type: application/octet-stream
+Size: 10186 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090306/2220aac1/attachment-0003.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090306/2220aac1/attachment-0003.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001613.html">[OpenIMSCore-CSCF] CDiameterPeer timers
+</A></li>
+	<LI>Next message: <A HREF="001632.html">[OpenIMSCore-CSCF] CDiameterPeer timers
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1630">[ date ]</a>
+              <a href="thread.html#1630">[ thread ]</a>
+              <a href="subject.html#1630">[ subject ]</a>
+              <a href="author.html#1630">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

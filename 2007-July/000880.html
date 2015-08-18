@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r414 - Skipped locking in print_*	functions when nothing will be visible. This eliminates a LOT	of locking for when running without debugs.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r414%20-%20Skipped%20locking%20in%20print_%2A%0A%09functions%20when%20nothing%20will%20be%20visible.%20This%20eliminates%20a%20LOT%0A%09of%20locking%20for%20when%20running%20without%20debugs.&In-Reply-To=%3C200707251810.l6PIANac006623%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000879.html">
+   <LINK REL="Next"  HREF="000881.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r414 - Skipped locking in print_*	functions when nothing will be visible. This eliminates a LOT	of locking for when running without debugs.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r414%20-%20Skipped%20locking%20in%20print_%2A%0A%09functions%20when%20nothing%20will%20be%20visible.%20This%20eliminates%20a%20LOT%0A%09of%20locking%20for%20when%20running%20without%20debugs.&In-Reply-To=%3C200707251810.l6PIANac006623%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r414 - Skipped locking in print_*	functions when nothing will be visible. This eliminates a LOT	of locking for when running without debugs.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Jul 25 20:10:23 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000879.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r413 - Avoided P-CSCF error log on	REGISTER reply
+</A></li>
+        <LI>Next message: <A HREF="000881.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r415 - Fixed bug - S-CSCF dialogs	not dropped on failure in the initial request. Fixed bug -	removed S_privacy_hook() from ACK as it was generating a tm error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#880">[ date ]</a>
+              <a href="thread.html#880">[ thread ]</a>
+              <a href="subject.html#880">[ subject ]</a>
+              <a href="author.html#880">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-07-25 20:10:17 +0200 (Wed, 25 Jul 2007)
+New Revision: 414 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=414">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=414</A> 
+
+Log:
+Skipped locking in print_* functions when nothing will be visible. This eliminates a LOT of locking for when running without debugs.
+
+
+Modified:
+   U	ser_ims/trunk/modules/pcscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?rev=414&amp;view=diff&amp;r1=414&amp;r2=413">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?rev=414&amp;view=diff&amp;r1=414&amp;r2=413</A>
+   U	ser_ims/trunk/modules/pcscf/registrar_storage.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_storage.c?rev=414&amp;view=diff&amp;r1=414&amp;r2=413">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_storage.c?rev=414&amp;view=diff&amp;r1=414&amp;r2=413</A>
+   U	ser_ims/trunk/modules/pcscf/registrar_subscribe.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_subscribe.c?rev=414&amp;view=diff&amp;r1=414&amp;r2=413">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_subscribe.c?rev=414&amp;view=diff&amp;r1=414&amp;r2=413</A>
+   U	ser_ims/trunk/modules/scscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/dlg_state.c?rev=414&amp;view=diff&amp;r1=414&amp;r2=413">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/dlg_state.c?rev=414&amp;view=diff&amp;r1=414&amp;r2=413</A>
+   U	ser_ims/trunk/modules/scscf/registrar_parser.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_parser.c?rev=414&amp;view=diff&amp;r1=414&amp;r2=413">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_parser.c?rev=414&amp;view=diff&amp;r1=414&amp;r2=413</A>
+   U	ser_ims/trunk/modules/scscf/registrar_storage.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.c?rev=414&amp;view=diff&amp;r1=414&amp;r2=413">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.c?rev=414&amp;view=diff&amp;r1=414&amp;r2=413</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000879.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r413 - Avoided P-CSCF error log on	REGISTER reply
+</A></li>
+	<LI>Next message: <A HREF="000881.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r415 - Fixed bug - S-CSCF dialogs	not dropped on failure in the initial request. Fixed bug -	removed S_privacy_hook() from ACK as it was generating a tm error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#880">[ date ]</a>
+              <a href="thread.html#880">[ thread ]</a>
+              <a href="subject.html#880">[ subject ]</a>
+              <a href="author.html#880">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

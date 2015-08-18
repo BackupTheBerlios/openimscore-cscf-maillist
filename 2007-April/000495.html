@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Too Many Hops and AUthorization header not	found
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Too%20Many%20Hops%20and%20AUthorization%20header%20not%0A%09found&In-Reply-To=%3C878971.52341.qm%40web8809.mail.in.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000490.html">
+   <LINK REL="Next"  HREF="000505.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Too Many Hops and AUthorization header not	found</H1>
+    <B>manikindhi jeelan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Too%20Many%20Hops%20and%20AUthorization%20header%20not%0A%09found&In-Reply-To=%3C878971.52341.qm%40web8809.mail.in.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Too Many Hops and AUthorization header not	found">jeelan14 at yahoo.co.in
+       </A><BR>
+    <I>Tue Apr 24 09:29:52 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000490.html">[OpenIMSCore-CSCF] Too Many Hops and AUthorization header not	found
+</A></li>
+        <LI>Next message: <A HREF="000505.html">[OpenIMSCore-CSCF] Too Many Hops and AUthorization header not found
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#495">[ date ]</a>
+              <a href="thread.html#495">[ thread ]</a>
+              <a href="subject.html#495">[ subject ]</a>
+              <a href="author.html#495">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos
+ i sent you ethereal trace so please reply 
+
+--- manikindhi jeelan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jeelan14 at yahoo.co.in</A>&gt; wrote:
+
+&gt;<i> Hi
+</I>&gt;<i>  i am sending the network trace as you asked for 400
+</I>&gt;<i> Bad Request
+</I>&gt;<i> 
+</I>&gt;<i> i am useing sofiasip client 
+</I>&gt;<i> and give command as  
+</I>&gt;<i> ./sofsip_cli sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>
+</I>&gt;<i> it is giveing 
+</I>&gt;<i> 
+</I>&gt;<i> sofsip&gt; r
+</I>&gt;<i> UA: REGISTER sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A> - registering
+</I>&gt;<i> address to network
+</I>&gt;<i> sofsip&gt; UA: REGISTER: 400 Bad Request -
+</I>&gt;<i> P-Visited-Network-ID header missing
+</I>&gt;<i> 
+</I>&gt;<i> and if i give
+</I>&gt;<i> 
+</I>&gt;<i> ./sofsip_cli sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060
+</I>&gt;<i> 
+</I>&gt;<i> sofsip&gt; r
+</I>&gt;<i> UA: REGISTER sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060 -
+</I>&gt;<i> registering
+</I>&gt;<i> address to network
+</I>&gt;<i> sofsip&gt; UA: REGISTER: 483 Too Many Hops
+</I>&gt;<i> 
+</I>&gt;<i> i saw in archives that is not the way to give port
+</I>&gt;<i> explicitly
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> the trace i am sending is ethreal trace ...open it
+</I>&gt;<i> ethereal and type sip in filter filed........
+</I>&gt;<i> 
+</I>&gt;<i> -jeelan
+</I>&gt;<i> --- Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt;
+</I>&gt;<i> wrote:
+</I>&gt;<i> 
+</I>&gt;<i> &gt; Hello Jeelan,
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Please post a network trace with the problem.
+</I>&gt;<i> Please
+</I>&gt;<i> &gt; understand that we
+</I>&gt;<i> &gt; have no idea what messages you are sending so we
+</I>&gt;<i> can
+</I>&gt;<i> &gt; not know what is
+</I>&gt;<i> &gt; going wrong.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Most probably, your Request-URI for REGISTER is
+</I>&gt;<i> &gt; different from
+</I>&gt;<i> &gt; sip:open-ims.test, as it should be.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; -Dragos
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; manikindhi jeelan wrote:
+</I>&gt;<i> &gt; &gt; Hi 
+</I>&gt;<i> &gt; &gt;  i saw Archives related to this errors but one
+</I>&gt;<i> &gt; archive
+</I>&gt;<i> &gt; &gt; is incompleate and other archive say that in
+</I>&gt;<i> &gt; pcscf.cfg
+</I>&gt;<i> &gt; &gt; is not resolving to 127.0.0.1:5060
+</I>&gt;<i> &gt; &gt;          
+</I>&gt;<i> &gt; &gt;              how to make it resolvable to that
+</I>&gt;<i> or
+</I>&gt;<i> &gt; else
+</I>&gt;<i> &gt; &gt; something i am missing....
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;   .........
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; -Jeelan  
+</I>&gt;<i> &gt; &gt; --- manikindhi jeelan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jeelan14 at yahoo.co.in</A>&gt;
+</I>&gt;<i> &gt; wrote:
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;   
+</I>&gt;<i> &gt; &gt;&gt; hi
+</I>&gt;<i> &gt; &gt;&gt;  i installed OpenIMSCore freshly on fedrocore3 
+</I>&gt;<i> &gt; &gt;&gt;
+</I>&gt;<i> &gt; &gt;&gt; and i am useing default loopback open-ims.test
+</I>&gt;<i> &gt; and
+</I>&gt;<i> &gt; &gt;&gt; 127.0.0.1
+</I>&gt;<i> &gt; &gt;&gt;
+</I>&gt;<i> &gt; &gt;&gt; while registration from sip client i am getting
+</I>&gt;<i> &gt; this
+</I>&gt;<i> &gt; &gt;&gt; error 483 Too Many Hops and on pcscf i am
+</I>&gt;<i> getting
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; &gt;&gt;
+</I>&gt;<i> &gt; &gt;&gt; ERR:P-CSCF:cscf_get_authorization: Message does
+</I>&gt;<i> &gt; not
+</I>&gt;<i> &gt; &gt;&gt; contain Authorization header.
+</I>&gt;<i> &gt; &gt;&gt;  2(4801) INF:P-CSCF:P_add_integrity_protected:
+</I>&gt;<i> No
+</I>&gt;<i> &gt; &gt;&gt; authorization header found.
+</I>&gt;<i> &gt; &gt;&gt;  2(4801) INF:P-CSCF:cscf_get_transaction:
+</I>&gt;<i> &gt; &gt;&gt; Transaction
+</I>&gt;<i> &gt; &gt;&gt; 18698 578375770 exists.Retransmission?
+</I>&gt;<i> &gt; &gt;&gt;  2(4801) INF:P-CSCF:cscf_get_transaction:
+</I>&gt;<i> &gt; &gt;&gt; Transaction
+</I>&gt;<i> &gt; &gt;&gt; 18698 578375772 exists.Retransmission?
+</I>&gt;<i> &gt; &gt;&gt;  2(4801) DBG:P-CSCF:P_check_sent_by(): Received
+</I>&gt;<i> &gt; from
+</I>&gt;<i> &gt; &gt;&gt; &lt;127.0.0.1&gt;
+</I>&gt;<i> &gt; &gt;&gt;  2(4801) DBG:P-CSCF:P_check_sent_by(): Via
+</I>&gt;<i> &gt; &gt;&gt; sent-by=&lt;&gt;
+</I>&gt;<i> &gt; &gt;&gt;  2(4801) DBG:P-CSCF:P_check_sent_by(): Via does
+</I>&gt;<i> &gt; not
+</I>&gt;<i> &gt; &gt;&gt; contain a sent-by parameter
+</I>&gt;<i> &gt; &gt;&gt;
+</I>&gt;<i> &gt; &gt;&gt; i am useing sip client sofiasip and
+</I>&gt;<i> linphone....
+</I>&gt;<i> &gt; &gt;&gt;
+</I>&gt;<i> &gt; &gt;&gt; so could be the mistake .....
+</I>&gt;<i> &gt; &gt;&gt;
+</I>&gt;<i> &gt; &gt;&gt;
+</I>&gt;<i> &gt; &gt;&gt;
+</I>&gt;<i> &gt; &gt;&gt;
+</I>&gt;<i> &gt; &gt;&gt;       Send a FREE SMS to your friend's mobile
+</I>&gt;<i> &gt; from
+</I>&gt;<i> &gt; &gt;&gt; Yahoo! Messenger. Get it now at
+</I>&gt;<i> &gt; &gt;&gt; <A HREF="http://in.messenger.yahoo.com/">http://in.messenger.yahoo.com/</A>
+</I>&gt;<i> &gt; &gt;&gt; _______________________________________________
+</I>&gt;<i> &gt; &gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt;&gt;
+</I>&gt;<i> &gt; &gt;&gt;     
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I><A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+&gt;<i> &gt; &gt;   
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;       Send a FREE SMS to your friend's mobile
+</I>&gt;<i> from
+</I>&gt;<i> &gt; Yahoo! Messenger. Get it now at
+</I>&gt;<i> &gt; <A HREF="http://in.messenger.yahoo.com/">http://in.messenger.yahoo.com/</A>
+</I>&gt;<i> &gt; &gt; _______________________________________________
+</I>&gt;<i> &gt; &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I><A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;   
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; -- 
+</I>&gt;<i> &gt; -----------------------------------------
+</I>&gt;<i> &gt; Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> &gt; FOKUS/NGNI
+</I>&gt;<i> &gt; Kaiserin-Augusta-Allee 31
+</I>&gt;<i> &gt; 10589 Berlin,Germany
+</I>&gt;<i> &gt; Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> &gt; Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> &gt; eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+</I>&gt;<i> &gt; Web www.fokus.fraunhofer.de
+</I>&gt;<i> &gt; We could change the world if God would give us the
+</I>&gt;<i> &gt; source code...
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>-----------------------------------------------------------------
+&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i>       Send a FREE SMS to your friend's mobile from
+</I>&gt;<i> Yahoo! Messenger. Get it now at
+</I><A HREF="http://in.messenger.yahoo.com/">http://in.messenger.yahoo.com/</A>&gt;
+_______________________________________________
+&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i>
+</I><A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+&gt;<i> 
+</I>
+
+
+      Send a FREE SMS to your friend's mobile from Yahoo! Messenger. Get it now at <A HREF="http://in.messenger.yahoo.com/">http://in.messenger.yahoo.com/</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000490.html">[OpenIMSCore-CSCF] Too Many Hops and AUthorization header not	found
+</A></li>
+	<LI>Next message: <A HREF="000505.html">[OpenIMSCore-CSCF] Too Many Hops and AUthorization header not found
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#495">[ date ]</a>
+              <a href="thread.html#495">[ thread ]</a>
+              <a href="subject.html#495">[ subject ]</a>
+              <a href="author.html#495">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

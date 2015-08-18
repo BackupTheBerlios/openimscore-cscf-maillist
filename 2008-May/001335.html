@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Two problems in cdp module
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Two%20problems%20in%20cdp%20module&In-Reply-To=%3C48204BB8.7050104%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001334.html">
+   <LINK REL="Next"  HREF="001336.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Two problems in cdp module</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Two%20problems%20in%20cdp%20module&In-Reply-To=%3C48204BB8.7050104%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Two problems in cdp module">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue May  6 14:14:48 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001334.html">[OpenIMSCore-CSCF] Two problems in cdp module
+</A></li>
+        <LI>Next message: <A HREF="001336.html">[OpenIMSCore-CSCF] Two problems in cdp module
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1335">[ date ]</a>
+              <a href="thread.html#1335">[ thread ]</a>
+              <a href="subject.html#1335">[ subject ]</a>
+              <a href="author.html#1335">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hmm... I only see the setting part in the patch - the 2 lines changes... or?
+
+-Dragos
+
+Mats Cullberg wrote:
+&gt;<i> Hope I interpret the question correctly. Cdp already monotonically
+</I>&gt;<i> increase end-to-end and hop-by-hop for each new request. The patch fixes
+</I>&gt;<i> getting and setting packet from/to the network.
+</I>&gt;<i>
+</I>&gt;<i> Otherwise, the openims software has been a nice acquaintance. 
+</I>&gt;<i>
+</I>&gt;<i> Thanks all.
+</I>&gt;<i>
+</I>&gt;<i> /Mats
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i> On Tue, 2008-05-06 at 13:39 +0200, Dragos Vingarzan wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi Mats,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I agree with you and I will include in the patch directly in the main 
+</I>&gt;&gt;<i> trunk. But before I do that - this is for getting the ids... what about 
+</I>&gt;&gt;<i> setting them? Is that part OK?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I would say that we were lucky as the bug is not critical. But 
+</I>&gt;&gt;<i> nevertheless, according to the specs, it's a bug.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Cheers,
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Mats Cullberg wrote:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Hi Alberto.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Yes, you are right, the standard is weak on that issue. But the
+</I>&gt;&gt;&gt;<i> receivers job regarding duplicate checking is too hard if it's a 32-bit
+</I>&gt;&gt;&gt;<i> random number.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> So when openims already implements the &quot;normally&quot; behavior, but is
+</I>&gt;&gt;&gt;<i> missing the network-byte-order thing I saw a potential improvement with
+</I>&gt;&gt;&gt;<i> the patch. It not a big issue, but it will  help diameter peers during
+</I>&gt;&gt;&gt;<i> duplicate checking.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> /Mats
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i>     
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001334.html">[OpenIMSCore-CSCF] Two problems in cdp module
+</A></li>
+	<LI>Next message: <A HREF="001336.html">[OpenIMSCore-CSCF] Two problems in cdp module
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1335">[ date ]</a>
+              <a href="thread.html#1335">[ thread ]</a>
+              <a href="subject.html#1335">[ subject ]</a>
+              <a href="author.html#1335">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

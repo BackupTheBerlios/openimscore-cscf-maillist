@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r632 - Added support Emergency	Registrations and Calls in the P-CSCF Patch by: Andreea	Ancuta Onofrei
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r632%20-%20Added%20support%20Emergency%0A%09Registrations%20and%20Calls%20in%20the%20P-CSCF%20Patch%20by%3A%20Andreea%0A%09Ancuta%20Onofrei&In-Reply-To=%3C200903121755.n2CHtOsN004247%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001643.html">
+   <LINK REL="Next"  HREF="001645.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r632 - Added support Emergency	Registrations and Calls in the P-CSCF Patch by: Andreea	Ancuta Onofrei</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r632%20-%20Added%20support%20Emergency%0A%09Registrations%20and%20Calls%20in%20the%20P-CSCF%20Patch%20by%3A%20Andreea%0A%09Ancuta%20Onofrei&In-Reply-To=%3C200903121755.n2CHtOsN004247%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r632 - Added support Emergency	Registrations and Calls in the P-CSCF Patch by: Andreea	Ancuta Onofrei">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Thu Mar 12 18:55:24 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001643.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r631 - Added support for URIs	required in Emergency services Patch by: Andreea Ancuta Onofrei
+</A></li>
+        <LI>Next message: <A HREF="001645.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r633 - Added support Emergency	Registrations and Calls in the S-CSCF Patch by: Andreea	Ancuta Onofrei
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1644">[ date ]</a>
+              <a href="thread.html#1644">[ thread ]</a>
+              <a href="subject.html#1644">[ subject ]</a>
+              <a href="author.html#1644">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2009-03-12 18:55:23 +0100 (Thu, 12 Mar 2009)
+New Revision: 632 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=632">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=632</A> 
+
+Log:
+Added support Emergency Registrations and Calls in the P-CSCF
+Patch by: Andreea Ancuta Onofrei
+
+Added:
+   A	ser_ims/trunk/modules/pcscf/emerg.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/emerg.c?rev=632&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/emerg.c?rev=632&amp;view=markup</A>
+   A	ser_ims/trunk/modules/pcscf/emerg.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/emerg.h?rev=632&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/emerg.h?rev=632&amp;view=markup</A>
+Modified:
+   U	ser_ims/trunk/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=632&amp;view=diff&amp;r1=632&amp;r2=631">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=632&amp;view=diff&amp;r1=632&amp;r2=631</A>
+   U	ser_ims/trunk/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=632&amp;view=diff&amp;r1=632&amp;r2=631">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=632&amp;view=diff&amp;r1=632&amp;r2=631</A>
+   U	ser_ims/trunk/modules/pcscf/registrar.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar.c?rev=632&amp;view=diff&amp;r1=632&amp;r2=631">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar.c?rev=632&amp;view=diff&amp;r1=632&amp;r2=631</A>
+   U	ser_ims/trunk/modules/pcscf/registrar_storage.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_storage.c?rev=632&amp;view=diff&amp;r1=632&amp;r2=631">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_storage.c?rev=632&amp;view=diff&amp;r1=632&amp;r2=631</A>
+   U	ser_ims/trunk/modules/pcscf/registrar_storage.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_storage.h?rev=632&amp;view=diff&amp;r1=632&amp;r2=631">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_storage.h?rev=632&amp;view=diff&amp;r1=632&amp;r2=631</A>
+   U	ser_ims/trunk/modules/pcscf/registrar_subscribe.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_subscribe.c?rev=632&amp;view=diff&amp;r1=632&amp;r2=631">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_subscribe.c?rev=632&amp;view=diff&amp;r1=632&amp;r2=631</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001643.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r631 - Added support for URIs	required in Emergency services Patch by: Andreea Ancuta Onofrei
+</A></li>
+	<LI>Next message: <A HREF="001645.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r633 - Added support Emergency	Registrations and Calls in the S-CSCF Patch by: Andreea	Ancuta Onofrei
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1644">[ date ]</a>
+              <a href="thread.html#1644">[ thread ]</a>
+              <a href="subject.html#1644">[ subject ]</a>
+              <a href="author.html#1644">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Client Configuration
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Client%20Configuration&In-Reply-To=%3C237245.96267.qm%40web59010.mail.re1.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000328.html">
+   <LINK REL="Next"  HREF="000322.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Client Configuration</H1>
+    <B>Java Addict</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Client%20Configuration&In-Reply-To=%3C237245.96267.qm%40web59010.mail.re1.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Client Configuration">java.addict at yahoo.com
+       </A><BR>
+    <I>Wed Mar 14 16:40:44 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000328.html">[OpenIMSCore-CSCF] P-Visited-Network-ID header missing
+</A></li>
+        <LI>Next message: <A HREF="000322.html">[OpenIMSCore-CSCF] Client Configuration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#320">[ date ]</a>
+              <a href="thread.html#320">[ thread ]</a>
+              <a href="subject.html#320">[ subject ]</a>
+              <a href="author.html#320">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi All,
+
+I am using old Open IMS Core release with SIP2IMS gateway. I have tried SJPhone and XLite with different options for Realm, Outbound Proxy, SIP Proxy but I couldn't make a connection.
+
+All I could get was these messages in ICSCF log ...
+
+17(3191) --- Peer List: ---
+17(3191)  S[Closed] hss.open-ims.test:3868 D[ ]
+17(3191) ------------------
+17(3191) --- Peer List: ---
+17(3191)  S[Closed] hss.open-ims.test:3868 D[ ]
+17(3191) ------------------
+17(3191) DBG:peer_timer(): Peer hss.open-ims.test       State 0
+17(3191) DBG:sm_process(): Peer hss.open-ims.test       State Closed    Event Start
+17(3191) DBG:I_Snd_Conn_Req(): Peer hss.open-ims.test
+17(3191) INFO:peer_connect(): Peer hss.open-ims.test:3868 connected
+17(3191) INFO:peer_connect(): Receiver process forked [4676]
+17(3191) DBG:sm_process(): Peer hss.open-ims.test       State Wait_Conn_Ack     Event I_Rcv_Conn_Ack
+19(4676) INFO:I-CSCF:mod_init: Initialization of module in child [3868] receiver I
+17(3191) --- Peer List: ---
+17(3191)  S[Wait_I_CEA] hss.open-ims.test:3868 D[ ]
+17(3191) ------------------
+19(4676) INFO:receiver_process(): [78] Receiver process starting up...
+19(4676) DBG:sm_process(): Peer hss.open-ims.test       State Wait_I_CEA        Event I_Peer_Disc
+19(4676) INFO:receive_loop():[78] Client closed connection or error... BYE
+19(4676) INFO:receiver_process(): [78]... Receiver process cleaning-up.
+19(4676) INFO:receiver_process(): [78]... Receiver process finished.
+18(4663) INFO:receive_loop():[91] Client closed connection or error... BYE
+18(4663) INFO:receiver_process(): [91]... Receiver process cleaning-up.
+18(4663) INFO:receiver_process(): [91]... Receiver process finished.
+12(3186) INFO:accept_connection(): new tcp connection accepted!
+12(3186) INFO:accept_connection(): Receiver process forked [4680]
+18(4680) INFO:I-CSCF:mod_init: Initialization of module in child [19] receiver R
+18(4680) INFO:receiver_process(): [94] Receiver process starting up...
+18(4680) DBG:sm_process(): Peer hss.open-ims.test       State Closed    Event R_Conn_CER
+17(3191) --- Peer List: ---
+17(3191)  S[R_Open] hss.open-ims.test:3868 D[ ]
+17(3191) ------------------
+17(3191) --- Peer List: ---
+17(3191)  S[R_Open] hss.open-ims.test:3868 D[ ]    
+
+and at times with XLite 
+
+17(3191)  S[R_Open] hss.open-ims.test:3868 D[ ]
+17(3191) ------------------
+17(3191) --- Peer List: ---
+17(3191)  S[R_Open] hss.open-ims.test:3868 D[ ]
+17(3191) ------------------
+ 2(3176) ERR:I-CSCF:cscf_get_private_identity: Message does not contain Authorization header.
+ 2(3176) INF:I-CSCF:cscf_get_private_identity: Falling back to private_id=stripped(public_id)
+-&gt; Message did not contain a valid Authorization Header!!! This fallback is deprecated!
+ 2(3176) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding with 400
+17(3191) --- Peer List: ---
+17(3191)  S[R_Open] hss.open-ims.test:3868 D[ ]
+17(3191) ------------------
+17(3191) --- Peer List: ---
+17(3191)  S[R_Open] hss.open-ims.test:3868 D[ ]
+17(3191) ------------------                                                                                   
+
+
+Any Comments/Suggestions?
+
+Regards,
+
+Ali
+
+ 
+---------------------------------
+Expecting? Get great news right away with email Auto-Check.
+Try the Yahoo! Mail Beta.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070314/3a1c1bc5/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070314/3a1c1bc5/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000328.html">[OpenIMSCore-CSCF] P-Visited-Network-ID header missing
+</A></li>
+	<LI>Next message: <A HREF="000322.html">[OpenIMSCore-CSCF] Client Configuration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#320">[ date ]</a>
+              <a href="thread.html#320">[ thread ]</a>
+              <a href="subject.html#320">[ subject ]</a>
+              <a href="author.html#320">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

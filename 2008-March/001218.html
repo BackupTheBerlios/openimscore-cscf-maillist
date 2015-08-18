@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Add an extra field to the Route Header
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Add%20an%20extra%20field%20to%20the%20Route%20Header&In-Reply-To=%3CE15B465078EB7A4981296BD3FED0B5D50216EEBD%40INTMAIL01.es.int.atosorigin.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001232.html">
+   <LINK REL="Next"  HREF="001230.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Add an extra field to the Route Header</H1>
+    <B>Victor Diaz Diaz</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Add%20an%20extra%20field%20to%20the%20Route%20Header&In-Reply-To=%3CE15B465078EB7A4981296BD3FED0B5D50216EEBD%40INTMAIL01.es.int.atosorigin.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Add an extra field to the Route Header">victor.diaz at atosorigin.com
+       </A><BR>
+    <I>Mon Mar  3 17:31:31 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001232.html">[OpenIMSCore-CSCF] SCSCF sending 403 error whenanASchange the	Request URI of anINVITE
+</A></li>
+        <LI>Next message: <A HREF="001230.html">[OpenIMSCore-CSCF] Add an extra field to the Route Header
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1218">[ date ]</a>
+              <a href="thread.html#1218">[ thread ]</a>
+              <a href="subject.html#1218">[ subject ]</a>
+              <a href="author.html#1218">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+
+ 
+
+I want know if could be possible to include one extra field into the
+Route header by conf.
+
+ 
+
+For example having this Route header:
+
+ 
+
+Route:
+&lt;sip:172.24.6.172:5060;lr&gt;,&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test.com</A>:6060;lr;
+s=1;h=0;d=0;a=7369703a616c6963654065732e696e&gt;
+
+ 
+
+I need add a &quot;call&quot; extra field like this, before send the message to
+the Application Server:
+
+ 
+
+Route:
+&lt;sip:172.24.6.172:5060;lr&gt;,&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test.com</A>:6060;lr;
+s=1;h=0;d=0;a=7369703a616c6963654065732e696e&gt;;call=orig
+
+ 
+
+By the way I need to include an &quot;orig&quot; value for an originating call and
+a &quot;term&quot; value for a terminating one into this new field.
+
+ 
+
+Any Idea about if is that possible or if could be a new feature?
+
+ 
+
+Thanks in advance for your support.
+
+ 
+
+Victor.
+
+ 
+
+
+------------------------------------------------------------------
+This e-mail and the documents attached are confidential and intended solely
+for the addressee; it may also be privileged. If you receive this e-mail
+in error, please notify the sender immediately and destroy it.
+As its integrity cannot be secured on the Internet, the Atos Origin group
+liability cannot be triggered for the message content. Although the
+sender endeavours to maintain a computer virus-free network, the sender does
+not warrant that this transmission is virus-free and will not be liable for
+any damages resulting from any virus transmitted.
+
+Este mensaje y los ficheros adjuntos pueden contener informacion
+confidencial destinada solamente a la(s) persona(s) mencionadas
+anteriormente. Pueden estar protegidos por secreto profesional Si usted
+recibe este correo electronico por error, gracias de informar inmediatamente
+al remitente y destruir el mensaje.
+Al no estar asegurada la integridad de este mensaje sobre la red, Atos
+Origin no se hace responsable por su contenido. Su contenido no constituye
+ningun compromiso para el grupo Atos Origin, salvo ratificacion escrita por
+ambas partes.
+Aunque se esfuerza al maximo por mantener su red libre de virus, el emisor
+no puede garantizar nada al respecto y no sera responsable de cualesquiera
+danos que puedan resultar de una transmision de virus
+------------------------------------------------------------------
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080303/28fd39b2/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080303/28fd39b2/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001232.html">[OpenIMSCore-CSCF] SCSCF sending 403 error whenanASchange the	Request URI of anINVITE
+</A></li>
+	<LI>Next message: <A HREF="001230.html">[OpenIMSCore-CSCF] Add an extra field to the Route Header
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1218">[ date ]</a>
+              <a href="thread.html#1218">[ thread ]</a>
+              <a href="subject.html#1218">[ subject ]</a>
+              <a href="author.html#1218">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

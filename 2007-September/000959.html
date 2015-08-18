@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 3rd-Party-REGISTER requires	P-Access-Network-Info header
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%203rd-Party-REGISTER%0A%20requires%09P-Access-Network-Info%20header&In-Reply-To=%3C46FA7F1A.5000401%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000956.html">
+   <LINK REL="Next"  HREF="000962.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 3rd-Party-REGISTER requires	P-Access-Network-Info header</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%203rd-Party-REGISTER%0A%20requires%09P-Access-Network-Info%20header&In-Reply-To=%3C46FA7F1A.5000401%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] 3rd-Party-REGISTER requires	P-Access-Network-Info header">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Sep 26 17:47:38 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000956.html">[OpenIMSCore-CSCF] 3rd-Party-REGISTER requires	P-Access-Network-Info header
+</A></li>
+        <LI>Next message: <A HREF="000962.html">[OpenIMSCore-CSCF] 3rd-Party-REGISTER	requires	P-Access-Network-Infoheader
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#959">[ date ]</a>
+              <a href="thread.html#959">[ thread ]</a>
+              <a href="subject.html#959">[ subject ]</a>
+              <a href="author.html#959">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Stefan,
+
+The original author of the 3rd party reg code has given me a patch.
+Because I was not sure if it was correct, I have delayed it until now.
+So it is committed in r450. This patch uses the P-Visited-Network-ID
+header instead of the P-Access-Network-Info. My doubts go towards the
+fact that the P-Access-Network-Info might still be required to be copied
+if it exists. Anybody can bring some light into this issue? (I know, I
+should read the specs...)
+
+-Dragos
+
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Stefan.Brozinski at materna.de</A> wrote:
+&gt;<i> Hi everybody,
+</I>&gt;<i>
+</I>&gt;<i> after updating to OpenImsCore r448, the S-CSCF stopped creating
+</I>&gt;<i> 3rd-party REGISTERS for the AS when a client registers.
+</I>&gt;<i>
+</I>&gt;<i> This happens because the code in 'ser_ims/modules/isc/third_party_reg.c'
+</I>&gt;<i> (function 'new_r_third_party_reg') requires a P-Access-Network-Info
+</I>&gt;<i> header: &quot;if (!r-&gt;pani.s) goto error&quot;.
+</I>&gt;<i>
+</I>&gt;<i> In my test environment the PC-based client does not create this header.
+</I>&gt;<i> As far as I understand 3GPP 24.229 V7.7.0, a client should populate this
+</I>&gt;<i> header only if the access technology is known -- so this header is
+</I>&gt;<i> optional.
+</I>&gt;<i>
+</I>&gt;<i> Is this a bug in the S-CSCF? Or is every IMS client *required* to create
+</I>&gt;<i> this header and I misunderstood the specification?
+</I>&gt;<i>
+</I>&gt;<i> Regards
+</I>&gt;<i> Stefan
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000956.html">[OpenIMSCore-CSCF] 3rd-Party-REGISTER requires	P-Access-Network-Info header
+</A></li>
+	<LI>Next message: <A HREF="000962.html">[OpenIMSCore-CSCF] 3rd-Party-REGISTER	requires	P-Access-Network-Infoheader
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#959">[ date ]</a>
+              <a href="thread.html#959">[ thread ]</a>
+              <a href="subject.html#959">[ subject ]</a>
+              <a href="author.html#959">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

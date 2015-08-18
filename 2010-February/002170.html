@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20pcscf.xml%2C%20and%20Send_STR&In-Reply-To=%3C4B7AE203.2050407%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002168.html">
+   <LINK REL="Next"  HREF="002088.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20pcscf.xml%2C%20and%20Send_STR&In-Reply-To=%3C4B7AE203.2050407%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Feb 16 19:20:51 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002168.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+        <LI>Next message: <A HREF="002088.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r878 - added missing files for the	emergency stuff
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2170">[ date ]</a>
+              <a href="thread.html#2170">[ thread ]</a>
+              <a href="subject.html#2170">[ subject ]</a>
+              <a href="author.html#2170">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>oh man...
+
+looked at the code... in the UCT PCRF and it's not so good. It gets the 
+dest_ip and then it tries to get one more token... what for is a 
+mistery... maybe options? I don't think that there's anything to do from 
+the P-CSCF to just fix it... I wonder how it worked before...
+
+Anyway, that code seems like it needs a rewrite with safety in mind - 
+like in checking that there are more tokens before asking for one...
+
+
+Cheers,
+-Dragos
+
+Min Wang wrote:
+&gt;<i> Hi Ancuta:
+</I>&gt;<i>
+</I>&gt;<i> Tried with port disabled, seems the same as before: 
+</I>&gt;<i>
+</I>&gt;<i> //log from uct prcf
+</I>&gt;<i>
+</I>&gt;<i> INFO: Received AAR DIAMETER message from P-CSCF
+</I>&gt;<i> DEBUG: Session ID: pcscf.centercall.net;2882060697;1
+</I>&gt;<i> DEBUG: Orig Realm: centercall.net
+</I>&gt;<i> DEBUG: Dest Realm: centercall.net
+</I>&gt;<i> DEBUG: Media Component Number: 1
+</I>&gt;<i> DEBUG: Flow Number: 1
+</I>&gt;<i> DEBUG: Flow Description: permit out ip from 172.16.8.43 to 172.16.8.42
+</I>&gt;<i> DEBUG: Source IP: 172.16.8.43
+</I>&gt;<i> DEBUG: Dest IP: 172.16.8.42
+</I>&gt;<i> Exception in thread &quot;Thread-2&quot; java.util.NoSuchElementException
+</I>&gt;<i>         at java.util.StringTokenizer.nextToken(StringTokenizer.java:332)
+</I>&gt;<i>         at
+</I>&gt;<i> de.fhg.fokus.pcrf_diam.rx.AARCommandListener.recvMessage(AARCommandListe
+</I>&gt;<i> ner.java:218)
+</I>&gt;<i>         at
+</I>&gt;<i> de.fhg.fokus.diameter.DiameterPeer.DiameterWorker.run(DiameterWorker.jav
+</I>&gt;<i> a:100)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Kind Regards
+</I>&gt;<i>  
+</I>&gt;<i> Min Wang
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002168.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+	<LI>Next message: <A HREF="002088.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r878 - added missing files for the	emergency stuff
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2170">[ date ]</a>
+              <a href="thread.html#2170">[ thread ]</a>
+              <a href="subject.html#2170">[ subject ]</a>
+              <a href="author.html#2170">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

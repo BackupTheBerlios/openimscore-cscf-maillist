@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Damaged message body
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Damaged%20message%20body&In-Reply-To=%3CCE74D45C9564494998E85AE3C4CA3E3501BAAC00%40hb-altair.hb.buc.materna.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000989.html">
+   <LINK REL="Next"  HREF="001000.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Damaged message body</H1>
+    <B>Stefan.Brozinski at materna.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Damaged%20message%20body&In-Reply-To=%3CCE74D45C9564494998E85AE3C4CA3E3501BAAC00%40hb-altair.hb.buc.materna.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Damaged message body">Stefan.Brozinski at materna.de
+       </A><BR>
+    <I>Wed Oct 10 13:12:01 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000989.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r458 - Fixed missleading	identation.
+</A></li>
+        <LI>Next message: <A HREF="001000.html">[OpenIMSCore-CSCF] Update: Damaged message body
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#994">[ date ]</a>
+              <a href="thread.html#994">[ thread ]</a>
+              <a href="subject.html#994">[ subject ]</a>
+              <a href="author.html#994">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello everybody
+
+I have noticed that the P-CSCF sometimes removes the last byte of the
+message body when forwarding a request.
+
+A wireshark trace is attached which shows an example (this is
+reproducible).
+
+The first SIP request in the trace is between the UE and the P-CSCF.
+The second request is the same request when it is forwarded from the
+P-CSCF to the S-CSCF.
+
+Both requests have a &quot;Content-Length=6&quot; header, but the actual message
+body changes.
+
+The body of the first requests contains 6 bytes (the value of the last
+byte is zero, if that matters).
+
+In the body of the second request, the last byte is missing.
+
+
+I have tried to find the reason in OpenIMSCore/SER's code, but without
+success yet. Function get_body() in msg_parser.h looks dangerous because
+it seems be unsure whether or not to skip the CRLF sequence that
+separates the headers from the body, so it looks if there is CR, LF or
+CRLF and skips whatever it finds. But as the body of my requests does
+neither start with CR nor with LF, this can't be the reason of what is
+happening here.
+
+Any idea where to look?
+
+Regards
+Stefan
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: damaged-body.pcap
+Type: application/octet-stream
+Size: 1394 bytes
+Desc: damaged-body.pcap
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071010/3fc0c6f0/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071010/3fc0c6f0/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000989.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r458 - Fixed missleading	identation.
+</A></li>
+	<LI>Next message: <A HREF="001000.html">[OpenIMSCore-CSCF] Update: Damaged message body
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#994">[ date ]</a>
+              <a href="thread.html#994">[ thread ]</a>
+              <a href="subject.html#994">[ subject ]</a>
+              <a href="author.html#994">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

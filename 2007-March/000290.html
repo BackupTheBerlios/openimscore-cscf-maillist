@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] my_scscf.sql and pg_scscf.sql files ?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20my_scscf.sql%20and%20pg_scscf.sql%20files%20%3F&In-Reply-To=%3Cab0001110703090326g4d7ad043q2ce4d0c6bf010e96%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000281.html">
+   <LINK REL="Next"  HREF="000283.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] my_scscf.sql and pg_scscf.sql files ?</H1>
+    <B>M&#225;rio Ferreira</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20my_scscf.sql%20and%20pg_scscf.sql%20files%20%3F&In-Reply-To=%3Cab0001110703090326g4d7ad043q2ce4d0c6bf010e96%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] my_scscf.sql and pg_scscf.sql files ?">mariojvp at gmail.com
+       </A><BR>
+    <I>Fri Mar  9 12:26:00 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000281.html">[OpenIMSCore-CSCF] my_scscf.sql and pg_scscf.sql files ?
+</A></li>
+        <LI>Next message: <A HREF="000283.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r178 - Removed SIP2IMS Gateway as	it was obsolete and broken for a long time.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#290">[ date ]</a>
+              <a href="thread.html#290">[ thread ]</a>
+              <a href="subject.html#290">[ subject ]</a>
+              <a href="author.html#290">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+They are for S-CSCF persistency. The state of S-CSCF is periodically dumped
+to DB (or files) and loaded at startup. Later this stuff will be included on
+the scripts.
+
+If you want to use them now, you have to create a db, create the tables that
+are in one of those files and modify the scscf.cfg:
+
+-         loadmodule &quot;&#8230;&#8230;/postgres.so or mysql.so&quot;
+
+-         modparam(&quot;scscf&quot;,&quot;scscf_db_url&quot;,&quot;<A HREF="postgres://user:pwd@localhost">postgres://user:pwd@localhost</A>
+/scscfdb&quot;)
+
+-         set persistency_mode to 2 or 3.
+
+M&#225;rio Ferreira
+
+On 3/8/07, Apinun Tunpan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">atunpan at ait.ac.th</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i> We notice these two sql files (my_scscf.sql and pg_scscf.sql) in
+</I>&gt;<i> ser_ims/cfg/ in our recent checkouts.
+</I>&gt;<i>
+</I>&gt;<i> What're they for?  There's no 'use' statement to select the database.
+</I>&gt;<i>
+</I>&gt;<i> Thanks.
+</I>&gt;<i> -Apinun
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070309/7d13fbd0/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070309/7d13fbd0/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000281.html">[OpenIMSCore-CSCF] my_scscf.sql and pg_scscf.sql files ?
+</A></li>
+	<LI>Next message: <A HREF="000283.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r178 - Removed SIP2IMS Gateway as	it was obsolete and broken for a long time.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#290">[ date ]</a>
+              <a href="thread.html#290">[ thread ]</a>
+              <a href="subject.html#290">[ subject ]</a>
+              <a href="author.html#290">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

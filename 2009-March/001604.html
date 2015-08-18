@@ -1,0 +1,372 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Term-PCSCF Adds it's own Route while	generating ACK for failure response
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Term-PCSCF%20Adds%20it%27s%20own%20Route%20while%0A%09generating%20ACK%20for%20failure%20response&In-Reply-To=%3C1E2ADD1268DF5342945DCCBF662EB0690276CF2B%40mail2.spanservices.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001620.html">
+   <LINK REL="Next"  HREF="001605.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Term-PCSCF Adds it's own Route while	generating ACK for failure response</H1>
+    <B>Sathish R.</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Term-PCSCF%20Adds%20it%27s%20own%20Route%20while%0A%09generating%20ACK%20for%20failure%20response&In-Reply-To=%3C1E2ADD1268DF5342945DCCBF662EB0690276CF2B%40mail2.spanservices.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Term-PCSCF Adds it's own Route while	generating ACK for failure response">sathish_r at spanservices.com
+       </A><BR>
+    <I>Tue Mar  3 06:30:03 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001620.html">[OpenIMSCore-CSCF] PCSCF Record Route Audit . Feature Request.
+</A></li>
+        <LI>Next message: <A HREF="001605.html">[OpenIMSCore-CSCF] branch 08 cdp sessions plans
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1604">[ date ]</a>
+              <a href="thread.html#1604">[ thread ]</a>
+              <a href="subject.html#1604">[ subject ]</a>
+              <a href="author.html#1604">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+
+
+We can get the UAC INVITE message from
+&quot;Trans-&gt;uac[branch].request.buffer&quot; and it should be parsed. I don't
+know how it'll affect the performance. We did the same in our test-bed
+application and it'll working fine(we are able to add Route) this how we
+have solved the &quot;PCSCF rejecting CANCEL request with 403&quot; bug. Also
+after this bug fix we faced problem in identifying the INVITE
+Transaction for ACK in P-CSCF.
+
+The scenario is when the invite spirals, the transaction identification
+for ack is wrong. It will identify all the spiralled transaction in to a
+single dialog as end to end ack, even though it is ack for failure
+responses. and continuous to send other end which it should not do.
+
+A--(INVITE)----&gt;P1 ---(INVITE)--&gt;P2--(INVITE)---&gt;B'  // B Registered
+from two location, P1 forks the INVITE request
+
+................P1 ---(INVITE)--&gt;P2--(INVITE)---&gt;B
+
+................P1 &lt;--(200 ok)---P2&lt;--(200 Ok)---B'  // B' Pick the call
+
+
+................P1 ---(cancel)--&gt;P2--(cancel)---&gt;B   // P1 cancel the
+other branch
+
+A&lt;---(200 OK)---P1 ...............................    
+
+A--(ACK)-------&gt;P1 ---(ACK)-----&gt;p2--(ACK)------&gt;B'
+
+................P1 &lt;--(200 Cancel)---P2&lt;--(200 cancel)---B  
+
+................................P2&lt;--(487)------B
+
+................................P2---(ACK)------B 
+
+...............P1&lt;---(487)------P2
+
+...................P1----(ACK)-----&gt;P2   // This ACK is identified as
+e2eACK 
+
+...................P1&lt;---(487)------P2
+
+...............P1----(ACK)-----&gt;P2
+
+...................P1&lt;---(487)------P2
+
+...............P1----(ACK)-----&gt;P2
+
+...................P1&lt;---(487)------P2
+
+...............P1----(ACK)-----&gt;P2                      
+
+A&lt;--(487)------P1&lt;---(487)------P2   // After some time  487 relayed by
+P1 to A (No transaction found)
+
+For your reference I have attached the pcap file
+&quot;e2eACKWrongIdentification.pcap&quot; for this scenario.
+
+
+To avoid this scenario we have modified the match_3261 code in
+t_lookup.c
+
+The current logic will check for e2eACK match if found returns it.
+
+The new logic, if ACK is e2eACK, instead of returning it'll keep
+matching it for VIA.
+
+If VIA match found then the previous match is ignored.
+
+I also attached pacp file &quot;SCSCF_ForkingCall.pcap&quot;  after fixing the
+e2eAck.
+
+Please correct if we are wrong.
+
+
+
+Regards,
+Sathish.R
+
+
+Regards,
+Sathish.R
+ 
+
+
+-----Original Message-----
+From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>] 
+Sent: Wednesday, February 25, 2009 5:13 PM
+To: Sathish R.
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] Term-PCSCF Adds it's own Route while
+generating ACK for failure response
+
+Hi Sathish,
+
+You are right, but I would say that the actual problem is that the UAS 
+did removed actually the header pointing to itself, on the 
+loose_route-int operation. I think that the UAC message is not saved 
+locally. Then a fix would be hard. Unfortunately  this code is in the 
+SIP Express Route base, so even if we put a fix in ser_ims, it should be
+
+fixed in the SER. Also, in ser_ims, this ACK is generated and handled 
+automatically.
+
+And well, this is not a critical issue, as an ACK is still delivered 
+properly, just that it contains an extra Route header, which is of no 
+use anyway as the 487 ACK is a hop-by-hop delivered one. So it might 
+break with some SIP stacks, but overall the behavior is not that bad.
+
+I would propose to revisit this issues a bit later. We have not aligned 
+our code base with SER in a long time and I was thinking about porting 
+all the modules to the new SIP Router (merge SER and OpenSER/Kamailio). 
+Then the things might be different.
+
+Cheers,
+-Dragos
+
+
+Sathish R. wrote:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> User (bob) makes call and terminates it by sending CANCEL 
+</I>&gt;<i> (UE1-&gt;Orig-PCSCF-&gt;Orig-SCSCF-&gt;Term-SCSCF-&gt;Term-PCSCF-&gt;UE2).
+</I>&gt;<i>
+</I>&gt;<i> When Term-PCSCF generate ACK to UE2 for failure response (487), it 
+</I>&gt;<i> adds it's own Route, which is not a right behavior I guess.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I attached the pcap file for your reference.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Root cause of the problem:
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> The problem is in build_local function (t_msgbuilder.c). We are 
+</I>&gt;<i> constructing local ACK Message based on the request we received.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> While building local request (ACK), P-CSCF refers UAS request's Route 
+</I>&gt;<i> headers, which contains it's own Route.
+</I>&gt;<i>
+</I>&gt;<i> So, the following code adds it's own Route in the local ACK request.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> /* Build a local request based on a previous request; main
+</I>&gt;<i>
+</I>&gt;<i>    customers of this function are local ACK and local CANCEL
+</I>&gt;<i>
+</I>&gt;<i>  */
+</I>&gt;<i>
+</I>&gt;<i> char *build_local(struct cell *Trans,unsigned int branch,
+</I>&gt;<i>
+</I>&gt;<i>         unsigned int *len, char *method, int method_len, str *to)
+</I>&gt;<i>
+</I>&gt;<i> {
+</I>&gt;<i>
+</I>&gt;<i> .............
+</I>&gt;<i>
+</I>&gt;<i> .............
+</I>&gt;<i>
+</I>&gt;<i>            
+</I>&gt;<i>
+</I>&gt;<i>      /* copy'n'paste Route headers */
+</I>&gt;<i>
+</I>&gt;<i>       if (!is_local(Trans)) {
+</I>&gt;<i>
+</I>&gt;<i>                 for ( hdr=Trans-&gt;uas.request-&gt;headers ; hdr ; 
+</I>&gt;<i> hdr=hdr-&gt;next )
+</I>&gt;<i>
+</I>&gt;<i>                          if (hdr-&gt;type==HDR_ROUTE_T)
+</I>&gt;<i>
+</I>&gt;<i>                         {
+</I>&gt;<i>
+</I>&gt;<i>                                 *len+=hdr-&gt;len;
+</I>&gt;<i>
+</I>&gt;<i>                                  LOG(L_INFO,&quot;**********build_local: 
+</I>&gt;<i> Method id %s\n &quot;,method) ;
+</I>&gt;<i>
+</I>&gt;<i>                         }
+</I>&gt;<i>
+</I>&gt;<i>         }
+</I>&gt;<i>
+</I>&gt;<i> ................
+</I>&gt;<i>
+</I>&gt;<i> ................
+</I>&gt;<i>
+</I>&gt;<i>  if (!is_local(Trans) )  {
+</I>&gt;<i>
+</I>&gt;<i>                 for ( hdr=Trans-&gt;uas.request-&gt;headers ; hdr ; 
+</I>&gt;<i> hdr=hdr-&gt;next )
+</I>&gt;<i>
+</I>&gt;<i>                         if(hdr-&gt;type==HDR_ROUTE_T) {
+</I>&gt;<i>
+</I>&gt;<i>                                 append_mem_block(p, hdr-&gt;name.s, 
+</I>&gt;<i> hdr-&gt;len );
+</I>&gt;<i>
+</I>&gt;<i>                         }
+</I>&gt;<i>
+</I>&gt;<i>         }
+</I>&gt;<i>
+</I>&gt;<i> ....................
+</I>&gt;<i>
+</I>&gt;<i> ....................
+</I>&gt;<i>
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I feel it is not correct to build local request (CANCEL/ACK) based on 
+</I>&gt;<i> the UAS request, it should be based on UAC request.
+</I>&gt;<i>
+</I>&gt;<i> Since route will not be found incase if, Term-SCSCF use this API for 
+</I>&gt;<i> constructing CANCEL (Forking).
+</I>&gt;<i>
+</I>&gt;<i> To get Route, can we parse the UAC's request and take route from it 
+</I>&gt;<i> instead of taking it from UAS's request route?
+</I>&gt;<i>
+</I>&gt;<i> If we do this, we can also fix the bug: CANCEL for forking rejected by
+</I>
+&gt;<i> P-CSCF with 403
+</I>&gt;<i>
+</I>&gt;<i> [
+</I>&gt;<i>
+</I>&gt;<i> Description:
+</I>&gt;<i>
+</I>&gt;<i> The reason for the rejection of CANCEL by the P-CSCF is the missing
+</I>Route
+&gt;<i> header field (Route: ) in the CANCEL
+</I>&gt;<i> request. Without this Route header field the P-CSCF tries to process
+</I>the
+&gt;<i> request as an originating request
+</I>&gt;<i>
+</I>&gt;<i> ]
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Please correct me if I am wrong.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> *Regards,*
+</I>&gt;<i>
+</I>&gt;<i> *Sathish.R*
+</I>&gt;<i>
+</I>&gt;<i> * *
+</I>&gt;<i>
+</I>&gt;<i> //
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> DISCLAIMER: This email message and all attachments are confidential 
+</I>&gt;<i> and intended only for the use of an individual or entity named above 
+</I>&gt;<i> and may contain information that is privileged, confidential or exempt
+</I>
+&gt;<i> from disclosure under applicable law. If you are not the intended 
+</I>&gt;<i> recipient, you are notified that any dissemination, distribution or 
+</I>&gt;<i> copying of this email is strictly prohibited. If you have received 
+</I>&gt;<i> this email in error, please notify us immediately by return email or 
+</I>&gt;<i> to <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">itsupport at spanservices.com</A> and destroy the original message. 
+</I>&gt;<i> Opinions, conclusions, and other information in this message that do 
+</I>&gt;<i> not relate to the official business of SPAN, shall be understood to be
+</I>
+&gt;<i> neither given nor endorsed by SPAN
+</I>&gt;<i>
+</I>&gt;<i>
+</I>------------------------------------------------------------------------
+&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: SCSCF_ForkingCall.pcap
+Type: application/octet-stream
+Size: 40351 bytes
+Desc: SCSCF_ForkingCall.pcap
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090303/f73a6b9d/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090303/f73a6b9d/attachment.obj</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: e2eACKWrongIdentification.pcap
+Type: application/octet-stream
+Size: 61667 bytes
+Desc: e2eACKWrongIdentification.pcap
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090303/f73a6b9d/attachment-0001.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090303/f73a6b9d/attachment-0001.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001620.html">[OpenIMSCore-CSCF] PCSCF Record Route Audit . Feature Request.
+</A></li>
+	<LI>Next message: <A HREF="001605.html">[OpenIMSCore-CSCF] branch 08 cdp sessions plans
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1604">[ date ]</a>
+              <a href="thread.html#1604">[ thread ]</a>
+              <a href="subject.html#1604">[ subject ]</a>
+              <a href="author.html#1604">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

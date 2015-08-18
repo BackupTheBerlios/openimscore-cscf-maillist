@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] having multiple icscf and scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20having%20multiple%20icscf%20and%20scscf&In-Reply-To=%3C464182F6.5000704%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000551.html">
+   <LINK REL="Next"  HREF="000583.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] having multiple icscf and scscf</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20having%20multiple%20icscf%20and%20scscf&In-Reply-To=%3C464182F6.5000704%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] having multiple icscf and scscf">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed May  9 10:14:46 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000551.html">[OpenIMSCore-CSCF] having multiple icscf and scscf
+</A></li>
+        <LI>Next message: <A HREF="000583.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#573">[ date ]</a>
+              <a href="thread.html#573">[ thread ]</a>
+              <a href="subject.html#573">[ subject ]</a>
+              <a href="author.html#573">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Should be. If it is not, we will fix it.
+
+For multiple I-CSCF you will need to do load balancing between them from
+the DNS server for your home-domain (by default the open-ims.test)
+
+For the S-CSCF you need to change the icscf database (see the
+ser_ims/cfg/icscf.sql) and add all the S-CSCFs that you are going to
+start. Then the S-CSCF could be balanced by the use of the generic
+S-CSCF capabilities that you can assign in the database above for the
+S-CSCF and in the HSS for the mandatory/optional capabilities required
+per user.
+
+
+-Dragos
+
+abhishek wrote:
+&gt;<i> Hi all,
+</I>&gt;<i> 	Is it really possible to have multiple SCSCF and ICSCF for load
+</I>&gt;<i> sharing?
+</I>&gt;<i>
+</I>&gt;<i> Well if yes ,can u let me know as to how to configure this in PCSCF and
+</I>&gt;<i> ICSCF ?..
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i> Abhishek.R.S
+</I>&gt;<i>
+</I>&gt;<i> SASKEN BUSINESS DISCLAIMER
+</I>&gt;<i> -------------------------
+</I>&gt;<i> This message may contain confidential, proprietary or legally privileged information. In 
+</I>&gt;<i> case you are not the original intended Recipient of the message, you must not, directly or 
+</I>&gt;<i> indirectly, use, Disclose, distribute, print, or copy any part of this message and you are 
+</I>&gt;<i> requested to delete it and inform the sender. Any views expressed in this message are 
+</I>&gt;<i> those of the individual sender unless otherwise stated. Nothing contained in this message 
+</I>&gt;<i> shall be construed as an offer or acceptance of any offer by Sasken Communication 
+</I>&gt;<i> Technologies Limited (&quot;Sasken&quot;) unless sent with that express intent and with due 
+</I>&gt;<i> authority of Sasken. Sasken has taken enough precautions to prevent the spread of 
+</I>&gt;<i> viruses. However the company accepts no liability for any damage caused by any virus 
+</I>&gt;<i> transmitted by this email
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000551.html">[OpenIMSCore-CSCF] having multiple icscf and scscf
+</A></li>
+	<LI>Next message: <A HREF="000583.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#573">[ date ]</a>
+              <a href="thread.html#573">[ thread ]</a>
+              <a href="subject.html#573">[ subject ]</a>
+              <a href="author.html#573">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

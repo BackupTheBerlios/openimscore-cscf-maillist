@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Bug in sdp_util.c ?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Bug%20in%20sdp_util.c%20%3F&In-Reply-To=%3CAANLkTimjvQCdAOn0g4yOMOnQmCAUMNl4VFNcGoqwa6AX%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="002277.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Bug in sdp_util.c ?</H1>
+    <B>Anant Ghotkar</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Bug%20in%20sdp_util.c%20%3F&In-Reply-To=%3CAANLkTimjvQCdAOn0g4yOMOnQmCAUMNl4VFNcGoqwa6AX%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Bug in sdp_util.c ?">aghotkar at gmail.com
+       </A><BR>
+    <I>Thu Jul  1 19:48:13 CEST 2010</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="002277.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r957 - CDiameterPeer: completed	the RFC3588 image references
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2276">[ date ]</a>
+              <a href="thread.html#2276">[ thread ]</a>
+              <a href="subject.html#2276">[ subject ]</a>
+              <a href="author.html#2276">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+There appears to be a bug in function alter_sdp_line_rtpproxy ( File
+-modules/pcscf/sdp_util.c).
+  if (c2p != NULL || !c1p_altered) {
+
+should be changed to
+
+  if (c2p != NULL || !(*c1p_altered)) {
+
+I have listed the original function in this email for your reference.
+
+Regards,
+
+-Anant
+
+int alter_sdp_line_rtpproxy(struct sip_msg * msg, char * m1p, char * bodylimit,
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; char * c1p, char * c2p, int *c1p_altered,
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; str * oldip, str * oldport, int pf,
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; str * newip, str* newport, int pf1){
+
+&#160;&#160;&#160; str body1;
+
+&#160;&#160;&#160; /* Alter port. */
+&#160;&#160;&#160; body1.s = m1p;
+&#160;&#160;&#160; body1.len = bodylimit - body1.s;
+&#160;&#160;&#160; if (alter_mediaport(msg, &amp;body1, oldport, newport, 0) == -1)
+&#160;&#160;&#160;&#160;&#160;&#160;&#160; return -1;
+&#160;&#160;&#160; /*
+&#160;&#160;&#160;&#160; * Alter IP. Don't alter IP common for the session
+&#160;&#160;&#160;&#160; * more than once.
+&#160;&#160;&#160;&#160; */
+&#160;&#160;&#160; if (c2p != NULL || !c1p_altered) {
+&#160;&#160;&#160;&#160;&#160;&#160;&#160; body1.s = c2p ? c2p : c1p;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160; body1.len = bodylimit - body1.s;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160; if (alter_mediaip(msg, &amp;body1, oldip, pf, newip, pf1, 0) == -1)
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; return -1;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160; if (!c2p)
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; *c1p_altered = 1;
+&#160;&#160;&#160; }
+&#160;&#160;&#160; return 0;
+}
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="002277.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r957 - CDiameterPeer: completed	the RFC3588 image references
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2276">[ date ]</a>
+              <a href="thread.html#2276">[ thread ]</a>
+              <a href="subject.html#2276">[ subject ]</a>
+              <a href="author.html#2276">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

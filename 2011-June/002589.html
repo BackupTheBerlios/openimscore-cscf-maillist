@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Issues with using IPv6
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Issues%20with%20using%20IPv6&In-Reply-To=%3C013301cc322c%248780b250%24968216f0%24%40technikum-wien.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002583.html">
+   <LINK REL="Next"  HREF="002590.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Issues with using IPv6</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Issues%20with%20using%20IPv6&In-Reply-To=%3C013301cc322c%248780b250%24968216f0%24%40technikum-wien.at%3E"
+       TITLE="[OpenIMSCore-CSCF] Issues with using IPv6">franz.edler at technikum-wien.at
+       </A><BR>
+    <I>Fri Jun 24 07:06:48 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002583.html">[OpenIMSCore-CSCF] Issues with using IPv6
+</A></li>
+        <LI>Next message: <A HREF="002590.html">[OpenIMSCore-CSCF] Issues with using IPv6
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2589">[ date ]</a>
+              <a href="thread.html#2589">[ thread ]</a>
+              <a href="subject.html#2589">[ subject ]</a>
+              <a href="author.html#2589">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+&gt;<i> I have attached the trace file and in the following is the P-CSCF console
+</I>log
+&gt;<i> generated with DEBUG=4.
+</I>
+I checked your tracefile and I wonder that you are doing a IPv6-IPv4
+transition.
+The P-CSCF (using IPv6) gets an IPv4 address when resolving
+&quot;_sip._udp.open-ims.test&quot; (see packet 53).
+
+I guess you should correctly set-up the DNS server to respond with the
+correct Ipv6 address.
+
+BR
+Franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002583.html">[OpenIMSCore-CSCF] Issues with using IPv6
+</A></li>
+	<LI>Next message: <A HREF="002590.html">[OpenIMSCore-CSCF] Issues with using IPv6
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2589">[ date ]</a>
+              <a href="thread.html#2589">[ thread ]</a>
+              <a href="subject.html#2589">[ subject ]</a>
+              <a href="author.html#2589">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

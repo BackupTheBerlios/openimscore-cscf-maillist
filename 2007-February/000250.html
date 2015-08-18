@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 403 Forbidden: HSS returned no	authenticationvectors.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20403%20Forbidden%3A%20HSS%20returned%20no%0A%09authenticationvectors.&In-Reply-To=%3C000101c75a4e%2426db6590%240800000a%40notebookFE%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000249.html">
+   <LINK REL="Next"  HREF="000256.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 403 Forbidden: HSS returned no	authenticationvectors.</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20403%20Forbidden%3A%20HSS%20returned%20no%0A%09authenticationvectors.&In-Reply-To=%3C000101c75a4e%2426db6590%240800000a%40notebookFE%3E"
+       TITLE="[OpenIMSCore-CSCF] 403 Forbidden: HSS returned no	authenticationvectors.">franz.edler at inode.at
+       </A><BR>
+    <I>Tue Feb 27 10:03:11 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000249.html">[OpenIMSCore-CSCF] 403 Forbidden: HSS returned no authentication	vectors.
+</A></li>
+        <LI>Next message: <A HREF="000256.html">[OpenIMSCore-CSCF] 403 Forbidden: HSS returned	no	authenticationvectors.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#250">[ date ]</a>
+              <a href="thread.html#250">[ thread ]</a>
+              <a href="subject.html#250">[ subject ]</a>
+              <a href="author.html#250">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi John,
+
+&gt;<i> I have verified my configuration(s) to the best of my abilities per
+</I>&gt;<i> the archives and the website.  HSS returns no auth vectors... Anyone
+</I>&gt;<i> have any ideas where to look?   I've attached the etheral trace file
+</I>&gt;<i> to this email.  Thanks!
+</I>
+The trace only contains the view of the user agent. To get a more precise
+view the platform internal signalling is relevant. Please provide SIP and
+Diameter trace of S-CSCF (ports 6060 and 3868 I presume).
+
+The only hint I get from the code is that the MAA message from HSS obviously
+does not contain any authentication data. Maybe there is a problem at user
+provisioning at HSS.
+
+Cheers
+Franz
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000249.html">[OpenIMSCore-CSCF] 403 Forbidden: HSS returned no authentication	vectors.
+</A></li>
+	<LI>Next message: <A HREF="000256.html">[OpenIMSCore-CSCF] 403 Forbidden: HSS returned	no	authenticationvectors.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#250">[ date ]</a>
+              <a href="thread.html#250">[ thread ]</a>
+              <a href="subject.html#250">[ subject ]</a>
+              <a href="author.html#250">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

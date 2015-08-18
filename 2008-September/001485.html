@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OSIMS%20bug%20on%20processing%20FQDNs&In-Reply-To=%3C48C19584.90401%40ftw.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001477.html">
+   <LINK REL="Next"  HREF="001487.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs</H1>
+    <B>Hannes L. Weisgrab</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OSIMS%20bug%20on%20processing%20FQDNs&In-Reply-To=%3C48C19584.90401%40ftw.at%3E"
+       TITLE="[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs">weisi2 at ftw.at
+       </A><BR>
+    <I>Fri Sep  5 22:24:36 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001477.html">[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+</A></li>
+        <LI>Next message: <A HREF="001487.html">[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1485">[ date ]</a>
+              <a href="thread.html#1485">[ thread ]</a>
+              <a href="subject.html#1485">[ subject ]</a>
+              <a href="author.html#1485">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Franz,
+I disagree. The Text you cited is taken from the paragraph labeled 
+&quot;Preferred name syntax&quot;. Consequently I think that this &quot;must&quot; must be 
+interpreted in the context of the paragraph, which is only a 
+recommendation. I am sure the definition of the DNS namespace is much 
+more complex than just the 6 lines given in RFC-1035.
+In contrast to the text cited, the same paragraph reads:
+
+The DNS specifications attempt to be as general as possible in the rules
+for constructing domain names.  The idea is that the name of any
+existing object can be expressed as a domain name with minimal changes.
+
+
+... which means quite the opposite.
+
+But the most important fact that your interpretation cannot be correct 
+is that in this case you could NEVER do a DNS reverse lookup!
+
+Moreover there are a lot of 2nd level domains starting with a number, 
+like &quot;6net.org&quot; or &quot;3gpp.org&quot; and I doubt that Root Server 
+administrators disobey the rules of the DNS namespace.
+
+Therefore OSIMS must accept DNS names where one or more parts of it 
+start with a number. Apart from that, core-dumping is always a bug in 
+the software gegardless of its intended behavior.
+
+Best regards,
+Hannes.
+
+
+Franz Edler schrieb:
+&gt;<i> Hi Hannes,
+</I>&gt;<i>  
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Thus, the error points exactly to the &quot;3&quot; in the name and indeed, if I
+</I>&gt;&gt;<i> remove the &quot;3&quot; from the name (and reconfigure everything else
+</I>&gt;&gt;<i> accordingly), it works!
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> This is according to the definition of labels in DNS. See at RFC 1035: &quot;The
+</I>&gt;<i> labels must follow the rules for ARPANET host names.  They must start with a
+</I>&gt;<i> letter, end with a letter or digit, and have as interior characters only
+</I>&gt;<i> letters, digits, and hyphen.  There are also some restrictions on the
+</I>&gt;<i> length.  Labels must be 63 characters or less.&quot;
+</I>&gt;<i>
+</I>&gt;<i> It is not allowed to start a label with a digit.
+</I>&gt;<i> So you have to find another solution for your domain configuration.
+</I>&gt;<i>
+</I>&gt;<i> Cheers
+</I>&gt;<i> -franz
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080905/222ca230/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080905/222ca230/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001477.html">[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+</A></li>
+	<LI>Next message: <A HREF="001487.html">[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1485">[ date ]</a>
+              <a href="thread.html#1485">[ thread ]</a>
+              <a href="subject.html#1485">[ subject ]</a>
+              <a href="author.html#1485">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

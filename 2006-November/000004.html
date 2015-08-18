@@ -1,0 +1,1628 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r25 - in ser_ims/trunk: db db/schema mem modules modules/acc_db modules/acc_radius modules/acc_syslog modules/acc_syslog/doc modules/auth modules/auth/doc modules/auth_db modules/auth_db/doc modules/auth_radius modules/auth_radius/doc modules/avp modules/avp/doc modules/avp_db modules/avp_db/doc modules/avp_radius modules/avp_radius/doc modules/avpops modules/avpops/doc modules/cdp modules/cdp/configexample modules/cpl-c modules/cpl-c/doc modules/ctl modules/db_ops modules/dbtext modules/dbtext/dbtex modules/dbtext/dbtex/db modules/dbtext/doc modules/dialog modules/dispatcher modules/dispatcher/doc modules/diversion modules/domain modules/domain/doc modules/enum modules/enum/doc modules/eval modules/exec modules/exec/doc modules/fifo modules/flatstore modules/flatstore/doc modules/gflags modules/gflags/doc modules/icscf modules/isc modules/jabber modules/jabber/doc modules/jabber/doc/web modules/lcr modules/maxfwd modules/maxfwd/doc modules/mediaproxy ! modules/mediaproxy/config modules/msilo modules/msilo/doc modules/mysql modules/mysql/doc modules/nathelper modules/nathelper/doc modules/nathelper/examples modules/options modules/options/doc modules/osp modules/osp/doc modules/osp/etc modules/pa modules/pa/doc modules/pcscf modules/pdt modules/pdt/doc modules/pdt/doc/web modules/permissions modules/permissions/config modules/permissions/doc modules/pike modules/pike/doc modules/postgres modules/presence_b2b modules/presence_b2b/doc modules/print modules/print/doc modules/ratelimit modules/ratelimit/doc modules/registrar modules/registrar/doc modules/rls modules/rls/doc modules/rr modules/rr/doc modules/sanity modules/sanity/doc modules/scscf modules/sip2ims modules/sl modules/sl/doc modules/sms modules/sms/doc modules/speeddial modules/speeddial/doc modules/textops modules/textops/doc modules/timer modules/tls modules/tm modules/tm/doc modules/tm/test modules/uac modules/uac/doc modules/unixsock modules/uri modules/uri/do! c modules/uri_db modules/uri_db/doc modules/uri_radius modules! /uri_rad
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r25%20-%20in%20ser_ims/trunk%3A%20db%0A%20db/schema%20mem%20modules%20modules/acc_db%20modules/acc_radius%20modules/acc_syslog%0A%20modules/acc_syslog/doc%20modules/auth%20modules/auth/doc%20modules/auth_db%0A%20modules/auth_db/doc%20modules/auth_radius%20modules/auth_radius/doc%20modules/avp%0A%20modules/avp/doc%20modules/avp_db%20modules/avp_db/doc%20modules/avp_radius%0A%20modules/avp_radius/doc%20modules/avpops%20modules/avpops/doc%20modules/cdp%0A%20modules/cdp/configexample%20modules/cpl-c%20modules/cpl-c/doc%20modules/ctl%0A%20modules/db_ops%20modules/dbtext%20modules/dbtext/dbtex%20modules/dbtext/dbtex/db%0A%20modules/dbtext/doc%20modules/dialog%20modules/dispatcher%20modules/dispatcher/doc%0A%20modules/diversion%20modules/domain%20modules/domain/doc%20modules/enum%0A%20modules/enum/doc%20modules/eval%20modules/exec%20modules/exec/doc%20modules/fifo%0A%20modules/flatstore%20modules/flatstore/doc%20modules/gflags%20modules/gflags/doc%0A%20modules/icscf%20modules/isc%20modules/jabber%20modules/jabber/doc%0A%20modules/jabber/doc/web%20modules/lcr%20modules/maxfwd%20modules/maxfwd/doc%0A%20modules/mediaproxy%20%21%20modules/mediaproxy/config%20modules/msilo%0A%20modules/msilo/doc%20modules/mysql%20modules/mysql/doc%20modules/nathelper%0A%20modules/nathelper/doc%20modules/nathelper/examples%20modules/options%0A%20modules/options/doc%20modules/osp%20modules/osp/doc%20modules/osp/etc%20modules/pa%0A%20modules/pa/doc%20modules/pcscf%20modules/pdt%20modules/pdt/doc%0A%20modules/pdt/doc/web%20modules/permissions%20modules/permissions/config%0A%20modules/permissions/doc%20modules/pike%20modules/pike/doc%20modules/postgres%0A%20modules/presence_b2b%20modules/presence_b2b/doc%20modules/print%0A%20modules/print/doc%20modules/ratelimit%20modules/ratelimit/doc%20modules/registrar%0A%20modules/registrar/doc%20modules/rls%20modules/rls/doc%20modules/rr%20modules/rr/doc%0A%20modules/sanity%20modules/sanity/doc%20modules/scscf%20modules/sip2ims%20modules/sl%0A%20modules/sl/doc%20modules/sms%20modules/sms/doc%20modules/speeddial%0A%20modules/speeddial/doc%20modules/textops%20modules/textops/doc%20modules/timer%0A%20modules/tls%20modules/tm%20modules/tm/doc%20modules/tm/test%20modules/uac%0A%20modules/uac/doc%20modules/unixsock%20modules/uri%20modules/uri/do%21%20c%0A%20modules/uri_db%20modules/uri_db/doc%20modules/uri_radius%20modules%21%20/uri_rad&In-Reply-To=%3C200611261445.kAQEjmmh027617%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000003.html">
+   <LINK REL="Next"  HREF="000005.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r25 - in ser_ims/trunk: db db/schema mem modules modules/acc_db modules/acc_radius modules/acc_syslog modules/acc_syslog/doc modules/auth modules/auth/doc modules/auth_db modules/auth_db/doc modules/auth_radius modules/auth_radius/doc modules/avp modules/avp/doc modules/avp_db modules/avp_db/doc modules/avp_radius modules/avp_radius/doc modules/avpops modules/avpops/doc modules/cdp modules/cdp/configexample modules/cpl-c modules/cpl-c/doc modules/ctl modules/db_ops modules/dbtext modules/dbtext/dbtex modules/dbtext/dbtex/db modules/dbtext/doc modules/dialog modules/dispatcher modules/dispatcher/doc modules/diversion modules/domain modules/domain/doc modules/enum modules/enum/doc modules/eval modules/exec modules/exec/doc modules/fifo modules/flatstore modules/flatstore/doc modules/gflags modules/gflags/doc modules/icscf modules/isc modules/jabber modules/jabber/doc modules/jabber/doc/web modules/lcr modules/maxfwd modules/maxfwd/doc modules/mediaproxy ! modules/mediaproxy/config modules/msilo modules/msilo/doc modules/mysql modules/mysql/doc modules/nathelper modules/nathelper/doc modules/nathelper/examples modules/options modules/options/doc modules/osp modules/osp/doc modules/osp/etc modules/pa modules/pa/doc modules/pcscf modules/pdt modules/pdt/doc modules/pdt/doc/web modules/permissions modules/permissions/config modules/permissions/doc modules/pike modules/pike/doc modules/postgres modules/presence_b2b modules/presence_b2b/doc modules/print modules/print/doc modules/ratelimit modules/ratelimit/doc modules/registrar modules/registrar/doc modules/rls modules/rls/doc modules/rr modules/rr/doc modules/sanity modules/sanity/doc modules/scscf modules/sip2ims modules/sl modules/sl/doc modules/sms modules/sms/doc modules/speeddial modules/speeddial/doc modules/textops modules/textops/doc modules/timer modules/tls modules/tm modules/tm/doc modules/tm/test modules/uac modules/uac/doc modules/unixsock modules/uri modules/uri/do! c modules/uri_db modules/uri_db/doc modules/uri_radius modules! /uri_rad</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r25%20-%20in%20ser_ims/trunk%3A%20db%0A%20db/schema%20mem%20modules%20modules/acc_db%20modules/acc_radius%20modules/acc_syslog%0A%20modules/acc_syslog/doc%20modules/auth%20modules/auth/doc%20modules/auth_db%0A%20modules/auth_db/doc%20modules/auth_radius%20modules/auth_radius/doc%20modules/avp%0A%20modules/avp/doc%20modules/avp_db%20modules/avp_db/doc%20modules/avp_radius%0A%20modules/avp_radius/doc%20modules/avpops%20modules/avpops/doc%20modules/cdp%0A%20modules/cdp/configexample%20modules/cpl-c%20modules/cpl-c/doc%20modules/ctl%0A%20modules/db_ops%20modules/dbtext%20modules/dbtext/dbtex%20modules/dbtext/dbtex/db%0A%20modules/dbtext/doc%20modules/dialog%20modules/dispatcher%20modules/dispatcher/doc%0A%20modules/diversion%20modules/domain%20modules/domain/doc%20modules/enum%0A%20modules/enum/doc%20modules/eval%20modules/exec%20modules/exec/doc%20modules/fifo%0A%20modules/flatstore%20modules/flatstore/doc%20modules/gflags%20modules/gflags/doc%0A%20modules/icscf%20modules/isc%20modules/jabber%20modules/jabber/doc%0A%20modules/jabber/doc/web%20modules/lcr%20modules/maxfwd%20modules/maxfwd/doc%0A%20modules/mediaproxy%20%21%20modules/mediaproxy/config%20modules/msilo%0A%20modules/msilo/doc%20modules/mysql%20modules/mysql/doc%20modules/nathelper%0A%20modules/nathelper/doc%20modules/nathelper/examples%20modules/options%0A%20modules/options/doc%20modules/osp%20modules/osp/doc%20modules/osp/etc%20modules/pa%0A%20modules/pa/doc%20modules/pcscf%20modules/pdt%20modules/pdt/doc%0A%20modules/pdt/doc/web%20modules/permissions%20modules/permissions/config%0A%20modules/permissions/doc%20modules/pike%20modules/pike/doc%20modules/postgres%0A%20modules/presence_b2b%20modules/presence_b2b/doc%20modules/print%0A%20modules/print/doc%20modules/ratelimit%20modules/ratelimit/doc%20modules/registrar%0A%20modules/registrar/doc%20modules/rls%20modules/rls/doc%20modules/rr%20modules/rr/doc%0A%20modules/sanity%20modules/sanity/doc%20modules/scscf%20modules/sip2ims%20modules/sl%0A%20modules/sl/doc%20modules/sms%20modules/sms/doc%20modules/speeddial%0A%20modules/speeddial/doc%20modules/textops%20modules/textops/doc%20modules/timer%0A%20modules/tls%20modules/tm%20modules/tm/doc%20modules/tm/test%20modules/uac%0A%20modules/uac/doc%20modules/unixsock%20modules/uri%20modules/uri/do%21%20c%0A%20modules/uri_db%20modules/uri_db/doc%20modules/uri_radius%20modules%21%20/uri_rad&In-Reply-To=%3C200611261445.kAQEjmmh027617%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r25 - in ser_ims/trunk: db db/schema mem modules modules/acc_db modules/acc_radius modules/acc_syslog modules/acc_syslog/doc modules/auth modules/auth/doc modules/auth_db modules/auth_db/doc modules/auth_radius modules/auth_radius/doc modules/avp modules/avp/doc modules/avp_db modules/avp_db/doc modules/avp_radius modules/avp_radius/doc modules/avpops modules/avpops/doc modules/cdp modules/cdp/configexample modules/cpl-c modules/cpl-c/doc modules/ctl modules/db_ops modules/dbtext modules/dbtext/dbtex modules/dbtext/dbtex/db modules/dbtext/doc modules/dialog modules/dispatcher modules/dispatcher/doc modules/diversion modules/domain modules/domain/doc modules/enum modules/enum/doc modules/eval modules/exec modules/exec/doc modules/fifo modules/flatstore modules/flatstore/doc modules/gflags modules/gflags/doc modules/icscf modules/isc modules/jabber modules/jabber/doc modules/jabber/doc/web modules/lcr modules/maxfwd modules/maxfwd/doc modules/mediaproxy ! modules/mediaproxy/config modules/msilo modules/msilo/doc modules/mysql modules/mysql/doc modules/nathelper modules/nathelper/doc modules/nathelper/examples modules/options modules/options/doc modules/osp modules/osp/doc modules/osp/etc modules/pa modules/pa/doc modules/pcscf modules/pdt modules/pdt/doc modules/pdt/doc/web modules/permissions modules/permissions/config modules/permissions/doc modules/pike modules/pike/doc modules/postgres modules/presence_b2b modules/presence_b2b/doc modules/print modules/print/doc modules/ratelimit modules/ratelimit/doc modules/registrar modules/registrar/doc modules/rls modules/rls/doc modules/rr modules/rr/doc modules/sanity modules/sanity/doc modules/scscf modules/sip2ims modules/sl modules/sl/doc modules/sms modules/sms/doc modules/speeddial modules/speeddial/doc modules/textops modules/textops/doc modules/timer modules/tls modules/tm modules/tm/doc modules/tm/test modules/uac modules/uac/doc modules/unixsock modules/uri modules/uri/do! c modules/uri_db modules/uri_db/doc modules/uri_radius modules! /uri_rad">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Sun Nov 26 15:45:48 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000003.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r24 - in ser_ims/trunk: . cfg db mem modules modules/acc_db modules/acc_radius modules/acc_syslog modules/acc_syslog/doc modules/auth modules/auth/doc modules/auth_db modules/auth_db/doc modules/auth_radius modules/auth_radius/doc modules/avp modules/avp/doc modules/avp_db modules/avp_db/doc modules/avp_radius modules/avp_radius/doc modules/avpops modules/avpops/doc modules/cdp modules/cdp/configexample modules/cpl-c modules/cpl-c/doc modules/ctl modules/db_ops modules/dbtext modules/dbtext/dbtex modules/dbtext/dbtex/db modules/dbtext/doc modules/dialog modules/dispatcher modules/dispatcher/doc modules/diversion modules/domain modules/domain/doc modules/enum modules/enum/doc modules/eval modules/exec modules/exec/doc modules/fifo modules/flatstore modules/flatstore/doc modules/gflags modules/gflags/doc modules/icscf modules/isc modules/jabber modules/jabber/doc modules/jabber/doc/web modules/lcr modules/maxfwd modules/maxfwd/doc modules/mediaproxy modu! les/mediaproxy/config modules/msilo modules/msilo/doc modules/mysql modules/mysql/doc modules/nathelper modules/nathelper/doc modules/nathelper/examples modules/options modules/options/doc modules/osp modules/osp/doc modules/osp/etc modules/pa modules/pa/doc modules/pcscf modules/pdt modules/pdt/doc modules/pdt/doc/web modules/permissions modules/permissions/config modules/permissions/doc modules/pike modules/pike/doc modules/postgres modules/presence_b2b modules/presence_b2b/doc modules/print modules/print/doc modules/ratelimit modules/ratelimit/doc modules/registrar modules/registrar/doc modules/rls modules/rls/doc modules/rr modules/rr/doc modules/sanity modules/sanity/doc modules/scscf modules/sip2ims modules/sl modules/sl/doc modules/sms modules/sms/doc modules/speeddial modules/speeddial/doc modules/textops modules/textops/doc modules/timer modules/tls modules/tm modules/tm/doc modules/tm/test modules/uac modules/uac/doc modules/unixsock modules/uri modules/uri/doc mo! dules/uri_db modules/uri_db/doc modules/uri_radius modules/uri! _radius/
+</A></li>
+        <LI>Next message: <A HREF="000005.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r29 - in ser_ims/trunk: cfg	modules/cdp utils/gen_ha1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#4">[ date ]</a>
+              <a href="thread.html#4">[ thread ]</a>
+              <a href="subject.html#4">[ subject ]</a>
+              <a href="author.html#4">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2006-11-26 15:45:10 +0100 (Sun, 26 Nov 2006)
+New Revision: 25
+
+Modified:
+   ser_ims/trunk/db/
+   ser_ims/trunk/db/schema/
+   ser_ims/trunk/mem/
+   ser_ims/trunk/modules/
+   ser_ims/trunk/modules/acc_db/
+   ser_ims/trunk/modules/acc_radius/
+   ser_ims/trunk/modules/acc_syslog/
+   ser_ims/trunk/modules/acc_syslog/doc/
+   ser_ims/trunk/modules/auth/
+   ser_ims/trunk/modules/auth/doc/
+   ser_ims/trunk/modules/auth_db/
+   ser_ims/trunk/modules/auth_db/doc/
+   ser_ims/trunk/modules/auth_radius/
+   ser_ims/trunk/modules/auth_radius/doc/
+   ser_ims/trunk/modules/avp/
+   ser_ims/trunk/modules/avp/doc/
+   ser_ims/trunk/modules/avp_db/
+   ser_ims/trunk/modules/avp_db/doc/
+   ser_ims/trunk/modules/avp_radius/
+   ser_ims/trunk/modules/avp_radius/doc/
+   ser_ims/trunk/modules/avpops/
+   ser_ims/trunk/modules/avpops/doc/
+   ser_ims/trunk/modules/cdp/
+   ser_ims/trunk/modules/cdp/configexample/
+   ser_ims/trunk/modules/cpl-c/
+   ser_ims/trunk/modules/cpl-c/doc/
+   ser_ims/trunk/modules/ctl/
+   ser_ims/trunk/modules/db_ops/
+   ser_ims/trunk/modules/dbtext/
+   ser_ims/trunk/modules/dbtext/dbtex/
+   ser_ims/trunk/modules/dbtext/dbtex/db/
+   ser_ims/trunk/modules/dbtext/doc/
+   ser_ims/trunk/modules/dialog/
+   ser_ims/trunk/modules/dispatcher/
+   ser_ims/trunk/modules/dispatcher/doc/
+   ser_ims/trunk/modules/diversion/
+   ser_ims/trunk/modules/domain/
+   ser_ims/trunk/modules/domain/doc/
+   ser_ims/trunk/modules/enum/
+   ser_ims/trunk/modules/enum/doc/
+   ser_ims/trunk/modules/eval/
+   ser_ims/trunk/modules/exec/
+   ser_ims/trunk/modules/exec/doc/
+   ser_ims/trunk/modules/fifo/
+   ser_ims/trunk/modules/flatstore/
+   ser_ims/trunk/modules/flatstore/doc/
+   ser_ims/trunk/modules/gflags/
+   ser_ims/trunk/modules/gflags/doc/
+   ser_ims/trunk/modules/icscf/
+   ser_ims/trunk/modules/isc/
+   ser_ims/trunk/modules/jabber/
+   ser_ims/trunk/modules/jabber/doc/
+   ser_ims/trunk/modules/jabber/doc/web/
+   ser_ims/trunk/modules/lcr/
+   ser_ims/trunk/modules/maxfwd/
+   ser_ims/trunk/modules/maxfwd/doc/
+   ser_ims/trunk/modules/mediaproxy/
+   ser_ims/trunk/modules/mediaproxy/config/
+   ser_ims/trunk/modules/msilo/
+   ser_ims/trunk/modules/msilo/doc/
+   ser_ims/trunk/modules/mysql/
+   ser_ims/trunk/modules/mysql/doc/
+   ser_ims/trunk/modules/nathelper/
+   ser_ims/trunk/modules/nathelper/doc/
+   ser_ims/trunk/modules/nathelper/examples/
+   ser_ims/trunk/modules/options/
+   ser_ims/trunk/modules/options/doc/
+   ser_ims/trunk/modules/osp/
+   ser_ims/trunk/modules/osp/doc/
+   ser_ims/trunk/modules/osp/etc/
+   ser_ims/trunk/modules/pa/
+   ser_ims/trunk/modules/pa/doc/
+   ser_ims/trunk/modules/pcscf/
+   ser_ims/trunk/modules/pdt/
+   ser_ims/trunk/modules/pdt/doc/
+   ser_ims/trunk/modules/pdt/doc/web/
+   ser_ims/trunk/modules/permissions/
+   ser_ims/trunk/modules/permissions/config/
+   ser_ims/trunk/modules/permissions/doc/
+   ser_ims/trunk/modules/pike/
+   ser_ims/trunk/modules/pike/doc/
+   ser_ims/trunk/modules/postgres/
+   ser_ims/trunk/modules/presence_b2b/
+   ser_ims/trunk/modules/presence_b2b/doc/
+   ser_ims/trunk/modules/print/
+   ser_ims/trunk/modules/print/doc/
+   ser_ims/trunk/modules/ratelimit/
+   ser_ims/trunk/modules/ratelimit/doc/
+   ser_ims/trunk/modules/registrar/
+   ser_ims/trunk/modules/registrar/doc/
+   ser_ims/trunk/modules/rls/
+   ser_ims/trunk/modules/rls/doc/
+   ser_ims/trunk/modules/rr/
+   ser_ims/trunk/modules/rr/doc/
+   ser_ims/trunk/modules/sanity/
+   ser_ims/trunk/modules/sanity/doc/
+   ser_ims/trunk/modules/scscf/
+   ser_ims/trunk/modules/sip2ims/
+   ser_ims/trunk/modules/sl/
+   ser_ims/trunk/modules/sl/doc/
+   ser_ims/trunk/modules/sms/
+   ser_ims/trunk/modules/sms/doc/
+   ser_ims/trunk/modules/speeddial/
+   ser_ims/trunk/modules/speeddial/doc/
+   ser_ims/trunk/modules/textops/
+   ser_ims/trunk/modules/textops/doc/
+   ser_ims/trunk/modules/timer/
+   ser_ims/trunk/modules/tls/
+   ser_ims/trunk/modules/tm/
+   ser_ims/trunk/modules/tm/doc/
+   ser_ims/trunk/modules/tm/test/
+   ser_ims/trunk/modules/uac/
+   ser_ims/trunk/modules/uac/doc/
+   ser_ims/trunk/modules/unixsock/
+   ser_ims/trunk/modules/uri/
+   ser_ims/trunk/modules/uri/doc/
+   ser_ims/trunk/modules/uri_db/
+   ser_ims/trunk/modules/uri_db/doc/
+   ser_ims/trunk/modules/uri_radius/
+   ser_ims/trunk/modules/uri_radius/doc/
+   ser_ims/trunk/modules/usrloc/
+   ser_ims/trunk/modules/usrloc/doc/
+   ser_ims/trunk/modules/xcap/
+   ser_ims/trunk/modules/xcap/doc/
+   ser_ims/trunk/modules/xlog/
+   ser_ims/trunk/modules/xlog/doc/
+   ser_ims/trunk/modules/xmlrpc/
+   ser_ims/trunk/parser/
+   ser_ims/trunk/parser/contact/
+   ser_ims/trunk/parser/digest/
+Log:
+Fixed bad svn:ignore in previous revision.
+
+
+
+Property changes on: ser_ims/trunk/db
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/db/schema
+___________________________________________________________________
+Name: svn:ignore
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/mem
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/acc_db
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/acc_radius
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/acc_syslog
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/acc_syslog/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/auth
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/auth/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/auth_db
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/auth_db/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/auth_radius
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/auth_radius/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/avp
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/avp/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/avp_db
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/avp_db/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/avp_radius
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/avp_radius/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/avpops
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/avpops/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/cdp
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/cdp/configexample
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/cpl-c
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/cpl-c/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/ctl
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/db_ops
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/dbtext
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/dbtext/dbtex
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/dbtext/dbtex/db
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/dbtext/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/dialog
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/dispatcher
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/dispatcher/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/diversion
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/domain
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/domain/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/enum
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/enum/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/eval
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/exec
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/exec/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/fifo
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/flatstore
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/flatstore/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/gflags
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/gflags/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/icscf
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/isc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/jabber
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/jabber/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/jabber/doc/web
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/lcr
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/maxfwd
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/maxfwd/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/mediaproxy
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/mediaproxy/config
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/msilo
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/msilo/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/mysql
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/mysql/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/nathelper
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/nathelper/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/nathelper/examples
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/options
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/options/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/osp
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/osp/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/osp/etc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/pa
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/pa/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/pcscf
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/pdt
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/pdt/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/pdt/doc/web
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/permissions
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/permissions/config
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/permissions/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/pike
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/pike/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/postgres
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/presence_b2b
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/presence_b2b/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/print
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/print/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/ratelimit
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/ratelimit/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/registrar
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/registrar/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/rls
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/rls/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/rr
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/rr/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/sanity
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/sanity/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/scscf
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/sip2ims
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/sl
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/sl/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/sms
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/sms/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/speeddial
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/speeddial/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/textops
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/textops/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/timer
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/tls
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/tm
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/tm/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/tm/test
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/uac
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/uac/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/unixsock
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/uri
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/uri/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/uri_db
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/uri_db/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/uri_radius
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/uri_radius/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/usrloc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/usrloc/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/xcap
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/xcap/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/xlog
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/xlog/doc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/modules/xmlrpc
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/parser
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/parser/contact
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+Property changes on: ser_ims/trunk/parser/digest
+___________________________________________________________________
+Name: svn:ignore
+   - *.d *.o *.so
+
+   + *.d
+*.o
+*.so
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000003.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r24 - in ser_ims/trunk: . cfg db mem modules modules/acc_db modules/acc_radius modules/acc_syslog modules/acc_syslog/doc modules/auth modules/auth/doc modules/auth_db modules/auth_db/doc modules/auth_radius modules/auth_radius/doc modules/avp modules/avp/doc modules/avp_db modules/avp_db/doc modules/avp_radius modules/avp_radius/doc modules/avpops modules/avpops/doc modules/cdp modules/cdp/configexample modules/cpl-c modules/cpl-c/doc modules/ctl modules/db_ops modules/dbtext modules/dbtext/dbtex modules/dbtext/dbtex/db modules/dbtext/doc modules/dialog modules/dispatcher modules/dispatcher/doc modules/diversion modules/domain modules/domain/doc modules/enum modules/enum/doc modules/eval modules/exec modules/exec/doc modules/fifo modules/flatstore modules/flatstore/doc modules/gflags modules/gflags/doc modules/icscf modules/isc modules/jabber modules/jabber/doc modules/jabber/doc/web modules/lcr modules/maxfwd modules/maxfwd/doc modules/mediaproxy modu! les/mediaproxy/config modules/msilo modules/msilo/doc modules/mysql modules/mysql/doc modules/nathelper modules/nathelper/doc modules/nathelper/examples modules/options modules/options/doc modules/osp modules/osp/doc modules/osp/etc modules/pa modules/pa/doc modules/pcscf modules/pdt modules/pdt/doc modules/pdt/doc/web modules/permissions modules/permissions/config modules/permissions/doc modules/pike modules/pike/doc modules/postgres modules/presence_b2b modules/presence_b2b/doc modules/print modules/print/doc modules/ratelimit modules/ratelimit/doc modules/registrar modules/registrar/doc modules/rls modules/rls/doc modules/rr modules/rr/doc modules/sanity modules/sanity/doc modules/scscf modules/sip2ims modules/sl modules/sl/doc modules/sms modules/sms/doc modules/speeddial modules/speeddial/doc modules/textops modules/textops/doc modules/timer modules/tls modules/tm modules/tm/doc modules/tm/test modules/uac modules/uac/doc modules/unixsock modules/uri modules/uri/doc mo! dules/uri_db modules/uri_db/doc modules/uri_radius modules/uri! _radius/
+</A></li>
+	<LI>Next message: <A HREF="000005.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r29 - in ser_ims/trunk: cfg	modules/cdp utils/gen_ha1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#4">[ date ]</a>
+              <a href="thread.html#4">[ thread ]</a>
+              <a href="subject.html#4">[ subject ]</a>
+              <a href="author.html#4">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

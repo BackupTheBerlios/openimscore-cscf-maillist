@@ -1,0 +1,300 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] help-registration of client fails
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20help-registration%20of%20client%20fails&In-Reply-To=%3C482AC4CF.1090601%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001351.html">
+   <LINK REL="Next"  HREF="001353.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] help-registration of client fails</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20help-registration%20of%20client%20fails&In-Reply-To=%3C482AC4CF.1090601%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] help-registration of client fails">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed May 14 12:54:07 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001351.html">[OpenIMSCore-CSCF] help-registration of client fails
+</A></li>
+        <LI>Next message: <A HREF="001353.html">[OpenIMSCore-CSCF] help-registration of clients
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1352">[ date ]</a>
+              <a href="thread.html#1352">[ thread ]</a>
+              <a href="subject.html#1352">[ subject ]</a>
+              <a href="author.html#1352">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>In the log pieces below I see the components starting. But I do not see 
+the registration. This is what I meant....
+
+Use wireshark to capture network traffic.
+
+Cheers,
+-Dragos
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">std03096 at di.uoa.gr</A> wrote:
+&gt;<i> sorry if i get bore, but did you see the below message??
+</I>&gt;<i>
+</I>&gt;<i> pinelopi at pinelopi-desktop:/opt/OpenIMSCore/FHoSS/deploy$ sudo ./startup.sh
+</I>&gt;<i> Building Classpath
+</I>&gt;<i> Classpath is
+</I>&gt;<i> lib/xml-apis.jar:lib/xercesImpl.jar:lib/xerces-2.4.0.jar:lib/xalan-2.4.0.jar:lib/tomcat-util.jar:lib/tomcat-http.jar:lib/tomcat-coyote.jar:lib/struts.jar:lib/servlets-default.jar:lib/servlet-api.jar:lib/naming-resources.jar:lib/naming-factory.jar:lib/mysql-connector-java-3.1.12-bin.jar:lib/mx4j-3.0.1.jar:lib/log4j.jar:lib/junit.jar:lib/junitee.jar:lib/jta.jar:lib/jsp-api.jar:lib/jmx.jar:lib/jdp.jar:lib/jasper-runtime.jar:lib/jasper-compiler-jdt.jar:lib/jasper-compiler.jar:lib/hibernate3.jar:lib/FHoSS.jar:lib/ehcache-1.1.jar:lib/dom4j-1.6.1.jar:lib/commons-validator.jar:lib/commons-modeler.jar:lib/commons-logging.jar:lib/commons-logging-1.0.4.jar:lib/commons-lang.jar:lib/commons-fileupload.jar:lib/commons-el.jar:lib/commons-digester.jar:lib/commons-collections-3.1.jar:lib/commons-beanutils.jar:lib/cglib-2.1.3.jar:lib/catalina-optional.jar:lib/catalina.jar:lib/c3p0-0.9.1.jar:lib/base64.jar:lib/asm.jar:lib/asm-attrs.jar:lib/antlr-2.7.6.jar::log4j.properties:..
+</I>&gt;<i> 2008-05-14 09:14:07,779 INFO  de.fhg.fokus.hss.main.TomcatServer - startTomcat
+</I>&gt;<i> Tomcat-Server is started.
+</I>&gt;<i> 2008-05-14 09:14:08,739 WARN  org.apache.catalina.connector.MapperListener -
+</I>&gt;<i> registerEngine Unknown default host: 127.0.0.1
+</I>&gt;<i> 2008-05-14 09:14:09,562 INFO  de.fhg.fokus.hss.web.servlet.ResponseFilter - init
+</I>&gt;<i> Response Filter Initialisation!
+</I>&gt;<i> 2008-05-14 09:14:10,274 INFO  de.fhg.fokus.hss.main.TomcatServer - startTomcat
+</I>&gt;<i> WebConsole of FHoSS was started !
+</I>&gt;<i> 2008-05-14 09:14:12,599 WARN  org.hibernate.impl.SessionFactoryObjectFactory -
+</I>&gt;<i> addInstance InitialContext did not implement EventContext
+</I>&gt;<i> 2008-05-14 09:14:12,662 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+</I>&gt;<i> &lt;init&gt; FQDN: hss.open-ims.test
+</I>&gt;<i> 2008-05-14 09:14:12,663 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+</I>&gt;<i> &lt;init&gt; Realm: open-ims.test
+</I>&gt;<i> 2008-05-14 09:14:12,663 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+</I>&gt;<i> &lt;init&gt; Vendor_ID : 10415
+</I>&gt;<i> 2008-05-14 09:14:12,663 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+</I>&gt;<i> &lt;init&gt; Product Name: JavaDiameterPeer
+</I>&gt;<i> 2008-05-14 09:14:12,663 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+</I>&gt;<i> &lt;init&gt; AcceptUnknwonPeers: true
+</I>&gt;<i> 2008-05-14 09:14:12,664 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+</I>&gt;<i> &lt;init&gt; DropUnknownOnDisconnect: true
+</I>&gt;<i> 2008-05-14 09:14:12,690 INFO  de.fhg.fokus.hss.main.HSSContainer - waitForExit 
+</I>&gt;<i> Type &quot;exit&quot; to stop FHoSS!
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> pinelopi at pinelopi-desktop:/opt/OpenIMSCore$ sudo ./pcscf.sh
+</I>&gt;<i> [sudo] password for pinelopi:
+</I>&gt;<i> Listening on 
+</I>&gt;<i>              udp: 127.0.0.1 [127.0.0.1]:4060
+</I>&gt;<i>              tcp: 127.0.0.1 [127.0.0.1]:4060
+</I>&gt;<i> Aliases: 
+</I>&gt;<i>              tcp: localhost:4060
+</I>&gt;<i>              udp: localhost:4060
+</I>&gt;<i>              *: pcscf.pinelopi-desktop:4060
+</I>&gt;<i>
+</I>&gt;<i>  0(6235) init_tcp: using epoll_lt as the io watch method (auto detected)
+</I>&gt;<i>  0(6235) Maxfwd module- initializing
+</I>&gt;<i>  0(6235) INFO:P-CSCF:mod_init: Initialization of module
+</I>&gt;<i>  0(6235) INFO: udp_init: SO_RCVBUF is initially 110592
+</I>&gt;<i>  0(6235) INFO: udp_init: SO_RCVBUF is finally 221184
+</I>&gt;<i>  1(6236) INFO:P-CSCF:mod_init: Initialization of module in child [1] 
+</I>&gt;<i>  2(6237) INFO:P-CSCF:mod_init: Initialization of module in child [2] 
+</I>&gt;<i>  3(6238) INFO:P-CSCF:mod_init: Initialization of module in child [3] 
+</I>&gt;<i>  4(6239) INFO:P-CSCF:mod_init: Initialization of module in child [4] 
+</I>&gt;<i>  5(6240) INFO:P-CSCF:mod_init: Initialization of module in child [-1] 
+</I>&gt;<i>  6(6241) INFO:P-CSCF:mod_init: Initialization of module in child [-1] 
+</I>&gt;<i>  0(6235) INFO:P-CSCF:mod_init: Initialization of module in child [0] 
+</I>&gt;<i>  7(6242) INFO:P-CSCF:mod_init: Initialization of module in child [5] 
+</I>&gt;<i>  8(6243) INFO:P-CSCF:mod_init: Initialization of module in child [6] 
+</I>&gt;<i>  9(6244) INFO:P-CSCF:mod_init: Initialization of module in child [7] 
+</I>&gt;<i> 10(6245) INFO:P-CSCF:mod_init: Initialization of module in child [8] 
+</I>&gt;<i> 11(6246) INFO:P-CSCF:mod_init: Initialization of module in child [-4] 
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6240) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> sudo ./icscf.sh
+</I>&gt;<i>
+</I>&gt;<i> ....
+</I>&gt;<i>  7(6286) INFO:accept_connection(): new tcp connection accepted!
+</I>&gt;<i> 18(6477) INFO:I-CSCF:mod_init: Initialization of module in child [13]  
+</I>&gt;<i> 18(6477) INFO:receiver_process(): [15] Receiver process starting up...
+</I>&gt;<i>  7(6286) INFO:accept_connection(): Receiver process forked [6477]
+</I>&gt;<i> 18(6477) DBG:sm_process(): Peer hss.open-ims.test       State Closed    Event
+</I>&gt;<i> R_Conn_CER
+</I>&gt;<i> 18(6477) --- Peer List: ---
+</I>&gt;<i> 18(6477)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 18(6477)         [16777216,10415]
+</I>&gt;<i> 18(6477)         [16777216,4491]
+</I>&gt;<i> 18(6477)         [16777216,13019]
+</I>&gt;<i> 18(6477)         [16777217,10415]
+</I>&gt;<i> 18(6477)         [16777221,10415]
+</I>&gt;<i> 18(6477) ------------------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> sudo ./scscf.sh
+</I>&gt;<i>
+</I>&gt;<i> ....
+</I>&gt;<i>  5(6335) INF:S-CSCF:----------  S-CSCF Dialog List begin --------------
+</I>&gt;<i>  5(6335) INF:S-CSCF:----------  S-CSCF Dialog List end   --------------
+</I>&gt;<i>  5(6335) INF:S-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6335) INF:S-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i> 12(6342) --- Peer List: ---
+</I>&gt;<i> 12(6342)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 12(6342)         [16777216,10415]
+</I>&gt;<i> 12(6342)         [16777216,4491]
+</I>&gt;<i> 12(6342)         [16777216,13019]
+</I>&gt;<i> 12(6342)         [16777217,10415]
+</I>&gt;<i> 12(6342)         [16777221,10415]
+</I>&gt;<i> 12(6342) ------------------
+</I>&gt;<i> 12(6342) --- Peer List: ---
+</I>&gt;<i> 12(6342)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 12(6342)         [16777216,10415]
+</I>&gt;<i> 12(6342)         [16777216,4491]
+</I>&gt;<i> 12(6342)         [16777216,13019]
+</I>&gt;<i> 12(6342)         [16777217,10415]
+</I>&gt;<i> 12(6342)         [16777221,10415]
+</I>&gt;<i> 12(6342) ------------------
+</I>&gt;<i> 12(6342) DBG:peer_timer(): Peer hss.open-ims.test       State 5 
+</I>&gt;<i> 12(6342) --- Peer List: ---
+</I>&gt;<i> 12(6342)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 12(6342)         [16777216,10415]
+</I>&gt;<i> 12(6342)         [16777216,4491]
+</I>&gt;<i> 12(6342)         [16777216,13019]
+</I>&gt;<i> 12(6342)         [16777217,10415]
+</I>&gt;<i> 12(6342)         [16777221,10415]
+</I>&gt;<i> 12(6342) ------------------
+</I>&gt;<i> 18(6479) DBG:sm_process(): Peer hss.open-ims.test       State R_Open    Event
+</I>&gt;<i> R_Rcv_DWR
+</I>&gt;<i> 18(6479) DBG:sm_process(): Peer hss.open-ims.test       State R_Open    Event
+</I>&gt;<i> R_Rcv_DWA
+</I>&gt;<i>  5(6335) INF:S-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6335) INF:S-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i> 12(6342) --- Peer List: ---
+</I>&gt;<i> 12(6342)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 12(6342)         [16777216,10415]
+</I>&gt;<i> 12(6342)         [16777216,4491]
+</I>&gt;<i> 12(6342)         [16777216,13019]
+</I>&gt;<i> 12(6342)         [16777217,10415]
+</I>&gt;<i> 12(6342)         [16777221,10415]
+</I>&gt;<i> 12(6342) ------------------
+</I>&gt;<i> 12(6342) --- Peer List: ---
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> And what do you mean with when i did the registration???
+</I>&gt;<i>
+</I>&gt;<i> how can i get the network trace???
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001351.html">[OpenIMSCore-CSCF] help-registration of client fails
+</A></li>
+	<LI>Next message: <A HREF="001353.html">[OpenIMSCore-CSCF] help-registration of clients
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1352">[ date ]</a>
+              <a href="thread.html#1352">[ thread ]</a>
+              <a href="subject.html#1352">[ subject ]</a>
+              <a href="author.html#1352">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Problems in running icscs.sh script in	OpenIMS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Problems%20in%20running%20icscs.sh%20script%20in%0A%09OpenIMS&In-Reply-To=%3C000601cbc292%247c3da6a0%2474b8f3e0%24%40technikum-wien.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="002383.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Problems in running icscs.sh script in	OpenIMS</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Problems%20in%20running%20icscs.sh%20script%20in%0A%09OpenIMS&In-Reply-To=%3C000601cbc292%247c3da6a0%2474b8f3e0%24%40technikum-wien.at%3E"
+       TITLE="[OpenIMSCore-CSCF] Problems in running icscs.sh script in	OpenIMS">franz.edler at technikum-wien.at
+       </A><BR>
+    <I>Wed Feb  2 05:34:31 CET 2011</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="002383.html">[OpenIMSCore-CSCF] Error in registering Open IMS client
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2382">[ date ]</a>
+              <a href="thread.html#2382">[ thread ]</a>
+              <a href="subject.html#2382">[ subject ]</a>
+              <a href="author.html#2382">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Lakshmanan,
+
+&gt;<i> But, When i try to run the icscf.sh scripts i am getting the following
+</I>error.
+&gt;<i> 
+</I>&gt;<i>  0(22803) ERROR: load_module: could not open module
+</I>&gt;<i> &lt;/opt/OpenIMSCore/ser_ims/modules/mysql/mysql.so&gt;:
+</I>&gt;<i> /opt/OpenIMSCore/ser_ims/modules/mysql/mysql.so: undefined symbol:
+</I>
+I guess you also had errors during compilation. The reason might be that you
+did not load the package &quot;libmysqlclient15-dev&quot; before compilation.
+Maybe the name of the dev package in case of your Linux distribution is a
+bit different.
+
+-franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="002383.html">[OpenIMSCore-CSCF] Error in registering Open IMS client
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2382">[ date ]</a>
+              <a href="thread.html#2382">[ thread ]</a>
+              <a href="subject.html#2382">[ subject ]</a>
+              <a href="author.html#2382">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

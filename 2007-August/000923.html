@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] INVITE not forwarded by S-CSCF in case of	AS-proxy
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20INVITE%20not%20forwarded%20by%20S-CSCF%20in%20case%20of%0A%09AS-proxy&In-Reply-To=%3C002501c7dd12%24b31ef9d0%240200a8c0%40fenotebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000919.html">
+   <LINK REL="Next"  HREF="000925.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] INVITE not forwarded by S-CSCF in case of	AS-proxy</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20INVITE%20not%20forwarded%20by%20S-CSCF%20in%20case%20of%0A%09AS-proxy&In-Reply-To=%3C002501c7dd12%24b31ef9d0%240200a8c0%40fenotebook%3E"
+       TITLE="[OpenIMSCore-CSCF] INVITE not forwarded by S-CSCF in case of	AS-proxy">franz.edler at inode.at
+       </A><BR>
+    <I>Sun Aug 12 20:57:56 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000919.html">[OpenIMSCore-CSCF] Query about P-Charging-Vector header.
+</A></li>
+        <LI>Next message: <A HREF="000925.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature]	Application Sequencing with B2BUA
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#923">[ date ]</a>
+              <a href="thread.html#923">[ thread ]</a>
+              <a href="subject.html#923">[ subject ]</a>
+              <a href="author.html#923">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+I have made some tests with an Application Server (Micromethod) acting as a
+simple loose routing Proxy. Thereby I got a problem within function
+S_save_dialog. The INVITE request which is returned from the AS leads to the
+S-CSCF debug-log below:
+
+	INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message                                  
+	INFO:ISC:isc_mark_get_from_msg: Found
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.net1.test</A>:6060;d=0;s=1;lr;h=1&gt;                  
+	INFO:ISC:ISC_from_AS(orig): Message returned s=1;h=1;d=0
+
+	&gt;&gt;       Orig
+
+	DBG:S-CSCF:S_save_dialog(orig): Call-ID &lt;call1///<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-2151 at 192.168.0.7</A>&gt;
+
+	ERR:S-CSCF:S_save_dialog: dialog already exists!
+
+The statement &quot;S_save_dialog: dialog already exists!&quot; seems to be correct,
+because the AS does not modify the dialog, but the problem is that the
+INVITE is not forwarded by S-CSCF in this case. 
+
+Looking into the code of dlg_state.c I see in this case the return parameter
+&quot;CSCF_RETURN_BREAK&quot; which obviously leads to not continuing the scscf.cfg
+script and eventually forwarding the INVITE from the AS. I changed as a
+quick fix the return parameter value to &quot;CSCF_RETURN_TRUE&quot; and now the
+dialog handling seems to work, but the fix is obviously too quick. S-CSCF
+now inserts an additional Record-Route header field
+(&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at scscf.net1.test</A>:6060;lr&gt;).
+
+I have attached the wireshark pcap-trace and SIP-scenario-files from both
+cases:
+- osi43312.zip	the case where INVITE is not forwarded by S-CSCF
+- osi43313.zip	the quick fix scenario
+
+Any comments on my findings?
+
+cheers
+Franz
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: osi43312.zip
+Type: application/x-zip-compressed
+Size: 17872 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070812/3c9ae08e/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070812/3c9ae08e/attachment.bin</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: osi43313.zip
+Type: application/x-zip-compressed
+Size: 14194 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070812/3c9ae08e/attachment-0001.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070812/3c9ae08e/attachment-0001.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000919.html">[OpenIMSCore-CSCF] Query about P-Charging-Vector header.
+</A></li>
+	<LI>Next message: <A HREF="000925.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature]	Application Sequencing with B2BUA
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#923">[ date ]</a>
+              <a href="thread.html#923">[ thread ]</a>
+              <a href="subject.html#923">[ subject ]</a>
+              <a href="author.html#923">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

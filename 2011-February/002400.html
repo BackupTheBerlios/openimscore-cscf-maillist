@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r1026 - added Client_Rf module for	the Rf interface from the P/I/S/E-CSCF and other components	towards the charging components
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1026%20-%20added%20Client_Rf%20module%20for%0A%09the%20Rf%20interface%20from%20the%20P/I/S/E-CSCF%20and%20other%20components%0A%09towards%20the%20charging%20components&In-Reply-To=%3C20110216102954.8BEAC480282%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002399.html">
+   <LINK REL="Next"  HREF="002401.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r1026 - added Client_Rf module for	the Rf interface from the P/I/S/E-CSCF and other components	towards the charging components</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1026%20-%20added%20Client_Rf%20module%20for%0A%09the%20Rf%20interface%20from%20the%20P/I/S/E-CSCF%20and%20other%20components%0A%09towards%20the%20charging%20components&In-Reply-To=%3C20110216102954.8BEAC480282%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r1026 - added Client_Rf module for	the Rf interface from the P/I/S/E-CSCF and other components	towards the charging components">aon at users.berlios.de
+       </A><BR>
+    <I>Wed Feb 16 11:29:54 CET 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002399.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1025 - Added 2 more Rf AVPs
+</A></li>
+        <LI>Next message: <A HREF="002401.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1027 - fixed compilation problem	in Wharf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2400">[ date ]</a>
+              <a href="thread.html#2400">[ thread ]</a>
+              <a href="subject.html#2400">[ subject ]</a>
+              <a href="author.html#2400">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2011-02-16 11:29:53 +0100 (Wed, 16 Feb 2011)
+New Revision: 1026 <A HREF="http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1026">http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1026</A> 
+
+Log:
+added Client_Rf module for the Rf interface from the P/I/S/E-CSCF and other components towards the charging components
+
+
+Added:
+   A	ser_ims/trunk/modules/Client_Rf/
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/?rev=1026&amp;peg=1026">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/?rev=1026&amp;peg=1026</A>
+   A	ser_ims/trunk/modules/Client_Rf/Makefile
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/Makefile?rev=1026&amp;peg=1026">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/Makefile?rev=1026&amp;peg=1026</A>
+   A	ser_ims/trunk/modules/Client_Rf/diameter_rf.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/diameter_rf.c?rev=1026&amp;peg=1026">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/diameter_rf.c?rev=1026&amp;peg=1026</A>
+   A	ser_ims/trunk/modules/Client_Rf/diameter_rf.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/diameter_rf.h?rev=1026&amp;peg=1026">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/diameter_rf.h?rev=1026&amp;peg=1026</A>
+   A	ser_ims/trunk/modules/Client_Rf/mod.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/mod.c?rev=1026&amp;peg=1026">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/mod.c?rev=1026&amp;peg=1026</A>
+   A	ser_ims/trunk/modules/Client_Rf/mod.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/mod.h?rev=1026&amp;peg=1026">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/mod.h?rev=1026&amp;peg=1026</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002399.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1025 - Added 2 more Rf AVPs
+</A></li>
+	<LI>Next message: <A HREF="002401.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1027 - fixed compilation problem	in Wharf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2400">[ date ]</a>
+              <a href="thread.html#2400">[ thread ]</a>
+              <a href="subject.html#2400">[ subject ]</a>
+              <a href="author.html#2400">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] S-CSCF: Missing &lt;service-info&gt; in 3rd party	REGISTER
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20S-CSCF%3A%20Missing%20%3Cservice-info%3E%20in%203rd%20party%0A%09REGISTER&In-Reply-To=%3CCE74D45C9564494998E85AE3C4CA3E3501BAAB19%40hb-altair.hb.buc.materna.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000974.html">
+   <LINK REL="Next"  HREF="000973.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] S-CSCF: Missing &lt;service-info&gt; in 3rd party	REGISTER</H1>
+    <B>Stefan.Brozinski at materna.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20S-CSCF%3A%20Missing%20%3Cservice-info%3E%20in%203rd%20party%0A%09REGISTER&In-Reply-To=%3CCE74D45C9564494998E85AE3C4CA3E3501BAAB19%40hb-altair.hb.buc.materna.com%3E"
+       TITLE="[OpenIMSCore-CSCF] S-CSCF: Missing &lt;service-info&gt; in 3rd party	REGISTER">Stefan.Brozinski at materna.de
+       </A><BR>
+    <I>Fri Sep 28 15:08:41 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000974.html">[OpenIMSCore-CSCF] [CDiameterPeer bug] Timer Thread
+</A></li>
+        <LI>Next message: <A HREF="000973.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r455 - Fixed bugs in CDiameterPeer	for cb ptr and timer free reported by Rahul Chatterjee.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#972">[ date ]</a>
+              <a href="thread.html#972">[ thread ]</a>
+              <a href="subject.html#972">[ subject ]</a>
+              <a href="author.html#972">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello everybody,
+
+in my HSS, I have entered some text in the &quot;Service Info&quot; field of an
+application server.
+
+I would expect to find a body in the 3rd party SIP REGISTER request that
+is sent from the S-CSCF to the AS. The appropriate part of the
+specification is 3GPP TS 24.229, V7.7.0, section 5.4.1.7, topic &quot;g)&quot;.
+
+----------begin 24.229----------
+
+5.4.1.7 Notification of Application Servers about registration status
+
+If the registration procedure described in subclauses 5.4.1.2, 5.4.1.4
+or 5.4.1.5 (as appropriate) was successful, the SCSCF shall send a
+third-party REGISTER request to each AS with the following information:
+
+[...]
+
+g) for initial registration and user-initiated reregistration (subclause
+5.4.1.2), a message body, if there is Filter Criteria indicating the
+need to include HSS provided data for the REGISTER event (e.g. HSS may
+provide AS specific data to be included in the third-party REGISTER).
+
+If there is a service information XML element provided in the HSS Filter
+Criteria for an AS (see 3GPP TS 29.228 [14]), then the S-CSCF shall
+include it in the message body of the REGISTER request within the
+&lt;service-info&gt; XML element as described in subclause 7.6.
+
+For the messages including the IM CN subsystem XML body, the S-CSCF
+shall set the value of the Content-
+Type header to include the MIME type specified in subclause 7.6;
+
+-----------end 24.229-----------
+
+I had a look at the network traffic between the HSS and the S-CSCF, and
+there is indeed a &lt;ServiceInfo&gt;  tag inside the &lt;ApplicationServer&gt; tag.
+So the information is moved from the HSS to the S-CSCF.
+
+However, the 3rd party SIP REGISTER message has no such body.
+
+
+A nice illustration of how such a 3rd party REGISTER should look like is
+in table B.3-1 of 3GPP TS 24.341 V7.1.0.
+
+
+Regards
+Stefan
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000974.html">[OpenIMSCore-CSCF] [CDiameterPeer bug] Timer Thread
+</A></li>
+	<LI>Next message: <A HREF="000973.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r455 - Fixed bugs in CDiameterPeer	for cb ptr and timer free reported by Rahul Chatterjee.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#972">[ date ]</a>
+              <a href="thread.html#972">[ thread ]</a>
+              <a href="subject.html#972">[ subject ]</a>
+              <a href="author.html#972">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

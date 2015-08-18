@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r809 - need to reset/free	dlg-&gt;pcc_session_id when PCRF is not connected The current	dlg is unlocked before this error happens, so there is still a chance the dlg may be freed ?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r809%20-%20need%20to%0A%20reset/free%09dlg-%3Epcc_session_id%20when%20PCRF%20is%20not%20connected%20The%20current%09dlg%0A%20is%20unlocked%20before%20this%20error%20happens%2C%0A%20so%20there%20is%20still%20a%20chance%20the%20dlg%20may%20be%20freed%20%3F&In-Reply-To=%3C4B4EE2B0.9000907%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001960.html">
+   <LINK REL="Next"  HREF="001965.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r809 - need to reset/free	dlg-&gt;pcc_session_id when PCRF is not connected The current	dlg is unlocked before this error happens, so there is still a chance the dlg may be freed ?</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r809%20-%20need%20to%0A%20reset/free%09dlg-%3Epcc_session_id%20when%20PCRF%20is%20not%20connected%20The%20current%09dlg%0A%20is%20unlocked%20before%20this%20error%20happens%2C%0A%20so%20there%20is%20still%20a%20chance%20the%20dlg%20may%20be%20freed%20%3F&In-Reply-To=%3C4B4EE2B0.9000907%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r809 - need to reset/free	dlg-&gt;pcc_session_id when PCRF is not connected The current	dlg is unlocked before this error happens, so there is still a chance the dlg may be freed ?">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Jan 14 10:24:00 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001960.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r809 - need to reset/free	dlg-&gt;pcc_session_id when PCRF is not connected The current	dlg is unlocked before this error happens,	so there is still a chance the dlg may be freed ?
+</A></li>
+        <LI>Next message: <A HREF="001965.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r809 - need to	reset/free	dlg-&gt;pcc_session_id when PCRF is not connected The	current	dlg is unlocked before this error happens,	so there is still a chance the dlg may be freed ?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1963">[ date ]</a>
+              <a href="thread.html#1963">[ thread ]</a>
+              <a href="subject.html#1963">[ subject ]</a>
+              <a href="author.html#1963">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Errm... I don't really agree with these changes. I know that it should 
+work, yet the dlg=0 after unlock was intentional. Once the dialog was 
+unlocked, it could be locked by another thread and dropped for example. 
+Then when you later lock it based on the old pointer to delete the 
+session id, it might not exist anymore.
+
+So I made this a bit safer now and also added the free of the 
+contact-&gt;pcc_session_id, by re-getting the contact and dialog from the 
+lists.
+
+Cheers,
+-Dragos
+
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mwang at users.berlios.de</A> wrote:
+&gt;<i> Author: mwang
+</I>&gt;<i> Date: 2010-01-13 21:53:45 +0100 (Wed, 13 Jan 2010)
+</I>&gt;<i> New Revision: 809 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=809">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=809</A> 
+</I>&gt;<i>
+</I>&gt;<i> Log:
+</I>&gt;<i>     need to reset/free dlg-&gt;pcc_session_id when PCRF is not connected
+</I>&gt;<i>     The current dlg is unlocked before this error happens, so there is still a chance the dlg may be freed ?
+</I>&gt;<i>
+</I>&gt;<i> Modified:
+</I>&gt;<i>    U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c
+</I>&gt;<i> 		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c?rev=809&amp;view=diff&amp;r1=809&amp;r2=808">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c?rev=809&amp;view=diff&amp;r1=809&amp;r2=808</A>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001960.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r809 - need to reset/free	dlg-&gt;pcc_session_id when PCRF is not connected The current	dlg is unlocked before this error happens,	so there is still a chance the dlg may be freed ?
+</A></li>
+	<LI>Next message: <A HREF="001965.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r809 - need to	reset/free	dlg-&gt;pcc_session_id when PCRF is not connected The	current	dlg is unlocked before this error happens,	so there is still a chance the dlg may be freed ?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1963">[ date ]</a>
+              <a href="thread.html#1963">[ thread ]</a>
+              <a href="subject.html#1963">[ subject ]</a>
+              <a href="author.html#1963">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

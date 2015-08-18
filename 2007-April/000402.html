@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r219 - Consolidated	P_NAT_request() and P_NAT_reply() into P_NAT_relay().	Introduced new P_IPSec_relay() to always fwd to port_us when	having an IPSec client.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r219%20-%20Consolidated%0A%09P_NAT_request%28%29%20and%20P_NAT_reply%28%29%20into%20P_NAT_relay%28%29.%0A%09Introduced%20new%20P_IPSec_relay%28%29%20to%20always%20fwd%20to%20port_us%20when%0A%09having%20an%20IPSec%20client.&In-Reply-To=%3C200704051341.l35DfMfH005233%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000401.html">
+   <LINK REL="Next"  HREF="000403.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r219 - Consolidated	P_NAT_request() and P_NAT_reply() into P_NAT_relay().	Introduced new P_IPSec_relay() to always fwd to port_us when	having an IPSec client.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r219%20-%20Consolidated%0A%09P_NAT_request%28%29%20and%20P_NAT_reply%28%29%20into%20P_NAT_relay%28%29.%0A%09Introduced%20new%20P_IPSec_relay%28%29%20to%20always%20fwd%20to%20port_us%20when%0A%09having%20an%20IPSec%20client.&In-Reply-To=%3C200704051341.l35DfMfH005233%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r219 - Consolidated	P_NAT_request() and P_NAT_reply() into P_NAT_relay().	Introduced new P_IPSec_relay() to always fwd to port_us when	having an IPSec client.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Thu Apr  5 15:41:22 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000401.html">[OpenIMSCore-CSCF] How to connect xlite to IMS
+</A></li>
+        <LI>Next message: <A HREF="000403.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r220 - Clean-up the code to allow	many parallel authentication methods. Introduced PacketCable	2.0 Digest authentication - not tested thoroughly.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#402">[ date ]</a>
+              <a href="thread.html#402">[ thread ]</a>
+              <a href="subject.html#402">[ subject ]</a>
+              <a href="author.html#402">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-04-05 15:41:21 +0200 (Thu, 05 Apr 2007)
+New Revision: 219 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=219">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=219</A> 
+
+Log:
+Consolidated P_NAT_request() and P_NAT_reply() into P_NAT_relay().
+Introduced new P_IPSec_relay() to always fwd to port_us when having an IPSec client.
+
+
+Modified:
+   U	ser_ims/trunk/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=219&amp;view=diff&amp;r1=219&amp;r2=218">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=219&amp;view=diff&amp;r1=219&amp;r2=218</A>
+   U	ser_ims/trunk/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=219&amp;view=diff&amp;r1=219&amp;r2=218">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=219&amp;view=diff&amp;r1=219&amp;r2=218</A>
+   U	ser_ims/trunk/modules/pcscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.c?rev=219&amp;view=diff&amp;r1=219&amp;r2=218">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.c?rev=219&amp;view=diff&amp;r1=219&amp;r2=218</A>
+   U	ser_ims/trunk/modules/pcscf/registration.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.h?rev=219&amp;view=diff&amp;r1=219&amp;r2=218">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.h?rev=219&amp;view=diff&amp;r1=219&amp;r2=218</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000401.html">[OpenIMSCore-CSCF] How to connect xlite to IMS
+</A></li>
+	<LI>Next message: <A HREF="000403.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r220 - Clean-up the code to allow	many parallel authentication methods. Introduced PacketCable	2.0 Digest authentication - not tested thoroughly.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#402">[ date ]</a>
+              <a href="thread.html#402">[ thread ]</a>
+              <a href="subject.html#402">[ subject ]</a>
+              <a href="author.html#402">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

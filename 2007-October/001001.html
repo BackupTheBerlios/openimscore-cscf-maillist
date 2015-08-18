@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Update: Damaged message body
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Update%3A%20Damaged%20message%20body&In-Reply-To=%3C47149CC4.9070006%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001000.html">
+   <LINK REL="Next"  HREF="001012.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Update: Damaged message body</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Update%3A%20Damaged%20message%20body&In-Reply-To=%3C47149CC4.9070006%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Update: Damaged message body">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Oct 16 13:13:08 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001000.html">[OpenIMSCore-CSCF] Update: Damaged message body
+</A></li>
+        <LI>Next message: <A HREF="001012.html">[OpenIMSCore-CSCF] Solution: Damaged message body
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1001">[ date ]</a>
+              <a href="thread.html#1001">[ thread ]</a>
+              <a href="subject.html#1001">[ subject ]</a>
+              <a href="author.html#1001">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Stefan,
+
+I was looking in our IMS code additions and did not identified anything
+yet. I was suspecting that somehow with these lumps that modify the
+messages, a wrong length one would cause the problem. I did not find
+anything yet, but it's a move forward that this issue was observed back
+in SER 0.9.4. However, it does not completely eliminated a fault on the
+IMS extensions...
+
+So, now we need to put a lot of logging all over the processing path and
+see where the length is wrong.... nasty task...
+
+-Dragos
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Stefan.Brozinski at materna.de</A> wrote:
+&gt;<i> Hello everybody
+</I>&gt;<i>
+</I>&gt;<i> I have just seen that this one has been observed by someone else, but apparently it has not been fixed yet.
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://tracker.iptel.org/browse/SER-94">http://tracker.iptel.org/browse/SER-94</A>
+</I>&gt;<i>
+</I>&gt;<i> I will try to re-open this issue at iptel.org, but I would also be glad if someone here who is familiar with SER's code could give any advice where to look for suspicious code.
+</I>&gt;<i>
+</I>&gt;<i> Gru&#223;
+</I>&gt;<i> Stefan
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> -----Original Message-----
+</I>&gt;&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> 
+</I>&gt;&gt;<i> [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>] On Behalf 
+</I>&gt;&gt;<i> Of <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Stefan.Brozinski at materna.de</A>
+</I>&gt;&gt;<i> Sent: Wednesday, October 10, 2007 1:12 PM
+</I>&gt;&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at bat.berlios.de</A>
+</I>&gt;&gt;<i> Subject: [OpenIMSCore-CSCF] Damaged message body
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Hello everybody
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I have noticed that the P-CSCF sometimes removes the last byte of the
+</I>&gt;&gt;<i> message body when forwarding a request.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> A wireshark trace is attached which shows an example (this is
+</I>&gt;&gt;<i> reproducible).
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> The first SIP request in the trace is between the UE and the P-CSCF.
+</I>&gt;&gt;<i> The second request is the same request when it is forwarded from the
+</I>&gt;&gt;<i> P-CSCF to the S-CSCF.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Both requests have a &quot;Content-Length=6&quot; header, but the actual message
+</I>&gt;&gt;<i> body changes.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> The body of the first requests contains 6 bytes (the value of the last
+</I>&gt;&gt;<i> byte is zero, if that matters).
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> In the body of the second request, the last byte is missing.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I have tried to find the reason in OpenIMSCore/SER's code, but without
+</I>&gt;&gt;<i> success yet. Function get_body() in msg_parser.h looks 
+</I>&gt;&gt;<i> dangerous because
+</I>&gt;&gt;<i> it seems be unsure whether or not to skip the CRLF sequence that
+</I>&gt;&gt;<i> separates the headers from the body, so it looks if there is CR, LF or
+</I>&gt;&gt;<i> CRLF and skips whatever it finds. But as the body of my requests does
+</I>&gt;&gt;<i> neither start with CR nor with LF, this can't be the reason of what is
+</I>&gt;&gt;<i> happening here.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Any idea where to look?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Regards
+</I>&gt;&gt;<i> Stefan
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001000.html">[OpenIMSCore-CSCF] Update: Damaged message body
+</A></li>
+	<LI>Next message: <A HREF="001012.html">[OpenIMSCore-CSCF] Solution: Damaged message body
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1001">[ date ]</a>
+              <a href="thread.html#1001">[ thread ]</a>
+              <a href="subject.html#1001">[ subject ]</a>
+              <a href="author.html#1001">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

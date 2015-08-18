@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Unpredictable behaviour on REGISTER and SUBSCRIBE
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Unpredictable%20behaviour%20on%20REGISTER%20and%20SUBSCRIBE&In-Reply-To=%3C45DDC732.6000107%40crg.ee.uct.ac.za%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000242.html">
+   <LINK REL="Next"  HREF="000243.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Unpredictable behaviour on REGISTER and SUBSCRIBE</H1>
+    <B>Dave Waiting</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Unpredictable%20behaviour%20on%20REGISTER%20and%20SUBSCRIBE&In-Reply-To=%3C45DDC732.6000107%40crg.ee.uct.ac.za%3E"
+       TITLE="[OpenIMSCore-CSCF] Unpredictable behaviour on REGISTER and SUBSCRIBE">david at crg.ee.uct.ac.za
+       </A><BR>
+    <I>Thu Feb 22 17:39:14 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000242.html">[OpenIMSCore-CSCF] while ./icscf.sh and ./sip2ims.sh ERRORS
+</A></li>
+        <LI>Next message: <A HREF="000243.html">[OpenIMSCore-CSCF] Unpredictable behaviour on REGISTER and	SUBSCRIBE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#238">[ date ]</a>
+              <a href="thread.html#238">[ thread ]</a>
+              <a href="subject.html#238">[ subject ]</a>
+              <a href="author.html#238">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all
+
+I've noticed that when a user has more than one Public user identity 
+that there is some strange behaviour when I register and subscribe to 
+the reg event.
+
+Sometimes the whole process works fine and the S-CSCF returns the 
+correct list of P-Associated-URIs, and I can subscribe to the reg event. 
+But sometimes either the S-CSCF doesn't return all the public UIs, or 
+the SUBSCRIBE fails with: 404 Not Found - User not registered on this 
+S-CSCF.
+
+I have attached the 3 wireshark traces of the scenarios above. In each 
+case I do exactly the same thing. Could this be a problem with the 
+client (which is written by some lazy guy that doesn't read RFCs), or is 
+it a problem in the core?
+
+Regards
+
+Dave
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: reg-sub-broken-p-assoc-uri
+Type: application/octet-stream
+Size: 4273 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070222/a878e7b8/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070222/a878e7b8/attachment.obj</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: reg-sub-broken-sub
+Type: application/octet-stream
+Size: 4241 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070222/a878e7b8/attachment-0001.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070222/a878e7b8/attachment-0001.obj</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: reg-sub-correct
+Type: application/octet-stream
+Size: 4303 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070222/a878e7b8/attachment-0002.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070222/a878e7b8/attachment-0002.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000242.html">[OpenIMSCore-CSCF] while ./icscf.sh and ./sip2ims.sh ERRORS
+</A></li>
+	<LI>Next message: <A HREF="000243.html">[OpenIMSCore-CSCF] Unpredictable behaviour on REGISTER and	SUBSCRIBE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#238">[ date ]</a>
+              <a href="thread.html#238">[ thread ]</a>
+              <a href="subject.html#238">[ subject ]</a>
+              <a href="author.html#238">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

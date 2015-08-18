@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Problems with pseudo-variables
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Problems%20with%20pseudo-variables&In-Reply-To=%3CCALursqY4VAhVGyh_7mc99cxCDxLPwan3A4pF0i3yfoE5o-CRuQ%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002636.html">
+   <LINK REL="Next"  HREF="002639.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Problems with pseudo-variables</H1>
+    <B>Roc&#237;o Ruz</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Problems%20with%20pseudo-variables&In-Reply-To=%3CCALursqY4VAhVGyh_7mc99cxCDxLPwan3A4pF0i3yfoE5o-CRuQ%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Problems with pseudo-variables">rociorsr at gmail.com
+       </A><BR>
+    <I>Fri Aug 19 14:58:09 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002636.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1136 - PCSCF: do not clean it	twice --Thisk liuuu, and those below,	will be ignored--  M    pcscf/dlg_state.c
+</A></li>
+        <LI>Next message: <A HREF="002639.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1137 - Added some Diameter codes	for 3GPP EPS AAA
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2638">[ date ]</a>
+              <a href="thread.html#2638">[ thread ]</a>
+              <a href="subject.html#2638">[ subject ]</a>
+              <a href="author.html#2638">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+I am using kamailio ims extensions and I am observing some problems with
+pseudo-variable handling.
+
+On the s-cscf the pseudo-variables are not 'translated' into the real
+values. When using xlog like this:
+
+xlog(&quot;L_ERR&quot;, &quot; found pai: $ai time [$Tf] \n&quot;);
+
+I am finding :
+ tail -f /var/log/syslog | grep found
+invlcscs /usr/sbin/kamailio[21689]: ERROR: &lt;script&gt;:  found pai: $ai time
+[$Tf]
+
+However on the p-cscf the same case is correctly treated:
+xlog(&quot;L_ERR&quot;, &quot; found pai: $ai time [$Tf] \n&quot;);
+
+invlcpcs /usr/sbin/kamailio[20540]: ERROR: &lt;script&gt;: found pai:
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">0188888881 at open-ims.test</A>;transport=UDP time [Fri Aug 19 14:05:44 2011]
+
+I am using 3.1 kamalio version and I have added pv and xlog modules on the
+s-cscf.
+Why is the S-CSCF unable to read pseudo-variables?Could anybody please help
+me?
+
+Thank you.
+
+RR.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110819/47452916/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110819/47452916/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002636.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1136 - PCSCF: do not clean it	twice --Thisk liuuu, and those below,	will be ignored--  M    pcscf/dlg_state.c
+</A></li>
+	<LI>Next message: <A HREF="002639.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1137 - Added some Diameter codes	for 3GPP EPS AAA
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2638">[ date ]</a>
+              <a href="thread.html#2638">[ thread ]</a>
+              <a href="subject.html#2638">[ subject ]</a>
+              <a href="author.html#2638">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

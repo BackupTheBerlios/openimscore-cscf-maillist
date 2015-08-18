@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r808 - a small	fixfor	pcc_get_destination_realm
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r808%20-%20a%20small%0A%09fixfor%09pcc_get_destination_realm&In-Reply-To=%3C4B4EE37F.2010005%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001961.html">
+   <LINK REL="Next"  HREF="001960.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r808 - a small	fixfor	pcc_get_destination_realm</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r808%20-%20a%20small%0A%09fixfor%09pcc_get_destination_realm&In-Reply-To=%3C4B4EE37F.2010005%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r808 - a small	fixfor	pcc_get_destination_realm">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Jan 14 10:27:27 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001961.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r808 - a small	fixfor	pcc_get_destination_realm
+</A></li>
+        <LI>Next message: <A HREF="001960.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r809 - need to reset/free	dlg-&gt;pcc_session_id when PCRF is not connected The current	dlg is unlocked before this error happens,	so there is still a chance the dlg may be freed ?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1964">[ date ]</a>
+              <a href="thread.html#1964">[ thread ]</a>
+              <a href="subject.html#1964">[ subject ]</a>
+              <a href="author.html#1964">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Min,
+
+yes, you are right, for the peer it is there. But this would maximum be 
+useful if the forced_qos_peer is in effect. This is kind of an exception 
+case, where one would have just a simple Diameter setup and does not 
+want to deal with any complicated message routing. I think that we still 
+need an overall configuration realm for this case.. or parameter...
+
+Cheers,
+-Dragos
+
+
+Min Wang wrote:
+&gt;<i> Hi:
+</I>&gt;<i>
+</I>&gt;<i> The PCC code is unclear to me:
+</I>&gt;<i>
+</I>&gt;<i>             /* Add Destination-Realm AVP */
+</I>&gt;<i>         str realm = pcc_get_destination_realm(forced_qos_peer);
+</I>&gt;<i> 	  if (realm.len&amp;&amp;!PCC_add_destination_realm(aar, realm)) goto
+</I>&gt;<i> error;
+</I>&gt;<i>
+</I>&gt;<i>  what if forced_qos_peer is empty,  what will be the dest-realm then?
+</I>&gt;<i>  
+</I>&gt;<i> ..... later it:
+</I>&gt;<i>
+</I>&gt;<i>    if (forced_qos_peer.len)
+</I>&gt;<i>                 aaa =
+</I>&gt;<i> cdpb.AAASendRecvMessageToPeer(aar,&amp;forced_qos_peer);
+</I>&gt;<i>         else
+</I>&gt;<i>                 aaa = cdpb.AAASendRecvMessage(aar);
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> without forced_qos_peer , it should also be able to send Diameter msg?
+</I>&gt;<i> but 
+</I>&gt;<i> where it is sending to?
+</I>&gt;<i>
+</I>&gt;<i> Also in the pcscs.xml, there is 
+</I>&gt;<i>      &lt;Peer FQDN=&quot;pcrf.my.realm&quot; Realm=&quot;my.realm&quot; port=&quot;4868&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i> Also config script there is: forced_qos_peer=&quot;pcrf.my.realm&quot;
+</I>&gt;<i> So seems there is realm information in the xml file???
+</I>&gt;<i>
+</I>&gt;<i> (<A HREF="http://tools.ietf.org/html/draft-ietf-dime-nai-routing-04">http://tools.ietf.org/html/draft-ietf-dime-nai-routing-04</A>)
+</I>&gt;<i> As described in RFC 3588 Section 6.1, a Diameter peer
+</I>&gt;<i>    originating a request message MAY retrieve the realm information from
+</I>&gt;<i>    the User-Name AVP and use that realm to populate the Destination-
+</I>&gt;<i>    Realm AVP.  In that case, the User-Name AVP is in form of a NAI
+</I>&gt;<i>    including the realm part.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Now with all these information, Anyway how/where to get the
+</I>&gt;<i> Destination-Realm?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Kind Regards
+</I>&gt;<i>  
+</I>&gt;<i> Min Wang
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> -----Original Message-----
+</I>&gt;&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+</I>&gt;&gt;<i>     
+</I>&gt;<i> [mailto:openimscore-cscf-
+</I>&gt;<i>   
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bounces at lists.berlios.de</A>] On Behalf Of Dragos Vingarzan
+</I>&gt;&gt;<i> Sent: Wednesday, January 13, 2010 10:52 AM
+</I>&gt;&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mwang at users.berlios.de</A>
+</I>&gt;&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;<i> Subject: Re: [OpenIMSCore-CSCF] [SVN-ser_ims] r808 - a small fixfor
+</I>&gt;&gt;<i> pcc_get_destination_realm
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> BTW: I find this function anyway quite offending ;-). I mean finding
+</I>&gt;&gt;<i>     
+</I>&gt;<i> the
+</I>&gt;<i>   
+</I>&gt;&gt;<i> destination realm should be something better thought than looking for
+</I>&gt;&gt;<i> the first dot in the FQDN of the PCRF and giving the rest... I think
+</I>&gt;&gt;<i> that it should either be a configuration parameter of the pcscf module
+</I>&gt;&gt;<i> or provided as a parameter to P_AAR()... Ideas?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Cheers,
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mwang at users.berlios.de</A> wrote:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Author: mwang
+</I>&gt;&gt;&gt;<i> Date: 2010-01-13 16:32:05 +0100 (Wed, 13 Jan 2010)
+</I>&gt;&gt;&gt;<i> New Revision: 808
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=808">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=808</A>
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Log:
+</I>&gt;&gt;&gt;<i>   a small fix for pcc_get_destination_realm
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Modified:
+</I>&gt;&gt;&gt;<i>    U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> xing/modules/pcscf/pcc.c?rev=808&amp;view=diff&amp;r1=808&amp;r2=807
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> --
+</I>&gt;&gt;<i> -----------------------------------------
+</I>&gt;&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;&gt;<i> 10589 Berlin,Germany
+</I>&gt;&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;&gt;<i> -----------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001961.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r808 - a small	fixfor	pcc_get_destination_realm
+</A></li>
+	<LI>Next message: <A HREF="001960.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r809 - need to reset/free	dlg-&gt;pcc_session_id when PCRF is not connected The current	dlg is unlocked before this error happens,	so there is still a chance the dlg may be freed ?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1964">[ date ]</a>
+              <a href="thread.html#1964">[ thread ]</a>
+              <a href="subject.html#1964">[ subject ]</a>
+              <a href="author.html#1964">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

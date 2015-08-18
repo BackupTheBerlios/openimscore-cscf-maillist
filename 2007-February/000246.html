@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Help: 403 HSS Roaming not allowed...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Help%3A%20403%20HSS%20Roaming%20not%20allowed...&In-Reply-To=%3C45DF70FF.8080507%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000245.html">
+   <LINK REL="Next"  HREF="000247.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Help: 403 HSS Roaming not allowed...</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Help%3A%20403%20HSS%20Roaming%20not%20allowed...&In-Reply-To=%3C45DF70FF.8080507%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Help: 403 HSS Roaming not allowed...">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Feb 23 23:55:59 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000245.html">[OpenIMSCore-CSCF] Help: 403 HSS Roaming not allowed...
+</A></li>
+        <LI>Next message: <A HREF="000247.html">[OpenIMSCore-CSCF] [OpenIMSCore-Users] Open Source Java	Diameter implementation
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#246">[ date ]</a>
+              <a href="thread.html#246">[ thread ]</a>
+              <a href="subject.html#246">[ subject ]</a>
+              <a href="author.html#246">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi John,
+
+The P-CSCF, which is usually situated in the visited network, adds a
+P-Visited-Network-Id header to the message, which by default is
+&quot;open-ims.test&quot;. The I-CSCF sends this value to the HSS in the UAR. In
+the case that your user does not have that network id associated in the
+HSS as an allowed visited network, the HSS will refuse the UAR and the
+I-CSCF as a result will answer with a 403 Forbidden response.
+
+So please check that you have in the HSS the proper roaming associations
+for that specific user, as configured in the pcscf.cfg.
+
+-Dragos
+
+
+john mcclelland wrote:
+&gt;<i> Does anyone have an idea what would cause this error?  I have verified
+</I>&gt;<i> the database information to the best of my ability...  could this be a
+</I>&gt;<i> mis-match between the nw_id?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 14:07:25 INFO      Registration of sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A> engaged...
+</I>&gt;<i> 14:07:25 DEBUG
+</I>&gt;<i> 2007-02-23 22:07:25.489 UDP LOCAL-&gt;10.195.3.46:3060
+</I>&gt;<i> REGISTER sip:open-ims.test SIP/2.0
+</I>&gt;<i> Via: SIP/2.0/UDP
+</I>&gt;<i> 10.195.3.62;rport;branch=z9hG4bK0ac3033e0000001045df659d00002de000000011
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.195.3.62</A>:5060&gt;
+</I>&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">9EB631B0-B2A3-4375-8D2E-95914A47CB06 at 10.195.3.62</A>
+</I>&gt;<i> CSeq: 7 REGISTER
+</I>&gt;<i> From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=2778371714053
+</I>&gt;<i> Max-Forwards: 70
+</I>&gt;<i> To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;<i> User-Agent: SJphone/1.60.289a (SJ Labs)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 14:07:25 DEBUG
+</I>&gt;<i> 2007-02-23 22:07:25.785 UDP 10.195.3.46:3060-&gt;LOCAL
+</I>&gt;<i> SIP/2.0 403 Forbidden - HSS Roaming not allowed
+</I>&gt;<i> Via: SIP/2.0/UDP
+</I>&gt;<i> 10.195.3.62;rport=5060;branch=z9hG4bK0ac3033e0000001045df659d00002de000000011
+</I>&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">9EB631B0-B2A3-4375-8D2E-95914A47CB06 at 10.195.3.62</A>
+</I>&gt;<i> CSeq: 7 REGISTER
+</I>&gt;<i> From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=2778371714053
+</I>&gt;<i> To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=1623ce797dd6692fb9d55bee565c3ebf-633d
+</I>&gt;<i> Server: Sip EXpress router (0.10.99-dev53-tm_fixes (i386/linux))
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i> Warning: 392 10.195.3.46:5060 &quot;Noisy feedback tells:  pid=6690
+</I>&gt;<i> req_src_ip=10.195.3.46 req_src_port=4060 in_uri=sip:open-ims.test
+</I>&gt;<i> out_uri=sip:open-ims.test via_cnt==3&quot;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 14:07:25 INFO      Registration of sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A> engaged...
+</I>&gt;<i> 14:07:25 DEBUG
+</I>&gt;<i> 2007-02-23 22:07:25.785 UDP LOCAL-&gt;10.195.3.46:3060
+</I>&gt;<i> REGISTER sip:open-ims.test SIP/2.0
+</I>&gt;<i> Via: SIP/2.0/UDP
+</I>&gt;<i> 10.195.3.62;rport;branch=z9hG4bK0ac3033e0000001045df659d000067b700000013
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.195.3.62</A>:5060&gt;
+</I>&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">9EB631B0-B2A3-4375-8D2E-95914A47CB06 at 10.195.3.62</A>
+</I>&gt;<i> CSeq: 8 REGISTER
+</I>&gt;<i> From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=2778374687185
+</I>&gt;<i> Max-Forwards: 70
+</I>&gt;<i> To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;<i> User-Agent: SJphone/1.60.289a (SJ Labs)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 14:07:26 DEBUG
+</I>&gt;<i> 2007-02-23 22:07:26.035 UDP 10.195.3.46:3060-&gt;LOCAL
+</I>&gt;<i> SIP/2.0 403 Forbidden - HSS Roaming not allowed
+</I>&gt;<i> Via: SIP/2.0/UDP
+</I>&gt;<i> 10.195.3.62;rport=5060;branch=z9hG4bK0ac3033e0000001045df659d000067b700000013
+</I>&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">9EB631B0-B2A3-4375-8D2E-95914A47CB06 at 10.195.3.62</A>
+</I>&gt;<i> CSeq: 8 REGISTER
+</I>&gt;<i> From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=2778374687185
+</I>&gt;<i> To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=1623ce797dd6692fb9d55bee565c3ebf-1100
+</I>&gt;<i> Server: Sip EXpress router (0.10.99-dev53-tm_fixes (i386/linux))
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i> Warning: 392 10.195.3.46:5060 &quot;Noisy feedback tells:  pid=6689
+</I>&gt;<i> req_src_ip=10.195.3.46 req_src_port=4060 in_uri=sip:open-ims.test
+</I>&gt;<i> out_uri=sip:open-ims.test via_cnt==3&quot;
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000245.html">[OpenIMSCore-CSCF] Help: 403 HSS Roaming not allowed...
+</A></li>
+	<LI>Next message: <A HREF="000247.html">[OpenIMSCore-CSCF] [OpenIMSCore-Users] Open Source Java	Diameter implementation
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#246">[ date ]</a>
+              <a href="thread.html#246">[ thread ]</a>
+              <a href="subject.html#246">[ subject ]</a>
+              <a href="author.html#246">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

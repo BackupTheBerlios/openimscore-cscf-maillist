@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Starting ploblem on scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Starting%20ploblem%20on%20scscf&In-Reply-To=%3C465C01E1.4060103%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000651.html">
+   <LINK REL="Next"  HREF="000652.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Starting ploblem on scscf</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Starting%20ploblem%20on%20scscf&In-Reply-To=%3C465C01E1.4060103%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Starting ploblem on scscf">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue May 29 12:35:13 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000651.html">[OpenIMSCore-CSCF] Starting ploblem on scscf
+</A></li>
+        <LI>Next message: <A HREF="000652.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r289 - Fixed typo in scscf.cfg.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#653">[ date ]</a>
+              <a href="thread.html#653">[ thread ]</a>
+              <a href="subject.html#653">[ subject ]</a>
+              <a href="author.html#653">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+
+Sorry, but there was a typo in the scscf.cfg:
+
+Index: scscf.cfg
+===================================================================
+--- scscf.cfg   (revision 284)
++++ scscf.cfg   (working copy)
+@@ -80,7 +80,7 @@
+
+ modparam(&quot;scscf&quot;,&quot;dialogs_hash_size&quot;,256)
+ modparam(&quot;scscf&quot;,&quot;dialogs_expiration_time&quot;,3600)
+-modparam(&quot;pcscf&quot;,&quot;max_dialog_count&quot;,20000)
++modparam(&quot;scscf&quot;,&quot;max_dialog_count&quot;,20000)
+ modparam(&quot;scscf&quot;,&quot;min_se&quot;,90)
+
+Fixed since r289.
+
+-Dragos
+
+
+Franz Edler wrote:
+&gt;<i> Hi Mauro,
+</I>&gt;<i>  
+</I>&gt;<i>   
+</I>&gt;&gt;<i> /opt/OpenIMSCore$ ./scscf.sh
+</I>&gt;&gt;<i>  0(17768) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> for this error I don't know, but set the debug-level higher and check the
+</I>&gt;<i> output during start.
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i>  0(17768) parse error (83,21-22): Can't set module parameter
+</I>&gt;&gt;<i> ERROR: bad config file (1 errors)
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> For the second error I assume that the statement
+</I>&gt;<i> &quot; modparam(&quot;pcscf&quot;,&quot;max_dialog_count&quot;,20000)&quot; 
+</I>&gt;<i> is in line 83 of your scscf.cfg? Eventually try to reduce the
+</I>&gt;<i> max_dialog_count value.
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i>  0(17768) INFO:cdp:cdp_exit(): CDiameterPeer stoping ...
+</I>&gt;&gt;<i> ./scscf.sh: line 5: 17768 Segmentation fault      (core dumped)
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> For the third error I suggest you have the command &quot;killser scscf&quot; in line 5
+</I>&gt;<i> of &quot;scscf.sh&quot;. Are you able to call &quot;killser scscf&quot; by hand?
+</I>&gt;<i>
+</I>&gt;<i> Maybe that might help some steps further.
+</I>&gt;<i>
+</I>&gt;<i> Cheers
+</I>&gt;<i> Franz 
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000651.html">[OpenIMSCore-CSCF] Starting ploblem on scscf
+</A></li>
+	<LI>Next message: <A HREF="000652.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r289 - Fixed typo in scscf.cfg.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#653">[ date ]</a>
+              <a href="thread.html#653">[ thread ]</a>
+              <a href="subject.html#653">[ subject ]</a>
+              <a href="author.html#653">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

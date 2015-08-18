@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r671 - New MGCF-helper module,	config example, .sh script Added trcf.sh script
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r671%20-%20New%20MGCF-helper%20module%2C%0A%09config%20example%2C%20.sh%20script%20Added%20trcf.sh%20script&In-Reply-To=%3C200906120751.n5C7paFF029210%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001709.html">
+   <LINK REL="Next"  HREF="001711.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r671 - New MGCF-helper module,	config example, .sh script Added trcf.sh script</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r671%20-%20New%20MGCF-helper%20module%2C%0A%09config%20example%2C%20.sh%20script%20Added%20trcf.sh%20script&In-Reply-To=%3C200906120751.n5C7paFF029210%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r671 - New MGCF-helper module,	config example, .sh script Added trcf.sh script">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Fri Jun 12 09:51:36 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001709.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r670 - Fixed svn properties.
+</A></li>
+        <LI>Next message: <A HREF="001711.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r672 - added support for emergency	numbers
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1710">[ date ]</a>
+              <a href="thread.html#1710">[ thread ]</a>
+              <a href="subject.html#1710">[ subject ]</a>
+              <a href="author.html#1710">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2009-06-12 09:51:06 +0200 (Fri, 12 Jun 2009)
+New Revision: 671 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=671">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=671</A> 
+
+Log:
+New MGCF-helper module, config example, .sh script
+Added trcf.sh script
+
+
+Added:
+   A	ser_ims/trunk/cfg/mgcf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/mgcf.cfg?rev=671&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/mgcf.cfg?rev=671&amp;view=markup</A>
+   A	ser_ims/trunk/cfg/mgcf.sh
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/mgcf.sh?rev=671&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/mgcf.sh?rev=671&amp;view=markup</A>
+   A	ser_ims/trunk/cfg/trcf.sh
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/trcf.sh?rev=671&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/trcf.sh?rev=671&amp;view=markup</A>
+   A	ser_ims/trunk/modules/mgcf/
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/?rev=671">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/?rev=671</A>
+   A	ser_ims/trunk/modules/mgcf/Makefile
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/Makefile?rev=671&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/Makefile?rev=671&amp;view=markup</A>
+   A	ser_ims/trunk/modules/mgcf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/dlg_state.c?rev=671&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/dlg_state.c?rev=671&amp;view=markup</A>
+   A	ser_ims/trunk/modules/mgcf/dlg_state.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/dlg_state.h?rev=671&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/dlg_state.h?rev=671&amp;view=markup</A>
+   A	ser_ims/trunk/modules/mgcf/mgcf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/mgcf.c?rev=671&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/mgcf.c?rev=671&amp;view=markup</A>
+   A	ser_ims/trunk/modules/mgcf/mgcf.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/mgcf.h?rev=671&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/mgcf.h?rev=671&amp;view=markup</A>
+   A	ser_ims/trunk/modules/mgcf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/mod.c?rev=671&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/mod.c?rev=671&amp;view=markup</A>
+   A	ser_ims/trunk/modules/mgcf/mod.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/mod.h?rev=671&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/mod.h?rev=671&amp;view=markup</A>
+   A	ser_ims/trunk/modules/mgcf/sip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/sip.c?rev=671&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/sip.c?rev=671&amp;view=markup</A>
+   A	ser_ims/trunk/modules/mgcf/sip.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/sip.h?rev=671&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/sip.h?rev=671&amp;view=markup</A>
+   A	ser_ims/trunk/modules/mgcf/sip_body.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/sip_body.c?rev=671&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/sip_body.c?rev=671&amp;view=markup</A>
+   A	ser_ims/trunk/modules/mgcf/sip_body.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/sip_body.h?rev=671&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/sip_body.h?rev=671&amp;view=markup</A>
+Modified:
+   U	ser_ims/trunk/.project
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/.project?rev=671&amp;view=diff&amp;r1=671&amp;r2=670">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/.project?rev=671&amp;view=diff&amp;r1=671&amp;r2=670</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001709.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r670 - Fixed svn properties.
+</A></li>
+	<LI>Next message: <A HREF="001711.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r672 - added support for emergency	numbers
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1710">[ date ]</a>
+              <a href="thread.html#1710">[ thread ]</a>
+              <a href="subject.html#1710">[ subject ]</a>
+              <a href="author.html#1710">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Scscf process RTR can't consider the	Associated-Identities AVP
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Scscf%20process%20RTR%20can%27t%20consider%20the%0A%09Associated-Identities%20AVP&In-Reply-To=%3CDreamMail__163535_36656032276%40mail.astrocom.cn%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000515.html">
+   <LINK REL="Next"  HREF="000519.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Scscf process RTR can't consider the	Associated-Identities AVP</H1>
+    <B>fancy_xiao</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Scscf%20process%20RTR%20can%27t%20consider%20the%0A%09Associated-Identities%20AVP&In-Reply-To=%3CDreamMail__163535_36656032276%40mail.astrocom.cn%3E"
+       TITLE="[OpenIMSCore-CSCF] Scscf process RTR can't consider the	Associated-Identities AVP">fancy_xiao at astrocom.cn
+       </A><BR>
+    <I>Wed Apr 25 10:35:35 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000515.html">[OpenIMSCore-CSCF] Scscf didn't process RTR and PPR in serims?
+</A></li>
+        <LI>Next message: <A HREF="000519.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r248 - modify pcscf.pdf.cfg to	enable network initiated session release
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#518">[ date ]</a>
+              <a href="thread.html#518">[ thread ]</a>
+              <a href="subject.html#518">[ subject ]</a>
+              <a href="author.html#518">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>openimscore-cscf&#65292;&#20320;&#22909;
+
+Associated-Identities include Private Identities which is belong the same IMSSubscription as Private Identity in the User-Name AVp and should be Deregister together with that one!
+
+Information element nameMapping to Diameter AVPCat.Description
+Public User Identity / Public Service Identity
+(See 7.2 and 7.2a)Public-IdentityCIt contains the list of Public Identities that are de-registered, in the form of SIP URL or TEL URL.
+Public-Identity AVP shall be present if the de-registration reason code is NEW_SERVER_ASSIGNED. It may be present with the other reason codes.
+Private User Identity / Private Service Identity
+(See 7.3 and 7.3a)User-NameMIt contains the Private Identity in the form of a NAI. The HSS shall always send a Private Identity that is known to the S-CSCF based on an earlier SAR/SAA procedure.
+Reason for de-registration
+(See 7.11)Deregistration-ReasonMThe HSS shall send to the S-CSCF a reason for the de-registration. The de-registration reason is composed of two parts: one textual message (if available) that is intended to be forwarded to the user that is de-registered, and one reason code (see 3GPP TS 29.229 [5]) that determines the behaviour of the S-CSCF.
+Routing Information (See 7.13)Destination-HostMIt contains the name of the S-CSCF which originated the last update of the name of the multimedia server stored in the HSS for a given IMS Subscription. The address of the S-CSCF is the same as the Origin-Host AVP in the message sent from the S-CSCF.
+Associated Private IdentitiesAssociated-IdentitiesOThis AVP contains Private Identities, which belong to the same IMS subscription as the Private Identity in the User-Name AVP and should be de-registered together with that one.
+If the IMS subscription contains only a single Private Identity, this AVP shall not be present.
+
+
+
+fancy_xiao&#65292;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">fancy_xiao at astrocom.cn</A>
+2007-04-25 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070425/f8701a78/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070425/f8701a78/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000515.html">[OpenIMSCore-CSCF] Scscf didn't process RTR and PPR in serims?
+</A></li>
+	<LI>Next message: <A HREF="000519.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r248 - modify pcscf.pdf.cfg to	enable network initiated session release
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#518">[ date ]</a>
+              <a href="thread.html#518">[ thread ]</a>
+              <a href="subject.html#518">[ subject ]</a>
+              <a href="author.html#518">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

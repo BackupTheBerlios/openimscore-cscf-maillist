@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] trouble with the IMS client
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20trouble%20with%20the%20IMS%20client&In-Reply-To=%3CBLU111-W9CAAD29B9167D368025E7B3900%40phx.gbl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001419.html">
+   <LINK REL="Next"  HREF="001412.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] trouble with the IMS client</H1>
+    <B>juliana ospina</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20trouble%20with%20the%20IMS%20client&In-Reply-To=%3CBLU111-W9CAAD29B9167D368025E7B3900%40phx.gbl%3E"
+       TITLE="[OpenIMSCore-CSCF] trouble with the IMS client">deaza16 at hotmail.com
+       </A><BR>
+    <I>Sat Jul 12 00:17:43 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001419.html">[OpenIMSCore-CSCF] Problem with Call Transfer (REFER)
+</A></li>
+        <LI>Next message: <A HREF="001412.html">[OpenIMSCore-CSCF] trouble with the IMS client
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1411">[ date ]</a>
+              <a href="thread.html#1411">[ thread ]</a>
+              <a href="subject.html#1411">[ subject ]</a>
+              <a href="author.html#1411">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+hi:
+after i install the OpenIC_Lite and fill the requirements i press save and execute again ./OpenIC_Lite.sh then appers a screen of OpenIC lite but the progress stop. i check the console and i found  this:
+Exception in thread &quot;main&quot; java.lang.NumberFormatException: For input string: &quot;pcscf.open-ims.test:4060&quot;
+        at java.lang.NumberFormatException.forInputString(NumberFormatException.java:48)
+        at java.lang.Integer.parseInt(Integer.java:447)
+        at java.lang.Integer.valueOf(Integer.java:553)
+        at de.fhg.fokus.ims.ue.sip.SIPLogic.findOutboundIPAddress(SIPLogic.java:161)
+        at de.fhg.fokus.ims.ue.sip.SIPLogic.init(SIPLogic.java:181)
+        at de.fhg.fokus.ims.ue.sip.SIPLogic.(SIPLogic.java:138)
+        at de.fhg.fokus.ims.ue.IMSUserEndpoint.init(IMSUserEndpoint.java:149)
+        at de.fhg.fokus.AgentBean.start(AgentBean.java:538)
+        at de.fhg.fokus.ui.MainFrame$1.run(MainFrame.java:140)
+        at org.eclipse.swt.widgets.Synchronizer.syncExec(Synchronizer.java:152)
+        at org.eclipse.swt.widgets.Display.syncExec(Display.java:3722)
+        at de.fhg.fokus.ui.MainFrame.createInstance(MainFrame.java:121)
+        at OpenIMSDemoClient.main(OpenIMSDemoClient.java:52)
+
+thnxs
+att
+Juliana Ospina
+_________________________________________________________________
+La vida de los famosos al desnudo en MSN Entretenimiento
+<A HREF="http://entretenimiento.es.msn.com/">http://entretenimiento.es.msn.com/</A>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001419.html">[OpenIMSCore-CSCF] Problem with Call Transfer (REFER)
+</A></li>
+	<LI>Next message: <A HREF="001412.html">[OpenIMSCore-CSCF] trouble with the IMS client
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1411">[ date ]</a>
+              <a href="thread.html#1411">[ thread ]</a>
+              <a href="subject.html#1411">[ subject ]</a>
+              <a href="author.html#1411">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

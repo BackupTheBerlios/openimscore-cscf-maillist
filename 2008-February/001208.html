@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P_is_registered (403 Forbidden)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P_is_registered%20%28403%20Forbidden%29&In-Reply-To=%3C47C56F3E.6050909%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001207.html">
+   <LINK REL="Next"  HREF="001206.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P_is_registered (403 Forbidden)</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P_is_registered%20%28403%20Forbidden%29&In-Reply-To=%3C47C56F3E.6050909%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] P_is_registered (403 Forbidden)">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Feb 27 15:10:06 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001207.html">[OpenIMSCore-CSCF] P_is_registered (403 Forbidden)
+</A></li>
+        <LI>Next message: <A HREF="001206.html">[OpenIMSCore-CSCF] The S-CSCF end the call after 300 seconds
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1208">[ date ]</a>
+              <a href="thread.html#1208">[ thread ]</a>
+              <a href="subject.html#1208">[ subject ]</a>
+              <a href="author.html#1208">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I don't think it's a bug... 24.229 would be a good start.
+
+I mean, how can we fix it, such that it won't be possible for Alice to
+say that she's Bob?
+
+-Dragos
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">chris_lists at mac.com</A> wrote:
+&gt;<i> Hi Dragos,
+</I>&gt;<i>
+</I>&gt;<i> sure, this gives more security, but we have a problem with this  
+</I>&gt;<i> behavior. We only want to know where to send the bug report or feature  
+</I>&gt;<i> request:-)
+</I>&gt;<i>
+</I>&gt;<i> Where is it standardized?
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i> Christoph
+</I>&gt;<i>
+</I>&gt;<i> Am 26.02.2008 um 17:52 schrieb Dragos Vingarzan:
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi Marco,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> IMS promises you security. If you would be allowed to use any  
+</I>&gt;&gt;<i> IP:port to
+</I>&gt;&gt;<i> initiate calls in the name of any user, this won't work at all.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> So you are only authorized to originate signaling from Contact  
+</I>&gt;&gt;<i> addresses
+</I>&gt;&gt;<i> that are currently registered and only with the authorized associated
+</I>&gt;&gt;<i> identities.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> In the best case the check should be on the source IP:port and not the
+</I>&gt;&gt;<i> Via, but that bother a lot of NAT users. The change is trivial, but by
+</I>&gt;&gt;<i> default we check the Via.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Cheers,
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Marco Happenhofer wrote:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Hi all,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> We register a client at the IMS Core with Port 5060 (Contact:
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at x.x.x.x</A>:5060). Then the client starts a call and uses another  
+</I>&gt;&gt;&gt;<i> port
+</I>&gt;&gt;&gt;<i> than 5060 as source port for sending and in its via header.  
+</I>&gt;&gt;&gt;<i> According to
+</I>&gt;&gt;&gt;<i> the functionality of &quot;P_is_registered&quot; the P-CSCF rejects this  
+</I>&gt;&gt;&gt;<i> request
+</I>&gt;&gt;&gt;<i> with &quot;403 Forbidden&quot;, because the port of the via header from INVITE
+</I>&gt;&gt;&gt;<i> does not match to the port of the contact header in the REGISTER.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> What is the reason for this behavior?
+</I>&gt;&gt;&gt;<i> We found no indication why the via header connection parameters  
+</I>&gt;&gt;&gt;<i> have to
+</I>&gt;&gt;&gt;<i> be equal to the connection parameters in the contact header of the
+</I>&gt;&gt;&gt;<i> registration.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Regards
+</I>&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> -- 
+</I>&gt;&gt;<i> -----------------------------------------
+</I>&gt;&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;&gt;<i> 10589 Berlin,Germany
+</I>&gt;&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;&gt;<i> -----------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001207.html">[OpenIMSCore-CSCF] P_is_registered (403 Forbidden)
+</A></li>
+	<LI>Next message: <A HREF="001206.html">[OpenIMSCore-CSCF] The S-CSCF end the call after 300 seconds
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1208">[ date ]</a>
+              <a href="thread.html#1208">[ thread ]</a>
+              <a href="subject.html#1208">[ subject ]</a>
+              <a href="author.html#1208">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

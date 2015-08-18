@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] deadlock in dlg
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20deadlock%20in%20dlg&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A02180362%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001968.html">
+   <LINK REL="Next"  HREF="001967.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] deadlock in dlg</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20deadlock%20in%20dlg&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A02180362%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] deadlock in dlg">wang at basis-audionet.com
+       </A><BR>
+    <I>Fri Jan 15 15:29:07 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001968.html">[OpenIMSCore-CSCF] deadlock in dlg
+</A></li>
+        <LI>Next message: <A HREF="001967.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r811 - Fixed dead-lock on dialogs	cause by release_call()-&gt;confirmed_response() bug Added cdp	sessions logging
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1969">[ date ]</a>
+              <a href="thread.html#1969">[ thread ]</a>
+              <a href="subject.html#1969">[ subject ]</a>
+              <a href="author.html#1969">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos
+
+Thanks a lot. Just tested several calls, seems OK.
+
+ 
+
+Kind Regards
+ 
+Min Wang
+
+&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]
+</I>&gt;<i> Sent: Thursday, January 14, 2010 4:57 PM
+</I>&gt;<i> To: Min Wang
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] deadlock in dlg
+</I>&gt;<i> 
+</I>&gt;<i> Hi Min,
+</I>&gt;<i> 
+</I>&gt;<i> just committed a patch in r811... it should be fixed.
+</I>&gt;<i> 
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> Min Wang wrote:
+</I>&gt;<i> &gt; Hi
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I have tried the 13_pcc_fixing, with alice calling bob etc. Make a
+</I>&gt;<i> &gt; couple of calls, then it will be deadlock.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; The gdb showed somehow it is deadlock in the dialog.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Proc1
+</I>&gt;<i> &gt; #0  0xb7f3a424 in __kernel_vsyscall ()
+</I>&gt;<i> &gt; #1  0xb7e7bfac in sched_yield () from /lib/i686/cmov/libc.so.6
+</I>&gt;<i> &gt; #2  0xb7a2c935 in print_p_dialogs () from
+</I>/usr/lib/ser/modules/pcscf.so
+&gt;<i> &gt; #3  0xb7a30623 in P_save_dialog () from
+</I>/usr/lib/ser/modules/pcscf.so
+&gt;<i> &gt; #4  0x08054727 in do_action ()
+</I>&gt;<i> &gt; #5  0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #6  0x080992e0 in eval_expr ()
+</I>&gt;<i> &gt; #7  0x08098ee7 in eval_expr ()
+</I>&gt;<i> &gt; #8  0x08054475 in do_action ()
+</I>&gt;<i> &gt; #9  0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #10 0x08054616 in do_action ()
+</I>&gt;<i> &gt; #11 0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #12 0x080544bc in do_action ()
+</I>&gt;<i> &gt; #13 0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #14 0x08055aed in do_action ()
+</I>&gt;<i> &gt; #15 0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #16 0x080544bc in do_action ()
+</I>&gt;<i> &gt; #17 0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #18 0x080916bf in receive_msg ()
+</I>&gt;<i> &gt; #19 0x080c920d in udp_rcv_loop ()
+</I>&gt;<i> &gt; #20 0x0807a2e0 in main_loop ()
+</I>&gt;<i> &gt; #21 0x0807c29d in main ()
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Proc2
+</I>&gt;<i> &gt; #0  0xb7f3a424 in __kernel_vsyscall ()
+</I>&gt;<i> &gt; #1  0xb7e7bfac in sched_yield () from /lib/i686/cmov/libc.so.6
+</I>&gt;<i> &gt; #2  0xb7a2c935 in print_p_dialogs () from
+</I>/usr/lib/ser/modules/pcscf.so
+&gt;<i> &gt; #3  0xb7a31251 in P_update_dialog () from
+</I>/usr/lib/ser/modules/pcscf.so
+&gt;<i> &gt; #4  0x08054727 in do_action ()
+</I>&gt;<i> &gt; #5  0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #6  0x08054616 in do_action ()
+</I>&gt;<i> &gt; #7  0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #8  0x080544bc in do_action ()
+</I>&gt;<i> &gt; #9  0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #10 0x080544bc in do_action ()
+</I>&gt;<i> &gt; #11 0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #12 0x080544bc in do_action ()
+</I>&gt;<i> &gt; #13 0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #14 0x080916bf in receive_msg ()
+</I>&gt;<i> &gt; #15 0x080c920d in udp_rcv_loop ()
+</I>&gt;<i> &gt; #16 0x0807a2e0 in main_loop ()
+</I>&gt;<i> &gt; #17 0x0807c29d in main ()
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Proc3
+</I>&gt;<i> &gt; (gdb) bt
+</I>&gt;<i> &gt; #0  0xb7f3a424 in __kernel_vsyscall ()
+</I>&gt;<i> &gt; #1  0xb7e7bfac in sched_yield () from /lib/i686/cmov/libc.so.6
+</I>&gt;<i> &gt; #2  0xb7a2f555 in get_p_dialog_dir () from
+</I>/usr/lib/ser/modules/pcscf.so
+&gt;<i> &gt; #3  0xb7a5bb66 in confirmed_response () from
+</I>&gt;<i> &gt; /usr/lib/ser/modules/pcscf.so
+</I>&gt;<i> &gt; #4  0xb7d82962 in run_trans_callbacks () from
+</I>/usr/lib/ser/modules/tm.so
+&gt;<i> &gt; #5  0xb7d984c3 in local_reply () from /usr/lib/ser/modules/tm.so
+</I>&gt;<i> &gt; #6  0xb7d8323d in ?? () from /usr/lib/ser/modules/tm.so
+</I>&gt;<i> &gt; #7  0xb5b67560 in ?? ()
+</I>&gt;<i> &gt; #8  0xffffffff in ?? ()
+</I>&gt;<i> &gt; #9  0x00000000 in ?? ()
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Kind Regards
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Min Wang
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001968.html">[OpenIMSCore-CSCF] deadlock in dlg
+</A></li>
+	<LI>Next message: <A HREF="001967.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r811 - Fixed dead-lock on dialogs	cause by release_call()-&gt;confirmed_response() bug Added cdp	sessions logging
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1969">[ date ]</a>
+              <a href="thread.html#1969">[ thread ]</a>
+              <a href="subject.html#1969">[ subject ]</a>
+              <a href="author.html#1969">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

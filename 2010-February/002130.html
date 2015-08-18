@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r888 - Added new module cdp_avp -	getters and setters for AVPs Fixed pcscf.cfg Set some missing	svn properties
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r888%20-%20Added%20new%20module%20cdp_avp%20-%0A%09getters%20and%20setters%20for%20AVPs%20Fixed%20pcscf.cfg%20Set%20some%20missing%0A%09svn%20properties&In-Reply-To=%3C201002121303.o1CD3VK2002174%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002128.html">
+   <LINK REL="Next"  HREF="002131.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r888 - Added new module cdp_avp -	getters and setters for AVPs Fixed pcscf.cfg Set some missing	svn properties</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r888%20-%20Added%20new%20module%20cdp_avp%20-%0A%09getters%20and%20setters%20for%20AVPs%20Fixed%20pcscf.cfg%20Set%20some%20missing%0A%09svn%20properties&In-Reply-To=%3C201002121303.o1CD3VK2002174%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r888 - Added new module cdp_avp -	getters and setters for AVPs Fixed pcscf.cfg Set some missing	svn properties">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Fri Feb 12 14:03:31 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002128.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r887 - added support for IPv6 in	the implementation of PCC_create_framed_ip_avp
+</A></li>
+        <LI>Next message: <A HREF="002131.html">[OpenIMSCore-CSCF] New module: cdp_avp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2130">[ date ]</a>
+              <a href="thread.html#2130">[ thread ]</a>
+              <a href="subject.html#2130">[ subject ]</a>
+              <a href="author.html#2130">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2010-02-12 14:03:30 +0100 (Fri, 12 Feb 2010)
+New Revision: 888 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=888">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=888</A> 
+
+Log:
+Added new module cdp_avp - getters and setters for AVPs
+Fixed pcscf.cfg
+Set some missing svn properties
+
+Added:
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/?rev=888">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/?rev=888</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/Makefile
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/Makefile?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/Makefile?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_add.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_add.c?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_add.c?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_add.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_add.h?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_add.h?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get.c?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get.c?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get.h?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get.h?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get_base
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get_base?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get_base?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get_base_data_format.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get_base_data_format.c?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get_base_data_format.c?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get_base_data_format.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get_base_data_format.h?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_get_base_data_format.h?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_new.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_new.c?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_new.c?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_new.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_new.h?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_new.h?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_new_base_data_format.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_new_base_data_format.c?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_new_base_data_format.c?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_new_base_data_format.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_new_base_data_format.h?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/avp_new_base_data_format.h?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/base.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/base.c?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/base.c?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/base.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/base.h?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/base.h?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/ccapp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/ccapp.c?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/ccapp.c?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/ccapp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/ccapp.h?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/ccapp.h?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/epcapp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/epcapp.c?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/epcapp.c?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/epcapp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/epcapp.h?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/epcapp.h?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/get_reference.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/get_reference.h?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/get_reference.h?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/get_reference.sh
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/get_reference.sh?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/get_reference.sh?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/imsapp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/imsapp.c?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/imsapp.c?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/imsapp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/imsapp.h?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/imsapp.h?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/macros.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/macros.h?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/macros.h?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/mod.c?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/mod.c?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/mod_export.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/mod_export.h?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/mod_export.h?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/nasapp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/nasapp.c?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/nasapp.c?rev=888&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp_avp/nasapp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/nasapp.h?rev=888&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp_avp/nasapp.h?rev=888&amp;view=markup</A>
+Modified:
+   U	ser_ims/branches/13_pcc_fixing/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/cfg/pcscf.cfg?rev=888&amp;view=diff&amp;r1=888&amp;r2=887">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/cfg/pcscf.cfg?rev=888&amp;view=diff&amp;r1=888&amp;r2=887</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/nathelper/mod.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/mod.h?rev=888&amp;view=diff&amp;r1=888&amp;r2=887">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/mod.h?rev=888&amp;view=diff&amp;r1=888&amp;r2=887</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/mod.c?rev=888&amp;view=diff&amp;r1=888&amp;r2=887">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/mod.c?rev=888&amp;view=diff&amp;r1=888&amp;r2=887</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c?rev=888&amp;view=diff&amp;r1=888&amp;r2=887">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c?rev=888&amp;view=diff&amp;r1=888&amp;r2=887</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.h?rev=888&amp;view=diff&amp;r1=888&amp;r2=887">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.h?rev=888&amp;view=diff&amp;r1=888&amp;r2=887</A>
+   _	ser_ims/branches/13_pcc_fixing/modules/mgcf/release_call.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/mgcf/release_call.c?rev=888&amp;view=diff&amp;r1=888&amp;r2=887">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/mgcf/release_call.c?rev=888&amp;view=diff&amp;r1=888&amp;r2=887</A>
+   _	ser_ims/branches/13_pcc_fixing/modules/mgcf/release_call.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/mgcf/release_call.h?rev=888&amp;view=diff&amp;r1=888&amp;r2=887">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/mgcf/release_call.h?rev=888&amp;view=diff&amp;r1=888&amp;r2=887</A>
+   _	ser_ims/branches/13_pcc_fixing/modules/nathelper/sip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/sip.c?rev=888&amp;view=diff&amp;r1=888&amp;r2=887">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/sip.c?rev=888&amp;view=diff&amp;r1=888&amp;r2=887</A>
+   _	ser_ims/branches/13_pcc_fixing/modules/nathelper/sip.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/sip.h?rev=888&amp;view=diff&amp;r1=888&amp;r2=887">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/sip.h?rev=888&amp;view=diff&amp;r1=888&amp;r2=887</A>
+   _	ser_ims/branches/13_pcc_fixing/modules/nathelper/sip_body.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/sip_body.c?rev=888&amp;view=diff&amp;r1=888&amp;r2=887">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/sip_body.c?rev=888&amp;view=diff&amp;r1=888&amp;r2=887</A>
+   _	ser_ims/branches/13_pcc_fixing/modules/nathelper/sip_body.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/sip_body.h?rev=888&amp;view=diff&amp;r1=888&amp;r2=887">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/sip_body.h?rev=888&amp;view=diff&amp;r1=888&amp;r2=887</A>
+   _	ser_ims/branches/13_pcc_fixing/modules/pcscf/em_numbers.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/em_numbers.c?rev=888&amp;view=diff&amp;r1=888&amp;r2=887">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/em_numbers.c?rev=888&amp;view=diff&amp;r1=888&amp;r2=887</A>
+   _	ser_ims/branches/13_pcc_fixing/modules/pcscf/em_numbers.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/em_numbers.h?rev=888&amp;view=diff&amp;r1=888&amp;r2=887">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/em_numbers.h?rev=888&amp;view=diff&amp;r1=888&amp;r2=887</A>
+   _	ser_ims/branches/13_pcc_fixing/modules/pcscf/emerg_info.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/emerg_info.xml?rev=888&amp;view=diff&amp;r1=888&amp;r2=887">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/emerg_info.xml?rev=888&amp;view=diff&amp;r1=888&amp;r2=887</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002128.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r887 - added support for IPv6 in	the implementation of PCC_create_framed_ip_avp
+</A></li>
+	<LI>Next message: <A HREF="002131.html">[OpenIMSCore-CSCF] New module: cdp_avp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2130">[ date ]</a>
+              <a href="thread.html#2130">[ thread ]</a>
+              <a href="subject.html#2130">[ subject ]</a>
+              <a href="author.html#2130">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

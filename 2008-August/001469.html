@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Mobicents%20SIP%20WAKE%20UP&In-Reply-To=%3CA7B55C49B8D04DC0B174C1CF5C6784F6%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001468.html">
+   <LINK REL="Next"  HREF="001470.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Mobicents SIP WAKE UP</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Mobicents%20SIP%20WAKE%20UP&In-Reply-To=%3CA7B55C49B8D04DC0B174C1CF5C6784F6%40notebook%3E"
+       TITLE="[OpenIMSCore-CSCF] Mobicents SIP WAKE UP">franz.edler at inode.at
+       </A><BR>
+    <I>Sat Aug 30 14:58:36 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001468.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+        <LI>Next message: <A HREF="001470.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1469">[ date ]</a>
+              <a href="thread.html#1469">[ thread ]</a>
+              <a href="subject.html#1469">[ subject ]</a>
+              <a href="author.html#1469">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Khalid,
+
+Now it is clearer. I see the following issues:
+
+&gt;<i> 1) The UCTIMS Client sends a registration message  to OpenIMS which
+</I>&gt;<i> forward it to Mobicents (as I told in the previous post, Mobicents can
+</I>&gt;<i> only work with users registered in its registrar.
+</I>
+In IMS the REGISTER request must be forwarded to the I-CSCF of the
+home-network of the user. In your case it is sent directly to Mobicents
+because you the REGISTER at &quot;mobicents.open-ims.test&quot; instead of
+&quot;open-ims.test&quot; and the P-CSCF somehow knows the address of
+&quot;mobicents.open-ims.test&quot;.
+
+&gt;<i> 2) Mobicents accepts the registration with a 200 OK (no password)
+</I>
+But the IMS is bypassed and therefore the P-CSCF does not have any knowledge
+about the user registered at &quot;mobicents.open-ims.test&quot;.
+ 
+&gt;<i> 3) The UCTIMS Client sends a &quot;wake up&quot; message (format=&quot;WAKE UP IN Xs!
+</I>&gt;<i> MSG:msgtosend&quot;)
+</I>
+&gt;<i> 4) OpenIMS should forward that &quot;wake up&quot; message but it asks for
+</I>&gt;<i> registration first (and that my major issue actually)
+</I>
+ ... because the UCTIMS client is not registered at the IMS.
+
+
+There are two principal issues with your configuration:
+
+1. Mobicents needs all of its users to be registered: Let the S-CSCF forward
+the REGISTER request to Mobicents as 3rd party registration after successful
+registration at OpenIMSCore. Then you have two registrations in one sequence
+(registration at IMS and at Mobicents). This can easily be done via an IFc
+(trigger point) on REGISTER requests.
+
+2. When service requests by clients should be forwarded to Mobicents than
+you must configure the address of Mobicents as a PSI (Public Service
+Identity). This might be not so trivial for a beginner, therefore start with
+the first step above.
+
+cheers and good luck
+-franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001468.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+	<LI>Next message: <A HREF="001470.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1469">[ date ]</a>
+              <a href="thread.html#1469">[ thread ]</a>
+              <a href="subject.html#1469">[ subject ]</a>
+              <a href="author.html#1469">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

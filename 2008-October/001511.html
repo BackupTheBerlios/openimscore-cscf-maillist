@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Support of the q parameter in the Contact header
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Support%20of%20the%20q%20parameter%20in%20the%20Contact%0A%20header&In-Reply-To=%3C48F5E7B7.2070003%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001510.html">
+   <LINK REL="Next"  HREF="001512.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Support of the q parameter in the Contact header</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Support%20of%20the%20q%20parameter%20in%20the%20Contact%0A%20header&In-Reply-To=%3C48F5E7B7.2070003%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Support of the q parameter in the Contact header">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Oct 15 14:53:11 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001510.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r591 - Merged the	09_contact_preferences branch. (r555-r590)
+</A></li>
+        <LI>Next message: <A HREF="001512.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r592 - Deleted the	09_contact_preferences branch - was merged in trunk in r591.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1511">[ date ]</a>
+              <a href="thread.html#1511">[ thread ]</a>
+              <a href="subject.html#1511">[ subject ]</a>
+              <a href="author.html#1511">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Nacho,
+
+I have merged the 09_contact_preferences into the trunk. I did this for
+2 reasons:
+- seems that nothing happened lately, so let's see some community
+feedback from the trunk
+- I will start shortly a new branch that might have some merge issues
+with this one - 11_caller_preferences (rfc3841)
+
+If you still have work to do on 09, please tell me and I will re-open it
+as a copy from the currently merged trunk.
+
+Cheers,
+-Dragos
+
+Dragos Vingarzan wrote:
+&gt;<i> Hi Nacho,
+</I>&gt;<i>
+</I>&gt;<i> I have created the ser_ims/branches/09_contact_preferences branch for 
+</I>&gt;<i> you. You will need to check-out with your username in order to be able 
+</I>&gt;<i> to also do commits.
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> Nacho Conde wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi Dragos,
+</I>&gt;&gt;<i>    Our account in berlios is tid.
+</I>&gt;&gt;<i> Thank you for the recommendations, but at the moment we prefer work in 
+</I>&gt;&gt;<i> the basic case.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Regards,
+</I>&gt;&gt;<i> TID.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Dragos Vingarzan escribi&#243;:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Hi Nacho,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> this looks very interesting and certainly is of interest. Please give 
+</I>&gt;&gt;&gt;<i> me your berlios account name and I will create a branch for you.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Also, have you considered RFC3840, RFC3841?
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Cheers,
+</I>&gt;&gt;&gt;<i> -Dragos
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Nacho Conde wrote:
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;&gt;&gt;<i>    Hi,
+</I>&gt;&gt;&gt;&gt;<i>          We think that is interesting  to add priority in the 
+</I>&gt;&gt;&gt;&gt;<i> forwarding requests in the SCSCF. According to rfc 3261 a common way 
+</I>&gt;&gt;&gt;&gt;<i> is to use the qvalue parameter.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> In order to support the qvalue in the Contact header of the 
+</I>&gt;&gt;&gt;&gt;<i> REGISTER, Telef&#243;nica I+D have introduced some modifications in the 
+</I>&gt;&gt;&gt;&gt;<i> source code of the CSCF. We think it could be interesting to open a 
+</I>&gt;&gt;&gt;&gt;<i> new branch to test the feature added by us.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Attached you can find the changes.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Best Regards,
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> TID.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> ------------------------------------------------------------------------ 
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;&gt;<i>         
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001510.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r591 - Merged the	09_contact_preferences branch. (r555-r590)
+</A></li>
+	<LI>Next message: <A HREF="001512.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r592 - Deleted the	09_contact_preferences branch - was merged in trunk in r591.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1511">[ date ]</a>
+              <a href="thread.html#1511">[ thread ]</a>
+              <a href="subject.html#1511">[ subject ]</a>
+              <a href="author.html#1511">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

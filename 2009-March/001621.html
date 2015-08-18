@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20BUG%20in%2008_cdp_sessions%20branch&In-Reply-To=%3C49AF0C43.1050409%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001603.html">
+   <LINK REL="Next"  HREF="001622.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20BUG%20in%2008_cdp_sessions%20branch&In-Reply-To=%3C49AF0C43.1050409%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Mar  5 00:18:27 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001603.html">[OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch
+</A></li>
+        <LI>Next message: <A HREF="001622.html">[OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1621">[ date ]</a>
+              <a href="thread.html#1621">[ thread ]</a>
+              <a href="subject.html#1621">[ subject ]</a>
+              <a href="author.html#1621">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Hannes,
+
+me and Alberto started some weeks ago to try and merge it in the trunk 
+as it already got quite far from the trunk and also there will be other 
+new branches coming soon. Unfortunately we both got stuck with other 
+tasks and did not yet had time to finish it....
+
+The branch is not completed, especially on the Diameter extensions, but 
+the extensions in the pcscf should be mostly done. The work on the Rf/Ro 
+interfaces could definitely benefit from a merge too.
+
+So I don't know exactly when this would happen, but it will.
+
+Cheers,
+-Dragos
+
+Hannes L. Weisgrab wrote:
+&gt;<i> Hi Richard,
+</I>&gt;<i> many thanks for your answer; this indeed solved my problem!
+</I>&gt;<i> Do you think the cdp branch will be re-integrated into the trunk in the 
+</I>&gt;<i> future? Is there anything planned?
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i> Hannes.
+</I>&gt;<i>
+</I>&gt;<i> Richard Good schrieb:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi Hannes,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Related thread:
+</I>&gt;&gt;<i> <A HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-August/001881.html">http://lists.berlios.de/pipermail/openimscore-cscf/2008-August/001881.html</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> This is because of an incompatability issue between the 08 cdp branch 
+</I>&gt;&gt;<i> and the trunk code. The P-CSCF in the branch does not support the 
+</I>&gt;&gt;<i> qop-parameter.  To solve the problem disable the qop parameter in the 
+</I>&gt;&gt;<i> SCSCF config file, or take a look at the relevant code changes (see 
+</I>&gt;&gt;<i> related thread) to incorporate into the branch code.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Regards,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Richard.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Message: 1
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Date: Fri, 27 Feb 2009 13:53:07 +0100
+</I>&gt;&gt;&gt;<i> From: &quot;Hannes L. Weisgrab&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">weisi2 at ftw.at</A>&gt;
+</I>&gt;&gt;&gt;<i> Subject: [OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch
+</I>&gt;&gt;&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> Cc: &quot;Reichl, Peter&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">peter.reichl at ftw.at</A>&gt;, &quot;Fischer,	Hans Ronald&quot;
+</I>&gt;&gt;&gt;<i> 	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">fischer at FTW.at</A>&gt;, &quot;Zeiss, Joachim&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Zeiss at FTW.at</A>&gt;,	Joachim Fabini
+</I>&gt;&gt;&gt;<i> 	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">joachim.fabini at tuwien.ac.at</A>&gt;,	Christoph Egger
+</I>&gt;&gt;&gt;<i> 	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">christoph.egger at tuwien.ac.at</A>&gt;
+</I>&gt;&gt;&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">49A7E233.5080700 at ftw.at</A>&gt;
+</I>&gt;&gt;&gt;<i> Content-Type: text/plain; charset=&quot;iso-8859-15&quot;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Dear list members,
+</I>&gt;&gt;&gt;<i> dear developpers,
+</I>&gt;&gt;&gt;<i> I tried to set-up the P-CSCF from the beforementioned branch to check 
+</I>&gt;&gt;&gt;<i> the UCT Policy Control Framework. Unfortunately I get a malformed &quot;401 
+</I>&gt;&gt;&gt;<i> Unauthorized&quot; message on registration. In the message, the &quot;,&quot; is 
+</I>&gt;&gt;&gt;<i> missing between &quot;algorithm=AKAv1-MD5&quot; and &quot;qop=&quot;auth,auth-int&quot; in the 
+</I>&gt;&gt;&gt;<i> WWW-Authenticate header field (see attachment).
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Does somebody have the same problem? Any ideas? Workarounds?
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Best Regards,
+</I>&gt;&gt;&gt;<i> Hannes.
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001603.html">[OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch
+</A></li>
+	<LI>Next message: <A HREF="001622.html">[OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1621">[ date ]</a>
+              <a href="thread.html#1621">[ thread ]</a>
+              <a href="subject.html#1621">[ subject ]</a>
+              <a href="author.html#1621">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

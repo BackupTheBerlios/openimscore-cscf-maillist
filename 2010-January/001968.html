@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] deadlock in dlg
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20deadlock%20in%20dlg&In-Reply-To=%3C4B4F9331.2090108%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001966.html">
+   <LINK REL="Next"  HREF="001969.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] deadlock in dlg</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20deadlock%20in%20dlg&In-Reply-To=%3C4B4F9331.2090108%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] deadlock in dlg">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Jan 14 22:57:05 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001966.html">[OpenIMSCore-CSCF] deadlock in dlg
+</A></li>
+        <LI>Next message: <A HREF="001969.html">[OpenIMSCore-CSCF] deadlock in dlg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1968">[ date ]</a>
+              <a href="thread.html#1968">[ thread ]</a>
+              <a href="subject.html#1968">[ subject ]</a>
+              <a href="author.html#1968">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Min,
+
+just committed a patch in r811... it should be fixed.
+
+Cheers,
+-Dragos
+
+Min Wang wrote:
+&gt;<i> Hi
+</I>&gt;<i>
+</I>&gt;<i> I have tried the 13_pcc_fixing, with alice calling bob etc. Make a
+</I>&gt;<i> couple of calls, then it will be deadlock.
+</I>&gt;<i>
+</I>&gt;<i> The gdb showed somehow it is deadlock in the dialog.
+</I>&gt;<i>
+</I>&gt;<i> Proc1
+</I>&gt;<i> #0  0xb7f3a424 in __kernel_vsyscall ()
+</I>&gt;<i> #1  0xb7e7bfac in sched_yield () from /lib/i686/cmov/libc.so.6
+</I>&gt;<i> #2  0xb7a2c935 in print_p_dialogs () from /usr/lib/ser/modules/pcscf.so
+</I>&gt;<i> #3  0xb7a30623 in P_save_dialog () from /usr/lib/ser/modules/pcscf.so
+</I>&gt;<i> #4  0x08054727 in do_action ()
+</I>&gt;<i> #5  0x08056471 in run_actions ()
+</I>&gt;<i> #6  0x080992e0 in eval_expr ()
+</I>&gt;<i> #7  0x08098ee7 in eval_expr ()
+</I>&gt;<i> #8  0x08054475 in do_action ()
+</I>&gt;<i> #9  0x08056471 in run_actions ()
+</I>&gt;<i> #10 0x08054616 in do_action ()
+</I>&gt;<i> #11 0x08056471 in run_actions ()
+</I>&gt;<i> #12 0x080544bc in do_action ()
+</I>&gt;<i> #13 0x08056471 in run_actions ()
+</I>&gt;<i> #14 0x08055aed in do_action ()
+</I>&gt;<i> #15 0x08056471 in run_actions ()
+</I>&gt;<i> #16 0x080544bc in do_action ()
+</I>&gt;<i> #17 0x08056471 in run_actions ()
+</I>&gt;<i> #18 0x080916bf in receive_msg ()
+</I>&gt;<i> #19 0x080c920d in udp_rcv_loop ()
+</I>&gt;<i> #20 0x0807a2e0 in main_loop ()
+</I>&gt;<i> #21 0x0807c29d in main ()
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Proc2
+</I>&gt;<i> #0  0xb7f3a424 in __kernel_vsyscall ()
+</I>&gt;<i> #1  0xb7e7bfac in sched_yield () from /lib/i686/cmov/libc.so.6
+</I>&gt;<i> #2  0xb7a2c935 in print_p_dialogs () from /usr/lib/ser/modules/pcscf.so
+</I>&gt;<i> #3  0xb7a31251 in P_update_dialog () from /usr/lib/ser/modules/pcscf.so
+</I>&gt;<i> #4  0x08054727 in do_action ()
+</I>&gt;<i> #5  0x08056471 in run_actions ()
+</I>&gt;<i> #6  0x08054616 in do_action ()
+</I>&gt;<i> #7  0x08056471 in run_actions ()
+</I>&gt;<i> #8  0x080544bc in do_action ()
+</I>&gt;<i> #9  0x08056471 in run_actions ()
+</I>&gt;<i> #10 0x080544bc in do_action ()
+</I>&gt;<i> #11 0x08056471 in run_actions ()
+</I>&gt;<i> #12 0x080544bc in do_action ()
+</I>&gt;<i> #13 0x08056471 in run_actions ()
+</I>&gt;<i> #14 0x080916bf in receive_msg ()
+</I>&gt;<i> #15 0x080c920d in udp_rcv_loop ()
+</I>&gt;<i> #16 0x0807a2e0 in main_loop ()
+</I>&gt;<i> #17 0x0807c29d in main ()
+</I>&gt;<i>
+</I>&gt;<i> Proc3
+</I>&gt;<i> (gdb) bt
+</I>&gt;<i> #0  0xb7f3a424 in __kernel_vsyscall ()
+</I>&gt;<i> #1  0xb7e7bfac in sched_yield () from /lib/i686/cmov/libc.so.6
+</I>&gt;<i> #2  0xb7a2f555 in get_p_dialog_dir () from /usr/lib/ser/modules/pcscf.so
+</I>&gt;<i> #3  0xb7a5bb66 in confirmed_response () from
+</I>&gt;<i> /usr/lib/ser/modules/pcscf.so
+</I>&gt;<i> #4  0xb7d82962 in run_trans_callbacks () from /usr/lib/ser/modules/tm.so
+</I>&gt;<i> #5  0xb7d984c3 in local_reply () from /usr/lib/ser/modules/tm.so
+</I>&gt;<i> #6  0xb7d8323d in ?? () from /usr/lib/ser/modules/tm.so
+</I>&gt;<i> #7  0xb5b67560 in ?? ()
+</I>&gt;<i> #8  0xffffffff in ?? ()
+</I>&gt;<i> #9  0x00000000 in ?? ()
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Kind Regards
+</I>&gt;<i>  
+</I>&gt;<i> Min Wang
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001966.html">[OpenIMSCore-CSCF] deadlock in dlg
+</A></li>
+	<LI>Next message: <A HREF="001969.html">[OpenIMSCore-CSCF] deadlock in dlg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1968">[ date ]</a>
+              <a href="thread.html#1968">[ thread ]</a>
+              <a href="subject.html#1968">[ subject ]</a>
+              <a href="author.html#1968">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

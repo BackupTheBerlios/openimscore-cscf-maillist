@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] During REGISTRATION: 500 Server Internal error -	Server Assignment failed.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20During%20REGISTRATION%3A%20500%20Server%20Internal%0A%20error%20-%09Server%20Assignment%20failed.&In-Reply-To=%3C482041A7.5080108%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001338.html">
+   <LINK REL="Next"  HREF="001330.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] During REGISTRATION: 500 Server Internal error -	Server Assignment failed.</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20During%20REGISTRATION%3A%20500%20Server%20Internal%0A%20error%20-%09Server%20Assignment%20failed.&In-Reply-To=%3C482041A7.5080108%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] During REGISTRATION: 500 Server Internal error -	Server Assignment failed.">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue May  6 13:31:51 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001338.html">[OpenIMSCore-CSCF] Two problems in cdp module
+</A></li>
+        <LI>Next message: <A HREF="001330.html">[OpenIMSCore-CSCF] early-IMS Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1329">[ date ]</a>
+              <a href="thread.html#1329">[ thread ]</a>
+              <a href="subject.html#1329">[ subject ]</a>
+              <a href="author.html#1329">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Jimmy,
+
+I suspect the cause to be the fact that the Expires header or contact 
+parameter is missing from the REGISTER messages. Also issue observed:
+- the Request-URI in the 2nd REGISTER is wrong. Should be 
+sip:open-ims.test, just like in the first
+- the format of the Contact header is wrong.
+
+Cheers,
+-Dragos
+
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jimmy.lloyd at tektronix.com</A> wrote:
+&gt;<i> Hello,
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> 1) When we try to register, the registration fails at S-CSCF which 
+</I>&gt;<i> returns 500 Server Assignment failed after the UA responds to the 
+</I>&gt;<i> challenge. PL. see attached wireshark to see the sip and diameter 
+</I>&gt;<i> messages. Do we have incorrect/missing content in the messages?
+</I>&gt;<i>
+</I>&gt;<i> 2) While debugging the problem, we found that the get_r_public( ) 
+</I>&gt;<i> function in register_storage.c fails as the registrar data structure 
+</I>&gt;<i> is empty. Can you provide guidance on who populates the registrar and 
+</I>&gt;<i> when?
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Any help in resolving these problems is greatly appreciated.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i> Jimmy Lloyd   CCNA, N+, MCP
+</I>&gt;<i> Tektronix Texas, LLC
+</I>&gt;<i> 1500 North Greenville Ave.
+</I>&gt;<i> Richardson, Texas 75081
+</I>&gt;<i> Office 469-330-3687
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jimmy.lloyd at tek.com</A> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jimmy.lloyd at tek.com</A>&gt;
+</I>&gt;<i>  
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001338.html">[OpenIMSCore-CSCF] Two problems in cdp module
+</A></li>
+	<LI>Next message: <A HREF="001330.html">[OpenIMSCore-CSCF] early-IMS Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1329">[ date ]</a>
+              <a href="thread.html#1329">[ thread ]</a>
+              <a href="subject.html#1329">[ subject ]</a>
+              <a href="author.html#1329">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

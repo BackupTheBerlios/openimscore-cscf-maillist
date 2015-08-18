@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r608 - Added optional fallback in	the P-CSCF identity assertion: if the P-Preferred-Identity	header is missing,	then use the value in the From header. (This is disabled by default -	see the assert_fallback configuration parameter,	as to keep it aligned with IMS standards).
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r608%20-%20Added%20optional%20fallback%20in%0A%09the%20P-CSCF%20identity%20assertion%3A%20if%20the%20P-Preferred-Identity%0A%09header%20is%20missing%2C%0A%09then%20use%20the%20value%20in%20the%20From%20header.%20%28This%20is%20disabled%20by%20default%20-%0A%09see%20the%20assert_fallback%20configuration%20parameter%2C%0A%09as%20to%20keep%20it%20aligned%20with%20IMS%20standards%29.&In-Reply-To=%3C200812081325.mB8DPcPc008690%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001539.html">
+   <LINK REL="Next"  HREF="001541.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r608 - Added optional fallback in	the P-CSCF identity assertion: if the P-Preferred-Identity	header is missing,	then use the value in the From header. (This is disabled by default -	see the assert_fallback configuration parameter,	as to keep it aligned with IMS standards).</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r608%20-%20Added%20optional%20fallback%20in%0A%09the%20P-CSCF%20identity%20assertion%3A%20if%20the%20P-Preferred-Identity%0A%09header%20is%20missing%2C%0A%09then%20use%20the%20value%20in%20the%20From%20header.%20%28This%20is%20disabled%20by%20default%20-%0A%09see%20the%20assert_fallback%20configuration%20parameter%2C%0A%09as%20to%20keep%20it%20aligned%20with%20IMS%20standards%29.&In-Reply-To=%3C200812081325.mB8DPcPc008690%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r608 - Added optional fallback in	the P-CSCF identity assertion: if the P-Preferred-Identity	header is missing,	then use the value in the From header. (This is disabled by default -	see the assert_fallback configuration parameter,	as to keep it aligned with IMS standards).">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Mon Dec  8 14:25:38 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001539.html">[OpenIMSCore-CSCF] CSCF behavior for B2BUA
+</A></li>
+        <LI>Next message: <A HREF="001541.html">[OpenIMSCore-CSCF] Need explanation for S-CSCF behaviour when	forwarding messages to UE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1540">[ date ]</a>
+              <a href="thread.html#1540">[ thread ]</a>
+              <a href="subject.html#1540">[ subject ]</a>
+              <a href="author.html#1540">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2008-12-08 14:25:37 +0100 (Mon, 08 Dec 2008)
+New Revision: 608 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=608">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=608</A> 
+
+Log:
+Added optional fallback in the P-CSCF identity assertion: if the P-Preferred-Identity header is missing, then use the value in the From header.
+(This is disabled by default - see the assert_fallback configuration parameter, as to keep it aligned with IMS standards).
+
+
+Modified:
+   U	ser_ims/trunk/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=608&amp;view=diff&amp;r1=608&amp;r2=607">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=608&amp;view=diff&amp;r1=608&amp;r2=607</A>
+   U	ser_ims/trunk/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=608&amp;view=diff&amp;r1=608&amp;r2=607">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=608&amp;view=diff&amp;r1=608&amp;r2=607</A>
+   U	ser_ims/trunk/modules/pcscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.c?rev=608&amp;view=diff&amp;r1=608&amp;r2=607">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.c?rev=608&amp;view=diff&amp;r1=608&amp;r2=607</A>
+   U	ser_ims/trunk/modules/scscf/sip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.c?rev=608&amp;view=diff&amp;r1=608&amp;r2=607">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.c?rev=608&amp;view=diff&amp;r1=608&amp;r2=607</A>
+   U	ser_ims/trunk/modules/scscf/sip.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.h?rev=608&amp;view=diff&amp;r1=608&amp;r2=607">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.h?rev=608&amp;view=diff&amp;r1=608&amp;r2=607</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001539.html">[OpenIMSCore-CSCF] CSCF behavior for B2BUA
+</A></li>
+	<LI>Next message: <A HREF="001541.html">[OpenIMSCore-CSCF] Need explanation for S-CSCF behaviour when	forwarding messages to UE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1540">[ date ]</a>
+              <a href="thread.html#1540">[ thread ]</a>
+              <a href="subject.html#1540">[ subject ]</a>
+              <a href="author.html#1540">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

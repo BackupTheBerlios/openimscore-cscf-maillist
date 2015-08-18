@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Detecting AS failure
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Detecting%20AS%20failure&In-Reply-To=%3C46418557.2010401%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000560.html">
+   <LINK REL="Next"  HREF="000561.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Detecting AS failure</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Detecting%20AS%20failure&In-Reply-To=%3C46418557.2010401%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Detecting AS failure">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed May  9 10:24:55 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000560.html">[OpenIMSCore-CSCF] Detecting AS failure
+</A></li>
+        <LI>Next message: <A HREF="000561.html">[OpenIMSCore-CSCF] [Question]How to redirect CSCF log
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#575">[ date ]</a>
+              <a href="thread.html#575">[ thread ]</a>
+              <a href="subject.html#575">[ subject ]</a>
+              <a href="author.html#575">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Jose,
+
+You are right. Fixed since r264.
+
+Thanx for the feedback!
+-Dragos
+
+Jos&#233; Carlos Amorim wrote:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> In the sequence of tests with our AS&#8217;s I found that &#8220;isc_failure&#8221;
+</I>&gt;<i> function was considering 408 and 480 responses as failures to contact
+</I>&gt;<i> the AS, which is not in accordance with 24.229, since the
+</I>&gt;<i> specification says &#8220;If the S-CSCF fails to receive a SIP response or
+</I>&gt;<i> receives a 408 (Request Timeout) response or a 5xx response from the
+</I>&gt;<i> AS, the S-CSCF shall:&#8230;&#8221;.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> In my case I switched the following line:
+</I>&gt;<i>
+</I>&gt;<i> if (ps-&gt;code!=408 &amp;&amp; ps-&gt;code!=480) {
+</I>&gt;<i>
+</I>&gt;<i> with this one:
+</I>&gt;<i>
+</I>&gt;<i> if (ps-&gt;code!=408 &amp;&amp; (ps-&gt;code/100!=5)){
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000560.html">[OpenIMSCore-CSCF] Detecting AS failure
+</A></li>
+	<LI>Next message: <A HREF="000561.html">[OpenIMSCore-CSCF] [Question]How to redirect CSCF log
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#575">[ date ]</a>
+              <a href="thread.html#575">[ thread ]</a>
+              <a href="subject.html#575">[ subject ]</a>
+              <a href="author.html#575">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

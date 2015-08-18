@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r813 - Added remove_sems.sh	Fixedcdp bug in realm routing Fixed pcscf extraction of	the	useridentity for the Rx
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r813%20-%20Added%20remove_sems.sh%0A%09Fixedcdp%20bug%20in%20realm%20routing%20Fixed%20pcscf%20extraction%20of%0A%09the%09useridentity%20for%20the%20Rx&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A02180539%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001978.html">
+   <LINK REL="Next"  HREF="001977.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r813 - Added remove_sems.sh	Fixedcdp bug in realm routing Fixed pcscf extraction of	the	useridentity for the Rx</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r813%20-%20Added%20remove_sems.sh%0A%09Fixedcdp%20bug%20in%20realm%20routing%20Fixed%20pcscf%20extraction%20of%0A%09the%09useridentity%20for%20the%20Rx&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A02180539%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r813 - Added remove_sems.sh	Fixedcdp bug in realm routing Fixed pcscf extraction of	the	useridentity for the Rx">wang at basis-audionet.com
+       </A><BR>
+    <I>Wed Jan 20 18:08:16 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001978.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r813 - Added remove_sems.sh Fixedcdp bug in realm routing Fixed pcscf extraction of the	useridentity for the Rx
+</A></li>
+        <LI>Next message: <A HREF="001977.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r814 - Added auth session timers -	Session-Timeout, Auth-Session-Lifetime,	Auth-Grace-Period - with handling (before it was just a never-ending	expiration) Used the contact's expiration in the AAR Detected	reg/dereg and sending AAR/STR
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1981">[ date ]</a>
+              <a href="thread.html#1981">[ thread ]</a>
+              <a href="subject.html#1981">[ subject ]</a>
+              <a href="author.html#1981">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi Dragos
+
+Thanks.
+&gt;<i> 
+</I>&gt;<i> errm... the STR issue can be fixed by adding the vendor specific
+</I>&gt;<i> application id to the message, then the routing function will use
+</I>that.
+
+Are you going to fix it? If so, I will not look at this issue.
+
+&gt;<i> Otherwise, without code fixing you can hack it by declaring that the
+</I>&gt;<i> PCRF also supports Rx with vendor id 0, in the PCRF configuration.
+</I>
+Yah, that works.
+
+&gt;<i> 
+</I>&gt;<i> About the 2nd one I don't know yet... I am working my way into trying
+</I>&gt;<i> all the scenarios, but I am still at the registration. I started with
+</I>&gt;<i> this because it is relatively easier to test.
+</I>
+Ok. 
+
+
+Kind regards.
+
+Min Wang
+
+
+&gt;<i> 
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> Min Wang wrote:
+</I>&gt;<i> &gt; Hi
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I notice there are two errors with this version, and crashing the
+</I>&gt;<i> &gt; p-cscf.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6939]: ERROR:get_routing_peer():
+</I>No
+&gt;<i> &gt; connected DefaultRoute peer found for app_id 16777236 and vendor id
+</I>0.
+&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6939]: unable to get routing peer
+</I>in
+&gt;<i> &gt; Send_STR
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6932]: BUG: qm_free: freeing
+</I>already
+&gt;<i> &gt; freed pointer, first free: dlg_state.c: free_p_dialog(586) -
+</I>aborting
+&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; /////////////////////////////
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6939]: looking for
+</I>&gt;<i> &gt; |pcscf.xx.net;532549308;5| in |pcscf.xx.net;532549308;5|
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6939]:  found x b5b02540
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6939]: get_first_connected_route
+</I>in
+&gt;<i> &gt; list 0xb5afae5c for app_id 16777236 and vendor_id 0
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6939]: The peer clf.centercall.net
+</I>&gt;<i> &gt; does not seem to be connected or configured
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6939]: ERROR:get_routing_peer():
+</I>No
+&gt;<i> &gt; connected DefaultRoute peer found for app_id 16777236 and vendor id
+</I>0.
+&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6939]: unable to get routing peer
+</I>in
+&gt;<i> &gt; Send_STR
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6939]: DBG:AAAFreeMessage: Freeing
+</I>&gt;<i> &gt; message (0xb5b06868) 275
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6936]: DBG:worker_process(): [1]
+</I>got
+&gt;<i> &gt; task Q(5/5)
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6932]: DBG:PCC_AAA: AAR request
+</I>&gt;<i> &gt; rejected with error code 5063
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6932]: recieved an AAA with result
+</I>&gt;<i> &gt; code 5063
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6932]: DBG:AAAFreeMessage: Freeing
+</I>&gt;<i> &gt; message (0xb5aff280) 265
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6932]:
+</I>&gt;<i> &gt; ^[[01;37mP_release_call_on_reply
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6932]: parse_headers: flags=40
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6932]:
+</I>&gt;<i> &gt; DBG:P-CSCF:release_call_previous(): Releasing call
+</I>&gt;<i> &gt; &lt;3c2a6cf9c9ef-4ao9umwbhlrl&gt; DIR[0].
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6932]:
+</I>&gt;<i> &gt; ERR:P-CSCF:release_call_previous(): had to delete silently dialog
+</I>&gt;<i> &gt; 3c2a6cf9c9ef-4ao9umwbhlrl in direction 0
+</I>&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6932]:
+</I>&gt;<i> &gt; DBG:P-CSCF:p_dialog_count_decrement(): P-CSCF Dialog counter value
+</I>is 1
+&gt;<i> &gt; Jan 19 14:59:09 im1 /usr/sbin/ser[6932]: BUG: qm_free: freeing
+</I>already
+&gt;<i> &gt; freed pointer, first free: dlg_state.c: free_p_dialog(586) -
+</I>aborting
+&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Kind Regards
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Min Wang
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; -----Original Message-----
+</I>&gt;<i> &gt;&gt; From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; [mailto:openimscore-cscf-
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bounces at lists.berlios.de</A>] On Behalf Of <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>
+</I>&gt;<i> &gt;&gt; Sent: Tuesday, January 19, 2010 1:10 PM
+</I>&gt;<i> &gt;&gt; To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt; Subject: [OpenIMSCore-CSCF] [SVN-ser_ims] r813 - Added
+</I>remove_sems.sh
+&gt;<i> &gt;&gt; Fixedcdp bug in realm routing Fixed pcscf extraction of the
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; useridentity
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; for the Rx
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Author: vingarzan
+</I>&gt;<i> &gt;&gt; Date: 2010-01-19 19:10:14 +0100 (Tue, 19 Jan 2010)
+</I>&gt;<i> &gt;&gt; New Revision: 813
+</I>&gt;<i> &gt;&gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=813">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=813</A>
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Log:
+</I>&gt;<i> &gt;&gt; Added remove_sems.sh
+</I>&gt;<i> &gt;&gt; Fixed cdp bug in realm routing
+</I>&gt;<i> &gt;&gt; Fixed pcscf extraction of the user identity for the Rx
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Added:
+</I>&gt;<i> &gt;&gt;    A	ser_ims/branches/13_pcc_fixing/cfg/remove_sems.sh
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; xing/cfg/remove_sems.sh?rev=813&amp;view=markup
+</I>&gt;<i> &gt;&gt; Modified:
+</I>&gt;<i> &gt;&gt;    U	ser_ims/branches/13_pcc_fixing/modules/cdp/routing.c
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; xing/modules/cdp/routing.c?rev=813&amp;view=diff&amp;r1=813&amp;r2=812
+</I>&gt;<i> &gt;&gt;    U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; xing/modules/pcscf/pcc_avp.c?rev=813&amp;view=diff&amp;r1=813&amp;r2=812
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001978.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r813 - Added remove_sems.sh Fixedcdp bug in realm routing Fixed pcscf extraction of the	useridentity for the Rx
+</A></li>
+	<LI>Next message: <A HREF="001977.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r814 - Added auth session timers -	Session-Timeout, Auth-Session-Lifetime,	Auth-Grace-Period - with handling (before it was just a never-ending	expiration) Used the contact's expiration in the AAR Detected	reg/dereg and sending AAR/STR
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1981">[ date ]</a>
+              <a href="thread.html#1981">[ thread ]</a>
+              <a href="subject.html#1981">[ subject ]</a>
+              <a href="author.html#1981">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

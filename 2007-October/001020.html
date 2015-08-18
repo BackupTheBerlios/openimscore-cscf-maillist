@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] RTP Proxy not overwriting ACK messages
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20RTP%20Proxy%20not%20overwriting%20ACK%20messages&In-Reply-To=%3C472861AA.8090603%40crg.ee.uct.ac.za%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001019.html">
+   <LINK REL="Next"  HREF="001021.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] RTP Proxy not overwriting ACK messages</H1>
+    <B>Dave Waiting</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20RTP%20Proxy%20not%20overwriting%20ACK%20messages&In-Reply-To=%3C472861AA.8090603%40crg.ee.uct.ac.za%3E"
+       TITLE="[OpenIMSCore-CSCF] RTP Proxy not overwriting ACK messages">david at crg.ee.uct.ac.za
+       </A><BR>
+    <I>Wed Oct 31 12:06:18 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001019.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r467 - Piped the app sent messages	through the peerstatemachine.
+</A></li>
+        <LI>Next message: <A HREF="001021.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r468 - Some changes in auth state	machine, big changes in the PCC interface some bugs being solved
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1020">[ date ]</a>
+              <a href="thread.html#1020">[ thread ]</a>
+              <a href="subject.html#1020">[ subject ]</a>
+              <a href="author.html#1020">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi
+
+Just had a quick look at the RTP proxy and it seems that it doesn't 
+overwrite the SDP info in the ACK message.
+
+I made a few changes to my configuration which seem to have fixed the 
+issue on my side. I have attached the files that I changed.
+
+Regards
+
+Dave
+
+
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: pcscf.cfg
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071031/9fedcff4/attachment.ksh">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071031/9fedcff4/attachment.ksh</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: sdp_util.c
+Type: text/x-csrc
+Size: 39093 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071031/9fedcff4/attachment.c">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071031/9fedcff4/attachment.c</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001019.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r467 - Piped the app sent messages	through the peerstatemachine.
+</A></li>
+	<LI>Next message: <A HREF="001021.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r468 - Some changes in auth state	machine, big changes in the PCC interface some bugs being solved
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1020">[ date ]</a>
+              <a href="thread.html#1020">[ thread ]</a>
+              <a href="subject.html#1020">[ subject ]</a>
+              <a href="author.html#1020">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

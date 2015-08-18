@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ENC: Question about t_relay_to_udp on	icscf.cfg
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ENC%3A%20Question%20about%20t_relay_to_udp%20on%0A%09icscf.cfg&In-Reply-To=%3C49400055.9090003%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001542.html">
+   <LINK REL="Next"  HREF="001544.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ENC: Question about t_relay_to_udp on	icscf.cfg</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ENC%3A%20Question%20about%20t_relay_to_udp%20on%0A%09icscf.cfg&In-Reply-To=%3C49400055.9090003%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] ENC: Question about t_relay_to_udp on	icscf.cfg">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Dec 10 18:45:57 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001542.html">[OpenIMSCore-CSCF] ENC: Question about t_relay_to_udp on icscf.cfg
+</A></li>
+        <LI>Next message: <A HREF="001544.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r610 - Pre-Merge of branch with	trunk some spaces deleted
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1543">[ date ]</a>
+              <a href="thread.html#1543">[ thread ]</a>
+              <a href="subject.html#1543">[ subject ]</a>
+              <a href="author.html#1543">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>According to the SIP RFC, I would say that it is OK. If a port is 
+missing, it is to be considered as 5060, which is the actual port of the 
+I-CSCF in the default configuration.
+
+To overcome the situation, you might try and use &quot;advertised_port=5060&quot; 
+in the icscf.cfg, in the configuration part, at the beginning of the script.
+
+Cheers,
+-Dragos
+
+Paulo Sigrist wrote:
+&gt;<i>
+</I>&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i> I&#8217;m new with ser and probably I&#8217;m missing something but let me try to 
+</I>&gt;<i> explain the problem that we are facing.
+</I>&gt;<i>
+</I>&gt;<i> I&#8217;ve changed the icscf.cfg to forward messages to a BGCF in case of 
+</I>&gt;<i> transit (PSTN) calls which ENUM is not able to resolve. In order to do 
+</I>&gt;<i> that, I&#8217;ve just changed the route[lir_term_user_unknown] to something 
+</I>&gt;<i> like (in red):
+</I>&gt;<i>
+</I>&gt;<i> if ( ! uri=~&quot;.*@open-ims\.net.*&quot;) { # ENUM resolved to another domain
+</I>&gt;<i>
+</I>&gt;<i> t_on_reply(&quot;Initial_Request_reply&quot;);
+</I>&gt;<i>
+</I>&gt;<i> t_on_failure(&quot;Initial_Request_failure&quot;);
+</I>&gt;<i>
+</I>&gt;<i> if (!t_relay()) {
+</I>&gt;<i>
+</I>&gt;<i> t_reply(&quot;500&quot;,&quot;Error forwarding to external domain&quot;);
+</I>&gt;<i>
+</I>&gt;<i> exit;
+</I>&gt;<i>
+</I>&gt;<i> };
+</I>&gt;<i>
+</I>&gt;<i> exit;
+</I>&gt;<i>
+</I>&gt;<i> } else {
+</I>&gt;<i>
+</I>&gt;<i> t_on_reply(&quot;PSTN_reply&quot;);
+</I>&gt;<i>
+</I>&gt;<i> t_on_failure(&quot;Initial_Request_failure&quot;);
+</I>&gt;<i>
+</I>&gt;<i> if (!t_relay_to_udp(&quot;172.24.21.39&quot;, &quot;5060&quot;)) {
+</I>&gt;<i>
+</I>&gt;<i> t_reply(&quot;500&quot;,&quot;Error forwarding to BGCF&quot;);
+</I>&gt;<i>
+</I>&gt;<i> exit;
+</I>&gt;<i>
+</I>&gt;<i> };
+</I>&gt;<i>
+</I>&gt;<i> &#8230;
+</I>&gt;<i>
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i> Well, icscf forwards an INVITE to the BGCF (172.24.21.39:5060) but in 
+</I>&gt;<i> the VIA header it does not put the icscf port (see bellow in red). My 
+</I>&gt;<i> question is: Is it ok or is there anything missing on my cfg file? The 
+</I>&gt;<i> problem is that UA are complaining about this message and is not 
+</I>&gt;<i> answering.
+</I>&gt;<i>
+</I>&gt;<i> INVITE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">+551937558782 at 172.24.21.51</A>:5060 SIP/2.0
+</I>&gt;<i>
+</I>&gt;<i> Max-Forwards: 16
+</I>&gt;<i>
+</I>&gt;<i> CSeq: 1 INVITE
+</I>&gt;<i>
+</I>&gt;<i> Require: 100rel
+</I>&gt;<i>
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i>
+</I>&gt;<i> Contact: &lt;sip:172.24.21.39:10062&gt;
+</I>&gt;<i>
+</I>&gt;<i> User-Agent: SDS ATF-Agent
+</I>&gt;<i>
+</I>&gt;<i> From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.net</A>&gt;;tag=7636
+</I>&gt;<i>
+</I>&gt;<i> To: &lt;tel:+551937558782&gt;
+</I>&gt;<i>
+</I>&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">2056e9f46430ac57e2f18a44fbd4b5e1 at 172.24.21.39</A>
+</I>&gt;<i>
+</I>&gt;<i> Record-Route: &lt;sip:172.24.21.39:5000;lr&gt;
+</I>&gt;<i>
+</I>&gt;<i> Via: SIP/2.0/UDP 172.24.21.51;branch=z9hG4bKd756.a0ea0b34.0
+</I>&gt;<i>
+</I>&gt;<i> Via: SIP/2.0/udp 
+</I>&gt;<i> 172.24.21.39:5000;rport=5000;branch=z9hG4bKCejFpq2BaAQIYCUjNkpLrXSTvbzGgV3a,SIP/2.0/udp 
+</I>&gt;<i> 172.24.21.39:10062;branch=z9hG4bK198fe21bc27c503244674a7932274fea
+</I>&gt;<i>
+</I>&gt;<i> Thanks in Advance
+</I>&gt;<i>
+</I>&gt;<i> Paulo
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001542.html">[OpenIMSCore-CSCF] ENC: Question about t_relay_to_udp on icscf.cfg
+</A></li>
+	<LI>Next message: <A HREF="001544.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r610 - Pre-Merge of branch with	trunk some spaces deleted
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1543">[ date ]</a>
+              <a href="thread.html#1543">[ thread ]</a>
+              <a href="subject.html#1543">[ subject ]</a>
+              <a href="author.html#1543">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

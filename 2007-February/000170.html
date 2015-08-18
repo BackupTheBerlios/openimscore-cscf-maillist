@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20bug%20reporting%20for%20the%20snapshot%20at%202/3&In-Reply-To=%3C45C87946.6010501%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000169.html">
+   <LINK REL="Next"  HREF="000177.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20bug%20reporting%20for%20the%20snapshot%20at%202/3&In-Reply-To=%3C45C87946.6010501%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Feb  6 13:49:10 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000169.html">[OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3
+</A></li>
+        <LI>Next message: <A HREF="000177.html">[OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#170">[ date ]</a>
+              <a href="thread.html#170">[ thread ]</a>
+              <a href="subject.html#170">[ subject ]</a>
+              <a href="author.html#170">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Kevin,
+
+I think that the Expires header or parameters are mandatory. Or else,
+how could the core tell if you are attempting a registration or a
+de-registration?
+
+-Dragos
+
+Kevin Chen wrote:
+&gt;<i> Hello:
+</I>&gt;<i>     I tried the snapshot release at 2/3 and find there is a &quot;bug&quot; in  scscf
+</I>&gt;<i> module. The bug will cause register request always fail when register
+</I>&gt;<i> request do not include &quot;Expire&quot; header neither in contact.
+</I>&gt;<i>     Before if register request do not include &quot;Expire&quot; header, scscf will
+</I>&gt;<i> use default value 3600, but current implementation in sip.c line 282 cause
+</I>&gt;<i> variable &quot;expire&quot; always be -1 when register message do not have &quot;Expire&quot;
+</I>&gt;<i> header neither in &quot;contact&quot;. (Using 3rd part VoIP client will meet this
+</I>&gt;<i> trouble--I use SJphone).
+</I>&gt;<i>
+</I>&gt;<i> BR
+</I>&gt;<i>
+</I>&gt;<i> K.Chen
+</I>&gt;<i>
+</I>&gt;<i> 2007.2.3
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000169.html">[OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3
+</A></li>
+	<LI>Next message: <A HREF="000177.html">[OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#170">[ date ]</a>
+              <a href="thread.html#170">[ thread ]</a>
+              <a href="subject.html#170">[ subject ]</a>
+              <a href="author.html#170">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

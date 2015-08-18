@@ -1,0 +1,320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Calls PSTN to IMS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Calls%20PSTN%20to%20IMS&In-Reply-To=%3C46418F66.4010502%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000579.html">
+   <LINK REL="Next"  HREF="000571.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Calls PSTN to IMS</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Calls%20PSTN%20to%20IMS&In-Reply-To=%3C46418F66.4010502%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Calls PSTN to IMS">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed May  9 11:07:50 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000579.html">[OpenIMSCore-CSCF] Calls PSTN to IMS
+</A></li>
+        <LI>Next message: <A HREF="000571.html">[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS Identity not registered
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#581">[ date ]</a>
+              <a href="thread.html#581">[ thread ]</a>
+              <a href="subject.html#581">[ subject ]</a>
+              <a href="author.html#581">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Yes, that was what I had in mind.
+
+And yes, it seems that I have some more unread e-mails in my inbox ...
+
+I will apply the patches ASAP.
+
+-Dragos
+Jos&#233; Carlos Amorim wrote:
+&gt;<i> Hi Dragos,
+</I>&gt;<i> Answer inline...
+</I>&gt;<i> I also attached some mails related to this subject that I don't know if you read.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;<i> -----Mensagem original-----
+</I>&gt;<i> De: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+</I>&gt;<i> Enviada: quarta-feira, 9 de Maio de 2007 9:06
+</I>&gt;<i> Para: Jos&#233; Carlos Amorim
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Assunto: Re: [OpenIMSCore-CSCF] Calls PSTN to IMS
+</I>&gt;<i>
+</I>&gt;<i> Hello Jose,
+</I>&gt;<i>
+</I>&gt;<i> Having a default realm when none is found could be a good idea, although
+</I>&gt;<i> it lacks flexibility.
+</I>&gt;<i>
+</I>&gt;<i> Then, what about indicating and extracting the realm for TEL URLs from
+</I>&gt;<i> the phone-context parameter?
+</I>&gt;<i> [Jos&#233;] This could be done but there are situations where there is no phone-context ex. when the Tel URI contains an international number. Maybe the best thing would be extracting from the phone-context if this parameter exists and if it doesn't exist use the default realm.
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Carlos Amorim wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I'm testing OpenIMSCore interaction with PSTN, and I ran into to some
+</I>&gt;&gt;<i> problems, I solved some of them and will be posting the patch soon but
+</I>&gt;&gt;<i> there is one that I need an opinion.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> The problem is when I try to make a call PSTN to IMS and the RURI is a
+</I>&gt;&gt;<i> Tel URI. When I-CSCF tries to initiate a LIR request I get an error
+</I>&gt;&gt;<i> because the function cscf_get_realm_from_ruri does not return a realm
+</I>&gt;&gt;<i> (which is correct because the Tel URI does not have this information)
+</I>&gt;&gt;<i> but the realm is needed for the destination realm AVP. I don't know
+</I>&gt;&gt;<i> how I should get this parameter, does any body have an idea? The only
+</I>&gt;&gt;<i> thing that I thought about was, export a script parameter that holds
+</I>&gt;&gt;<i> this value and use it in this case.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Thanks,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ------------------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Subject:
+</I>&gt;<i> Calls to PSTN
+</I>&gt;<i> From:
+</I>&gt;<i> Jos&#233; Carlos Amorim &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jose-c-amorim at ptinovacao.pt</A>&gt;
+</I>&gt;<i> Date:
+</I>&gt;<i> Thu, 19 Apr 2007 14:46:45 +0100
+</I>&gt;<i> To:
+</I>&gt;<i> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>&gt;
+</I>&gt;<i>
+</I>&gt;<i> To:
+</I>&gt;<i> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>&gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I added the following lines on the S-CSCF script to update dialogs when calls are made to the PSTN.
+</I>&gt;<i>
+</I>&gt;<i> Without  this when you try to terminate the call, the S-CSCF will reply with an error indicating that the dialog is not found on the S-CSCF.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> +onreply_route[PSTN_reply]
+</I>&gt;<i>
+</I>&gt;<i> +{
+</I>&gt;<i>
+</I>&gt;<i> +      log(1,&quot;&gt;&gt;       PSTN_reply\n&quot;);
+</I>&gt;<i>
+</I>&gt;<i> +        if (t_check_status(&quot;1..&quot;)||t_check_status(&quot;2..&quot;)){
+</I>&gt;<i>
+</I>&gt;<i> +               if (!S_update_dialog(&quot;orig&quot;)){
+</I>&gt;<i>
+</I>&gt;<i> +                        log(1,&quot;&gt;&gt;       Error updating orig dialog - maybe non-dialog request...\n&quot;);
+</I>&gt;<i>
+</I>&gt;<i> +               }
+</I>&gt;<i>
+</I>&gt;<i> +        }
+</I>&gt;<i>
+</I>&gt;<i> +}
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> route[PSTN]
+</I>&gt;<i>
+</I>&gt;<i> {
+</I>&gt;<i>
+</I>&gt;<i> +      t_on_reply(&quot;PSTN_reply&quot;);
+</I>&gt;<i>
+</I>&gt;<i>         t_relay_to_udp(&quot;192.168.121.2&quot;, &quot;5060&quot;);
+</I>&gt;<i>
+</I>&gt;<i>         exit;
+</I>&gt;<i>
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Subject:
+</I>&gt;<i> Patch for calls to PSTN
+</I>&gt;<i> From:
+</I>&gt;<i> Jos&#233; Carlos Amorim &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jose-c-amorim at ptinovacao.pt</A>&gt;
+</I>&gt;<i> Date:
+</I>&gt;<i> Thu, 3 May 2007 10:56:59 +0100
+</I>&gt;<i> To:
+</I>&gt;<i> &quot;Dragos Vingarzan&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt;
+</I>&gt;<i>
+</I>&gt;<i> To:
+</I>&gt;<i> &quot;Dragos Vingarzan&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt;
+</I>&gt;<i> CC:
+</I>&gt;<i> Jo&#227;o Filipe Pl&#225;cido &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">joao-f-placido at ptinovacao.pt</A>&gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Hi Dragos,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> We were doing some tests with OpenIMSCore and the PSTN and found the need to add a few things to the source code. These changes consist on a adding a P-Asserted-Identity header like mentioned on 24.229 section 5.4.3.2 point b) for IMS initial requests (we exported a function to the script for this) and adding support for TEL URI's from PSTN to IMS (it was only supported sip URI because the function cscf_get_public_identity_from_requri only returned SIP URIs). With these changes we achieved to establish calls from and to PSTN with TEL URIs. We also added a few lines on the S-CSCF script to call the function that adds the P-Asserted-Identity header and to do an enum query (using ENUM module) to see if the TEL URI is an IMS user, as described on 24.229. 
+</I>&gt;<i>
+</I>&gt;<i> Since this might have some interest for the community we decided to post it but we would like you to take a look and see if you agree with what we done.
+</I>&gt;<i>
+</I>&gt;<i> I attached a patch for the source code and pasted here the changes from the scscf script.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Carlos Silva 
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> route[orig]{
+</I>&gt;<i>
+</I>&gt;<i> (...)
+</I>&gt;<i>
+</I>&gt;<i>       if (ISC_match_filter(&quot;orig&quot;)){
+</I>&gt;<i>
+</I>&gt;<i> #               t_on_reply(&quot;ISC_Orig_reply&quot;);
+</I>&gt;<i>
+</I>&gt;<i> #               t_on_failure(&quot;ISC_Orig_failure&quot;);
+</I>&gt;<i>
+</I>&gt;<i> #               if (!t_relay()) {
+</I>&gt;<i>
+</I>&gt;<i> #                       sl_send_reply(&quot;500&quot;,&quot;Error forwarding to AS&quot;);
+</I>&gt;<i>
+</I>&gt;<i> #                       break;
+</I>&gt;<i>
+</I>&gt;<i> #               };
+</I>&gt;<i>
+</I>&gt;<i>                 exit;
+</I>&gt;<i>
+</I>&gt;<i>         }
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i>        S_add_asserted_identity();
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i>       if (method==&quot;INVITE&quot; &amp;&amp; uri=~&quot;tel:+(.*)&quot;){
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i>                if(!enum_query()){
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i>                        route(PSTN);
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i>                        break;
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i>                }
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i>        } 
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>         if (method==&quot;INVITE&quot; &amp;&amp; uri=~&quot;sip:[0-9]<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">+ at ptinovacao</A>\.pt(.*)&quot;){
+</I>&gt;<i>
+</I>&gt;<i>                         route(PSTN);
+</I>&gt;<i>
+</I>&gt;<i>                         break;
+</I>&gt;<i>
+</I>&gt;<i>         }
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000579.html">[OpenIMSCore-CSCF] Calls PSTN to IMS
+</A></li>
+	<LI>Next message: <A HREF="000571.html">[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS Identity not registered
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#581">[ date ]</a>
+              <a href="thread.html#581">[ thread ]</a>
+              <a href="subject.html#581">[ subject ]</a>
+              <a href="author.html#581">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

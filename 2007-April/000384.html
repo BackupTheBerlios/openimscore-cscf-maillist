@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] BUG in icscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20BUG%20in%20icscf&In-Reply-To=%3C783476.45428.qm%40web8801.mail.in.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000383.html">
+   <LINK REL="Next"  HREF="000385.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] BUG in icscf</H1>
+    <B>manikindhi jeelan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20BUG%20in%20icscf&In-Reply-To=%3C783476.45428.qm%40web8801.mail.in.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] BUG in icscf">jeelan14 at yahoo.co.in
+       </A><BR>
+    <I>Wed Apr  4 11:15:45 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000383.html">[OpenIMSCore-CSCF] Fwd: problem during registration to openms core
+</A></li>
+        <LI>Next message: <A HREF="000385.html">[OpenIMSCore-CSCF] BUG in icscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#384">[ date ]</a>
+              <a href="thread.html#384">[ thread ]</a>
+              <a href="subject.html#384">[ subject ]</a>
+              <a href="author.html#384">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi
+ can any one help us in removing this WARNING and BUG
+while running icscf 
+ 
+here it is
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at open-ims</A> root]# ./icscf.sh
+./icscf.sh: line 3: killser: command not found
+ 0(3994) WARNING: fix_socket_list: could not rev.
+resolve 10.217.92.44
+ 0(3994) WARNING: fix_socket_list: could not rev.
+resolve 10.217.92.44
+Listening on
+             udp: 10.217.92.44 [10.217.92.44]:5060
+             tcp: 10.217.92.44 [10.217.92.44]:5060
+Aliases:
+             *: open-ims.test:*
+             *: icscf.open-ims.test:*
+ 
+ 0(3994) init_tcp: using sigio_rt as the io watch
+method (auto detected)
+ 0(3994) Maxfwd module- initializing
+ 0(3994) INFO:I-CSCF:mod_init: Initialization of
+module
+ 0(3994) BUG: qm_*: prev. fragm. tail overwritten(0,
+abcdefed)[0x81597e4:0x81597
+fc]!
+./icscf.sh: line 4:  3994 Aborted                
+(core dumped) /root/jeelan/ser
+_ims/ser -f /root/icscf.cfg -D -D
+ 
+------ Semaphore Arrays --------
+key        semid      owner      perms      nsems
+ 
+[<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at open-ims</A> root]#
+
+
+		
+__________________________________________________________
+Yahoo! India Answers: Share what you know. Learn something new
+<A HREF="http://in.answers.yahoo.com/">http://in.answers.yahoo.com/</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000383.html">[OpenIMSCore-CSCF] Fwd: problem during registration to openms core
+</A></li>
+	<LI>Next message: <A HREF="000385.html">[OpenIMSCore-CSCF] BUG in icscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#384">[ date ]</a>
+              <a href="thread.html#384">[ thread ]</a>
+              <a href="subject.html#384">[ subject ]</a>
+              <a href="author.html#384">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

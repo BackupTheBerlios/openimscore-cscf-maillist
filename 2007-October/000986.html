@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ISC and P-Asserted-Identity
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ISC%20and%20P-Asserted-Identity&In-Reply-To=%3CCE74D45C9564494998E85AE3C4CA3E3501BAABD8%40hb-altair.hb.buc.materna.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000981.html">
+   <LINK REL="Next"  HREF="000990.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ISC and P-Asserted-Identity</H1>
+    <B>Stefan.Brozinski at materna.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ISC%20and%20P-Asserted-Identity&In-Reply-To=%3CCE74D45C9564494998E85AE3C4CA3E3501BAABD8%40hb-altair.hb.buc.materna.com%3E"
+       TITLE="[OpenIMSCore-CSCF] ISC and P-Asserted-Identity">Stefan.Brozinski at materna.de
+       </A><BR>
+    <I>Mon Oct  8 17:23:08 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000981.html">[OpenIMSCore-CSCF] ISC and P-Asserted-Identity
+</A></li>
+        <LI>Next message: <A HREF="000990.html">[OpenIMSCore-CSCF] ISC and P-Asserted-Identity
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#986">[ date ]</a>
+              <a href="thread.html#986">[ thread ]</a>
+              <a href="subject.html#986">[ subject ]</a>
+              <a href="author.html#986">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> Hmm... no... I would say that it does not support b - btw: 
+</I>&gt;<i> where do you extract the user domain from?
+</I>
+I don't understand this question. Could you clarify please?
+
+
+&gt;<i> Then c is actually supported - registrar.c:1582-1606 - if there is any
+</I>&gt;<i> associated tel-uri to whatever uri then it adds it.
+</I>
+Oh, you are right. Sorry for that one, I misinterpreted that as case
+(b).
+
+
+I have repeated the test and now I found the second P-Asserted-Identity
+header.
+
+The unexpected thing is that the second P-Asserted-Identity header (the
+one containing the tel-uri) is the VERY FIRST header of the SIP message,
+immediately after the Request-Line.
+
+
+
+BTW: The indentation of registrar.c:1579 is broken (one indent more than
+correct).
+
+
+Regards
+Stefan
+
+
+
+&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>] 
+</I>&gt;<i> Sent: Thursday, October 04, 2007 1:47 PM
+</I>&gt;<i> To: Brozinski, Stefan
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at bat.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] ISC and P-Asserted-Identity
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> Hello Stefan,
+</I>&gt;<i> 
+</I>&gt;<i> Hmm... no... I would say that it does not support b - btw: 
+</I>&gt;<i> where do you
+</I>&gt;<i> extract the user domain from?
+</I>&gt;<i> 
+</I>&gt;<i> Then c is actually supported - registrar.c:1582-1606 - if there is any
+</I>&gt;<i> associated tel-uri to whatever uri then it adds it.
+</I>&gt;<i> 
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Stefan.Brozinski at materna.de</A> wrote:
+</I>&gt;<i> &gt; Hello everybody,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; on ISC (the interface between the S-CSCF and an AS), the 
+</I>&gt;<i> S-CSCF shall
+</I>&gt;<i> &gt; make sure that some SIP requests that are passed to the AS 
+</I>&gt;<i> have *two*
+</I>&gt;<i> &gt; P-Asserted-Identity headers: One with a SIP URI, one with a TEL URI.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; The condition is: If the user is using a service profile that is
+</I>&gt;<i> &gt; associated with a SIP URI as well as with a TEL URI, both
+</I>&gt;<i> &gt; P-Asserted-Identity headers shall be present.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; As far as I see, OpenIMSCore doesn't fully support this (yet).
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Here is a short excerpt from the spec.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; --- begin 24.229 V7.7.0 ---
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; 5.4.3 General treatment for all dialogs and standalone transactions
+</I>&gt;<i> &gt; excluding requests terminated by the S-CSCF
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; [...]
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; 5.4.3.2 Requests initiated by the served user
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; When the S-CSCF receives from the served user or from a PSI 
+</I>&gt;<i> an initial
+</I>&gt;<i> &gt; request for a dialog or a request for a standalone transaction
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; [...]
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; the S-CSCF shall:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; [...]
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; 9) if there is no original dialog identifier present in the topmost
+</I>&gt;<i> &gt; Route header of the incoming request and if the SCSCF has 
+</I>&gt;<i> knowledge that
+</I>&gt;<i> &gt; the SIP URI contained in the received P-Asserted-Identity 
+</I>&gt;<i> header is an
+</I>&gt;<i> &gt; alias SIP URI for a tel URI, add a second P-Asserted-Identity header
+</I>&gt;<i> &gt; containing this tel-URI, including the display name 
+</I>&gt;<i> associated with the
+</I>&gt;<i> &gt; tel URI, if available.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; If the P-Asserted-Identity header contains only a tel URI, 
+</I>&gt;<i> the S-CSCF
+</I>&gt;<i> &gt; shall add a second P-Asserted-Identity header containing a 
+</I>&gt;<i> SIP URI. The
+</I>&gt;<i> &gt; added SIP URI shall contain in the user part a &quot;+&quot; followed by the
+</I>&gt;<i> &gt; international public telecommunication number contained in 
+</I>&gt;<i> tel URI, and
+</I>&gt;<i> &gt; user's home domain name in the hostport part. The added SIP 
+</I>&gt;<i> URI shall
+</I>&gt;<i> &gt; contain the same value in the display name as contained in 
+</I>&gt;<i> the tel URI.
+</I>&gt;<i> &gt; The S-CSCF shall also add a user parameter equals &quot;phone&quot; to the SIP
+</I>&gt;<i> &gt; URI;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; NOTE 4: The S-CSCF recognizes that a given SIP URI is an 
+</I>&gt;<i> alias SIP URI
+</I>&gt;<i> &gt; of a tel URI, since they have the same service profile and 
+</I>&gt;<i> belong to the
+</I>&gt;<i> &gt; same set of implicitly registered public user identities. 
+</I>&gt;<i> If tel URI is
+</I>&gt;<i> &gt; shared URI so is the alias SIP URI.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; [...]
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; --- end 24.229 V7.7.0 ---
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; More from the spec: A useful example which illustrates this 
+</I>&gt;<i> behaviour is
+</I>&gt;<i> &gt; given in 24.341 V7.1.0, Table B.5-3. Note that in table 
+</I>&gt;<i> B.5-2, where the
+</I>&gt;<i> &gt; same SIP request is passed from the P-CSCF to the S-CSCF, 
+</I>&gt;<i> there is only
+</I>&gt;<i> &gt; a SIP URI present. On the next leg (between S-CSCF and AS) there are
+</I>&gt;<i> &gt; both SIP URI and TEL URI present.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Now, back to OpenIMSCore.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I have looked through the source code and found something 
+</I>&gt;<i> interesting in
+</I>&gt;<i> &gt; 'scscf/registrar.c': OpenIMSCore's function 
+</I>&gt;<i> &quot;S_add_p_asserted_identity&quot;
+</I>&gt;<i> &gt; seems to be close but not complete.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; (a) It handles a special case (&quot;sip:+1234567&quot; -&gt; 
+</I>&gt;<i> &quot;tel:+1234567&quot;) which I
+</I>&gt;<i> &gt; wasn't aware of (and I can't find it in the spec).
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; (b) It also looks like it can handle &quot;tel:+1234567&quot; -&gt;
+</I>&gt;<i> &gt; &quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user_public at open_ims.test</A>&quot;, but I have not had a good test
+</I>&gt;<i> &gt; environment yet to prove this.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; (c) It does NOT seem to have any support for
+</I>&gt;<i> &gt; &quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user_public at open_ims.test</A>&quot; -&gt; &quot;tel:+1234567&quot;. 
+</I>&gt;<i> Unfortunately, this
+</I>&gt;<i> &gt; is what interests me most at the moment and how I got aware of this
+</I>&gt;<i> &gt; problem.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; &gt;From the code in 'scscf/registrar.c', I don't think that 
+</I>&gt;<i> case (c) is
+</I>&gt;<i> &gt; very different to implement from (b). These two should be 
+</I>&gt;<i> very similar.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I would be glad if someone could fix that.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Regards
+</I>&gt;<i> &gt; Stefan
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;   
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> -- 
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000981.html">[OpenIMSCore-CSCF] ISC and P-Asserted-Identity
+</A></li>
+	<LI>Next message: <A HREF="000990.html">[OpenIMSCore-CSCF] ISC and P-Asserted-Identity
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#986">[ date ]</a>
+              <a href="thread.html#986">[ thread ]</a>
+              <a href="subject.html#986">[ subject ]</a>
+              <a href="author.html#986">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

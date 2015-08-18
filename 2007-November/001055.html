@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 403 Forbidden Dialog not Found response from	SCSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20403%20Forbidden%20Dialog%20not%20Found%20response%20from%0A%09SCSCF&In-Reply-To=%3Cb712f9530711160108j6daa5894qc892611bc3e50597%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001054.html">
+   <LINK REL="Next"  HREF="001058.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 403 Forbidden Dialog not Found response from	SCSCF</H1>
+    <B>Tom Paris</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20403%20Forbidden%20Dialog%20not%20Found%20response%20from%0A%09SCSCF&In-Reply-To=%3Cb712f9530711160108j6daa5894qc892611bc3e50597%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] 403 Forbidden Dialog not Found response from	SCSCF">tom.paris001 at gmail.com
+       </A><BR>
+    <I>Fri Nov 16 10:08:56 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001054.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] Terminating	request source port changes.
+</A></li>
+        <LI>Next message: <A HREF="001058.html">[OpenIMSCore-CSCF] 403 Forbidden Dialog not Found response from SCSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1055">[ date ]</a>
+              <a href="thread.html#1055">[ thread ]</a>
+              <a href="subject.html#1055">[ subject ]</a>
+              <a href="author.html#1055">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+
+I am using Presence Server with OpenIMS.
+All event related to Event package is routed to
+the Presence Server using iFC.
+
+When an presense state subscription is expired,
+NOTIFY request is sent from Presence Server to the subscriber.
+
+ Problem occures when Expire value on SUBSCRIBE request is set longer than
+180 seconds.
+S-CSCF does not forward NOTIFY request from Presence Server to the
+subscriber.
+S-CSCF returns '403 Forbidden -Dialog not Found on S-CSCF or Terminating
+user not suitable for unregistered services' against NOTIFY request from
+Presence Server.
+
+When Expire value on SUBSCRIBE is set shorter than 180 seconds, S-CSCF
+forwards NOTIFY request from Presence Server to the subscriber normally.
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001054.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] Terminating	request source port changes.
+</A></li>
+	<LI>Next message: <A HREF="001058.html">[OpenIMSCore-CSCF] 403 Forbidden Dialog not Found response from SCSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1055">[ date ]</a>
+              <a href="thread.html#1055">[ thread ]</a>
+              <a href="subject.html#1055">[ subject ]</a>
+              <a href="author.html#1055">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

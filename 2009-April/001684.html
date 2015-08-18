@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r654 - added del_nonshm_lumps in	sip.c E-CSCF: fixed a bug: when the INVITE is forwarded to	the PSAP, some lumps are added,	but they are in pkg and when an error response was generated (e.g.	408 Request Timeout) or received,	the function run_failure_handlers was considering the add_rm lump and	trying to free it,	because the flags of the memory chunck had invalid value (memory	thread specific accessed from another thread),	causing an error. Now the pkg lumps are deleted after relaying the	request.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r654%20-%20added%20del_nonshm_lumps%20in%0A%09sip.c%20E-CSCF%3A%20fixed%20a%20bug%3A%20when%20the%20INVITE%20is%20forwarded%20to%0A%09the%20PSAP%2C%20some%20lumps%20are%20added%2C%0A%09but%20they%20are%20in%20pkg%20and%20when%20an%20error%20response%20was%20generated%20%28e.g.%0A%09408%20Request%20Timeout%29%20or%20received%2C%0A%09the%20function%20run_failure_handlers%20was%20considering%20the%20add_rm%20lump%20and%0A%09trying%20to%20free%20it%2C%0A%09because%20the%20flags%20of%20the%20memory%20chunck%20had%20invalid%20value%20%28memory%0A%09thread%20specific%20accessed%20from%20another%20thread%29%2C%0A%09causing%20an%20error.%20Now%20the%20pkg%20lumps%20are%20deleted%20after%20relaying%20the%0A%09request.&In-Reply-To=%3C200904221012.n3MACgP1006802%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001682.html">
+   <LINK REL="Next"  HREF="001685.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r654 - added del_nonshm_lumps in	sip.c E-CSCF: fixed a bug: when the INVITE is forwarded to	the PSAP, some lumps are added,	but they are in pkg and when an error response was generated (e.g.	408 Request Timeout) or received,	the function run_failure_handlers was considering the add_rm lump and	trying to free it,	because the flags of the memory chunck had invalid value (memory	thread specific accessed from another thread),	causing an error. Now the pkg lumps are deleted after relaying the	request.</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r654%20-%20added%20del_nonshm_lumps%20in%0A%09sip.c%20E-CSCF%3A%20fixed%20a%20bug%3A%20when%20the%20INVITE%20is%20forwarded%20to%0A%09the%20PSAP%2C%20some%20lumps%20are%20added%2C%0A%09but%20they%20are%20in%20pkg%20and%20when%20an%20error%20response%20was%20generated%20%28e.g.%0A%09408%20Request%20Timeout%29%20or%20received%2C%0A%09the%20function%20run_failure_handlers%20was%20considering%20the%20add_rm%20lump%20and%0A%09trying%20to%20free%20it%2C%0A%09because%20the%20flags%20of%20the%20memory%20chunck%20had%20invalid%20value%20%28memory%0A%09thread%20specific%20accessed%20from%20another%20thread%29%2C%0A%09causing%20an%20error.%20Now%20the%20pkg%20lumps%20are%20deleted%20after%20relaying%20the%0A%09request.&In-Reply-To=%3C200904221012.n3MACgP1006802%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r654 - added del_nonshm_lumps in	sip.c E-CSCF: fixed a bug: when the INVITE is forwarded to	the PSAP, some lumps are added,	but they are in pkg and when an error response was generated (e.g.	408 Request Timeout) or received,	the function run_failure_handlers was considering the add_rm lump and	trying to free it,	because the flags of the memory chunck had invalid value (memory	thread specific accessed from another thread),	causing an error. Now the pkg lumps are deleted after relaying the	request.">aon at users.berlios.de
+       </A><BR>
+    <I>Wed Apr 22 12:12:42 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001682.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r653 - E-CSCF: modified the	find_dialog_aor to get the From uri from the INVITE when the	P-Asserted-Identity header is not present (e.g. anonymous	call) P-CSCF: added anonym_em_call_support parameter to	configure rejecting/accepting of the anonymous calls P-CSCF:	added the P_accept_anonym_em_call exported function to check	if P-CSCF accepts or not anonymous calls P-CSCF: modified the	P_assert_identity to accept a parameter: &quot;emerg&quot; or &quot;non-emerg&quot;,	depending on what kind of registration is considered P-CSCF: updated	the running script
+</A></li>
+        <LI>Next message: <A HREF="001685.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r655 - P-CSCF: modified the	p_dialog structure to include emergency service	information:emergency or non-emergency dialog,	the SIP URI of the selected  E-CSCF,	if emergency one P-CSCF: updated P_save_dialog to set if a dialog is	an emergency one and P_enforce_sos_routes to store the E-CSCF	URI to which the INVITE was forwarded P-CSCF: removed	P_is_anonymous_identity because it is easier from the script	updated the scripts added a sipp script for generating an	anonymous emergency call
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1684">[ date ]</a>
+              <a href="thread.html#1684">[ thread ]</a>
+              <a href="subject.html#1684">[ subject ]</a>
+              <a href="author.html#1684">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2009-04-22 12:12:38 +0200 (Wed, 22 Apr 2009)
+New Revision: 654 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=654">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=654</A> 
+
+Log:
+added del_nonshm_lumps in sip.c
+
+E-CSCF: fixed a bug: when the INVITE is forwarded to the PSAP, some lumps are added, but they are in pkg and when an error response was generated 
+(e.g. 408 Request Timeout) or received, the function run_failure_handlers was considering the add_rm lump and trying to free it, because the flags 
+of the memory chunck had invalid value (memory thread specific accessed from another thread), causing an error. Now the pkg lumps are deleted after 
+relaying the request.
+ 
+
+
+Modified:
+   U	ser_ims/branches/12_em_services/cfg/ecscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/cfg/ecscf.cfg?rev=654&amp;view=diff&amp;r1=654&amp;r2=653">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/cfg/ecscf.cfg?rev=654&amp;view=diff&amp;r1=654&amp;r2=653</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/lrf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.c?rev=654&amp;view=diff&amp;r1=654&amp;r2=653">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.c?rev=654&amp;view=diff&amp;r1=654&amp;r2=653</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/route.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/route.c?rev=654&amp;view=diff&amp;r1=654&amp;r2=653">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/route.c?rev=654&amp;view=diff&amp;r1=654&amp;r2=653</A>
+   U	ser_ims/branches/12_em_services/modules/scscf/sip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/scscf/sip.c?rev=654&amp;view=diff&amp;r1=654&amp;r2=653">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/scscf/sip.c?rev=654&amp;view=diff&amp;r1=654&amp;r2=653</A>
+   U	ser_ims/branches/12_em_services/modules/scscf/sip.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/scscf/sip.h?rev=654&amp;view=diff&amp;r1=654&amp;r2=653">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/scscf/sip.h?rev=654&amp;view=diff&amp;r1=654&amp;r2=653</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001682.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r653 - E-CSCF: modified the	find_dialog_aor to get the From uri from the INVITE when the	P-Asserted-Identity header is not present (e.g. anonymous	call) P-CSCF: added anonym_em_call_support parameter to	configure rejecting/accepting of the anonymous calls P-CSCF:	added the P_accept_anonym_em_call exported function to check	if P-CSCF accepts or not anonymous calls P-CSCF: modified the	P_assert_identity to accept a parameter: &quot;emerg&quot; or &quot;non-emerg&quot;,	depending on what kind of registration is considered P-CSCF: updated	the running script
+</A></li>
+	<LI>Next message: <A HREF="001685.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r655 - P-CSCF: modified the	p_dialog structure to include emergency service	information:emergency or non-emergency dialog,	the SIP URI of the selected  E-CSCF,	if emergency one P-CSCF: updated P_save_dialog to set if a dialog is	an emergency one and P_enforce_sos_routes to store the E-CSCF	URI to which the INVITE was forwarded P-CSCF: removed	P_is_anonymous_identity because it is easier from the script	updated the scripts added a sipp script for generating an	anonymous emergency call
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1684">[ date ]</a>
+              <a href="thread.html#1684">[ thread ]</a>
+              <a href="subject.html#1684">[ subject ]</a>
+              <a href="author.html#1684">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] TLS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20TLS&In-Reply-To=%3C007c01cc5202%240df08320%2429d18960%24%40technikum-wien.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002619.html">
+   <LINK REL="Next"  HREF="002616.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] TLS</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20TLS&In-Reply-To=%3C007c01cc5202%240df08320%2429d18960%24%40technikum-wien.at%3E"
+       TITLE="[OpenIMSCore-CSCF] TLS">franz.edler at technikum-wien.at
+       </A><BR>
+    <I>Wed Aug  3 19:23:23 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002619.html">[OpenIMSCore-CSCF] TLS
+</A></li>
+        <LI>Next message: <A HREF="002616.html">[OpenIMSCore-CSCF] Kamailio on a server with different network cards
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2620">[ date ]</a>
+              <a href="thread.html#2620">[ thread ]</a>
+              <a href="subject.html#2620">[ subject ]</a>
+              <a href="author.html#2620">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Yoso,
+&gt;<i> Default setting is from tls_prepare.sh. Where is certificate that I can
+</I>use to
+&gt;<i> copy to client? There are .pem file in /opt/OpenIMSCore/PCSCF_CA
+</I>&gt;<i> directory?? which file must be copied to client???
+</I>
+I think you have to dig deeper into the concept of TLS. The main steps are:
+- you have to become a CA (Certificate Authority)
+- create a CA  root certificate (self signed)
+- create a server certificate for P-CSCF
+- provide the signed server certificate to P-CSCF
+- add the(self signed)  CA root certificate to the list of trusted CAs of
+your client.
+
+The details can be found in some tutorials on the web.
+
+BR
+Franz
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002619.html">[OpenIMSCore-CSCF] TLS
+</A></li>
+	<LI>Next message: <A HREF="002616.html">[OpenIMSCore-CSCF] Kamailio on a server with different network cards
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2620">[ date ]</a>
+              <a href="thread.html#2620">[ thread ]</a>
+              <a href="subject.html#2620">[ subject ]</a>
+              <a href="author.html#2620">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

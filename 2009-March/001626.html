@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r626 - Fixed user generating	script bug: broken add user sql generated. sh seems to	interpret \0 wrongly in a string, replaced with bash
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r626%20-%20Fixed%20user%20generating%0A%09script%20bug%3A%20broken%20add%20user%20sql%20generated.%20sh%20seems%20to%0A%09interpret%20%5C0%20wrongly%20in%20a%20string%2C%20replaced%20with%20bash&In-Reply-To=%3C200903051631.n25GVApC008248%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001617.html">
+   <LINK REL="Next"  HREF="001627.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r626 - Fixed user generating	script bug: broken add user sql generated. sh seems to	interpret \0 wrongly in a string, replaced with bash</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r626%20-%20Fixed%20user%20generating%0A%09script%20bug%3A%20broken%20add%20user%20sql%20generated.%20sh%20seems%20to%0A%09interpret%20%5C0%20wrongly%20in%20a%20string%2C%20replaced%20with%20bash&In-Reply-To=%3C200903051631.n25GVApC008248%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r626 - Fixed user generating	script bug: broken add user sql generated. sh seems to	interpret \0 wrongly in a string, replaced with bash">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Thu Mar  5 17:31:10 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001617.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r624 - Refixed the quotes of the	alias parameter in the cfg files - the port must be outside
+</A></li>
+        <LI>Next message: <A HREF="001627.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r627 - Fix the value of the IPSec	mode to make it compliant to TS 33.203,	and change the P* scripts accordingly. Modify the E* scripts to match	the P* scripts.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1626">[ date ]</a>
+              <a href="thread.html#1626">[ thread ]</a>
+              <a href="subject.html#1626">[ subject ]</a>
+              <a href="author.html#1626">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2009-03-05 17:31:09 +0100 (Thu, 05 Mar 2009)
+New Revision: 626 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=626">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=626</A> 
+
+Log:
+Fixed user generating script bug: broken add user sql generated.
+sh seems to interpret \0 wrongly in a string, replaced with bash
+
+
+Modified:
+   U	ser_ims/trunk/cfg/add-imscore-user_newdb.sh
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/add-imscore-user_newdb.sh?rev=626&amp;view=diff&amp;r1=626&amp;r2=625">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/add-imscore-user_newdb.sh?rev=626&amp;view=diff&amp;r1=626&amp;r2=625</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001617.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r624 - Refixed the quotes of the	alias parameter in the cfg files - the port must be outside
+</A></li>
+	<LI>Next message: <A HREF="001627.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r627 - Fix the value of the IPSec	mode to make it compliant to TS 33.203,	and change the P* scripts accordingly. Modify the E* scripts to match	the P* scripts.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1626">[ date ]</a>
+              <a href="thread.html#1626">[ thread ]</a>
+              <a href="subject.html#1626">[ subject ]</a>
+              <a href="author.html#1626">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

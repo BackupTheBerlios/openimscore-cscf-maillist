@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Loop between AS, S-CSCF and ICSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Loop%20between%20AS%2C%20S-CSCF%20and%20ICSCF&In-Reply-To=%3C479762FB.80501%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001148.html">
+   <LINK REL="Next"  HREF="001146.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Loop between AS, S-CSCF and ICSCF</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Loop%20between%20AS%2C%20S-CSCF%20and%20ICSCF&In-Reply-To=%3C479762FB.80501%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Loop between AS, S-CSCF and ICSCF">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Jan 23 16:53:31 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001148.html">[OpenIMSCore-CSCF] Loop between AS, S-CSCF and ICSCF
+</A></li>
+        <LI>Next message: <A HREF="001146.html">[OpenIMSCore-CSCF] Disable DNS resolving of hostname on P-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1152">[ date ]</a>
+              <a href="thread.html#1152">[ thread ]</a>
+              <a href="subject.html#1152">[ subject ]</a>
+              <a href="author.html#1152">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>After some trouble understanding the scenario - quite complicated - I
+got it...
+
+yes, it looks like the isc module wrongfully identifies the 500 as
+coming for the INVITE in packet 15 and trying to continue triggering.
+Somehow we need to inactivate that failure route when we received a
+request with the same marking as the one sent from the AS (packet 17).
+Though issue.... wonder if we could keep it stateless still. Maybe if we
+could save some state on the transaction and then try to find it and
+change it such that the ISC_orig/term_failure routes could be skipped...
+
+I have created a bug report here: <A HREF="http://www.openimscore.org/node/123">http://www.openimscore.org/node/123</A>
+
+Cheers,
+-Dragos
+
+Roberto Lu&#237;s Paradinha wrote:
+&gt;<i>
+</I>&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Roberto Lu&#237;s Paradinha
+</I>&gt;<i> Sent: Thu 1/17/2008 10:49 AM
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: Loop between AS, S-CSCF and ICSCF
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Hi
+</I>&gt;<i>
+</I>&gt;<i> I have a problems in the S-CSCF when it receives a 408 (Request-Timeout) response or 5xx response from the AS.
+</I>&gt;<i> This is scenario.
+</I>&gt;<i> The user Bob has two triggers mobile originating to two different AS (5090, 5091) and both have the default handling defined in the filter criteria indicating the value &quot;SESSION_CONTINUED&quot;. Bob tries to call to a user  azx on a different network and we get an &#8220;500 Error forwarding towards S-CSCF&#8221; from the I-CSCF,  the S-CSCF gets stuck for a while on a loop between I-CSCF, S-CSCF and AS. 
+</I>&gt;<i> The problems is: 
+</I>&gt;<i> When the 500 response returns from the AS to S- CSCF, the S-CSCF tries forwarding the request message to the AS, but the forwarding fails and he sends an INVITE to the I-CSCF.
+</I>&gt;<i> I suspect this has something to do with the isc module not detecting correctly if an 408 or a 5xx response is an AS failure or a message coming back from another network element. Did this ever happen to anybody? We will try to look into this issue .
+</I>&gt;<i>
+</I>&gt;<i> The network trace is in annex.
+</I>&gt;<i>
+</I>&gt;<i> Kind Regards,
+</I>&gt;<i> Roberto Paradinha
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001148.html">[OpenIMSCore-CSCF] Loop between AS, S-CSCF and ICSCF
+</A></li>
+	<LI>Next message: <A HREF="001146.html">[OpenIMSCore-CSCF] Disable DNS resolving of hostname on P-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1152">[ date ]</a>
+              <a href="thread.html#1152">[ thread ]</a>
+              <a href="subject.html#1152">[ subject ]</a>
+              <a href="author.html#1152">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

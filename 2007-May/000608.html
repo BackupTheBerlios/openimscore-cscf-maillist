@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [I-CSCF]When Callee rejects a call from other domain I-CSCF returns 600 response
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BI-CSCF%5DWhen%20Callee%20rejects%20a%20call%20from%0A%20other%20domain%20I-CSCF%20returns%20600%20response&In-Reply-To=%3C4648B99C.8010105%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000601.html">
+   <LINK REL="Next"  HREF="000602.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [I-CSCF]When Callee rejects a call from other domain I-CSCF returns 600 response</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BI-CSCF%5DWhen%20Callee%20rejects%20a%20call%20from%0A%20other%20domain%20I-CSCF%20returns%20600%20response&In-Reply-To=%3C4648B99C.8010105%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [I-CSCF]When Callee rejects a call from other domain I-CSCF returns 600 response">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Mon May 14 21:33:48 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000601.html">[OpenIMSCore-CSCF] [I-CSCF]When Callee rejects a call from other	domain I-CSCF returns 600 response
+</A></li>
+        <LI>Next message: <A HREF="000602.html">[OpenIMSCore-CSCF] does Open IMS supports IPSec??
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#608">[ date ]</a>
+              <a href="thread.html#608">[ thread ]</a>
+              <a href="subject.html#608">[ subject ]</a>
+              <a href="author.html#608">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hmm... this is quite strange and should not happen.
+
+The original icscf.cfg only considers failures the 408 and 480 replies
+when trying to contact other S-CSCF.
+
+failure_route[Initial_Request_failure]
+{
+    if (t_check_status(&quot;408&quot;)||t_check_status(&quot;480&quot;)){
+        #log(-1,&quot;Got a failure for Initial Request!!\n&quot;);
+        if (I_scscf_select(&quot;1&quot;)) {
+            t_on_reply(&quot;Initial_Request_reply&quot;);
+            t_on_failure(&quot;Initial_Request_failure&quot;);
+            if (!t_relay()) {
+                t_reply(&quot;500&quot;,&quot;Error forwarding towards next S-CSCF&quot;);
+                break;
+            }
+            break;
+        }else{
+            t_reply(&quot;500&quot;, &quot;Server error on LIR select next S-CSCF&quot;);
+            break;
+        }
+    }else{
+        I_scscf_drop();
+    }   
+}
+
+So in case of a 486, it will just drop the scscf_list and relay the
+original 486 reply. The only place where you could get a 600 is in the
+I_scscf_select() function, when you try to select the next S-CSCF in the
+scscf_list and there is none left or the name is empty (which means no
+S-CSCF attached).
+
+And well... if I look on the trace that you have sent :-)... I see that
+actually it's not strange at all.. I don't see any 486, but a 480... So
+there is no issue...
+
+-Dragos
+
+Hideyuki Yamashita wrote:
+&gt;<i> Hi all,
+</I>&gt;<i>
+</I>&gt;<i> I have a question about behavior of I-CSCF.
+</I>&gt;<i>
+</I>&gt;<i> [What I did]
+</I>&gt;<i> 1.One SIP Terminal(callee) is registered with OpenIMS(domain 
+</I>&gt;<i> name is 'ntt.lab.co.jp').
+</I>&gt;<i> 2.Other SIP Terminal(caller) which resides out of OpenIMS send 
+</I>&gt;<i> an INVITE message to callee via I-CSCF.
+</I>&gt;<i> 3.SIP Terminal(callee) reject the call by sending 486&quot;Busy Here&quot;
+</I>&gt;<i> to P-CSCF.
+</I>&gt;<i> 4.486 response transfered to S-CSCF.
+</I>&gt;<i> 5.486 response transfered to I-CSCF
+</I>&gt;<i> 6.486 response is changed to 600 &quot;Busy Everywhere&quot; response and 
+</I>&gt;<i> send to caller.
+</I>&gt;<i> (Signal43 in attached capture file)
+</I>&gt;<i>
+</I>&gt;<i> [Question]
+</I>&gt;<i> Is it 3GPP compliant behavior that I-CSCF change 486 response to 
+</I>&gt;<i> 600 response?
+</I>&gt;<i> Is this conversion intentionally implemented?
+</I>&gt;<i>
+</I>&gt;<i> I have checked icscf.cfg but I can not find out those 
+</I>&gt;<i> procedure in the file.
+</I>&gt;<i> (I think that this conversion is done by icscf module)
+</I>&gt;<i>
+</I>&gt;<i> I have read TS.24.228 and TS24.229 but there seems no 
+</I>&gt;<i> description about this.
+</I>&gt;<i>
+</I>&gt;<i> [Network Configuration]
+</I>&gt;<i> 172.16.5.11:P-CSCF
+</I>&gt;<i> 172.16.5.12:I-CSCF
+</I>&gt;<i> 172.16.5.13:S-CSCF
+</I>&gt;<i> 172.16.5.14:HSS
+</I>&gt;<i> 172.16.3.155:SIP Terminal(callee)
+</I>&gt;<i> 172.16.3.161:SIP Terminal(caller)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>  [OpenIMSCore Release I use]
+</I>&gt;<i>  CSCFs:ser_ims2007327.r0202
+</I>&gt;<i>  HSS  :FHoSS2007329.r0204
+</I>&gt;<i>
+</I>&gt;<i> Thanks in advance,
+</I>&gt;<i> Hideyuki
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000601.html">[OpenIMSCore-CSCF] [I-CSCF]When Callee rejects a call from other	domain I-CSCF returns 600 response
+</A></li>
+	<LI>Next message: <A HREF="000602.html">[OpenIMSCore-CSCF] does Open IMS supports IPSec??
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#608">[ date ]</a>
+              <a href="thread.html#608">[ thread ]</a>
+              <a href="subject.html#608">[ subject ]</a>
+              <a href="author.html#608">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

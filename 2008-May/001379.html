@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] (no subject)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%28no%20subject%29&In-Reply-To=%3C48359A67.4000702%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001366.html">
+   <LINK REL="Next"  HREF="001375.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] (no subject)</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%28no%20subject%29&In-Reply-To=%3C48359A67.4000702%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] (no subject)">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu May 22 18:08:07 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001366.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+        <LI>Next message: <A HREF="001375.html">[OpenIMSCore-CSCF] 403 Dialog not found on S-CSCF or Terminating user not suitable for unregisted services
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1379">[ date ]</a>
+              <a href="thread.html#1379">[ thread ]</a>
+              <a href="subject.html#1379">[ subject ]</a>
+              <a href="author.html#1379">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Maybe if you ask this question on the UCT IMS Client mailing list, it 
+would help more....
+
+Cheers,
+-Dragos
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">std03096 at di.uoa.gr</A> wrote:
+&gt;<i> Any ideas how I can solve the segmentation fault (because of port unreachable-
+</I>&gt;<i> problem related with host)?????
+</I>&gt;<i>
+</I>&gt;<i> sudo ./pcscf.sh
+</I>&gt;<i>
+</I>&gt;<i>  5(6814) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6814) INF:P-CSCF:[ 149] C: &lt;0://84.38.11.117:5061&gt; Exp:[599296] R:[ 1]
+</I>&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 84.38.11.117</A>:5061;line=6766797437f1181&gt;
+</I>&gt;<i>  5(6814) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+</I>&gt;<i>  5(6814) INF:P-CSCF:        NAT:&lt;127.0.0.1:5061&gt;
+</I>&gt;<i>  5(6814) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt; 
+</I>&gt;<i>  5(6814) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(6814) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(6814) INF:P-CSCF:[   3]      P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt; D:[600030]
+</I>&gt;<i> E:[599326] Att:[-1]
+</I>&gt;<i>  5(6814) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  5(6814) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6814) INF:P-CSCF:[ 149] C: &lt;0://84.38.11.117:5061&gt; Exp:[599286] R:[ 1]
+</I>&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 84.38.11.117</A>:5061;line=6766797437f1181&gt;
+</I>&gt;<i>  5(6814) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+</I>&gt;<i>  5(6814) INF:P-CSCF:        NAT:&lt;127.0.0.1:5061&gt;
+</I>&gt;<i>  5(6814) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt; 
+</I>&gt;<i>  5(6814) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>
+</I>&gt;<i> sudo ./icscf.sh
+</I>&gt;<i>
+</I>&gt;<i> 12(6892) DBG:peer_timer(): Peer hss.open-ims.test       State 5 
+</I>&gt;<i> 12(6892) --- Peer List: ---
+</I>&gt;<i> 12(6892)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 12(6892)         [16777216,10415]
+</I>&gt;<i> 12(6892)         [16777216,4491]
+</I>&gt;<i> 12(6892)         [16777216,13019]
+</I>&gt;<i> 12(6892)         [16777217,10415]
+</I>&gt;<i> 12(6892)         [16777221,10415]
+</I>&gt;<i> 12(6892) ------------------
+</I>&gt;<i> 18(7046) DBG:sm_process(): Peer hss.open-ims.test       State R_Open    Event
+</I>&gt;<i> R_Rcv_DWR
+</I>&gt;<i> 18(7046) DBG:sm_process(): Peer hss.open-ims.test       State R_Open    Event
+</I>&gt;<i> R_Rcv_DWA
+</I>&gt;<i> 12(6892) --- Peer List: ---
+</I>&gt;<i> 12(6892)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 12(6892)         [16777216,10415]
+</I>&gt;<i> 12(6892)         [16777216,4491]
+</I>&gt;<i> 12(6892)         [16777216,13019]
+</I>&gt;<i> 12(6892)         [16777217,10415]
+</I>&gt;<i> 12(6892)         [16777221,10415]
+</I>&gt;<i> 12(6892) ------------------
+</I>&gt;<i> 12(6892) --- Peer List: ---
+</I>&gt;<i> 12(6892)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 12(6892)         [16777216,10415]
+</I>&gt;<i> 12(6892)         [16777216,4491]
+</I>&gt;<i> 12(6892)         [16777216,13019]
+</I>&gt;<i> 12(6892)         [16777217,10415]
+</I>&gt;<i> 12(6892)         [16777221,10415]
+</I>&gt;<i> 12(6892) ------------------
+</I>&gt;<i> 12(6892) --- Peer List: ---
+</I>&gt;<i> 12(6892)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 12(6892)         [16777216,10415]
+</I>&gt;<i> 12(6892)         [16777216,4491]
+</I>&gt;<i> 12(6892)         [16777216,13019]
+</I>&gt;<i> 12(6892)         [16777217,10415]
+</I>&gt;<i> 12(6892)         [16777221,10415]
+</I>&gt;<i> 12(6892) ------------------
+</I>&gt;<i> 12(6892) --- Peer List: ---
+</I>&gt;<i> 12(6892)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 12(6892)         [16777216,10415]
+</I>&gt;<i> 12(6892)         [16777216,4491]
+</I>&gt;<i> 12(6892)         [16777216,13019]
+</I>&gt;<i> 12(6892)         [16777217,10415]
+</I>&gt;<i> 12(6892)         [16777221,10415]
+</I>&gt;<i> 12(6892) ------------------
+</I>&gt;<i>
+</I>&gt;<i> sudo ./scscf.sh
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>  5(6938) INF:S-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(6938) INF:S-CSCF:[   3] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; 
+</I>&gt;<i>  5(6938) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+</I>&gt;<i>  5(6938) INF:S-CSCF:         C:
+</I>&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 84.38.11.117</A>:5061;line=6766797437f1181&gt; Exp:[599203]
+</I>&gt;<i>  5(6938) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+</I>&gt;<i>  5(6938) INF:S-CSCF:           UA: &lt;UCT IMS Client&gt;
+</I>&gt;<i>  5(6938) INF:S-CSCF:         S: Event[0] Exp:[599203] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 84.38.11.117</A>:5061&gt; 
+</I>&gt;<i>  5(6938) INF:S-CSCF:         S: Event[0] Exp:[599241]
+</I>&gt;<i> &lt;sip:pcscf.open-ims.test:4060&gt; 
+</I>&gt;<i>  5(6938) INF:S-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i> 12(6945) --- Peer List: ---
+</I>&gt;<i> 12(6945)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 12(6945)         [16777216,10415]
+</I>&gt;<i> 12(6945)         [16777216,4491]
+</I>&gt;<i> 12(6945)         [16777216,13019]
+</I>&gt;<i> 12(6945)         [16777217,10415]
+</I>&gt;<i> 12(6945)         [16777221,10415]
+</I>&gt;<i> 12(6945) ------------------
+</I>&gt;<i>
+</I>&gt;<i> sudo ./startup.sh
+</I>&gt;<i>
+</I>&gt;<i> Building Classpath
+</I>&gt;<i> Classpath is
+</I>&gt;<i> lib/xml-apis.jar:lib/xercesImpl.jar:lib/xerces-2.4.0.jar:lib/xalan-2.4.0.jar:lib/tomcat-util.jar:lib/tomcat-http.jar:lib/tomcat-coyote.jar:lib/struts.jar:lib/servlets-default.jar:lib/servlet-api.jar:lib/naming-resources.jar:lib/naming-factory.jar:lib/mysql-connector-java-3.1.12-bin.jar:lib/mx4j-3.0.1.jar:lib/log4j.jar:lib/junit.jar:lib/junitee.jar:lib/jta.jar:lib/jsp-api.jar:lib/jmx.jar:lib/jdp.jar:lib/jasper-runtime.jar:lib/jasper-compiler-jdt.jar:lib/jasper-compiler.jar:lib/hibernate3.jar:lib/FHoSS.jar:lib/ehcache-1.1.jar:lib/dom4j-1.6.1.jar:lib/commons-validator.jar:lib/commons-modeler.jar:lib/commons-logging.jar:lib/commons-logging-1.0.4.jar:lib/commons-lang.jar:lib/commons-fileupload.jar:lib/commons-el.jar:lib/commons-digester.jar:lib/commons-collections-3.1.jar:lib/commons-beanutils.jar:lib/cglib-2.1.3.jar:lib/catalina-optional.jar:lib/catalina.jar:lib/c3p0-0.9.1.jar:lib/base64.jar:lib/asm.jar:lib/asm-attrs.jar:lib/antlr-2.7.6.jar::log4j.properties:..
+</I>&gt;<i> 2008-05-17 19:45:24,999 INFO  de.fhg.fokus.hss.main.TomcatServer - startTomcat
+</I>&gt;<i> Tomcat-Server is started.
+</I>&gt;<i> 2008-05-17 19:45:26,826 WARN  org.apache.catalina.connector.MapperListener -
+</I>&gt;<i> registerEngine Unknown default host: 127.0.0.1
+</I>&gt;<i> 2008-05-17 19:45:28,361 INFO  de.fhg.fokus.hss.web.servlet.ResponseFilter - init
+</I>&gt;<i> Response Filter Initialisation!
+</I>&gt;<i> 2008-05-17 19:45:29,153 INFO  de.fhg.fokus.hss.main.TomcatServer - startTomcat
+</I>&gt;<i> WebConsole of FHoSS was started !
+</I>&gt;<i> 2008-05-17 19:45:32,257 WARN  org.hibernate.impl.SessionFactoryObjectFactory -
+</I>&gt;<i> addInstance InitialContext did not implement EventContext
+</I>&gt;<i> 2008-05-17 19:45:32,404 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+</I>&gt;<i> &lt;init&gt; FQDN: hss.open-ims.test
+</I>&gt;<i> 2008-05-17 19:45:32,404 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+</I>&gt;<i> &lt;init&gt; Realm: open-ims.test
+</I>&gt;<i> 2008-05-17 19:45:32,405 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+</I>&gt;<i> &lt;init&gt; Vendor_ID : 10415
+</I>&gt;<i> 2008-05-17 19:45:32,405 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+</I>&gt;<i> &lt;init&gt; Product Name: JavaDiameterPeer
+</I>&gt;<i> 2008-05-17 19:45:32,405 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+</I>&gt;<i> &lt;init&gt; AcceptUnknwonPeers: true
+</I>&gt;<i> 2008-05-17 19:45:32,405 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+</I>&gt;<i> &lt;init&gt; DropUnknownOnDisconnect: true
+</I>&gt;<i> 2008-05-17 19:45:32,520 INFO  de.fhg.fokus.hss.main.HSSContainer - waitForExit 
+</I>&gt;<i> Type &quot;exit&quot; to stop FHoSS!
+</I>&gt;<i> 2008-05-17 19:45:49,475 DEBUG de.fhg.fokus.hss.main.Task - execute Processing UAR!
+</I>&gt;<i> 2008-05-17 19:45:49,684 DEBUG de.fhg.fokus.hss.main.Task - execute Processing MAR!
+</I>&gt;<i> 2008-05-17 19:45:49,708 DEBUG de.fhg.fokus.hss.cx.op.MAR - generateAuthVector
+</I>&gt;<i> Auth-Scheme is Digest-MD5
+</I>&gt;<i> 2008-05-17 19:45:49,866 DEBUG de.fhg.fokus.hss.main.Task - execute Processing UAR!
+</I>&gt;<i> 2008-05-17 19:45:49,896 DEBUG de.fhg.fokus.hss.main.Task - execute Processing SAR!
+</I>&gt;<i> 2008-05-17 19:45:49,974 INFO  de.fhg.fokus.hss.cx.op.SAR - downloadUserData 
+</I>&gt;<i>
+</I>&gt;<i> The UserData XML document which is sent to the S-CSCF:
+</I>&gt;<i> &lt;?xml version=&quot;1.0&quot;
+</I>&gt;<i> encoding=&quot;UTF-8&quot;?&gt;&lt;IMSSubscription&gt;&lt;PrivateID&gt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&lt;/PrivateID&gt;&lt;ServiceProfile&gt;&lt;PublicIdentity&gt;&lt;Identity&gt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&lt;/Identity&gt;&lt;Extension&gt;&lt;IdentityType&gt;0&lt;/IdentityType&gt;&lt;/Extension&gt;&lt;/PublicIdentity&gt;&lt;InitialFilterCriteria&gt;&lt;Priority&gt;0&lt;/Priority&gt;&lt;TriggerPoint&gt;&lt;ConditionTypeCNF&gt;1&lt;/ConditionTypeCNF&gt;&lt;SPT&gt;&lt;ConditionNegated&gt;0&lt;/ConditionNegated&gt;&lt;Group&gt;0&lt;/Group&gt;&lt;Method&gt;PUBLISH&lt;/Method&gt;&lt;Extension&gt;&lt;/Extension&gt;&lt;/SPT&gt;&lt;SPT&gt;&lt;ConditionNegated&gt;0&lt;/ConditionNegated&gt;&lt;Group&gt;0&lt;/Group&gt;&lt;Method&gt;SUBSCRIBE&lt;/Method&gt;&lt;Extension&gt;&lt;/Extension&gt;&lt;/SPT&gt;&lt;SPT&gt;&lt;ConditionNegated&gt;0&lt;/ConditionNegated&gt;&lt;Group&gt;1&lt;/Group&gt;&lt;SIPHeader&gt;&lt;Header&gt;Event&lt;/Header&gt;&lt;Content&gt;.*presence.*&lt;/Content&gt;&lt;/SIPHeader&gt;&lt;Extension&gt;&lt;/Extension&gt;&lt;/SPT&gt;&lt;/TriggerPoint&gt;&lt;ApplicationServer&gt;&lt;ServerName&gt;sip:127.0.0.1:5065&lt;/ServerName&gt;&lt;DefaultHandling&gt;0&lt;/DefaultHandling&gt;&lt;/ApplicationServer&gt;&lt;/InitialFilterCriteria&gt;&lt;/ServiceProfile&gt;&lt;/IMSSubscription&gt;
+</I>&gt;<i> 2008-05-17 19:45:49,983 INFO  de.fhg.fokus.hss.cx.op.SAR - processRequest 
+</I>&gt;<i> User with Public Identity: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A> and all its coresponding
+</I>&gt;<i> implicit-set identities are Registered!
+</I>&gt;<i> 2008-05-17 19:45:58,908 DEBUG de.fhg.fokus.hss.main.Task - execute Processing LIR!
+</I>&gt;<i> 2008-05-17 19:52:37,106 DEBUG de.fhg.fokus.hss.main.Task - execute Processing LIR!
+</I>&gt;<i> 2008-05-17 19:52:37,171 DEBUG de.fhg.fokus.hss.main.Task - execute Processing LIR!
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> uctimsclient
+</I>&gt;<i>
+</I>&gt;<i> UCT IMS Client - SIP port 5061 - Audio Port: 32906 - Video Port: 29833
+</I>&gt;<i>
+</I>&gt;<i> UCTIMSCLIENT: Error sending subscribe to presence.winfo
+</I>&gt;<i> Segmentation fault (core dumped)
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001366.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+	<LI>Next message: <A HREF="001375.html">[OpenIMSCore-CSCF] 403 Dialog not found on S-CSCF or Terminating user not suitable for unregisted services
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1379">[ date ]</a>
+              <a href="thread.html#1379">[ thread ]</a>
+              <a href="subject.html#1379">[ subject ]</a>
+              <a href="author.html#1379">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

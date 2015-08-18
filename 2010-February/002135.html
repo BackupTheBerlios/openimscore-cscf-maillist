@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r890 - moved from enum ip_type to	uint16_t
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r890%20-%20moved%20from%20enum%20ip_type%20to%0A%09uint16_t&In-Reply-To=%3C201002121616.o1CGGkRH019520%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002132.html">
+   <LINK REL="Next"  HREF="002136.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r890 - moved from enum ip_type to	uint16_t</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r890%20-%20moved%20from%20enum%20ip_type%20to%0A%09uint16_t&In-Reply-To=%3C201002121616.o1CGGkRH019520%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r890 - moved from enum ip_type to	uint16_t">aon at users.berlios.de
+       </A><BR>
+    <I>Fri Feb 12 17:16:46 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002132.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r889 - added the cdp_avp module in	the pcscf running script
+</A></li>
+        <LI>Next message: <A HREF="002136.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r891 - Fixed cdp binds variable to	be ptr in cdp_avp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2135">[ date ]</a>
+              <a href="thread.html#2135">[ thread ]</a>
+              <a href="subject.html#2135">[ subject ]</a>
+              <a href="author.html#2135">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2010-02-12 17:16:43 +0100 (Fri, 12 Feb 2010)
+New Revision: 890 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=890">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=890</A> 
+
+Log:
+moved from enum ip_type to uint16_t
+
+
+Modified:
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c?rev=890&amp;view=diff&amp;r1=890&amp;r2=889">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c?rev=890&amp;view=diff&amp;r1=890&amp;r2=889</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.h?rev=890&amp;view=diff&amp;r1=890&amp;r2=889">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.h?rev=890&amp;view=diff&amp;r1=890&amp;r2=889</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_gqprima.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_gqprima.c?rev=890&amp;view=diff&amp;r1=890&amp;r2=889">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_gqprima.c?rev=890&amp;view=diff&amp;r1=890&amp;r2=889</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_gqprima.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_gqprima.h?rev=890&amp;view=diff&amp;r1=890&amp;r2=889">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_gqprima.h?rev=890&amp;view=diff&amp;r1=890&amp;r2=889</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002132.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r889 - added the cdp_avp module in	the pcscf running script
+</A></li>
+	<LI>Next message: <A HREF="002136.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r891 - Fixed cdp binds variable to	be ptr in cdp_avp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2135">[ date ]</a>
+              <a href="thread.html#2135">[ thread ]</a>
+              <a href="subject.html#2135">[ subject ]</a>
+              <a href="author.html#2135">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

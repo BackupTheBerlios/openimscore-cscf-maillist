@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20How%20to%20interact%20AS%20and%20MRF%20over%20Mr%20interface%3F&In-Reply-To=%3Cb712f9530707301903h24212f61m4c55912add61efdb%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000900.html">
+   <LINK REL="Next"  HREF="000902.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?</H1>
+    <B>Tom Paris</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20How%20to%20interact%20AS%20and%20MRF%20over%20Mr%20interface%3F&In-Reply-To=%3Cb712f9530707301903h24212f61m4c55912add61efdb%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?">tom.paris001 at gmail.com
+       </A><BR>
+    <I>Tue Jul 31 04:03:08 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000900.html">[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?
+</A></li>
+        <LI>Next message: <A HREF="000902.html">[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#901">[ date ]</a>
+              <a href="thread.html#901">[ thread ]</a>
+              <a href="subject.html#901">[ subject ]</a>
+              <a href="author.html#901">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+
+Thanks for your quick reply.
+
+&gt;<i>What is the
+</I>&gt;<i>identification in the message that should tell the S-CSCF that the
+</I>&gt;<i>message is to be fwded on the Mr interface?
+</I>
+The indication is sip request-uri.
+The request uri is sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ivr at mdsaf.example.com</A>
+
+In addition,I want to send subsequential INFO request to MRF after sip
+session between alice and MRF has established.
+The INFO request includes MSCML as payload.
+
+I am very appreciated if you have any idea how to configure the scscf.cfg.
+
+Thanks and Best Regards,
+Thomas
+
+
+2007/7/31, Tom Paris &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tom.paris001 at gmail.com</A>&gt;:
+&gt;<i>
+</I>&gt;<i> Hi Dragos,
+</I>&gt;<i>
+</I>&gt;<i> Thanks for your quick reply.
+</I>&gt;<i>
+</I>&gt;<i> &gt;What is the
+</I>&gt;<i> &gt;identification in the message that should tell the S-CSCF that the
+</I>&gt;<i> &gt;message is to be fwded on the Mr interface?
+</I>&gt;<i>
+</I>&gt;<i> The indication is sip request-uri.
+</I>&gt;<i> The request uri is sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ivr at mdsaf.example.com</A>
+</I>&gt;<i>
+</I>&gt;<i> In addition,I want to send subsequential INFO request to MRF after sip
+</I>&gt;<i> session between alice and MRF has established.
+</I>&gt;<i> The INFO request includes MSCML as payload.
+</I>&gt;<i>
+</I>&gt;<i> I am very appreciated if you have any idea how to configure the scscf.cfg.
+</I>&gt;<i>
+</I>&gt;<i> Thanks and Best Regards,
+</I>&gt;<i> Thomas
+</I>&gt;<i>
+</I>&gt;<i> 2007/7/30, Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>&gt;:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Hello Tom,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; By default there is no configuration for the Mr interface. I think that
+</I>&gt;<i> &gt; it's a S-CSCF configuration matter. There is some configuration for a
+</I>&gt;<i> &gt; PSTN gateway that could be extended or taken as an example. What is the
+</I>&gt;<i> &gt; identification in the message that should tell the S-CSCF that the
+</I>&gt;<i> &gt; message is to be fwded on the Mr interface?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; -Dragos
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Tom Paris wrote:
+</I>&gt;<i> &gt; &gt; Hi,
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; I have some questions about interaction between AS and MRF over Mr
+</I>&gt;<i> &gt; &gt; interface.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; I tried to foward INVITE message from UE to MRF via AS(B2BUA mode) as
+</I>&gt;<i> &gt; &gt; follows.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; 1.Set alice's iFC on HSS to invoke AS when request URI specifies MRF
+</I>&gt;<i> &gt; &gt; service.
+</I>&gt;<i> &gt; &gt; 2.Register alice.
+</I>&gt;<i> &gt; &gt; 3.Send INVITE from alice to MRF service uri.
+</I>&gt;<i> &gt; &gt; 4.S-CSCF executes iFC filtering.(INVITE request is forwarded to AS)
+</I>&gt;<i> &gt; &gt; 5.AS &lt;<A HREF="http://5.as/">http://5.as/</A>&gt; &lt;<A HREF="http://5.AS">http://5.AS</A> &lt;<A HREF="http://5.as/">http://5.as/</A>&gt;&gt; execute something..
+</I>&gt;<i> &gt; &gt; 6.AS &lt;<A HREF="http://6.as/">http://6.as/</A>&gt; &lt;<A HREF="http://6.AS">http://6.AS</A> &lt;<A HREF="http://6.as/">http://6.as/</A>&gt;&gt; receives INVITE and
+</I>&gt;<i> &gt; create new message to MRF.
+</I>&gt;<i> &gt; &gt; 7.403 Forbidden - &quot;Dialog not found on S-CSCF or Terminating user not
+</I>&gt;<i> &gt; &gt; suitable for unregistered services&quot;
+</I>&gt;<i> &gt; &gt;   returned from S-CSCF.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Note that MRF is not registered to S-CSCF.
+</I>&gt;<i> &gt; &gt; Are there any way to avoid those problems?
+</I>&gt;<i> &gt; &gt; (iFC configurations or PSI configurations?)
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Best Regards,
+</I>&gt;<i> &gt; &gt; Thomas
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; ------------------------------------------------------------------------
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; _______________________________________________
+</I>&gt;<i> &gt; &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; --
+</I>&gt;<i> &gt; -----------------------------------------
+</I>&gt;<i> &gt; Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> &gt; Fraunhofer FOKUS/NGNI
+</I>&gt;<i> &gt; Kaiserin-Augusta-Allee 31
+</I>&gt;<i> &gt; 10589 Berlin,Germany
+</I>&gt;<i> &gt; Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> &gt; Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> &gt; Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> &gt; We could change the world if God would give us the source code...
+</I>&gt;<i> &gt; -----------------------------------------------------------------
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070731/0a17044f/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070731/0a17044f/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000900.html">[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?
+</A></li>
+	<LI>Next message: <A HREF="000902.html">[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#901">[ date ]</a>
+              <a href="thread.html#901">[ thread ]</a>
+              <a href="subject.html#901">[ subject ]</a>
+              <a href="author.html#901">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

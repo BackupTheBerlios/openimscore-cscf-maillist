@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] A principle question on IPsec implementation
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20A%20principle%20question%20on%20IPsec%20implementation&In-Reply-To=%3C000c01c7a995%2496988e30%240200a8c0%40notebookFE%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000690.html">
+   <LINK REL="Next"  HREF="000714.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] A principle question on IPsec implementation</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20A%20principle%20question%20on%20IPsec%20implementation&In-Reply-To=%3C000c01c7a995%2496988e30%240200a8c0%40notebookFE%3E"
+       TITLE="[OpenIMSCore-CSCF] A principle question on IPsec implementation">franz.edler at inode.at
+       </A><BR>
+    <I>Fri Jun  8 08:23:52 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000690.html">[OpenIMSCore-CSCF] A principle question on IPsec implementation
+</A></li>
+        <LI>Next message: <A HREF="000714.html">[OpenIMSCore-CSCF] A principle question on IPsec implementation
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#713">[ date ]</a>
+              <a href="thread.html#713">[ thread ]</a>
+              <a href="subject.html#713">[ subject ]</a>
+              <a href="author.html#713">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+
+I still struggle with the setup of IPsec SAs.
+ 
+&gt;<i> You have changed the port-c and port-s and this won't work. Please us
+</I>&gt;<i> the same port for both and also the listen parameter. It should work.
+</I>
+I understand from TS 33.203 that the protected ports have to be different
+from the unprotected port. Chapter 7.2 says: 
+&quot;No unprotected messages shall be sent from or received on the ports port_ps
+and port_pc. From a security point of view, unprotected messages may be
+received on any port which is different from the ports port_ps and port_pc.&quot;
+
+The same rule is also applied to the client: 
+&quot;No unprotected messages shall be sent from or received on the ports port_us
+and port_uc. From a security point of view, unprotected messages may be
+received on any port which is different from the ports port_us and port_uc.&quot;
+
+Also IMS-communicator does not strictly follow this rule when I read the
+following comment in ims-communicator.xml:
+&quot;if SECURITY_PORT_C empty, port-c parameter is filled with
+PREFERRED_LOCAL_PORT&quot;
+
+The only partially successful setup of IPsec SAs I got when I used for the
+protected server port the same port as for the unprotected one. Partially
+successful, because only in this case the 4 IPsec-setup scripts in P-CSCF
+are executed, but the IPsec SA are not used. In all other cases only
+&quot;ipsec_P_Inc_Req.sh&quot; is called and the &quot;ERROR: on_reply processing failed&quot;
+follows.
+
+I wonder which parameters have been used to successful setup IPsec SAs
+between OpenIMSCore and IMS-communicator. I used revision 309 of OpenIMSCore
+and ims-communicator-windows-release-070605 and maybe that's important: no
+NAT to avoid further complexity.
+
+Cheers
+Franz
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000690.html">[OpenIMSCore-CSCF] A principle question on IPsec implementation
+</A></li>
+	<LI>Next message: <A HREF="000714.html">[OpenIMSCore-CSCF] A principle question on IPsec implementation
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#713">[ date ]</a>
+              <a href="thread.html#713">[ thread ]</a>
+              <a href="subject.html#713">[ subject ]</a>
+              <a href="author.html#713">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

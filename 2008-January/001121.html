@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Proper%20flow%20between%20OpenIMS%20and%20AS&In-Reply-To=%3C2ce0907e0801062342y554da16chdb010b02f55f6645%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001117.html">
+   <LINK REL="Next"  HREF="001137.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS</H1>
+    <B>gary none</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Proper%20flow%20between%20OpenIMS%20and%20AS&In-Reply-To=%3C2ce0907e0801062342y554da16chdb010b02f55f6645%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS">revesbie at gmail.com
+       </A><BR>
+    <I>Mon Jan  7 08:42:42 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001117.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+        <LI>Next message: <A HREF="001137.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1121">[ date ]</a>
+              <a href="thread.html#1121">[ thread ]</a>
+              <a href="subject.html#1121">[ subject ]</a>
+              <a href="author.html#1121">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello again,
+
+thank you very much for these explanations! I think I was confused because I
+thought
+that if AS works as a proxy, than all responses following a request that
+reaches AS
+must pass through the same path backwards, no matter what the Route or
+Record-Route
+Header contains. I will study again on 3261 taking your helpful notes into
+account, and
+provide you with feedback, i hope a successful one next time!
+
+Thank you,
+
+Gary
+
+
+On Jan 4, 2008 1:57 PM, Franz Edler &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at inode.at</A>&gt; wrote:
+
+&gt;<i> &gt; If I understand this, the AS must send the original message exactly as
+</I>&gt;<i> it
+</I>&gt;<i> &gt; was received,
+</I>&gt;<i> &gt; with the difference that the Route Header must only contain the second
+</I>&gt;<i> &gt; address that was in the request' s
+</I>&gt;<i> &gt; Route Header (SCSCF Address).
+</I>&gt;<i>
+</I>&gt;<i> Yes. This also results from basic SIP routing behaviour. If a server
+</I>&gt;<i> receives a request it has to look into the Route header and according to
+</I>&gt;<i> RFC
+</I>&gt;<i> 3261 &#167;16.4: ... If the first value in the Route header field indicates
+</I>&gt;<i> this
+</I>&gt;<i> proxy, the proxy MUST remove that value from the request.
+</I>&gt;<i>
+</I>&gt;<i> &gt; In this case, the request will travel
+</I>&gt;<i> &gt; towards SCSCF and the next hop will
+</I>&gt;<i> &gt; be handled by it as it would if a simple client (and not an AS) had sent
+</I>&gt;<i> &gt; this request? I assume no other header
+</I>&gt;<i> &gt; should be touched for this task?
+</I>&gt;<i>
+</I>&gt;<i> This depends on the behaviour of the AS. It might act as a proxy or as a
+</I>&gt;<i> B2BUA or as an originating UA. This requires to act on various headers
+</I>&gt;<i> accordingly.
+</I>&gt;<i>
+</I>&gt;<i> &gt; Is this the way that all the next requests/responses for this call will
+</I>&gt;<i> &gt; not be forwarded to AS (and leave
+</I>&gt;<i> &gt; all routing from this point on to OpenIMS) ?
+</I>&gt;<i>
+</I>&gt;<i> If the AS acts as a proxy and it does not set Record-Route it will not see
+</I>&gt;<i> any further request/response of the dialog. If the AS acts as a B2BUA it
+</I>&gt;<i> will.
+</I>&gt;<i>
+</I>&gt;<i> Regards
+</I>&gt;<i> Franz
+</I>&gt;<i>
+</I>
+Hi Gary,
+&gt;<i>
+</I>&gt;<i> well, the AS can in any case modify the request if it wants to. Some
+</I>&gt;<i> things should remain the same, like the Call-ID, or else this will be
+</I>&gt;<i> consider another dialog (which is not that bad if the first one is also
+</I>&gt;<i> handled - the B2BUA AS case);. In any case, for the ISC to work the AS
+</I>&gt;<i> should just behave according to RFC 3261 and do the loose-routing on the
+</I>&gt;<i> Route headers. The first one is itself and as such would be removed and
+</I>&gt;<i> the 2nd is the S-CSCF which will allow the message to return the the
+</I>&gt;<i> proper S-CSCF. Nothing but proper SIP routing.
+</I>&gt;<i>
+</I>&gt;<i> Then if it wants to see the rest of the dialog, it should add a
+</I>&gt;<i> Record-Route to itself, just as any other SIP proxy would. If not, it
+</I>&gt;<i> shouldn't. Then all in-dialog routing would happen as standard SIP RFC
+</I>&gt;<i> mentions.
+</I>&gt;<i>
+</I>&gt;<i> Simple SIP routing, nothing fancy ;-)
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080107/0299f8a0/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080107/0299f8a0/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001117.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+	<LI>Next message: <A HREF="001137.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1121">[ date ]</a>
+              <a href="thread.html#1121">[ thread ]</a>
+              <a href="subject.html#1121">[ subject ]</a>
+              <a href="author.html#1121">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

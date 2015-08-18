@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed	tolocal IP
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20changes%20to%20mysql%20when%20127.0.0.1%20is%20changed%0A%09tolocal%20IP&In-Reply-To=%3C387593.87101.qm%40web56101.mail.re3.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000192.html">
+   <LINK REL="Next"  HREF="000202.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed	tolocal IP</H1>
+    <B>Sudhakar Patil</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20changes%20to%20mysql%20when%20127.0.0.1%20is%20changed%0A%09tolocal%20IP&In-Reply-To=%3C387593.87101.qm%40web56101.mail.re3.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed	tolocal IP">spatil4572 at yahoo.com
+       </A><BR>
+    <I>Thu Feb  8 17:52:17 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000192.html">[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed	tolocal IP
+</A></li>
+        <LI>Next message: <A HREF="000202.html">[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed tolocal IP
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#201">[ date ]</a>
+              <a href="thread.html#201">[ thread ]</a>
+              <a href="subject.html#201">[ subject ]</a>
+              <a href="author.html#201">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi, 
+I am getting the following error (&quot;Not owner&quot;) in
+S-CSCF after changing the IP addresses from 127.0.0.1
+to the actual IP address of the machine. Any pointers?
+
+
+11(20104) DBG:peer_timer(): Peer hss.open-ims.test  
+State 0
+11(20104) DBG:sm_process(): Peer hss.open-ims.test  
+State Closed    Event Star
+11(20104) DBG:I_Snd_Conn_Req(): Peer hss.open-ims.test
+11(20104) WARNING:peer_connect(): Error opening
+connection to hss.open-ims.test
+3868 &gt;Not owner
+11(20104) DBG:sm_process(): Peer hss.open-ims.test  
+State Wait_Conn_Ack     Ev
+nt I_Rcv_Conn_NAck
+
+S-CSCF is not able to connect to HSS. Will try to
+provide traces soon, but if anything jumps from the
+above error message can you please let me know. 
+
+Regards,
+Sudhakar.
+
+
+--- &quot;Emin, Umut&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Umut.Emin at fokus.fraunhofer.de</A>&gt;
+wrote:
+
+&gt;<i> 
+</I>&gt;<i> Hei Sudhakar,
+</I>&gt;<i> 
+</I>&gt;<i> you can change the 127.0.0.1 in DiameterPeerHSS.xml
+</I>&gt;<i> to the machine's ip
+</I>&gt;<i> address. About hibernate.properties: I guess you run
+</I>&gt;<i> your mysql server
+</I>&gt;<i> on the same machine as FHoSS. In that case you dont
+</I>&gt;<i> need to change it.
+</I>&gt;<i> 
+</I>&gt;<i> greetz,
+</I>&gt;<i> Umut
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> -----Urspr&#252;ngliche Nachricht-----
+</I>&gt;<i> Von: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> im
+</I>&gt;<i> Auftrag von Sudhakar Patil
+</I>&gt;<i> Gesendet: Do 08.02.2007 00:01
+</I>&gt;<i> An: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Betreff: [OpenIMSCore-CSCF] changes to mysql when
+</I>&gt;<i> 127.0.0.1 is changed tolocal IP
+</I>&gt;<i>  
+</I>&gt;<i> Hi,
+</I>&gt;<i> Should we also change
+</I>&gt;<i> FHoSS/deploy/DiameterPeerHSS.xml
+</I>&gt;<i> from 127.0.0.1 to the machine's IP address? 
+</I>&gt;<i> 
+</I>&gt;<i> Also should we change
+</I>&gt;<i> FHoSS/deploy/hibernate.properties? 
+</I>&gt;<i> 
+</I>&gt;<i> Regards,
+</I>&gt;<i> Sudhakar.
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>____________________________________________________________________________________
+&gt;<i> Want to start your own business?
+</I>&gt;<i> Learn how on Yahoo! Small Business.
+</I>&gt;<i> <A HREF="http://smallbusiness.yahoo.com/r-index">http://smallbusiness.yahoo.com/r-index</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i>
+</I><A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+&gt;<i> 
+</I>&gt;<i> 
+</I>
+
+
+ 
+____________________________________________________________________________________
+Do you Yahoo!?
+Everyone is raving about the all-new Yahoo! Mail beta.
+<A HREF="http://new.mail.yahoo.com">http://new.mail.yahoo.com</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000192.html">[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed	tolocal IP
+</A></li>
+	<LI>Next message: <A HREF="000202.html">[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed tolocal IP
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#201">[ date ]</a>
+              <a href="thread.html#201">[ thread ]</a>
+              <a href="subject.html#201">[ subject ]</a>
+              <a href="author.html#201">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r86 - ser_ims/trunk/modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r86%20-%20ser_ims/trunk/modules/scscf&In-Reply-To=%3C200701151315.l0FDFpw5007900%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000123.html">
+   <LINK REL="Next"  HREF="000126.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r86 - ser_ims/trunk/modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r86%20-%20ser_ims/trunk/modules/scscf&In-Reply-To=%3C200701151315.l0FDFpw5007900%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r86 - ser_ims/trunk/modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Mon Jan 15 14:15:51 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000123.html">[OpenIMSCore-CSCF] Pcscf not relaying the ACK message
+</A></li>
+        <LI>Next message: <A HREF="000126.html">[OpenIMSCore-CSCF] Problem with sip2ims forwarding ACK message
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#125">[ date ]</a>
+              <a href="thread.html#125">[ thread ]</a>
+              <a href="subject.html#125">[ subject ]</a>
+              <a href="author.html#125">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-01-15 14:15:49 +0100 (Mon, 15 Jan 2007)
+New Revision: 86
+
+Modified:
+   ser_ims/trunk/modules/scscf/registration.c
+Log:
+Dropped the hack for accepting non-MD5 AKA (anyway, clients have to upgrade as there was a big fix in r84 that made this one useless).
+
+
+Modified: ser_ims/trunk/modules/scscf/registration.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registration.c	2007-01-09 15:30:35 UTC (rev 85)
++++ ser_ims/trunk/modules/scscf/registration.c	2007-01-15 13:15:49 UTC (rev 86)
+@@ -363,14 +363,6 @@
+ 		av-&gt;status = AUTH_VECTOR_USELESS;
+ 		ret = CSCF_RETURN_TRUE;		
+ 	}else {
+-		/* fix to accept old AKA auth */
+-		if (response16.len==av-&gt;authorization.len &amp;&amp; strncasecmp(response16.s,av-&gt;authorization.s,response16.len)==0){
+-			LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:S_is_authorized: Accepted client with non-MD5 AKAv1. Fix the client!!!\n&quot;);
+-			av-&gt;status = AUTH_VECTOR_USELESS;
+-			ret = CSCF_RETURN_TRUE;
+-			return ret;
+-		}		
+-		/* fix to accept old AKA auth */
+ 		av-&gt;status = AUTH_VECTOR_USELESS;/* first mistake, you're out! */
+ 		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_is_authorized: UE said: %.*s, but we have %.*s and expect %.*s\n&quot;,
+ 			response16.len,response16.s,av-&gt;authorization.len,av-&gt;authorization.s,32,expected);		
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000123.html">[OpenIMSCore-CSCF] Pcscf not relaying the ACK message
+</A></li>
+	<LI>Next message: <A HREF="000126.html">[OpenIMSCore-CSCF] Problem with sip2ims forwarding ACK message
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#125">[ date ]</a>
+              <a href="thread.html#125">[ thread ]</a>
+              <a href="subject.html#125">[ subject ]</a>
+              <a href="author.html#125">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

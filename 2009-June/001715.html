@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r676 - Lots of fixes in the MGCF	code
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r676%20-%20Lots%20of%20fixes%20in%20the%20MGCF%0A%09code&In-Reply-To=%3C200906170607.n5H67BoV013557%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001714.html">
+   <LINK REL="Next"  HREF="001716.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r676 - Lots of fixes in the MGCF	code</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r676%20-%20Lots%20of%20fixes%20in%20the%20MGCF%0A%09code&In-Reply-To=%3C200906170607.n5H67BoV013557%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r676 - Lots of fixes in the MGCF	code">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Jun 17 08:07:11 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001714.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r675 - LRF:create LoST request	using a parameter as a service urn E-CSCF: fixed a bug: drop	the dialog when an error response comes from the LRF
+</A></li>
+        <LI>Next message: <A HREF="001716.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r677 - Cleaned the I-CSCF error	responses on orig/term public identity identification
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1715">[ date ]</a>
+              <a href="thread.html#1715">[ thread ]</a>
+              <a href="subject.html#1715">[ subject ]</a>
+              <a href="author.html#1715">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2009-06-17 08:07:04 +0200 (Wed, 17 Jun 2009)
+New Revision: 676 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=676">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=676</A> 
+
+Log:
+Lots of fixes in the MGCF code
+
+Added:
+   A	ser_ims/trunk/modules/mgcf/release_call.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/release_call.c?rev=676&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/release_call.c?rev=676&amp;view=markup</A>
+   A	ser_ims/trunk/modules/mgcf/release_call.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/release_call.h?rev=676&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/release_call.h?rev=676&amp;view=markup</A>
+Modified:
+   U	ser_ims/trunk/cfg/mgcf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/mgcf.cfg?rev=676&amp;view=diff&amp;r1=676&amp;r2=675">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/mgcf.cfg?rev=676&amp;view=diff&amp;r1=676&amp;r2=675</A>
+   U	ser_ims/trunk/modules/mgcf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/dlg_state.c?rev=676&amp;view=diff&amp;r1=676&amp;r2=675">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/dlg_state.c?rev=676&amp;view=diff&amp;r1=676&amp;r2=675</A>
+   U	ser_ims/trunk/modules/mgcf/mgcf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/mgcf.c?rev=676&amp;view=diff&amp;r1=676&amp;r2=675">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/mgcf.c?rev=676&amp;view=diff&amp;r1=676&amp;r2=675</A>
+   U	ser_ims/trunk/modules/mgcf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/mod.c?rev=676&amp;view=diff&amp;r1=676&amp;r2=675">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/mod.c?rev=676&amp;view=diff&amp;r1=676&amp;r2=675</A>
+   U	ser_ims/trunk/modules/mgcf/sip_body.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/sip_body.c?rev=676&amp;view=diff&amp;r1=676&amp;r2=675">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/mgcf/sip_body.c?rev=676&amp;view=diff&amp;r1=676&amp;r2=675</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001714.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r675 - LRF:create LoST request	using a parameter as a service urn E-CSCF: fixed a bug: drop	the dialog when an error response comes from the LRF
+</A></li>
+	<LI>Next message: <A HREF="001716.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r677 - Cleaned the I-CSCF error	responses on orig/term public identity identification
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1715">[ date ]</a>
+              <a href="thread.html#1715">[ thread ]</a>
+              <a href="subject.html#1715">[ subject ]</a>
+              <a href="author.html#1715">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

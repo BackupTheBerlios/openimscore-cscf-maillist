@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] NOTIFY issue
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20NOTIFY%20issue&In-Reply-To=%3C4E0509ED.7020507%40acision.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002588.html">
+   <LINK REL="Next"  HREF="002593.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] NOTIFY issue</H1>
+    <B>Daniel Ciprus</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20NOTIFY%20issue&In-Reply-To=%3C4E0509ED.7020507%40acision.com%3E"
+       TITLE="[OpenIMSCore-CSCF] NOTIFY issue">daniel.ciprus at acision.com
+       </A><BR>
+    <I>Sat Jun 25 00:04:29 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002588.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1123 - Client_Rf: now the rating	group is sent to the CDF,	a new AVP had to be added: Service_Data_Container
+</A></li>
+        <LI>Next message: <A HREF="002593.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1124 - Client_Rf: sending the	3gpp charging id in the ACR even when there is no SDP	(important for registration)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2592">[ date ]</a>
+              <a href="thread.html#2592">[ thread ]</a>
+              <a href="subject.html#2592">[ subject ]</a>
+              <a href="author.html#2592">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Gents,
+
+While testing our AS we found following issue :
+
+NOTIFY sip:0123456789@&lt;ip&gt; SIP/2.0^M
+
+From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">8047620091 at IP</A>&gt;;tag=da40788a458b2a1668dd9d96dce3d2d7-f416^M
+
+To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">0123456789 at IP</A>&gt;;tag=8099b80-f35ae20a-13c4-6006-f-5055ec8b-f^M
+
+Call-ID: 8099b80-f35ae20a-13c4-6006-f-7cabcb44-f^M
+
+CSeq: 11 NOTIFY^M
+
+Via: SIP/2.0/UDP IP:6060;branch=z9hG4bK785f.1ab3aa72.0^M
+
+User-Agent: Sip EXpress router(2.1.0-dev1 OpenIMSCore (x86_64/linux))^M
+
+Max-Forwards: 70^M
+
+Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">8047620091 at IP</A>&gt;^M
+
+Event: reg^M
+
+Subscription-State: active;expires=599418^M
+
+Content-Type: application/reginfo+xml^M
+
+Content-Length: 773^M
+
+^M
+
+&lt;?xml version=&quot;1.0&quot;?&gt;
+
+&lt;reginfo xmlns=&quot;urn:ietf:params:xml:ns:reginfo&quot; version=&quot;1&quot; 
+state=&quot;partial&quot;&gt;
+
+&lt;registration aor=&quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">8047620091 at domain</A>&quot; id=&quot;0x2a969162b8&quot; state=&quot;active&quot;&gt;
+
+&lt;contact id=&quot;0x2a96900ba0&quot; state=&quot;active&quot; event=&quot;refreshed&quot; expires=&quot;3600&quot;&gt;
+
+&lt;uri&gt;sip:IP:5062&lt;/uri&gt;
+
+&lt;unknown-param name=&quot;+g.3gpp.iari-ref&quot;&gt;
+
+urn0X0P+0urn-70X0P+03gpp-application.ims.iari.rcse.im,urn0X0P+0urn-70X0.0000000000018P-10223gpp-application.ims.iari.gsma-is,urn0X0.0002A96903F48P-1022urn-70X0.0000300000001P-10223gpp-application.ims.iari.rcse.ft&lt;/unknown-param&gt; 
+&lt;unknown-param name=&quot;+g.3gpp.cs-voice&quot;&gt;
+
+&lt;/unknown-param&gt; &lt;unknown-param name=&quot;+sip.instance&quot;&gt;
+
+&lt;urn:uuid:e37e4d42-2019-3ccd-84f5-989724d459c6&gt;&lt;/unknown-param&gt; &lt;/contact&gt;
+
+&lt;/registration&gt;
+
+&lt;/reginfo&gt;
+
+As per RFC5628 document should look like :
+
+<A HREF="http://tools.ietf.org/html/rfc5628#page-7">http://tools.ietf.org/html/rfc5628#page-7</A>
+
+Is there any quick fix for that ?
+
+Thanks
+
+
+Note: I intentionally removed IP and domain ...
+
+
+
+-- 
+*Daniel Ciprus*
+Integration engineer
+------------------------------------------------------
+*<A HREF="http://www.acision.com*">http://www.acision.com*</A>
+4870 Sadler Rd
+Suite 200
+Glen Allen, VA 23060
+USA
+T: +1 804 762 5601
+E: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">daniel.ciprus at acision.com</A>
+
+
+This e-mail and any attachment is for authorised use by the intended recipient(s) only. It may contain proprietary material, confidential information and/or be subject to legal privilege. It should not be copied, disclosed to, retained or used by, any other party. If you are not an intended recipient then please promptly delete this e-mail and any attachment and all copies and inform the sender. Thank you.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110624/5dc7ce6f/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110624/5dc7ce6f/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002588.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1123 - Client_Rf: now the rating	group is sent to the CDF,	a new AVP had to be added: Service_Data_Container
+</A></li>
+	<LI>Next message: <A HREF="002593.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1124 - Client_Rf: sending the	3gpp charging id in the ACR even when there is no SDP	(important for registration)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2592">[ date ]</a>
+              <a href="thread.html#2592">[ thread ]</a>
+              <a href="subject.html#2592">[ subject ]</a>
+              <a href="author.html#2592">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

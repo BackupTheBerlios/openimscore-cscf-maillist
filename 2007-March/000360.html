@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Compatibility between Xlite and Uctims client
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Compatibility%20between%20Xlite%20and%20Uctims%20client&In-Reply-To=%3C554805.30603.qm%40web58810.mail.re1.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000365.html">
+   <LINK REL="Next"  HREF="000362.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Compatibility between Xlite and Uctims client</H1>
+    <B>Dillip Behera</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Compatibility%20between%20Xlite%20and%20Uctims%20client&In-Reply-To=%3C554805.30603.qm%40web58810.mail.re1.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Compatibility between Xlite and Uctims client">mrdillipkumarbehera at yahoo.com
+       </A><BR>
+    <I>Mon Mar 26 13:54:44 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000365.html">[OpenIMSCore-CSCF] SAR/SAA at registration timeout loops endless
+</A></li>
+        <LI>Next message: <A HREF="000362.html">[OpenIMSCore-CSCF] Compatibility between Xlite and Uctims client
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#360">[ date ]</a>
+              <a href="thread.html#360">[ thread ]</a>
+              <a href="subject.html#360">[ subject ]</a>
+              <a href="author.html#360">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi ,
+
+When I am using UCT client on both ends, i am successful in registering user as well as making call.
+
+But when I am using xlite at one end and UCT client at other I am facing problem with xlite getting registered. 
+It is giving error &quot;Registration error: 403- Forbidden HSS returned no authentication vector&quot;
+
+On analysis, I found that xlite and UCT client use different encryption algorithms. xlite uses &quot;MD5&quot; whereas UCT uses
+&quot;AKAv1-MD5&quot;. In scscf.cfg their is a clause for setting up &quot;registration_default_algorithm&quot; in which modparams can be 
+set to either &quot;AKAv1-MD5&quot;, &quot;AKAv2-MD5&quot; or &quot;MD5&quot;.
+
+So if I want to use xlite and UCT client, what should i need to do to make them talk to each other?
+
+
+If any one faced such problem please  let me know.
+
+Regard's
+   Dillip
+
+
+
+
+ 
+____________________________________________________________________________________
+TV dinner still cooling? 
+Check out &quot;Tonight's Picks&quot; on Yahoo! TV.
+<A HREF="http://tv.yahoo.com/">http://tv.yahoo.com/</A>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070326/d55b9b14/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070326/d55b9b14/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000365.html">[OpenIMSCore-CSCF] SAR/SAA at registration timeout loops endless
+</A></li>
+	<LI>Next message: <A HREF="000362.html">[OpenIMSCore-CSCF] Compatibility between Xlite and Uctims client
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#360">[ date ]</a>
+              <a href="thread.html#360">[ thread ]</a>
+              <a href="subject.html#360">[ subject ]</a>
+              <a href="author.html#360">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

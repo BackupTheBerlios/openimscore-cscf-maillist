@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] sipp as a client to OpenIMSCore
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20sipp%20as%20a%20client%20to%20OpenIMSCore&In-Reply-To=%3C009501c74680%2472788e10%240e40000a%40blr.velankani.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000166.html">
+   <LINK REL="Next"  HREF="000168.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] sipp as a client to OpenIMSCore</H1>
+    <B>Ramachandran</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20sipp%20as%20a%20client%20to%20OpenIMSCore&In-Reply-To=%3C009501c74680%2472788e10%240e40000a%40blr.velankani.com%3E"
+       TITLE="[OpenIMSCore-CSCF] sipp as a client to OpenIMSCore">rgunasekaran at velankani.com
+       </A><BR>
+    <I>Fri Feb  2 05:13:09 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000166.html">[OpenIMSCore-CSCF] sipp as a client to OpenIMSCore
+</A></li>
+        <LI>Next message: <A HREF="000168.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r114 - ser_ims/trunk/cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#167">[ date ]</a>
+              <a href="thread.html#167">[ thread ]</a>
+              <a href="subject.html#167">[ subject ]</a>
+              <a href="author.html#167">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+ 
+ This is what i get on sip2ims log messages. 
+
+1(14095) ERROR: parse_via parse error, parsed so far:&lt;SIP/2.0/UDP
+10.0.64.20:50
+61;
+&gt;<i>
+</I> 1(14095) ERROR: get_hdr_field: bad via
+ 1(14095) ERROR: bad header  field
+ 1(14095) ERROR: parse_via: invalid via - end of header in state 6
+ 1(14095) ERROR: parse_via on: &lt;SIP/2.0/UDP 10.0.64.20:5061;
+From: ua1 &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>:5061&gt;;tag=1
+To: ua1 &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>:5061&gt;
+Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1.14174.10.0.64.20 at sipp.call.id</A>
+CSeq: 1 REGISTER
+Contact: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ua1 at 10.0.64.20</A>:5061
+Content-Length: 0
+Expires: 300
+
+&gt;<i>
+</I> 1(14095) ERROR: parse_via parse error, parsed so far:&lt;SIP/2.0/UDP
+10.0.64.20:50
+61;
+&gt;<i>
+</I> 1(14095) ERROR: get_hdr_field: bad via
+ 1(14095) ERROR: bad header  field
+ 1(14095) ERROR: build_res_buf_from_sip_req: alas, parse_headers failed
+
+
+Thanks,
+Ram
+
+-----Original Message-----
+From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+Sent: Thursday, February 01, 2007 8:01 PM
+To: Ramachandran
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] sipp as a client to OpenIMSCore
+
+well, SIPp is a very powerful&amp;flexible tool such that you can send all
+kinds of non RFC3261 messages with it. So without a network trace, I
+don't know if we can help you further. Usually, if you dissect the
+traffic with wireshark, you will easily notice any SIP message encoding
+issues directly there.
+
+-Dragos
+
+
+Ramachandran wrote:
+&gt;<i>
+</I>&gt;<i> Dear All,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  Does anybody have made a successful call with sipp client?
+</I>&gt;<i>
+</I>&gt;<i>  If so, please share the sipp configuration details for the same purpose.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> When I tried, it says parse error for the REGISTER message from sipp
+</I>&gt;<i> SIP client.
+</I>&gt;<i>
+</I>&gt;<i> In my lab setup, all the Open IMS CSCF components are running in one
+</I>&gt;<i> machine and sipp client on other machine. Both of the machines are in
+</I>&gt;<i> same subnet.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Can somebody tell what could be the issue?
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i>
+</I>&gt;<i> Ram
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000166.html">[OpenIMSCore-CSCF] sipp as a client to OpenIMSCore
+</A></li>
+	<LI>Next message: <A HREF="000168.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r114 - ser_ims/trunk/cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#167">[ date ]</a>
+              <a href="thread.html#167">[ thread ]</a>
+              <a href="subject.html#167">[ subject ]</a>
+              <a href="author.html#167">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

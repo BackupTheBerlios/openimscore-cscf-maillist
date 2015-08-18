@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r937 - Fixed the peermanager timer	not being started - was added with an expires_in==0 and that	was not acceptable for the timer
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r937%20-%20Fixed%20the%20peermanager%20timer%0A%09not%20being%20started%20-%20was%20added%20with%20an%20expires_in%3D%3D0%20and%20that%0A%09was%20not%20acceptable%20for%20the%20timer&In-Reply-To=%3C201004281137.o3SBbS8c014398%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002245.html">
+   <LINK REL="Next"  HREF="002247.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r937 - Fixed the peermanager timer	not being started - was added with an expires_in==0 and that	was not acceptable for the timer</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r937%20-%20Fixed%20the%20peermanager%20timer%0A%09not%20being%20started%20-%20was%20added%20with%20an%20expires_in%3D%3D0%20and%20that%0A%09was%20not%20acceptable%20for%20the%20timer&In-Reply-To=%3C201004281137.o3SBbS8c014398%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r937 - Fixed the peermanager timer	not being started - was added with an expires_in==0 and that	was not acceptable for the timer">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Apr 28 13:37:28 CEST 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002245.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r936 - More fixes for the	fd_exchange_pipe
+</A></li>
+        <LI>Next message: <A HREF="002247.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r938 - Revisited the cdp peer	state machine and fixed some issues - memory leaks and	missing actions
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2246">[ date ]</a>
+              <a href="thread.html#2246">[ thread ]</a>
+              <a href="subject.html#2246">[ subject ]</a>
+              <a href="author.html#2246">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2010-04-28 13:37:18 +0200 (Wed, 28 Apr 2010)
+New Revision: 937 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=937">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=937</A> 
+
+Log:
+Fixed the peermanager timer not being started - was added with an expires_in==0 and that was not acceptable for the timer
+
+
+Modified:
+   U	ser_ims/trunk/modules/cdp/peermanager.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peermanager.c?rev=937&amp;view=diff&amp;r1=937&amp;r2=936">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peermanager.c?rev=937&amp;view=diff&amp;r1=937&amp;r2=936</A>
+   U	ser_ims/trunk/modules/cdp/peerstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peerstatemachine.c?rev=937&amp;view=diff&amp;r1=937&amp;r2=936">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peerstatemachine.c?rev=937&amp;view=diff&amp;r1=937&amp;r2=936</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002245.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r936 - More fixes for the	fd_exchange_pipe
+</A></li>
+	<LI>Next message: <A HREF="002247.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r938 - Revisited the cdp peer	state machine and fixed some issues - memory leaks and	missing actions
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2246">[ date ]</a>
+              <a href="thread.html#2246">[ thread ]</a>
+              <a href="subject.html#2246">[ subject ]</a>
+              <a href="author.html#2246">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

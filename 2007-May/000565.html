@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ICSCF not starting
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ICSCF%20not%20starting&In-Reply-To=%3C200705080851.l488pTSo029154%40imj.m.ecl.ntt.co.jp%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000564.html">
+   <LINK REL="Next"  HREF="000577.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ICSCF not starting</H1>
+    <B>Hideyuki Yamashita</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ICSCF%20not%20starting&In-Reply-To=%3C200705080851.l488pTSo029154%40imj.m.ecl.ntt.co.jp%3E"
+       TITLE="[OpenIMSCore-CSCF] ICSCF not starting">yamashita.hideyuki at lab.ntt.co.jp
+       </A><BR>
+    <I>Tue May  8 10:56:45 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000564.html">[OpenIMSCore-CSCF] ICSCF not starting
+</A></li>
+        <LI>Next message: <A HREF="000577.html">[OpenIMSCore-CSCF] ICSCF not starting
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#565">[ date ]</a>
+              <a href="thread.html#565">[ thread ]</a>
+              <a href="subject.html#565">[ subject ]</a>
+              <a href="author.html#565">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi,
+
+It's puzzling me also..
+I have no idea.
+
+Sorry about that.
+
+Regards,
+Hideyuki
+
+&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> hi
+</I>&gt;<i> I can see mysql.so in the following directory
+</I>&gt;<i> /usr/lib/ser/modules/mysql.so
+</I>&gt;<i> 
+</I>&gt;<i> so i changed the icscf.cfg to pick it up from that directory
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> but now its is asking for libmysql.so
+</I>&gt;<i> 
+</I>&gt;<i> ./icscf.sh: line 3: killser: command not found
+</I>&gt;<i>  0(26782) ERROR: load_module: could not open module &lt;/usr/lib/ser/modules/mysql.so&gt;: libmysqlclient.so.15: cannot open shared object file: No such file or directory
+</I>&gt;<i>  0(26782) parse error (32,13-14): failed to load module
+</I>&gt;<i> ERROR: bad config file (1 errors)
+</I>&gt;<i>  0(26782) INFO:cdp:cdp_exit(): CDiameterPeer stoping ...
+</I>&gt;<i> ./icscf.sh: line 4: 26782 Segmentation fault      /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+</I>&gt;<i> 
+</I>&gt;<i> eventhough it is in the same directory of 
+</I>&gt;<i> /usr/lib/ser/modules/ibmysqlclient.so.15
+</I>&gt;<i> 
+</I>&gt;<i> ..puzzling me any
+</I>&gt;<i>  idea
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> -----------------------------------------------
+</I>&gt;<i> Thanks &amp; Regards,
+</I>&gt;<i> 
+</I>&gt;<i> Karthik.K.N (111891)
+</I>&gt;<i> Project Engineer(Project Engineering solutions -COE)
+</I>&gt;<i> Wipro Technologies
+</I>&gt;<i> Madivala II
+</I>&gt;<i> Ph no-08041371000 Ext -5133
+</I>&gt;<i> Cell no:9880982028
+</I>&gt;<i> Bangalore
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Hideyuki Yamashita [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">yamashita.hideyuki at lab.ntt.co.jp</A>]
+</I>&gt;<i> Sent: Tue 5/8/2007 1:31 PM
+</I>&gt;<i> To: Karthik Natarajan (WT01 - Telecom Applications and Solutions)
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: Re: ICSCF not starting
+</I>&gt;<i>  
+</I>&gt;<i> Hi,
+</I>&gt;<i> 
+</I>&gt;<i> I have encountered same problem in fedora core5.
+</I>&gt;<i> 
+</I>&gt;<i> You should better check /opt/OpenIMSCore/ser_ims/modules/mysql/
+</I>&gt;<i> 
+</I>&gt;<i> If compilation is accomplished normaly, mysql.so is created in 
+</I>&gt;<i> that directory.
+</I>&gt;<i> 
+</I>&gt;<i> When compiling OpenIMSCore, it uses mysql.h as include file.
+</I>&gt;<i> So if mysql.so does not exist in that directory you should check 
+</I>&gt;<i> that mysql.h is installed in your machine.
+</I>&gt;<i> (Or check mysql.h is visible from compiler.)
+</I>&gt;<i> 
+</I>&gt;<i> Best Regards,
+</I>&gt;<i> Hideyuki
+</I>&gt;<i> 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Hi,
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt;   I am getting the following error in fedora core 6. while starting icscf
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; /icscf.sh: line 3: killser: command not found
+</I>&gt;<i> &gt;  0(25565) ERROR: load_module: could not open module &lt;/usr/lib/mysql.so&gt;: libcrypto.so.0: cannot open shared object file: No such file or directory
+</I>&gt;<i> &gt;  0(25565) parse error (31,13-14): failed to load module
+</I>&gt;<i> &gt; ERROR: bad config file (1 errors)
+</I>&gt;<i> &gt;  0(25565) INFO:cdp:cdp_exit(): CDiameterPeer stoping ...
+</I>&gt;<i> &gt; ./icscf.sh: line 4: 25565 Segmentation fault      /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; i have got libcrypto.so.0.9.8b in /lib/libcrypto.so.0.9.8b
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; I have worked in Fc4 it was perfectly fine
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; I dont know what problem is there . have i missed something..
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; -----------------------------------------------
+</I>&gt;<i> &gt; Thanks &amp; Regards,
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Karthik.K.N (111891)
+</I>&gt;<i> &gt; Project Engineer(Project Engineering solutions -COE)
+</I>&gt;<i> &gt; Wipro Technologies
+</I>&gt;<i> &gt; Madivala II
+</I>&gt;<i> &gt; Ph no-08041371000 Ext -5133
+</I>&gt;<i> &gt; Cell no:9880982028
+</I>&gt;<i> &gt; Bangalore
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; -
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; The information contained in this electronic message and any attachments to this message are intended for the exclusive use of the addressee(s) and may contain proprietary, confidential or privileged information. If you are not the intended recipient, you should not disseminate, distribute or copy this e-mail. Please notify the sender immediately and destroy all copies of this message and any attachments. 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; WARNING: Computer viruses can be transmitted via email. The recipient should check this email and any attachments for the presence of viruses. The company accepts no liability for any damage caused by any virus transmitted by this email.
+</I>&gt;<i> &gt;  
+</I>&gt;<i> &gt; www.wipro.com
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> The information contained in this electronic message and any attachments to this message are intended for the exclusive use of the addressee(s) and may contain proprietary, confidential or privileged information. If you are not the intended recipient, you should not disseminate, distribute or copy this e-mail. Please notify the sender immediately and destroy all copies of this message and any attachments. 
+</I>&gt;<i> 
+</I>&gt;<i> WARNING: Computer viruses can be transmitted via email. The recipient should check this email and any attachments for the presence of viruses. The company accepts no liability for any damage caused by any virus transmitted by this email.
+</I>&gt;<i>  
+</I>&gt;<i> www.wipro.com
+</I>
+
+_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+NTT&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#26666;&#24335;&#20250;&#31038;
+&#24773;&#22577;&#27969;&#36890;&#22522;&#30436;&#32207;&#21512;&#30740;&#31350;&#25152;
+&#12469;&#12540;&#12499;&#12473;&#12452;&#12531;&#12486;&#12464;&#12524;&#12540;&#12471;&#12519;&#12531;&#22522;&#30436;&#30740;&#31350;&#25152;
+&#23665;&#19979;&#12288;&#33521;&#20043;
+TEL(0422)-59-6227
+&#12306;180-0012 &#26481;&#20140;&#37117;&#27494;&#34101;&#37326;&#24066;&#32209;&#30010;3-9-11 NTT&#27494;&#34101;&#37326;&#30740;&#31350;&#38283;&#30330;&#12475;&#12531;&#12479;&#20869; 7&#21495;&#39208;7-B05A
+E-mail:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">yamashita.hideyuki at lab.ntt.co.jp</A>
+_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000564.html">[OpenIMSCore-CSCF] ICSCF not starting
+</A></li>
+	<LI>Next message: <A HREF="000577.html">[OpenIMSCore-CSCF] ICSCF not starting
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#565">[ date ]</a>
+              <a href="thread.html#565">[ thread ]</a>
+              <a href="subject.html#565">[ subject ]</a>
+              <a href="author.html#565">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

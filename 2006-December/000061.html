@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] unexpected CSCF behaviour (P-CSCF subscribes to	event reg after	deregistration &amp; S-CSCF adds weird Warning header)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20unexpected%20CSCF%20behaviour%20%28P-CSCF%20subscribes%0A%20to%09event%20reg%20after%09deregistration%20%26%20S-CSCF%20adds%20weird%20Warning%20header%29&In-Reply-To=%3C458ABD56.6000108%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000057.html">
+   <LINK REL="Next"  HREF="000067.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] unexpected CSCF behaviour (P-CSCF subscribes to	event reg after	deregistration &amp; S-CSCF adds weird Warning header)</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20unexpected%20CSCF%20behaviour%20%28P-CSCF%20subscribes%0A%20to%09event%20reg%20after%09deregistration%20%26%20S-CSCF%20adds%20weird%20Warning%20header%29&In-Reply-To=%3C458ABD56.6000108%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] unexpected CSCF behaviour (P-CSCF subscribes to	event reg after	deregistration &amp; S-CSCF adds weird Warning header)">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Dec 21 17:59:02 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000057.html">[OpenIMSCore-CSCF] unexpected CSCF behaviour (P-CSCF subscribes to	event reg after	deregistration &amp; S-CSCF adds weird Warning header)
+</A></li>
+        <LI>Next message: <A HREF="000067.html">[OpenIMSCore-CSCF] TCP Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#61">[ date ]</a>
+              <a href="thread.html#61">[ thread ]</a>
+              <a href="subject.html#61">[ subject ]</a>
+              <a href="author.html#61">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Alberto,
+
+First, the Warning is there just for debug reasons. If you want to
+disable it, just change the sip_warning line in the *.cfg files.
+
+Then the P_CSCF keeps the users in it's registrar for 30 seconds more,
+so that the messages will still be relayed after de-registration,
+towards the client, through the IPSec tunnels.
+
+The P-CSCF subscribing after de-reg is a bug that was already submitted
+here:
+<A HREF="http://developer.berlios.de/bugs/?func=detailbug&amp;bug_id=9615&amp;group_id=7589.">http://developer.berlios.de/bugs/?func=detailbug&amp;bug_id=9615&amp;group_id=7589.</A>
+I couldn't replicate it before. I will try again with your settings...
+
+-Dragos
+
+
+Alberto D&#237;ez wrote:
+&gt;<i> hi!
+</I>&gt;<i>
+</I>&gt;<i> I'm running a simple test using sipp (i attach scenario file
+</I>&gt;<i> escenario2v2.xml and the escenario1.csv file which is just one i found
+</I>&gt;<i> on a previous thread on the list). It's only supposed to REGISTER,
+</I>&gt;<i> SUBSCRIBE to the &quot;reg&quot; event and  then  deregister. From the UE point of
+</I>&gt;<i> view everything works fine , all the messages are the expected. But
+</I>&gt;<i> everything that comes back from the S-CSCF has a suspicious header
+</I>&gt;<i> Warning: with the following message 
+</I>&gt;<i>
+</I>&gt;<i> Warning: 392 127.0.0.1:6060 &quot;Noisy feedback tells:  pid=8097
+</I>&gt;<i> req_src_ip=127.0.0.1 req_src_port=5060
+</I>&gt;<i> in_uri=sip:scscf.open-ims.test:6060 out_uri=sip:scscf.open-ims.test:6060
+</I>&gt;<i> via_cnt==3&quot;
+</I>&gt;<i>
+</I>&gt;<i> QUESTION : what and why is this Noisy feedback there? 
+</I>&gt;<i>
+</I>&gt;<i> I attach a ethereal capture file (only with sip and diameter traffic)
+</I>&gt;<i> escenario2v2.eth and up to the message 50 everything is as expected.
+</I>&gt;<i> &gt;From the 50 to 56 it's retransmisions due to the UE not being reacheable
+</I>&gt;<i> anymore (after the  200 OK for it's REGISTER with expires=0 it
+</I>&gt;<i> disconnects) but from message 57 to 84 i don't really know what is going
+</I>&gt;<i> on... Why does the P-CSCF send a new SUBSCRIBE ?   there is a problem in
+</I>&gt;<i> the I-CSCF Cx interface at that moment (i don't know why but this
+</I>&gt;<i> happens often ??)  and it doesn't go any further ..
+</I>&gt;<i>
+</I>&gt;<i> QUESTION :  does the P-CSCF really delete alice from its table when
+</I>&gt;<i> sending the 200 OK P-CSCF processed notification (message 49) ? If so
+</I>&gt;<i> what's the explanation for the SUBSCRIBE?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I run the test with  sipp 127.0.0.1:4060 -inf escenario1.csv -sf
+</I>&gt;<i> escenario2v2.xml  -m 1 -c 1 , and all my configuration is the standard
+</I>&gt;<i> that came with OpenIMSCore
+</I>&gt;<i>
+</I>&gt;<i> Thank you!
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> SEQUENTIAL
+</I>&gt;<i> alice;alice;[authentication username=<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A> password=alice]
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> &lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot; ?&gt;
+</I>&gt;<i> &lt;!DOCTYPE scenario SYSTEM &quot;sipp.dtd&quot;&gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> &lt;scenario name=&quot;Escenario2&quot;&gt;
+</I>&gt;<i> #Este escenario lo &#250;nico que hace es un registro
+</I>&gt;<i> #luego espera 5 segundos y hace un deregistro
+</I>&gt;<i> #pero envia un subscribe a su evento &quot;reg&quot;
+</I>&gt;<i>
+</I>&gt;<i> 	
+</I>&gt;<i> &lt;send retrans=&quot;500&quot;&gt;
+</I>&gt;<i> &lt;![CDATA[
+</I>&gt;<i> REGISTER sip:open-ims.test SIP/2.0
+</I>&gt;<i> Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+</I>&gt;<i> From: &quot;[field0]&quot; &lt;sip:[field0]@open-ims.test&gt;;tag=[call_number]
+</I>&gt;<i> To: &quot;[field0]&quot; &lt;sip:[field0]@open-ims.test&gt;
+</I>&gt;<i> Call-ID: [call_id]
+</I>&gt;<i> CSeq: 1 REGISTER
+</I>&gt;<i> Contact: &lt;sip:[field0]@[local_ip]:[local_port]&gt;;expires=3600
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i> Expires: 3600
+</I>&gt;<i> Authorization: Digest username=&quot;[field1]@open-ims.test&quot;, realm=&quot;open-ims.test&quot;
+</I>&gt;<i>
+</I>&gt;<i> ]]&gt;
+</I>&gt;<i> 	&lt;/send&gt;
+</I>&gt;<i>
+</I>&gt;<i> 	&lt;recv response=&quot;401&quot; auth=&quot;true&quot; rrs=&quot;true&quot;&gt;
+</I>&gt;<i> 		&lt;action&gt;
+</I>&gt;<i>         &lt;/action&gt;
+</I>&gt;<i> 	&lt;/recv&gt;
+</I>&gt;<i> 	
+</I>&gt;<i> 	
+</I>&gt;<i> 	
+</I>&gt;<i> 	&lt;send retrans=&quot;50000&quot;&gt;
+</I>&gt;<i> &lt;![CDATA[
+</I>&gt;<i> REGISTER sip:open-ims.test SIP/2.0
+</I>&gt;<i> Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+</I>&gt;<i> From: &quot;[field0]&quot; &lt;sip:[field0]@open-ims.test&gt;;tag=[call_number]
+</I>&gt;<i> To: &quot;[field0]&quot; &lt;sip:[field0]@open-ims.test&gt;
+</I>&gt;<i> Call-ID: [call_id]
+</I>&gt;<i> CSeq: 2 REGISTER
+</I>&gt;<i> Contact: &lt;sip:[field0]@[local_ip]:[local_port]&gt;;expires=3600
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i> Expires: 3600
+</I>&gt;<i> [field2]
+</I>&gt;<i> Require: sec-agree
+</I>&gt;<i>
+</I>&gt;<i> ]]&gt;
+</I>&gt;<i> 	&lt;/send&gt;
+</I>&gt;<i> #ahora me preocupo de si recibo un 200 Ok con su Service-Route
+</I>&gt;<i> #porque en la RFC del  &quot;reg event package&quot; dice que hay que enviar el 
+</I>&gt;<i> #subscribe con un header Route igual al Service-Route recibido en el 200 Ok
+</I>&gt;<i> 	
+</I>&gt;<i> 	&lt;recv response=&quot;200&quot;&gt;
+</I>&gt;<i> 		&lt;action&gt;
+</I>&gt;<i> 			&lt;ereg regexp=&quot;.*&quot; search_in=&quot;hdr&quot; header=&quot;Service-Route&quot; assign_to=&quot;1&quot; /&gt;
+</I>&gt;<i> 		&lt;/action&gt;
+</I>&gt;<i> 	&lt;/recv&gt;
+</I>&gt;<i>
+</I>&gt;<i> &lt;send retrans=&quot;5000&quot;&gt;
+</I>&gt;<i> &lt;![CDATA[
+</I>&gt;<i> SUBSCRIBE sip:[field0]@open-ims.test SIP/2.0
+</I>&gt;<i> Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+</I>&gt;<i> Route:  &lt;sip:pcscf.open-ims.test&gt; 
+</I>&gt;<i> Route: [$1]
+</I>&gt;<i> From: &quot;[field0]&quot; &lt;sip:[field0]@open-ims.test&gt;;tag=[call_number]
+</I>&gt;<i> To: &quot;[field0]&quot; &lt;sip:[field0]@open-ims.test&gt;
+</I>&gt;<i> Call-ID: [call_id]
+</I>&gt;<i> CSeq: 1 SUBSCRIBE
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i> Contact: &lt;sip:[field0]@[local_ip]:[local_port]&gt;;expires=0
+</I>&gt;<i> Event: reg
+</I>&gt;<i> Accept: application/reginfo+xml
+</I>&gt;<i> ]]&gt;
+</I>&gt;<i> &lt;/send&gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> &lt;recv response=&quot;200&quot;&gt;
+</I>&gt;<i> &lt;/recv&gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> &lt;recv request=&quot;NOTIFY&quot;&gt;
+</I>&gt;<i> &lt;/recv&gt;
+</I>&gt;<i> &lt;send&gt;
+</I>&gt;<i>     &lt;![CDATA[
+</I>&gt;<i>
+</I>&gt;<i>       SIP/2.0 200 OK
+</I>&gt;<i>       [last_Via:]
+</I>&gt;<i>       [last_From:]
+</I>&gt;<i>       [last_To:];tag=[call_number]
+</I>&gt;<i>       [last_Call-ID:]
+</I>&gt;<i>       [last_CSeq:]
+</I>&gt;<i>       Contact: &lt;sip:[field0]@[local_ip]:[local_port];transport=[transport]&gt;
+</I>&gt;<i>       Content-Length: 0
+</I>&gt;<i>
+</I>&gt;<i>     ]]&gt;
+</I>&gt;<i>   &lt;/send&gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> &lt;pause milliseconds=&quot;5000&quot; crlf=&quot;true&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 	
+</I>&gt;<i> &lt;send retrans=&quot;500&quot;&gt;
+</I>&gt;<i> &lt;![CDATA[
+</I>&gt;<i> REGISTER sip:open-ims.test SIP/2.0
+</I>&gt;<i> Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+</I>&gt;<i> From: &quot;[field0]&quot; &lt;sip:[field0]@open-ims.test&gt;;tag=[call_number]
+</I>&gt;<i> To: &quot;[field0]&quot; &lt;sip:[field0]@open-ims.test&gt;
+</I>&gt;<i> Call-ID: [call_id]
+</I>&gt;<i> CSeq: 4 REGISTER
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i> Contact: &lt;sip:[field0]@[local_ip]:[local_port]&gt;;expires=0
+</I>&gt;<i> [field2]
+</I>&gt;<i> Require: sec-agree
+</I>&gt;<i>
+</I>&gt;<i> ]]&gt;
+</I>&gt;<i> 	&lt;/send&gt;
+</I>&gt;<i> 	
+</I>&gt;<i> 	&lt;recv response=&quot;200&quot;&gt;
+</I>&gt;<i> 	&lt;/recv&gt;
+</I>&gt;<i>
+</I>&gt;<i> 	&lt;!-- definition of the response time repartition table (unit is ms)   --&gt;
+</I>&gt;<i> 	&lt;ResponseTimeRepartition value=&quot;10, 20&quot;/&gt;
+</I>&gt;<i> 	
+</I>&gt;<i> 	&lt;!-- definition of the call length repartition table (unit is ms)     --&gt;
+</I>&gt;<i> 	&lt;CallLengthRepartition value=&quot;10&quot;/&gt;
+</I>&gt;<i> 	
+</I>&gt;<i> &lt;/scenario&gt;
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000057.html">[OpenIMSCore-CSCF] unexpected CSCF behaviour (P-CSCF subscribes to	event reg after	deregistration &amp; S-CSCF adds weird Warning header)
+</A></li>
+	<LI>Next message: <A HREF="000067.html">[OpenIMSCore-CSCF] TCP Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#61">[ date ]</a>
+              <a href="thread.html#61">[ thread ]</a>
+              <a href="subject.html#61">[ subject ]</a>
+              <a href="author.html#61">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

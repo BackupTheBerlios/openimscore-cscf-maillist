@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] early-IMS Problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20early-IMS%20Problem&In-Reply-To=%3C482041FD.1000305%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001329.html">
+   <LINK REL="Next"  HREF="001333.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] early-IMS Problem</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20early-IMS%20Problem&In-Reply-To=%3C482041FD.1000305%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] early-IMS Problem">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue May  6 13:33:17 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001329.html">[OpenIMSCore-CSCF] During REGISTRATION: 500 Server Internal error -	Server Assignment failed.
+</A></li>
+        <LI>Next message: <A HREF="001333.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] CANCEL for	forking rejected by P-CSCF with 403
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1330">[ date ]</a>
+              <a href="thread.html#1330">[ thread ]</a>
+              <a href="subject.html#1330">[ subject ]</a>
+              <a href="author.html#1330">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Eivar,
+
+I would have to say that the error is due to a missing Expires header.
+
+Cheers,
+-Dragos
+
+Eivar Armero wrote:
+&gt;<i> Hi Dragos and all,
+</I>&gt;<i>
+</I>&gt;<i> here I send you the configuration file of the scscf.cfg ad aditional 
+</I>&gt;<i> the output of the console of the s-cscf and the hss.
+</I>&gt;<i>
+</I>&gt;<i> about the contact address in the REGISTER, I have been tested the 
+</I>&gt;<i> registration with this user using a X-lite client and MD5 
+</I>&gt;<i> authentication..and the register process was sucesfully.
+</I>&gt;<i>
+</I>&gt;<i> tks for your collaboration.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Dragos Vingarzan wrote:
+</I>&gt;&gt;<i> Hi Eivar,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> could you please post the scscf.cfg and the scscf output around the 
+</I>&gt;&gt;<i> registration? It seems that the Early-IMS authentication went fine, 
+</I>&gt;&gt;<i> but then there was an error in the server assignment, on the S-CSCF, 
+</I>&gt;&gt;<i> after the SAR/SAA was successful.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> BTW: - you might want to put a real Contact address in the REGISTER, 
+</I>&gt;&gt;<i> containing the IP and port of the client... Also, there's no Expires 
+</I>&gt;&gt;<i> header or expires parameter to the contact. This might have caused 
+</I>&gt;&gt;<i> the failure as the S-CSCF might have not properly detected if you do 
+</I>&gt;&gt;<i> a registration or de-registration.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Cheers,
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i> Eivar Armero wrote:
+</I>&gt;&gt;&gt;<i> Excuse me in my last post i forgot send you the traces of the 
+</I>&gt;&gt;&gt;<i> Diameter and SIP messages from wire shark :$
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Hi all,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I'm developing a simple mobile client that connects to the Open IMS
+</I>&gt;&gt;&gt;<i> Core, for testing proposes I'm  using Early-IMS  authentication, i have
+</I>&gt;&gt;&gt;<i> been enable this capability in the scscf.cgf file, and add the IP
+</I>&gt;&gt;&gt;<i> address of the client, but when the authentication begins an error
+</I>&gt;&gt;&gt;<i> occurs  and a 500 - Server Internal Error - Server Assignment failed
+</I>&gt;&gt;&gt;<i> message is sent to the client instead of 200 - Ok.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I followed the steps that i have been found in the mailing list but I
+</I>&gt;&gt;&gt;<i> can't resolve the problem
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> can some body help me??
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> tks for all...
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Eivar Armero Luna
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> ------------------------------------------------------------------------ 
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001329.html">[OpenIMSCore-CSCF] During REGISTRATION: 500 Server Internal error -	Server Assignment failed.
+</A></li>
+	<LI>Next message: <A HREF="001333.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] CANCEL for	forking rejected by P-CSCF with 403
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1330">[ date ]</a>
+              <a href="thread.html#1330">[ thread ]</a>
+              <a href="subject.html#1330">[ subject ]</a>
+              <a href="author.html#1330">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

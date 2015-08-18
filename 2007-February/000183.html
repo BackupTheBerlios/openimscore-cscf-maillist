@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Unable to reach AS on another machine
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Unable%20to%20reach%20AS%20on%20another%20machine&In-Reply-To=%3C45C9ED75.1010101%40wipro.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000194.html">
+   <LINK REL="Next"  HREF="000185.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Unable to reach AS on another machine</H1>
+    <B>Rajaram Tripathy</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Unable%20to%20reach%20AS%20on%20another%20machine&In-Reply-To=%3C45C9ED75.1010101%40wipro.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Unable to reach AS on another machine">rajaram.tripathy at wipro.com
+       </A><BR>
+    <I>Wed Feb  7 16:17:09 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000194.html">[OpenIMSCore-CSCF] Extra steps required to run the 01_persistency branch
+</A></li>
+        <LI>Next message: <A HREF="000185.html">[OpenIMSCore-CSCF] Unable to reach AS on another machine
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#183">[ date ]</a>
+              <a href="thread.html#183">[ thread ]</a>
+              <a href="subject.html#183">[ subject ]</a>
+              <a href="author.html#183">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hello,
+
+I have tested OpenIMS using SipP on the same machine, and was 
+successfully able to trigger the AS through the filter criteria.
+After putting the Application on other machine, I'm facing problems in 
+reaching it. The changes I made were:
+1) Replace all instances of 127.0.0.1 and localhost to IP_ADDRESS in 
+*.cfg, *.xml, 3 files in FHoSS/deploy, and all the .sql files
+2) Replace instances of 127.0.0.1 in open-ims.dnszone to IP_ADDRESS
+
+ From the S-CSCF log (pasted below), the IFC seems to be found (the 
+Application is on 10.117.11.21), but it gives an error saying 
+'Transaction xxxx xxxxxx exists'. Any ideas what I'm doing wrong here? 
+Any help would be greatly appreciated.
+
+Regards,
+Rajaram
+
+---------------s-cscf log follows----------------
+
+ 2(7032) INF:S-CSCF:----------  Registrar Contents end ----------
+ 2(7032) INFO:ISC:isc_failure: reached with s=1;h=0;d=0
+ 2(7032) DBG:ISC:isc_bootstrap(): marking for bootstrap
+ 2(7032) INFO:ISC:isc_mark_set: NEW mark 
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0;d=0&gt;
+ 1(7031) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the 
+message
+ 1(7031) INFO:ISC:isc_mark_get_from_msg: Found 
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0
+;d=0&gt;
+ 1(7031) INFO:ISC:ISC_from_AS(orig): Message returned s=1;h=0;d=0
+ 1(7031) &gt;&gt;       Orig
+ 1(7031) INFO:ISC:ISC_match_filter(orig): Checking triggers
+ 1(7031) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the 
+message
+ 1(7031) INFO:ISC:isc_mark_get_from_msg: Found 
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0
+;d=0&gt;
+ 1(7031) INFO:ISC:ISC_match_filter(orig): Message returned s=1;h=0;d=0
+ 1(7031) INFO:ISC:ISC_match_filter(orig): Orig User 
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt; [1]
+ 1(7031) INFO:ISC:isc_checker_find: resuming search from 1
+ 1(7031) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the 
+message
+ 1(7031) &gt;&gt;       Term
+ 1(7031) INFO:ISC:ISC_match_filter(term): Checking triggers
+ 1(7031) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the 
+message
+ 1(7031) INFO:ISC:ISC_match_filter(term): Starting triggering
+ 1(7031) INFO:ISC:ISC_match_filter(term): Orig User 
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt; [1]
+ 1(7031) INFO:ISC:isc_checker_find: starting search
+ 1(7031) INFO:ISC:isc_checker_find: MATCH -&gt; sip:10.117.11.21:5060 () 
+handling 0
+ 1(7031) INFO:ISC:isc_mark_set: NEW mark 
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0;d=1&gt;
+ 1(7031) INF:ISC:cscf_get_transaction: Transaction 5948 934629675 
+exists.Retransmission?
+ 1(7031) Trans already in processing... skip
+ 1(7031) Trans already in processing... skip
+11(7041) --- Peer List: ---
+
+
+
+The information contained in this electronic message and any attachments to this message are intended for the exclusive use of the addressee(s) and may contain proprietary, confidential or privileged information. If you are not the intended recipient, you should not disseminate, distribute or copy this e-mail. Please notify the sender immediately and destroy all copies of this message and any attachments. 
+
+WARNING: Computer viruses can be transmitted via email. The recipient should check this email and any attachments for the presence of viruses. The company accepts no liability for any damage caused by any virus transmitted by this email.
+ 
+www.wipro.com
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000194.html">[OpenIMSCore-CSCF] Extra steps required to run the 01_persistency branch
+</A></li>
+	<LI>Next message: <A HREF="000185.html">[OpenIMSCore-CSCF] Unable to reach AS on another machine
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#183">[ date ]</a>
+              <a href="thread.html#183">[ thread ]</a>
+              <a href="subject.html#183">[ subject ]</a>
+              <a href="author.html#183">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

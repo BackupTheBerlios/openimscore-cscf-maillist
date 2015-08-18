@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r442 - Fixed compilation and	completed generic session support.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r442%20-%20Fixed%20compilation%20and%0A%09completed%20generic%20session%20support.&In-Reply-To=%3C200708311220.l7VCKNMR006167%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000942.html">
+   <LINK REL="Next"  HREF="000944.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r442 - Fixed compilation and	completed generic session support.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r442%20-%20Fixed%20compilation%20and%0A%09completed%20generic%20session%20support.&In-Reply-To=%3C200708311220.l7VCKNMR006167%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r442 - Fixed compilation and	completed generic session support.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Fri Aug 31 14:20:23 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000942.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r441 - Initial commit of the new	unified session structures.
+</A></li>
+        <LI>Next message: <A HREF="000944.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r443 - Added transaction timeout	and sessions hash size as parameters to CDiameterPeer. Moved	the trans_init() outside CDP_FOR_SER so that transactions	would always be enabled.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#943">[ date ]</a>
+              <a href="thread.html#943">[ thread ]</a>
+              <a href="subject.html#943">[ subject ]</a>
+              <a href="author.html#943">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-08-31 14:20:22 +0200 (Fri, 31 Aug 2007)
+New Revision: 442 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=442">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=442</A> 
+
+Log:
+Fixed compilation and completed generic session support.
+
+
+Modified:
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.h?rev=442&amp;view=diff&amp;r1=442&amp;r2=441">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.h?rev=442&amp;view=diff&amp;r1=442&amp;r2=441</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_api.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_api.h?rev=442&amp;view=diff&amp;r1=442&amp;r2=441">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_api.h?rev=442&amp;view=diff&amp;r1=442&amp;r2=441</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_msg.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_msg.c?rev=442&amp;view=diff&amp;r1=442&amp;r2=441">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_msg.c?rev=442&amp;view=diff&amp;r1=442&amp;r2=441</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_peer.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_peer.c?rev=442&amp;view=diff&amp;r1=442&amp;r2=441">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_peer.c?rev=442&amp;view=diff&amp;r1=442&amp;r2=441</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/session.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.c?rev=442&amp;view=diff&amp;r1=442&amp;r2=441">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.c?rev=442&amp;view=diff&amp;r1=442&amp;r2=441</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/session.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.h?rev=442&amp;view=diff&amp;r1=442&amp;r2=441">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.h?rev=442&amp;view=diff&amp;r1=442&amp;r2=441</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/icscf/cx.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/icscf/cx.c?rev=442&amp;view=diff&amp;r1=442&amp;r2=441">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/icscf/cx.c?rev=442&amp;view=diff&amp;r1=442&amp;r2=441</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/scscf/cx.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/scscf/cx.c?rev=442&amp;view=diff&amp;r1=442&amp;r2=441">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/scscf/cx.c?rev=442&amp;view=diff&amp;r1=442&amp;r2=441</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000942.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r441 - Initial commit of the new	unified session structures.
+</A></li>
+	<LI>Next message: <A HREF="000944.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r443 - Added transaction timeout	and sessions hash size as parameters to CDiameterPeer. Moved	the trans_init() outside CDP_FOR_SER so that transactions	would always be enabled.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#943">[ date ]</a>
+              <a href="thread.html#943">[ thread ]</a>
+              <a href="subject.html#943">[ subject ]</a>
+              <a href="author.html#943">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

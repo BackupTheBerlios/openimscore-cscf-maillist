@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] NASS-Bundle Authentication
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20NASS-Bundle%20Authentication&In-Reply-To=%3C20071211112804.240030%40gmx.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001099.html">
+   <LINK REL="Next"  HREF="001101.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] NASS-Bundle Authentication</H1>
+    <B>Klemens Schragel</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20NASS-Bundle%20Authentication&In-Reply-To=%3C20071211112804.240030%40gmx.net%3E"
+       TITLE="[OpenIMSCore-CSCF] NASS-Bundle Authentication">klemens.schragel at gmx.at
+       </A><BR>
+    <I>Tue Dec 11 12:28:04 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001099.html">[OpenIMSCore-CSCF] NASS-Bundle Authentication
+</A></li>
+        <LI>Next message: <A HREF="001101.html">[OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile	is not executed
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1100">[ date ]</a>
+              <a href="thread.html#1100">[ thread ]</a>
+              <a href="subject.html#1100">[ subject ]</a>
+              <a href="author.html#1100">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+
+sure... I wanted to skip enabling the e2 IF and thought &quot;if pcscf adds the p-visited-network-id anyway I just have to enter this value as line identifyer in hss&quot; but I mixed up &quot;p-visited-network-id&quot; with &quot;p-access-network-info&quot;...
+
+thanks and br, Klemens
+
+-------- Original-Nachricht --------
+&gt;<i> Datum: Tue, 11 Dec 2007 10:18:41 +0100
+</I>&gt;<i> Von: Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>&gt;
+</I>&gt;<i> An: Klemens Schragel &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">klemens.schragel at gmx.at</A>&gt;
+</I>&gt;<i> CC: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Betreff: Re: [OpenIMSCore-CSCF] NASS-Bundle Authentication
+</I>
+&gt;<i> Hi Klemens,
+</I>&gt;<i> 
+</I>&gt;<i> You are on the right track with the S-CSCF/HSS configuration. But then
+</I>&gt;<i> you also need to reconfigure the P-CSCF, enable the e2 diameter
+</I>&gt;<i> interface and have a CLF node ready to give you the DSL line identifier
+</I>&gt;<i> that the P-CSCF would fill in.
+</I>&gt;<i> 
+</I>&gt;<i> The error that you get... well, the Early-IMS and NASS-Bundled
+</I>&gt;<i> authentications, if they fail and you have one of them as default, the
+</I>&gt;<i> S-CSCF won't have anything to pack in an authentication vector by
+</I>&gt;<i> default as these are not challenge-type authentications. So this is a
+</I>&gt;<i> clear failure, yet the error message is a little misleading as we tried
+</I>&gt;<i> to make the S-CSCF work in a multi-authentication environment. Our idea
+</I>&gt;<i> was that you might want to have a default challenge-authentication
+</I>&gt;<i> method selected with registration_default_algorithm. If you enable the
+</I>&gt;<i> nass_bundled and/or early_ims then one extra MAR/MAA is generated for
+</I>&gt;<i> each that would check with the HSS if the line-identifier or the source
+</I>&gt;<i> IP address is authorized, before trying a challenge. In your case, there
+</I>&gt;<i> was no challenge method selected, so no fallback, and you got the 500.
+</I>&gt;<i> 
+</I>&gt;<i> If the NASS-Bundled would've succeeded you would've got the 200 OK for
+</I>&gt;<i> it. If you select a challenge authentication for the default algorithm
+</I>&gt;<i> then in case NASS-bundled succeeds you get a 200 OK, else you get a 401
+</I>&gt;<i> with a challenge.
+</I>&gt;<i> 
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> Klemens Schragel wrote:
+</I>&gt;<i> &gt; Hi All,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I want to test the NBA but unfortunately I'm not quit sure how...
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; scscf.cfg:
+</I>&gt;<i> &gt; I think optional:
+</I>&gt;<i> &gt;   modparam(&quot;scscf&quot;,&quot;registration_default_algorithm&quot;,&quot;NASS-Bundled&quot;)
+</I>&gt;<i> &gt; mandatory:
+</I>&gt;<i> &gt;   modparam(&quot;scscf&quot;,&quot;registration_disable_nass_bundled&quot;,0)
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; hss-db:
+</I>&gt;<i> &gt; at least &quot;allow NASS-bundled&quot;, maybe also as &quot;default&quot;...
+</I>&gt;<i> &gt; and then I think I also have to enter the ID string which the P-CSCF
+</I>&gt;<i> will enter in the REGISTER (p-access-network-info), in my case &quot;net1.test&quot;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; anything else?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I receive an 500 Server Initial Error - while packing auth vector (see
+</I>&gt;<i> trace)...
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; br, Klemens
+</I>&gt;<i> &gt;   
+</I>&gt;<i> &gt; ------------------------------------------------------------------------
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;   
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> -- 
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>
+-- 
+Psssst! Schon vom neuen GMX MultiMessenger geh&#246;rt?
+Der kann`s mit allen: <A HREF="http://www.gmx.net/de/go/multimessenger">http://www.gmx.net/de/go/multimessenger</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001099.html">[OpenIMSCore-CSCF] NASS-Bundle Authentication
+</A></li>
+	<LI>Next message: <A HREF="001101.html">[OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile	is not executed
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1100">[ date ]</a>
+              <a href="thread.html#1100">[ thread ]</a>
+              <a href="subject.html#1100">[ subject ]</a>
+              <a href="author.html#1100">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

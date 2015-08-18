@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] How to reduce memory consumption on CSCF?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20How%20to%20reduce%20memory%20consumption%20on%20CSCF%3F&In-Reply-To=%3Cb712f9530707100350x265d3a0fg212dfc1e24a76b40%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000844.html">
+   <LINK REL="Next"  HREF="000847.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] How to reduce memory consumption on CSCF?</H1>
+    <B>Tom Paris</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20How%20to%20reduce%20memory%20consumption%20on%20CSCF%3F&In-Reply-To=%3Cb712f9530707100350x265d3a0fg212dfc1e24a76b40%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] How to reduce memory consumption on CSCF?">tom.paris001 at gmail.com
+       </A><BR>
+    <I>Tue Jul 10 12:50:22 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000844.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r388 - Added Content-Length to BYE	on session expiration on S-CSCF.
+</A></li>
+        <LI>Next message: <A HREF="000847.html">[OpenIMSCore-CSCF] How to reduce memory consumption on CSCF?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#845">[ date ]</a>
+              <a href="thread.html#845">[ thread ]</a>
+              <a href="subject.html#845">[ subject ]</a>
+              <a href="author.html#845">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+
+I am trying to install and examine OpenIMS.
+
+What I want to try with OpenIMS is
+1.to create hundreds users on HSS
+2.send REGISTER from client(SIPp)
+
+ However my computer has poor memory volume and not fast enough.
+So I have some questions about how to reduce memory consumption on CSCFs.
+
+
+Q1.Are there any configurational value that can turn off authentication in
+REGISTER sequence.
+
+Q2.Are there any configurational values that directly reduce memory
+consumption on CSCF?
+     (i.e. in scscf.cfg, pcscf.cfg,icscf.cfg ,are there any parameter to
+specify number of instance of ser?)
+
+Q3.As far as I tested, it seems that memory consumption on S-CSCF
+increases about 100-200 kb(physical memory)  as number of registered user
+increases.
+Size of SAA signal from HSS is about 1kb(very simple user profile),so I just
+wondered what is the usage of other 99-199kb memory.
+I know S-CSCF has many functionality other than user profile management.
+However if anybody can tell me tendency of memory consumption of CSCF, I am
+very appreciated.
+
+
+Best Regards,
+Thomas
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070710/703e62fd/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070710/703e62fd/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000844.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r388 - Added Content-Length to BYE	on session expiration on S-CSCF.
+</A></li>
+	<LI>Next message: <A HREF="000847.html">[OpenIMSCore-CSCF] How to reduce memory consumption on CSCF?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#845">[ date ]</a>
+              <a href="thread.html#845">[ thread ]</a>
+              <a href="subject.html#845">[ subject ]</a>
+              <a href="author.html#845">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

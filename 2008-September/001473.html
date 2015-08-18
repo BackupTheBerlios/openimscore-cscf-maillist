@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Mobicents%20SIP%20WAKE%20UP&In-Reply-To=%3CFC3A8C41E4D543B2A4935BFBF6D73F64%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001472.html">
+   <LINK REL="Next"  HREF="001474.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Mobicents SIP WAKE UP</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Mobicents%20SIP%20WAKE%20UP&In-Reply-To=%3CFC3A8C41E4D543B2A4935BFBF6D73F64%40notebook%3E"
+       TITLE="[OpenIMSCore-CSCF] Mobicents SIP WAKE UP">franz.edler at inode.at
+       </A><BR>
+    <I>Mon Sep  1 19:31:16 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001472.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+        <LI>Next message: <A HREF="001474.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1473">[ date ]</a>
+              <a href="thread.html#1473">[ thread ]</a>
+              <a href="subject.html#1473">[ subject ]</a>
+              <a href="author.html#1473">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+&gt;<i> If I make a trigger base
+</I>&gt;<i> on REGISTER request, 3 checkboxes appears : Reg, Re-Reg and De-Reg. If you
+</I>&gt;<i> click on Re-reg, no registration will be done and the client will receive
+</I>&gt;<i> a &quot;Server Internal Error&quot;. 
+</I>
+Re-Reg means it should trigger on re-REGISTER requests.
+A &quot;Server Internal Error&quot; should not happen.
+
+&gt;<i> Concerning the forwarding of MESSAGE request to mobicents, it works also
+</I>&gt;<i> well but Open IMS can not forward the answers sent by Mobicents (see
+</I>&gt;<i> trace) to the end user...I get a 403 forbidden error.
+</I>
+I will look at that later.
+
+&gt;<i> During the 3rd party registration (see trace), the REGISTER request sent
+</I>&gt;<i> to Mobicents is weird (in my opinion). The &quot;To&quot; header is set to the sip
+</I>&gt;<i> URI of the end user and the &quot;From&quot; header is &quot;sip:scscf.open-ims.test&quot; .
+</I>
+That's totally correct. Just look into RFC 3261 how To- and From-header
+fields are populated in case of 3rd party registration.
+ 
+&gt;<i> How could I solve that?
+</I>
+Not at all. It's correct.
+
+-franz
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001472.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+	<LI>Next message: <A HREF="001474.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1473">[ date ]</a>
+              <a href="thread.html#1473">[ thread ]</a>
+              <a href="subject.html#1473">[ subject ]</a>
+              <a href="author.html#1473">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

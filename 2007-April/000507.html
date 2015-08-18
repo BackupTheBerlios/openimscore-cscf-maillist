@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Registration Problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Registration%20Problem&In-Reply-To=%3C007701c78676%24a2ebbe10%240f40000a%40blr.velankani.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000497.html">
+   <LINK REL="Next"  HREF="000508.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Registration Problem</H1>
+    <B>Rishin Chakraborty</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Registration%20Problem&In-Reply-To=%3C007701c78676%24a2ebbe10%240f40000a%40blr.velankani.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Registration Problem">rchakraborty at velankani.com
+       </A><BR>
+    <I>Tue Apr 24 15:44:10 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000497.html">[OpenIMSCore-CSCF] Registration Problem
+</A></li>
+        <LI>Next message: <A HREF="000508.html">[OpenIMSCore-CSCF] Registration Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#507">[ date ]</a>
+              <a href="thread.html#507">[ thread ]</a>
+              <a href="subject.html#507">[ subject ]</a>
+              <a href="author.html#507">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Thanks Dragos.
+
+I assume that when you say P_NAT_relay() you actually mean P_NAT_response().
+Do we need to replace it with something else?
+
+Thanks,
+Rishin
+
+-----Original Message-----
+From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+Sent: Tuesday, April 24, 2007 3:57 PM
+To: Rishin Chakraborty
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] Registration Problem
+
+Hello Rishin,
+
+The problem is that the P-CSCF has, by default, NAT relaying. This
+means, that in order to go over a NAT between the P-CSCF and the UE, the
+P-CSCF will always forward message to the source IP:port of the incoming
+messages from the client, and not to the Contact or first Via headers.
+
+We see this a feature and not a problem ;-). If you don't want it, just
+disable NAT and remove the P_NAT_relay() functionality from the pcscf.cfg.
+
+-Dragos
+
+
+Rishin Chakraborty wrote:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I am facing problem while trying to REGISTER a Cisco 7960 phone with
+</I>&gt;<i> FOKUS IMS.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> The ethereal trace shows that while sending back 401 - User
+</I>&gt;<i> Unauthorized for the initial
+</I>&gt;<i>
+</I>&gt;<i> REGISTER message, OSIMS sends the response message on the port which
+</I>&gt;<i> had come as
+</I>&gt;<i>
+</I>&gt;<i> Source Port of UDP header in the REGISTER message and **not** on what
+</I>&gt;<i> is provided with
+</I>&gt;<i>
+</I>&gt;<i> the Contact header. However, the Cisco phone listens on 5060, which it
+</I>&gt;<i> had provided with the
+</I>&gt;<i>
+</I>&gt;<i> Contact header and misses the 401 response. As a result, Cisco phone
+</I>&gt;<i> keeps on retransmitting
+</I>&gt;<i>
+</I>&gt;<i> the REGISTER.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I tried to verify this behavior with X-Lite. The ethereal trace for
+</I>&gt;<i> X-Lite shows that OSIMS is
+</I>&gt;<i>
+</I>&gt;<i> sending back 401 - User Unauthorized response to the Source Port of
+</I>&gt;<i> UDP header which
+</I>&gt;<i>
+</I>&gt;<i> incidentally is the same one as provided with the Contact header. So,
+</I>&gt;<i> Registration is working
+</I>&gt;<i>
+</I>&gt;<i> fine in the case of X-Lite.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Therefore, it appears to be a problem with FOKUS IMS.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Both the ethereal traces are attached. Could someone confirm my doubt?
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i>
+</I>&gt;<i> Rishin
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000497.html">[OpenIMSCore-CSCF] Registration Problem
+</A></li>
+	<LI>Next message: <A HREF="000508.html">[OpenIMSCore-CSCF] Registration Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#507">[ date ]</a>
+              <a href="thread.html#507">[ thread ]</a>
+              <a href="subject.html#507">[ subject ]</a>
+              <a href="author.html#507">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

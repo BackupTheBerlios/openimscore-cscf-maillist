@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Mobicents%20SIP%20WAKE%20UP&In-Reply-To=%3Ca42e68ed0808300422t6c581aaxeb974950d3994f1e%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001466.html">
+   <LINK REL="Next"  HREF="001469.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Mobicents SIP WAKE UP</H1>
+    <B>ims.asuser ims.asuser</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Mobicents%20SIP%20WAKE%20UP&In-Reply-To=%3Ca42e68ed0808300422t6c581aaxeb974950d3994f1e%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Mobicents SIP WAKE UP">ims.asuser at gmail.com
+       </A><BR>
+    <I>Sat Aug 30 13:22:05 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001466.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+        <LI>Next message: <A HREF="001469.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1468">[ date ]</a>
+              <a href="thread.html#1468">[ thread ]</a>
+              <a href="subject.html#1468">[ subject ]</a>
+              <a href="author.html#1468">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>OK.
+
+-The OpenIMS is running on 192.168.3.7
+-The UCTIMS client is running on 192.168.3.9
+-Mobicents is running on 192.168.3.10
+
+1) The UCTIMS Client sends a registration message  to OpenIMS which forward
+it to Mobicents (as I told in the previous post, Mobicents can only work
+with users registered in its registrar.
+
+2) Mobicents accepts the registration with a 200 OK (no password)
+
+3) The UCTIMS Client sends a &quot;wake up&quot; message (format=&quot;WAKE UP IN Xs!
+MSG:msgtosend&quot;)
+
+4) OpenIMS should forward that &quot;wake up&quot; message but it asks for
+registration first (and that my major issue actually)
+
+If it is not clear, feel free to ask.
+
+Cheers,
+Khalid
+
+2008/8/30 Franz Edler &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at inode.at</A>&gt;
+
+&gt;<i> Hi Khaldon,
+</I>&gt;<i>
+</I>&gt;<i> &gt; I'm sorry...totally forget it!
+</I>&gt;<i>
+</I>&gt;<i> Please give some information on the architecture (IP-addresses) because the
+</I>&gt;<i> trace covers obviously only part of the architecture.
+</I>&gt;<i>
+</I>&gt;<i> -franz
+</I>&gt;<i>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080830/6e510cde/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080830/6e510cde/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001466.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+	<LI>Next message: <A HREF="001469.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1468">[ date ]</a>
+              <a href="thread.html#1468">[ thread ]</a>
+              <a href="subject.html#1468">[ subject ]</a>
+              <a href="author.html#1468">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Register is looping in pcscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Register%20is%20looping%20in%20pcscf&In-Reply-To=%3CCAAJ5KhHgg_z--GJ2ObYAbeT%3Dz%3DAXS8iJcqxqg-V8bP7kKmzuqg%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002704.html">
+   <LINK REL="Next"  HREF="002706.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Register is looping in pcscf</H1>
+    <B>Lakshman Bana</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Register%20is%20looping%20in%20pcscf&In-Reply-To=%3CCAAJ5KhHgg_z--GJ2ObYAbeT%3Dz%3DAXS8iJcqxqg-V8bP7kKmzuqg%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Register is looping in pcscf">lakshman.bana at gmail.com
+       </A><BR>
+    <I>Fri Oct 14 06:24:52 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002704.html">[OpenIMSCore-CSCF] Register is looping in pcscf
+</A></li>
+        <LI>Next message: <A HREF="002706.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1165 - Client_Rf: small fix
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2705">[ date ]</a>
+              <a href="thread.html#2705">[ thread ]</a>
+              <a href="subject.html#2705">[ subject ]</a>
+              <a href="author.html#2705">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Sorry for the too many mails.
+
+Switching ports worked good but ran into API level limitation in
+android. After 401 the Android APP is sending second REGISTER with
+username as 12223334444 instead of <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">12223334444 at open-ims.test.</A>
+Because of that I do not see 200OK and Android doesn't support
+setAuthUserName API in 2.3.3 version but it is available in 3.0.
+
+Is there anyway I can have both 1222333444 and
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">12223334444 at open-ims.test</A> configured in HSS and use
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">12223334444 at open-ims.test</A> in first REGISTER and the other in second
+REGISTER?
+
+Thanks
+lb
+
+
+On Thu, Oct 13, 2011 at 11:34 PM, Lakshman Bana &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">lakshman.bana at gmail.com</A>&gt; wrote:
+&gt;<i> I think it is the problem with Android. If I send REGISTER request
+</I>&gt;<i> from a different SoftSIP client it successfully registers where as
+</I>&gt;<i> from Android it fails.
+</I>&gt;<i> I think the problem is Android SIP stack adding port number to the
+</I>&gt;<i> domain in To and From headers.
+</I>&gt;<i>
+</I>&gt;<i> REGISTER sip:open-ims.test:4060 SIP/2.0
+</I>&gt;<i>
+</I>&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">884ace1faa671891150652164a9f9a4e at 192.168.1.4</A>
+</I>&gt;<i>
+</I>&gt;<i> CSeq: 7829 REGISTER
+</I>&gt;<i>
+</I>&gt;<i> From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">12223334444 at open-ims.test</A>:4060&gt;;tag=3243354390
+</I>&gt;<i>
+</I>&gt;<i> To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">12223334444 at open-ims.test</A>:4060&gt;
+</I>&gt;<i>
+</I>&gt;<i> Via: SIP/2.0/UDP
+</I>&gt;<i> 192.168.1.4:35254;branch=z9hG4bK1c7993e1286fb4094702e908c6da5ed7393738;rport
+</I>&gt;<i>
+</I>&gt;<i> Max-Forwards: 70
+</I>&gt;<i>
+</I>&gt;<i> User-Agent: SIPAUA/0.1.001
+</I>&gt;<i>
+</I>&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">12223334444 at 192.168.1.4</A>:35254;transport=udp&gt;
+</I>&gt;<i>
+</I>&gt;<i> Expires: 300
+</I>&gt;<i>
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I might have to see if I can switch PCSCF and SCSCF port numbers so
+</I>&gt;<i> that I don't have to invoke setPort() in Android and that might work.
+</I>&gt;<i>
+</I>&gt;<i> -Thanks
+</I>&gt;<i> lb
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> On Thu, Oct 13, 2011 at 3:38 PM, Franz Edler &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at kabsi.at</A>&gt; wrote:
+</I>&gt;&gt;&gt;<i> I have loaded application on my android device and able to send the
+</I>&gt;&gt;&gt;<i> request to pcscf on port 4060.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Since the device is running on different host address I updated
+</I>&gt;&gt;&gt;<i> pcscf/scscf/icscf/hss config files with actual ip address instead of
+</I>&gt;&gt;&gt;<i> 127.0.0.1.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> When SIP REGISTER is received at PCSCF I do not see it going to ICSCF
+</I>&gt;&gt;&gt;<i> or SCSCF function. Instead the REGISTER message is sending it to
+</I>&gt;&gt;&gt;<i> itself(port 4060). Via header is getting populated with PCSCF info.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Anyone know where else I need to look at to fix this problem.
+</I>&gt;&gt;&gt;<i> BTW: nslookup on [spi]cscf.open-ims.test resolves to 192.168.1.3 and
+</I>&gt;&gt;&gt;<i> also open-ims.test.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Without a tracfile it is hard to guess.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> BR
+</I>&gt;&gt;<i> Franz
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002704.html">[OpenIMSCore-CSCF] Register is looping in pcscf
+</A></li>
+	<LI>Next message: <A HREF="002706.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1165 - Client_Rf: small fix
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2705">[ date ]</a>
+              <a href="thread.html#2705">[ thread ]</a>
+              <a href="subject.html#2705">[ subject ]</a>
+              <a href="author.html#2705">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

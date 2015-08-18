@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P-Visited-Network-ID header missing
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-Visited-Network-ID%20header%20missing&In-Reply-To=%3C64b2a0650703150341w6dc02120n791d4c58ed567d77%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000319.html">
+   <LINK REL="Next"  HREF="000320.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P-Visited-Network-ID header missing</H1>
+    <B>Miguel Freitas</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-Visited-Network-ID%20header%20missing&In-Reply-To=%3C64b2a0650703150341w6dc02120n791d4c58ed567d77%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] P-Visited-Network-ID header missing">a23875 at gmail.com
+       </A><BR>
+    <I>Thu Mar 15 11:41:44 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000319.html">[OpenIMSCore-CSCF] P-Visited-Network-ID header missing
+</A></li>
+        <LI>Next message: <A HREF="000320.html">[OpenIMSCore-CSCF] Client Configuration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#328">[ date ]</a>
+              <a href="thread.html#328">[ thread ]</a>
+              <a href="subject.html#328">[ subject ]</a>
+              <a href="author.html#328">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>In IMS-Communicator, you can set up the outbound proxy in the property &lt;
+java.sip.OUTBOUND_PROXY&gt; (ims-communicator.xml file)
+The format is &quot;address:port/transport&quot;
+
+Miguel Freitas
+
+
+On 3/14/07, Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i> Could you please send a network trace?
+</I>&gt;<i>
+</I>&gt;<i> I am suspecting that you are not using the P-CSCF as an outbound
+</I>&gt;<i> proxy... am I right?
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> Nagaraj K wrote:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Hello all,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I have installed all the IMS components. All components connected
+</I>&gt;<i> &gt; successfully.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; But when I try to test with ims client(ims-communicator) the following
+</I>&gt;<i> &gt; error message comes
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; SIP/2.0 400 Bad Request - P-Visited-Network-ID header missing
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">716d30786cc99ed898557f4a26ae0618 at 10.20.2.189</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; CSeq: 1 REGISTER
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; From: &quot;bob&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=23438274
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; To: &quot;bob&quot;
+</I>&gt;<i> &gt; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=a6a1c5f60faecf035a1ae5b6e96e979a-e8b2
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Via: SIP/2.0/UDP
+</I>&gt;<i> &gt; 10.20.2.189:5062;branch=z9hG4bK32b5139b1ebf84a5d68feea665a8861e
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Server: Sip EXpress router (2.1.0-dev1-OpenIMSCore (i386/linux))
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Warning: 392 127.0.0.1:5060 &quot;Noisy feedback tells:  pid=29392
+</I>&gt;<i> &gt; req_src_ip=10.20.2.189 req_src_port=5060 in_uri=sip:open-ims.test
+</I>&gt;<i> &gt; out_uri=sip:open-ims.test via_cnt==2&quot;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Content-Length: 0
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Pls provide me assistance..
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Regards,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Naga
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> ============================================================================================================================
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Tech Mahindra, formerly Mahindra-British Telecom.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Disclaimer:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; This message and the information contained herein is proprietary and
+</I>&gt;<i> &gt; confidential and subject to the Tech Mahindra policy statement, you
+</I>&gt;<i> &gt; may review at <A HREF="http://www.techmahindra.com/Disclaimer.html">http://www.techmahindra.com/Disclaimer.html</A> externally
+</I>&gt;<i> &gt; and <A HREF="http://tim.techmahindra.com/Disclaimer.html">http://tim.techmahindra.com/Disclaimer.html</A> internally within Tech
+</I>&gt;<i> &gt; Mahindra.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> ============================================================================================================================
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ------------------------------------------------------------------------
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+</I>&gt;<i> Web www.fokus.fraunhofer.de
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>
+
+
+-- 
+- - - -                                     - - - -
+- Telecommunications Institute   -
+- Instituto de Telecomunicacoes  -
+- Aveiro, Portugal                         -
+- www.it.pt                                    -
+- - - -                                     - - - -
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070315/ab98bc0a/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070315/ab98bc0a/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000319.html">[OpenIMSCore-CSCF] P-Visited-Network-ID header missing
+</A></li>
+	<LI>Next message: <A HREF="000320.html">[OpenIMSCore-CSCF] Client Configuration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#328">[ date ]</a>
+              <a href="thread.html#328">[ thread ]</a>
+              <a href="subject.html#328">[ subject ]</a>
+              <a href="author.html#328">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

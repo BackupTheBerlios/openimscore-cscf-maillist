@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r578 - Added support for NAT	helper for B2B INVITEs that do not contain the first SDP in	INVITE. Fixed the pcscf.cfg to do SDP manipulate on all	status-codes ~= &quot;2..&quot; Fixed the NAT helpder to clean up with	SDP manipulate also on status-code &gt;=300.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r578%20-%20Added%20support%20for%20NAT%0A%09helper%20for%20B2B%20INVITEs%20that%20do%20not%20contain%20the%20first%20SDP%20in%0A%09INVITE.%20Fixed%20the%20pcscf.cfg%20to%20do%20SDP%20manipulate%20on%20all%0A%09status-codes%20%7E%3D%20%222..%22%20Fixed%20the%20NAT%20helpder%20to%20clean%20up%20with%0A%09SDP%20manipulate%20also%20on%20status-code%20%3E%3D300.&In-Reply-To=%3C200808251521.m7PFLuos000663%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001452.html">
+   <LINK REL="Next"  HREF="001455.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r578 - Added support for NAT	helper for B2B INVITEs that do not contain the first SDP in	INVITE. Fixed the pcscf.cfg to do SDP manipulate on all	status-codes ~= &quot;2..&quot; Fixed the NAT helpder to clean up with	SDP manipulate also on status-code &gt;=300.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r578%20-%20Added%20support%20for%20NAT%0A%09helper%20for%20B2B%20INVITEs%20that%20do%20not%20contain%20the%20first%20SDP%20in%0A%09INVITE.%20Fixed%20the%20pcscf.cfg%20to%20do%20SDP%20manipulate%20on%20all%0A%09status-codes%20%7E%3D%20%222..%22%20Fixed%20the%20NAT%20helpder%20to%20clean%20up%20with%0A%09SDP%20manipulate%20also%20on%20status-code%20%3E%3D300.&In-Reply-To=%3C200808251521.m7PFLuos000663%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r578 - Added support for NAT	helper for B2B INVITEs that do not contain the first SDP in	INVITE. Fixed the pcscf.cfg to do SDP manipulate on all	status-codes ~= &quot;2..&quot; Fixed the NAT helpder to clean up with	SDP manipulate also on status-code &gt;=300.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Mon Aug 25 17:21:56 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001452.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r577 - Re-fixed the DNS file - the	&quot;_&quot; fix was actually breaking the SRV features. &quot;_&quot; seems to	be allowed in SRV entries.
+</A></li>
+        <LI>Next message: <A HREF="001455.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r579 - Added support for	enum_query_orig(), which does the look-up not on the Request-URI,	but on the P-Asserted-Identity/From headers. Useful for the first	steps in servicing PSTN-users with IMS services.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1454">[ date ]</a>
+              <a href="thread.html#1454">[ thread ]</a>
+              <a href="subject.html#1454">[ subject ]</a>
+              <a href="author.html#1454">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2008-08-25 17:21:55 +0200 (Mon, 25 Aug 2008)
+New Revision: 578 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=578">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=578</A> 
+
+Log:
+Added support for NAT helper for B2B INVITEs that do not contain the first SDP in INVITE.
+Fixed the pcscf.cfg to do SDP manipulate on all status-codes ~= &quot;2..&quot;
+Fixed the NAT helpder to clean up with SDP manipulate also on status-code &gt;=300. 
+
+
+Modified:
+   U	ser_ims/trunk/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=578&amp;view=diff&amp;r1=578&amp;r2=577">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=578&amp;view=diff&amp;r1=578&amp;r2=577</A>
+   U	ser_ims/trunk/modules/pcscf/sdp_util.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/sdp_util.c?rev=578&amp;view=diff&amp;r1=578&amp;r2=577">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/sdp_util.c?rev=578&amp;view=diff&amp;r1=578&amp;r2=577</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001452.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r577 - Re-fixed the DNS file - the	&quot;_&quot; fix was actually breaking the SRV features. &quot;_&quot; seems to	be allowed in SRV entries.
+</A></li>
+	<LI>Next message: <A HREF="001455.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r579 - Added support for	enum_query_orig(), which does the look-up not on the Request-URI,	but on the P-Asserted-Identity/From headers. Useful for the first	steps in servicing PSTN-users with IMS services.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1454">[ date ]</a>
+              <a href="thread.html#1454">[ thread ]</a>
+              <a href="subject.html#1454">[ subject ]</a>
+              <a href="author.html#1454">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

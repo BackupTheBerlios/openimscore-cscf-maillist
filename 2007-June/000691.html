@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Call Session Control Functions feature] Save	originating/terminating identification info in the ISC mark,	detect changes
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20feature%5D%20Save%0A%09originating/terminating%20identification%20info%20in%20the%20ISC%20mark%2C%0A%09detect%20changes&In-Reply-To=%3Ctype%3Dproject%26nid%3D60%26host%3D%40www.openimscore.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000688.html">
+   <LINK REL="Next"  HREF="000692.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Call Session Control Functions feature] Save	originating/terminating identification info in the ISC mark,	detect changes</H1>
+    <B>vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20feature%5D%20Save%0A%09originating/terminating%20identification%20info%20in%20the%20ISC%20mark%2C%0A%09detect%20changes&In-Reply-To=%3Ctype%3Dproject%26nid%3D60%26host%3D%40www.openimscore.org%3E"
+       TITLE="[OpenIMSCore-CSCF] [Call Session Control Functions feature] Save	originating/terminating identification info in the ISC mark,	detect changes">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Mon Jun  4 18:20:07 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000688.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r304 - Fixed missing SAR on	de-registration with integrity protected.
+</A></li>
+        <LI>Next message: <A HREF="000692.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Support	for NASS-Bundled auth.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#691">[ date ]</a>
+              <a href="thread.html#691">[ thread ]</a>
+              <a href="subject.html#691">[ subject ]</a>
+              <a href="author.html#691">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Issue status update for 
+<A HREF="http://www.openimscore.org/?q=node/60">http://www.openimscore.org/?q=node/60</A>
+Post a follow up: 
+<A HREF="http://www.openimscore.org/?q=project/comments/add/60">http://www.openimscore.org/?q=project/comments/add/60</A>
+
+ Project:      Call Session Control Functions
+ Version:      &lt;none&gt;
+ Component:    Code
+ Category:     feature requests
+ Priority:     normal
+ Assigned to:  
+ Reported by:  vingarzan
+ Updated by:   vingarzan
+ Status:       active
+
+During triggering, the S-CSCF currently does not save the initial
+request information needed to identify the session after it gets
+triggered through B2BUA ASs.
+
+
+This presents limitations such as:
+- if a B2BUA doesn't include P-Asserted-Identity in the 2nd leg,
+currently the S-CSCF says: S-CSCF:S_save_dialog(): Error retrieving
+orig contact
+- it is not possible to detect that an AS changed the Request-URI in
+the terminating case. According to TS 24.229, the S-CSCF should foward
+based on the Req-URI when it gets changed by an AS in the terminating
+case, and not proceed with following triggers for the called user.
+
+
+We need:
+- to store at least the P-Asserted-Identity for the MO triggering and
+the Request-URI for the MT triggering with the initial request ISC
+marking state
+- encode the original dialog identifier to enable retrieval of this
+info in subsequent triggers.
+
+
+
+
+vingarzan
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000688.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r304 - Fixed missing SAR on	de-registration with integrity protected.
+</A></li>
+	<LI>Next message: <A HREF="000692.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Support	for NASS-Bundled auth.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#691">[ date ]</a>
+              <a href="thread.html#691">[ thread ]</a>
+              <a href="subject.html#691">[ subject ]</a>
+              <a href="author.html#691">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

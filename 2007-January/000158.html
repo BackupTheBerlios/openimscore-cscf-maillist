@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r107 -	ser_ims/branches/01_persistency/modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r107%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200701301129.l0UBTHFi017041%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000157.html">
+   <LINK REL="Next"  HREF="000159.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r107 -	ser_ims/branches/01_persistency/modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r107%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200701301129.l0UBTHFi017041%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r107 -	ser_ims/branches/01_persistency/modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Jan 30 12:29:17 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000157.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r106 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000159.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r108 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#158">[ date ]</a>
+              <a href="thread.html#158">[ thread ]</a>
+              <a href="subject.html#158">[ subject ]</a>
+              <a href="author.html#158">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-01-30 12:29:10 +0100 (Tue, 30 Jan 2007)
+New Revision: 107
+
+Modified:
+   ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+Log:
+Fixed r_public decoding (subscription decode was missing).
+
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-01-30 11:25:34 UTC (rev 106)
++++ ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-01-30 11:29:10 UTC (rev 107)
+@@ -498,10 +498,9 @@
+ /**
+  *	Decode a binary string from a binary data structure
+  * @param x - binary data to decode from
+- * @param sp - the service profile to decode into, NULL if you want a new one
+  * @returns the ims_subscription* where the data has been decoded
+  */
+-ims_subscription *bin_decode_ims_subscription(bin_data *x,ims_service_profile *sp)
++ims_subscription *bin_decode_ims_subscription(bin_data *x)
+ {
+ 	ims_subscription *imss=0;
+ 	int i,len;
+@@ -725,6 +724,9 @@
+ 	if (!bin_decode_int1(x,&amp;k)) goto error;
+ 	p-&gt;reg_state = k;
+ 	
++	p-&gt;s = bin_decode_ims_subscription(x);
++	if (!p-&gt;s) goto error;
++	
+ 	if (!bin_decode_int2(x,&amp;k)) goto error;
+ 	for(i=0;i&lt;k;i++){
+ 		c = bin_decode_r_contact(x);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000157.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r106 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000159.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r108 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#158">[ date ]</a>
+              <a href="thread.html#158">[ thread ]</a>
+              <a href="subject.html#158">[ subject ]</a>
+              <a href="author.html#158">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

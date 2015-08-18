@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Query about P-Charging-Vector header.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Query%20about%20P-Charging-Vector%20header.&In-Reply-To=%3C002f01c7db5e%2497d70b50%24cbe7fea9%40fenotebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000918.html">
+   <LINK REL="Next"  HREF="000923.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Query about P-Charging-Vector header.</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Query%20about%20P-Charging-Vector%20header.&In-Reply-To=%3C002f01c7db5e%2497d70b50%24cbe7fea9%40fenotebook%3E"
+       TITLE="[OpenIMSCore-CSCF] Query about P-Charging-Vector header.">franz.edler at inode.at
+       </A><BR>
+    <I>Fri Aug 10 16:56:09 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000918.html">[OpenIMSCore-CSCF] Query about P-Charging-Vector header.
+</A></li>
+        <LI>Next message: <A HREF="000923.html">[OpenIMSCore-CSCF] INVITE not forwarded by S-CSCF in case of	AS-proxy
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#919">[ date ]</a>
+              <a href="thread.html#919">[ thread ]</a>
+              <a href="subject.html#919">[ subject ]</a>
+              <a href="author.html#919">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Sunil,
+
+a quick answer:
+ 
+&gt;<i> 1.	Why is this header required (My assumption is cdr are needed to be
+</I>&gt;<i> generated)
+</I>
+There are several parameters with this header field with different tasks.
+icid-value: for correlation of CDRs from different network nodes
+orig-ioi and term-ioi: for inter-network charging
+
+&gt;<i> 2.	How exactly the &quot;icid&quot; value is used
+</I>
+Roughly speaking: The first network node within the trusted area defines the
+icid-value which is used for correlation of the distributed CDRs generated
+by different network nodes.
+
+&gt;<i> 3.	When session is released by SCSCF should'nt the BYE request have P-
+</I>&gt;<i> Charging-Vector header, if not why so ? 3gpp 24.229 does not mention of
+</I>&gt;<i> including it.
+</I>
+The P-Charging-Vector header is necessary for dialog-initiating and
+standalone requests. Charging events within a dialog used the icid-value of
+the P-Charging-Vector within the dialog-initiating request (e.g. INVITE).
+
+Further details can be found in RFC 3455 and in the 3GPP standards of
+32-series, e.g. 3GPP TS 32.260 for an overview.
+
+Cheers
+-franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000918.html">[OpenIMSCore-CSCF] Query about P-Charging-Vector header.
+</A></li>
+	<LI>Next message: <A HREF="000923.html">[OpenIMSCore-CSCF] INVITE not forwarded by S-CSCF in case of	AS-proxy
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#919">[ date ]</a>
+              <a href="thread.html#919">[ thread ]</a>
+              <a href="subject.html#919">[ subject ]</a>
+              <a href="author.html#919">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

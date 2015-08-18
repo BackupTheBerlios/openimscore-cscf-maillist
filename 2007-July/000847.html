@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] How to reduce memory consumption on CSCF?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20How%20to%20reduce%20memory%20consumption%20on%20CSCF%3F&In-Reply-To=%3C4694B55E.30600%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000845.html">
+   <LINK REL="Next"  HREF="000848.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] How to reduce memory consumption on CSCF?</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20How%20to%20reduce%20memory%20consumption%20on%20CSCF%3F&In-Reply-To=%3C4694B55E.30600%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] How to reduce memory consumption on CSCF?">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Jul 11 12:47:58 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000845.html">[OpenIMSCore-CSCF] How to reduce memory consumption on CSCF?
+</A></li>
+        <LI>Next message: <A HREF="000848.html">[OpenIMSCore-CSCF] PCSCF registration data retrived using wrong keys
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#847">[ date ]</a>
+              <a href="thread.html#847">[ thread ]</a>
+              <a href="subject.html#847">[ subject ]</a>
+              <a href="author.html#847">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Tom,
+
+Point 2 has a problem :)... SIPp uses the same IP:port... try to use
+different ones, as in the real case with hundreds of users or else the
+things would be pretty strange.
+
+You can't have that low memory... How much are we talking about?
+
+Q1. Look at the scscf.cfg... I suggest an Early-IMS setup as the
+registration happens in just 1 transaction instead of 2, but you need to
+provision the IP:port of each user in the HSS.
+
+Q2. There are 2 type of memory pools in SER:
+1. Private, per process. You can change it from ser_ims/config.h:132. A
+re-compile is necessary. This is how much memory you will have allocated
+per process. Then you could also change the number of processes from
+?cscf.cfg, the &quot;children&quot; parameter and ?cscf.xml the &quot;Workers&quot; parameter.
+2. Shared - here is where the big state is maintained (like the
+registrar). You can change it with the -m parameter to ser on launch
+(edit the ?cscf.sh file)
+
+Q3. I always had at least 1G of RAM, so I never ran into any trouble. We
+also do some tests with &gt;100.000 users and we still have not run into
+trouble. Oh, and also keep in mind that there are memory pools, so the
+system memory indication is not relevant. When you stop ser there are
+some print outs with the memory consumption. Unfortunately that is after
+the &quot;clean-up&quot;. You could change the code though to print those
+regularly or on SIGUSR or something...
+
+
+-Dragos
+
+
+Tom Paris wrote:
+&gt;<i> Hi all,
+</I>&gt;<i>  
+</I>&gt;<i> I am trying to install and examine OpenIMS.
+</I>&gt;<i>  
+</I>&gt;<i> What I want to try with OpenIMS is
+</I>&gt;<i> 1.to &lt;<A HREF="http://1.to">http://1.to</A>&gt; create hundreds users on HSS
+</I>&gt;<i> 2.send REGISTER from client(SIPp)
+</I>&gt;<i>  
+</I>&gt;<i> However my computer has poor memory volume and not fast enough.
+</I>&gt;<i> So I have some questions about how to reduce memory consumption on CSCFs.
+</I>&gt;<i>  
+</I>&gt;<i>  
+</I>&gt;<i> Q1.Are there any configurational value that can turn off
+</I>&gt;<i> authentication in REGISTER sequence.
+</I>&gt;<i>  
+</I>&gt;<i> Q2.Are there any configurational values that directly reduce memory
+</I>&gt;<i> consumption on CSCF?
+</I>&gt;<i>      (i.e. in scscf.cfg, pcscf.cfg,icscf.cfg ,are there any parameter
+</I>&gt;<i> to specify number of instance of ser?)
+</I>&gt;<i>  
+</I>&gt;<i> Q3.As far as I tested, it seems that memory consumption on S-CSCF
+</I>&gt;<i> increases about 100-200 kb(physical memory)  as number of registered
+</I>&gt;<i> user increases.
+</I>&gt;<i> Size of SAA signal from HSS is about 1kb(very simple user profile),so
+</I>&gt;<i> I just wondered what is the usage of other 99-199kb memory.
+</I>&gt;<i> I know S-CSCF has many functionality other than user profile management.
+</I>&gt;<i> However if anybody can tell me tendency of memory consumption of CSCF,
+</I>&gt;<i> I am very appreciated. 
+</I>&gt;<i>  
+</I>&gt;<i>  
+</I>&gt;<i> Best Regards,
+</I>&gt;<i> Thomas
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000845.html">[OpenIMSCore-CSCF] How to reduce memory consumption on CSCF?
+</A></li>
+	<LI>Next message: <A HREF="000848.html">[OpenIMSCore-CSCF] PCSCF registration data retrived using wrong keys
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#847">[ date ]</a>
+              <a href="thread.html#847">[ thread ]</a>
+              <a href="subject.html#847">[ subject ]</a>
+              <a href="author.html#847">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

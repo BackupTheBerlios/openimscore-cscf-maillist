@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P-CSCF script, Orig_subsequent,	why method!=CANCEL for service route enforcement
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20script%2C%20Orig_subsequent%2C%0A%09why%20method%21%3DCANCEL%20for%20service%20route%20enforcement&In-Reply-To=%3Cb33002040705290509t3919f2dcnbb578578bf275ba9%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000660.html">
+   <LINK REL="Next"  HREF="000670.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P-CSCF script, Orig_subsequent,	why method!=CANCEL for service route enforcement</H1>
+    <B>JF</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20script%2C%20Orig_subsequent%2C%0A%09why%20method%21%3DCANCEL%20for%20service%20route%20enforcement&In-Reply-To=%3Cb33002040705290509t3919f2dcnbb578578bf275ba9%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] P-CSCF script, Orig_subsequent,	why method!=CANCEL for service route enforcement">jfkavaka at gmail.com
+       </A><BR>
+    <I>Tue May 29 14:09:12 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000660.html">[OpenIMSCore-CSCF] P-CSCF script, Orig_subsequent, why method!=CANCEL for service route enforcement
+</A></li>
+        <LI>Next message: <A HREF="000670.html">[OpenIMSCore-CSCF] P-CSCF script, Orig_subsequent,	why method!=CANCEL for service route enforcement
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#663">[ date ]</a>
+              <a href="thread.html#663">[ thread ]</a>
+              <a href="subject.html#663">[ subject ]</a>
+              <a href="author.html#663">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Dragos,
+
+Here's the trace. As you can see, when the CANCEL reaches the AS on
+10.51.160.230 it contains Route:
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.ptinovacao.pt</A>:4060;lr&gt;, even though it's on the
+originating leg (originating IMS session case).
+It reaches the AS NOT because of a trigger. It's the normal processing
+of the CANCEL transaction, following the path taken by the INVITE.
+
+I understand that CANCEL is an initial request referring to the INVITE
+transaction, but it does get into Orig_subsequent route, and because
+it doesn't have the service route, and it currently isn't enforced,
+the P-CSCF doesn't signal it as being an originating request, which
+then leads to the S-CSCF interpreting it as a terminating CANCEL.
+
+Thanks,
+JF
+
+On 5/29/07, Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt; wrote:
+&gt;<i> Hi Joao,
+</I>&gt;<i>
+</I>&gt;<i> The thing is that CANCEL is still somehow initial as the Routes might
+</I>&gt;<i> have not been set. So it should be treated as an initial request IMO.
+</I>&gt;<i> Because of the data inside, it could get into the Subsequent routes,
+</I>&gt;<i> true... but I might still not understand the issue correctly, so could
+</I>&gt;<i> you  please send a trace?
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> JF wrote:
+</I>&gt;<i> &gt; Hi,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; We've had some problems with the identification of session case for
+</I>&gt;<i> &gt; CANCELs in the P-CSCF for a client which does not set service routes.
+</I>&gt;<i> &gt; For INVITEs, the P-CSCF is enforcing the service route. But for
+</I>&gt;<i> &gt; CANCELs it is not.
+</I>&gt;<i> &gt; This leads to the S-CSCF allways adding the Path registration route
+</I>&gt;<i> &gt; (<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf</A> URI) even for MO CANCELs, which then leads to problems
+</I>&gt;<i> &gt; when triggering CANCELs to ASs.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I propose to add the following lines in the P-CSCF script,
+</I>&gt;<i> &gt; route[Orig_Subsequent], after  checking dialog routes for non-cancel
+</I>&gt;<i> &gt; requests, in order to allow setting service-routes for CANCELs, and
+</I>&gt;<i> &gt; thus letting the S-CSCF correctly identify the session case.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;       if (method==CANCEL &amp;&amp; !P_follows_service_routes()){
+</I>&gt;<i> &gt;               #Variant 1 - deny access to the network
+</I>&gt;<i> &gt;               #sl_send_reply(&quot;400&quot;,&quot;Bad Request - Not following indicated Service-Routes&quot;);
+</I>&gt;<i> &gt;               #break;
+</I>&gt;<i> &gt;               #Variant 2 - enforce routes and let the dialog continue
+</I>&gt;<i> &gt;               P_enforce_service_routes();
+</I>&gt;<i> &gt;       }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I haven't tested it yet. Nevertheless I would like to get some
+</I>&gt;<i> &gt; feedback if this makes sense.
+</I>&gt;<i> &gt; Thanks,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Jo&#227;o Filipe Pl&#225;cido
+</I>&gt;<i> &gt; --
+</I>&gt;<i> &gt; PT Inova&#231;&#227;o
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: cancel_with_term_pcscf_when_triggered.pcap
+Type: application/octet-stream
+Size: 33370 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070529/9ce765fd/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070529/9ce765fd/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000660.html">[OpenIMSCore-CSCF] P-CSCF script, Orig_subsequent, why method!=CANCEL for service route enforcement
+</A></li>
+	<LI>Next message: <A HREF="000670.html">[OpenIMSCore-CSCF] P-CSCF script, Orig_subsequent,	why method!=CANCEL for service route enforcement
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#663">[ date ]</a>
+              <a href="thread.html#663">[ thread ]</a>
+              <a href="subject.html#663">[ subject ]</a>
+              <a href="author.html#663">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

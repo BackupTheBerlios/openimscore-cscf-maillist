@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] How to install ser_ims in the	paticular	directory?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20How%20to%20install%20ser_ims%20in%20the%0A%09paticular%09directory%3F&In-Reply-To=%3C4704E2F5.3080606%40o2.pl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000980.html">
+   <LINK REL="Next"  HREF="000982.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] How to install ser_ims in the	paticular	directory?</H1>
+    <B>Tomasz Zieleniewski</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20How%20to%20install%20ser_ims%20in%20the%0A%09paticular%09directory%3F&In-Reply-To=%3C4704E2F5.3080606%40o2.pl%3E"
+       TITLE="[OpenIMSCore-CSCF] How to install ser_ims in the	paticular	directory?">tzieleniewski at o2.pl
+       </A><BR>
+    <I>Thu Oct  4 14:56:21 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000980.html">[OpenIMSCore-CSCF] How to install ser_ims in the	paticular	directory?
+</A></li>
+        <LI>Next message: <A HREF="000982.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r435 - Fixed P-CSCF reg subscription bug that caused crashes at very high loads. Removed ims_pm logging from console output.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#983">[ date ]</a>
+              <a href="thread.html#983">[ thread ]</a>
+              <a href="subject.html#983">[ subject ]</a>
+              <a href="author.html#983">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I did some investigation and I manage to do this:)
+I made some changes to configure.sh script and everything works grate no 
+conflicts with my VoIP network!
+
+thanks
+tomasz
+Dragos Vingarzan pisze:
+&gt;<i> Hello Tomasz,
+</I>&gt;<i>
+</I>&gt;<i> Yes, you can install the ser_ims wherever you want, provided that you
+</I>&gt;<i> change the configuration files accordingly.
+</I>&gt;<i>
+</I>&gt;<i> About running as non-root, it should work. We had the task a while back
+</I>&gt;<i> and I remember it fixed. However, there might still be some operations
+</I>&gt;<i> that would require root permission.
+</I>&gt;<i>
+</I>&gt;<i> For the libs installation dir, please look into the Makefiles for
+</I>&gt;<i> ser_ims/lib. Then change the xcscf.sh to the new path.
+</I>&gt;<i>
+</I>&gt;<i> No, there is no automatic way to change the ports in the config files as
+</I>&gt;<i> well... it's not that complicated after all... Or you could use a sed
+</I>&gt;<i> script to do this...
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Tomasz Zieleniewski wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Is there a possibility to install ser_ims in the particular directory on 
+</I>&gt;&gt;<i> particular system user??
+</I>&gt;&gt;<i> At the moment I have two SER instances running my VoIP network and they 
+</I>&gt;&gt;<i> are both installed on the dedicated user.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> invoking '#make install-libs all', compiles some ser libs and puts them into /usr/local/lib/ser.
+</I>&gt;&gt;<i> How can change this behaviour??
+</I>&gt;&gt;<i> Might there be a confllict with SER's libs??
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I know that after I change the libs directory I need to update Xcscf.sh files.
+</I>&gt;&gt;<i> Is there also some automatic way to change ports on which cscf's listen without editing
+</I>&gt;&gt;<i> the xcscf.cfg files??
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Thank you in advance
+</I>&gt;&gt;<i> Bests
+</I>&gt;&gt;<i> Tomasz
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000980.html">[OpenIMSCore-CSCF] How to install ser_ims in the	paticular	directory?
+</A></li>
+	<LI>Next message: <A HREF="000982.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r435 - Fixed P-CSCF reg subscription bug that caused crashes at very high loads. Removed ims_pm logging from console output.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#983">[ date ]</a>
+              <a href="thread.html#983">[ thread ]</a>
+              <a href="subject.html#983">[ subject ]</a>
+              <a href="author.html#983">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

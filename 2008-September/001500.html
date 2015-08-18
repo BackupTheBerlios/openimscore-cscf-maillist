@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] RES:  Configure a diferent domain
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20RES%3A%20%20Configure%20a%20diferent%20domain&In-Reply-To=%3CC2674109C0E9C54F978B233D4EFE415003F711C2%40VNTSERVER06.venturus.local%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001499.html">
+   <LINK REL="Next"  HREF="001502.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] RES:  Configure a diferent domain</H1>
+    <B>Paulo Sigrist</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20RES%3A%20%20Configure%20a%20diferent%20domain&In-Reply-To=%3CC2674109C0E9C54F978B233D4EFE415003F711C2%40VNTSERVER06.venturus.local%3E"
+       TITLE="[OpenIMSCore-CSCF] RES:  Configure a diferent domain">paulo.sigrist at venturus.org.br
+       </A><BR>
+    <I>Mon Sep 29 22:22:45 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001499.html">[OpenIMSCore-CSCF] Configure a diferent domain
+</A></li>
+        <LI>Next message: <A HREF="001502.html">[OpenIMSCore-CSCF] Configure a diferent domain
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1500">[ date ]</a>
+              <a href="thread.html#1500">[ thread ]</a>
+              <a href="subject.html#1500">[ subject ]</a>
+              <a href="author.html#1500">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Franz,
+
+Thanks for you reply.
+
+I did not update my database before. I did it today, but I got the same error. Then, I put the p-cscf log level as 5, to see if I got a different messages in both cases. But for my bad luck, the log are equals :(
+
+Take a look at the attached files. The resumo-open-ims.test.log is the working environment, and the resumo-sigrist.com.log is the not working environment.
+
+The lines from 0 to 66 are the first SIP Request, the INVITE. Then, in the open-ims.test domain, the lines 68 to the end are the 401 response, and in the Sigrist.com domain, the lines 68 to the end are the new request from the client.
+
+
+Thanks again for your help
+
+Best Regards,
+Paulo Sigrist
+-----Mensagem original-----
+De: Franz Edler [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at inode.at</A>] 
+Enviada em: s&#225;bado, 27 de setembro de 2008 00:25
+Para: Paulo Sigrist; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Assunto: RE: [OpenIMSCore-CSCF] Configure a diferent domain
+
+Hi Paolo,
+ 
+&gt;<i> Then, I tried to change the domain to another one, to test roaming calls.
+</I>&gt;<i> I used the configurator.sh to change my cfg, XML and sh files. The new
+</I>&gt;<i> domain is sigrist.com.
+</I>
+Did you also change the sql-script files?
+
+I always apply the configurator.sh script to the following three
+directories:
+
+- /opt/OpenIMSCore/ser_ims/cfg
+  changing: icscf.cfg icscf_pg.sql icscf.sql icscf.thig.cfg icscf.xml
+pcscf.cfg pcscf.xml persist_my.sql persist_pg.sql scscf.cfg scscf.xml
+- /opt/OpenIMSCore/FHoSS/deploy
+  changing: c3p0.properties DiameterPeerHSS.xml hibernate.properties
+hss.properties log4j.properties
+- /opt/OpenIMSCore/FHoSS/scripts
+  changing: hss_db.sql userdata.sql
+
+You must also re-install the database.
+
+Be aware that the configurator.sh script is designed to be used only once.
+If you apply it a second time you have to change some variables inside of
+the script which are pre-configured for openims.test domain. But as you
+perhaps have inconsistent files (some are already modified, some not) you
+should best do the installation again, or check all the files mentioned
+above manually.
+
+Regards
+Franz
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: resumo-open-ims.test.log
+Type: application/octet-stream
+Size: 7196 bytes
+Desc: resumo-open-ims.test.log
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080929/47f2f067/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080929/47f2f067/attachment.obj</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: resumo-sigrist.com.log
+Type: application/octet-stream
+Size: 6049 bytes
+Desc: resumo-sigrist.com.log
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080929/47f2f067/attachment-0001.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080929/47f2f067/attachment-0001.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001499.html">[OpenIMSCore-CSCF] Configure a diferent domain
+</A></li>
+	<LI>Next message: <A HREF="001502.html">[OpenIMSCore-CSCF] Configure a diferent domain
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1500">[ date ]</a>
+              <a href="thread.html#1500">[ thread ]</a>
+              <a href="subject.html#1500">[ subject ]</a>
+              <a href="author.html#1500">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

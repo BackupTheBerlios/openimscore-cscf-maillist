@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Modified%20Invite%20coming%20back%20from%20TAS%20not%0A%20recognized%20as%20different%20%28Call%20Forwarding%20on%20Busy%29&In-Reply-To=%3C488D82C8.1030807%40alcatel-lucent.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001429.html">
+   <LINK REL="Next"  HREF="001431.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)</H1>
+    <B>Dick Gooris</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Modified%20Invite%20coming%20back%20from%20TAS%20not%0A%20recognized%20as%20different%20%28Call%20Forwarding%20on%20Busy%29&In-Reply-To=%3C488D82C8.1030807%40alcatel-lucent.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)">gooris at alcatel-lucent.com
+       </A><BR>
+    <I>Mon Jul 28 10:26:48 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001429.html">[OpenIMSCore-CSCF] Modified Invite coming back from TAS	not	recognized as different (Call Forwarding on Busy)
+</A></li>
+        <LI>Next message: <A HREF="001431.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r574 - Fixed compilation issue for	IPv6 data structures and newer system headers.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1430">[ date ]</a>
+              <a href="thread.html#1430">[ thread ]</a>
+              <a href="subject.html#1430">[ subject ]</a>
+              <a href="author.html#1430">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Franz,
+
+Indeed, we will look into the Record-Route: header to be compliant to 
+the RFC3261. Thanks for this.
+
+Enrique,
+
+This chapter 5.8.5 from the yellow book is indeed the scenario we are 
+trying to make.
+
+
+Many thanks !
+
+Regards,
+
+    - Dick Gooris
+
+
+Enrique de Meer wrote:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> - then this 486 goes back, via the S-CSCF to the TAS
+</I>&gt;&gt;<i> - and this TAS sends basically the same Invite back again, but now with
+</I>&gt;&gt;<i> the R-URI of subscriber 2695, and a 181 back to the originating party to
+</I>&gt;&gt;<i> indicate call forwarding is ongoing.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I'm trying to make a patch to solve this. Scscf should detect that RURI
+</I>&gt;<i> in a INVITE Request back from an AS (ISC dialog) has changed and then
+</I>&gt;<i> re-send this INVITE Request to the new destination (without checking if
+</I>&gt;<i> the new RURI is registered or so on...and acting almost as a new call).
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> This is the thread in the list (subjetc is a little bit confussing): 
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-March/001697.html">http://lists.berlios.de/pipermail/openimscore-cscf/2008-March/001697.html</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> and what I try to implement is the redirection showed in  the book &quot;3G
+</I>&gt;<i> IP Multimedia Subsystem IMS&quot; with OpenIMScore. In chapter 5.8.
+</I>&gt;<i> &quot;Application Servers: providing services to users&quot; there is &quot;An example
+</I>&gt;<i> of service execution&quot;.
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i>
+</I>&gt;<i> Enrique
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080728/5e04472b/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080728/5e04472b/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001429.html">[OpenIMSCore-CSCF] Modified Invite coming back from TAS	not	recognized as different (Call Forwarding on Busy)
+</A></li>
+	<LI>Next message: <A HREF="001431.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r574 - Fixed compilation issue for	IPv6 data structures and newer system headers.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1430">[ date ]</a>
+              <a href="thread.html#1430">[ thread ]</a>
+              <a href="subject.html#1430">[ subject ]</a>
+              <a href="author.html#1430">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

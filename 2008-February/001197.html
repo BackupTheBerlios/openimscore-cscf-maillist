@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Deregister Contact
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Deregister%20Contact&In-Reply-To=%3CE6C2E8958BA59A4FB960963D475F7AC30BC4774C4A%40mail.acmepacket.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001195.html">
+   <LINK REL="Next"  HREF="001198.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Deregister Contact</H1>
+    <B>Joao Placido</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Deregister%20Contact&In-Reply-To=%3CE6C2E8958BA59A4FB960963D475F7AC30BC4774C4A%40mail.acmepacket.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Deregister Contact">jplacido at acmepacket.com
+       </A><BR>
+    <I>Tue Feb 19 11:43:05 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001195.html">[OpenIMSCore-CSCF] Deregister Contact
+</A></li>
+        <LI>Next message: <A HREF="001198.html">[OpenIMSCore-CSCF] Deregister Contact
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1197">[ date ]</a>
+              <a href="thread.html#1197">[ thread ]</a>
+              <a href="subject.html#1197">[ subject ]</a>
+              <a href="author.html#1197">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>If you use one IMPI for all contacts with the same IMPU, you lose functionality such as HSS-initiated deregistration for a specific UE (it will only be able to administratively deregister all UEs using the same IMPI-IMPU pair), but that may not be that important...
+
+JF
+
+-----Original Message-----
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>] On Behalf Of Dragos Vingarzan
+Sent: Tuesday, February 19, 2008 11:34 AM
+To: JF
+Cc: Jos&#233; Carlos Amorim; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] Deregister Contact
+
+but you can still have just one private identity for all.
+
+Anyway... in my opinion the SAR should only go out when there isn't any
+contact left for that IMPU. I wouldn't involve the IMPI that much as it
+is good just for authentication...
+
+-Dragos
+
+JF wrote:
+&gt;<i> Hi Jos&#233;,
+</I>&gt;<i>
+</I>&gt;<i> According to 3GPP 24.229-770, section 4.2, you can register different
+</I>&gt;<i> contacts for one same IMPU, but you have to use different IMPIs.
+</I>&gt;<i>
+</I>&gt;<i> 7)    The public user identities may be shared across multiple UEs. A
+</I>&gt;<i> particular public user identity may be simultaneously registered from
+</I>&gt;<i> multiple UEs that use different private user identities and different
+</I>&gt;<i> contact addresses.
+</I>&gt;<i>
+</I>&gt;<i> So I guess (others pls correct me if I'm wrong) the SAR with
+</I>&gt;<i> User-Deregistration is correct in this case. The User-Name AVP will
+</I>&gt;<i> contain the IMPI.
+</I>&gt;<i>
+</I>&gt;<i> JF
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> On Feb 18, 2008 7:36 PM, Jos&#233; Carlos Amorim &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jose-c-amorim at ptinovacao.pt</A>&gt; wrote:
+</I>&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Hi,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I detected that when a Public Identity is registered with two contacts and
+</I>&gt;&gt;<i> deregisters one of its contacts the S-CSCF sends a SAR message with the
+</I>&gt;&gt;<i> server assignment-type equal to User_Deregistration. This is not correct
+</I>&gt;&gt;<i> because the Public Identity is still registered, but I don't really know
+</I>&gt;&gt;<i> what message I could send here, any idea?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Regards,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+--
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+_______________________________________________
+OpenIMSCore-CSCF mailing list
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001195.html">[OpenIMSCore-CSCF] Deregister Contact
+</A></li>
+	<LI>Next message: <A HREF="001198.html">[OpenIMSCore-CSCF] Deregister Contact
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1197">[ date ]</a>
+              <a href="thread.html#1197">[ thread ]</a>
+              <a href="subject.html#1197">[ subject ]</a>
+              <a href="author.html#1197">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

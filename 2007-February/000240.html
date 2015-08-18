@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] changing domain name : scscf.cfg
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20changing%20domain%20name%20%3A%20scscf.cfg&In-Reply-To=%3C804B13F8F3D94A4AB18B9B01ACB68FA13184C4%40EXCHSRV.fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000239.html">
+   <LINK REL="Next"  HREF="000257.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] changing domain name : scscf.cfg</H1>
+    <B>Emin, Umut</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20changing%20domain%20name%20%3A%20scscf.cfg&In-Reply-To=%3C804B13F8F3D94A4AB18B9B01ACB68FA13184C4%40EXCHSRV.fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] changing domain name : scscf.cfg">Umut.Emin at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Feb 23 13:13:23 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000239.html">[OpenIMSCore-CSCF] changing domain name : scscf.cfg
+</A></li>
+        <LI>Next message: <A HREF="000257.html">[OpenIMSCore-CSCF] changing domain name : scscf.cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#240">[ date ]</a>
+              <a href="thread.html#240">[ thread ]</a>
+              <a href="subject.html#240">[ subject ]</a>
+              <a href="author.html#240">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hei Sudhakar,
+
+Regexes are supported within the configuration files which gives
+you a certain flexibility in match cases. You can replace a domain name:
+uri=~&quot;sip:(.*)@open-ims\.test(.*)&quot;
+with
+uri=~&quot;sip:(.*)@my\.new\.test\.env&quot;
+
+In case you want to do it by hand, just be sure that you worked through
+the whole cfg file. Or you can just let a script(configurator.sh) do it for you.
+Check therefore the ser_ims/trunk/cfg directory.
+
+I dont think that scscf is unpredictable if it is configured properly.
+
+hope this helps,
+Umut
+
+
+-----Urspr&#252;ngliche Nachricht-----
+Von: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> im Auftrag von Sudhakar Patil
+Gesendet: Fr 23.02.2007 00:55
+An: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Betreff: [OpenIMSCore-CSCF] changing domain name : scscf.cfg
+ 
+Hi, 
+I am trying to change domain name from open-ims.test
+to something like a.b.c. Now in scsc.cfg at many
+places there is a check for
+uri=~&quot;sip:(.*)@open-ims\.test(.*)&quot;. So if I am using
+a.b.c, should this be uri~=&quot;sip:(.*)@a\.b\.c(.*)&quot;?
+
+S-CSCF seems to be very unpredicatble on this.
+Sometimes it allows registration and sometimes it
+sends Domain Not Server message. Any help is
+appreciated.
+
+Regards,
+Sudhakar.
+
+
+ 
+____________________________________________________________________________________
+The fish are biting. 
+Get more visitors on your site using Yahoo! Search Marketing.
+<A HREF="http://searchmarketing.yahoo.com/arp/sponsoredsearch_v2.php">http://searchmarketing.yahoo.com/arp/sponsoredsearch_v2.php</A>
+_______________________________________________
+OpenIMSCore-CSCF mailing list
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070223/2ebf5e71/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070223/2ebf5e71/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000239.html">[OpenIMSCore-CSCF] changing domain name : scscf.cfg
+</A></li>
+	<LI>Next message: <A HREF="000257.html">[OpenIMSCore-CSCF] changing domain name : scscf.cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#240">[ date ]</a>
+              <a href="thread.html#240">[ thread ]</a>
+              <a href="subject.html#240">[ subject ]</a>
+              <a href="author.html#240">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

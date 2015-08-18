@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r867 - modified the script for	PCSCF that it checks if the current Term_initial_reply can be	used for an AAR request,	using P_generates_aar. The content body should also be checked if it	includes sdp,	not just check if the content length is not zero...the future will	bring this kind of fixes
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r867%20-%20modified%20the%20script%20for%0A%09PCSCF%20that%20it%20checks%20if%20the%20current%20Term_initial_reply%20can%20be%0A%09used%20for%20an%20AAR%20request%2C%0A%09using%20P_generates_aar.%20The%20content%20body%20should%20also%20be%20checked%20if%20it%0A%09includes%20sdp%2C%0A%09not%20just%20check%20if%20the%20content%20length%20is%20not%20zero...the%20future%20will%0A%09bring%20this%20kind%20of%20fixes&In-Reply-To=%3C201002051521.o15FL699026201%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002064.html">
+   <LINK REL="Next"  HREF="002066.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r867 - modified the script for	PCSCF that it checks if the current Term_initial_reply can be	used for an AAR request,	using P_generates_aar. The content body should also be checked if it	includes sdp,	not just check if the content length is not zero...the future will	bring this kind of fixes</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r867%20-%20modified%20the%20script%20for%0A%09PCSCF%20that%20it%20checks%20if%20the%20current%20Term_initial_reply%20can%20be%0A%09used%20for%20an%20AAR%20request%2C%0A%09using%20P_generates_aar.%20The%20content%20body%20should%20also%20be%20checked%20if%20it%0A%09includes%20sdp%2C%0A%09not%20just%20check%20if%20the%20content%20length%20is%20not%20zero...the%20future%20will%0A%09bring%20this%20kind%20of%20fixes&In-Reply-To=%3C201002051521.o15FL699026201%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r867 - modified the script for	PCSCF that it checks if the current Term_initial_reply can be	used for an AAR request,	using P_generates_aar. The content body should also be checked if it	includes sdp,	not just check if the content length is not zero...the future will	bring this kind of fixes">aon at users.berlios.de
+       </A><BR>
+    <I>Fri Feb  5 16:21:06 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002064.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r866 - removed parameter	pcscf_qos_side modified PCC_AAR and PCC_STR to properly	retrieve dialog,	now it should work for re-invites and update requests not using &quot;ip6&quot;,	only &quot;ip&quot; to describe the pcc flows
+</A></li>
+        <LI>Next message: <A HREF="002066.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r868 - fixed an obviuos bug: using	aar before creatig it :D
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2065">[ date ]</a>
+              <a href="thread.html#2065">[ thread ]</a>
+              <a href="subject.html#2065">[ subject ]</a>
+              <a href="author.html#2065">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2010-02-05 16:21:04 +0100 (Fri, 05 Feb 2010)
+New Revision: 867 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=867">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=867</A> 
+
+Log:
+modified the script for PCSCF that it checks if the current Term_initial_reply can be used for an AAR request, using P_generates_aar. The content body should also be checked if it includes sdp, not just check if the content length is not zero...the future will bring this kind of fixes
+
+
+Modified:
+   U	ser_ims/branches/13_pcc_fixing/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/cfg/pcscf.cfg?rev=867&amp;view=diff&amp;r1=867&amp;r2=866">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/cfg/pcscf.cfg?rev=867&amp;view=diff&amp;r1=867&amp;r2=866</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002064.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r866 - removed parameter	pcscf_qos_side modified PCC_AAR and PCC_STR to properly	retrieve dialog,	now it should work for re-invites and update requests not using &quot;ip6&quot;,	only &quot;ip&quot; to describe the pcc flows
+</A></li>
+	<LI>Next message: <A HREF="002066.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r868 - fixed an obviuos bug: using	aar before creatig it :D
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2065">[ date ]</a>
+              <a href="thread.html#2065">[ thread ]</a>
+              <a href="subject.html#2065">[ subject ]</a>
+              <a href="author.html#2065">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

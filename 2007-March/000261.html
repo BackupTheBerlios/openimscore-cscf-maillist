@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Sipp tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Sipp%20tests&In-Reply-To=%3C45E6C22D.3090008%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000260.html">
+   <LINK REL="Next"  HREF="000262.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Sipp tests</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Sipp%20tests&In-Reply-To=%3C45E6C22D.3090008%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Sipp tests">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Mar  1 13:08:13 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000260.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r159 - ser_ims/trunk/cfg
+</A></li>
+        <LI>Next message: <A HREF="000262.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r161 - in ser_ims/trunk: .	.settings cfg lib/cds lib/presence lib/xcap mem modules/isc	modules/pcscf modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#261">[ date ]</a>
+              <a href="thread.html#261">[ thread ]</a>
+              <a href="subject.html#261">[ subject ]</a>
+              <a href="author.html#261">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Jose,
+
+The transport protocol for Diameter is TCP. As such, IP datagrams do not
+match exactly to Diameter Messages. Most often they do and as you have
+seen, if you have close-consecutive messages, they are transmitted together.
+
+There was a fix recently in FHoSS. Could you maybe give it a shot with
+the latest version?
+
+-Dragos
+
+Jos&#233; Carlos Amorim wrote:
+&gt;<i> Hi Dragos, 
+</I>&gt;<i>
+</I>&gt;<i> I've been continuing the tests and I noticed there are some Diameter messages (the only ones I found so far were UAR and LIR) that look as if they  send various Diameter messages in one packet (in the sip trace I send, the last packet has this behavior). I don't know if this is correct or incorrect, could you clarify. 
+</I>&gt;<i>
+</I>&gt;<i> Regarding your question
+</I>&gt;<i>   
+</I>&gt;&gt;&gt;<i> Could you check your traces and see if you have any DNS issues(like requests not answered)?
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;<i>
+</I>&gt;<i> I've looked at the traces and there are no DNS queries when the delay happens. 
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+</I>&gt;<i> Sent: ter&#231;a-feira, 27 de Fevereiro de 2007 15:38
+</I>&gt;<i> To: Jos&#233; Carlos Amorim
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] Sipp tests
+</I>&gt;<i>
+</I>&gt;<i> Hello Jose,
+</I>&gt;<i>
+</I>&gt;<i> The delay should not have anything to do with the CDP configuration. It
+</I>&gt;<i> is in deed a strange thing if you see the I/S react after so long time
+</I>&gt;<i> if you say that the bottleneck was not the HSS (you received the
+</I>&gt;<i> answer). Could you check your traces and see if you have any DNS issues
+</I>&gt;<i> (like requests not answered)?
+</I>&gt;<i>
+</I>&gt;<i> On that machine, without considering the HSS overhead you should get at
+</I>&gt;<i> least 50 registrations/sec... or this is what I get. And a registration
+</I>&gt;<i> should take around 20-30 ms...
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Carlos Amorim wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I'm doing some simple tests with Sipp, openimscore and our HSS but I
+</I>&gt;&gt;<i> can't figure out a correct configuration for cdp module. At this
+</I>&gt;&gt;<i> moment we have I-, S- and Hss on the same machine. The problem that
+</I>&gt;&gt;<i> I'm running into is that I have situations that it takes 40 ms and
+</I>&gt;&gt;<i> more for I- and S- to send out a SIP response after they get a
+</I>&gt;&gt;<i> Diameter answer.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> On the tests CDP is configured with 6 worker processes and a queue
+</I>&gt;&gt;<i> length of 30.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I run I- an S- with 10 children each and with -m parameter of 512.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> We are only able to put Sipp generating 5 Registers/s without having
+</I>&gt;&gt;<i> the 40 ms delay I talked about.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> The machine were we are running the I-,S- and Hss is a Pentium4 3GHz
+</I>&gt;&gt;<i> and with 2GB of RAM.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Did anybody else do these kind of tests?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Dragos any pointers on what I should alter, or any reference scenarios
+</I>&gt;&gt;<i> were you tested and configurations you used?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> What can we expect as the maximum number of Registers/Invites an I- or
+</I>&gt;&gt;<i> S- can support?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Best regards,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ------------------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000260.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r159 - ser_ims/trunk/cfg
+</A></li>
+	<LI>Next message: <A HREF="000262.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r161 - in ser_ims/trunk: .	.settings cfg lib/cds lib/presence lib/xcap mem modules/isc	modules/pcscf modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#261">[ date ]</a>
+              <a href="thread.html#261">[ thread ]</a>
+              <a href="subject.html#261">[ subject ]</a>
+              <a href="author.html#261">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

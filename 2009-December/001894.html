@@ -1,0 +1,430 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] p-cscf crash if PRCF not running,	hang in del_session
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%20crash%20if%20PRCF%20not%20running%2C%0A%09hang%20in%20del_session&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A0217FC20%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001890.html">
+   <LINK REL="Next"  HREF="001899.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] p-cscf crash if PRCF not running,	hang in del_session</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%20crash%20if%20PRCF%20not%20running%2C%0A%09hang%20in%20del_session&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A0217FC20%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] p-cscf crash if PRCF not running,	hang in del_session">wang at basis-audionet.com
+       </A><BR>
+    <I>Thu Dec 17 18:44:46 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001890.html">[OpenIMSCore-CSCF] p-cscf crash if PRCF not running, hang in del_session
+</A></li>
+        <LI>Next message: <A HREF="001899.html">[OpenIMSCore-CSCF] p-cscf crash if PRCF not running, hang in del_session
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1894">[ date ]</a>
+              <a href="thread.html#1894">[ thread ]</a>
+              <a href="subject.html#1894">[ subject ]</a>
+              <a href="author.html#1894">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos
+
+Thanks.
+
+I used git internally. :)
+
+Anyway please find the svn diff style patch in the email.
+
+
+
+
+Kind Regards
+ 
+Min Wang
+
+&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]
+</I>&gt;<i> Sent: Thursday, December 17, 2009 11:07 AM
+</I>&gt;<i> To: Min Wang
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] p-cscf crash if PRCF not running, hang
+</I>in
+&gt;<i> del_session
+</I>&gt;<i> 
+</I>&gt;<i> Hi Min,
+</I>&gt;<i> 
+</I>&gt;<i> it is a bit hard to follow and commit your patch. Could you please do
+</I>&gt;<i> &quot;svn diff &gt; pcc.patch&quot; in ser_ims and then attach that output file to
+</I>&gt;<i> the email?
+</I>&gt;<i> 
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> Min Wang wrote:
+</I>&gt;<i> &gt; Hi
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;    The p-cscf (with cdp.so loaded) will crash if PRCF is not
+</I>running.
+&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; (1)    The following are the details:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; UE1 -&gt; p-cscf  --.....-&gt; UE2
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;      If there is no PRCF, the PCC_AAR will go to error1:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; PCC_AAR error1 code:
+</I>&gt;<i> &gt;         if (auth) {
+</I>&gt;<i> &gt;                 hash=auth-&gt;hash;
+</I>&gt;<i> &gt;                 cdpb.sessions_lock(hash);
+</I>&gt;<i> &gt;                 cdpb.AAADropAuthSession(auth);
+</I>&gt;<i> &gt;                 cdpb.sessions_unlock(hash);
+</I>&gt;<i> &gt;         }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;      PCC_AAR may be be called in different process. ( e.g. UE1 calls
+</I>&gt;<i> &gt; UE2, UE2 reply with 200 OK, as there is no PRCF the p-cscf will wait
+</I>for
+&gt;<i> &gt; timeout, but UE2 may send 200 OK again? )
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;      The issue are:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Proc1 get the lock and is deleting the session
+</I>&gt;<i> &gt; while Proc2 wait for the lock.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Proc1 after delete release the lock,
+</I>&gt;<i> &gt; Proc2 get the lock, try to delete the same thing again, thus crash
+</I>the
+&gt;<i> &gt; p-cscf.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; The lock seems only protect the manipulating the sessions , but not
+</I>&gt;<i> &gt; protecting freeing the session itself ( allocted from shared
+</I>memory).
+&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; The following debug code verified the above scenarios
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; PCC_AAR error1 debug code:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; if (auth) {
+</I>&gt;<i> &gt;                 LOG(L_ERR,&quot;PCC_AAR(): auth !!\n&quot;);
+</I>&gt;<i> &gt;                 hash=auth-&gt;hash;
+</I>&gt;<i> &gt;                 LOG(L_ERR,&quot;PCC_AAR(): hash is %d  , auth is %x
+</I>!!\n&quot;,
+&gt;<i> &gt; hash, auth);
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;                 // clear the dlg first, then drop the auth
+</I>&gt;<i> &gt;                 if(dlg){
+</I>&gt;<i> &gt;                         d_lock(dlg-&gt;hash);
+</I>&gt;<i> &gt;                         dlg-&gt;pcc_session = 0;
+</I>&gt;<i> &gt;                         d_unlock(dlg-&gt;hash);
+</I>&gt;<i> &gt;                         LOG(L_ERR,&quot;PCC_AAR():  clear
+</I>dlg-&gt;pcc_session to
+&gt;<i> &gt; be zero !!\n&quot;);
+</I>&gt;<i> &gt;                 }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;                 cdpb.sessions_lock(hash);
+</I>&gt;<i> &gt;                 LOG(L_ERR,&quot;PCC_AAR(): after session loc, auth is %x
+</I>&gt;<i> &gt; !!\n&quot;, auth);
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;                 cdpb.AAADropAuthSession(auth);
+</I>&gt;<i> &gt;                 LOG(L_ERR,&quot;PCC_AAR(): after session
+</I>&gt;<i> &gt; cdpb.AAADropAuthSession, hash is %d !!\n&quot;, hash);
+</I>&gt;<i> &gt;                 cdpb.sessions_unlock(hash);
+</I>&gt;<i> &gt;                 LOG(L_ERR,&quot;PCC_AAR(): after session
+</I>cdpb.sessions_unlock
+&gt;<i> &gt; !!\n&quot;);
+</I>&gt;<i> &gt;         }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Proc2:
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23855]:
+</I>&gt;<i> &gt; ERROR:AAASendRecvMessageToPeer(): Peer not connected to
+</I>&gt;<i> &gt; pcrf.centercall.net
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: DBG:AAAFreeMessage:
+</I>Freeing
+&gt;<i> &gt; message (0xb5a52a00) 265
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: PCC_AAR(): freeing generic
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: PCC_AAR(): error1 !!
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: PCC_AAR(): auth !!
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: PCC_AAR(): hash is 55  ,
+</I>auth
+&gt;<i> &gt; is b5a62e20 !!
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: PCC_AAR():  clear
+</I>&gt;<i> &gt; dlg-&gt;pcc_session to be zero !!
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: PCC_AAR(): after session
+</I>loc,
+&gt;<i> &gt; auth is b5a62e20 !!
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: DBG:del_session
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: DBG:del_session, x-&gt;hash
+</I>is
+&gt;<i> &gt; 55, x is: b5a62e20
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Proc1:
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]:
+</I>&gt;<i> &gt; ERROR:AAASendRecvMessageToPeer(): Peer not connected to
+</I>&gt;<i> &gt; pcrf.centercall.net
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:AAAFreeMessage:
+</I>Freeing
+&gt;<i> &gt; message (0xb5a57604) 265
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR(): freeing generic
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR(): error1 !!
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR(): auth !!
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR(): hash is 55  ,
+</I>auth
+&gt;<i> &gt; is b5a62e20 !!
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR():  clear
+</I>&gt;<i> &gt; dlg-&gt;pcc_session to be zero !!
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR(): after session
+</I>loc,
+&gt;<i> &gt; auth is b5a62e20 !!
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:del_session
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:del_session, x-&gt;hash
+</I>is
+&gt;<i> &gt; 55, x is: b5a62e20
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:del_session, 111
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:del_session, 333
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:del_session, 555
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:free_session(): begin
+</I>!
+&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:free_session(): inside
+</I>if
+&gt;<i> &gt; !
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:free_session(): before
+</I>&gt;<i> &gt; shm_free(x) !
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:free_session(): after
+</I>&gt;<i> &gt; shm_free(x) !
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:free_session(): end !
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:del_session, 666
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR(): after session
+</I>&gt;<i> &gt; cdpb.AAADropAuthSession, hash is 55 !!
+</I>&gt;<i> &gt; Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR(): after session
+</I>&gt;<i> &gt; cdpb.sessions_unlock !!
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; (2) Here are the patches.
+</I>&gt;<i> &gt;     Moved the lock into del_session itself, seems could make code
+</I>&gt;<i> &gt; cleaner and more readable.
+</I>&gt;<i> &gt;     dlg-&gt;pcc_session = 0; seems need to be reset to 0 if session is
+</I>&gt;<i> &gt; deleted.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Please review, or maybe you have better idea how to fix the issue.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ////////////////////////////////////////////////////////////
+</I>&gt;<i> &gt; //patches
+</I>&gt;<i> &gt; ////////////////////////////////////////////////////////////
+</I>&gt;<i> &gt; diff --git a/modules/cdp/session.c b/modules/cdp/session.c
+</I>&gt;<i> &gt; index 95787a7..c31bf66 100644
+</I>&gt;<i> &gt; --- a/modules/cdp/session.c
+</I>&gt;<i> &gt; +++ b/modules/cdp/session.c
+</I>&gt;<i> &gt; @@ -78,8 +78,12 @@ unsigned int *session_id2;           /**&lt; counter
+</I>for
+&gt;<i> &gt; second part of the session id */
+</I>&gt;<i> &gt;   */
+</I>&gt;<i> &gt;  inline void sessions_lock(unsigned int hash)
+</I>&gt;<i> &gt;  {
+</I>&gt;<i> &gt; -
+</I>&gt;<i> &gt; -       lock_get(sessions[hash].lock);
+</I>&gt;<i> &gt; +       if ( hash &gt;=0 &amp;&amp; hash &lt; sessions_hash_size ){
+</I>&gt;<i> &gt; +               lock_get(sessions[hash].lock);
+</I>&gt;<i> &gt; +       }
+</I>&gt;<i> &gt; +       else {
+</I>&gt;<i> &gt; +               LOG(L_ERR,&quot;ERROR:sessions_lock: hash :%d out of
+</I>range of
+&gt;<i> &gt; sessions_hash_size: %d !\n&quot;, hash, sessions_hash_size);
+</I>&gt;<i> &gt; +       }
+</I>&gt;<i> &gt;  }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;  /**
+</I>&gt;<i> &gt; @@ -88,7 +92,12 @@ inline void sessions_lock(unsigned int hash)
+</I>&gt;<i> &gt;  inline void sessions_unlock(unsigned int hash)
+</I>&gt;<i> &gt;  {
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; -       lock_release(sessions[hash].lock);
+</I>&gt;<i> &gt; +       if ( hash &gt;=0 &amp;&amp; hash &lt; sessions_hash_size ){
+</I>&gt;<i> &gt; +               lock_release(sessions[hash].lock);
+</I>&gt;<i> &gt; +       }
+</I>&gt;<i> &gt; +       else {
+</I>&gt;<i> &gt; +               LOG(L_ERR,&quot;ERROR:sessions_unlock: hash :%d out of
+</I>range
+&gt;<i> &gt; of sessions_hash_size: %d !\n&quot;, hash, sessions_hash_size);
+</I>&gt;<i> &gt; +       }
+</I>&gt;<i> &gt;  }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; @@ -302,18 +311,55 @@ cdp_session_t* get_session(str id)
+</I>&gt;<i> &gt;  }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;  /**
+</I>&gt;<i> &gt; + * check if a session exist in the hash table.
+</I>&gt;<i> &gt; + * @param x - the session to check
+</I>&gt;<i> &gt; + */
+</I>&gt;<i> &gt; +static int exist_session(cdp_session_t *x)
+</I>&gt;<i> &gt; +{
+</I>&gt;<i> &gt; +        cdp_session_t *p;
+</I>&gt;<i> &gt; +
+</I>&gt;<i> &gt; +        if (!x) return 0;
+</I>&gt;<i> &gt; +
+</I>&gt;<i> &gt; +        for(p=sessions[x-&gt;hash].head; p; p=p-&gt;next)
+</I>&gt;<i> &gt; +        {
+</I>&gt;<i> &gt; +                if ( p == x ) return 1;
+</I>&gt;<i> &gt; +        }
+</I>&gt;<i> &gt; +
+</I>&gt;<i> &gt; +        return 0;
+</I>&gt;<i> &gt; +}
+</I>&gt;<i> &gt; +
+</I>&gt;<i> &gt; +
+</I>&gt;<i> &gt; +/**
+</I>&gt;<i> &gt;   * Removes and frees a session.
+</I>&gt;<i> &gt;   * @param x - the session to remove;
+</I>&gt;<i> &gt;   */
+</I>&gt;<i> &gt;  void del_session(cdp_session_t *x)
+</I>&gt;<i> &gt;  {
+</I>&gt;<i> &gt; +        unsigned int hash;
+</I>&gt;<i> &gt; +
+</I>&gt;<i> &gt;         if (!x) return;
+</I>&gt;<i> &gt; -       if (sessions[x-&gt;hash].head == x) sessions[x-&gt;hash].head =
+</I>&gt;<i> &gt; x-&gt;next;
+</I>&gt;<i> &gt; -       else x-&gt;prev-&gt;next = x-&gt;next;
+</I>&gt;<i> &gt; -       if (sessions[x-&gt;hash].tail == x) sessions[x-&gt;hash].tail =
+</I>&gt;<i> &gt; x-&gt;prev;
+</I>&gt;<i> &gt; -       else x-&gt;next-&gt;prev = x-&gt;prev;
+</I>&gt;<i> &gt; +
+</I>&gt;<i> &gt; +        hash = x-&gt;hash;
+</I>&gt;<i> &gt; +        if (hash &lt; 0 || hash &gt;= sessions_hash_size) {
+</I>&gt;<i> &gt; +                LOG(L_ERR,&quot;ERROR:del_session: x-&gt;hash :%d out of
+</I>range
+&gt;<i> &gt; of sessions_hash_size: %d !\n&quot;,hash, sessions_hash_size);
+</I>&gt;<i> &gt; +                return;
+</I>&gt;<i> &gt; +        }
+</I>&gt;<i> &gt; +
+</I>&gt;<i> &gt; +       sessions_lock(hash);
+</I>&gt;<i> &gt; +
+</I>&gt;<i> &gt; +       if (exist_session(x)) {
+</I>&gt;<i> &gt; +
+</I>&gt;<i> &gt; +               if (sessions[x-&gt;hash].head == x)
+</I>sessions[x-&gt;hash].head
+&gt;<i> &gt; = x-&gt;next;
+</I>&gt;<i> &gt; +               else x-&gt;prev-&gt;next = x-&gt;next;
+</I>&gt;<i> &gt; +               if (sessions[x-&gt;hash].tail == x)
+</I>sessions[x-&gt;hash].tail
+&gt;<i> &gt; = x-&gt;prev;
+</I>&gt;<i> &gt; +               else x-&gt;next-&gt;prev = x-&gt;prev;
+</I>&gt;<i> &gt; +
+</I>&gt;<i> &gt; +               free_session(x);
+</I>&gt;<i> &gt; +       }
+</I>&gt;<i> &gt; +
+</I>&gt;<i> &gt; +       sessions_unlock(hash);
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; -       free_session(x);
+</I>&gt;<i> &gt; +
+</I>&gt;<i> &gt;  }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ---
+</I>&gt;<i> &gt;  modules/pcscf/pcc.c |   15 +++++++++++----
+</I>&gt;<i> &gt;  1 files changed, 11 insertions(+), 4 deletions(-)
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; diff --git a/modules/pcscf/pcc.c b/modules/pcscf/pcc.c
+</I>&gt;<i> &gt; index a922301..34122d6 100644
+</I>&gt;<i> &gt; --- a/modules/pcscf/pcc.c
+</I>&gt;<i> &gt; +++ b/modules/pcscf/pcc.c
+</I>&gt;<i> &gt; @@ -417,11 +417,18 @@ error:
+</I>&gt;<i> &gt;         if (aar) cdpb.AAAFreeMessage(&amp;aar);
+</I>&gt;<i> &gt;  error1:
+</I>&gt;<i> &gt;         if (auth) {
+</I>&gt;<i> &gt; -               hash=auth-&gt;hash;
+</I>&gt;<i> &gt; -               cdpb.sessions_lock(hash);
+</I>&gt;<i> &gt; +               //hash=auth-&gt;hash;
+</I>&gt;<i> &gt; +               //cdpb.sessions_lock(hash);
+</I>&gt;<i> &gt; +               // clear the dlg first, then drop the auth
+</I>&gt;<i> &gt; +                if(dlg){
+</I>&gt;<i> &gt; +                        d_lock(dlg-&gt;hash);
+</I>&gt;<i> &gt; +                        dlg-&gt;pcc_session = 0;
+</I>&gt;<i> &gt; +                        d_unlock(dlg-&gt;hash);
+</I>&gt;<i> &gt; +                        LOG(L_ERR,&quot;PCC_AAR():  clear
+</I>dlg-&gt;pcc_session
+&gt;<i> &gt; to be zero !!\n&quot;);
+</I>&gt;<i> &gt; +                }
+</I>&gt;<i> &gt;                 cdpb.AAADropAuthSession(auth);
+</I>&gt;<i> &gt; -               cdpb.sessions_unlock(hash);
+</I>&gt;<i> &gt; -               }
+</I>&gt;<i> &gt; +               //cdpb.sessions_unlock(hash);
+</I>&gt;<i> &gt; +       }
+</I>&gt;<i> &gt;         if (generic)
+</I>&gt;<i> &gt;         {
+</I>&gt;<i> &gt;                 if (generic-&gt;callid.s) shm_free(generic-&gt;callid.s);
+</I>&gt;<i> &gt; --
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Kind Regards
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Min Wang
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: pcc.patch
+Type: application/octet-stream
+Size: 3048 bytes
+Desc: pcc.patch
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20091217/c3d719d5/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20091217/c3d719d5/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001890.html">[OpenIMSCore-CSCF] p-cscf crash if PRCF not running, hang in del_session
+</A></li>
+	<LI>Next message: <A HREF="001899.html">[OpenIMSCore-CSCF] p-cscf crash if PRCF not running, hang in del_session
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1894">[ date ]</a>
+              <a href="thread.html#1894">[ thread ]</a>
+              <a href="subject.html#1894">[ subject ]</a>
+              <a href="author.html#1894">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

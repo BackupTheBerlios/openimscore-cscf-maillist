@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r84 - in ser_ims/trunk/modules:	scscf sip2ims
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r84%20-%20in%20ser_ims/trunk/modules%3A%0A%09scscf%20sip2ims&In-Reply-To=%3C200701091342.l09DgGap022176%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000119.html">
+   <LINK REL="Next"  HREF="000122.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r84 - in ser_ims/trunk/modules:	scscf sip2ims</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r84%20-%20in%20ser_ims/trunk/modules%3A%0A%09scscf%20sip2ims&In-Reply-To=%3C200701091342.l09DgGap022176%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r84 - in ser_ims/trunk/modules:	scscf sip2ims">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Jan  9 14:42:16 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000119.html">[OpenIMSCore-CSCF] OpenSIMS and TCP as transport
+</A></li>
+        <LI>Next message: <A HREF="000122.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r85 - in ser_ims/trunk/modules:	pcscf scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#121">[ date ]</a>
+              <a href="thread.html#121">[ thread ]</a>
+              <a href="subject.html#121">[ subject ]</a>
+              <a href="author.html#121">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-01-09 14:42:13 +0100 (Tue, 09 Jan 2007)
+New Revision: 84
+
+Modified:
+   ser_ims/trunk/modules/scscf/registration.c
+   ser_ims/trunk/modules/sip2ims/DigestAKAv1MD5.c
+Log:
+Fixed AKA authentication. Old was using the password in base16, not binary.
+
+
+Modified: ser_ims/trunk/modules/scscf/registration.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registration.c	2007-01-05 11:57:50 UTC (rev 83)
++++ ser_ims/trunk/modules/scscf/registration.c	2007-01-09 13:42:13 UTC (rev 84)
+@@ -351,8 +351,8 @@
+ 		calc_response(ha1,&amp;(av-&gt;authenticate),
+ 			&amp;empty_s,&amp;empty_s,&amp;empty_s,0,
+ 			&amp;msg-&gt;first_line.u.request.method,&amp;uri,hbody,expected);
+-		LOG(L_INFO,&quot;DBG:&quot;M_NAME&quot;:S_is_authorized: UE said: %.*s, but we have %.*s and expect %.*s ha1 %.*s\n&quot;,
+-			response16.len,response16.s,av-&gt;authorization.len,av-&gt;authorization.s,32,expected,32,ha1);		
++		LOG(L_INFO,&quot;DBG:&quot;M_NAME&quot;:S_is_authorized: UE said: %.*s and we  expect %.*s ha1 %.*s\n&quot;,
++			response16.len,response16.s,/*av-&gt;authorization.len,av-&gt;authorization.s,*/32,expected,32,ha1);		
+ 	}else{
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_is_authorized: algorithm %.*s is not handled.\n&quot;,
+ 			av-&gt;algorithm.len,av-&gt;algorithm.s);
+@@ -374,7 +374,9 @@
+ 		av-&gt;status = AUTH_VECTOR_USELESS;/* first mistake, you're out! */
+ 		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_is_authorized: UE said: %.*s, but we have %.*s and expect %.*s\n&quot;,
+ 			response16.len,response16.s,av-&gt;authorization.len,av-&gt;authorization.s,32,expected);		
+-	}			
++	}		
++	
++		
+ 
+ 	return ret;	
+ error:
+@@ -790,14 +792,23 @@
+ 			goto done;
+ 		}
+ 		x-&gt;authenticate.len = bin_to_base64(authenticate.s,authenticate.len,x-&gt;authenticate.s);
+-		x-&gt;authorization.len = authorization.len*2;
++		
++//		Old version - converting to base16 the XRES
++//		x-&gt;authorization.len = authorization.len*2;
++//		x-&gt;authorization.s = shm_malloc(x-&gt;authorization.len);
++//		if (!x-&gt;authorization.s){
++//			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:new_auth_vector: error allocating mem\n&quot;);
++//			goto done;
++//		}
++//		x-&gt;authorization.len = bin_to_base16(authorization.s,authorization.len,x-&gt;authorization.s);
+ 
++		x-&gt;authorization.len = authorization.len;
+ 		x-&gt;authorization.s = shm_malloc(x-&gt;authorization.len);
+ 		if (!x-&gt;authorization.s){
+ 			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:new_auth_vector: error allocating mem\n&quot;);
+ 			goto done;
+ 		}
+-		x-&gt;authorization.len = bin_to_base16(authorization.s,authorization.len,x-&gt;authorization.s);
++		memcpy(x-&gt;authorization.s,authorization.s,authorization.len);
+ 	}
+ 	else if (algorithm.len == md5.len &amp;&amp; strncasecmp(algorithm.s,md5.s,md5.len)==0){
+ 		/* MD5 and all else */
+
+Modified: ser_ims/trunk/modules/sip2ims/DigestAKAv1MD5.c
+===================================================================
+--- ser_ims/trunk/modules/sip2ims/DigestAKAv1MD5.c	2007-01-05 11:57:50 UTC (rev 83)
++++ ser_ims/trunk/modules/sip2ims/DigestAKAv1MD5.c	2007-01-09 13:42:13 UTC (rev 84)
+@@ -233,11 +233,11 @@
+ //	}
+ 
+ 	/* Format data for output in the SIP message */
+-	for(i=0;i&lt;RESLEN;i++){
+-		response[2*i]=hexa[(res[i]&amp;0xF0)&gt;&gt;4];
+-		response[2*i+1]=hexa[res[i]&amp;0x0F];
+-	}
+-	response[RESHEXLEN-1]=0;
++///	for(i=0;i&lt;RESLEN;i++){
++//		response[2*i]=hexa[(res[i]&amp;0xF0)&gt;&gt;4];
++//		response[2*i+1]=hexa[res[i]&amp;0x0F];
++//	}
++//	response[RESHEXLEN-1]=0;
+ 				
+ //	/*for(i=0;i&lt;AUTSLEN;i++){
+ //		auts[2*i]=hexa[(auts_bin[i]&amp;0xF0)&gt;&gt;4];
+@@ -256,35 +256,29 @@
+ 	switch (version){
+ 		case 1:
+ 			/* AKA v1 */
+-			rsp.s = pkg_malloc(RESHEXLEN);
++			rsp.s = pkg_malloc(RESLEN);
+ 			if (!rsp.s){
+ 				LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:AKA: Error allocating %d bytes\n&quot;,
+-					RESHEXLEN);
++					RESLEN);
+ 				return rsp;
+ 			}
+-			rsp.len=RESHEXLEN-1;
+-			memcpy(rsp.s,response,rsp.len);
++			rsp.len=RESLEN;
++			memcpy(rsp.s,res,RESLEN);
+ 		    return rsp;
+ 		case 2:
+ 			/* AKA v2 */
+-			rsp.s = pkg_malloc(RESHEXLEN+IKLEN*2+CKLEN*2);
++			rsp.len=RESLEN+IKLEN+CKLEN;
++			rsp.s = pkg_malloc(rsp.len);
+ 			if (!rsp.s){
+ 				LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:AKA: Error allocating %d bytes\n&quot;,
+-					RESHEXLEN+IKLEN*2+CKLEN*2);
++					rsp.len);
++				rsp.len=0;
+ 				return rsp;
+-			}
+-			rsp.s[RESHEXLEN+IKLEN*2+CKLEN*2-1] = 0;
+-			rsp.len=(RESHEXLEN+IKLEN*2+CKLEN*2)-1;
+-			memcpy(rsp.s,response,rsp.len);
+-			for(i=0;i&lt;IKLEN;i++){
+-				rsp.s[RESLEN*2+2*i]=hexa[(ik[i]&amp;0xF0)&gt;&gt;4];
+-				rsp.s[RESLEN*2+2*i+1]=hexa[ik[i]&amp;0x0F];
+-			}
+-			for(i=0;i&lt;CKLEN;i++){
+-				rsp.s[RESLEN*2+IKLEN*2+2*i]=hexa[(ck[i]&amp;0xF0)&gt;&gt;4];
+-				rsp.s[RESLEN*2+IKLEN*2+2*i+1]=hexa[ck[i]&amp;0x0F];
+-			}
++			}			
+ 			
++			memcpy(rsp.s,res,RESLEN);
++			memcpy(rsp.s+RESLEN,ik,IKLEN);
++			memcpy(rsp.s+RESLEN+IKLEN,ck,CKLEN);			
+ 		    return rsp;
+ 		default:
+ 			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:AKA: version %d not supported.\n&quot;,version);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000119.html">[OpenIMSCore-CSCF] OpenSIMS and TCP as transport
+</A></li>
+	<LI>Next message: <A HREF="000122.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r85 - in ser_ims/trunk/modules:	pcscf scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#121">[ date ]</a>
+              <a href="thread.html#121">[ thread ]</a>
+              <a href="subject.html#121">[ subject ]</a>
+              <a href="author.html#121">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

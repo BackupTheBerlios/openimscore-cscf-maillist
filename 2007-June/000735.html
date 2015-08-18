@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SIGSEGV%20validating%20user%20data%20XML%20against%20XSD&In-Reply-To=%3C20070614183536.GA6307%40harmony-mobile.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000731.html">
+   <LINK REL="Next"  HREF="000732.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD</H1>
+    <B>Vance Shipley</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SIGSEGV%20validating%20user%20data%20XML%20against%20XSD&In-Reply-To=%3C20070614183536.GA6307%40harmony-mobile.com%3E"
+       TITLE="[OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD">vances at harmony-mobile.com
+       </A><BR>
+    <I>Thu Jun 14 20:35:36 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000731.html">[OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD
+</A></li>
+        <LI>Next message: <A HREF="000732.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r317 - Extended ims_pm to pcscf,	icscf and isc modules. Completed the UR.* metrics.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#735">[ date ]</a>
+              <a href="thread.html#735">[ thread ]</a>
+              <a href="subject.html#735">[ subject ]</a>
+              <a href="author.html#735">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Thu, Jun 14, 2007 at 05:25:13PM +0200, Dragos Vingarzan wrote:
+}  No :), I meant the XML that is downloaded in the SAA Diameter message
+}  and which crashes on XSD check, not the XSD.
+
+Dragos,
+
+Ahh ... of course.  The user data XML is attached.
+
+I wrote a test tool (attached) and it also displays
+the same problem on this combination of XSD and XML:
+
+	$ ./test_validation -d CxDataType.dtd -x CxDataType_Rel7.xsd user_data.xml
+	xmlParseDTD ... done.
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	Unimplemented block at xmlschemas.c:4185
+	xmlSchemaNewParserCtxt ... done.
+	xmlParseFile ... done.
+	xmlValidateDtd ... done.
+	Segmentation Fault (core dumped)
+
+It passed on some example XSD &amp; XML however.
+
+	-Vance
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: user_data.xml
+Type: application/xml
+Size: 1071 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070614/ffcd75f5/attachment.xml">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070614/ffcd75f5/attachment.xml</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: test_validation.c
+Type: text/x-csrc
+Size: 2477 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070614/ffcd75f5/attachment.c">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070614/ffcd75f5/attachment.c</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000731.html">[OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD
+</A></li>
+	<LI>Next message: <A HREF="000732.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r317 - Extended ims_pm to pcscf,	icscf and isc modules. Completed the UR.* metrics.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#735">[ date ]</a>
+              <a href="thread.html#735">[ thread ]</a>
+              <a href="subject.html#735">[ subject ]</a>
+              <a href="author.html#735">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

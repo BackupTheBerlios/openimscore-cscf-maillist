@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] The S-CSCF end the call after 300 seconds
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20The%20S-CSCF%20end%20the%20call%20after%20300%20seconds&In-Reply-To=%3C47C68C98.1030301%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001206.html">
+   <LINK REL="Next"  HREF="001211.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] The S-CSCF end the call after 300 seconds</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20The%20S-CSCF%20end%20the%20call%20after%20300%20seconds&In-Reply-To=%3C47C68C98.1030301%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] The S-CSCF end the call after 300 seconds">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Feb 28 11:27:36 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001206.html">[OpenIMSCore-CSCF] The S-CSCF end the call after 300 seconds
+</A></li>
+        <LI>Next message: <A HREF="001211.html">[OpenIMSCore-CSCF] The S-CSCF end the call after 300 seconds
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1210">[ date ]</a>
+              <a href="thread.html#1210">[ thread ]</a>
+              <a href="subject.html#1210">[ subject ]</a>
+              <a href="author.html#1210">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Roberto,
+
+man :)... I will blame this on students :-p.
+
+I applied the same patch also on P-CSCF - there the dialog was probably
+dropped silently, so similar changes make sense I hope (didn't test it).
+
+Cheers,
+-Dragos
+
+Roberto Lu&#237;s Paradinha wrote:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> We detected an incorrect behaviour of the S-CSCF.
+</I>&gt;<i> This is the scenario.
+</I>&gt;<i> The UAC supports the extension timer and UAS does not support. After 300 seconds S-CSCF ends the session. This is due to the fact that the S-CSCF expires is not updated with the value that is in the Session-Expires header of the response.
+</I>&gt;<i> Here is that patch we used to solve this:
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> +++ ser_ims_532-session/modules/scscf/dlg_state.c       2008-02-27 01:50:17.346105416 +0000
+</I>&gt;<i> @@ -942,6 +942,8 @@
+</I>&gt;<i>                 }
+</I>&gt;<i>                 else// uac supports timer, but no session-expires header found in response
+</I>&gt;<i>                 {
+</I>&gt;<i> +                       d-&gt;expires = d_act_time()+d-&gt;lr_session_expires;
+</I>&gt;<i> +
+</I>&gt;<i>                         new_ses_exp.len = 11/*int value*/ + str_se.len+s_refresher.len+8;
+</I>&gt;<i>                         new_ses_exp.s = pkg_malloc(new_ses_exp.len+1);
+</I>&gt;<i>                         if (!new_ses_exp.s) {
+</I>&gt;<i> @@ -991,6 +993,11 @@
+</I>&gt;<i>                         }
+</I>&gt;<i>                 }
+</I>&gt;<i>         }
+</I>&gt;<i> +       else{
+</I>&gt;<i> +               d-&gt;expires = d_act_time() + t_time;
+</I>&gt;<i> +               d-&gt;lr_session_expires = t_time;
+</I>&gt;<i> +       }
+</I>&gt;<i> +
+</I>&gt;<i>         return 1;
+</I>&gt;<i>  error:
+</I>&gt;<i>         if (new_ses_exp.s) pkg_free(new_ses_exp.s);
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Best Regards,
+</I>&gt;<i>
+</I>&gt;<i> Roberto Luis Paradinha
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001206.html">[OpenIMSCore-CSCF] The S-CSCF end the call after 300 seconds
+</A></li>
+	<LI>Next message: <A HREF="001211.html">[OpenIMSCore-CSCF] The S-CSCF end the call after 300 seconds
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1210">[ date ]</a>
+              <a href="thread.html#1210">[ thread ]</a>
+              <a href="subject.html#1210">[ subject ]</a>
+              <a href="author.html#1210">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

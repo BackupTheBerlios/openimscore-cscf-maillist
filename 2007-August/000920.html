@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Network-forced deregistration
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Network-forced%20deregistration&In-Reply-To=%3C47645576F4132445A62FC016820E82E710CFCCBB%40rrc-dte-exs03.dte.telcordia.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000917.html">
+   <LINK REL="Next"  HREF="000929.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Network-forced deregistration</H1>
+    <B>Varma, Vijay K</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Network-forced%20deregistration&In-Reply-To=%3C47645576F4132445A62FC016820E82E710CFCCBB%40rrc-dte-exs03.dte.telcordia.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Network-forced deregistration">vvarma at telcordia.com
+       </A><BR>
+    <I>Fri Aug 10 22:44:31 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000917.html">[OpenIMSCore-CSCF] Network-forced deregistration
+</A></li>
+        <LI>Next message: <A HREF="000929.html">[OpenIMSCore-CSCF] Network-forced deregistration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#920">[ date ]</a>
+              <a href="thread.html#920">[ thread ]</a>
+              <a href="subject.html#920">[ subject ]</a>
+              <a href="author.html#920">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Peter,
+
+Thanks. Network-forced deregistration works when following your
+procedure. However, I noticed the following:
+
+Even though the FoHSS changes the registration status of the user to
+NOT-REGISTERED, the client (both UCTclient as well as OpenIC_Lite)
+status stays as Registered. 
+
+So my question is: 
+
+Does the SIP Notify message from OSIMS core lack any the parameter
+necessary to change the registration status of the client or is there a
+bug in both clients that makes them think that they are still
+registered? Thanks,
+
+Regards,
+
+Vijay
+
+
+-----Original Message-----
+From: Peter Weik [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">peter.weik at fokus.fraunhofer.de</A>] 
+Sent: Friday, August 10, 2007 6:24 AM
+To: Varma, Vijay K
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>; HSS-OpenIMSCore
+Subject: Re: [OpenIMSCore-CSCF] Network-forced deregistration
+
+Hi Vijay,
+
+you can do it by registering a user and then go the IMPU you registered
+on the web console. 
+&gt;<i>From there you click on the &quot;List of associated IMPIs&quot; link and on the
+</I>lower right hand side of the IMPI page there is the means to
+manually trigger Registration Termination Requests (RTR) that force
+de-registration of a user.
+
+Hope that helped to solve the question,
+
+Peter
+
+On Thu, 2007-08-09 at 12:35 -0400, Varma, Vijay K wrote: 
+&gt;<i> Hi Peter,
+</I>&gt;<i> 
+</I>&gt;<i>  
+</I>&gt;<i> 
+</I>&gt;<i> Can I perform a network-forced deregistration on OSIMS testbed? If so,
+</I>&gt;<i> how do I do it? I have version &gt;390 OSIMS core which has a Release 7
+</I>&gt;<i> FoHSS. Thanks,
+</I>&gt;<i> 
+</I>&gt;<i>  
+</I>&gt;<i> 
+</I>&gt;<i> Regards,
+</I>&gt;<i> 
+</I>&gt;<i>  
+</I>&gt;<i> 
+</I>&gt;<i> Vijay
+</I>&gt;<i> 
+</I>&gt;<i>  
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000917.html">[OpenIMSCore-CSCF] Network-forced deregistration
+</A></li>
+	<LI>Next message: <A HREF="000929.html">[OpenIMSCore-CSCF] Network-forced deregistration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#920">[ date ]</a>
+              <a href="thread.html#920">[ thread ]</a>
+              <a href="subject.html#920">[ subject ]</a>
+              <a href="author.html#920">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

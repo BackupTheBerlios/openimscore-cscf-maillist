@@ -1,0 +1,529 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] SCSCF crash on PPR
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SCSCF%20crash%20on%20PPR&In-Reply-To=%3C46FA8008.5060706%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000958.html">
+   <LINK REL="Next"  HREF="000964.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] SCSCF crash on PPR</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SCSCF%20crash%20on%20PPR&In-Reply-To=%3C46FA8008.5060706%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] SCSCF crash on PPR">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Sep 26 17:51:36 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000958.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r450 - Fixed 3rd Party	Registration related failures - P-Access-Network-Info header	missing caused this to fail.
+</A></li>
+        <LI>Next message: <A HREF="000964.html">[OpenIMSCore-CSCF] INVITE not forwarded by S-CSCF in case of AS-proxy
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#961">[ date ]</a>
+              <a href="thread.html#961">[ thread ]</a>
+              <a href="subject.html#961">[ subject ]</a>
+              <a href="author.html#961">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Looks like service_profiles[i].public_identities[i].public_identity is
+not a valid public identity. Would be great if you could send us the
+service profile XML that caused this.... Was the DTD and XSD checking on
+this disabled when the crash happened?
+
+-Dragos
+
+JF wrote:
+&gt;<i> Found it. Here it is.
+</I>&gt;<i>
+</I>&gt;<i> #0  get_r_public (aor={s = 0x66316166 &lt;Address 0x66316166 out of
+</I>&gt;<i> bounds&gt;, len = 1650811960}) at registrar_storage.c:115
+</I>&gt;<i> 115            v=(*p&lt;&lt;24)+(p[1]&lt;&lt;16)+(p[2]&lt;&lt;8)+p[3];
+</I>&gt;<i> (gdb) bt
+</I>&gt;<i> #0  get_r_public (aor={s = 0x66316166 &lt;Address 0x66316166 out of
+</I>&gt;<i> bounds&gt;, len = 1650811960}) at registrar_storage.c:115
+</I>&gt;<i> #1  0x001514e9 in update_r_public (aor={s = 0x66316166 &lt;Address
+</I>&gt;<i> 0x66316166 out of bounds&gt;, len = 1650811960}, reg_state=0x0,
+</I>&gt;<i> s=0xbfed726c, ccf1=0x0,
+</I>&gt;<i>     ccf2=0x0, ecf1=0x0, ecf2=0x0) at registrar_storage.c:750
+</I>&gt;<i> #2  0x0012f141 in Cx_PPA (ppr=0xb616b4b4) at cx.c:374
+</I>&gt;<i> #3  0x0012f527 in CxRequestHandler (request=0xb616b4b4, param=0x0) at cx.c:135
+</I>&gt;<i> #4  0x003f63c6 in api_callback (p=0xb616962c, msg=0xb616b4b4, ptr=0x0)
+</I>&gt;<i> at api_process.c:87
+</I>&gt;<i> #5  0x0041098b in worker_process (id=0) at worker.c:326
+</I>&gt;<i> #6  0x004033fb in diameter_peer_start (blocking=0) at diameter_peer.c:298
+</I>&gt;<i> #7  0x004048d0 in cdp_child_init (rank=0) at mod.c:194
+</I>&gt;<i> #8  0x080a3b46 in init_mod_child (m=0x8167d80, rank=0) at sr_module.c:468
+</I>&gt;<i> #9  0x08072661 in main_loop () at main.c:1069
+</I>&gt;<i> #10 0x08073958 in main (argc=5, argv=0xbfed75b4) at main.c:1614
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> JF
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> On 8/31/07, JF &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jfkavaka at gmail.com</A>&gt; wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi Jo&#227;o,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Can you provide the backtrace from &quot;core.10816&quot; ?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Thanks,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> JF
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> On 8/30/07, Jo&#227;o Vitor Torres &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">joao-v-torres at ptinovacao.pt</A>&gt; wrote:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Hi,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I have detected a crash in SCSCF on PPR request.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> The log is below.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Revision 433 is used.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 8(10816) INFO:S-CSCF:CxRequestHandler(): We have received a request
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INFO:S-CSCF:CxRequestHandler(): - Received an IMS_PPR
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INFO:S-CSCF:Cx_PPA(): Received a User_Data PPR!
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:IMSSubscription:
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:   Private Identity: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">joaovitor at ptinovacao.pt</A>&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:   Service Profile:
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:           Public Identity: Barring [0]
+</I>&gt;&gt;&gt;<i> &lt;tel:00551138882508&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:           Filter Criteria: Priority [1]ProfilePartInd
+</I>&gt;&gt;&gt;<i> [-1]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                   Trigger Point: CNF [X] (_|_)&amp;(_|_)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[0]
+</I>&gt;&gt;&gt;<i> NOT[ ] RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> Method == &lt;INVITE&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[0] NOT[ ]
+</I>&gt;&gt;&gt;<i> RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> Method == &lt;CANCEL&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[1]
+</I>&gt;&gt;&gt;<i> NOT[ ] RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> SessionCase [0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[1]
+</I>&gt;&gt;&gt;<i> NOT[ ] RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> SessionCase [3]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                   AS: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vccmo at 10.51.160.230</A>:5060&gt;
+</I>&gt;&gt;&gt;<i> Handling [0] SrvInfo: &lt;VCC&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:           Filter Criteria: Priority [2]ProfilePartInd
+</I>&gt;&gt;&gt;<i> [-1]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                   Trigger Point: CNF [X] (_|_)&amp;(_|_)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[0]
+</I>&gt;&gt;&gt;<i> NOT[ ] RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> Method == &lt;INVITE&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[0]
+</I>&gt;&gt;&gt;<i> NOT[ ] RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> Method == &lt;CANCEL&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[1]
+</I>&gt;&gt;&gt;<i> NOT[ ] RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> SessionCase [1]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[1]
+</I>&gt;&gt;&gt;<i> NOT[ ] RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> SessionCase [2]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                   AS: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vccmt at 10.51.160.230</A>:5060&gt;
+</I>&gt;&gt;&gt;<i> Handling [0] SrvInfo: &lt;VCC&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:   Service Profile:
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:           Public Identity: Barring [0]
+</I>&gt;&gt;&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">joaovitor at ptinovacao.pt</A>&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:           Filter Criteria: Priority [1]ProfilePartInd
+</I>&gt;&gt;&gt;<i> [-1]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                   Trigger Point: CNF [X] (_|_)&amp;(_|_)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[0]
+</I>&gt;&gt;&gt;<i> NOT[ ] RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> Method == &lt;INVITE&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[0]
+</I>&gt;&gt;&gt;<i> NOT[ ] RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> Method == &lt;CANCEL&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[1] NOT[ ]
+</I>&gt;&gt;&gt;<i> RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> SessionCase [0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[1]
+</I>&gt;&gt;&gt;<i> NOT[ ] RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> SessionCase [3]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                   AS: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vccmo at 10.51.160.235</A>:5060&gt;
+</I>&gt;&gt;&gt;<i> Handling [0] SrvInfo: &lt;VCC_MO&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:           Filter Criteria: Priority [2]ProfilePartInd
+</I>&gt;&gt;&gt;<i> [-1]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                   Trigger Point: CNF [X] (_|_)&amp;(_|_)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[0]
+</I>&gt;&gt;&gt;<i> NOT[ ] RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> Method == &lt;INVITE&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[0]
+</I>&gt;&gt;&gt;<i> NOT[ ] RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> Method == &lt;CANCEL&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[1]
+</I>&gt;&gt;&gt;<i> NOT[ ] RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> SessionCase [1]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                           SPT: Grp[1] NOT[ ]
+</I>&gt;&gt;&gt;<i> RegType[0]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:
+</I>&gt;&gt;&gt;<i> SessionCase [2]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  8(10816) INF:S-CSCF:                   AS: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vccmt at 10.51.160.235</A>:5060&gt;
+</I>&gt;&gt;&gt;<i> Handling [0] SrvInfo: &lt;VCC_MT&gt;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 12(10820) --- Peer List: ---
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 12(10820)  S[I_Open] hss.ptinovacao.pt:3868 D[ ]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 12(10820)        [16777216,10415]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 12(10820)        [16777217,10415]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 12(10820)        [16777221,10415]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 12(10820) ------------------
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 17(10825) ERROR: receive_fd: EOF on 13
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) child process 10816 exited by a signal 11
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) core was generated
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) INFO: terminating due to SIGCHLD
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) Process Table:
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807)  0. (10807) &gt; attendant
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807)  1. (10809) &gt; receiver child=0 sock=10.51.160.234:6060
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807)  2. (10810) &gt; receiver child=1 sock=10.51.160.234:6060
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807)  3. (10811) &gt; receiver child=2 sock=10.51.160.234:6060
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807)  4. (10812) &gt; receiver child=3 sock=10.51.160.234:6060
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807)  5. (10813) &gt; slow timer
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807)  6. (10814) &gt; timer
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807)  7. (10815) &gt; cdp_acceptor
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807)  8. (10816) &gt; cdp worker child=0
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807)  9. (10817) &gt; cdp worker child=1
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) 10. (10818) &gt; cdp worker child=2
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) 11. (10819) &gt; cdp worker child=3
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) 12. (10820) &gt; cdp_timer
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) 13. (10821) &gt; tcp receiver child=0
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) 14. (10822) &gt; tcp receiver child=1
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) 15. (10823) &gt; tcp receiver child=2
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) 16. (10824) &gt; tcp receiver child=3
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) 17. (10825) &gt; tcp main process
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) 18. (10828) &gt; receiver I
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  1(10809) INFO: signal 15 received
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  7(10815) INFO: signINFO: siINFO: signal 15 r 1(10809) qm_sums (0x812ff60):
+</I>&gt;&gt;&gt;<i> PKG[receiver child=0 sock=10.51.160.234:6060]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  1(10809) summarizing all alloc'ed. fragments:
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 15(10823)  1(10809) x812ff60): PKG[tcp receiver 6(10814) summarizing all
+</I>&gt;&gt;&gt;<i> alloc'ed. fragments:
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 18(10828) qm_sums (0x812ff60): PKG[receiver I]
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 18(10828) summarizing all alloc'ed. fragments:
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 10821)  3(10811)  7(10815)  count=     3 size=        12 bytes from proxy.c:
+</I>&gt;&gt;&gt;<i> host 3(10811) summarizing all al count=     2 size=   16 bytes from route.c:
+</I>&gt;&gt;&gt;<i> fix_actions(510)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  7(10815)  count=     1 size=        32 bytes from textops.c:
+</I>&gt;&gt;&gt;<i> sel_hf_value_name(1711)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  7(10815)  count=     6 size=       192 bytes from sr_module.c:
+</I>&gt;&gt;&gt;<i> fix_param(660)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  7(10815)  count=     1 size=        56 bytes from mod.c:
+</I>&gt;&gt;&gt;<i> build_record_service_route(431)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  7(10815)  count=     1 size=        56 bytes from mod.c:
+</I>&gt;&gt;&gt;<i> build_record_service_route(425)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  7(10815)  count=     1 size=        28 bytes from mod count=     6 size=
+</I>&gt;&gt;&gt;<i>    192 bytes  7(10815)  count=     1 size=        28 byt count=     1 size=
+</I>&gt;&gt;&gt;<i>       56 bytes from mod.c: 7(10815)  count=     1 size=        60 bytes from
+</I>&gt;&gt;&gt;<i> mod.c: build_record_service_route(407)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  7(10815)  count=     3 size=        48 bytes from script_cb.c:
+</I>&gt;&gt;&gt;<i> add_callback(60)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  7(10815)  count=     2 size=        24 bytes from name_alias.h: add_ali
+</I>&gt;&gt;&gt;<i> count=  coun 7(10815)  count=     3 size=       248 bytes from
+</I>&gt;&gt;&gt;<i> proxy12(10820)  count=     3 s count=     3 size=        28 bytes from
+</I>&gt;&gt;&gt;<i> proxy.c:12(10820)  count=     3 s count=     3 size=        12 bytes from
+</I>&gt;&gt;&gt;<i> proxy.c12(10820)  count=     3 s count=     3 size=        44 bytes from
+</I>&gt;&gt;&gt;<i> proxy.c12(10820)  count=     2 size=     count=     2 size=        32 bytes
+</I>&gt;&gt;&gt;<i> from socket_info.c12(10820)  count=     3 size=       128 bytes from
+</I>&gt;&gt;&gt;<i> route.c: route_new_list(202)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 12(10820)  count=     1 size=       428 bytes from cfg.y: yyparse(1476)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 12(10820)  count=    60 size=      1644 bytes from sr_module.c:
+</I>&gt;&gt;&gt;<i> fix_param(626)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  count=     2 size=        32 bytes fralias.h: add_alias(99)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> [01;33mt=    60 size=      1644 byte count=     3 size=       128 bytes from
+</I>&gt;&gt;&gt;<i> route.c: route_new_list(202)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> ocket_info.c: fix_socket_list(607)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> ount=           128 byrom route.c: route_new_list(202)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> nt= count=     3 size=       128 bytes from route.c: route_new_list(2011(108
+</I>&gt;&gt;&gt;<i>   35 size=      1120 bytes from route_struct.c: mk_exp(58)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> [0 c 5(10813)       160 bytes from sr_module.c: register_module(146)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 33m(1476)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 13(10821) count=     8 size=       272 bytes from route.c: fix_expr(312)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  1(10809)  count=     2 size=        32 bytes from name_alias.h:
+</I>&gt;&gt;&gt;<i> add_alias(99)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>      2528 bytes from route_struct.c: mk_elem(74)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  count=     1 size=        20 count=    10 size=       160 byt11(1 7(108
+</I>&gt;&gt;&gt;<i> count=     2 siz count=     5 size=       164 bytes from modparam.c:
+</I>&gt;&gt;&gt;<i> set_mod_pa11(10819) 17(10825)  count=    10 size=       160 bytes from
+</I>&gt;&gt;&gt;<i> sr_module.c: register_module(146)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 17(10825)  count=   413 size=     52864 bytes from cfg.lex: addstr(743)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 17(10825)  count=     1 size=        20 bytes from cfg.y: yyparse(474)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 17(10825)  count=     1 size=        64 bytes from name_alias.h:
+</I>&gt;&gt;&gt;<i> add_alias(101)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 17(10825)  count=  count=     1 size=        16 bytes from name_alias.h:
+</I>&gt;&gt;&gt;<i> add_alia10(1087(1082 count=     count=     1 size=        20 bytes from
+</I>&gt;&gt;&gt;<i> cfg.y: yyparse(1362)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 7(10825)  count=     2 size=        32 bytes from socket_info.c: count=
+</I>&gt;&gt;&gt;<i> count=     1 size=        12 bytes from nonsip_hooks.c:
+</I>&gt;&gt;&gt;<i> init_nonsip_hooks(50)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  7(10815)  count=     2 size= count=     1 size=        16 bytes from cfg.y:
+</I>&gt;&gt;&gt;<i> 7(10815)  count=     2  count=     1 size=        24 bytes from cfg.y:
+</I>&gt;&gt;&gt;<i> yyparse(926)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 16 7(10815) ount=     1 size=        12 bytes from nonsip_hooks.c:
+</I>&gt;&gt;&gt;<i> init_nonsip_hooks(50)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  2(10810)  count=     2 size=        12 bytes from route.c: init_rlist(
+</I>&gt;&gt;&gt;<i> 2(1016(10824) oun count=     2 size=        16 bytes from socket_info.c:
+</I>&gt;&gt;&gt;<i> fix_socket_list(565)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  count=  1017 size=     80436 bytes in total
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  9(10817) -----------------------------
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>      2 size=        16 bytes from socket_info.c: fix_socket_list(565)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  2(10810) e.c: route_add(129)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  4(10812) 16(10824 count=    count=     3 size=        24 bytes from
+</I>&gt;&gt;&gt;<i> select.c: register_se 4(10812)  count=     3 size=        24 bytes from
+</I>&gt;&gt;&gt;<i> select.c: register_select_table(348)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  4(10812)  count=  1018 size=     80464 bytes in total
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  4(10812) -----------------------------
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  count=    30 size=       728 bytes from route.c: route_add(129)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  2(10810)  count=     5 size=       320 bytes from str_hash.h:
+</I>&gt;&gt;&gt;<i> str_hash_alloc(69)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  2(10810)  count=     3 size=        24 bytes from select.c:
+</I>&gt;&gt;&gt;<i> register_select_table(348)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  2(10810)  count=  1018 size=     80464 bytes in total
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  2(10810) -----------------------------
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) INFO:cdp:cdp_exit(): CDiameterPeer stoping ...
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) INFO:destroy_diameter_peer(): Terminating all childs...
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) INFO:destroy_diameter_peer(): Waiting for child [10828] to
+</I>&gt;&gt;&gt;<i> terminate...
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) INFO:destroy_diameter_peer(): Waiting for child [10820] to
+</I>&gt;&gt;&gt;<i> terminate...
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) INFO:destroy_diameter_peer(): Waiting for child [10819] to
+</I>&gt;&gt;&gt;<i> terminate...
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) INFO:destroy_diameter_peer(): Waiting for child [10818] to
+</I>&gt;&gt;&gt;<i> terminate...
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) INFO:destroy_diameter_peer(): Waiting for child [10817] to
+</I>&gt;&gt;&gt;<i> terminate...
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) INFO:destroy_diameter_peer(): Waiting for child [10816] to
+</I>&gt;&gt;&gt;<i> terminate...
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) INFO:destroy_diameter_peer(): Waiting for child [10815] to
+</I>&gt;&gt;&gt;<i> terminate...
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) INFO:destroy_diameter_peer(): All processes terminated. Cleaning
+</I>&gt;&gt;&gt;<i> up.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  0(10807) BUG: shutdown timeout triggered, dying...
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Jo&#227;o Vitor
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000958.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r450 - Fixed 3rd Party	Registration related failures - P-Access-Network-Info header	missing caused this to fail.
+</A></li>
+	<LI>Next message: <A HREF="000964.html">[OpenIMSCore-CSCF] INVITE not forwarded by S-CSCF in case of AS-proxy
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#961">[ date ]</a>
+              <a href="thread.html#961">[ thread ]</a>
+              <a href="subject.html#961">[ subject ]</a>
+              <a href="author.html#961">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

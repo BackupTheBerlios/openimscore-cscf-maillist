@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Proper%20flow%20between%20OpenIMS%20and%20AS&In-Reply-To=%3C005601c8485a%241da358c0%240200a8c0%40fenotebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001107.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Proper%20flow%20between%20OpenIMS%20and%20AS&In-Reply-To=%3C005601c8485a%241da358c0%240200a8c0%40fenotebook%3E"
+       TITLE="[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS">franz.edler at inode.at
+       </A><BR>
+    <I>Thu Dec 27 08:28:45 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001107.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1108">[ date ]</a>
+              <a href="thread.html#1108">[ thread ]</a>
+              <a href="subject.html#1108">[ subject ]</a>
+              <a href="author.html#1108">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Gary,
+
+&gt;<i> In particular, If I have got this right, the record-route header must be
+</I>&gt;<i> updated by adding the AS's uri only in case we want AS to act as a proxy
+</I>&gt;<i> server (correct me if this is wrong).
+</I>
+No, the S-CSCF includes two additional Route-header fields (not
+Record-Route!) in any case if an iFC matches. The first point to the AS and
+the second points back to the S-CSCF.
+ 
+&gt;<i> What if the AS doesn't work as a proxy at all, and for some reason decides
+</I>&gt;<i> to reject the call from being processed from it? Thus, detaching itself
+</I>&gt;<i> from the original request' s path, letting IMS send it to its original
+</I>&gt;<i> destination, as if no AS exists for the rest of the flow.
+</I>
+If the AS decides to do nothing with the session it has only to follow
+correct SIP routing rules and use the next Route header to forward the
+request.
+
+&gt;<i> I.e., in a simple bob-call-alice call case, although the criteria have
+</I>&gt;<i> been met, and the event is forwarded to the AS, the AS decides that
+</I>&gt;<i> eventually the user must not receive the service it provides (i.e. a call
+</I>&gt;<i> block), but continue its route towards its original destination. (the
+</I>&gt;<i> condition on which the service must not be delivered is beyond IMS filter
+</I>&gt;<i> criteria, i.e. in AS logic).  In this case, how can the AS inform IMS for
+</I>&gt;<i> this? Is this possible, or once the trigger happens the AS will remain in
+</I>&gt;<i> the signaling path in any case?
+</I>
+As mentioned above only simple SIP route does it. If the AS does not
+&quot;record-route&quot; - as I can assume in that case - it will not be touched by
+subsequent requests anymore.
+
+Regards
+Franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001107.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1108">[ date ]</a>
+              <a href="thread.html#1108">[ thread ]</a>
+              <a href="subject.html#1108">[ subject ]</a>
+              <a href="author.html#1108">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

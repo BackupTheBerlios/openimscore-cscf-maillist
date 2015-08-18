@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r627 - Fix the value of the IPSec	mode to make it compliant to TS 33.203,	and change the P* scripts accordingly. Modify the E* scripts to match	the P* scripts.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r627%20-%20Fix%20the%20value%20of%20the%20IPSec%0A%09mode%20to%20make%20it%20compliant%20to%20TS%2033.203%2C%0A%09and%20change%20the%20P%2A%20scripts%20accordingly.%20Modify%20the%20E%2A%20scripts%20to%20match%0A%09the%20P%2A%20scripts.&In-Reply-To=%3C200903060907.n2697EcI001940%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001626.html">
+   <LINK REL="Next"  HREF="001628.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r627 - Fix the value of the IPSec	mode to make it compliant to TS 33.203,	and change the P* scripts accordingly. Modify the E* scripts to match	the P* scripts.</H1>
+    <B>letiemble at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r627%20-%20Fix%20the%20value%20of%20the%20IPSec%0A%09mode%20to%20make%20it%20compliant%20to%20TS%2033.203%2C%0A%09and%20change%20the%20P%2A%20scripts%20accordingly.%20Modify%20the%20E%2A%20scripts%20to%20match%0A%09the%20P%2A%20scripts.&In-Reply-To=%3C200903060907.n2697EcI001940%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r627 - Fix the value of the IPSec	mode to make it compliant to TS 33.203,	and change the P* scripts accordingly. Modify the E* scripts to match	the P* scripts.">letiemble at users.berlios.de
+       </A><BR>
+    <I>Fri Mar  6 10:07:14 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001626.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r626 - Fixed user generating	script bug: broken add user sql generated. sh seems to	interpret \0 wrongly in a string, replaced with bash
+</A></li>
+        <LI>Next message: <A HREF="001628.html">[OpenIMSCore-CSCF] IPSec Client scripts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1627">[ date ]</a>
+              <a href="thread.html#1627">[ thread ]</a>
+              <a href="subject.html#1627">[ subject ]</a>
+              <a href="author.html#1627">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: letiemble
+Date: 2009-03-06 10:06:46 +0100 (Fri, 06 Mar 2009)
+New Revision: 627 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=627">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=627</A> 
+
+Log:
+Fix the value of the IPSec mode to make it compliant to TS 33.203, and change the P* scripts accordingly. Modify the E* scripts to match the P* scripts.
+
+Modified:
+   U	ser_ims/trunk/modules/pcscf/ipsec_E_Drop.sh
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_E_Drop.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_E_Drop.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626</A>
+   U	ser_ims/trunk/modules/pcscf/ipsec_E_Inc_Req.sh
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_E_Inc_Req.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_E_Inc_Req.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626</A>
+   U	ser_ims/trunk/modules/pcscf/ipsec_E_Inc_Rpl.sh
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_E_Inc_Rpl.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_E_Inc_Rpl.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626</A>
+   U	ser_ims/trunk/modules/pcscf/ipsec_E_Out_Req.sh
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_E_Out_Req.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_E_Out_Req.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626</A>
+   U	ser_ims/trunk/modules/pcscf/ipsec_E_Out_Rpl.sh
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_E_Out_Rpl.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_E_Out_Rpl.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626</A>
+   U	ser_ims/trunk/modules/pcscf/ipsec_P_Inc_Req.sh
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_P_Inc_Req.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_P_Inc_Req.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626</A>
+   U	ser_ims/trunk/modules/pcscf/ipsec_P_Inc_Rpl.sh
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_P_Inc_Rpl.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_P_Inc_Rpl.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626</A>
+   U	ser_ims/trunk/modules/pcscf/ipsec_P_Out_Req.sh
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_P_Out_Req.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_P_Out_Req.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626</A>
+   U	ser_ims/trunk/modules/pcscf/ipsec_P_Out_Rpl.sh
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_P_Out_Rpl.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/ipsec_P_Out_Rpl.sh?rev=627&amp;view=diff&amp;r1=627&amp;r2=626</A>
+   U	ser_ims/trunk/modules/pcscf/security.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/security.c?rev=627&amp;view=diff&amp;r1=627&amp;r2=626">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/security.c?rev=627&amp;view=diff&amp;r1=627&amp;r2=626</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001626.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r626 - Fixed user generating	script bug: broken add user sql generated. sh seems to	interpret \0 wrongly in a string, replaced with bash
+</A></li>
+	<LI>Next message: <A HREF="001628.html">[OpenIMSCore-CSCF] IPSec Client scripts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1627">[ date ]</a>
+              <a href="thread.html#1627">[ thread ]</a>
+              <a href="subject.html#1627">[ subject ]</a>
+              <a href="author.html#1627">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

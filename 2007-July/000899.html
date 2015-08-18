@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20How%20to%20interact%20AS%20and%20MRF%20over%20Mr%20interface%3F&In-Reply-To=%3Cb712f9530707300127p73eaa871p14596a12dd489f04%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000898.html">
+   <LINK REL="Next"  HREF="000900.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?</H1>
+    <B>Tom Paris</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20How%20to%20interact%20AS%20and%20MRF%20over%20Mr%20interface%3F&In-Reply-To=%3Cb712f9530707300127p73eaa871p14596a12dd489f04%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?">tom.paris001 at gmail.com
+       </A><BR>
+    <I>Mon Jul 30 10:27:11 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000898.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r427 - Removed logging.
+</A></li>
+        <LI>Next message: <A HREF="000900.html">[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#899">[ date ]</a>
+              <a href="thread.html#899">[ thread ]</a>
+              <a href="subject.html#899">[ subject ]</a>
+              <a href="author.html#899">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I have some questions about interaction between AS and MRF over Mr
+interface.
+
+I tried to foward INVITE message from UE to MRF via AS(B2BUA mode) as
+follows.
+
+1.Set alice's iFC on HSS to invoke AS when request URI specifies MRF
+service.
+2.Register alice.
+3.Send INVITE from alice to MRF service uri.
+4.S-CSCF executes iFC filtering.(INVITE request is forwarded to AS)
+5.AS execute something..
+6.AS receives INVITE and create new message to MRF.
+7.403 Forbidden - &quot;Dialog not found on S-CSCF or Terminating user not
+suitable for unregistered services&quot;
+  returned from S-CSCF.
+
+Note that MRF is not registered to S-CSCF.
+ Are there any way to avoid those problems?
+(iFC configurations or PSI configurations?)
+
+Best Regards,
+Thomas
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070730/a14cf053/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070730/a14cf053/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000898.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r427 - Removed logging.
+</A></li>
+	<LI>Next message: <A HREF="000900.html">[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#899">[ date ]</a>
+              <a href="thread.html#899">[ thread ]</a>
+              <a href="subject.html#899">[ subject ]</a>
+              <a href="author.html#899">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

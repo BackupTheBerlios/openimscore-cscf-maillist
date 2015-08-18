@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20BUG%20in%2008_cdp_sessions%20branch&In-Reply-To=%3C49AC2AA1.3090708%40ftw.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001601.html">
+   <LINK REL="Next"  HREF="001621.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch</H1>
+    <B>Hannes L. Weisgrab</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20BUG%20in%2008_cdp_sessions%20branch&In-Reply-To=%3C49AC2AA1.3090708%40ftw.at%3E"
+       TITLE="[OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch">weisi2 at ftw.at
+       </A><BR>
+    <I>Mon Mar  2 19:51:13 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001601.html">[OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch
+</A></li>
+        <LI>Next message: <A HREF="001621.html">[OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1603">[ date ]</a>
+              <a href="thread.html#1603">[ thread ]</a>
+              <a href="subject.html#1603">[ subject ]</a>
+              <a href="author.html#1603">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Richard,
+many thanks for your answer; this indeed solved my problem!
+Do you think the cdp branch will be re-integrated into the trunk in the 
+future? Is there anything planned?
+
+Regards,
+Hannes.
+
+Richard Good schrieb:
+&gt;<i> Hi Hannes,
+</I>&gt;<i>
+</I>&gt;<i> Related thread:
+</I>&gt;<i> <A HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-August/001881.html">http://lists.berlios.de/pipermail/openimscore-cscf/2008-August/001881.html</A>
+</I>&gt;<i>
+</I>&gt;<i> This is because of an incompatability issue between the 08 cdp branch 
+</I>&gt;<i> and the trunk code. The P-CSCF in the branch does not support the 
+</I>&gt;<i> qop-parameter.  To solve the problem disable the qop parameter in the 
+</I>&gt;<i> SCSCF config file, or take a look at the relevant code changes (see 
+</I>&gt;<i> related thread) to incorporate into the branch code.
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i>
+</I>&gt;<i> Richard.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Message: 1
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Date: Fri, 27 Feb 2009 13:53:07 +0100
+</I>&gt;&gt;<i> From: &quot;Hannes L. Weisgrab&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">weisi2 at ftw.at</A>&gt;
+</I>&gt;&gt;<i> Subject: [OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch
+</I>&gt;&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;<i> Cc: &quot;Reichl, Peter&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">peter.reichl at ftw.at</A>&gt;, &quot;Fischer,	Hans Ronald&quot;
+</I>&gt;&gt;<i> 	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">fischer at FTW.at</A>&gt;, &quot;Zeiss, Joachim&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Zeiss at FTW.at</A>&gt;,	Joachim Fabini
+</I>&gt;&gt;<i> 	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">joachim.fabini at tuwien.ac.at</A>&gt;,	Christoph Egger
+</I>&gt;&gt;<i> 	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">christoph.egger at tuwien.ac.at</A>&gt;
+</I>&gt;&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">49A7E233.5080700 at ftw.at</A>&gt;
+</I>&gt;&gt;<i> Content-Type: text/plain; charset=&quot;iso-8859-15&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Dear list members,
+</I>&gt;&gt;<i> dear developpers,
+</I>&gt;&gt;<i> I tried to set-up the P-CSCF from the beforementioned branch to check 
+</I>&gt;&gt;<i> the UCT Policy Control Framework. Unfortunately I get a malformed &quot;401 
+</I>&gt;&gt;<i> Unauthorized&quot; message on registration. In the message, the &quot;,&quot; is 
+</I>&gt;&gt;<i> missing between &quot;algorithm=AKAv1-MD5&quot; and &quot;qop=&quot;auth,auth-int&quot; in the 
+</I>&gt;&gt;<i> WWW-Authenticate header field (see attachment).
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Does somebody have the same problem? Any ideas? Workarounds?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Best Regards,
+</I>&gt;&gt;<i> Hannes.
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001601.html">[OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch
+</A></li>
+	<LI>Next message: <A HREF="001621.html">[OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1603">[ date ]</a>
+              <a href="thread.html#1603">[ thread ]</a>
+              <a href="subject.html#1603">[ subject ]</a>
+              <a href="author.html#1603">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

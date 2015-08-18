@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OSIMS%20bug%20on%20processing%20FQDNs&In-Reply-To=%3CB6D2B66E4DB54EA8BB59323109438F3B%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001476.html">
+   <LINK REL="Next"  HREF="001485.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OSIMS%20bug%20on%20processing%20FQDNs&In-Reply-To=%3CB6D2B66E4DB54EA8BB59323109438F3B%40notebook%3E"
+       TITLE="[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs">franz.edler at inode.at
+       </A><BR>
+    <I>Wed Sep  3 22:20:14 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001476.html">[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+</A></li>
+        <LI>Next message: <A HREF="001485.html">[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1477">[ date ]</a>
+              <a href="thread.html#1477">[ thread ]</a>
+              <a href="subject.html#1477">[ subject ]</a>
+              <a href="author.html#1477">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Hannes,
+ 
+&gt;<i> Thus, the error points exactly to the &quot;3&quot; in the name and indeed, if I
+</I>&gt;<i> remove the &quot;3&quot; from the name (and reconfigure everything else
+</I>&gt;<i> accordingly), it works!
+</I>
+This is according to the definition of labels in DNS. See at RFC 1035: &quot;The
+labels must follow the rules for ARPANET host names.  They must start with a
+letter, end with a letter or digit, and have as interior characters only
+letters, digits, and hyphen.  There are also some restrictions on the
+length.  Labels must be 63 characters or less.&quot;
+
+It is not allowed to start a label with a digit.
+So you have to find another solution for your domain configuration.
+
+Cheers
+-franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001476.html">[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+</A></li>
+	<LI>Next message: <A HREF="001485.html">[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1477">[ date ]</a>
+              <a href="thread.html#1477">[ thread ]</a>
+              <a href="subject.html#1477">[ subject ]</a>
+              <a href="author.html#1477">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

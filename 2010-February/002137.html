@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] New module: cdp_avp
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20New%20module%3A%20cdp_avp&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BD38F%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002131.html">
+   <LINK REL="Next"  HREF="002139.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] New module: cdp_avp</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20New%20module%3A%20cdp_avp&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BD38F%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] New module: cdp_avp">wang at basis-audionet.com
+       </A><BR>
+    <I>Fri Feb 12 18:15:12 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002131.html">[OpenIMSCore-CSCF] New module: cdp_avp
+</A></li>
+        <LI>Next message: <A HREF="002139.html">[OpenIMSCore-CSCF] pcscf config file error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2137">[ date ]</a>
+              <a href="thread.html#2137">[ thread ]</a>
+              <a href="subject.html#2137">[ subject ]</a>
+              <a href="author.html#2137">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos:
+
+Thanks.
+
+It sounds a good idea. :)
+
+It is better to have a live example so that we learn how to use it. 
+
+&gt;<i> data-types should be enforced. I would encourage you to use it from
+</I>now
+&gt;<i> on and we will also convert the existing Cx, e2 and Rx interface in
+</I>time
+&gt;<i> to it.
+</I>
+It seems there will be another major changes. :)
+
+Currently the Rx is tied with/lived under p-cscf, Cx/Sh etc under s-cscf
+etc, since it is going to be rewritten anyway, could we put Rx, E2, Rx
+etc interface into separate dir?
+
+what I mean is: put those Rx/Cx etc into some sort of lib, p-cscf/s-cscf
+is just invoking lib/function call of diameter Rx. 
+
+Later on these libs could be packaged/used in other application.
+
+
+
+Kind Regards
+ 
+Min Wang
+
+&gt;<i> -----Original Message-----
+</I>&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+</I>[mailto:openimscore-cscf-
+&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bounces at lists.berlios.de</A>] On Behalf Of Dragos Vingarzan
+</I>&gt;<i> Sent: Friday, February 12, 2010 9:09 AM
+</I>&gt;<i> To: OpenIMS list; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> Subject: [OpenIMSCore-CSCF] New module: cdp_avp
+</I>&gt;<i> 
+</I>&gt;<i> Dear all,
+</I>&gt;<i> 
+</I>&gt;<i> I have just committed a new module to ser_ims in the 13_pcc_fixing
+</I>&gt;<i> branch. The cdp_avp is a wrapper to the cdp module, which implements a
+</I>&gt;<i> lot of helper functions for AVP operations. Although initially started
+</I>&gt;<i> in the Open EPC project and so far not used from SER, we have decided
+</I>to
+&gt;<i> adapt its interface so that it would be used also from the Open IMS
+</I>Core
+&gt;<i> CSCFs.
+</I>&gt;<i> 
+</I>&gt;<i> One of the main design requirements was to make it easy to define new
+</I>&gt;<i> AVPs. With the help of some macros, now all one has to do is define
+</I>the
+&gt;<i> AVP code and then write a line like:
+</I>&gt;<i> 
+</I>&gt;<i>
+</I>cdp_avp(Firmware_Revision,0,AAA_AVP_FLAG_MANDATORY,Unsigned32,uint32_t)
+&gt;<i> 
+</I>&gt;<i> This will generate the getter and the setter functions for it. In case
+</I>&gt;<i> of more complicated situations, where for example the data format has
+</I>&gt;<i> not been specified in RFC3588 or there's a need for more complicated
+</I>&gt;<i> grouped setters and getters, individual functions can still be
+</I>&gt;<i> implemented manually.
+</I>&gt;<i> 
+</I>&gt;<i> The API is split into the following parts:
+</I>&gt;<i> 
+</I>&gt;<i> typedef struct {
+</I>&gt;<i>     struct cdp_binds *cdp; // link to cdp, to access also those
+</I>&gt;<i> functions without requiring an individual cdp module load
+</I>&gt;<i>     cdp_avp_bind_basic_t basic; // basic operations, like
+</I>&gt;<i> creating/adding/retrieving AVPs
+</I>&gt;<i>     cdp_avp_bind_base_data_format_t data; // data format conversion
+</I>&gt;<i> operations
+</I>&gt;<i>     cdp_avp_bind_base_avp_t base; // all the RFC3588 AVPs
+</I>&gt;<i>     cdp_avp_bind_ccapp_avp_t ccapp; // RFC4006 AVPs
+</I>&gt;<i>     cdp_avp_bind_nasapp_avp_t nasapp; //RFC4005 AVPs
+</I>&gt;<i>     cdp_avp_bind_imsapp_avp_t imsapp; // Cx and Sh AVPs
+</I>&gt;<i>     cdp_avp_bind_epcapp_avp_t epcapp; // Rx, Gx, Gxx, Sp AVPs
+</I>&gt;<i> } cdp_avp_bind_t;
+</I>&gt;<i> 
+</I>&gt;<i> Because of the macro definitions, many IDEs do not correctly recognize
+</I>&gt;<i> the functions. For this reason, a get_reference.sh script is
+</I>available,
+&gt;<i> which lists all the available function prototypes.
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> As cdp_avp is unitary defined, using it in the CSCFs would hopefully
+</I>&gt;<i> ease the development as any mistake in the AVPs would need to be fixed
+</I>&gt;<i> in just one place. Also there are more checks performed and the
+</I>&gt;<i> data-types should be enforced. I would encourage you to use it from
+</I>now
+&gt;<i> on and we will also convert the existing Cx, e2 and Rx interface in
+</I>time
+&gt;<i> to it.
+</I>&gt;<i> 
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i> 
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002131.html">[OpenIMSCore-CSCF] New module: cdp_avp
+</A></li>
+	<LI>Next message: <A HREF="002139.html">[OpenIMSCore-CSCF] pcscf config file error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2137">[ date ]</a>
+              <a href="thread.html#2137">[ thread ]</a>
+              <a href="subject.html#2137">[ subject ]</a>
+              <a href="author.html#2137">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

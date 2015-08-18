@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r714 - really last changes before	the merge of the 08_cdp_branch
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r714%20-%20really%20last%20changes%20before%0A%09the%20merge%20of%20the%2008_cdp_branch&In-Reply-To=%3C200908120841.n7C8fmxs023142%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001771.html">
+   <LINK REL="Next"  HREF="001773.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r714 - really last changes before	the merge of the 08_cdp_branch</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r714%20-%20really%20last%20changes%20before%0A%09the%20merge%20of%20the%2008_cdp_branch&In-Reply-To=%3C200908120841.n7C8fmxs023142%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r714 - really last changes before	the merge of the 08_cdp_branch">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Aug 12 10:41:48 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001771.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r713 - -added information about	the initial OPTIONS transaction in the user_data structure,	to be used while processing the location subscription -added	information about the user_data in the subscription,	to link them -added function &quot;subscription_err_resp&quot; to send error	response to the E-CSCF when an error response to the	SUBSCRIBE is received -added function LRF_process_loc_notif	to retrieve the location information from the request and	switch to the initial OPTIONS transaction -modified the	functions: LRF_get_psap,	LRF_call_query_resp and LRF_del_user_data to be able to use the	current OPTIONS message, or , in case of using LOCSIP,	extract it from the current OPTIONS transaction that the LRF has	switched to -added function LRF_deref_crt_trans to be used	for the OPTIONS transaction after sending the OPTIONS	response after a NOTIFY has been received
+</A></li>
+        <LI>Next message: <A HREF="001773.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r715 - -added comments for the	exported functions -renamed LRF_save_user_loc to	LRF_parse_user_loc -replaced the parameters for the LOCSIP	server with the parameter locsip_srv_uri,	default value &quot;sip:locsip.open-ims.test:9180&quot; -updated the running	script for the LRF and the dns configuration file
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1772">[ date ]</a>
+              <a href="thread.html#1772">[ thread ]</a>
+              <a href="subject.html#1772">[ subject ]</a>
+              <a href="author.html#1772">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2009-08-12 10:41:47 +0200 (Wed, 12 Aug 2009)
+New Revision: 714 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=714">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=714</A> 
+
+Log:
+really last changes before the merge of the 08_cdp_branch
+
+Modified:
+   U	ser_ims/branches/08_cdp_sessions/cfg/open-ims.dnszone
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/cfg/open-ims.dnszone?rev=714&amp;view=diff&amp;r1=714&amp;r2=713">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/cfg/open-ims.dnszone?rev=714&amp;view=diff&amp;r1=714&amp;r2=713</A>
+   U	ser_ims/branches/08_cdp_sessions/cfg/pcscf.pcrf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/cfg/pcscf.pcrf.cfg?rev=714&amp;view=diff&amp;r1=714&amp;r2=713">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/cfg/pcscf.pcrf.cfg?rev=714&amp;view=diff&amp;r1=714&amp;r2=713</A>
+   U	ser_ims/branches/08_cdp_sessions/cfg/pcscf.pdf.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/cfg/pcscf.pdf.xml?rev=714&amp;view=diff&amp;r1=714&amp;r2=713">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/cfg/pcscf.pdf.xml?rev=714&amp;view=diff&amp;r1=714&amp;r2=713</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_api.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_api.c?rev=714&amp;view=diff&amp;r1=714&amp;r2=713">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_api.c?rev=714&amp;view=diff&amp;r1=714&amp;r2=713</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_msg.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_msg.c?rev=714&amp;view=diff&amp;r1=714&amp;r2=713">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_msg.c?rev=714&amp;view=diff&amp;r1=714&amp;r2=713</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/session.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.h?rev=714&amp;view=diff&amp;r1=714&amp;r2=713">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.h?rev=714&amp;view=diff&amp;r1=714&amp;r2=713</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/worker.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/worker.c?rev=714&amp;view=diff&amp;r1=714&amp;r2=713">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/worker.c?rev=714&amp;view=diff&amp;r1=714&amp;r2=713</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/mod.c?rev=714&amp;view=diff&amp;r1=714&amp;r2=713">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/mod.c?rev=714&amp;view=diff&amp;r1=714&amp;r2=713</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001771.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r713 - -added information about	the initial OPTIONS transaction in the user_data structure,	to be used while processing the location subscription -added	information about the user_data in the subscription,	to link them -added function &quot;subscription_err_resp&quot; to send error	response to the E-CSCF when an error response to the	SUBSCRIBE is received -added function LRF_process_loc_notif	to retrieve the location information from the request and	switch to the initial OPTIONS transaction -modified the	functions: LRF_get_psap,	LRF_call_query_resp and LRF_del_user_data to be able to use the	current OPTIONS message, or , in case of using LOCSIP,	extract it from the current OPTIONS transaction that the LRF has	switched to -added function LRF_deref_crt_trans to be used	for the OPTIONS transaction after sending the OPTIONS	response after a NOTIFY has been received
+</A></li>
+	<LI>Next message: <A HREF="001773.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r715 - -added comments for the	exported functions -renamed LRF_save_user_loc to	LRF_parse_user_loc -replaced the parameters for the LOCSIP	server with the parameter locsip_srv_uri,	default value &quot;sip:locsip.open-ims.test:9180&quot; -updated the running	script for the LRF and the dns configuration file
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1772">[ date ]</a>
+              <a href="thread.html#1772">[ thread ]</a>
+              <a href="subject.html#1772">[ subject ]</a>
+              <a href="author.html#1772">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

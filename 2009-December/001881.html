@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r782 - P-CSCF: moved	revert_route() call in function alter_dialog_route_set():for	a dialog in the terminating leg,	the route set of the client dialog route set has to first be reverted
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r782%20-%20P-CSCF%3A%20moved%0A%09revert_route%28%29%20call%20in%20function%20alter_dialog_route_set%28%29%3Afor%0A%09a%20dialog%20in%20the%20terminating%20leg%2C%0A%09the%20route%20set%20of%20the%20client%20dialog%20route%20set%20has%20to%20first%20be%20reverted&In-Reply-To=%3C200912011431.nB1EVv6X016823%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001880.html">
+   <LINK REL="Next"  HREF="001882.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r782 - P-CSCF: moved	revert_route() call in function alter_dialog_route_set():for	a dialog in the terminating leg,	the route set of the client dialog route set has to first be reverted</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r782%20-%20P-CSCF%3A%20moved%0A%09revert_route%28%29%20call%20in%20function%20alter_dialog_route_set%28%29%3Afor%0A%09a%20dialog%20in%20the%20terminating%20leg%2C%0A%09the%20route%20set%20of%20the%20client%20dialog%20route%20set%20has%20to%20first%20be%20reverted&In-Reply-To=%3C200912011431.nB1EVv6X016823%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r782 - P-CSCF: moved	revert_route() call in function alter_dialog_route_set():for	a dialog in the terminating leg,	the route set of the client dialog route set has to first be reverted">aon at users.berlios.de
+       </A><BR>
+    <I>Tue Dec  1 15:31:57 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001880.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r781 - fixed a bug: after	alter_dialog_route_set the route set might be empty,	changed the function alter_dialog_route_set returning type
+</A></li>
+        <LI>Next message: <A HREF="001882.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r783 - E-CSCF: removed some leaks	that might appear on error processing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1881">[ date ]</a>
+              <a href="thread.html#1881">[ thread ]</a>
+              <a href="subject.html#1881">[ subject ]</a>
+              <a href="author.html#1881">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2009-12-01 15:31:56 +0100 (Tue, 01 Dec 2009)
+New Revision: 782 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=782">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=782</A> 
+
+Log:
+P-CSCF: moved revert_route() call in function alter_dialog_route_set():for a dialog in the terminating leg, the route set of the client dialog route set has to first be reverted
+
+
+Modified:
+   U	ser_ims/branches/12_em_services/modules/pcscf/release_call.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/release_call.c?rev=782&amp;view=diff&amp;r1=782&amp;r2=781">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/release_call.c?rev=782&amp;view=diff&amp;r1=782&amp;r2=781</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001880.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r781 - fixed a bug: after	alter_dialog_route_set the route set might be empty,	changed the function alter_dialog_route_set returning type
+</A></li>
+	<LI>Next message: <A HREF="001882.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r783 - E-CSCF: removed some leaks	that might appear on error processing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1881">[ date ]</a>
+              <a href="thread.html#1881">[ thread ]</a>
+              <a href="subject.html#1881">[ subject ]</a>
+              <a href="author.html#1881">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

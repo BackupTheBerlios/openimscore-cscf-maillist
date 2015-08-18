@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] MD5 problem (using X-lite)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20MD5%20problem%20%28using%20X-lite%29&In-Reply-To=%3C003801c76c35%2420ba5f60%240b40000a%40blr.velankani.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000339.html">
+   <LINK REL="Next"  HREF="000355.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] MD5 problem (using X-lite)</H1>
+    <B>Gaurav Kansal</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20MD5%20problem%20%28using%20X-lite%29&In-Reply-To=%3C003801c76c35%2420ba5f60%240b40000a%40blr.velankani.com%3E"
+       TITLE="[OpenIMSCore-CSCF] MD5 problem (using X-lite)">gkansal at velankani.com
+       </A><BR>
+    <I>Thu Mar 22 04:49:44 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000339.html">[OpenIMSCore-CSCF] MD5 problem (using X-lite)
+</A></li>
+        <LI>Next message: <A HREF="000355.html">[OpenIMSCore-CSCF] MD5 problem (using X-lite)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#348">[ date ]</a>
+              <a href="thread.html#348">[ thread ]</a>
+              <a href="subject.html#348">[ subject ]</a>
+              <a href="author.html#348">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi PA
+
+Is there a way to get around this issue of routing of ACK? I am using
+Xlite and changed authentication to MD5 in FOKUS (S-CSCF and HSS). In
+pcscf.cfg, I have commented out checking if the message follows service
+routes.
+
+Regards,
+Gaurav Kansal
+ 
+-----Original Message-----
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+[mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>] On Behalf Of Tran
+Minh Phuong Anh
+Sent: Friday, March 16, 2007 4:21 AM
+To: Leigh Hackett; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] MD5 problem (using X-lite)
+
+Hi,
+
+I met this problem before. I remember the problem is something with
+routing of non-initial request (ACK, BYE) with X-Lite. That's why
+after 32 seconds (SIP Timer B) the call ends. I think that's also the
+reason with your hang up problem.
+
+Phuong Anh
+
+On 3/15/07, Leigh Hackett &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Leigh.Hackett at t-mobile.co.uk</A>&gt; wrote:
+&gt;<i> When I hang up the originator whilst waiting for an answer the
+</I>&gt;<i> destination continues to ring... but I have some SIP/Diameter traces
+</I>so
+&gt;<i> I will try to figure that out.
+</I>_______________________________________________
+OpenIMSCore-CSCF mailing list
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000339.html">[OpenIMSCore-CSCF] MD5 problem (using X-lite)
+</A></li>
+	<LI>Next message: <A HREF="000355.html">[OpenIMSCore-CSCF] MD5 problem (using X-lite)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#348">[ date ]</a>
+              <a href="thread.html#348">[ thread ]</a>
+              <a href="subject.html#348">[ subject ]</a>
+              <a href="author.html#348">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

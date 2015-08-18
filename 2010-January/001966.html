@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] deadlock in dlg
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20deadlock%20in%20dlg&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A021802FA%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001962.html">
+   <LINK REL="Next"  HREF="001968.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] deadlock in dlg</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20deadlock%20in%20dlg&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A021802FA%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] deadlock in dlg">wang at basis-audionet.com
+       </A><BR>
+    <I>Thu Jan 14 19:39:51 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001962.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r810 - Re-fixed the free of the	pcc_session_id in the dlg and contact on AAR failure.
+</A></li>
+        <LI>Next message: <A HREF="001968.html">[OpenIMSCore-CSCF] deadlock in dlg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1966">[ date ]</a>
+              <a href="thread.html#1966">[ thread ]</a>
+              <a href="subject.html#1966">[ subject ]</a>
+              <a href="author.html#1966">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi
+
+I have tried the 13_pcc_fixing, with alice calling bob etc. Make a
+couple of calls, then it will be deadlock.
+
+The gdb showed somehow it is deadlock in the dialog.
+
+Proc1
+#0  0xb7f3a424 in __kernel_vsyscall ()
+#1  0xb7e7bfac in sched_yield () from /lib/i686/cmov/libc.so.6
+#2  0xb7a2c935 in print_p_dialogs () from /usr/lib/ser/modules/pcscf.so
+#3  0xb7a30623 in P_save_dialog () from /usr/lib/ser/modules/pcscf.so
+#4  0x08054727 in do_action ()
+#5  0x08056471 in run_actions ()
+#6  0x080992e0 in eval_expr ()
+#7  0x08098ee7 in eval_expr ()
+#8  0x08054475 in do_action ()
+#9  0x08056471 in run_actions ()
+#10 0x08054616 in do_action ()
+#11 0x08056471 in run_actions ()
+#12 0x080544bc in do_action ()
+#13 0x08056471 in run_actions ()
+#14 0x08055aed in do_action ()
+#15 0x08056471 in run_actions ()
+#16 0x080544bc in do_action ()
+#17 0x08056471 in run_actions ()
+#18 0x080916bf in receive_msg ()
+#19 0x080c920d in udp_rcv_loop ()
+#20 0x0807a2e0 in main_loop ()
+#21 0x0807c29d in main ()
+
+
+
+Proc2
+#0  0xb7f3a424 in __kernel_vsyscall ()
+#1  0xb7e7bfac in sched_yield () from /lib/i686/cmov/libc.so.6
+#2  0xb7a2c935 in print_p_dialogs () from /usr/lib/ser/modules/pcscf.so
+#3  0xb7a31251 in P_update_dialog () from /usr/lib/ser/modules/pcscf.so
+#4  0x08054727 in do_action ()
+#5  0x08056471 in run_actions ()
+#6  0x08054616 in do_action ()
+#7  0x08056471 in run_actions ()
+#8  0x080544bc in do_action ()
+#9  0x08056471 in run_actions ()
+#10 0x080544bc in do_action ()
+#11 0x08056471 in run_actions ()
+#12 0x080544bc in do_action ()
+#13 0x08056471 in run_actions ()
+#14 0x080916bf in receive_msg ()
+#15 0x080c920d in udp_rcv_loop ()
+#16 0x0807a2e0 in main_loop ()
+#17 0x0807c29d in main ()
+
+Proc3
+(gdb) bt
+#0  0xb7f3a424 in __kernel_vsyscall ()
+#1  0xb7e7bfac in sched_yield () from /lib/i686/cmov/libc.so.6
+#2  0xb7a2f555 in get_p_dialog_dir () from /usr/lib/ser/modules/pcscf.so
+#3  0xb7a5bb66 in confirmed_response () from
+/usr/lib/ser/modules/pcscf.so
+#4  0xb7d82962 in run_trans_callbacks () from /usr/lib/ser/modules/tm.so
+#5  0xb7d984c3 in local_reply () from /usr/lib/ser/modules/tm.so
+#6  0xb7d8323d in ?? () from /usr/lib/ser/modules/tm.so
+#7  0xb5b67560 in ?? ()
+#8  0xffffffff in ?? ()
+#9  0x00000000 in ?? ()
+
+
+
+Kind Regards
+ 
+Min Wang
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001962.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r810 - Re-fixed the free of the	pcc_session_id in the dlg and contact on AAR failure.
+</A></li>
+	<LI>Next message: <A HREF="001968.html">[OpenIMSCore-CSCF] deadlock in dlg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1966">[ date ]</a>
+              <a href="thread.html#1966">[ thread ]</a>
+              <a href="subject.html#1966">[ subject ]</a>
+              <a href="author.html#1966">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

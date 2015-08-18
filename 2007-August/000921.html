@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [PCSCF] Trying to build SAs with	IMS-Communicator
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BPCSCF%5D%20Trying%20to%20build%20SAs%20with%0A%09IMS-Communicator&In-Reply-To=%3C46BD7E36.3050600%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000913.html">
+   <LINK REL="Next"  HREF="000914.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [PCSCF] Trying to build SAs with	IMS-Communicator</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BPCSCF%5D%20Trying%20to%20build%20SAs%20with%0A%09IMS-Communicator&In-Reply-To=%3C46BD7E36.3050600%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [PCSCF] Trying to build SAs with	IMS-Communicator">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Sat Aug 11 11:15:34 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000913.html">[OpenIMSCore-CSCF] [PCSCF] Trying to build SAs with IMS-Communicator
+</A></li>
+        <LI>Next message: <A HREF="000914.html">[OpenIMSCore-CSCF] ISC interface Spec(Origination&amp;Termination)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#921">[ date ]</a>
+              <a href="thread.html#921">[ thread ]</a>
+              <a href="subject.html#921">[ subject ]</a>
+              <a href="author.html#921">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Klemens,
+
+Because of technical difficulties, we had to limit the incoming port for
+the P-CSCF IPSec and non-IPSec (clear) traffic to the same port.
+
+Then the SA is set in such a manner that it will ONLY accept encrypted
+messages. The filtering is done at the kernel level, before the messages
+reach the P-CSCF - so no logging on the P-CSCF process is possible.
+Because there is no flag on each message that the P-CSCF could check on
+whether the message came over an encrypted or unencrypted connection,
+all the unencrypted messages are discarded in this way. Anyway, these
+messages could be attacks. So the solution would be to use a different
+IP:Port on the UE for encrypted/unencrypted traffic.
+
+-Dragos
+
+Klemens Schragel wrote:
+&gt;<i> Hello All,
+</I>&gt;<i>
+</I>&gt;<i> I was trying to Register an IMS-Communicator over IPSec and had some problems (especially because the IMS-Communicator ignored the IPSec SAs)...
+</I>&gt;<i>
+</I>&gt;<i> My question is basically about behaviour of the PCSCF:
+</I>&gt;<i> when 401 with security-server header is transmitted to the UE, PCSCF executes ipsec_P_Inc_Req.sh and awaits a message over this SA, but because my IMS-Communicator ignores the SAs it sends normal messages.
+</I>&gt;<i> If the the standard UE Client-port and the standard PCSCF Server-port are the same as within the one SA, the PCSCF does not react on unencrypted messages at all as if it would not receive any messages. I.e. I can trace with TCPDUMP the SIP-Messages at the server-IF as usual, but the debugger does not react.
+</I>&gt;<i> I think this behaviour is caused by the setkey command of ipsec_P_Inc_Req.sh, because every triggering of the PCSCF-modul would have caused some kind of logging/debugging...
+</I>&gt;<i> unfortunately I currently don't know much about that command... is there some kind of debugging intended for this special case?
+</I>&gt;<i>
+</I>&gt;<i> Br, Klemens
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000913.html">[OpenIMSCore-CSCF] [PCSCF] Trying to build SAs with IMS-Communicator
+</A></li>
+	<LI>Next message: <A HREF="000914.html">[OpenIMSCore-CSCF] ISC interface Spec(Origination&amp;Termination)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#921">[ date ]</a>
+              <a href="thread.html#921">[ thread ]</a>
+              <a href="subject.html#921">[ subject ]</a>
+              <a href="author.html#921">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

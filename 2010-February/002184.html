@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r909 - Reduced some logging in cdp
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r909%20-%20Reduced%20some%20logging%20in%20cdp&In-Reply-To=%3C201002191457.o1JEvIru027940%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002183.html">
+   <LINK REL="Next"  HREF="002185.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r909 - Reduced some logging in cdp</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r909%20-%20Reduced%20some%20logging%20in%20cdp&In-Reply-To=%3C201002191457.o1JEvIru027940%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r909 - Reduced some logging in cdp">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Fri Feb 19 15:57:18 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002183.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r908 - now handling also the	protocol of the media streams: udp or tcp
+</A></li>
+        <LI>Next message: <A HREF="002185.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r910 - Changed CDP from using SYSV	semaphores to unname posix semaphores. Hopefully this way we	won't run out of semaphores on crashes.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2184">[ date ]</a>
+              <a href="thread.html#2184">[ thread ]</a>
+              <a href="subject.html#2184">[ subject ]</a>
+              <a href="author.html#2184">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2010-02-19 15:56:51 +0100 (Fri, 19 Feb 2010)
+New Revision: 909 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=909">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=909</A> 
+
+Log:
+Reduced some logging in cdp
+
+Modified:
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/peermanager.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/peermanager.c?rev=909&amp;view=diff&amp;r1=909&amp;r2=908">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/peermanager.c?rev=909&amp;view=diff&amp;r1=909&amp;r2=908</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/session.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/session.c?rev=909&amp;view=diff&amp;r1=909&amp;r2=908">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/session.c?rev=909&amp;view=diff&amp;r1=909&amp;r2=908</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/tcp_accept.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/tcp_accept.c?rev=909&amp;view=diff&amp;r1=909&amp;r2=908">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/tcp_accept.c?rev=909&amp;view=diff&amp;r1=909&amp;r2=908</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/transaction.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/transaction.c?rev=909&amp;view=diff&amp;r1=909&amp;r2=908">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/transaction.c?rev=909&amp;view=diff&amp;r1=909&amp;r2=908</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002183.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r908 - now handling also the	protocol of the media streams: udp or tcp
+</A></li>
+	<LI>Next message: <A HREF="002185.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r910 - Changed CDP from using SYSV	semaphores to unname posix semaphores. Hopefully this way we	won't run out of semaphores on crashes.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2184">[ date ]</a>
+              <a href="thread.html#2184">[ thread ]</a>
+              <a href="subject.html#2184">[ subject ]</a>
+              <a href="author.html#2184">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r640 - added the missing file for	parsing the Geolocation header added the library for parsing	PIDF-Location Objects,	and the LoST client --&gt; lost added the E-CSCF and LRF implementations
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r640%20-%20added%20the%20missing%20file%20for%0A%09parsing%20the%20Geolocation%20header%20added%20the%20library%20for%20parsing%0A%09PIDF-Location%20Objects%2C%0A%09and%20the%20LoST%20client%20--%3E%20lost%20added%20the%20E-CSCF%20and%20LRF%20implementations&In-Reply-To=%3C200904091441.n39EfJJ0032733%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001670.html">
+   <LINK REL="Next"  HREF="001672.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r640 - added the missing file for	parsing the Geolocation header added the library for parsing	PIDF-Location Objects,	and the LoST client --&gt; lost added the E-CSCF and LRF implementations</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r640%20-%20added%20the%20missing%20file%20for%0A%09parsing%20the%20Geolocation%20header%20added%20the%20library%20for%20parsing%0A%09PIDF-Location%20Objects%2C%0A%09and%20the%20LoST%20client%20--%3E%20lost%20added%20the%20E-CSCF%20and%20LRF%20implementations&In-Reply-To=%3C200904091441.n39EfJJ0032733%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r640 - added the missing file for	parsing the Geolocation header added the library for parsing	PIDF-Location Objects,	and the LoST client --&gt; lost added the E-CSCF and LRF implementations">aon at users.berlios.de
+       </A><BR>
+    <I>Thu Apr  9 16:41:19 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001670.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r639 - *modified the parser to	parse the Geolocation header *changed the r_contact structure	and the function get_r_contact from the P-CSCF to have a mask	for registration type: NORMAL_REG,	EMERG_REG and ANY_REG very useful in functions that need to search	for a contact with a specific type of registration and other	functions that ignore this,	but also call r_get_contact *added exported function	P_is_em_registered() to check if a contact was registered for	Emergency Services,	P_is_registered() is checking now only for normal registration	*modified the Makefiles because a new library will be added	*modified the TM module: added new functions accessible from	other modules to support implementation of the E-CSCF and LRF
+</A></li>
+        <LI>Next message: <A HREF="001672.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r641 - added scripts for E-CSCF	and LRF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1671">[ date ]</a>
+              <a href="thread.html#1671">[ thread ]</a>
+              <a href="subject.html#1671">[ subject ]</a>
+              <a href="author.html#1671">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2009-04-09 16:41:09 +0200 (Thu, 09 Apr 2009)
+New Revision: 640 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=640">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=640</A> 
+
+Log:
+added the missing file for parsing the Geolocation header
+added the library for parsing PIDF-Location Objects, and the LoST client --&gt; lost
+added the E-CSCF and LRF implementations
+
+
+Added:
+   A	ser_ims/branches/12_em_services/lib/lost/
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/?rev=640">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/?rev=640</A>
+   A	ser_ims/branches/12_em_services/lib/lost/Makefile
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/Makefile?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/Makefile?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/lib/lost/Makefile.ser
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/Makefile.ser?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/Makefile.ser?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/lib/lost/client.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/client.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/client.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/lib/lost/client.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/client.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/client.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/lib/lost/parsing.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/parsing.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/parsing.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/lib/lost/parsing.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/parsing.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/parsing.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/lib/lost/pidf_loc.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/pidf_loc.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/pidf_loc.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/lib/lost/pidf_loc.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/pidf_loc.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/pidf_loc.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/?rev=640">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/?rev=640</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/Makefile
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/Makefile?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/Makefile?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/auth_api.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/auth_api.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/auth_api.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/auth_api.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/auth_api.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/auth_api.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/dlg_state.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/lrf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/lrf.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/mod.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/mod.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/mod.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/mod.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/mod.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/parse_content.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/parse_content.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/parse_content.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/parse_content.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/parse_content.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/parse_content.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/release_call.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/release_call.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/release_call.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/release_call.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/release_call.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/release_call.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/route.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/route.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/route.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/route.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/route.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/route.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/sdp_helpr_funcs.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/sdp_helpr_funcs.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/sdp_helpr_funcs.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/sdp_helpr_funcs.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/sdp_helpr_funcs.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/sdp_helpr_funcs.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/sip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/sip.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/sip.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/ecscf/sip.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/sip.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/sip.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/?rev=640">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/?rev=640</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/Makefile
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/Makefile?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/Makefile?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/auth_api.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/auth_api.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/auth_api.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/auth_api.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/auth_api.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/auth_api.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/lost.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/lost.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/lost.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/lost.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/lost.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/lost.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/mod.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/mod.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/mod.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/mod.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/mod.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/parse_content.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/parse_content.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/parse_content.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/parse_content.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/parse_content.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/parse_content.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/sdp_helpr_funcs.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/sdp_helpr_funcs.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/sdp_helpr_funcs.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/sdp_helpr_funcs.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/sdp_helpr_funcs.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/sdp_helpr_funcs.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/sip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/sip.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/sip.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/sip.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/sip.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/sip.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/user_data.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/user_data.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/user_data.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/lrf/user_data.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/user_data.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/user_data.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/parser/case_geol.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/parser/case_geol.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/parser/case_geol.h?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/parser/parse_geoloc.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/parser/parse_geoloc.c?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/parser/parse_geoloc.c?rev=640&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/parser/parse_geoloc.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/parser/parse_geoloc.h?rev=640&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/parser/parse_geoloc.h?rev=640&amp;view=markup</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001670.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r639 - *modified the parser to	parse the Geolocation header *changed the r_contact structure	and the function get_r_contact from the P-CSCF to have a mask	for registration type: NORMAL_REG,	EMERG_REG and ANY_REG very useful in functions that need to search	for a contact with a specific type of registration and other	functions that ignore this,	but also call r_get_contact *added exported function	P_is_em_registered() to check if a contact was registered for	Emergency Services,	P_is_registered() is checking now only for normal registration	*modified the Makefiles because a new library will be added	*modified the TM module: added new functions accessible from	other modules to support implementation of the E-CSCF and LRF
+</A></li>
+	<LI>Next message: <A HREF="001672.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r641 - added scripts for E-CSCF	and LRF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1671">[ date ]</a>
+              <a href="thread.html#1671">[ thread ]</a>
+              <a href="subject.html#1671">[ subject ]</a>
+              <a href="author.html#1671">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

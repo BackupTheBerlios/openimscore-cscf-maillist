@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r553 - Cleaned-up the P-CSCF	dialog handling. Fixed partly the can't call yourself bug.	Still breaks on dialog terminating side sending BYE. Will	need proper from/to tag handling to fix completly.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r553%20-%20Cleaned-up%20the%20P-CSCF%0A%09dialog%20handling.%20Fixed%20partly%20the%20can%27t%20call%20yourself%20bug.%0A%09Still%20breaks%20on%20dialog%20terminating%20side%20sending%20BYE.%20Will%0A%09need%20proper%20from/to%20tag%20handling%20to%20fix%20completly.&In-Reply-To=%3C200804171742.m3HHgJII019475%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001289.html">
+   <LINK REL="Next"  HREF="001294.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r553 - Cleaned-up the P-CSCF	dialog handling. Fixed partly the can't call yourself bug.	Still breaks on dialog terminating side sending BYE. Will	need proper from/to tag handling to fix completly.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r553%20-%20Cleaned-up%20the%20P-CSCF%0A%09dialog%20handling.%20Fixed%20partly%20the%20can%27t%20call%20yourself%20bug.%0A%09Still%20breaks%20on%20dialog%20terminating%20side%20sending%20BYE.%20Will%0A%09need%20proper%20from/to%20tag%20handling%20to%20fix%20completly.&In-Reply-To=%3C200804171742.m3HHgJII019475%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r553 - Cleaned-up the P-CSCF	dialog handling. Fixed partly the can't call yourself bug.	Still breaks on dialog terminating side sending BYE. Will	need proper from/to tag handling to fix completly.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Thu Apr 17 19:42:19 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001289.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r552 - Fixed the issue with	subscriptions being deleted on terminating user	de-registering - only originating session are dropped on	de-registration. Improved detection of S_is_in_dialog() to	fix some of the bugs related to the case when a user calls himself.
+</A></li>
+        <LI>Next message: <A HREF="001294.html">[OpenIMSCore-CSCF] openSER IMS distribution
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1290">[ date ]</a>
+              <a href="thread.html#1290">[ thread ]</a>
+              <a href="subject.html#1290">[ subject ]</a>
+              <a href="author.html#1290">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2008-04-17 19:42:18 +0200 (Thu, 17 Apr 2008)
+New Revision: 553 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=553">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=553</A> 
+
+Log:
+Cleaned-up the P-CSCF dialog handling.
+Fixed partly the can't call yourself bug. Still breaks on dialog terminating side sending BYE. Will need proper from/to tag handling to fix completly.
+
+
+Modified:
+   U	ser_ims/trunk/modules/pcscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?rev=553&amp;view=diff&amp;r1=553&amp;r2=552">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?rev=553&amp;view=diff&amp;r1=553&amp;r2=552</A>
+   U	ser_ims/trunk/modules/pcscf/dlg_state.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.h?rev=553&amp;view=diff&amp;r1=553&amp;r2=552">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.h?rev=553&amp;view=diff&amp;r1=553&amp;r2=552</A>
+   U	ser_ims/trunk/modules/scscf/sip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.c?rev=553&amp;view=diff&amp;r1=553&amp;r2=552">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.c?rev=553&amp;view=diff&amp;r1=553&amp;r2=552</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001289.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r552 - Fixed the issue with	subscriptions being deleted on terminating user	de-registering - only originating session are dropped on	de-registration. Improved detection of S_is_in_dialog() to	fix some of the bugs related to the case when a user calls himself.
+</A></li>
+	<LI>Next message: <A HREF="001294.html">[OpenIMSCore-CSCF] openSER IMS distribution
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1290">[ date ]</a>
+              <a href="thread.html#1290">[ thread ]</a>
+              <a href="subject.html#1290">[ subject ]</a>
+              <a href="author.html#1290">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

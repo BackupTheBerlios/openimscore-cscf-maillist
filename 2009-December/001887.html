@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] p-cscf persistency_mode: for pcscf_dialog
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%20persistency_mode%3A%20for%20pcscf_dialog&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A0217FB5A%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001891.html">
+   <LINK REL="Next"  HREF="001892.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] p-cscf persistency_mode: for pcscf_dialog</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%20persistency_mode%3A%20for%20pcscf_dialog&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A0217FB5A%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] p-cscf persistency_mode: for pcscf_dialog">wang at basis-audionet.com
+       </A><BR>
+    <I>Wed Dec 16 17:00:09 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001891.html">[OpenIMSCore-CSCF] error message after 200OK in AKA process
+</A></li>
+        <LI>Next message: <A HREF="001892.html">[OpenIMSCore-CSCF] p-cscf persistency_mode: for pcscf_dialog
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1887">[ date ]</a>
+              <a href="thread.html#1887">[ thread ]</a>
+              <a href="subject.html#1887">[ subject ]</a>
+              <a href="author.html#1887">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi 
+
+It seems the p-cscf persistency_mode saves the p-dialog, but has not
+save tm.
+
+
+
+Under some weird crash, the p-dialog PERSITANCEY db was left in a weird
+condition, after restarting, the p-dialog in turn needs to call some TM
+transaction which does not exist, thus system will crash again!
+
+
+Does it make sense to save dialog without saving transaction?
+
+
+
+
+Kind Regards
+ 
+Min Wang
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001891.html">[OpenIMSCore-CSCF] error message after 200OK in AKA process
+</A></li>
+	<LI>Next message: <A HREF="001892.html">[OpenIMSCore-CSCF] p-cscf persistency_mode: for pcscf_dialog
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1887">[ date ]</a>
+              <a href="thread.html#1887">[ thread ]</a>
+              <a href="subject.html#1887">[ subject ]</a>
+              <a href="author.html#1887">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

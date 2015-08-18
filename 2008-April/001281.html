@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Deregister Contact
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Deregister%20Contact&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C0330925D%40INOAVREX05.ptin.corpPT.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001280.html">
+   <LINK REL="Next"  HREF="001282.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Deregister Contact</H1>
+    <B>Roberto Lu&#237;s Paradinha</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Deregister%20Contact&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C0330925D%40INOAVREX05.ptin.corpPT.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Deregister Contact">est-r-paradinha at ptinovacao.pt
+       </A><BR>
+    <I>Tue Apr  1 15:51:21 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001280.html">[OpenIMSCore-CSCF] RegistrationType parsing fix
+</A></li>
+        <LI>Next message: <A HREF="001282.html">[OpenIMSCore-CSCF] Registration Problem in Open IMS Core
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1281">[ date ]</a>
+              <a href="thread.html#1281">[ thread ]</a>
+              <a href="subject.html#1281">[ subject ]</a>
+              <a href="author.html#1281">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi Dragos,
+
+I do not think so.
+
+Cheers,
+Roberto Luis Paradinha
+
+-----Original Message-----
+From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]
+Sent: Fri 3/28/2008 9:33 PM
+To: Roberto Lu&#237;s Paradinha
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] Deregister Contact
+ 
+Hi Roberto,
+
+I applied your patch with some minor changes since r545:
+- added initialization just-in-case; remove some redundant code
+- reduced the size of the code a little
+- changed the case when there are no contacts from error to return true 
+and skip SAR - else this would break the simple binding fetch operation
+
+There's still one bug left though, but I don't know if it is worth 
+fixing - if the client sends the same contact multiple times, this would 
+be buggy... but this won't happen, right?:o)
+
+Cheers,
+-Dragos
+
+Roberto Lu&#237;s Paradinha wrote:
+&gt;<i> Hi Dragos,
+</I>&gt;<i>
+</I>&gt;<i> On the first point, this was the behavior we where expecting and do not think it has a negative impact.
+</I>&gt;<i> Regarding the second point, there was an issue which we already solved. The SAR request is only sent if the deregister is for the last contact or when deregister for all contacts.
+</I>&gt;<i> Attached follows the patch.
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> Roberto Luis Paradinha
+</I>&gt;<i>
+</I>&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]
+</I>&gt;<i> Sent: Tue 3/25/2008 8:32 PM
+</I>&gt;<i> To: Roberto Lu&#237;s Paradinha
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] Deregister Contact
+</I>&gt;<i>  
+</I>&gt;<i> Hi Roberto,
+</I>&gt;<i>
+</I>&gt;<i> I was trying to merge the patch below today and I found 2 issues with it:
+</I>&gt;<i>
+</I>&gt;<i> 1) not big, but must be noted - once this is committed, any changes in 
+</I>&gt;<i> the service profile won't be downloaded anymore with the 
+</I>&gt;<i> re-registration, like it happens conveniently now. This I think helped a 
+</I>&gt;<i> lot in testing services without PPR-ing...
+</I>&gt;<i>
+</I>&gt;<i> 2) what happens if multiple contacts are deregistered in the same 
+</I>&gt;<i> deregistration and a SAR is actually required? What happens for a 
+</I>&gt;<i> starred contact?
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Roberto Lu&#237;s Paradinha wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> There is no need to upgrade, this is working fine with your HSS.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Cheers,
+</I>&gt;&gt;<i> Roberto Luis Paradinha
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -----Original Message-----
+</I>&gt;&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]
+</I>&gt;&gt;<i> Sent: Thu 3/20/2008 5:22 PM
+</I>&gt;&gt;<i> To: Roberto Lu&#237;s Paradinha
+</I>&gt;&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;<i> Subject: Re: [OpenIMSCore-CSCF] Deregister Contact
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i> Hi Roberto,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Sorry for the delay, I've been traveling for some time...
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Is this working fine with our HSS or it also needs an upgrade?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Cheers,
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Roberto Lu&#237;s Paradinha wrote:
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Hi,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> We implemented the solution to what has been discussed here in the thread:
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> <A HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-February/001628.html">http://lists.berlios.de/pipermail/openimscore-cscf/2008-February/001628.html</A>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> We also changed the behaviour for downloading the user profile. Now we only use the User-Data-Already-Available AVP with USER_DATA_NOT_AVAILABLE on the first registration. I don't know if you agree with this?  
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Here is that patch we used to solve this:
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> +++ ser_ims_538_update/modules/scscf/registrar.c        2008-03-07 17:06:57.361845912 +0000
+</I>&gt;&gt;&gt;<i> @@ -306,6 +306,8 @@
+</I>&gt;&gt;&gt;<i>         int assignment_type = AVP_IMS_SAR_NO_ASSIGNMENT;
+</I>&gt;&gt;&gt;<i>         int data_available = AVP_IMS_SAR_USER_DATA_NOT_AVAILABLE;
+</I>&gt;&gt;&gt;<i>         int expires;
+</I>&gt;&gt;&gt;<i> +       r_public *p;
+</I>&gt;&gt;&gt;<i> +       int require_user_data=0;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>         LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_assign_server: Assigning server...\n&quot;);
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> @@ -335,20 +337,38 @@
+</I>&gt;&gt;&gt;<i>         if (expires&gt;0) {
+</I>&gt;&gt;&gt;<i>                 if (r_is_registered_id(public_identity))
+</I>&gt;&gt;&gt;<i>                         assignment_type = AVP_IMS_SAR_RE_REGISTRATION;
+</I>&gt;&gt;&gt;<i> -               else
+</I>&gt;&gt;&gt;<i> +               else{
+</I>&gt;&gt;&gt;<i>                         assignment_type = AVP_IMS_SAR_REGISTRATION;
+</I>&gt;&gt;&gt;<i> +                       require_user_data=1;
+</I>&gt;&gt;&gt;<i> +               }
+</I>&gt;&gt;&gt;<i>         }
+</I>&gt;&gt;&gt;<i>         else {
+</I>&gt;&gt;&gt;<i>                 if (server_assignment_store_data)
+</I>&gt;&gt;&gt;<i>                         assignment_type = AVP_IMS_SAR_USER_DEREGISTRATION_STORE_SERVER_NAME;
+</I>&gt;&gt;&gt;<i>                 else assignment_type = AVP_IMS_SAR_USER_DEREGISTRATION;
+</I>&gt;&gt;&gt;<i> +
+</I>&gt;&gt;&gt;<i> +               p = get_r_public(public_identity);
+</I>&gt;&gt;&gt;<i> +
+</I>&gt;&gt;&gt;<i> +               if(!p)  goto error;
+</I>&gt;&gt;&gt;<i> +
+</I>&gt;&gt;&gt;<i> +               if(p-&gt;head &amp;&amp; p-&gt;head-&gt;next){
+</I>&gt;&gt;&gt;<i> +                       if(p)   r_unlock(p-&gt;hash);
+</I>&gt;&gt;&gt;<i> +                       drop_auth_userdata(private_identity,public_identity);
+</I>&gt;&gt;&gt;<i> +                       ret = save_location(msg,assignment_type,0,0,0,0,0);
+</I>&gt;&gt;&gt;<i> +                       return ret;
+</I>&gt;&gt;&gt;<i> +               }
+</I>&gt;&gt;&gt;<i> +               if(p)   r_unlock(p-&gt;hash);
+</I>&gt;&gt;&gt;<i>         }
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>         //TODO
+</I>&gt;&gt;&gt;<i>         //if (userdataavailable) data_available = AVP_IMS_SAR_USER_DATA_ALREADY_AVAILABLE;
+</I>&gt;&gt;&gt;<i>         //else
+</I>&gt;&gt;&gt;<i> -       data_available = AVP_IMS_SAR_USER_DATA_NOT_AVAILABLE;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> +       if(require_user_data)
+</I>&gt;&gt;&gt;<i> +               data_available = AVP_IMS_SAR_USER_DATA_NOT_AVAILABLE;
+</I>&gt;&gt;&gt;<i> +       else
+</I>&gt;&gt;&gt;<i> +               data_available = AVP_IMS_SAR_USER_DATA_ALREADY_AVAILABLE;
+</I>&gt;&gt;&gt;<i> +
+</I>&gt;&gt;&gt;<i>         ret = SAR(msg,realm,public_identity,private_identity,assignment_type,data_available);
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Best Regards,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Roberto Luis Paradinha
+</I>&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001280.html">[OpenIMSCore-CSCF] RegistrationType parsing fix
+</A></li>
+	<LI>Next message: <A HREF="001282.html">[OpenIMSCore-CSCF] Registration Problem in Open IMS Core
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1281">[ date ]</a>
+              <a href="thread.html#1281">[ thread ]</a>
+              <a href="subject.html#1281">[ subject ]</a>
+              <a href="author.html#1281">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

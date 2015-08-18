@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r36 - ser_ims/trunk/modules/pcscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r36%20-%20ser_ims/trunk/modules/pcscf&In-Reply-To=%3C200611291857.kATIvASR017328%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000008.html">
+   <LINK REL="Next"  HREF="000010.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r36 - ser_ims/trunk/modules/pcscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r36%20-%20ser_ims/trunk/modules/pcscf&In-Reply-To=%3C200611291857.kATIvASR017328%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r36 - ser_ims/trunk/modules/pcscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Nov 29 19:57:10 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000008.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r35 - in ser_ims/trunk/modules:	icscf pcscf scscf
+</A></li>
+        <LI>Next message: <A HREF="000010.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r37 - in ser_ims/trunk: .	modules/isc modules/pcscf modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2006-11-29 19:57:09 +0100 (Wed, 29 Nov 2006)
+New Revision: 36
+
+Modified:
+   ser_ims/trunk/modules/pcscf/dlg_state.c
+   ser_ims/trunk/modules/pcscf/registration.c
+Log:
+Fixed P_enforce_dialog_routes() do drop old routes.
+removed unused variable.
+
+
+Modified: ser_ims/trunk/modules/pcscf/dlg_state.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/dlg_state.c	2006-11-29 18:52:20 UTC (rev 35)
++++ ser_ims/trunk/modules/pcscf/dlg_state.c	2006-11-29 18:57:09 UTC (rev 36)
+@@ -959,7 +959,12 @@
+ 	//LOG(L_ERR,&quot;%.*s&quot;,x.len,x.s);
+ 	d_unlock(d-&gt;hash);
+ 	if (cscf_add_header_first(msg,&amp;x)) {
+-		return CSCF_RETURN_TRUE;
++		if (cscf_del_all_headers(msg,HDR_ROUTE_T))
++			return CSCF_RETURN_TRUE;
++		else {
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:P_enforce_dialog_routes: new Route headers added, but failed to drop old ones.\n&quot;);
++			return CSCF_RETURN_ERROR;
++		}
+ 	}
+ 	else {
+ 		if (x.s) pkg_free(x.s);
+
+Modified: ser_ims/trunk/modules/pcscf/registration.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/registration.c	2006-11-29 18:52:20 UTC (rev 35)
++++ ser_ims/trunk/modules/pcscf/registration.c	2006-11-29 18:57:09 UTC (rev 36)
+@@ -928,7 +928,6 @@
+ 	struct via_body *vb;
+ 	r_contact *c;
+ 	str x;
+-	struct hdr_field *h;
+ 		
+ 	vb = cscf_get_ue_via(msg,pcscf_sip2ims_via_host,pcscf_sip2ims_via_port);
+ 	
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000008.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r35 - in ser_ims/trunk/modules:	icscf pcscf scscf
+</A></li>
+	<LI>Next message: <A HREF="000010.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r37 - in ser_ims/trunk: .	modules/isc modules/pcscf modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

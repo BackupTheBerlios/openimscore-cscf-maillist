@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Not able to connect HSS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Not%20able%20to%20connect%20HSS&In-Reply-To=%3C089781E831473740B23334AE52636CD30154DA82%40SINBNGEX001.TechMahindra.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000446.html">
+   <LINK REL="Next"  HREF="000448.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Not able to connect HSS</H1>
+    <B>Nagaraj K</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Not%20able%20to%20connect%20HSS&In-Reply-To=%3C089781E831473740B23334AE52636CD30154DA82%40SINBNGEX001.TechMahindra.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Not able to connect HSS">knraj at TechMahindra.com
+       </A><BR>
+    <I>Tue Apr 17 13:19:46 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000446.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r230 - Removed non-compilable	sip_router from SVN.
+</A></li>
+        <LI>Next message: <A HREF="000448.html">[OpenIMSCore-CSCF] Not able to connect HSS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#447">[ date ]</a>
+              <a href="thread.html#447">[ thread ]</a>
+              <a href="subject.html#447">[ subject ]</a>
+              <a href="author.html#447">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Babu,
+
+I have used default configuration (open-ims.test &amp; 127.0.0.1). I thing
+we have nothing to do with IP address.
+
+ 
+
+ 
+
+Regards,
+
+Naga
+
+ 
+
+________________________________
+
+From: Babu George [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bgeorge at aylus.com</A>] 
+Sent: Tuesday, April 17, 2007 2:10 PM
+To: Nagaraj K; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: RE: [OpenIMSCore-CSCF] Not able to connect HSS
+
+ 
+
+Nagraj, 
+
+ You have to update the config file also for this, ie
+scscf.cfg,pcscf.cfg&amp;icscf.cfg under /opt/OpenIMSCore 
+
+Regards 
+
+Babu 
+
+ 
+
+________________________________
+
+   
+
+From: Nagaraj K [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">knraj at TechMahindra.com</A>] 
+Sent: Tuesday, April 17, 2007 1:11 PM
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: [OpenIMSCore-CSCF] Not able to connect HSS 
+
+ 
+
+Hello all, 
+
+We have changed our IP address of the machine where open IMS installed. 
+
+After this HSS and I-CSCF, S-CSCF are not connected each other. 
+
+If we change bind address in DiameterPeer.xml to eth0 IP address
+(10.20.4.242) instead of 127.0.0.1 works fine. 
+
+But when we communicate using IMS-Communicator timeout error occurs. 
+
+If we change the IP address then what we need to change in
+configuration? 
+
+ 
+
+Regards, 
+
+Naga 
+
+   
+
+========================================================================
+====================================================
+
+Disclaimer:
+
+This message and the information contained herein is proprietary and
+confidential and subject to the Tech Mahindra policy statement, you may
+review at <A HREF="http://www.techmahindra.com/Disclaimer.html">http://www.techmahindra.com/Disclaimer.html</A> externally and
+<A HREF="http://tim.techmahindra.com/Disclaimer.html">http://tim.techmahindra.com/Disclaimer.html</A> internally within Tech
+Mahindra.
+
+========================================================================
+====================================================
+	
+
+
+
+============================================================================================================================
+ 
+Disclaimer:
+
+This message and the information contained herein is proprietary and confidential and subject to the Tech Mahindra policy statement, you may review at &lt;a href=&quot;<A HREF="http://www.techmahindra.com/Disclaimer.html">http://www.techmahindra.com/Disclaimer.html</A>&quot;&gt;<A HREF="http://www.techmahindra.com/Disclaimer.html&lt;/a">http://www.techmahindra.com/Disclaimer.html&lt;/a</A>&gt; externally and &lt;a href=&quot;<A HREF="http://tim.techmahindra.com/Disclaimer.html">http://tim.techmahindra.com/Disclaimer.html</A>&quot;&gt;<A HREF="http://tim.techmahindra.com/Disclaimer.html&lt;/a">http://tim.techmahindra.com/Disclaimer.html&lt;/a</A>&gt; internally within Tech Mahindra.
+
+============================================================================================================================
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070417/06d65752/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070417/06d65752/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000446.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r230 - Removed non-compilable	sip_router from SVN.
+</A></li>
+	<LI>Next message: <A HREF="000448.html">[OpenIMSCore-CSCF] Not able to connect HSS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#447">[ date ]</a>
+              <a href="thread.html#447">[ thread ]</a>
+              <a href="subject.html#447">[ subject ]</a>
+              <a href="author.html#447">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

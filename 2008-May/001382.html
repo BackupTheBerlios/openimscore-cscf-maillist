@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Fw: Re: Re:  403 Dialog not found on S-CSCF or Terminating user not suitable for unregisted services
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%3D%3Fgb2312%3Fb%3FRnc6IFJlOiBSZTogIDQwMyBEaWFsb2cg%3F%3D%0A%20%3D%3Fgb2312%3Fb%3Fbm90IGZvdW5kIG9uIFMtQ1NDRiBvciBUZXJtaW5hdGluZyB1c2VyIG5vdCBz%3F%3D%0A%20%3D%3Fgb2312%3Fb%3FdWl0YWJsZSBmb3IgdW5yZWdpc3RlZCBzZXJ2aWNlcw%3D%3D%3F%3D&In-Reply-To=%3C4838F397.0000CC.25410%40cnapp33%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001384.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Fw: Re: Re:  403 Dialog not found on S-CSCF or Terminating user not suitable for unregisted services</H1>
+    <B>qj85</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%3D%3Fgb2312%3Fb%3FRnc6IFJlOiBSZTogIDQwMyBEaWFsb2cg%3F%3D%0A%20%3D%3Fgb2312%3Fb%3Fbm90IGZvdW5kIG9uIFMtQ1NDRiBvciBUZXJtaW5hdGluZyB1c2VyIG5vdCBz%3F%3D%0A%20%3D%3Fgb2312%3Fb%3FdWl0YWJsZSBmb3IgdW5yZWdpc3RlZCBzZXJ2aWNlcw%3D%3D%3F%3D&In-Reply-To=%3C4838F397.0000CC.25410%40cnapp33%3E"
+       TITLE="[OpenIMSCore-CSCF] Fw: Re: Re:  403 Dialog not found on S-CSCF or Terminating user not suitable for unregisted services">qj85 at tom.com
+       </A><BR>
+    <I>Sun May 25 07:05:27 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001384.html">[OpenIMSCore-CSCF] [OpenIMSCore-Users] Set SIP communication	between twoApplication	Servers
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1382">[ date ]</a>
+              <a href="thread.html#1382">[ thread ]</a>
+              <a href="subject.html#1382">[ subject ]</a>
+              <a href="author.html#1382">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Drogos,i am attaching the trace in &quot;situation 1.out&quot; and &quot;situation 1&quot;(it's got by wireshark).
+
+i hava change some logic of s-cscf that when one service will be triggered,the request will firstly be sned to service broker(can be seen as a AS).
+the flow is :
+user QJ(address:59.64.153.225:5060)--&gt;QJ's pcscf(59.64.153.132:4060)--&gt;QJ's s-cscf(59.64.153.132:6060,here ifc will trigger a AS whose address is 59.64.153.225:5066)--&gt;QJ's service broker(59.64.153.225:5080,and here the logic of service broker is to send back 500 error)--&gt;QJ's s-cscf(59.64.153.132:6060)--&gt;tom's s-cscf(59.64.153.132:6060)--&gt;tom's p-cscf(59.64.153.132:4060)--&gt;user Tom(address:59.64.153.225:5061) 
+
+
+the call can be established successfully,but when someone send &quot;bye&quot;,the request will cause the result that QJ's s-cscf create 403 forbidden.(but the bye can get through Tom's s-cscf)
+
+
+thanks very much
+
+--QJ
+
+
+
+
+
+Could you please attach a network trace so that we would understand the
+situation better?
+
+Cheers,
+-Dragos
+
+qj85 wrote:
+&gt;<i>
+</I>&gt;<i> Hi
+</I>&gt;<i>
+</I>&gt;<i> I have face a problem:
+</I>&gt;<i>
+</I>&gt;<i> User A call B,and B has subscribed a service. for some reason ,the
+</I>&gt;<i> service error,and send back 500 error. the call can be set up as
+</I>&gt;<i> usual. but the problem is when one user send &quot;bye&quot; reuqesr, &quot;403&lt;BR&gt;&gt; Dialog not found on S-CSCF or Terminating user not suitable for&lt;BR&gt;&gt; unregisted services&quot; will be create at B's S-CSCF. what's the reason?
+</I>&gt;<i>
+</I>&gt;<i> thanks
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ===============================================
+</I>&gt;<i> &#24555;&#26469;&#21644;&#25105;&#19968;&#36215;&#20139;&#21463;TOM&#20813;&#36153;&#37038;&#31665;&#21543;&#65281;&#30475;&#30475;&#38500;&#20102;1.5G&#65292;&#36824;&#26377;&#20160;&#20040;&#65311;
+</I>&gt;<i> &lt;<A HREF="http://bjcgi.163.net/cgi-bin/newreg.cgi?%0Arf=050602">http://bjcgi.163.net/cgi-bin/newreg.cgi?%0Arf=050602</A>&gt;
+</I>&gt;<i> ===============================================
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> 
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=============================================== 
+
+
+&#24555;&#26469;&#21644;&#25105;&#19968;&#36215;&#20139;&#21463;TOM&#20813;&#36153;&#37038;&#31665;&#21543;&#65281; &#30475;&#30475;&#38500;&#20102;1.5G&#65292;&#36824;&#26377;&#20160;&#20040;&#65311;src=&quot;<A HREF="http://mail.tom.com/images/mail/050328/page_02.gif">http://mail.tom.com/images/mail/050328/page_02.gif</A>&quot; border=&quot;0&quot; width=&quot;37&quot; 
+height=&quot;33&quot;&gt; 
+
+
+===============================================  
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080525/5e754f0c/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080525/5e754f0c/attachment.html</A>&gt;
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: sitation 1.out
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080525/5e754f0c/attachment.ksh">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080525/5e754f0c/attachment.ksh</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: situation 1
+Type: application/octet-stream
+Size: 29393 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080525/5e754f0c/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080525/5e754f0c/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001384.html">[OpenIMSCore-CSCF] [OpenIMSCore-Users] Set SIP communication	between twoApplication	Servers
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1382">[ date ]</a>
+              <a href="thread.html#1382">[ thread ]</a>
+              <a href="subject.html#1382">[ subject ]</a>
+              <a href="author.html#1382">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

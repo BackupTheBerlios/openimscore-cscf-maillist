@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Issue with domain name syntax
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Issue%20with%20domain%20name%20syntax&In-Reply-To=%3C47837279.8050309%40i4.informatik.rwth-aachen.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001124.html">
+   <LINK REL="Next"  HREF="001128.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Issue with domain name syntax</H1>
+    <B>Juan Miguel Espinosa Carlin</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Issue%20with%20domain%20name%20syntax&In-Reply-To=%3C47837279.8050309%40i4.informatik.rwth-aachen.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Issue with domain name syntax">espinosa at i4.informatik.rwth-aachen.de
+       </A><BR>
+    <I>Tue Jan  8 13:54:17 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001124.html">[OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 15, Issue 5
+</A></li>
+        <LI>Next message: <A HREF="001128.html">[OpenIMSCore-CSCF] Register failure
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1127">[ date ]</a>
+              <a href="thread.html#1127">[ thread ]</a>
+              <a href="subject.html#1127">[ subject ]</a>
+              <a href="author.html#1127">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi everyone!
+
+I've been trying OpenIMSCore and I found out that when configuring a 
+domain name like &quot;ims-1.test&quot; the following error displays when starting 
+any of the CSCFs:
+
+==================================================================
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at ims-1</A>:/opt/OpenIMSCore# ./icscf.sh
+  0(5444) parse error (20,19-23): syntax error
+  0(5444) parse error (20,19-23):  hostname expected
+  0(5444) parse error (21,1-6):
+ERROR: bad config file (3 errors)
+
+------ Semaphore Arrays --------
+key        semid      owner      perms      nsems
+0x00000000 0          www-data  600        1
+
+==================================================================
+
+To my understanding, &quot;ims-1.test&quot; is a valid domain name, or? If I 
+change the &quot;1&quot; for a letter, or if I get rid of the hyphen (i.e. the 
+configured domain name is either &quot;ims1.test&quot; or &quot;ims-a.test&quot;) everything 
+works fine.
+
+Is this a correct behavior?
+
+Regards,
+
+	Juan Miguel
+
+-- 
+* M. Sc. Juan Miguel Espinosa Carlin
+* RWTH Aachen University
+* Computer Science Department
+* Informatik 4 - Communication and Distributed Systems
+* Ahornstrasse 55, 52074 Aachen, Germany
+* Phone: +49 241 80-21415
+* Fax:   +49 241 80-22220
+* E-mail: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">espinosa at i4.informatik.rwth-aachen.de</A>
+* WWW: <A HREF="http://nets.rwth-aachen.de">http://nets.rwth-aachen.de</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001124.html">[OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 15, Issue 5
+</A></li>
+	<LI>Next message: <A HREF="001128.html">[OpenIMSCore-CSCF] Register failure
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1127">[ date ]</a>
+              <a href="thread.html#1127">[ thread ]</a>
+              <a href="subject.html#1127">[ subject ]</a>
+              <a href="author.html#1127">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

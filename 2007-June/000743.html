@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r322 - Fixed P_IPSec_relay() and	P_NAT_relay() to force response relays to the right dst uri	(the rpl-&gt;dst_uri was never parsed).
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r322%20-%20Fixed%20P_IPSec_relay%28%29%20and%0A%09P_NAT_relay%28%29%20to%20force%20response%20relays%20to%20the%20right%20dst%20uri%0A%09%28the%20rpl-%3Edst_uri%20was%20never%20parsed%29.&In-Reply-To=%3C200706191124.l5JBOVru031413%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000742.html">
+   <LINK REL="Next"  HREF="000744.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r322 - Fixed P_IPSec_relay() and	P_NAT_relay() to force response relays to the right dst uri	(the rpl-&gt;dst_uri was never parsed).</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r322%20-%20Fixed%20P_IPSec_relay%28%29%20and%0A%09P_NAT_relay%28%29%20to%20force%20response%20relays%20to%20the%20right%20dst%20uri%0A%09%28the%20rpl-%3Edst_uri%20was%20never%20parsed%29.&In-Reply-To=%3C200706191124.l5JBOVru031413%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r322 - Fixed P_IPSec_relay() and	P_NAT_relay() to force response relays to the right dst uri	(the rpl-&gt;dst_uri was never parsed).">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Jun 19 13:24:31 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000742.html">[OpenIMSCore-CSCF] Notify Request contains Invalid value..
+</A></li>
+        <LI>Next message: <A HREF="000744.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r323 - Fixed bug observed by	Stefan Spodniak: the SIP-Authorization AVP in MAR was	RAND|AUTN|AUTS instead of RAND|AUTS.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#743">[ date ]</a>
+              <a href="thread.html#743">[ thread ]</a>
+              <a href="subject.html#743">[ subject ]</a>
+              <a href="author.html#743">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-06-19 13:24:02 +0200 (Tue, 19 Jun 2007)
+New Revision: 322 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=322">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=322</A> 
+
+Log:
+Fixed P_IPSec_relay() and P_NAT_relay() to force response relays to the right dst uri (the rpl-&gt;dst_uri was never parsed).
+
+
+Modified:
+   U	ser_ims/trunk/modules/pcscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.c?rev=322&amp;view=diff&amp;r1=322&amp;r2=321">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.c?rev=322&amp;view=diff&amp;r1=322&amp;r2=321</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000742.html">[OpenIMSCore-CSCF] Notify Request contains Invalid value..
+</A></li>
+	<LI>Next message: <A HREF="000744.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r323 - Fixed bug observed by	Stefan Spodniak: the SIP-Authorization AVP in MAR was	RAND|AUTN|AUTS instead of RAND|AUTS.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#743">[ date ]</a>
+              <a href="thread.html#743">[ thread ]</a>
+              <a href="subject.html#743">[ subject ]</a>
+              <a href="author.html#743">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

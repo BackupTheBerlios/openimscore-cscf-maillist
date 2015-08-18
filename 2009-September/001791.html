@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r730 - -fixed a bug in the parser:	search for the namespace of geodetic or civic location in the	&lt;location-info&gt; node,	not the &lt;presence&gt; node -modified the parser to support geodetic and	civic location info in the same &lt;location-info&gt; node
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r730%20-%20-fixed%20a%20bug%20in%20the%20parser%3A%0A%09search%20for%20the%20namespace%20of%20geodetic%20or%20civic%20location%20in%20the%0A%09%3Clocation-info%3E%20node%2C%0A%09not%20the%20%3Cpresence%3E%20node%20-modified%20the%20parser%20to%20support%20geodetic%20and%0A%09civic%20location%20info%20in%20the%20same%20%3Clocation-info%3E%20node&In-Reply-To=%3C200909240745.n8O7jTWI020745%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001790.html">
+   <LINK REL="Next"  HREF="001792.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r730 - -fixed a bug in the parser:	search for the namespace of geodetic or civic location in the	&lt;location-info&gt; node,	not the &lt;presence&gt; node -modified the parser to support geodetic and	civic location info in the same &lt;location-info&gt; node</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r730%20-%20-fixed%20a%20bug%20in%20the%20parser%3A%0A%09search%20for%20the%20namespace%20of%20geodetic%20or%20civic%20location%20in%20the%0A%09%3Clocation-info%3E%20node%2C%0A%09not%20the%20%3Cpresence%3E%20node%20-modified%20the%20parser%20to%20support%20geodetic%20and%0A%09civic%20location%20info%20in%20the%20same%20%3Clocation-info%3E%20node&In-Reply-To=%3C200909240745.n8O7jTWI020745%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r730 - -fixed a bug in the parser:	search for the namespace of geodetic or civic location in the	&lt;location-info&gt; node,	not the &lt;presence&gt; node -modified the parser to support geodetic and	civic location info in the same &lt;location-info&gt; node">aon at users.berlios.de
+       </A><BR>
+    <I>Thu Sep 24 09:45:29 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001790.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r729 - -added exported function	E_fwded_dialog to check if the initial INVITE request was	forwarded to the PSAP,	to be used to check if the ACK or CANCEL should be forwarded as well	-modified the exported function E_get_location to return TRUE	(ok) if no Geolocation header is found,	as the location can be retrieved by the LRF through the GLE
+</A></li>
+        <LI>Next message: <A HREF="001792.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r731 - -updated the scripts for	ecscf and lrf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1791">[ date ]</a>
+              <a href="thread.html#1791">[ thread ]</a>
+              <a href="subject.html#1791">[ subject ]</a>
+              <a href="author.html#1791">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2009-09-24 09:45:25 +0200 (Thu, 24 Sep 2009)
+New Revision: 730 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=730">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=730</A> 
+
+Log:
+-fixed a bug in the parser: search for the namespace of geodetic or civic location in the &lt;location-info&gt; node, not the &lt;presence&gt; node
+-modified the parser to support geodetic and civic location info in the same &lt;location-info&gt; node
+
+
+Modified:
+   U	ser_ims/branches/12_em_services/lib/lost/client.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/client.c?rev=730&amp;view=diff&amp;r1=730&amp;r2=729">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/client.c?rev=730&amp;view=diff&amp;r1=730&amp;r2=729</A>
+   U	ser_ims/branches/12_em_services/lib/lost/parsing.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/parsing.c?rev=730&amp;view=diff&amp;r1=730&amp;r2=729">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/parsing.c?rev=730&amp;view=diff&amp;r1=730&amp;r2=729</A>
+   U	ser_ims/branches/12_em_services/lib/lost/parsing.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/parsing.h?rev=730&amp;view=diff&amp;r1=730&amp;r2=729">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/parsing.h?rev=730&amp;view=diff&amp;r1=730&amp;r2=729</A>
+   U	ser_ims/branches/12_em_services/lib/lost/pidf_loc.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/pidf_loc.c?rev=730&amp;view=diff&amp;r1=730&amp;r2=729">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/lib/lost/pidf_loc.c?rev=730&amp;view=diff&amp;r1=730&amp;r2=729</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001790.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r729 - -added exported function	E_fwded_dialog to check if the initial INVITE request was	forwarded to the PSAP,	to be used to check if the ACK or CANCEL should be forwarded as well	-modified the exported function E_get_location to return TRUE	(ok) if no Geolocation header is found,	as the location can be retrieved by the LRF through the GLE
+</A></li>
+	<LI>Next message: <A HREF="001792.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r731 - -updated the scripts for	ecscf and lrf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1791">[ date ]</a>
+              <a href="thread.html#1791">[ thread ]</a>
+              <a href="subject.html#1791">[ subject ]</a>
+              <a href="author.html#1791">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

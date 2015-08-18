@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Unable to run ICSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Unable%20to%20run%20ICSCF&In-Reply-To=%3C4A66DE43.1090400%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001735.html">
+   <LINK REL="Next"  HREF="001736.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Unable to run ICSCF</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Unable%20to%20run%20ICSCF&In-Reply-To=%3C4A66DE43.1090400%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Unable to run ICSCF">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Jul 22 11:39:15 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001735.html">[OpenIMSCore-CSCF] Unable to run ICSCF
+</A></li>
+        <LI>Next message: <A HREF="001736.html">[OpenIMSCore-CSCF] Multiples forwardings issue
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1743">[ date ]</a>
+              <a href="thread.html#1743">[ thread ]</a>
+              <a href="subject.html#1743">[ subject ]</a>
+              <a href="author.html#1743">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+On *buntun it's called libmysqlclient15-dev. I looked for fedora and 
+maybe mysqlclient14 might work for you, but I'm not sure. Very strange 
+that I did not find a 15 version, but 14 would also work with a 4.x 
+server. Keep in mind that you need the development versions of the 
+packages, which include the headers to compile with.
+
+Cheers,
+-Dragos
+
+hk hk wrote:
+&gt;<i> I'm sorry to ask this question again, but when starting ICSCF, I got 
+</I>&gt;<i> these problem:
+</I>&gt;<i> [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at localhost</A> OpenIMSCore]# ./icscf.sh
+</I>&gt;<i>  0(9854) ERROR: load_module: could not open module 
+</I>&gt;<i> &lt;/opt/OpenIMSCore/ser_ims/modules/mysql/mysql.so&gt;: 
+</I>&gt;<i> /opt/OpenIMSCore/ser_ims/modules/mysql/mysql.so: undefined symbol: log
+</I>&gt;<i>  0(9854) parse error (30,13-14): failed to load module
+</I>&gt;<i> ERROR: bad config file (1 errors)
+</I>&gt;<i>  0(9854) INFO:cdp:cdp_exit(): CDiameterPeer stoping ...
+</I>&gt;<i> ./icscf.sh: line 4:  9854 Segmentation fault      
+</I>&gt;<i> /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+</I>&gt;<i>
+</I>&gt;<i> ------ Semaphore Arrays --------
+</I>&gt;<i> key        semid      owner      perms      nsems    
+</I>&gt;<i> 0x4d002044 0          root      600        8        
+</I>&gt;<i>
+</I>&gt;<i> I reinstalled mysql but it had no results. I already tried following 
+</I>&gt;<i> the previous messages but no luck. I'm using FedoraCore 9. And I 
+</I>&gt;<i> didn't find any libmysqlclient-devel package as suggested. Plz show me 
+</I>&gt;<i> the solution
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i> L&#432;&#7899;t web nhanh h&#417;n 
+</I>&gt;<i> &lt;<A HREF="http://us.lrd.yahoo.com/_ylc=X3oDMTFnYXY0dG83BHRtX2RtZWNoA1RleHQgTGluawR0bV9sbmsDVTExMDM0NjgEdG1fbmV0A1lhaG9vIQ--/SIG=11ka86nha/**http%3A//downloads.yahoo.com/vn/internetexplorer/">http://us.lrd.yahoo.com/_ylc=X3oDMTFnYXY0dG83BHRtX2RtZWNoA1RleHQgTGluawR0bV9sbmsDVTExMDM0NjgEdG1fbmV0A1lhaG9vIQ--/SIG=11ka86nha/**http%3A//downloads.yahoo.com/vn/internetexplorer/</A>&gt;
+</I>&gt;<i> Internet Explorer 8 t&#7889;i &#432;u h&#243;a cho Yahoo!, t&#7921; &#273;&#7897;ng kh&#7903;i &#273;&#7897;ng 2 trang 
+</I>&gt;<i> b&#7841;n th&#237;ch m&#7895;i l&#7847;n m&#7903; tr&#236;nh duy&#7879;t. T&#7843;i IE8 t&#7841;i &#273;&#226;y! (Mi&#7877;n ph&#237;) 
+</I>&gt;<i> &lt;<A HREF="http://us.lrd.yahoo.com/_ylc=X3oDMTFnYXY0dG83BHRtX2RtZWNoA1RleHQgTGluawR0bV9sbmsDVTExMDM0NjgEdG1fbmV0A1lhaG9vIQ--/SIG=11ka86nha/**http%3A//downloads.yahoo.com/vn/internetexplorer/">http://us.lrd.yahoo.com/_ylc=X3oDMTFnYXY0dG83BHRtX2RtZWNoA1RleHQgTGluawR0bV9sbmsDVTExMDM0NjgEdG1fbmV0A1lhaG9vIQ--/SIG=11ka86nha/**http%3A//downloads.yahoo.com/vn/internetexplorer/</A>&gt; 
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001735.html">[OpenIMSCore-CSCF] Unable to run ICSCF
+</A></li>
+	<LI>Next message: <A HREF="001736.html">[OpenIMSCore-CSCF] Multiples forwardings issue
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1743">[ date ]</a>
+              <a href="thread.html#1743">[ thread ]</a>
+              <a href="subject.html#1743">[ subject ]</a>
+              <a href="author.html#1743">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

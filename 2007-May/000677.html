@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] DSL line identifier(NASS BUNDLED)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20DSL%20line%20identifier%28NASS%20BUNDLED%29&In-Reply-To=%3Cb33002040705311144k4a36396cv2908411348fd608d%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000675.html">
+   <LINK REL="Next"  HREF="000676.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] DSL line identifier(NASS BUNDLED)</H1>
+    <B>JF</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20DSL%20line%20identifier%28NASS%20BUNDLED%29&In-Reply-To=%3Cb33002040705311144k4a36396cv2908411348fd608d%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] DSL line identifier(NASS BUNDLED)">jfkavaka at gmail.com
+       </A><BR>
+    <I>Thu May 31 20:44:35 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000675.html">[OpenIMSCore-CSCF] DSL line identifier(NASS BUNDLED)
+</A></li>
+        <LI>Next message: <A HREF="000676.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r299 - S-CSCF's part of	NASS-Bundled authentication.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#677">[ date ]</a>
+              <a href="thread.html#677">[ thread ]</a>
+              <a href="subject.html#677">[ subject ]</a>
+              <a href="author.html#677">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+Check 3GPP TS 24.229, &#167;7.2A.4:
+
+   access-type            = &quot;IEEE-802.11&quot; / &quot;IEEE-802.11a&quot; /
+&quot;IEEE-802.11b&quot; / &quot;IEEE-802.11g&quot; / &quot;3GPP-GERAN&quot; / &quot;3GPP-UTRAN-FDD&quot; /
+&quot;3GPP-UTRAN-TDD&quot; / &quot;ADSL&quot; / &quot;ADSL2&quot; / &quot;ADSL2+&quot; / &quot;RADSL&quot; / &quot;SDSL&quot; /
+&quot;HDSL&quot; / &quot;HDSL2&quot; / &quot;G.SHDSL&quot; / &quot;VDSL&quot; / &quot;IDSL&quot; / &quot;3GPP2-1X&quot; /
+&quot;3GPP2-1X-HRPD&quot; / token
+   access-info            = cgi-3gpp / utran-cell-id-3gpp /
+dsl-location / ci-3gpp2/ extension- access-info
+   extension-access-info  = gen-value
+   cgi-3gpp               = &quot;cgi-3gpp&quot; EQUAL (token / quoted-string)
+   utran-cell-id-3gpp     = &quot;utran-cell-id-3gpp&quot; EQUAL (token / quoted-string)
+   dsl-location           = &quot;dsl-location&quot; EQUAL (token / quoted-string)
+   ci-3gpp2               = &quot;ci-3gpp2&quot; EQUAL (token / quoted-string)
+
+The dsl-location parameter is obtained from a NASS CLF, via e2
+interface, and contains the line id, AFAIK.
+
+JF
+
+On 5/31/07, Florin Popescu &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">florin.popescu at fokus.fraunhofer.de</A>&gt; wrote:
+&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i> I am currently working at NASS BUNDLED authentication method.
+</I>&gt;<i>
+</I>&gt;<i> Does anybody knows how should look the  P-Access-Network-Info header
+</I>&gt;<i> added/modified by PCSCF in order to provide information about line
+</I>&gt;<i> identifier ?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Thank you,
+</I>&gt;<i>
+</I>&gt;<i> Florin
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000675.html">[OpenIMSCore-CSCF] DSL line identifier(NASS BUNDLED)
+</A></li>
+	<LI>Next message: <A HREF="000676.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r299 - S-CSCF's part of	NASS-Bundled authentication.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#677">[ date ]</a>
+              <a href="thread.html#677">[ thread ]</a>
+              <a href="subject.html#677">[ subject ]</a>
+              <a href="author.html#677">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

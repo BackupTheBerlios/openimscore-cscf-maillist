@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r856 - a fix for Elect	inWait_Conn_Ack_Elect state,	and add Wait_Conn_Ack_Elect to peer timerout
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r856%20-%20a%20fix%20for%20Elect%0A%09inWait_Conn_Ack_Elect%20state%2C%0A%09and%20add%20Wait_Conn_Ack_Elect%20to%20peer%20timerout&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BCFC5%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002046.html">
+   <LINK REL="Next"  HREF="002048.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r856 - a fix for Elect	inWait_Conn_Ack_Elect state,	and add Wait_Conn_Ack_Elect to peer timerout</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r856%20-%20a%20fix%20for%20Elect%0A%09inWait_Conn_Ack_Elect%20state%2C%0A%09and%20add%20Wait_Conn_Ack_Elect%20to%20peer%20timerout&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BCFC5%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r856 - a fix for Elect	inWait_Conn_Ack_Elect state,	and add Wait_Conn_Ack_Elect to peer timerout">wang at basis-audionet.com
+       </A><BR>
+    <I>Wed Feb  3 22:29:53 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002046.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r856 - a fix for Elect in	Wait_Conn_Ack_Elect state,	and add Wait_Conn_Ack_Elect to peer timerout
+</A></li>
+        <LI>Next message: <A HREF="002048.html">[OpenIMSCore-CSCF] Problem with pcscf.sh and scscf.sh plz help in	this..
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2047">[ date ]</a>
+              <a href="thread.html#2047">[ thread ]</a>
+              <a href="subject.html#2047">[ subject ]</a>
+              <a href="author.html#2047">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Just FYI
+
+More fix on this will come probably tomorrow. 
+
+
+
+Kind Regards
+ 
+Min Wang
+
+&gt;<i> -----Original Message-----
+</I>&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+</I>[mailto:openimscore-cscf-
+&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bounces at lists.berlios.de</A>] On Behalf Of <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mwang at users.berlios.de</A>
+</I>&gt;<i> Sent: Wednesday, February 03, 2010 4:14 PM
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: [OpenIMSCore-CSCF] [SVN-ser_ims] r856 - a fix for Elect
+</I>&gt;<i> inWait_Conn_Ack_Elect state,and add Wait_Conn_Ack_Elect to peer
+</I>timerout
+&gt;<i> 
+</I>&gt;<i> Author: mwang
+</I>&gt;<i> Date: 2010-02-03 22:13:51 +0100 (Wed, 03 Feb 2010)
+</I>&gt;<i> New Revision: 856
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=856">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=856</A>
+</I>&gt;<i> 
+</I>&gt;<i> Log:
+</I>&gt;<i>     a fix for Elect in Wait_Conn_Ack_Elect state, and add
+</I>&gt;<i> Wait_Conn_Ack_Elect to peer timerout
+</I>&gt;<i> 
+</I>&gt;<i> Modified:
+</I>&gt;<i>    U	ser_ims/branches/13_pcc_fixing/modules/cdp/peermanager.c
+</I>&gt;<i> 
+</I>&gt;<i>
+</I><A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+&gt;<i> xing/modules/cdp/peermanager.c?rev=856&amp;view=diff&amp;r1=856&amp;r2=855
+</I>&gt;<i>    U	ser_ims/branches/13_pcc_fixing/modules/cdp/peerstatemachine.c
+</I>&gt;<i> 
+</I>&gt;<i>
+</I><A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+&gt;<i> xing/modules/cdp/peerstatemachine.c?rev=856&amp;view=diff&amp;r1=856&amp;r2=855
+</I>&gt;<i> 
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002046.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r856 - a fix for Elect in	Wait_Conn_Ack_Elect state,	and add Wait_Conn_Ack_Elect to peer timerout
+</A></li>
+	<LI>Next message: <A HREF="002048.html">[OpenIMSCore-CSCF] Problem with pcscf.sh and scscf.sh plz help in	this..
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2047">[ date ]</a>
+              <a href="thread.html#2047">[ thread ]</a>
+              <a href="subject.html#2047">[ subject ]</a>
+              <a href="author.html#2047">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

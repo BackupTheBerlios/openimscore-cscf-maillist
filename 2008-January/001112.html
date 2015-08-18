@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r512 - Session Timers support for	Authorization State Machine,	session will expire now after 30times Tc from last activity... (15	minutes default..)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r512%20-%20Session%20Timers%20support%20for%0A%09Authorization%20State%20Machine%2C%0A%09session%20will%20expire%20now%20after%2030times%20Tc%20from%20last%20activity...%20%2815%0A%09minutes%20default..%29&In-Reply-To=%3C200801030952.m039qNnV024091%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001111.html">
+   <LINK REL="Next"  HREF="001113.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r512 - Session Timers support for	Authorization State Machine,	session will expire now after 30times Tc from last activity... (15	minutes default..)</H1>
+    <B>albertoberlios at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r512%20-%20Session%20Timers%20support%20for%0A%09Authorization%20State%20Machine%2C%0A%09session%20will%20expire%20now%20after%2030times%20Tc%20from%20last%20activity...%20%2815%0A%09minutes%20default..%29&In-Reply-To=%3C200801030952.m039qNnV024091%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r512 - Session Timers support for	Authorization State Machine,	session will expire now after 30times Tc from last activity... (15	minutes default..)">albertoberlios at users.berlios.de
+       </A><BR>
+    <I>Thu Jan  3 10:52:23 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001111.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r511 - New Server StateFul	Authentication State Machine in the CDiameterPeer. New	Subscription-Id included in the AAR from PCSCF Solved Bug for	CSeq and UAC BYE generated in the PCSCF
+</A></li>
+        <LI>Next message: <A HREF="001113.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1112">[ date ]</a>
+              <a href="thread.html#1112">[ thread ]</a>
+              <a href="subject.html#1112">[ subject ]</a>
+              <a href="author.html#1112">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: albertoberlios
+Date: 2008-01-03 10:52:17 +0100 (Thu, 03 Jan 2008)
+New Revision: 512 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=512">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=512</A> 
+
+Log:
+Session Timers support for Authorization State Machine, session will expire now after 30times Tc from
+last activity... (15 minutes default..)
+
+
+Modified:
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.c?rev=512&amp;view=diff&amp;r1=512&amp;r2=511">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.c?rev=512&amp;view=diff&amp;r1=512&amp;r2=511</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.h?rev=512&amp;view=diff&amp;r1=512&amp;r2=511">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.h?rev=512&amp;view=diff&amp;r1=512&amp;r2=511</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/session.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.c?rev=512&amp;view=diff&amp;r1=512&amp;r2=511">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.c?rev=512&amp;view=diff&amp;r1=512&amp;r2=511</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001111.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r511 - New Server StateFul	Authentication State Machine in the CDiameterPeer. New	Subscription-Id included in the AAR from PCSCF Solved Bug for	CSeq and UAC BYE generated in the PCSCF
+</A></li>
+	<LI>Next message: <A HREF="001113.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1112">[ date ]</a>
+              <a href="thread.html#1112">[ thread ]</a>
+              <a href="subject.html#1112">[ subject ]</a>
+              <a href="author.html#1112">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

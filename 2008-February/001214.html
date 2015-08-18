@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] SCSCF sending 403 error when an AS change the	Request URI of anINVITE
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SCSCF%20sending%20403%20error%20when%20an%20AS%20change%0A%20the%09Request%20URI%20of%20anINVITE&In-Reply-To=%3C47C807B0.3050306%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001212.html">
+   <LINK REL="Next"  HREF="001213.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] SCSCF sending 403 error when an AS change the	Request URI of anINVITE</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SCSCF%20sending%20403%20error%20when%20an%20AS%20change%0A%20the%09Request%20URI%20of%20anINVITE&In-Reply-To=%3C47C807B0.3050306%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] SCSCF sending 403 error when an AS change the	Request URI of anINVITE">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Feb 29 14:25:04 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001212.html">[OpenIMSCore-CSCF] SCSCF sending 403 error when an AS change the	Request URI of anINVITE
+</A></li>
+        <LI>Next message: <A HREF="001213.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r536 - Fixed the registrar	according to RFC3261 10.2.3. Now the 200 OK of any register	would contain all the registered contacts for that identity.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1214">[ date ]</a>
+              <a href="thread.html#1214">[ thread ]</a>
+              <a href="subject.html#1214">[ subject ]</a>
+              <a href="author.html#1214">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Enrique,
+
+Strangely, your trace is missing the request from the AS to the S-CSCF,
+so I really can't see a changed Request-URI.
+
+Cheers,
+-Dragos
+
+Enrique de Meer wrote:
+&gt;<i> Hi all,
+</I>&gt;<i>
+</I>&gt;<i> I&#180;ve been trying to execute an example that i've read in the book &quot;3G IP
+</I>&gt;<i> Multimedia Subsystem IMS&quot; with OpenIMScore. In chapter 5.8. &quot;Application
+</I>&gt;<i> Servers: providing services to users&quot; there is &quot;An example of service
+</I>&gt;<i> execution&quot; in which i read that a service can automatically diverts a
+</I>&gt;<i> session setup attempt to an answering machine (e.g., MRF). 
+</I>&gt;<i>
+</I>&gt;<i> In my scenario i want to redirect the invite depending on a callee
+</I>&gt;<i> condition (the callee has a service by which he recieves the call or not
+</I>&gt;<i> depending on the call time, and if not, the call is redirected to a
+</I>&gt;<i> answering machine to make the caller to hear an audio message) but i
+</I>&gt;<i> think the situation is more or less the same.
+</I>&gt;<i>
+</I>&gt;<i> In the book:   The AS contains the logic to provide the diversion
+</I>&gt;<i> service to the MRFC, instructing the MRFC to play a pre-recorded
+</I>&gt;<i> announcement. The AS replaces the Request-URI of the SIP INVITE request
+</I>&gt;<i> with the SIP URI of the MRFC. The AS honors the Route header in the
+</I>&gt;<i> received INVITE request and forwards the INVITE request to the S-CSCF.
+</I>&gt;<i> The S-CSCF detects that the Request-URI has changed with respect to the
+</I>&gt;<i> INVITE request initially received, so it does not assess other possible
+</I>&gt;<i> filter criteria. Instead, it forwards the request to its new
+</I>&gt;<i> destination: in this case the MRFC.
+</I>&gt;<i>
+</I>&gt;<i> Here it is my problem. I replace in the AS the Request-URI of the SIP
+</I>&gt;<i> INVITE request with the SIP URI of the MRFC in the AS, and the AS sends
+</I>&gt;<i> the INVITE to the SCSCF, but then the SCSCF responses to the AS with a
+</I>&gt;<i> &quot;403 - Forbidden&quot;.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Does anybody know why? Any help?
+</I>&gt;<i>
+</I>&gt;<i> I send the wireshark trace in the core:
+</I>&gt;<i> 192.168.11.3 is the core (4060 P, 5060 I, 6060 S)
+</I>&gt;<i> 192.168.11.12:5061 is the client
+</I>&gt;<i> 192.168.11.12:5060 is the AS
+</I>&gt;<i>
+</I>&gt;<i> Thanks a lot in advance
+</I>&gt;<i>
+</I>&gt;<i> Regards, Enrique
+</I>&gt;<i>
+</I>&gt;<i> AVISO LEGAL 
+</I>&gt;<i>
+</I>&gt;<i> Este mensaje y los archivos que en su caso lleve adjuntos son privados y confidenciales y se dirigen exclusivamente a su destinatario. Por ello, se informa a quien lo reciba por error que la informaci&#243;n contenida en el mismo es reservada y su utilizaci&#243;n, copia o distribuci&#243;n est&#225; prohibida, por lo que en tal caso le rogamos que nos lo comunique por esta misma v&#237;a o por tel&#233;fono (+34976013300) y proceda a borrarlo de inmediato. 
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001212.html">[OpenIMSCore-CSCF] SCSCF sending 403 error when an AS change the	Request URI of anINVITE
+</A></li>
+	<LI>Next message: <A HREF="001213.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r536 - Fixed the registrar	according to RFC3261 10.2.3. Now the 200 OK of any register	would contain all the registered contacts for that identity.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1214">[ date ]</a>
+              <a href="thread.html#1214">[ thread ]</a>
+              <a href="subject.html#1214">[ subject ]</a>
+              <a href="author.html#1214">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

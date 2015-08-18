@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Ipfileter rule (Min Wang)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Ipfileter%20rule%20%28Min%20Wang%29&In-Reply-To=%3C1266252735.10288.51.camel%40localhost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002146.html">
+   <LINK REL="Next"  HREF="002152.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Ipfileter rule (Min Wang)</H1>
+    <B>Andreea Ancuta Onofrei</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Ipfileter%20rule%20%28Min%20Wang%29&In-Reply-To=%3C1266252735.10288.51.camel%40localhost%3E"
+       TITLE="[OpenIMSCore-CSCF] Ipfileter rule (Min Wang)">andreea.ancuta.onofrei at fokus.fraunhofer.de
+       </A><BR>
+    <I>Mon Feb 15 17:52:15 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002146.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r896 - separated the function	PCC_create_add_media_subcomp_dialog so that the extracting of	the ports is done separately, preparing for the rtp proxy scenario
+</A></li>
+        <LI>Next message: <A HREF="002152.html">[OpenIMSCore-CSCF] Ipfileter rule (Min Wang)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2150">[ date ]</a>
+              <a href="thread.html#2150">[ thread ]</a>
+              <a href="subject.html#2150">[ subject ]</a>
+              <a href="author.html#2150">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hello Min, 
+
+I see some ports in the rule permit out ip from 127.0.0.1 0 to
+172.16.8.44 2048. Are you sure you have disabled them in the pcscf
+script? This means you have to add modparam(&quot;pcscf&quot;,&quot;pcc_use_ports&quot;, 0)
+ Check if other lines besides this are setting the pcc_use_ports
+parameters and comment them. If another line is setting the parameter
+after the value is overridden.
+
+The port disabled for me runs like this:
+ DBGP-CSCF:PCC_create_add_media_subcomp_dialog : starting
+ 4(3374) DBG:P-CSCF:PCC_create_media_component: first flow is permit out
+ip from 127.0.0.1 to 127.0.0.1
+ 4(3374) DBG:P-CSCF:PCC_create_media_component: second flow is permit in
+ip from 127.0.0.1 to 127.0.0.1
+ 4(3374) DBG:P-CSCF:PCC_create_media_component: first flow is permit out
+ip from 127.0.0.1 to 127.0.0.1
+ 4(3374) DBG:P-CSCF:PCC_create_media_component: second flow is permit in
+ip from 127.0.0.1 to 127.0.0.1
+ 4(3374) DBGP-CSCF:PCC_create_add_media_subcomp_dialog : ending
+
+I have read your post, let us hope that they will consider the change.
+
+
+Best regards,
+Ancuta
+
+On Mon, 2010-02-15 at 17:32 +0100, Min Wang wrote:
+&gt;<i> Hi Ancuta:
+</I>&gt;<i> 
+</I>&gt;<i> It is in call ( dialog) failed.
+</I>&gt;<i> 
+</I>&gt;<i> The log I captured for port disabled case is:
+</I>&gt;<i> 
+</I>&gt;<i> withtout port:
+</I>&gt;<i> INFO: Received AAR DIAMETER message from P-CSCF
+</I>&gt;<i> DEBUG: Session ID: pcscf.centercall.net;2828686551;1
+</I>&gt;<i> DEBUG: Orig Realm: centercall.net
+</I>&gt;<i> DEBUG: Dest Realm: centercall.net
+</I>&gt;<i> DEBUG: Flow Number: 0
+</I>&gt;<i> DEBUG: Flow Description: permit out ip from 127.0.0.1 0 to 172.16.8.44
+</I>&gt;<i> 2048
+</I>&gt;<i> Exception in thread &quot;Thread-1&quot; java.lang.ArrayIndexOutOfBoundsException:
+</I>&gt;<i> Array index out of range: 0
+</I>&gt;<i>         at java.util.Vector.get(Vector.java:694)
+</I>&gt;<i>         at
+</I>&gt;<i> de.fhg.fokus.pcrf_diam.rx.AARCommandListener.recvMessage(AARCommandListe
+</I>&gt;<i> ner.java:201)
+</I>&gt;<i>         at
+</I>&gt;<i> de.fhg.fokus.diameter.DiameterPeer.DiameterWorker.run(DiameterWorker.jav
+</I>&gt;<i> a:100)
+</I>&gt;<i> java.lang.Exception: Read failed
+</I>&gt;<i>         at
+</I>&gt;<i> de.fhg.fokus.diameter.DiameterPeer.transport.Communicator.run(Communicat
+</I>&gt;<i> or.java:187)
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> BTW, I posted to UCT asking them if they could add support for port.
+</I>&gt;<i> 
+</I>&gt;<i> <A HREF="https://lists.berlios.de/pipermail/uctimsclient-users/2010-February/0006">https://lists.berlios.de/pipermail/uctimsclient-users/2010-February/0006</A>
+</I>&gt;<i> 19.html
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> Kind Regards
+</I>&gt;<i>  
+</I>&gt;<i> Min Wang
+</I>&gt;<i> 
+</I>&gt;<i> &gt; -----Original Message-----
+</I>&gt;<i> &gt; From: Andreea Ancuta Onofrei
+</I>&gt;<i> &gt; [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.onofrei at fokus.fraunhofer.de</A>]
+</I>&gt;<i> &gt; Sent: Monday, February 15, 2010 11:26 AM
+</I>&gt;<i> &gt; To: Min Wang
+</I>&gt;<i> &gt; Subject: RE: [OpenIMSCore-CSCF] Ipfileter rule (Min Wang)
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Hello Min,
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; I had another look at the old functionality, version 848:
+</I>&gt;<i> &gt;
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing</A>
+</I>&gt;<i> /m
+</I>&gt;<i> &gt; odules/pcscf/pcc_avp.c?view=markup&amp;pathrev=848.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; The ports for registration were ignored and also the source ports for
+</I>&gt;<i> &gt; in/out flows of dialogs.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; I am just curious: &quot;Disabling the ports does not work with UCT. There
+</I>&gt;<i> &gt; must have something changed.&quot; Can you tell us for which case does it
+</I>&gt;<i> &gt; fail: registrations or dialogs.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Best regards,
+</I>&gt;<i> &gt; Ancuta
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; On Mon, 2010-02-15 at 16:46 +0100, Min Wang wrote:
+</I>&gt;<i> &gt; &gt; Hi Ancuta:
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Thanks.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; In the past the ports of the flows were ignored and now they are
+</I>&gt;<i> also
+</I>&gt;<i> &gt; &gt; &gt; set/sent in the ipfilerrule. This is the big change :d.
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; The old version was working with the UCT PCRF because there were
+</I>&gt;<i> no
+</I>&gt;<i> &gt; &gt; &gt; ports set/sent.
+</I>&gt;<i> &gt; &gt; &gt; So, there are 2 options:
+</I>&gt;<i> &gt; &gt; &gt; a)use the PCSCF with the ports disabled, and you will have the
+</I>&gt;<i> &gt; &gt; backwards
+</I>&gt;<i> &gt; &gt; &gt; compatibility
+</I>&gt;<i> &gt; &gt; &gt; or
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Disabling the ports does not work with UCT. There must have
+</I>&gt;<i> something
+</I>&gt;<i> &gt; &gt; changed.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; b)use the functionality with the ports enabled and modify yourself
+</I>&gt;<i> the
+</I>&gt;<i> &gt; &gt; &gt; UCT PCRF or ask them nicely to do this (if they still have
+</I>&gt;<i> interest in
+</I>&gt;<i> &gt; &gt; &gt; this).
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Since it is better to have port enabled, I will post to UCT mailing
+</I>&gt;<i> list
+</I>&gt;<i> &gt; &gt; to see if they will change etc.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Kind regards.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Min Wang
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; I have tested the configuration with and without ports and the
+</I>&gt;<i> pcscf
+</I>&gt;<i> &gt; &gt; &gt; does not crash. But as I am using another pcrf I am not able to
+</I>&gt;<i> test
+</I>&gt;<i> &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; backwards compatibility. Could you test it please. It would be
+</I>&gt;<i> &gt; &gt; important
+</I>&gt;<i> &gt; &gt; &gt; to know.
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Best regards,
+</I>&gt;<i> &gt; &gt; &gt; Ancuta
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; On Fri, 2010-02-12 at 20:36 +0100,
+</I>&gt;<i> &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A> wrote:
+</I>&gt;<i> &gt; &gt; &gt; &gt; Re: Ipfileter rule (Min Wang)
+</I>&gt;<i> &gt; &gt; &gt; _______________________________________________
+</I>&gt;<i> &gt; &gt; &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002146.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r896 - separated the function	PCC_create_add_media_subcomp_dialog so that the extracting of	the ports is done separately, preparing for the rtp proxy scenario
+</A></li>
+	<LI>Next message: <A HREF="002152.html">[OpenIMSCore-CSCF] Ipfileter rule (Min Wang)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2150">[ date ]</a>
+              <a href="thread.html#2150">[ thread ]</a>
+              <a href="subject.html#2150">[ subject ]</a>
+              <a href="author.html#2150">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

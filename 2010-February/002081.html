@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20pcscf.xml%2C%20and%20Send_STR&In-Reply-To=%3C4B713818.6090006%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002078.html">
+   <LINK REL="Next"  HREF="002079.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20pcscf.xml%2C%20and%20Send_STR&In-Reply-To=%3C4B713818.6090006%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Feb  9 11:25:28 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002078.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+        <LI>Next message: <A HREF="002079.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r875 - added a parameter in the	pcscf to enable or disable the usage of ports in the	IPFilterRules towards the pcrf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2081">[ date ]</a>
+              <a href="thread.html#2081">[ thread ]</a>
+              <a href="subject.html#2081">[ subject ]</a>
+              <a href="author.html#2081">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Min,
+
+this looks like a bug. The STR should contain the Destination-Host/Relam 
+AVPs.
+
+Cheers,
+-Dragos
+
+Min Wang wrote:
+&gt;<i> Hi
+</I>&gt;<i>
+</I>&gt;<i> Question regarding the pcscf.xml config, I have following config:
+</I>&gt;<i>
+</I>&gt;<i> In p-cscf.xml:
+</I>&gt;<i>
+</I>&gt;<i>         &lt;Peer FQDN=&quot;pcrf.xxx.net&quot; Realm=&quot;xxx.net&quot; port=&quot;4868&quot;/&gt;
+</I>&gt;<i>         &lt;DefaultRoute FQDN=&quot;clf.xxx.net&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i> &lt;/DiameterPeer&gt;
+</I>&gt;<i>
+</I>&gt;<i> In p-cscf.cfg:
+</I>&gt;<i> modparam(&quot;pcscf&quot;,&quot;use_pcc&quot;,1)
+</I>&gt;<i> modparam(&quot;pcscf&quot;,&quot;forced_qos_peer&quot;,&quot;pcrf.xxx.net&quot;)
+</I>&gt;<i> modparam(&quot;pcscf&quot;,&quot;pcc_dest_realm&quot;,&quot;xxx.net&quot;)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> AAR is sent to pcrf,
+</I>&gt;<i>
+</I>&gt;<i> As pcrf return 5xxxx, the p-cscf will Send_STR ( in
+</I>&gt;<i> auth_client_statefull_sm_process), 
+</I>&gt;<i>
+</I>&gt;<i> However the Destination-Host AVP is not set, so the diameter msg is
+</I>&gt;<i> using realm-based routing to find peer to send, 
+</I>&gt;<i>
+</I>&gt;<i> As the default route is not pcrf.xxx.net,  
+</I>&gt;<i> The msg does not send to pcrF, but try to send to clf ( in my case, I do
+</I>&gt;<i> not have clf running.) so the msg goes no where.
+</I>&gt;<i>
+</I>&gt;<i> Anything/configure wrong? 
+</I>&gt;<i>
+</I>&gt;<i> Pcrf already advertise its CER to support app, shoud it to be added to
+</I>&gt;<i> config-&gt;r_table-&gt;realms; ? Or something else?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Kind regards.
+</I>&gt;<i>
+</I>&gt;<i> Min Wang
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002078.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+	<LI>Next message: <A HREF="002079.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r875 - added a parameter in the	pcscf to enable or disable the usage of ports in the	IPFilterRules towards the pcrf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2081">[ date ]</a>
+              <a href="thread.html#2081">[ thread ]</a>
+              <a href="subject.html#2081">[ subject ]</a>
+              <a href="author.html#2081">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

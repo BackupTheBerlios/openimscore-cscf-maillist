@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r282 - Fixed typo in pcscf.cfg	Fixed Early-IMS - sent-by was not a parameter,	but the actual via-&gt;host Disable Early-IMS by default in the S-CSCF	as the Early-IMS case can not be detected automatically and	as such there could be useless MARs for MD5.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r282%20-%20Fixed%20typo%20in%20pcscf.cfg%0A%09Fixed%20Early-IMS%20-%20sent-by%20was%20not%20a%20parameter%2C%0A%09but%20the%20actual%20via-%3Ehost%20Disable%20Early-IMS%20by%20default%20in%20the%20S-CSCF%0A%09as%20the%20Early-IMS%20case%20can%20not%20be%20detected%20automatically%20and%0A%09as%20such%20there%20could%20be%20useless%20MARs%20for%20MD5.&In-Reply-To=%3C200705231236.l4NCa2s7032364%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000638.html">
+   <LINK REL="Next"  HREF="000641.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r282 - Fixed typo in pcscf.cfg	Fixed Early-IMS - sent-by was not a parameter,	but the actual via-&gt;host Disable Early-IMS by default in the S-CSCF	as the Early-IMS case can not be detected automatically and	as such there could be useless MARs for MD5.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r282%20-%20Fixed%20typo%20in%20pcscf.cfg%0A%09Fixed%20Early-IMS%20-%20sent-by%20was%20not%20a%20parameter%2C%0A%09but%20the%20actual%20via-%3Ehost%20Disable%20Early-IMS%20by%20default%20in%20the%20S-CSCF%0A%09as%20the%20Early-IMS%20case%20can%20not%20be%20detected%20automatically%20and%0A%09as%20such%20there%20could%20be%20useless%20MARs%20for%20MD5.&In-Reply-To=%3C200705231236.l4NCa2s7032364%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r282 - Fixed typo in pcscf.cfg	Fixed Early-IMS - sent-by was not a parameter,	but the actual via-&gt;host Disable Early-IMS by default in the S-CSCF	as the Early-IMS case can not be detected automatically and	as such there could be useless MARs for MD5.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed May 23 14:36:02 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000638.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r281 - Fixed the S-CSCF script for	ISC dialogs. Added RFC4028 Session expires - Florin Popescu	Fixed SUBSCRIBE dialog expiration bug.
+</A></li>
+        <LI>Next message: <A HREF="000641.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r284 - Applied Gaurav Kansal's	patch for limiting the number of dialogs on P and S. Reduced	the logging level on P_check_sent_by.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#640">[ date ]</a>
+              <a href="thread.html#640">[ thread ]</a>
+              <a href="subject.html#640">[ subject ]</a>
+              <a href="author.html#640">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-05-23 14:36:00 +0200 (Wed, 23 May 2007)
+New Revision: 282 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=282">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=282</A> 
+
+Log:
+Fixed typo in pcscf.cfg
+Fixed Early-IMS - sent-by was not a parameter, but the actual via-&gt;host
+Disable Early-IMS by default in the S-CSCF as the Early-IMS case can not be detected automatically and as such there could be useless MARs for MD5.
+
+
+Modified:
+   U	ser_ims/trunk/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=282&amp;view=diff&amp;r1=282&amp;r2=281">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=282&amp;view=diff&amp;r1=282&amp;r2=281</A>
+   U	ser_ims/trunk/cfg/scscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=282&amp;view=diff&amp;r1=282&amp;r2=281">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=282&amp;view=diff&amp;r1=282&amp;r2=281</A>
+   U	ser_ims/trunk/modules/scscf/sip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.c?rev=282&amp;view=diff&amp;r1=282&amp;r2=281">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.c?rev=282&amp;view=diff&amp;r1=282&amp;r2=281</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000638.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r281 - Fixed the S-CSCF script for	ISC dialogs. Added RFC4028 Session expires - Florin Popescu	Fixed SUBSCRIBE dialog expiration bug.
+</A></li>
+	<LI>Next message: <A HREF="000641.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r284 - Applied Gaurav Kansal's	patch for limiting the number of dialogs on P and S. Reduced	the logging level on P_check_sent_by.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#640">[ date ]</a>
+              <a href="thread.html#640">[ thread ]</a>
+              <a href="subject.html#640">[ subject ]</a>
+              <a href="author.html#640">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

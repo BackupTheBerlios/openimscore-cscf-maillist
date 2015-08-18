@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] On MESSAGE unregistered user's service	profile is not executed
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20On%20MESSAGE%20unregistered%20user%27s%20service%0A%09profile%20is%20not%20executed&In-Reply-To=%3C42F3BE57026C6E49B09E267EEF639D5602D16143%40ms-dt01thalia.tsn.tno.nl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001104.html">
+   <LINK REL="Next"  HREF="001106.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] On MESSAGE unregistered user's service	profile is not executed</H1>
+    <B>Walraven, F.A. (Fabian)</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20On%20MESSAGE%20unregistered%20user%27s%20service%0A%09profile%20is%20not%20executed&In-Reply-To=%3C42F3BE57026C6E49B09E267EEF639D5602D16143%40ms-dt01thalia.tsn.tno.nl%3E"
+       TITLE="[OpenIMSCore-CSCF] On MESSAGE unregistered user's service	profile is not executed">fabian.walraven at tno.nl
+       </A><BR>
+    <I>Wed Dec 12 10:31:38 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001104.html">[OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile is not executed
+</A></li>
+        <LI>Next message: <A HREF="001106.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r506 - Added a README.PCC and some	auxiliary files to test the Gq or Rx interfaces
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1105">[ date ]</a>
+              <a href="thread.html#1105">[ thread ]</a>
+              <a href="subject.html#1105">[ subject ]</a>
+              <a href="author.html#1105">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+
+Thanks for your fast reply.
+
+The reason for me to create a new function is because the name of
+save_location() indicates a registration (where the Contact and Expires
+headers are relevant), actually saving the location of a user. For
+AVP_IMS_SAR_UNREGISTERED_USER we only want to get the profile and store
+the public identity. I realize that this introduces some duplicate code.
+
+If you want to keep the save_location() function to support both
+scenarios, I would suggest to keep the msg parameter in the SAR()
+argument list because the differentiating case is assignment_type ==
+AVP_IMS_SAR_UNREGISTERED_USER, independent of the msg parameter. This
+way the following functions can still use the msg if needed (e.g., for
+replies).
+
+Attached is a patch with this change, please let me know what you think.
+
+Regards,
+	Fabian 
+
+-----Original Message-----
+From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>] 
+Sent: dinsdag 11 december 2007 15:31
+To: Walraven, F.A. (Fabian)
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] On MESSAGE unregistered user's service
+profile is not executed
+
+and... I also blew it... here it is again...
+
+-Dragos
+
+Dragos Vingarzan wrote:
+&gt;<i> wow... my patch just seems huge because I re-formated some code.... 
+</I>&gt;<i> but it's just a few lines changed...
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> Dragos Vingarzan wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi Fabian,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> hmmm... I remember this feature as working. Anyway, there are some 
+</I>&gt;&gt;<i> places in the code, like in update_contacts() that are written also 
+</I>&gt;&gt;<i> for the AVP_IMS_SAR_UNREGISTERED_USER case.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Thanks for the patch! but I am attaching a counter one as the stuff 
+</I>&gt;&gt;<i> was already there, but not used. Please see the attachment. What do
+</I>you think?
+&gt;&gt;<i>
+</I>&gt;&gt;<i> Cheers,
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Walraven, F.A. (Fabian) wrote:
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Hi,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I stumbled upon a problem with the S-CSCF:
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> When a user sends a MESSAGE to a unregistered user, the terminating 
+</I>&gt;&gt;&gt;<i> S-CSCF returns a 404 Not Found instead of routing it to an 
+</I>&gt;&gt;&gt;<i> application server (as configured in the service profile of the
+</I>unregistered user).
+&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I analysed the problem and found the following: It looks like the 
+</I>&gt;&gt;&gt;<i> problem is the way the S-CSCF retrieves the unregistered user's 
+</I>&gt;&gt;&gt;<i> service profile. The function S_assign_server_unreg() 
+</I>&gt;&gt;&gt;<i> (scscf/registrar.c) calls the SAR() function to retrieve the service
+</I>
+&gt;&gt;&gt;<i> profile (assignment_type = AVP_IMS_SAR_UNREGISTERED_USER). The SAR()
+</I>
+&gt;&gt;&gt;<i> calls save_location() to update the contact in the registrar, but 
+</I>&gt;&gt;&gt;<i> this fails because the save_location function requires a Contact 
+</I>&gt;&gt;&gt;<i> header to be present and a MESSAGE does not contain such header. The
+</I>
+&gt;&gt;&gt;<i> function isc_check_find()
+</I>&gt;&gt;&gt;<i> (isc/checker.c) queries the registrar and no record is found, 
+</I>&gt;&gt;&gt;<i> therefore fails to evaluate the triggers.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> A solution is to create an alternative save_location() function that
+</I>
+&gt;&gt;&gt;<i> stores a contact for assignment_type = 
+</I>&gt;&gt;&gt;<i> AVP_IMS_SAR_UNREGISTERED_USER, because Contact headers are
+</I>irrelevant in these cases.
+&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Attached is a patch file.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Best regards,
+</I>&gt;&gt;&gt;<i> 	Fabian
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> This e-mail and its contents are subject to the DISCLAIMER at 
+</I>&gt;&gt;&gt;<i> <A HREF="http://www.tno.nl/disclaimer/email.html">http://www.tno.nl/disclaimer/email.html</A>
+</I>&gt;&gt;&gt;<i> --------------------------------------------------------------------
+</I>&gt;&gt;&gt;<i> ----
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i> ---------------------------------------------------------------------
+</I>&gt;&gt;<i> ---
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+--
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org We could change the
+world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+This e-mail and its contents are subject to the DISCLAIMER at <A HREF="http://www.tno.nl/disclaimer/email.html">http://www.tno.nl/disclaimer/email.html</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: scscf_unreg_user_edit.patch
+Type: application/octet-stream
+Size: 5789 bytes
+Desc: scscf_unreg_user_edit.patch
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071212/2f3c1492/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071212/2f3c1492/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001104.html">[OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile is not executed
+</A></li>
+	<LI>Next message: <A HREF="001106.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r506 - Added a README.PCC and some	auxiliary files to test the Gq or Rx interfaces
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1105">[ date ]</a>
+              <a href="thread.html#1105">[ thread ]</a>
+              <a href="subject.html#1105">[ subject ]</a>
+              <a href="author.html#1105">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,802 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r158 - in ser_ims/trunk/modules:	icscf pcscf scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r158%20-%20in%20ser_ims/trunk/modules%3A%0A%09icscf%20pcscf%20scscf&In-Reply-To=%3C200702271950.l1RJo1Dw032525%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000259.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r158 - in ser_ims/trunk/modules:	icscf pcscf scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r158%20-%20in%20ser_ims/trunk/modules%3A%0A%09icscf%20pcscf%20scscf&In-Reply-To=%3C200702271950.l1RJo1Dw032525%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r158 - in ser_ims/trunk/modules:	icscf pcscf scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Feb 27 20:50:01 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000259.html">[OpenIMSCore-CSCF] Sipp tests
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#258">[ date ]</a>
+              <a href="thread.html#258">[ thread ]</a>
+              <a href="subject.html#258">[ subject ]</a>
+              <a href="author.html#258">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-27 20:49:56 +0100 (Tue, 27 Feb 2007)
+New Revision: 158
+
+Modified:
+   ser_ims/trunk/modules/icscf/registration.c
+   ser_ims/trunk/modules/pcscf/registrar.c
+   ser_ims/trunk/modules/pcscf/security.c
+   ser_ims/trunk/modules/scscf/registrar.c
+   ser_ims/trunk/modules/scscf/registrar_notify.c
+   ser_ims/trunk/modules/scscf/registrar_storage.c
+   ser_ims/trunk/modules/scscf/sip.c
+   ser_ims/trunk/modules/scscf/sip.h
+Log:
+Fixed registrations with multiple contacts and different expirations:
+- moved cscf_get_expires() to cscf_get_max_expires()
+- now if there is an expires header it is taken as default value. this is overwritten for each contact if there is an expires parameter
+- assignments are now based on cscf_get_max_expires()
+- should be possible to use REGISTER without the Expires header
+
+
+Modified: ser_ims/trunk/modules/icscf/registration.c
+===================================================================
+--- ser_ims/trunk/modules/icscf/registration.c	2007-02-27 12:17:59 UTC (rev 157)
++++ ser_ims/trunk/modules/icscf/registration.c	2007-02-27 19:49:56 UTC (rev 158)
+@@ -130,7 +130,7 @@
+ 	
+ 	if (atoi(str1)) authorization_type=AVP_IMS_UAR_REGISTRATION_AND_CAPABILITIES;
+ 	else {
+-		expires = cscf_get_expires(msg);
++		expires = cscf_get_max_expires(msg);
+ 		if (expires == 0) authorization_type=AVP_IMS_UAR_DE_REGISTRATION;
+ 	}
+ 	
+
+Modified: ser_ims/trunk/modules/pcscf/registrar.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/registrar.c	2007-02-27 12:17:59 UTC (rev 157)
++++ ser_ims/trunk/modules/pcscf/registrar.c	2007-02-27 19:49:56 UTC (rev 158)
+@@ -162,11 +162,9 @@
+ {
+ 	unsigned int r;
+ 	if (expires_hdr&gt;=0) r = expires_hdr;
+-	else {
+-		if (!c || str2int(&amp;(c-&gt;expires-&gt;body), (unsigned int*)&amp;r) &lt; 0) {
+-			r = 0;
+-		}
+-	}
++	if (c) 
++		str2int(&amp;(c-&gt;expires-&gt;body), (unsigned int*)&amp;r);
++		
+ 	return local_time_now+r;
+ }
+ 
+@@ -183,7 +181,7 @@
+  * @param pinhole - NAT pinhole 
+  * @returns the maximum expiration time, -1 on error
+  */
+-static inline int update_contact(contact_t *c,unsigned char is_star,int expires_hdr,
++static inline int update_contacts(struct sip_msg *msg,unsigned char is_star,int expires_hdr,
+ 	str *public_id,int public_id_cnt,str *service_route,int service_route_cnt, r_nat_dest ** pinhole)
+ {
+ 	r_contact *rc;
+@@ -193,6 +191,8 @@
+ 	struct sip_uri puri;
+ 	int max_expires=-1;
+ 	int local_time_now;
++	struct hdr_field *h;
++	contact_t *c;
+ 	
+ 	
+ 	r_act_time();
+@@ -202,47 +202,47 @@
+ 		 * then, we will update on NOTIFY */
+ 		return 0;
+ 	}	
+-	while(c){
+-		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:update_contact: &lt;%.*s&gt;\n&quot;,c-&gt;uri.len,c-&gt;uri.s);
+-		
+-		expires = r_calc_expires(c,expires_hdr,local_time_now);
+-		
+-		if (parse_uri(c-&gt;uri.s,c-&gt;uri.len,&amp;puri)&lt;0){
+-			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:update_contact: Error parsing Contact URI &lt;%.*s&gt;\n&quot;,c-&gt;uri.len,c-&gt;uri.s);
+-			goto next;			
+-		}
+-		if (puri.port_no==0) puri.port_no=5060;
+-		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:update_contact: %d %.*s : %d\n&quot;,
+-			puri.proto, puri.host.len,puri.host.s,puri.port_no);
+-		
+-		if (expires&gt;local_time_now) {		
+-			rc = update_r_contact(puri.host,puri.port_no,puri.proto,
+-				&amp;(c-&gt;uri),&amp;reg_state,&amp;expires,&amp;service_route,&amp;service_route_cnt, pinhole);
+-			if (expires-time_now&gt;max_expires) max_expires=expires-time_now;
+-		}
+-		else {
+-			reg_state = DEREGISTERED;
+-			expires = local_time_now+30;
+-			rc = update_r_contact(puri.host,puri.port_no,puri.proto,
+-					0,&amp;reg_state,&amp;expires,0,0,0);
+-			if (rc) r_unlock(rc-&gt;hash);
+-			max_expires = 0;
+-			rc = 0;
+-		}
+-		
+-		/** Add the public identities */
+-		if (rc){
+-			is_default=1;
+-			if (public_id_cnt){
+-				update_r_public(rc,public_id[0],&amp;is_default);
+-				is_default=0;
+-				for(i=1;i&lt;public_id_cnt;i++)
+-					update_r_public(rc,public_id[i],&amp;is_default);
++	for(h=msg-&gt;contact;h;h=h-&gt;next)
++		if (h-&gt;type==HDR_CONTACT_T &amp;&amp; h-&gt;parsed)
++		 for(c=((contact_body_t*)h-&gt;parsed)-&gt;contacts;c;c=c-&gt;next){
++			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:update_contact: &lt;%.*s&gt;\n&quot;,c-&gt;uri.len,c-&gt;uri.s);
++			
++			expires = r_calc_expires(c,expires_hdr,local_time_now);
++			
++			if (parse_uri(c-&gt;uri.s,c-&gt;uri.len,&amp;puri)&lt;0){
++				LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:update_contact: Error parsing Contact URI &lt;%.*s&gt;\n&quot;,c-&gt;uri.len,c-&gt;uri.s);
++				continue;			
+ 			}
+-			r_unlock(rc-&gt;hash);
+-		}
+-next:		
+-		c = c-&gt;next;
++			if (puri.port_no==0) puri.port_no=5060;
++			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:update_contact: %d %.*s : %d\n&quot;,
++				puri.proto, puri.host.len,puri.host.s,puri.port_no);
++			
++			if (expires&gt;local_time_now) {		
++				rc = update_r_contact(puri.host,puri.port_no,puri.proto,
++					&amp;(c-&gt;uri),&amp;reg_state,&amp;expires,&amp;service_route,&amp;service_route_cnt, pinhole);
++				if (expires-time_now&gt;max_expires) max_expires=expires-time_now;
++			}
++			else {
++				reg_state = DEREGISTERED;
++				expires = local_time_now+30;
++				rc = update_r_contact(puri.host,puri.port_no,puri.proto,
++						0,&amp;reg_state,&amp;expires,0,0,0);
++				if (rc) r_unlock(rc-&gt;hash);
++				if (0&gt;max_expires) max_expires = 0;
++				rc = 0;
++			}
++			
++			/** Add the public identities */
++			if (rc){
++				is_default=1;
++				if (public_id_cnt){
++					update_r_public(rc,public_id[0],&amp;is_default);
++					is_default=0;
++					for(i=1;i&lt;public_id_cnt;i++)
++						update_r_public(rc,public_id[i],&amp;is_default);
++				}
++				r_unlock(rc-&gt;hash);
++			}
+ 	}
+ 	return max_expires;
+ }
+@@ -260,7 +260,6 @@
+ int P_save_location(struct sip_msg *rpl,char *str1, char *str2)
+ {
+ 	struct sip_msg *req;
+-	contact_t* c=0;
+ 	contact_body_t* b=0;	
+ 	str realm;
+ 	int expires_hdr=0;
+@@ -294,8 +293,6 @@
+ 		return 0;
+ 	}
+ 	
+-	if (b) c = b-&gt;contacts;
+-			
+ 	realm = cscf_get_realm(req);
+ 	
+ 	cscf_get_p_associated_uri(rpl,&amp;public_id,&amp;public_id_cnt);
+@@ -310,7 +307,7 @@
+ //		LOG(L_ERR, &quot;**************************\n&quot;);
+ //	else LOG(L_ERR, &quot;***************************%d**********************\n&quot;,pcscf_nat_pingall); 
+ 		
+-	if ((expires=update_contact(c,b-&gt;star,expires_hdr,public_id,public_id_cnt,service_route,service_route_cnt,&amp;pinhole))&lt;0) 
++	if ((expires=update_contacts(rpl,b-&gt;star,expires_hdr,public_id,public_id_cnt,service_route,service_route_cnt,&amp;pinhole))&lt;0) 
+ 		goto error;
+ 
+ 	//print_r(L_ERR);
+
+Modified: ser_ims/trunk/modules/pcscf/security.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/security.c	2007-02-27 12:17:59 UTC (rev 157)
++++ ser_ims/trunk/modules/pcscf/security.c	2007-02-27 19:49:56 UTC (rev 158)
+@@ -481,7 +481,7 @@
+ 	}
+ 
+ 	/* find the expires (reg or dereg?) */
+-	expires = cscf_get_expires(req);
++	expires = cscf_get_max_expires(req);
+ 	
+ 	/* get the IPSec info from the registrar */
+ 	
+
+Modified: ser_ims/trunk/modules/scscf/registrar.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar.c	2007-02-27 12:17:59 UTC (rev 157)
++++ ser_ims/trunk/modules/scscf/registrar.c	2007-02-27 19:49:56 UTC (rev 158)
+@@ -217,7 +217,6 @@
+ 	int assignment_type = AVP_IMS_SAR_NO_ASSIGNMENT;
+ 	int data_available = AVP_IMS_SAR_USER_DATA_NOT_AVAILABLE;
+ 	int expires;
+-	int x;
+ 
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_assign_server: Checking if REGISTER is authorized...\n&quot;);
+ 	
+@@ -238,20 +237,13 @@
+ 	
+ 	public_identity = cscf_get_public_identity(msg);
+ 	if (!public_identity.len) {
+-		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_is_authorized: public identity missing\n&quot;);		
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_assign_server: public identity missing\n&quot;);		
+ 		return ret;
+ 	}
++		
++	expires = cscf_get_max_expires(msg);
+ 	
+-	expires = cscf_get_expires(msg);
+-	
+ 	if (expires&gt;0) {
+-		if (expires&lt;registration_min_expires){
+-			if (!cscf_add_header_rpl(msg,&amp;scscf_registration_min_expires)) return CSCF_RETURN_ERROR;			
+-			S_REGISTER_reply(msg,423,MSG_423_INTERVAL_TOO_BRIEF);		
+-			ret = CSCF_RETURN_BREAK;
+-			return ret;
+-		}
+-		//TODO 
+ 		if (r_is_registered_id(public_identity)) 
+ 			assignment_type = AVP_IMS_SAR_RE_REGISTRATION;
+ 		else
+@@ -268,12 +260,8 @@
+ 	//else
+ 	data_available = AVP_IMS_SAR_USER_DATA_NOT_AVAILABLE;
+ 	
+-	x = SAR(msg,realm,public_identity,private_identity,assignment_type,data_available);
+-	
+-	if (x&gt;0) ret = CSCF_RETURN_TRUE;
+-	else if (x&lt;0) ret = CSCF_RETURN_BREAK;
+-		else ret = CSCF_RETURN_FALSE;
+-		
++	ret = SAR(msg,realm,public_identity,private_identity,assignment_type,data_available);
++			
+ 	return ret;	
+ error:
+ 	ret = CSCF_RETURN_ERROR;		
+@@ -307,7 +295,6 @@
+ 	str private_identity={0,0},public_identity={0,0},realm={0,0};
+ 	int assignment_type = AVP_IMS_SAR_NO_ASSIGNMENT;
+ 	int data_available = AVP_IMS_SAR_USER_DATA_NOT_AVAILABLE;
+-	int x;
+ 
+ 	/* First check the parameters */
+ 	if (msg-&gt;first_line.type!=SIP_REQUEST)
+@@ -336,12 +323,8 @@
+ 	//else
+ 	data_available = AVP_IMS_SAR_USER_DATA_NOT_AVAILABLE;
+ 	
+-	x = SAR(msg,realm,public_identity,private_identity,assignment_type,data_available);
++	ret = SAR(msg,realm,public_identity,private_identity,assignment_type,data_available);
+ 	
+-	if (x&gt;0) ret = CSCF_RETURN_TRUE;
+-	else if (x&lt;0) ret = CSCF_RETURN_BREAK;
+-		else ret = CSCF_RETURN_FALSE;
+-		
+ 	return ret;	
+ error:
+ 	ret = CSCF_RETURN_ERROR;		
+@@ -358,7 +341,7 @@
+  * @param private_identity - private identity
+  * @param assignment_type - assignment type
+  * @param data_available - if the data is already available
+- * @returns 1 on success, 0 on Diameter error or -1 on error
++ * @returns CSCF_RETURN_TRUE if ok, CSCF_RETURN_FALSE on error or CSCF_RETURN_BREAK on response sent out
+  */
+ int SAR(struct sip_msg *msg, str realm, str public_identity, str private_identity,
+ 				int assignment_type,int data_available)
+@@ -433,20 +416,20 @@
+ 	
+ 	
+ 	if (msg){
+-		if (!save_location(msg,assignment_type,&amp;xml)){
+-			goto done;
+-		} 
++		int ret =  save_location(msg,assignment_type,&amp;xml);
++		if (saa) cdpb.AAAFreeMessage(&amp;saa);
++		return ret;
+ 	}else{
+ 		/* it was called internally and there is no SIP message to respond to */
+ 	}
+-	cdpb.AAAFreeMessage(&amp;saa);
+-	return 1;
++	if (saa) cdpb.AAAFreeMessage(&amp;saa);
++	return CSCF_RETURN_FALSE;
+ done:	
+ 	if (saa) cdpb.AAAFreeMessage(&amp;saa);
+-	return 0;
++	return CSCF_RETURN_FALSE;
+ error:	
+ 	if (saa) cdpb.AAAFreeMessage(&amp;saa);
+-	return -1;
++	return CSCF_RETURN_BREAK;
+ }
+ 
+ 
+@@ -465,12 +448,10 @@
+ {
+ 	unsigned int r;
+ 	if (expires_hdr&gt;=0) r = expires_hdr;
+-	else {
+-		if (!c || str2int(&amp;(c-&gt;expires-&gt;body), (unsigned int*)&amp;r) &lt; 0) {
+-			r = registration_default_expires;
+-		}
+-	}
+-	if (r&lt;registration_min_expires) r = registration_min_expires;
++	else r = registration_default_expires;
++	if (c &amp;&amp; c-&gt;expires)
++		str2int(&amp;(c-&gt;expires-&gt;body), (unsigned int*)&amp;r); 
++	if (r&gt;0 &amp;&amp; r&lt;registration_min_expires) r = registration_min_expires;
+ 	if (r&gt;registration_max_expires) r = registration_max_expires;
+ 	return time_now+r;
+ }
+@@ -507,15 +488,16 @@
+  * @param s - the ims_subscription received in the SAA
+  * @param ua - the user agent string
+  * @param path - the path to save
+- * @return 1 if ok, 0 if not
++ * @returns CSCF_RETURN_TRUE if ok, CSCF_RETURN_FALSE on error or CSCF_RETURN_BREAK on response sent out
+  */
+ static inline int update_contacts(struct sip_msg* msg, int assignment_type,
+-	contact_t* ct, unsigned char is_star, ims_subscription **s, str* ua,str *path)
++	 unsigned char is_star, ims_subscription **s, str* ua,str *path)
+ {
+ 	int i,j,s_used=0;
+ 	r_public *p;
+ 	r_contact *c;
+ 	ims_public_identity *pi;
++	struct hdr_field *h;
+ 	contact_t *ci;
+ 	int reg_state,expires_hdr,expires,hash;
+ 	str public_identity;
+@@ -542,22 +524,22 @@
+ 						if (is_star){
+ 							LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:update_contacts: STAR not accepted in contact for Registration.\n&quot;);
+ 						}else{
+-							ci = ct;
+-							while(ci){
+-								expires = r_calc_expires(ci,expires_hdr);
+-								if (!(c=update_r_contact(p,ci-&gt;uri,&amp;expires,ua,path))){
+-									LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:update_contacts: error on &lt;%.*s&gt;\n&quot;,
+-										ci-&gt;uri.len,ci-&gt;uri.s);
+-									goto error;
++							for(h=msg-&gt;contact;h;h=h-&gt;next)
++								if (h-&gt;type==HDR_CONTACT_T &amp;&amp; h-&gt;parsed)
++								 for(ci=((contact_body_t*)h-&gt;parsed)-&gt;contacts;ci;ci=ci-&gt;next){
++									expires = r_calc_expires(ci,expires_hdr);
++									if (!(c=update_r_contact(p,ci-&gt;uri,&amp;expires,ua,path))){
++										LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:update_contacts: error on &lt;%.*s&gt;\n&quot;,
++											ci-&gt;uri.len,ci-&gt;uri.s);
++										goto error;
++									}
++									if (assignment_type == AVP_IMS_SAR_REGISTRATION)
++										S_event_reg(p,c,0,IMS_REGISTRAR_CONTACT_REGISTERED,0);
++									else 
++										S_event_reg(p,c,0,IMS_REGISTRAR_CONTACT_REFRESHED,0);
++									
++									r_add_contact(msg,c-&gt;uri,c-&gt;expires-time_now);
+ 								}
+-								if (assignment_type == AVP_IMS_SAR_REGISTRATION)
+-									S_event_reg(p,c,0,IMS_REGISTRAR_CONTACT_REGISTERED,0);
+-								else 
+-									S_event_reg(p,c,0,IMS_REGISTRAR_CONTACT_REFRESHED,0);
+-								
+-								r_add_contact(msg,c-&gt;uri,c-&gt;expires-time_now);
+-								ci = ci-&gt;next;					
+-							}
+ 						}
+ 						r_unlock(p-&gt;hash);
+ 					}
+@@ -577,22 +559,22 @@
+ 			if (is_star){
+ 				LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:update_contacts: STAR not accepted in contact for Re-Registration.\n&quot;);
+ 			}else{	
+-				ci = ct;
+-				while(ci){
+-					expires = r_calc_expires(ci,expires_hdr);
+-					if (!(c=update_r_contact(p,ci-&gt;uri,&amp;expires,ua,path))){
+-						LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:update_contacts: error on &lt;%.*s&gt;\n&quot;,
+-							ci-&gt;uri.len,ci-&gt;uri.s);
+-						goto error;
++				for(h=msg-&gt;contact;h;h=h-&gt;next)
++					if (h-&gt;type==HDR_CONTACT_T &amp;&amp; h-&gt;parsed)
++					 for(ci=((contact_body_t*)h-&gt;parsed)-&gt;contacts;ci;ci=ci-&gt;next){
++						expires = r_calc_expires(ci,expires_hdr);
++						if (!(c=update_r_contact(p,ci-&gt;uri,&amp;expires,ua,path))){
++							LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:update_contacts: error on &lt;%.*s&gt;\n&quot;,
++								ci-&gt;uri.len,ci-&gt;uri.s);
++							goto error;
++						}
++						if (assignment_type == AVP_IMS_SAR_REGISTRATION)
++							S_event_reg(p,c,0,IMS_REGISTRAR_CONTACT_REGISTERED,0);
++						else 
++							S_event_reg(p,c,0,IMS_REGISTRAR_CONTACT_REFRESHED,0);
++						
++						r_add_contact(msg,c-&gt;uri,c-&gt;expires-time_now);
+ 					}
+-					if (assignment_type == AVP_IMS_SAR_REGISTRATION)
+-						S_event_reg(p,c,0,IMS_REGISTRAR_CONTACT_REGISTERED,0);
+-					else 
+-						S_event_reg(p,c,0,IMS_REGISTRAR_CONTACT_REFRESHED,0);
+-					
+-					r_add_contact(msg,c-&gt;uri,c-&gt;expires-time_now);
+-					ci = ci-&gt;next;					
+-				}
+ 			}
+ 			r_unlock(p-&gt;hash);
+ 			break;		
+@@ -618,17 +600,17 @@
+ 						c = c-&gt;next;
+ 					}
+ 				}else{
+-					ci = ct;
+-					while(ci){
+-						c = get_r_contact(p,ci-&gt;uri);				
+-						if (c) {
+-							c-&gt;expires = time_now;
+-							S_event_reg(p,c,0,IMS_REGISTRAR_CONTACT_UNREGISTERED,0);					
+-							r_add_contact(msg,c-&gt;uri,0);
+-							del_r_contact(p,c);
++					for(h=msg-&gt;contact;h;h=h-&gt;next)
++						if (h-&gt;type==HDR_CONTACT_T &amp;&amp; h-&gt;parsed)
++						 for(ci=((contact_body_t*)h-&gt;parsed)-&gt;contacts;ci;ci=ci-&gt;next){
++							c = get_r_contact(p,ci-&gt;uri);				
++							if (c) {
++								c-&gt;expires = time_now;
++								S_event_reg(p,c,0,IMS_REGISTRAR_CONTACT_UNREGISTERED,0);					
++								r_add_contact(msg,c-&gt;uri,0);
++								del_r_contact(p,c);
++							}
+ 						}
+-						ci = ci-&gt;next;					
+-					}
+ 				}
+ 				hash = p-&gt;hash;
+ 				if (!p-&gt;head) {
+@@ -666,11 +648,11 @@
+ 			return 0;
+ 	}
+ 
+-	print_r(L_DBG);
+-	return 1;
++	//print_r(L_CRIT);
++	return CSCF_RETURN_TRUE;
+ error:
+ 	if (!s_used&amp;&amp;*s) free_user_data(*s);
+-	return 0;	
++	return CSCF_RETURN_FALSE;	
+ }
+ 
+ 
+@@ -767,41 +749,82 @@
+  * @param msg - the SIP Register that contains the Expire and Contact headers
+  * @param assignment_type - as sent in the SAR
+  * @param xml - the user data as received in the SAA
+- * @returns 1 if OK, 0 if not
++ * @returns CSCF_RETURN_TRUE if ok, CSCF_RETURN_FALSE on error or CSCF_RETURN_BREAK on response sent out
+  */
+ int save_location(struct sip_msg *msg,int assignment_type,str *xml)
+ {
+ 	ims_subscription *s=0,*s_copy=0;
+-	contact_t* c;
++	contact_t *ci;
+ 	contact_body_t* b=0;	
++	struct hdr_field *h;
+ 	str ua;
+ 	str path;
++	int result = CSCF_RETURN_FALSE;
++	int max_expires, expires_hdr,expires;
++	unsigned int exp;
+ 	
+ 	if (xml &amp;&amp; xml-&gt;len) {
+ 		s = parse_user_data(*xml);
+ 		s_copy = s;
+ 		if (!s){
+ 			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:save_location: error parsing user data\n&quot;);
+-			return 0;
++			goto error;
+ 		}	
+ 		print_user_data(L_DBG,s);
+ 	}
+ 	
+ 	if (parse_headers(msg, HDR_EOH_F, 0) &lt;0) {
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:save_location: error parsing headers\n&quot;);
+-		return 0;
++		goto error;
+ 	}	
+ 	
+ 	b = cscf_parse_contacts(msg);
+ 	
+ 	if (!b||(!b-&gt;contacts &amp;&amp; !b-&gt;star)) {
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:save_location: No contacts found\n&quot;);
+-		return 0;
++		goto error;
+ 	}
+-		
+-	c = b-&gt;contacts;
++			
++	/* check for too brief interval for registration */
++	expires_hdr = cscf_get_expires_hdr(msg);
++	max_expires = expires_hdr;		
+ 	
++	for(h=msg-&gt;contact;h;h=h-&gt;next)
++		if (h-&gt;type==HDR_CONTACT_T &amp;&amp; h-&gt;parsed)
++		 for(ci=((contact_body_t*)h-&gt;parsed)-&gt;contacts;ci;ci=ci-&gt;next){
++			if(ci-&gt;expires){
++				if (!str2int(&amp;(ci-&gt;expires-&gt;body), (unsigned int*)&amp;exp)){
++					expires = exp;
++					if (expires&gt;max_expires) max_expires = expires;
++				}
++				else expires = -1;
++			}
++			else expires = expires_hdr;
++			if (expires&gt;0 &amp;&amp; expires&lt;registration_min_expires){
++				if (!cscf_add_header_rpl(msg,&amp;scscf_registration_min_expires)) return CSCF_RETURN_ERROR;			
++				S_REGISTER_reply(msg,423,MSG_423_INTERVAL_TOO_BRIEF);		
++				return CSCF_RETURN_BREAK;
++			}		
++		}
++	/* we might get gere and not know what to do actually - e.g. from S_update_contacts */
++	if (assignment_type&lt;0){
++		if (max_expires&gt;0) {
++			str public_identity;
++			public_identity=cscf_get_public_identity(msg);
+ 
++			if (r_is_registered_id(public_identity)) 
++				assignment_type = AVP_IMS_SAR_RE_REGISTRATION;
++			else
++				assignment_type = AVP_IMS_SAR_REGISTRATION;
++		}
++		else {
++			if (server_assignment_store_data) 
++				assignment_type = AVP_IMS_SAR_USER_DEREGISTRATION_STORE_SERVER_NAME;
++			else assignment_type = AVP_IMS_SAR_USER_DEREGISTRATION;
++		}
++	}
++ 	//LOG(L_CRIT,&quot;max_expires %d assign_type %d\n&quot;,max_expires, assignment_type);
++
+ 	ua = cscf_get_user_agent(msg);
+ 	
+ 	path = cscf_get_path(msg);
+@@ -811,23 +834,18 @@
+ 		assignment_type==AVP_IMS_SAR_RE_REGISTRATION)
+ 		if (!insert_p_associated_uri(msg,s)) goto error;
+ 	
+-	if (!update_contacts(msg,assignment_type, c,b-&gt;star,  &amp;s, &amp;ua,&amp;path)) 
+-		goto error;
+-	
++	result = update_contacts(msg,assignment_type, b-&gt;star,  &amp;s, &amp;ua,&amp;path); 
++
+ 	if (path.s) pkg_free(path.s);
+-	return 1;
++	return result;
+ error:
+ 	if (path.s) pkg_free(path.s);
+ 	if (s &amp;&amp; s==s_copy) free_user_data(s);	
+-	return 0;
++	return result;
+ }
+ 
+ /**
+  * Save the contacts.
+- * 1. Parse the user data
+- * 2. Parse contacts in the message
+- * 3. Update the contacts accordingly
+- * 4. Call function to add to the reply the P-Associated-URI header
+  * @param msg - the SIP Register that contains the Expire and Contact headers
+  * @param str1 - not used
+  * @param str2 - not used
+@@ -835,34 +853,7 @@
+  */
+ int S_update_contacts(struct sip_msg *msg,char *str1,char *str2)
+ {
+-	str public_identity;
+-	int assignment_type,expires;
+-
+-	expires = cscf_get_expires(msg);
+-	public_identity=cscf_get_public_identity(msg);
+-	
+-	if (expires&gt;0) {
+-		if (expires&lt;registration_min_expires){
+-			if (!cscf_add_header_rpl(msg,&amp;scscf_registration_min_expires)) return CSCF_RETURN_ERROR;			
+-			S_REGISTER_reply(msg,423,MSG_423_INTERVAL_TOO_BRIEF);		
+-			return CSCF_RETURN_BREAK;
+-		}
+-		//TODO 
+-		if (r_is_registered_id(public_identity)) 
+-			assignment_type = AVP_IMS_SAR_RE_REGISTRATION;
+-		else
+-			assignment_type = AVP_IMS_SAR_REGISTRATION;
+-	}
+-	else {
+-		if (server_assignment_store_data) 
+-			assignment_type = AVP_IMS_SAR_USER_DEREGISTRATION_STORE_SERVER_NAME;
+-		else assignment_type = AVP_IMS_SAR_USER_DEREGISTRATION;
+-	}
+-
+-	if (save_location(msg, assignment_type,0))
+-		return CSCF_RETURN_TRUE;
+-	else
+-		return CSCF_RETURN_FALSE;			
++	return save_location(msg, -1,0);
+ }
+ 
+ str route_hdr1={&quot;Route: &quot;,7};
+
+Modified: ser_ims/trunk/modules/scscf/registrar_notify.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar_notify.c	2007-02-27 12:17:59 UTC (rev 157)
++++ ser_ims/trunk/modules/scscf/registrar_notify.c	2007-02-27 19:49:56 UTC (rev 158)
+@@ -885,9 +885,6 @@
+ 	else 
+ 		tmb.t_request_within(&amp;method, &amp;h, 0, n-&gt;dialog, uac_request_cb, 0);		
+ 	if (h.s) pkg_free(h.s);
+-	if (n-&gt;subscription_state.len==subs_terminated.len &amp;&amp;
+-		memcmp(n-&gt;subscription_state.s,subs_terminated.s,subs_terminated.len)==0 &amp;&amp;
+-		n-&gt;dialog) tmb.free_dlg(n-&gt;dialog);
+ }
+ 
+ 
+
+Modified: ser_ims/trunk/modules/scscf/registrar_storage.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar_storage.c	2007-02-27 12:17:59 UTC (rev 157)
++++ ser_ims/trunk/modules/scscf/registrar_storage.c	2007-02-27 19:49:56 UTC (rev 158)
+@@ -315,8 +315,8 @@
+ 		else return 0;
+ 	}else{
+ 		if (expires) s-&gt;expires = *expires;
++		if (s-&gt;dialog &amp;&amp; s-&gt;dialog!=dialog) tmb.free_dlg(s-&gt;dialog);
+ 		s-&gt;dialog = dialog;
+-		
+ 		return s;
+ 	}
+ }
+@@ -335,6 +335,8 @@
+ 	else s-&gt;prev-&gt;next = s-&gt;next;
+ 	if (p-&gt;stail == s) p-&gt;stail = s-&gt;prev;
+ 	else s-&gt;next-&gt;prev = s-&gt;prev;
++	if (s-&gt;dialog) tmb.free_dlg(s-&gt;dialog);
++	
+ 	free_r_subscriber(s);
+ }
+ 
+
+Modified: ser_ims/trunk/modules/scscf/sip.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/sip.c	2007-02-27 12:17:59 UTC (rev 157)
++++ ser_ims/trunk/modules/scscf/sip.c	2007-02-27 19:49:56 UTC (rev 158)
+@@ -272,32 +272,27 @@
+  * @param msg - the SIP message
+  * @returns the value of the expire or the default 3600 if none found
+  */
+-int cscf_get_expires(struct sip_msg *msg)
++int cscf_get_max_expires(struct sip_msg *msg)
+ {
+-	int expires = 3600,i;
++	unsigned int exp;
++	int max_expires = -1;
++	struct hdr_field *h;
+ 	contact_t *c;
+-	param_t *param;
+-	contact_body_t *cbody; 
+ 	/*first search in Expires header */
+-	expires = cscf_get_expires_hdr(msg);
++	max_expires = cscf_get_expires_hdr(msg);
++	
+ 	cscf_parse_contacts(msg);
+-	if (msg-&gt;contact &amp;&amp; msg-&gt;contact-&gt;parsed) {
+-		cbody = (contact_body_t *) msg-&gt;contact-&gt;parsed;
+-		c = cbody-&gt;contacts;
+-		//TODO - make this function specific per contact !!!
+-		if (c){
+-			param = c-&gt;expires;
+-			if(param&amp;&amp;param-&gt;name.s){
+-				expires = 0;
+-				for(i=0;i&lt;param-&gt;name.len;i++)
+-				 if (param-&gt;body.s[i]&gt;='0' &amp;&amp;
+-				 	 param-&gt;body.s[i]&lt;='9')
+-				 	expires=(expires*10)+param-&gt;body.s[i]-'0';
++	for(h=msg-&gt;contact;h;h=h-&gt;next){
++		if (h-&gt;type==HDR_CONTACT_T &amp;&amp; h-&gt;parsed) {
++			for(c=((contact_body_t *) h-&gt;parsed)-&gt;contacts;c;c=c-&gt;next){
++				if(c-&gt;expires){
++					if (!str2int(&amp;(c-&gt;expires-&gt;body), (unsigned int*)&amp;exp) &amp;&amp; (int)exp&gt;max_expires) max_expires = exp;
++				}
+ 			}
+-		}
+-	}	
+-	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:cscf_get_expires: &lt;%d&gt; \n&quot;,expires);
+-	return expires;
++		}	
++	}
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:cscf_get_max_expires: &lt;%d&gt; \n&quot;,max_expires);
++	return max_expires;
+ }
+ 
+ /**
+@@ -687,7 +682,7 @@
+ 		ptr = msg-&gt;contact;
+ 		while(ptr) {
+ 			if (ptr-&gt;type == HDR_CONTACT_T) {
+-				if (msg-&gt;contact-&gt;parsed==0){
++				if (ptr-&gt;parsed==0){
+ 					if (parse_contact(ptr)&lt;0){
+ 							LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:cscf_parse_contacts: error parsing contacts [%.*s]\n&quot;,
+ 								ptr-&gt;body.len,ptr-&gt;body.s);							
+@@ -2343,3 +2338,5 @@
+ 	if (x.s) pkg_free(x.s);
+ 	return r;
+ }
++
++
+
+Modified: ser_ims/trunk/modules/scscf/sip.h
+===================================================================
+--- ser_ims/trunk/modules/scscf/sip.h	2007-02-27 12:17:59 UTC (rev 157)
++++ ser_ims/trunk/modules/scscf/sip.h	2007-02-27 19:49:56 UTC (rev 158)
+@@ -68,7 +68,7 @@
+ str cscf_get_private_identity(struct sip_msg *msg, str realm);
+ str cscf_get_public_identity(struct sip_msg *msg);
+ int cscf_get_expires_hdr(struct sip_msg *msg);
+-int cscf_get_expires(struct sip_msg *msg);
++int cscf_get_max_expires(struct sip_msg *msg);
+ str cscf_get_public_identity_from_requri(struct sip_msg *msg);
+ 
+ struct sip_msg *cscf_get_request(unsigned int hash,unsigned int label);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000259.html">[OpenIMSCore-CSCF] Sipp tests
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#258">[ date ]</a>
+              <a href="thread.html#258">[ thread ]</a>
+              <a href="subject.html#258">[ subject ]</a>
+              <a href="author.html#258">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

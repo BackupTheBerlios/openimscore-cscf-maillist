@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] SVN-ser_ims r135
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SVN-ser_ims%20r135&In-Reply-To=%3C20070213192008.a7h36ew7qygwgo84%40webmail.FH-Telekom-Leipzig.DE%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000212.html">
+   <LINK REL="Next"  HREF="000214.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] SVN-ser_ims r135</H1>
+    <B>Stephan.Massner</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SVN-ser_ims%20r135&In-Reply-To=%3C20070213192008.a7h36ew7qygwgo84%40webmail.FH-Telekom-Leipzig.DE%3E"
+       TITLE="[OpenIMSCore-CSCF] SVN-ser_ims r135">Stephan.Massner at FH-Telekom-Leipzig.DE
+       </A><BR>
+    <I>Tue Feb 13 19:20:08 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000212.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r137 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000214.html">[OpenIMSCore-CSCF] SVN-ser_ims r135
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#213">[ date ]</a>
+              <a href="thread.html#213">[ thread ]</a>
+              <a href="subject.html#213">[ subject ]</a>
+              <a href="author.html#213">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Dear colleagues,
+
+after downloading the ser_ims version 135 and updating, by doing &quot;make all&quot; in
+/opt/openimscore/ser_ims/trunk the following compilation error occurred:
+
+make[1]: Entering directory `/opt/openimscore/ser_ims/trunk/modules/mysql'
+gcc -fPIC -DPIC -g -O9 -funroll-loops -Wcast-align -Wall -minline-all-stringops
+-falign-loops -mcpu=athlon     -DNAME='&quot;ser&quot;'
+-DVERSION='&quot;0.10.99-dev53-tm_fixes&quot;' -DARCH='&quot;i386&quot;' -DOS='linux_'
+-DOS_QUOTED='&quot;linux&quot;' -DCOMPILER='&quot;gcc 3.3.6&quot;' -D__CPU_i386 -D__OS_linux
+-DSER_VER=10099 -DCFG_DIR='&quot;/usr/local/etc/ser/&quot;' -DPKG_MALLOC -DSHM_MEM 
+-DSHM_MMAP -DDNS_IP_HACK -DUSE_IPV6 -DUSE_MCAST -DUSE_TCP -DDISABLE_NAGLE
+-DHAVE_RESOLV_RES -DDBG_QM_MALLOC -DUSE_DNS_CACHE -DUSE_DNS_FAILOVER
+-DUSE_DST_BLACKLIST -ggdb  -DFAST_LOCK -DADAPTIVE_WAIT
+-DADAPTIVE_WAIT_LOOPS=1024  -DCC_GCC_LIKE_ASM -DHAVE_GETHOSTBYNAME2
+-DHAVE_UNION_SEMUN -DHAVE_SCHED_YIELD -DHAVE_MSG_NOSIGNAL
+-DHAVE_MSGHDR_MSG_CONTROL -DHAVE_ALLOCA_H -DHAVE_TIMEGM -DHAVE_EPOLL
+-DHAVE_SIGIO_RT -DSIGINFO64_WORKARROUND -DHAVE_SELECT -I/usr/local/include
+-I/usr/local/include/mysql -I/usr/local/mysql/include -I/usr/include/mysql -c
+dbase.c -o dbase.o
+dbase.c:34:25: mysql/mysql.h: No such file or directory
+dbase.c:35:26: mysql/errmsg.h: No such file or directory
+In file included from dbase.c:40:
+val.h:31:25: mysql/mysql.h: No such file or directory
+In file included from dbase.c:40:
+val.h:44: error: syntax error before '*' token
+In file included from dbase.c:41:
+my_con.h:35:25: mysql/mysql.h: No such file or directory
+In file included from dbase.c:41:
+my_con.h:43: error: syntax error before &quot;MYSQL&quot;
+my_con.h:43: warning: no semicolon at end of struct or union
+my_con.h:45: error: syntax error before '}' token
+In file included from dbase.c:42:
+res.h:37: error: syntax error before &quot;MYSQL_RES&quot;
+res.h:37: warning: no semicolon at end of struct or union
+res.h:38: warning: type defaults to `int' in declaration of `row'
+res.h:38: warning: data definition has no type or storage class
+dbase.c: In function `submit_query':
+dbase.c:67: error: dereferencing pointer to incomplete type
+dbase.c:68: warning: implicit declaration of function `mysql_ping'
+dbase.c:68: error: dereferencing pointer to incomplete type
+dbase.c:72: error: dereferencing pointer to incomplete type
+dbase.c:90: warning: implicit declaration of function `mysql_query'
+dbase.c:90: error: dereferencing pointer to incomplete type
+dbase.c:93: warning: implicit declaration of function `mysql_errno'
+dbase.c:93: error: dereferencing pointer to incomplete type
+dbase.c:94: error: `CR_SERVER_GONE_ERROR' undeclared (first use in this
+function)
+dbase.c:94: error: (Each undeclared identifier is reported only once
+dbase.c:94: error: for each function it appears in.)
+dbase.c:94: error: `CR_SERVER_LOST' undeclared (first use in this function)
+dbase.c:98: warning: implicit declaration of function `mysql_error'
+dbase.c:98: error: dereferencing pointer to incomplete type
+dbase.c:98: error: dereferencing pointer to incomplete type
+dbase.c:98: warning: format argument is not a pointer (arg 3)
+dbase.c:98: error: dereferencing pointer to incomplete type
+dbase.c:98: warning: format argument is not a pointer (arg 3)
+dbase.c:98: error: dereferencing pointer to incomplete type
+dbase.c:98: warning: format argument is not a pointer (arg 3)
+dbase.c:98: error: dereferencing pointer to incomplete type
+dbase.c:98: warning: format argument is not a pointer (arg 3)
+dbase.c:98: error: dereferencing pointer to incomplete type
+dbase.c:98: warning: format argument is not a pointer (arg 3)
+dbase.c:98: error: dereferencing pointer to incomplete type
+dbase.c:98: warning: format argument is not a pointer (arg 3)
+dbase.c:98: error: dereferencing pointer to incomplete type
+dbase.c:98: warning: format argument is not a pointer (arg 3)
+dbase.c: At top level:
+dbase.c:138: error: syntax error before '*' token
+dbase.c: In function `print_values':
+dbase.c:142: error: `_c' undeclared (first use in this function)
+dbase.c:142: error: `_b' undeclared (first use in this function)
+dbase.c:142: error: `_l' undeclared (first use in this function)
+dbase.c:142: error: `_v' undeclared (first use in this function)
+dbase.c:142: error: `_n' undeclared (first use in this function)
+dbase.c: At top level:
+dbase.c:166: error: syntax error before '*' token
+dbase.c: In function `print_where':
+dbase.c:172: error: `_c' undeclared (first use in this function)
+dbase.c:172: error: `_b' undeclared (first use in this function)
+dbase.c:172: error: `_l' undeclared (first use in this function)
+dbase.c:172: error: `_k' undeclared (first use in this function)
+dbase.c:172: error: `_v' undeclared (first use in this function)
+dbase.c:172: error: `_n' undeclared (first use in this function)
+dbase.c:182: error: `_o' undeclared (first use in this function)
+dbase.c: At top level:
+dbase.c:212: error: syntax error before '*' token
+dbase.c: In function `print_set':
+dbase.c:218: error: `_c' undeclared (first use in this function)
+dbase.c:218: error: `_b' undeclared (first use in this function)
+dbase.c:218: error: `_l' undeclared (first use in this function)
+dbase.c:218: error: `_k' undeclared (first use in this function)
+dbase.c:218: error: `_v' undeclared (first use in this function)
+dbase.c:218: error: `_n' undeclared (first use in this function)
+dbase.c: In function `store_result':
+dbase.c:338: error: dereferencing pointer to incomplete type
+dbase.c:338: warning: implicit declaration of function `mysql_store_result'
+dbase.c:338: error: dereferencing pointer to incomplete type
+dbase.c:339: error: dereferencing pointer to incomplete type
+dbase.c:340: warning: implicit declaration of function `mysql_field_count'
+dbase.c:340: error: dereferencing pointer to incomplete type
+dbase.c:345: error: dereferencing pointer to incomplete type
+dbase.c:345: error: dereferencing pointer to incomplete type
+dbase.c:345: warning: format argument is not a pointer (arg 3)
+dbase.c:345: error: dereferencing pointer to incomplete type
+dbase.c:345: warning: format argument is not a pointer (arg 3)
+dbase.c:345: error: dereferencing pointer to incomplete type
+dbase.c:345: warning: format argument is not a pointer (arg 3)
+dbase.c:345: error: dereferencing pointer to incomplete type
+dbase.c:345: warning: format argument is not a pointer (arg 3)
+dbase.c:345: error: dereferencing pointer to incomplete type
+dbase.c:345: warning: format argument is not a pointer (arg 3)
+dbase.c:345: error: dereferencing pointer to incomplete type
+dbase.c:345: warning: format argument is not a pointer (arg 3)
+dbase.c:345: error: dereferencing pointer to incomplete type
+dbase.c:345: warning: format argument is not a pointer (arg 3)
+dbase.c:354: warning: implicit declaration of function `mysql_free_result'
+dbase.c:354: error: dereferencing pointer to incomplete type
+dbase.c: In function `db_query':
+dbase.c:432: error: dereferencing pointer to incomplete type
+dbase.c: In function `db_insert':
+dbase.c:505: error: dereferencing pointer to incomplete type
+dbase.c: In function `db_delete':
+dbase.c:550: error: dereferencing pointer to incomplete type
+dbase.c: In function `db_update':
+dbase.c:593: error: dereferencing pointer to incomplete type
+dbase.c:602: error: dereferencing pointer to incomplete type
+dbase.c: In function `db_replace':
+dbase.c:645: error: dereferencing pointer to incomplete type
+make[1]: *** [dbase.o] Error 1
+make[1]: Leaving directory `/opt/openimscore/ser_ims/trunk/modules/mysql'
+
+Does anybody know how to solve this problem?
+
+
+Stephan Massner
+
+
+-------------------------------------------
+University of Applied Sciences
+NGN-Laboratory
+Dipl-Ing. (FH) Stephan Massner
+Gustav-Freytag Str. 43-45
+04277 Leipzig
+
+mail: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">stephan.massner at fh-telekom-leipzig.de</A>
+-------------------------------------------
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000212.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r137 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000214.html">[OpenIMSCore-CSCF] SVN-ser_ims r135
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#213">[ date ]</a>
+              <a href="thread.html#213">[ thread ]</a>
+              <a href="subject.html#213">[ subject ]</a>
+              <a href="author.html#213">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

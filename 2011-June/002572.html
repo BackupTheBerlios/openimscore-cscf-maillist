@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r1114 - PCC: sending the ICID to	the PCRF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1114%20-%20PCC%3A%20sending%20the%20ICID%20to%0A%09the%20PCRF&In-Reply-To=%3C20110609141751.DBA5B4807EC%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002569.html">
+   <LINK REL="Next"  HREF="002573.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r1114 - PCC: sending the ICID to	the PCRF</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1114%20-%20PCC%3A%20sending%20the%20ICID%20to%0A%09the%20PCRF&In-Reply-To=%3C20110609141751.DBA5B4807EC%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r1114 - PCC: sending the ICID to	the PCRF">aon at users.berlios.de
+       </A><BR>
+    <I>Thu Jun  9 16:17:51 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002569.html">[OpenIMSCore-CSCF] Porting to OS X?
+</A></li>
+        <LI>Next message: <A HREF="002573.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1115 - P-CSCF config: save the	dialog before generating the charging id,	so that the charging id is stored and used for PCC
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2572">[ date ]</a>
+              <a href="thread.html#2572">[ thread ]</a>
+              <a href="subject.html#2572">[ subject ]</a>
+              <a href="author.html#2572">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2011-06-09 16:17:50 +0200 (Thu, 09 Jun 2011)
+New Revision: 1114 <A HREF="http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1114">http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1114</A> 
+
+Log:
+PCC: sending the ICID to the PCRF
+
+
+Modified:
+   U	ser_ims/trunk/modules/Client_Rf/sip.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/sip.c?op=diff&amp;rev=1114&amp;peg=1114">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/sip.c?op=diff&amp;rev=1114&amp;peg=1114</A>
+   U	ser_ims/trunk/modules/pcscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?op=diff&amp;rev=1114&amp;peg=1114">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?op=diff&amp;rev=1114&amp;peg=1114</A>
+   U	ser_ims/trunk/modules/pcscf/dlg_state.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.h?op=diff&amp;rev=1114&amp;peg=1114">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.h?op=diff&amp;rev=1114&amp;peg=1114</A>
+   U	ser_ims/trunk/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/mod.c?op=diff&amp;rev=1114&amp;peg=1114">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/mod.c?op=diff&amp;rev=1114&amp;peg=1114</A>
+   U	ser_ims/trunk/modules/pcscf/pcc.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/pcc.c?op=diff&amp;rev=1114&amp;peg=1114">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/pcc.c?op=diff&amp;rev=1114&amp;peg=1114</A>
+   U	ser_ims/trunk/modules/pcscf/pcc.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/pcc.h?op=diff&amp;rev=1114&amp;peg=1114">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/pcc.h?op=diff&amp;rev=1114&amp;peg=1114</A>
+   U	ser_ims/trunk/modules/pcscf/registration.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/registration.c?op=diff&amp;rev=1114&amp;peg=1114">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/registration.c?op=diff&amp;rev=1114&amp;peg=1114</A>
+   U	ser_ims/trunk/modules/scscf/sip.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/scscf/sip.c?op=diff&amp;rev=1114&amp;peg=1114">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/scscf/sip.c?op=diff&amp;rev=1114&amp;peg=1114</A>
+   U	ser_ims/trunk/modules/scscf/sip.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/scscf/sip.h?op=diff&amp;rev=1114&amp;peg=1114">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/scscf/sip.h?op=diff&amp;rev=1114&amp;peg=1114</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002569.html">[OpenIMSCore-CSCF] Porting to OS X?
+</A></li>
+	<LI>Next message: <A HREF="002573.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1115 - P-CSCF config: save the	dialog before generating the charging id,	so that the charging id is stored and used for PCC
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2572">[ date ]</a>
+              <a href="thread.html#2572">[ thread ]</a>
+              <a href="subject.html#2572">[ subject ]</a>
+              <a href="author.html#2572">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] FW: [SVN-ser_ims] r78 - in ser_ims/trunk:	cfg	modules/isc modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20FW%3A%20%5BSVN-ser_ims%5D%20r78%20-%20in%20ser_ims/trunk%3A%0A%09cfg%09modules/isc%20modules/scscf&In-Reply-To=%3C000601c786fc%24f39e31e0%243502330a%40sasken.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000500.html">
+   <LINK REL="Next"  HREF="000514.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] FW: [SVN-ser_ims] r78 - in ser_ims/trunk:	cfg	modules/isc modules/scscf</H1>
+    <B>abhishek</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20FW%3A%20%5BSVN-ser_ims%5D%20r78%20-%20in%20ser_ims/trunk%3A%0A%09cfg%09modules/isc%20modules/scscf&In-Reply-To=%3C000601c786fc%24f39e31e0%243502330a%40sasken.com%3E"
+       TITLE="[OpenIMSCore-CSCF] FW: [SVN-ser_ims] r78 - in ser_ims/trunk:	cfg	modules/isc modules/scscf">abhirs at sasken.com
+       </A><BR>
+    <I>Wed Apr 25 07:45:37 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000500.html">[OpenIMSCore-CSCF] FW: [SVN-ser_ims] r78 - in ser_ims/trunk: cfg	modules/isc modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000514.html">[OpenIMSCore-CSCF] FW: [SVN-ser_ims] r78 - in ser_ims/trunk: cfg	modules/isc modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#512">[ date ]</a>
+              <a href="thread.html#512">[ thread ]</a>
+              <a href="subject.html#512">[ subject ]</a>
+              <a href="author.html#512">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+	I have attached the logs of sip client and pcscf of openimscore.
+
+I Tried sending a &quot;subscribe&quot; message in place of a &quot;invite&quot; message
+
+Here I first tried to add the Path,Service route to the Route Header of the
+Subscribe..But this showed 
+	&quot;S_can_subscribe: P-Asserted-Identity empty&quot; in the scscf log
+While I tried to find what was the cause of the error I found that
+
+The sip request wasn't entering the 
+
+If(!P_mobile_Terminating){
+......
+}
+
+So the next thing I did was to remove the route header send the Request
+
+This resulted in the Pcscf-crash as found in the attached &quot;pcscf_log.txt&quot;
+
+
+Can Anyone help me resolve this problem.
+
+
+
+Regards,
+Abhishek.R.S
+
+ 
+
+-----Original Message-----
+From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+Sent: Tuesday, April 24, 2007 4:44 PM
+To: abhishek
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] FW: [SVN-ser_ims] r78 - in ser_ims/trunk:
+cfg modules/isc modules/scscf
+
+Hello Abhishek,
+
+The first issues is not a real problem, just a log that there will be no 3rd
+party registration to application servers.
+
+The 2nd one is kind of big, as it indicates that there was no
+P-Asserted-Identity header in the INVITE and there should've been one if the
+message passed through the P-CSCF.
+
+Please post a network trace if you need further help.
+
+-Dragos
+
+abhishek wrote:
+&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i> --
+</I>&gt;<i> *From:* abhishek [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">abhirs at sasken.com</A>]
+</I>&gt;<i> *Sent:* Monday, April 23, 2007 3:27 PM
+</I>&gt;<i> *To:* '<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>'
+</I>&gt;<i> *Subject:* FW: [OpenIMSCore-CSCF] [SVN-ser_ims] r78 - in
+</I>&gt;<i> ser_ims/trunk: cfg modules/isc modules/scscf
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i> --
+</I>&gt;<i> *From:* abhishek [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">abhirs at sasken.com</A>]
+</I>&gt;<i> *Sent:* Monday, April 23, 2007 3:03 PM
+</I>&gt;<i> *To:* '<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>'
+</I>&gt;<i> *Subject:* [OpenIMSCore-CSCF] [SVN-ser_ims] r78 - in ser_ims/trunk:
+</I>&gt;<i> cfg modules/isc modules/scscf
+</I>&gt;<i>
+</I>&gt;<i> hi,
+</I>&gt;<i>     I have just started using the openimscore.
+</I>&gt;<i>  
+</I>&gt;<i> iam having problems with invite between alice and bob.
+</I>&gt;<i>  
+</I>&gt;<i> iam having both my clients running on a different windows machine wrt 
+</I>&gt;<i> linux box having openimscore modules running.
+</I>&gt;<i>  
+</I>&gt;<i> On registering ,i get something like the below
+</I>&gt;<i>  
+</I>&gt;<i> &quot;No REGISTER match found in filter criteria&quot;
+</I>&gt;<i>  
+</I>&gt;<i> But the device still gets registered.
+</I>&gt;<i>  
+</I>&gt;<i> On SIP INVITE call between the two i get
+</I>&gt;<i>  
+</I>&gt;<i> &quot;ERR:S-CSCF:S_save_dialog(): Error retrieving orig contact&quot;
+</I>&gt;<i>  
+</I>&gt;<i>  
+</I>&gt;<i> Iam using Jain-Sip for the clients.
+</I>&gt;<i>  
+</I>&gt;<i> Can anyone help me resolve this problem?
+</I>&gt;<i>  
+</I>&gt;<i> Regards,
+</I>&gt;<i> Abhishek.R.S
+</I>&gt;<i>  
+</I>&gt;<i> SASKEN BUSINESS DISCLAIMER
+</I>&gt;<i> -------------------------
+</I>&gt;<i> This message may contain confidential, proprietary or legally 
+</I>&gt;<i> privileged information. In case you are not the original intended 
+</I>&gt;<i> Recipient of the message, you must not, directly or indirectly, use, 
+</I>&gt;<i> Disclose, distribute, print, or copy any part of this message and you 
+</I>&gt;<i> are requested to delete it and inform the sender. Any views expressed 
+</I>&gt;<i> in this message are those of the individual sender unless otherwise 
+</I>&gt;<i> stated. Nothing contained in this message shall be construed as an 
+</I>&gt;<i> offer or acceptance of any offer by Sasken Communication Technologies 
+</I>&gt;<i> Limited (&quot;Sasken&quot;) unless sent with that express intent and with due 
+</I>&gt;<i> authority of Sasken. Sasken has taken enough precautions to prevent 
+</I>&gt;<i> the spread of viruses. However the company accepts no liability for 
+</I>&gt;<i> any damage caused by any virus transmitted by this email
+</I>&gt;<i>   
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i> --
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+--
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+SASKEN BUSINESS DISCLAIMER
+-------------------------
+This message may contain confidential, proprietary or legally privileged information. In 
+case you are not the original intended Recipient of the message, you must not, directly or 
+indirectly, use, Disclose, distribute, print, or copy any part of this message and you are 
+requested to delete it and inform the sender. Any views expressed in this message are 
+those of the individual sender unless otherwise stated. Nothing contained in this message 
+shall be construed as an offer or acceptance of any offer by Sasken Communication 
+Technologies Limited (&quot;Sasken&quot;) unless sent with that express intent and with due 
+authority of Sasken. Sasken has taken enough precautions to prevent the spread of 
+viruses. However the company accepts no liability for any damage caused by any virus 
+transmitted by this email
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: sip_client.txt
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070425/a6d04efd/attachment.txt">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070425/a6d04efd/attachment.txt</A>&gt;
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: pcscf_log.txt
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070425/a6d04efd/attachment-0001.txt">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070425/a6d04efd/attachment-0001.txt</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000500.html">[OpenIMSCore-CSCF] FW: [SVN-ser_ims] r78 - in ser_ims/trunk: cfg	modules/isc modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000514.html">[OpenIMSCore-CSCF] FW: [SVN-ser_ims] r78 - in ser_ims/trunk: cfg	modules/isc modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#512">[ date ]</a>
+              <a href="thread.html#512">[ thread ]</a>
+              <a href="subject.html#512">[ subject ]</a>
+              <a href="author.html#512">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

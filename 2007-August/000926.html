@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r435 - Fixed P-CSCF reg	subscription bug that caused crashes at very high loads.	Removed ims_pm logging from console output.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r435%20-%20Fixed%20P-CSCF%20reg%0A%09subscription%20bug%20that%20caused%20crashes%20at%20very%20high%20loads.%0A%09Removed%20ims_pm%20logging%20from%20console%20output.&In-Reply-To=%3C200708201151.l7KBpFCh003408%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000925.html">
+   <LINK REL="Next"  HREF="000927.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r435 - Fixed P-CSCF reg	subscription bug that caused crashes at very high loads.	Removed ims_pm logging from console output.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r435%20-%20Fixed%20P-CSCF%20reg%0A%09subscription%20bug%20that%20caused%20crashes%20at%20very%20high%20loads.%0A%09Removed%20ims_pm%20logging%20from%20console%20output.&In-Reply-To=%3C200708201151.l7KBpFCh003408%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r435 - Fixed P-CSCF reg	subscription bug that caused crashes at very high loads.	Removed ims_pm logging from console output.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Mon Aug 20 13:51:15 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000925.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature]	Application Sequencing with B2BUA
+</A></li>
+        <LI>Next message: <A HREF="000927.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] P-CSCF not	fwding over TCP when NAT enabled
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#926">[ date ]</a>
+              <a href="thread.html#926">[ thread ]</a>
+              <a href="subject.html#926">[ subject ]</a>
+              <a href="author.html#926">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-08-20 13:51:14 +0200 (Mon, 20 Aug 2007)
+New Revision: 435 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=435">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=435</A> 
+
+Log:
+Fixed P-CSCF reg subscription bug that caused crashes at very high loads.
+Removed ims_pm logging from console output.
+
+
+Modified:
+   U	ser_ims/trunk/modules/pcscf/registrar_subscribe.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_subscribe.c?rev=435&amp;view=diff&amp;r1=435&amp;r2=434">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_subscribe.c?rev=435&amp;view=diff&amp;r1=435&amp;r2=434</A>
+   U	ser_ims/trunk/modules/scscf/ims_pm.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/ims_pm.c?rev=435&amp;view=diff&amp;r1=435&amp;r2=434">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/ims_pm.c?rev=435&amp;view=diff&amp;r1=435&amp;r2=434</A>
+   U	ser_ims/trunk/modules/scscf/registrar_notify.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_notify.c?rev=435&amp;view=diff&amp;r1=435&amp;r2=434">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_notify.c?rev=435&amp;view=diff&amp;r1=435&amp;r2=434</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000925.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature]	Application Sequencing with B2BUA
+</A></li>
+	<LI>Next message: <A HREF="000927.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] P-CSCF not	fwding over TCP when NAT enabled
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#926">[ date ]</a>
+              <a href="thread.html#926">[ thread ]</a>
+              <a href="subject.html#926">[ subject ]</a>
+              <a href="author.html#926">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

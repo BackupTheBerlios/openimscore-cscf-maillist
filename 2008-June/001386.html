@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Fw: Re: Re: 403 Dialog not found on S-CSCF or Terminating user not suitable for unregisted services
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Fw%3A%20Re%3A%20Re%3A%20403%20Dialog%20not%20found%20on%20S-CSCF%0A%20or%20Terminating%20user%20not%20suitable%20for%20unregisted%20services&In-Reply-To=%3C48464A61.5020702%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001385.html">
+   <LINK REL="Next"  HREF="001387.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Fw: Re: Re: 403 Dialog not found on S-CSCF or Terminating user not suitable for unregisted services</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Fw%3A%20Re%3A%20Re%3A%20403%20Dialog%20not%20found%20on%20S-CSCF%0A%20or%20Terminating%20user%20not%20suitable%20for%20unregisted%20services&In-Reply-To=%3C48464A61.5020702%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Fw: Re: Re: 403 Dialog not found on S-CSCF or Terminating user not suitable for unregisted services">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Jun  4 09:55:13 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001385.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature]	Wildcarded public user identities
+</A></li>
+        <LI>Next message: <A HREF="001387.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r564 - Minor fixes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1386">[ date ]</a>
+              <a href="thread.html#1386">[ thread ]</a>
+              <a href="subject.html#1386">[ subject ]</a>
+              <a href="author.html#1386">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello QJ,
+
+Sorry, but I don't think that what you are trying to do is allowed in
+IMS. You can not create such a &quot;triangle&quot; on the ISC interface. If you
+would like to pipe your messages through such a service broker, then you
+should instead change the AS URI to indicate the Service Broker. You
+could also put some more information into that URI so that the Service
+Broker could know where is your real AS, but you should not change the
+S-CSCF cfg for this.
+
+The 2nd bad thing is that if an AS responds with a 500, the call should
+not continue, like it does in your trace - this must be a result of your
+changes in the scscf.cfg...
+
+So it seems that the dialog is not saved on the first S-CSCF. But when
+you get a 500, there is no reason to save it as it should be normally
+terminated.
+
+I would find such changes to the scscf.cfg only acceptable for other
+interfaces, like the ones with the MGW or MRF. For this, if you want to
+change the ISC behavior, you are on your own as the whole thing was
+designed for something else....
+
+Cheers,
+-Dragos
+
+
+qj85 wrote:
+&gt;<i>
+</I>&gt;<i> Hi Drogos,i am attaching the trace in &quot;situation 1.out&quot; and &quot;situation
+</I>&gt;<i> 1&quot;(it's got by wireshark).
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> i hava change some logic of s-cscf that when one service will be
+</I>&gt;<i> triggered,the request will firstly be sned to service broker(can be
+</I>&gt;<i> seen as a AS).
+</I>&gt;<i> the flow is :
+</I>&gt;<i> user QJ(address:59.64.153.225:5060)--&gt;QJ's
+</I>&gt;<i> pcscf(59.64.153.132:4060)--&gt;QJ's s-cscf(59.64.153.132:6060,here ifc
+</I>&gt;<i> will trigger a AS whose address is 59.64.153.225:5066)--&gt;QJ's service
+</I>&gt;<i> broker(59.64.153.225:5080,and here the logic of service broker is to
+</I>&gt;<i> send back 500 error)--&gt;QJ's s-cscf(59.64.153.132:6060)--&gt;tom's
+</I>&gt;<i> s-cscf(59.64.153.132:6060)--&gt;tom's p-cscf(59.64.153.132:4060)--&gt;user
+</I>&gt;<i> Tom(address:59.64.153.225:5061)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> the call can be established successfully,but when someone send
+</I>&gt;<i> &quot;bye&quot;,the request will cause the result that QJ's s-cscf create 403
+</I>&gt;<i> forbidden.(but the bye can get through Tom's s-cscf)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> thanks very much
+</I>&gt;<i>
+</I>&gt;<i> --QJ
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Could you please attach a network trace so that we would understand the
+</I>&gt;<i> situation better?
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> qj85 wrote:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Hi
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I have face a problem:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; User A call B,and B has subscribed a service. for some reason ,the
+</I>&gt;<i> &gt; service error,and send back 500 error. the call can be set up as
+</I>&gt;<i> &gt; usual. but the problem is when one user send &quot;bye&quot; reuqesr, &quot;403
+</I>&gt;<i> &gt; Dialog not found on S-CSCF or Terminating user not suitable for
+</I>&gt;<i> &gt; unregisted services&quot; will be create at B's S-CSCF. what's the reason?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; thanks
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ===============================================
+</I>&gt;<i> &gt; &#24555;&#26469;&#21644;&#25105;&#19968;&#36215;&#20139;&#21463;TOM&#20813;&#36153;&#37038;&#31665;&#21543;&#65281;&#30475;&#30475;&#38500;&#20102;1.5G&#65292;&#36824;&#26377;&#20160;&#20040;&#65311;
+</I>&gt;<i> &gt; &lt;<A HREF="http://bjcgi.163.net/cgi-bin/newreg.cgi?%0Arf=050602">http://bjcgi.163.net/cgi-bin/newreg.cgi?%0Arf=050602</A>&gt;
+</I>&gt;<i> &gt; ===============================================
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ------------------------------------------------------------------------
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> -- 
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ===============================================
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> &#24555;&#26469;&#21644;&#25105;&#19968;&#36215;&#20139;&#21463;TOM&#20813;&#36153;&#37038;&#31665;&#21543;&#65281;&#30475;&#30475;&#38500;&#20102;1.5G&#65292;&#36824;&#26377;&#20160;&#20040;&#65311;src=&quot;http:
+</I>&gt;<i> //mail.tom.com/images/mail/050328/page_02.gif&quot; border=&quot;0&quot; width=&quot;37&quot;
+</I>&gt;<i> height=&quot;33&quot;&gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ===============================================
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ===============================================
+</I>&gt;<i> &#24555;&#26469;&#21644;&#25105;&#19968;&#36215;&#20139;&#21463;TOM&#20813;&#36153;&#37038;&#31665;&#21543;&#65281;&#30475;&#30475;&#38500;&#20102;1.5G&#65292;&#36824;&#26377;&#20160;&#20040;&#65311;
+</I>&gt;<i> &lt;<A HREF="http://bjcgi.163.net/cgi-bin/newreg.cgi?%0Arf=050602">http://bjcgi.163.net/cgi-bin/newreg.cgi?%0Arf=050602</A>&gt;
+</I>&gt;<i> ===============================================
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001385.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature]	Wildcarded public user identities
+</A></li>
+	<LI>Next message: <A HREF="001387.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r564 - Minor fixes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1386">[ date ]</a>
+              <a href="thread.html#1386">[ thread ]</a>
+              <a href="subject.html#1386">[ subject ]</a>
+              <a href="author.html#1386">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P-CSCF script, Orig_subsequent, why method!=CANCEL for service route enforcement
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20script%2C%20Orig_subsequent%2C%0A%20why%20method%21%3DCANCEL%20for%20service%20route%20enforcement&In-Reply-To=%3C465C12E3.3070901%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000654.html">
+   <LINK REL="Next"  HREF="000663.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P-CSCF script, Orig_subsequent, why method!=CANCEL for service route enforcement</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20script%2C%20Orig_subsequent%2C%0A%20why%20method%21%3DCANCEL%20for%20service%20route%20enforcement&In-Reply-To=%3C465C12E3.3070901%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] P-CSCF script, Orig_subsequent, why method!=CANCEL for service route enforcement">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue May 29 13:47:47 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000654.html">[OpenIMSCore-CSCF] P-CSCF script, Orig_subsequent,	why method!=CANCEL for service route enforcement
+</A></li>
+        <LI>Next message: <A HREF="000663.html">[OpenIMSCore-CSCF] P-CSCF script, Orig_subsequent,	why method!=CANCEL for service route enforcement
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#660">[ date ]</a>
+              <a href="thread.html#660">[ thread ]</a>
+              <a href="subject.html#660">[ subject ]</a>
+              <a href="author.html#660">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Joao,
+
+The thing is that CANCEL is still somehow initial as the Routes might
+have not been set. So it should be treated as an initial request IMO.
+Because of the data inside, it could get into the Subsequent routes,
+true... but I might still not understand the issue correctly, so could
+you  please send a trace?
+
+-Dragos
+
+
+JF wrote:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> We've had some problems with the identification of session case for
+</I>&gt;<i> CANCELs in the P-CSCF for a client which does not set service routes.
+</I>&gt;<i> For INVITEs, the P-CSCF is enforcing the service route. But for
+</I>&gt;<i> CANCELs it is not.
+</I>&gt;<i> This leads to the S-CSCF allways adding the Path registration route
+</I>&gt;<i> (<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf</A> URI) even for MO CANCELs, which then leads to problems
+</I>&gt;<i> when triggering CANCELs to ASs.
+</I>&gt;<i>
+</I>&gt;<i> I propose to add the following lines in the P-CSCF script,
+</I>&gt;<i> route[Orig_Subsequent], after  checking dialog routes for non-cancel
+</I>&gt;<i> requests, in order to allow setting service-routes for CANCELs, and
+</I>&gt;<i> thus letting the S-CSCF correctly identify the session case.
+</I>&gt;<i>
+</I>&gt;<i> 	if (method==CANCEL &amp;&amp; !P_follows_service_routes()){		
+</I>&gt;<i> 		#Variant 1 - deny access to the network
+</I>&gt;<i> 		#sl_send_reply(&quot;400&quot;,&quot;Bad Request - Not following indicated Service-Routes&quot;);
+</I>&gt;<i> 		#break;
+</I>&gt;<i> 		#Variant 2 - enforce routes and let the dialog continue
+</I>&gt;<i>    		P_enforce_service_routes();
+</I>&gt;<i> 	}
+</I>&gt;<i>
+</I>&gt;<i> I haven't tested it yet. Nevertheless I would like to get some
+</I>&gt;<i> feedback if this makes sense.
+</I>&gt;<i> Thanks,
+</I>&gt;<i>
+</I>&gt;<i> Jo&#227;o Filipe Pl&#225;cido
+</I>&gt;<i> --
+</I>&gt;<i> PT Inova&#231;&#227;o
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000654.html">[OpenIMSCore-CSCF] P-CSCF script, Orig_subsequent,	why method!=CANCEL for service route enforcement
+</A></li>
+	<LI>Next message: <A HREF="000663.html">[OpenIMSCore-CSCF] P-CSCF script, Orig_subsequent,	why method!=CANCEL for service route enforcement
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#660">[ date ]</a>
+              <a href="thread.html#660">[ thread ]</a>
+              <a href="subject.html#660">[ subject ]</a>
+              <a href="author.html#660">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

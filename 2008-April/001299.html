@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 18, Issue 8
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenIMSCore-CSCF%20Digest%2C%20Vol%2018%2C%20Issue%208&In-Reply-To=%3C41C0A51B410F48428A6CB112165323C704109914%40BLR-EC-MBX01.wipro.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001298.html">
+   <LINK REL="Next"  HREF="001300.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 18, Issue 8</H1>
+    <B>rajaram.tripathy at wipro.com</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenIMSCore-CSCF%20Digest%2C%20Vol%2018%2C%20Issue%208&In-Reply-To=%3C41C0A51B410F48428A6CB112165323C704109914%40BLR-EC-MBX01.wipro.com%3E"
+       TITLE="[OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 18, Issue 8">rajaram.tripathy at wipro.com
+       </A><BR>
+    <I>Wed Apr 23 14:09:43 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001298.html">[OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 18, Issue 8
+</A></li>
+        <LI>Next message: <A HREF="001300.html">[OpenIMSCore-CSCF] RegistrationType &quot;DeReg&quot; causes XML verification	failure
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1299">[ date ]</a>
+              <a href="thread.html#1299">[ thread ]</a>
+              <a href="subject.html#1299">[ subject ]</a>
+              <a href="author.html#1299">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+      Please check the Session-Expires header in the INVITE message. Generally if the Session-Expires header contains value less than that configured in the server, server generates 422 Session Interval Too Small.
+ 
+Thanks.
+
+________________________________
+
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> on behalf of <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mustafa at cec.sy</A>
+Sent: Wed 4/23/2008 5:33 PM
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 18, Issue 8
+
+
+
+Hi all,
+when i am tried to run the ser+sems with open ims core i have this error
+&quot;13:53:13&gt; Session Interval Too Small (for INVITE)&quot;
+can any one help me please.
+
+i am use uctimsclient work in port 5061 and open ims core in ip 192.168.0.220
+this is traffic :
+
+192.168.0.220   192.168.0.220   SIP/SDP Request: INVITE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">600 at neotech-s.com</A>,
+with session description (5061 to 4060)
+
+192.168.0.220   192.168.0.220   SIP     Status: 100 trying -- your call is
+important to us (4060 to 5061)
+
+192.168.0.220   192.168.0.220   SIP     Status: 422 Session Interval Too Small
+(6060 to 4060)
+
+192.168.0.220   192.168.0.220   SIP     Request: ACK sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">600 at neotech-s.com</A>
+(4060 to 6060)
+
+192.168.0.220   192.168.0.220   SIP     Status: 422 Session Interval Too Small
+(4060 to 5061)
+
+thanks
+Best Regards
+Rifae`e.
+
+_______________________________________________
+OpenIMSCore-CSCF mailing list
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+
+
+
+Please do not print this email unless it is absolutely necessary. 
+
+The information contained in this electronic message and any attachments to this message are intended for the exclusive use of the addressee(s) and may contain proprietary, confidential or privileged information. If you are not the intended recipient, you should not disseminate, distribute or copy this e-mail. Please notify the sender immediately and destroy all copies of this message and any attachments. 
+
+WARNING: Computer viruses can be transmitted via email. The recipient should check this email and any attachments for the presence of viruses. The company accepts no liability for any damage caused by any virus transmitted by this email. 
+
+www.wipro.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080423/ca27bf6a/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080423/ca27bf6a/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001298.html">[OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 18, Issue 8
+</A></li>
+	<LI>Next message: <A HREF="001300.html">[OpenIMSCore-CSCF] RegistrationType &quot;DeReg&quot; causes XML verification	failure
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1299">[ date ]</a>
+              <a href="thread.html#1299">[ thread ]</a>
+              <a href="subject.html#1299">[ subject ]</a>
+              <a href="author.html#1299">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

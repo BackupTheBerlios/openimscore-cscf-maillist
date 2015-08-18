@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] BUG in icscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20BUG%20in%20icscf&In-Reply-To=%3C46136FA2.6010405%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000384.html">
+   <LINK REL="Next"  HREF="000388.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] BUG in icscf</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20BUG%20in%20icscf&In-Reply-To=%3C46136FA2.6010405%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] BUG in icscf">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Apr  4 11:28:02 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000384.html">[OpenIMSCore-CSCF] BUG in icscf
+</A></li>
+        <LI>Next message: <A HREF="000388.html">[OpenIMSCore-CSCF] BUG in icscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#385">[ date ]</a>
+              <a href="thread.html#385">[ thread ]</a>
+              <a href="subject.html#385">[ subject ]</a>
+              <a href="author.html#385">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi there,
+
+could you please provide us with a backtrace and the configuration file
+that you are using?
+
+-Dragos
+
+manikindhi jeelan wrote:
+&gt;<i> hi
+</I>&gt;<i>  can any one help us in removing this WARNING and BUG
+</I>&gt;<i> while running icscf 
+</I>&gt;<i>  
+</I>&gt;<i> here it is
+</I>&gt;<i>
+</I>&gt;<i> [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at open-ims</A> root]# ./icscf.sh
+</I>&gt;<i> ./icscf.sh: line 3: killser: command not found
+</I>&gt;<i>  0(3994) WARNING: fix_socket_list: could not rev.
+</I>&gt;<i> resolve 10.217.92.44
+</I>&gt;<i>  0(3994) WARNING: fix_socket_list: could not rev.
+</I>&gt;<i> resolve 10.217.92.44
+</I>&gt;<i> Listening on
+</I>&gt;<i>              udp: 10.217.92.44 [10.217.92.44]:5060
+</I>&gt;<i>              tcp: 10.217.92.44 [10.217.92.44]:5060
+</I>&gt;<i> Aliases:
+</I>&gt;<i>              *: open-ims.test:*
+</I>&gt;<i>              *: icscf.open-ims.test:*
+</I>&gt;<i>  
+</I>&gt;<i>  0(3994) init_tcp: using sigio_rt as the io watch
+</I>&gt;<i> method (auto detected)
+</I>&gt;<i>  0(3994) Maxfwd module- initializing
+</I>&gt;<i>  0(3994) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module
+</I>&gt;<i>  0(3994) BUG: qm_*: prev. fragm. tail overwritten(0,
+</I>&gt;<i> abcdefed)[0x81597e4:0x81597
+</I>&gt;<i> fc]!
+</I>&gt;<i> ./icscf.sh: line 4:  3994 Aborted                
+</I>&gt;<i> (core dumped) /root/jeelan/ser
+</I>&gt;<i> _ims/ser -f /root/icscf.cfg -D -D
+</I>&gt;<i>  
+</I>&gt;<i> ------ Semaphore Arrays --------
+</I>&gt;<i> key        semid      owner      perms      nsems
+</I>&gt;<i>  
+</I>&gt;<i> [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at open-ims</A> root]#
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 		
+</I>&gt;<i> __________________________________________________________
+</I>&gt;<i> Yahoo! India Answers: Share what you know. Learn something new
+</I>&gt;<i> <A HREF="http://in.answers.yahoo.com/">http://in.answers.yahoo.com/</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000384.html">[OpenIMSCore-CSCF] BUG in icscf
+</A></li>
+	<LI>Next message: <A HREF="000388.html">[OpenIMSCore-CSCF] BUG in icscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#385">[ date ]</a>
+              <a href="thread.html#385">[ thread ]</a>
+              <a href="subject.html#385">[ subject ]</a>
+              <a href="author.html#385">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

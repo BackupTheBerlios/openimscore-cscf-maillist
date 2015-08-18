@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Usind wildcard PSIs in the xml file
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Usind%20wildcard%20PSIs%20in%20the%20xml%20file&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C01019841%40INOAVREX05.ptin.corpPT.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000997.html">
+   <LINK REL="Next"  HREF="000999.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Usind wildcard PSIs in the xml file</H1>
+    <B>Lu&#237;s Filipe Silva</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Usind%20wildcard%20PSIs%20in%20the%20xml%20file&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C01019841%40INOAVREX05.ptin.corpPT.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Usind wildcard PSIs in the xml file">luis-f-silva at ptinovacao.pt
+       </A><BR>
+    <I>Thu Oct 11 14:37:54 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000997.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r459 - Ported bug fix from SER CVS	modules/rr/loose.c - the RURI can be TEL-URI and it's not a	&quot;pre-loaded strict routing?!&quot; case.
+</A></li>
+        <LI>Next message: <A HREF="000999.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r460 - Changes to function PCC_AAR	that allows generation of AAR when renegotiation SDP	parameters of a session
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#998">[ date ]</a>
+              <a href="thread.html#998">[ thread ]</a>
+              <a href="subject.html#998">[ subject ]</a>
+              <a href="author.html#998">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+I'm running some tests with the s-cscf using wildcard PSIs, and I'm having some difficulties in the s-cscf when parsing the xml file sent by the HSS in the SAA. The problem is on the wildcard part of the PSI SIP URI. Do I need to encode the xml before sending it to the s-cscf? The wildcard is simply a ![1-9]! regular expression.
+Btw, do I insert the complete sip uri in the WildcardPSI element (e.g., sip:555![1-9]!@ptinovacao.pt ) or I just need to insert [1-9]?
+Hope you can clarify me.
+ 
+Regards,
+Luis Silva
+ 
+ 
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000997.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r459 - Ported bug fix from SER CVS	modules/rr/loose.c - the RURI can be TEL-URI and it's not a	&quot;pre-loaded strict routing?!&quot; case.
+</A></li>
+	<LI>Next message: <A HREF="000999.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r460 - Changes to function PCC_AAR	that allows generation of AAR when renegotiation SDP	parameters of a session
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#998">[ date ]</a>
+              <a href="thread.html#998">[ thread ]</a>
+              <a href="subject.html#998">[ subject ]</a>
+              <a href="author.html#998">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ACK%20to%20404%20resulting%20in%20SAR%20unregistered-user&In-Reply-To=%3Cb33002040711280844k2c602e27tcd1947500939b151%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001070.html">
+   <LINK REL="Next"  HREF="001075.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user</H1>
+    <B>Jo&#227;o Filipe Pl&#225;cido</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ACK%20to%20404%20resulting%20in%20SAR%20unregistered-user&In-Reply-To=%3Cb33002040711280844k2c602e27tcd1947500939b151%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user">joao-f-placido at ptinovacao.pt
+       </A><BR>
+    <I>Wed Nov 28 17:44:47 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001070.html">[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+</A></li>
+        <LI>Next message: <A HREF="001075.html">[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1071">[ date ]</a>
+              <a href="thread.html#1071">[ thread ]</a>
+              <a href="subject.html#1071">[ subject ]</a>
+              <a href="author.html#1071">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Adding the following to the S-CSCF script seems to solve it. Dragos,
+do you agree on commiting this fix?
+
+		# Originating
+		route(Orig);
+		break;				
+	}else{
+&gt;<i>		if (method==&quot;ACK&quot;) {
+</I>&gt;<i>			t_relay();
+</I>&gt;<i>			exit;
+</I>&gt;<i>		}
+</I>		if (S_is_in_dialog(&quot;orig&quot;)){
+			route(Orig_Subsequent);
+			break;
+		}
+
+JF
+
+On Nov 28, 2007 11:30 AM, Jo&#227;o Filipe Pl&#225;cido
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">joao-f-placido at ptinovacao.pt</A>&gt; wrote:
+&gt;<i> Hi all, Dragos,
+</I>&gt;<i>
+</I>&gt;<i> We noticed the following situation:
+</I>&gt;<i>
+</I>&gt;<i> - using two different S-CSCFs
+</I>&gt;<i> - call from bob to alice
+</I>&gt;<i> - bob is registered in S-CSCF1
+</I>&gt;<i> - alice is not registered
+</I>&gt;<i> - the terminating S-CSCF (S-CSCF2 selected by I-CSCF according to the
+</I>&gt;<i> capabilities sent by the HSS) sends back a 404 Not Found (after
+</I>&gt;<i> triggering an AS responsible for unregistered-user services that
+</I>&gt;<i> didn't do anything but loose-route)
+</I>&gt;<i> - when this 404 reaches originating P-CSCF, it sends an ACK to the
+</I>&gt;<i> originating S-CSCF (S-CSCF1)
+</I>&gt;<i> - S-CSCF1 is treating this ACK as if it was an INVITE (sending a SAR
+</I>&gt;<i> with Server-Assignment-Type==Unregistered-User)
+</I>&gt;<i>
+</I>&gt;<i> We need to further distinguish ACKs in the routing logic and/or make
+</I>&gt;<i> them carry orig indications when appropriate.
+</I>&gt;<i>
+</I>&gt;<i> We'll try to look further into this, but meanwhile it's recorded here.
+</I>&gt;<i>
+</I>&gt;<i> JF
+</I>&gt;<i> --
+</I>&gt;<i> PT Inova&#231;&#227;o
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001070.html">[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+</A></li>
+	<LI>Next message: <A HREF="001075.html">[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1071">[ date ]</a>
+              <a href="thread.html#1071">[ thread ]</a>
+              <a href="subject.html#1071">[ subject ]</a>
+              <a href="author.html#1071">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] SER_IMS Installation problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SER_IMS%20Installation%20problem&In-Reply-To=%3C228198.74774.qm%40web111012.mail.gq1.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001719.html">
+   <LINK REL="Next"  HREF="001721.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] SER_IMS Installation problem</H1>
+    <B>Shahbaz Ali</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SER_IMS%20Installation%20problem&In-Reply-To=%3C228198.74774.qm%40web111012.mail.gq1.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] SER_IMS Installation problem">shahbazali1010 at yahoo.com
+       </A><BR>
+    <I>Tue Jun 23 08:08:30 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001719.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r680 - Small typo fix
+</A></li>
+        <LI>Next message: <A HREF="001721.html">[OpenIMSCore-CSCF] SER_IMS Installation problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1720">[ date ]</a>
+              <a href="thread.html#1720">[ thread ]</a>
+              <a href="subject.html#1720">[ subject ]</a>
+              <a href="author.html#1720">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi all...
+plz help me in ser_ims
+when i write the commands &quot;make install -libs all&quot; i found error of mysql. I edit the makefile and remove the mysql reference. Again write &quot;make install -libs all&quot; and found acc_radius error i.e..
+
+&quot;[<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at localhost</A> ser_ims]# make install-libs all
+make -C lib -f Makefile.ser install
+make[1]: Entering directory `/opt/OpenIMSCore/ser_ims/lib'
+Making install in binrpc
+make[2]: Entering directory `/opt/OpenIMSCore/ser_ims/lib/binrpc'
+touch&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; /usr/local/lib/ser/libbinrpc.so
+install&#160; -m 755 libbinrpc.so /usr/local/lib/ser
+make[2]: Leaving directory `/opt/OpenIMSCore/ser_ims/lib/binrpc'
+Making install in cds
+make[2]: Entering directory `/opt/OpenIMSCore/ser_ims/lib/cds'
+touch&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; /usr/local/lib/ser/lib_ser_cds.so
+install&#160; -m 755 lib_ser_cds.so /usr/local/lib/ser
+make[2]: Leaving directory `/opt/OpenIMSCore/ser_ims/lib/cds'
+Making install in xcap
+make[2]: Entering directory `/opt/OpenIMSCore/ser_ims/lib/xcap'
+touch&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; /usr/local/lib/ser/lib_ser_xcap.so
+install&#160; -m 755 lib_ser_xcap.so /usr/local/lib/ser
+make[2]: Leaving directory `/opt/OpenIMSCore/ser_ims/lib/xcap'
+Making install in presence
+make[2]: Entering directory `/opt/OpenIMSCore/ser_ims/lib/presence'
+touch&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; /usr/local/lib/ser/lib_ser_presence.so
+install&#160; -m 755 lib_ser_presence.so /usr/local/lib/ser
+make[2]: Leaving directory `/opt/OpenIMSCore/ser_ims/lib/presence'
+make[1]: Leaving directory `/opt/OpenIMSCore/ser_ims/lib'
+make -C lib -f Makefile.ser
+make[1]: Entering directory `/opt/OpenIMSCore/ser_ims/lib'
+Making&#160; in binrpc
+make[2]: Entering directory `/opt/OpenIMSCore/ser_ims/lib/binrpc'
+make[2]: `libbinrpc.so' is up to date.
+make[2]: Leaving directory `/opt/OpenIMSCore/ser_ims/lib/binrpc'
+Making&#160; in cds
+make[2]: Entering directory `/opt/OpenIMSCore/ser_ims/lib/cds'
+make[2]: `lib_ser_cds.so' is up to date.
+make[2]: Leaving directory `/opt/OpenIMSCore/ser_ims/lib/cds'
+Making&#160; in xcap
+make[2]: Entering directory `/opt/OpenIMSCore/ser_ims/lib/xcap'
+make[2]: `lib_ser_xcap.so' is up to date.
+make[2]: Leaving directory `/opt/OpenIMSCore/ser_ims/lib/xcap'
+Making&#160; in presence
+make[2]: Entering directory `/opt/OpenIMSCore/ser_ims/lib/presence'
+make[2]: `lib_ser_presence.so' is up to date.
+make[2]: Leaving directory `/opt/OpenIMSCore/ser_ims/lib/presence'
+make[1]: Leaving directory `/opt/OpenIMSCore/ser_ims/lib'
+
+
+make[1]: Entering directory `/opt/OpenIMSCore/ser_ims/modules/acc_db'
+make[1]: `acc_db.so' is up to date.
+make[1]: Leaving directory `/opt/OpenIMSCore/ser_ims/modules/acc_db'
+
+
+make[1]: Entering directory `/opt/OpenIMSCore/ser_ims/modules/acc_radius'
+gcc -fPIC -DPIC -g -O9 -funroll-loops -Wcast-align -minline-all-stringops -falign-loops -ftree-vectorize -mtune=athlon64 -Wall&#160;&#160;&#160;&#160; -DNAME='&quot;ser&quot;' -DVERSION='&quot;2.1.0-dev1 OpenIMSCore&quot;' -DARCH='&quot;i386&quot;' -DOS='linux_' -DOS_QUOTED='&quot;linux&quot;' -DCOMPILER='&quot;gcc 4.1.2&quot;' -D__CPU_i386 -D__OS_linux -DSER_VER=2001000 -DCFG_DIR='&quot;/usr/local/etc/ser/&quot;' -DPKG_MALLOC -DSHM_MEM&#160; -DSHM_MMAP -DDNS_IP_HACK -DUSE_IPV6 -DUSE_MCAST -DUSE_TCP -DDISABLE_NAGLE -DHAVE_RESOLV_RES -DDBG_QM_MALLOC -DUSE_DNS_CACHE -DUSE_DNS_FAILOVER -DUSE_DST_BLACKLIST -ggdb&#160; -DUSE_TLS -DTLS_HOOKS -DFAST_LOCK -DADAPTIVE_WAIT -DADAPTIVE_WAIT_LOOPS=1024&#160; -DCC_GCC_LIKE_ASM -DHAVE_GETHOSTBYNAME2 -DHAVE_UNION_SEMUN -DHAVE_SCHED_YIELD -DHAVE_MSG_NOSIGNAL -DHAVE_MSGHDR_MSG_CONTROL -DHAVE_ALLOCA_H -DHAVE_TIMEGM -DHAVE_EPOLL -DHAVE_SIGIO_RT -DSIGINFO64_WORKARROUND -DHAVE_SELECT -I/usr/local/include -c acc_radius.c -o acc_radius.o
+acc_radius.c:35:29: error: radiusclient-ng.h: No such file or directory
+acc_radius.c: In function &#8216;get_direction&#8217;:
+acc_radius.c:271: warning: dereferencing type-punned pointer will break strict-aliasing rules
+acc_radius.c: At top level:
+acc_radius.c:425: error: expected declaration specifiers or &#8216;...&#8217; before &#8216;VALUE_PAIR&#8217;
+acc_radius.c: In function &#8216;fmt2rad&#8217;:
+acc_radius.c:646: warning: implicit declaration of function &#8216;rc_avpair_add&#8217;
+acc_radius.c:646: warning: implicit declaration of function &#8216;ATTRID&#8217;
+acc_radius.c:646: warning: implicit declaration of function &#8216;VENDOR&#8217;
+acc_radius.c: At top level:
+acc_radius.c:665: error: expected &#8216;=&#8217;, &#8216;,&#8217;, &#8216;;&#8217;, &#8216;asm&#8217; or &#8216;__attribute__&#8217; before &#8216;rad_status&#8217;
+acc_radius.c:696: error: expected declaration specifiers or &#8216;...&#8217; before &#8216;VALUE_PAIR&#8217;
+acc_radius.c: In function &#8216;log_request&#8217;:
+acc_radius.c:748: error: &#8216;VALUE_PAIR&#8217; undeclared (first use in this function)
+acc_radius.c:748: error: (Each undeclared identifier is reported only once
+acc_radius.c:748: error: for each function it appears in.)
+acc_radius.c:749: error: &#8216;UINT4&#8217; undeclared (first use in this function)
+acc_radius.c:749: error: expected &#8216;;&#8217; before &#8216;av_type&#8217;
+acc_radius.c:751: error: invalid lvalue in assignment
+acc_radius.c:754: warning: passing argument 6 of &#8216;fmt2rad&#8217; makes integer from pointer without a cast
+acc_radius.c:754: error: too many arguments to function &#8216;fmt2rad&#8217;
+acc_radius.c:757: error: &#8216;av_type&#8217; undeclared (first use in this function)
+acc_radius.c:757: warning: implicit declaration of function &#8216;rad_status&#8217;
+acc_radius.c:773: error: too many arguments to function &#8216;add_user_name&#8217;
+acc_radius.c:776: warning: implicit declaration of function &#8216;rc_acct&#8217;
+acc_radius.c:776: error: &#8216;OK_RC&#8217; undeclared (first use in this function)
+acc_radius.c:781: warning: implicit declaration of function &#8216;rc_avpair_free&#8217;
+acc_radius.c: In function &#8216;mod_init&#8217;:
+acc_radius.c:988: error: &#8216;DICT_VENDOR&#8217; undeclared (first use in this function)
+acc_radius.c:988: error: &#8216;vend&#8217; undeclared (first use in this function)
+acc_radius.c:1048: warning: implicit declaration of function &#8216;rc_openlog&#8217;
+acc_radius.c:1050: warning: implicit declaration of function &#8216;rc_read_config&#8217;
+acc_radius.c:1050: warning: assignment makes pointer from integer without a cast
+acc_radius.c:1056: warning: implicit declaration of function &#8216;rc_read_dictionary&#8217;
+acc_radius.c:1056: warning: implicit declaration of function &#8216;rc_conf_str&#8217;
+acc_radius.c:1061: warning: implicit declaration of function &#8216;rc_dict_findvend&#8217;
+acc_radius.c:1067: error: &#8216;DICT_ATTR&#8217; undeclared (first use in this function)
+acc_radius.c:1067: error: &#8216;da&#8217; undeclared (first use in this function)
+acc_radius.c:1067: error: &#8216;DICT_VALUE&#8217; undeclared (first use in this function)
+acc_radius.c:1067: error: &#8216;dv&#8217; undeclared (first use in this function)
+acc_radius.c:1067: warning: implicit declaration of function &#8216;rc_dict_findattr&#8217;
+acc_radius.c:1067: warning: implicit declaration of function &#8216;rc_dict_findval&#8217;
+make[1]: *** [acc_radius.o] Error 1
+make[1]: Leaving directory `/opt/OpenIMSCore/ser_ims/modules/acc_radius'
+make: *** [modules] Error 1
+[<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at localhost</A> ser_ims]# &quot;
+
+
+plz help me out
+Best Regards 
+Shazi
+
+
+
+
+      Access Yahoo!7 Mail on your mobile. Anytime. Anywhere.
+Show me how: <A HREF="http://au.mobile.yahoo.com/mail">http://au.mobile.yahoo.com/mail</A>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090622/a609801b/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090622/a609801b/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001719.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r680 - Small typo fix
+</A></li>
+	<LI>Next message: <A HREF="001721.html">[OpenIMSCore-CSCF] SER_IMS Installation problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1720">[ date ]</a>
+              <a href="thread.html#1720">[ thread ]</a>
+              <a href="subject.html#1720">[ subject ]</a>
+              <a href="author.html#1720">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

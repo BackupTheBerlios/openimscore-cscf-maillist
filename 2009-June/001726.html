@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Add Route header on P-CSCF and send to exit IBCF?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Add%20Route%20header%20on%20P-CSCF%20and%20send%20to%20exit%20IBCF%3F&In-Reply-To=%3C527E3FCD6D15A141A2245921633673E504FC305F%40xmb-hkg-416.apac.cisco.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001725.html">
+   <LINK REL="Next"  HREF="001727.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Add Route header on P-CSCF and send to exit IBCF?</H1>
+    <B>Qingao Wu (qinwu)</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Add%20Route%20header%20on%20P-CSCF%20and%20send%20to%20exit%20IBCF%3F&In-Reply-To=%3C527E3FCD6D15A141A2245921633673E504FC305F%40xmb-hkg-416.apac.cisco.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Add Route header on P-CSCF and send to exit IBCF?">qinwu at cisco.com
+       </A><BR>
+    <I>Thu Jun 25 13:39:46 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001725.html">[OpenIMSCore-CSCF] IMS_DNS
+</A></li>
+        <LI>Next message: <A HREF="001727.html">[OpenIMSCore-CSCF] Add Route header on P-CSCF and send to exit	IBCF?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1726">[ date ]</a>
+              <a href="thread.html#1726">[ thread ]</a>
+              <a href="subject.html#1726">[ subject ]</a>
+              <a href="author.html#1726">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi, All
+ 
+I'm rather new at OpenIMSCore and OpenSER (Opensips). For testing an
+IBCF implementation, I set up 2 IMS networks with OpenIMSCore. Now I
+need to register users and make calls through visited network to the
+home network. I need the P-CSCF in visited network to route the SIP
+request from non local subscribers to exit IBCF.
+ 
+I think what I need to do is add a route header, and then let P-CSCF do
+loose_route(). There're already 2 comments in pcscf.cfg example file.
+ 
+# add IBCF/THIG route here if required
+ 
+The problem is how can I add a route header here? I've checked openser
+documentation, there's textops and avpops modules capable of doing this.
+insert_hf() in textops is ideal for this, to add this extra Route header
+at the top of all headers. But looking at the textops.c that comes along
+with OpenIMSCore, it's very old, and only have very few functions like
+append_hf(), which cannot do this. And utilizing avpops module is a bit
+complicated.
+ 
+Is there any working example of configuration available for routing the
+SIP request to IBCF? I would really appreciate your help here. Thx.
+ 
+Regards,
+ 
+Qingao Wu
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090625/3c7406d4/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090625/3c7406d4/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001725.html">[OpenIMSCore-CSCF] IMS_DNS
+</A></li>
+	<LI>Next message: <A HREF="001727.html">[OpenIMSCore-CSCF] Add Route header on P-CSCF and send to exit	IBCF?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1726">[ date ]</a>
+              <a href="thread.html#1726">[ thread ]</a>
+              <a href="subject.html#1726">[ subject ]</a>
+              <a href="author.html#1726">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

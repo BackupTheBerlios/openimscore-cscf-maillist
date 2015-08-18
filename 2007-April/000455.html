@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] PCSCF crashes
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PCSCF%20crashes&In-Reply-To=%3C4625319F.3060504%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000452.html">
+   <LINK REL="Next"  HREF="000453.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] PCSCF crashes</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PCSCF%20crashes&In-Reply-To=%3C4625319F.3060504%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] PCSCF crashes">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Apr 17 22:44:15 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000452.html">[OpenIMSCore-CSCF] PCSCF crashes
+</A></li>
+        <LI>Next message: <A HREF="000453.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r232 - Introduced	terminate_s_dialog() method. Terminating dialogs on user	de-registration/expiration instead of just dropping them silently.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#455">[ date ]</a>
+              <a href="thread.html#455">[ thread ]</a>
+              <a href="subject.html#455">[ subject ]</a>
+              <a href="author.html#455">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Stephan,
+
+1. Could you please send a network trace or something that would allow
+me to easily replicate the issue?
+
+2. This is a feature. The 401 should not relay the cypher and integrity
+keys to the client, especially over unsecured transport. Then what is
+the value of CK and IK if they are disclosed and anybody eaves-dropping
+can decode the encoded traffic? The UE should compute the CK and IK from
+the random in the nonce and the secret key.
+
+3. Please check if your DNS is updated accordingly. The P-CSCF does a
+DNS query for the Request-URI domain to find the right I-CSCF.
+
+-Dragos
+
+
+Stephan Massner wrote:
+&gt;<i> Hello all.
+</I>&gt;<i>
+</I>&gt;<i> We are having three different and independent problems (bugs?) with the PCSCF:
+</I>&gt;<i>
+</I>&gt;<i> - r222 : when receiving a 100 INVITE from a client, the PCSCF forwards it to 
+</I>&gt;<i> the I-CSCF. Subsequently receives 183 TRYING back, and then collapses.
+</I>&gt;<i> - r222 : when a client tries to register with AKAv1, the PCSCF does not send 
+</I>&gt;<i> the ik and ck (which receives from the SCSCF in the first 401 UNAUTHORIZED) 
+</I>&gt;<i> to the client, only the nonce. Naturally, the registration does not suceed.
+</I>&gt;<i> - when updating to r230, the PCSCF uses the 127.0.0.1 IP when talking with the
+</I>&gt;<i> ICSCF, instead of the address given in the config files. We have double 
+</I>&gt;<i> checked that ./configure.sh succeded.
+</I>&gt;<i>
+</I>&gt;<i> Any good ideas?
+</I>&gt;<i>
+</I>&gt;<i> Regards
+</I>&gt;<i>
+</I>&gt;<i> Stephan Massner
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000452.html">[OpenIMSCore-CSCF] PCSCF crashes
+</A></li>
+	<LI>Next message: <A HREF="000453.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r232 - Introduced	terminate_s_dialog() method. Terminating dialogs on user	de-registration/expiration instead of just dropping them silently.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#455">[ date ]</a>
+              <a href="thread.html#455">[ thread ]</a>
+              <a href="subject.html#455">[ subject ]</a>
+              <a href="author.html#455">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

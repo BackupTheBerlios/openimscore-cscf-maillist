@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r761 - E-CSCF: *implemented	function for adding a body part to a request with no content	: add_body_no_content *implemented function for adding a body	part to a request with multipart content: add_body_multi_content
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r761%20-%20E-CSCF%3A%20%2Aimplemented%0A%09function%20for%20adding%20a%20body%20part%20to%20a%20request%20with%20no%20content%0A%09%3A%20add_body_no_content%20%2Aimplemented%20function%20for%20adding%20a%20body%0A%09part%20to%20a%20request%20with%20multipart%20content%3A%20add_body_multi_content&In-Reply-To=%3C200911091656.nA9GuGNC003871%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001843.html">
+   <LINK REL="Next"  HREF="001845.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r761 - E-CSCF: *implemented	function for adding a body part to a request with no content	: add_body_no_content *implemented function for adding a body	part to a request with multipart content: add_body_multi_content</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r761%20-%20E-CSCF%3A%20%2Aimplemented%0A%09function%20for%20adding%20a%20body%20part%20to%20a%20request%20with%20no%20content%0A%09%3A%20add_body_no_content%20%2Aimplemented%20function%20for%20adding%20a%20body%0A%09part%20to%20a%20request%20with%20multipart%20content%3A%20add_body_multi_content&In-Reply-To=%3C200911091656.nA9GuGNC003871%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r761 - E-CSCF: *implemented	function for adding a body part to a request with no content	: add_body_no_content *implemented function for adding a body	part to a request with multipart content: add_body_multi_content">aon at users.berlios.de
+       </A><BR>
+    <I>Mon Nov  9 17:56:16 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001843.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r760 - E-CSCF fixed case when	e-cscf adds location information in a request with a single	body part
+</A></li>
+        <LI>Next message: <A HREF="001845.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r762 - Added Flow Usage AF	Signalling to diameter constants
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1844">[ date ]</a>
+              <a href="thread.html#1844">[ thread ]</a>
+              <a href="subject.html#1844">[ subject ]</a>
+              <a href="author.html#1844">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2009-11-09 17:56:09 +0100 (Mon, 09 Nov 2009)
+New Revision: 761 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=761">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=761</A> 
+
+Log:
+E-CSCF: *implemented function for adding a body part to a request with no content : add_body_no_content
+*implemented function for adding a body part to a request with multipart content: add_body_multi_content
+
+
+Modified:
+   U	ser_ims/branches/12_em_services/modules/ecscf/add_body.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/add_body.c?rev=761&amp;view=diff&amp;r1=761&amp;r2=760">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/add_body.c?rev=761&amp;view=diff&amp;r1=761&amp;r2=760</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/lrf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.c?rev=761&amp;view=diff&amp;r1=761&amp;r2=760">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.c?rev=761&amp;view=diff&amp;r1=761&amp;r2=760</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001843.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r760 - E-CSCF fixed case when	e-cscf adds location information in a request with a single	body part
+</A></li>
+	<LI>Next message: <A HREF="001845.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r762 - Added Flow Usage AF	Signalling to diameter constants
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1844">[ date ]</a>
+              <a href="thread.html#1844">[ thread ]</a>
+              <a href="subject.html#1844">[ subject ]</a>
+              <a href="author.html#1844">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

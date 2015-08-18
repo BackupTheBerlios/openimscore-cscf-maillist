@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] &quot;orig-ioi&quot; parameter related query w.r.t SCSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%22orig-ioi%22%20parameter%20related%20query%20w.r.t%20SCSCF&In-Reply-To=%3C3BD53621E5C8E54594130AF5459379EE18522E%40exchindia4.starentnetworks.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000932.html">
+   <LINK REL="Next"  HREF="000935.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] &quot;orig-ioi&quot; parameter related query w.r.t SCSCF</H1>
+    <B>Jamkhandikar, Sunil</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%22orig-ioi%22%20parameter%20related%20query%20w.r.t%20SCSCF&In-Reply-To=%3C3BD53621E5C8E54594130AF5459379EE18522E%40exchindia4.starentnetworks.com%3E"
+       TITLE="[OpenIMSCore-CSCF] &quot;orig-ioi&quot; parameter related query w.r.t SCSCF">sjamkhandikar at starentnetworks.com
+       </A><BR>
+    <I>Thu Aug 23 15:10:44 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000932.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r436 - Removed the spaces from	inside the P-Charging-Vector header.
+</A></li>
+        <LI>Next message: <A HREF="000935.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r437 - First commit of same	changes needed
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#934">[ date ]</a>
+              <a href="thread.html#934">[ thread ]</a>
+              <a href="subject.html#934">[ subject ]</a>
+              <a href="author.html#934">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+ 
+I have a query on P-Charging-vector orig-ioi parameter related query
+ 
+Section 5.4.3.3 
+ 
+Point 7 says
+ 
+When the S-CSCF receives, destined for a statically pre-configured PSI
+or a registered served user, an initial request for a dialog or a
+request for a standalone transaction, prior to forwarding the request,
+the S-CSCF shall:
+if there was no original dialog identifier present in the topmost Route
+header of the incoming request store the value of the orig-ioi parameter
+received in the P-Charging-Vector header, if present, and remove all 
+received ioi parameters from the forwarded request if next hop is not an
+AS;
+ 
+which means when SCSCF will add orig-ioi parameter when the request is
+forwarded to AS. So my query is when the request is forwarded to an AS,
+will SCSCF add the stored orig-ioi parameter or add a new orig-ioi
+parameter.
+ 
+ 
+Point 4 says in the same section says about
+ 
+insert a type 3 orig-ioi parameter in the P-Charging-Vector header. The
+type 3 orig-ioi parameter identifies the sending network of the request
+message before the received orig-ioi. The S-CSCF shall not include the
+type 3 term-ioi parameter;
+ 
+but this point doesn't make clear what it means &quot;The type 3 orig-ioi
+parameter identifies the sending network of the request message before
+the received orig-ioi.&quot; Could any one explain this sentence from the
+spec.
+ 
+Thanks,
+Sunil
+
+
+&quot;This email message and any attachments are confidential information of Starent Networks, Corp. The information transmitted may not be used to create or change any contractual obligations of Starent Networks, Corp.  Any review, retransmission, dissemination or other use of, or taking of any action in reliance upon this e-mail and its attachments by persons or entities other than the intended recipient is prohibited. If you are not the intended recipient, please notify the sender immediately -- by replying to this message or by sending an email to <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">postmaster at starentnetworks.com</A> -- and destroy all copies of this message and any attachments without reading or disclosing their contents. Thank you.&quot;
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070823/dc62ddaf/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070823/dc62ddaf/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000932.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r436 - Removed the spaces from	inside the P-Charging-Vector header.
+</A></li>
+	<LI>Next message: <A HREF="000935.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r437 - First commit of same	changes needed
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#934">[ date ]</a>
+              <a href="thread.html#934">[ thread ]</a>
+              <a href="subject.html#934">[ subject ]</a>
+              <a href="author.html#934">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

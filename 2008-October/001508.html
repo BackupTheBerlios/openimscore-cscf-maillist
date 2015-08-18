@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r589 - Minor fixed in	p_persistency. Reorganized s_persistency - moved db related	functions to bin_db_scscf. scscf - Fixed the dump-to-file	routines to dump just one hash slots at a time. scscf - Fixed	the load-from-file routines to load the persistency data	incrementaly, not all at once.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r589%20-%20Minor%20fixed%20in%0A%09p_persistency.%20Reorganized%20s_persistency%20-%20moved%20db%20related%0A%09functions%20to%20bin_db_scscf.%20scscf%20-%20Fixed%20the%20dump-to-file%0A%09routines%20to%20dump%20just%20one%20hash%20slots%20at%20a%20time.%20scscf%20-%20Fixed%0A%09the%20load-from-file%20routines%20to%20load%20the%20persistency%20data%0A%09incrementaly%2C%20not%20all%20at%20once.&In-Reply-To=%3C200810141709.m9EH9L83016265%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001507.html">
+   <LINK REL="Next"  HREF="001509.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r589 - Minor fixed in	p_persistency. Reorganized s_persistency - moved db related	functions to bin_db_scscf. scscf - Fixed the dump-to-file	routines to dump just one hash slots at a time. scscf - Fixed	the load-from-file routines to load the persistency data	incrementaly, not all at once.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r589%20-%20Minor%20fixed%20in%0A%09p_persistency.%20Reorganized%20s_persistency%20-%20moved%20db%20related%0A%09functions%20to%20bin_db_scscf.%20scscf%20-%20Fixed%20the%20dump-to-file%0A%09routines%20to%20dump%20just%20one%20hash%20slots%20at%20a%20time.%20scscf%20-%20Fixed%0A%09the%20load-from-file%20routines%20to%20load%20the%20persistency%20data%0A%09incrementaly%2C%20not%20all%20at%20once.&In-Reply-To=%3C200810141709.m9EH9L83016265%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r589 - Minor fixed in	p_persistency. Reorganized s_persistency - moved db related	functions to bin_db_scscf. scscf - Fixed the dump-to-file	routines to dump just one hash slots at a time. scscf - Fixed	the load-from-file routines to load the persistency data	incrementaly, not all at once.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Oct 14 19:09:21 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001507.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r588 - Reorganized the	p_persitency - moved db related functions to bin_db_pcscf.	Reorganized bin - moved file related functions to bin_file.	Fixed the dump-to-file routines to dump just one hash slots	at a time. Fixed the load-from-file routines to load the	persistency data incrementaly, not all at once.
+</A></li>
+        <LI>Next message: <A HREF="001509.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r590 - Fixed bug in	load_snapshot_registrar()
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1508">[ date ]</a>
+              <a href="thread.html#1508">[ thread ]</a>
+              <a href="subject.html#1508">[ subject ]</a>
+              <a href="author.html#1508">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2008-10-14 19:09:18 +0200 (Tue, 14 Oct 2008)
+New Revision: 589 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=589">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=589</A> 
+
+Log:
+Minor fixed in p_persistency.
+Reorganized s_persistency - moved db related functions to bin_db_scscf.
+scscf - Fixed the dump-to-file routines to dump just one hash slots at a time.
+scscf - Fixed the load-from-file routines to load the persistency data incrementaly, not all at once.
+
+
+Added:
+   A	ser_ims/branches/10_persistency_big/modules/scscf/bin_db_scscf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/10_persistency_big/modules/scscf/bin_db_scscf.c?rev=589&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/10_persistency_big/modules/scscf/bin_db_scscf.c?rev=589&amp;view=markup</A>
+   A	ser_ims/branches/10_persistency_big/modules/scscf/bin_db_scscf.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/10_persistency_big/modules/scscf/bin_db_scscf.h?rev=589&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/10_persistency_big/modules/scscf/bin_db_scscf.h?rev=589&amp;view=markup</A>
+Modified:
+   U	ser_ims/branches/10_persistency_big/modules/pcscf/p_persistency.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/10_persistency_big/modules/pcscf/p_persistency.c?rev=589&amp;view=diff&amp;r1=589&amp;r2=588">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/10_persistency_big/modules/pcscf/p_persistency.c?rev=589&amp;view=diff&amp;r1=589&amp;r2=588</A>
+   U	ser_ims/branches/10_persistency_big/modules/scscf/bin_file.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/10_persistency_big/modules/scscf/bin_file.c?rev=589&amp;view=diff&amp;r1=589&amp;r2=588">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/10_persistency_big/modules/scscf/bin_file.c?rev=589&amp;view=diff&amp;r1=589&amp;r2=588</A>
+   U	ser_ims/branches/10_persistency_big/modules/scscf/s_persistency.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/10_persistency_big/modules/scscf/s_persistency.c?rev=589&amp;view=diff&amp;r1=589&amp;r2=588">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/10_persistency_big/modules/scscf/s_persistency.c?rev=589&amp;view=diff&amp;r1=589&amp;r2=588</A>
+   U	ser_ims/branches/10_persistency_big/modules/scscf/s_persistency.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/10_persistency_big/modules/scscf/s_persistency.h?rev=589&amp;view=diff&amp;r1=589&amp;r2=588">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/10_persistency_big/modules/scscf/s_persistency.h?rev=589&amp;view=diff&amp;r1=589&amp;r2=588</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001507.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r588 - Reorganized the	p_persitency - moved db related functions to bin_db_pcscf.	Reorganized bin - moved file related functions to bin_file.	Fixed the dump-to-file routines to dump just one hash slots	at a time. Fixed the load-from-file routines to load the	persistency data incrementaly, not all at once.
+</A></li>
+	<LI>Next message: <A HREF="001509.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r590 - Fixed bug in	load_snapshot_registrar()
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1508">[ date ]</a>
+              <a href="thread.html#1508">[ thread ]</a>
+              <a href="subject.html#1508">[ subject ]</a>
+              <a href="author.html#1508">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

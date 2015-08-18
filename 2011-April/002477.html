@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] regarding performance of openimscore...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20regarding%20performance%20of%20openimscore...&In-Reply-To=%3CEAE73F8A-36A9-4F66-ADFA-10DAB6426934%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002475.html">
+   <LINK REL="Next"  HREF="002478.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] regarding performance of openimscore...</H1>
+    <B>Vingarzan, Dragos</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20regarding%20performance%20of%20openimscore...&In-Reply-To=%3CEAE73F8A-36A9-4F66-ADFA-10DAB6426934%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] regarding performance of openimscore...">dragos.vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Sat Apr  2 11:46:11 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002475.html">[OpenIMSCore-CSCF] regarding performance of openimscore...
+</A></li>
+        <LI>Next message: <A HREF="002478.html">[OpenIMSCore-CSCF] setkey (IPSEC) configuation
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2477">[ date ]</a>
+              <a href="thread.html#2477">[ thread ]</a>
+              <a href="subject.html#2477">[ subject ]</a>
+              <a href="author.html#2477">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Yes, disable auth in scscf.cfg if you wish
+
+Cheers,
+-Dragos
+
+On 02.04.2011, at 00:15, &quot;viswavardhanreddy karna&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">viswavardhanreddy at gmail.com</A>&gt; wrote:
+
+&gt;<i> Hi,
+</I>&gt;<i>      presently i am using single laptop as a server its configuration is 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> processor : intel core 2 duo cpu p7450
+</I>&gt;<i> ram is 4gb
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> on these laptop i have installed openimscore and i am successful for 10 calls/sec itself not for 20 or even higher. 
+</I>&gt;<i> 
+</I>&gt;<i> i dont know whether i am wrong or right can any one help me please.
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> does openimscore suppport registration with out authentication?
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> thanking you,
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> with regards,
+</I>&gt;<i> viswavardhan
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> On Fri, Apr 1, 2011 at 10:43 PM, Paul Carter-Brown &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">paul.carter-brown at smilecoms.com</A>&gt; wrote:
+</I>&gt;<i> In terms of performance, throughput is based on software + hardware... not software alone. What hardware are you talking about for the various components. If you split the CSCF's, HSS etc across a number of multi-processor/multi-core servers, you will get much more than a single CPU desktop...
+</I>&gt;<i> 
+</I>&gt;<i> On 1 April 2011 20:41, viswavardhanreddy karna &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">viswavardhanreddy at gmail.com</A>&gt; wrote:
+</I>&gt;<i> HI everyone,
+</I>&gt;<i>                    I am doing some experiments on the performance of openimscore. i wanted to know if openimscore supports the registration with out challenging the user like the scenario shown below:
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i>             register
+</I>&gt;<i> -----------------------------------&gt;
+</I>&gt;<i>              200 ok 
+</I>&gt;<i> &lt;--------------------------------------
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> and i wanted to know if openimscore handles 100 calls/sec or 20 calls/sec maximum ..... i am little bit stuck here dont know how many calls does it handle... but when i tested it took only 10calls/sec .. when i tried with 20calls/sec the server is not able to handle and generating the response of 408 timed out....
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> so MY QUESTION IS how many calls/sec does openimscore can handle? and in order to handle more number of calls should i configure the components of ims like pcscf.cfg,icscf.cfg,scscf.cfg
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> if so how can i configure... can any body help me please....
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> thanks in advance,
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> with regards,
+</I>&gt;<i> viswavardhan
+</I>&gt;<i> 
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> -- 
+</I>&gt;<i> Paul Carter-Brown
+</I>&gt;<i> Group CIO
+</I>&gt;<i> Smile Communications
+</I>&gt;<i> Johannesburg, South Africa
+</I>&gt;<i> Phone: +27 83 442 7179
+</I>&gt;<i> 
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110402/4d2e0717/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110402/4d2e0717/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002475.html">[OpenIMSCore-CSCF] regarding performance of openimscore...
+</A></li>
+	<LI>Next message: <A HREF="002478.html">[OpenIMSCore-CSCF] setkey (IPSEC) configuation
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2477">[ date ]</a>
+              <a href="thread.html#2477">[ thread ]</a>
+              <a href="subject.html#2477">[ subject ]</a>
+              <a href="author.html#2477">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Route header in a ReInvite request
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Route%20header%20in%20a%20ReInvite%20request&In-Reply-To=%3C47A830B2.7090500%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001169.html">
+   <LINK REL="Next"  HREF="001168.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Route header in a ReInvite request</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Route%20header%20in%20a%20ReInvite%20request&In-Reply-To=%3C47A830B2.7090500%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Route header in a ReInvite request">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Feb  5 10:47:30 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001169.html">[OpenIMSCore-CSCF] OpenSer as  presence server
+</A></li>
+        <LI>Next message: <A HREF="001168.html">[OpenIMSCore-CSCF] Route header in a ReInvite request
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1167">[ date ]</a>
+              <a href="thread.html#1167">[ thread ]</a>
+              <a href="subject.html#1167">[ subject ]</a>
+              <a href="author.html#1167">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>It's a feature, not a bug. Really :-).
+
+-Dragos
+
+Andrea Polidoro wrote:
+&gt;<i> Dear Franz,
+</I>&gt;<i>
+</I>&gt;<i> Franz Edler ha scritto:
+</I>&gt;&gt;<i> Hi Andrea,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;&gt;<i> What happens if after few minutes it re-establish a connection with a
+</I>&gt;&gt;&gt;<i> different IP address (because the service provider or a dhcp server
+</I>&gt;&gt;&gt;<i> gives it a different IP) and it tries to make a new registration? It's
+</I>&gt;&gt;&gt;<i> out of standard?
+</I>&gt;&gt;&gt;<i>     
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> This case is covered by TS 23.228 &#167;4.3.1:
+</I>&gt;&gt;<i> When a UE is registered in the IM CN Subsystem with an IP address, any
+</I>&gt;&gt;<i> change to this IP address that is used to access the IM CN subsystem
+</I>&gt;&gt;<i> will
+</I>&gt;&gt;<i> result in dropping the active SIP dialogs, and shall trigger automatic
+</I>&gt;&gt;<i> registration.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> In your case (OpenSourceIMS) the problem is in the transport layer of
+</I>&gt;&gt;<i> the
+</I>&gt;&gt;<i> access network. In an ideal case the drop of a security association is
+</I>&gt;&gt;<i> recognised by the P-CSCF and as a consequence the active call, the
+</I>&gt;&gt;<i> dialog
+</I>&gt;&gt;<i> and also registration state are dropped. If the P-CSCF does not
+</I>&gt;&gt;<i> recognise
+</I>&gt;&gt;<i> the lost connection and drop these data it leads to the mentioned
+</I>&gt;&gt;<i> behaviour.
+</I>&gt;&gt;<i>   
+</I>&gt;<i> Ok, but how you can see in the attach, when I start a new registration
+</I>&gt;<i> process without de-registered my first IP address, in the log of
+</I>&gt;<i> P-CSCF there are 2 addresses registered from my public identity. Do
+</I>&gt;<i> you think this could be a bug?
+</I>&gt;<i>
+</I>&gt;<i> regards,
+</I>&gt;<i>
+</I>&gt;<i> Andrea
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001169.html">[OpenIMSCore-CSCF] OpenSer as  presence server
+</A></li>
+	<LI>Next message: <A HREF="001168.html">[OpenIMSCore-CSCF] Route header in a ReInvite request
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1167">[ date ]</a>
+              <a href="thread.html#1167">[ thread ]</a>
+              <a href="subject.html#1167">[ subject ]</a>
+              <a href="author.html#1167">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

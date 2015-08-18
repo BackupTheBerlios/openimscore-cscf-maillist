@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r530 - Added parameter in config	file to allow searches on the wildcardPSI database or not
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r530%20-%20Added%20parameter%20in%20config%0A%09file%20to%20allow%20searches%20on%20the%20wildcardPSI%20database%20or%20not&In-Reply-To=%3C200802140754.m1E7sXrk007754%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001186.html">
+   <LINK REL="Next"  HREF="001188.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r530 - Added parameter in config	file to allow searches on the wildcardPSI database or not</H1>
+    <B>albertoberlios at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r530%20-%20Added%20parameter%20in%20config%0A%09file%20to%20allow%20searches%20on%20the%20wildcardPSI%20database%20or%20not&In-Reply-To=%3C200802140754.m1E7sXrk007754%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r530 - Added parameter in config	file to allow searches on the wildcardPSI database or not">albertoberlios at users.berlios.de
+       </A><BR>
+    <I>Thu Feb 14 08:54:33 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001186.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r529 - Fixed P_NAT_relay()	warnings when using IPv6 and NAT left enabled.
+</A></li>
+        <LI>Next message: <A HREF="001188.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r531 - Fixed crash after SAR for	unregistered users.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1187">[ date ]</a>
+              <a href="thread.html#1187">[ thread ]</a>
+              <a href="subject.html#1187">[ subject ]</a>
+              <a href="author.html#1187">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: albertoberlios
+Date: 2008-02-14 08:54:32 +0100 (Thu, 14 Feb 2008)
+New Revision: 530 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=530">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=530</A> 
+
+Log:
+Added parameter in config file to allow searches on the wildcardPSI
+database or not
+
+
+
+Removed:
+   D	ser_ims/trunk/.project
+   D	ser_ims/trunk/.settings/
+Modified:
+   U	ser_ims/trunk/cfg/scscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=530&amp;view=diff&amp;r1=530&amp;r2=529">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=530&amp;view=diff&amp;r1=530&amp;r2=529</A>
+   U	ser_ims/trunk/modules/isc/checker.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/checker.c?rev=530&amp;view=diff&amp;r1=530&amp;r2=529">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/checker.c?rev=530&amp;view=diff&amp;r1=530&amp;r2=529</A>
+   U	ser_ims/trunk/modules/scscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=530&amp;view=diff&amp;r1=530&amp;r2=529">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=530&amp;view=diff&amp;r1=530&amp;r2=529</A>
+   U	ser_ims/trunk/modules/scscf/registrar_parser.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_parser.c?rev=530&amp;view=diff&amp;r1=530&amp;r2=529">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_parser.c?rev=530&amp;view=diff&amp;r1=530&amp;r2=529</A>
+   U	ser_ims/trunk/modules/scscf/registrar_storage.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.c?rev=530&amp;view=diff&amp;r1=530&amp;r2=529">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.c?rev=530&amp;view=diff&amp;r1=530&amp;r2=529</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001186.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r529 - Fixed P_NAT_relay()	warnings when using IPv6 and NAT left enabled.
+</A></li>
+	<LI>Next message: <A HREF="001188.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r531 - Fixed crash after SAR for	unregistered users.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1187">[ date ]</a>
+              <a href="thread.html#1187">[ thread ]</a>
+              <a href="subject.html#1187">[ subject ]</a>
+              <a href="author.html#1187">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

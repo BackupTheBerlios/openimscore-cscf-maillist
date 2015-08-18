@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] (no subject)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%28no%20subject%29&In-Reply-To=%3C5c567c820705201803x670c136atd6fd7d946933fc76%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000623.html">
+   <LINK REL="Next"  HREF="000621.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] (no subject)</H1>
+    <B>Hideyuki Yamashita</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%28no%20subject%29&In-Reply-To=%3C5c567c820705201803x670c136atd6fd7d946933fc76%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] (no subject)">hideyuki.yamasita at gmail.com
+       </A><BR>
+    <I>Mon May 21 03:03:02 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000623.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+        <LI>Next message: <A HREF="000621.html">[OpenIMSCore-CSCF] problem updating dialog on reply after a trigger	to a B2BUA AS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#630">[ date ]</a>
+              <a href="thread.html#630">[ thread ]</a>
+              <a href="subject.html#630">[ subject ]</a>
+              <a href="author.html#630">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+
+Thanks for your advise.
+It is highly possible that I am confusing the case as you pointed me out.
+Anyway I will re-try and if something is wrong,I will provide you a proof
+and a way to replicate it
+
+Thanks,
+Hideyuki
+
+2007/5/18, Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt;:
+&gt;<i>
+</I>&gt;<i> Don't worry, I don't get offended that easy ;-).
+</I>&gt;<i>
+</I>&gt;<i> But here I think that you need to read a little from the 24.229 in the
+</I>&gt;<i> chapters related to the I-CSCF procedures.
+</I>&gt;<i>
+</I>&gt;<i> In a nutshell:
+</I>&gt;<i> 1. if the user does not have a S-CSCF attached in the hssdb database -
+</I>&gt;<i> initial registration
+</I>&gt;<i>    - then the HSS will send back a set of mandatory/optional
+</I>&gt;<i> capabilities for the user without a S-CSCF name. Or it could send one or
+</I>&gt;<i> more S-CSCF names to try out, but FHoSS does not do this. So usually you
+</I>&gt;<i> don't get any S-CSCF name
+</I>&gt;<i>    - then the I-CSCF takes the S-CSCF name received if any and also
+</I>&gt;<i> compiles and adds in that list some other S-CSCF that match the
+</I>&gt;<i> capabilities received. It can do this because it has knowledge about the
+</I>&gt;<i> network's internal topology - the icscf database (The HSS is just a
+</I>&gt;<i> database for keeping the user's data and not this network topology
+</I>&gt;<i> information).
+</I>&gt;<i>    - so yes, the values in that table are used. We did not put it in
+</I>&gt;<i> there for nothing ;-).
+</I>&gt;<i>
+</I>&gt;<i> 2. if the user has a S-CSCF attached - subsequent registration,
+</I>&gt;<i> de-registration
+</I>&gt;<i>    - then the S-CSCF name and no capabilities are sent
+</I>&gt;<i>    - the I-CSCF will compile again a list, with just 1 element, obviously.
+</I>&gt;<i>    - you can identity this case if you check the Diameter response code
+</I>&gt;<i> in the UAA
+</I>&gt;<i>    - but in this case the information from the icscf database won't be
+</I>&gt;<i> used (for sure if the S-CSCF answers).
+</I>&gt;<i>
+</I>&gt;<i> Then the I-CSCF will try based on the list compiled above to reach the
+</I>&gt;<i> S-CSCFs in order. If one fails, the next one is tried. If one responds,
+</I>&gt;<i> it stops.
+</I>&gt;<i>
+</I>&gt;<i> Now, it could be the case that you confuse the cases above. For example,
+</I>&gt;<i> you registered the user. Then you restart the S-CSCF. In this moment,
+</I>&gt;<i> the HSS thinks that the user is registered but the S-CSCF says that it
+</I>&gt;<i> is not. So it will respond with the S-CSCF name, although you might
+</I>&gt;<i> think of it as an initial registration. Now if you manage to get
+</I>&gt;<i> yourself into this situation and you change the S-CSCF, then the user
+</I>&gt;<i> will always be redirected to the old, stored, S-CSCF name. So if you do
+</I>&gt;<i> topology changes you should be careful that you don't have any leftovers
+</I>&gt;<i> with the old names in either the hssdb or icscf database.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> In the end, I don't want to rule a possible bug either, but please
+</I>&gt;<i> provide me a proof and a way to replicate it so that I can debug and fix
+</I>&gt;<i> it.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> Hideyuki Yamashita wrote:
+</I>&gt;<i> &gt; Hi Dragos,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; First of all,thanks to your quick reply.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Hmm..I changed value of s_cscf table to dummy(i.e. sip:dummy.com
+</I>&gt;<i> &gt; &lt;<A HREF="http://dummy.com/">http://dummy.com/</A>&gt;) and after that,
+</I>&gt;<i> &gt; register request from UE failed.(487 response).
+</I>&gt;<i> &gt; I  checked DNS signal using wireshark and it seems I-CSCF query
+</I>&gt;<i> &gt; dummy.com &lt;<A HREF="http://dummy.com/">http://dummy.com/</A>&gt; and
+</I>&gt;<i> &gt; the result is 'ICMP unreacheable'.
+</I>&gt;<i> &gt; From that fact,I still believe that I-CSCF uses value of
+</I>&gt;<i> &gt; s_cscf table(accumulated in database).
+</I>&gt;<i> &gt; What do you say about that?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; And I see that value of S-CSCF Name in impi table is empty when UE's
+</I>&gt;<i> &gt; state is unregistered.
+</I>&gt;<i> &gt; What do you about that?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; My intention is 'no offence to you'.
+</I>&gt;<i> &gt; Just I want to know more about implementation of OSIMS.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Thanks for you reply,
+</I>&gt;<i> &gt; Hideyuki
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070521/733122bb/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070521/733122bb/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000623.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+	<LI>Next message: <A HREF="000621.html">[OpenIMSCore-CSCF] problem updating dialog on reply after a trigger	to a B2BUA AS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#630">[ date ]</a>
+              <a href="thread.html#630">[ thread ]</a>
+              <a href="subject.html#630">[ subject ]</a>
+              <a href="author.html#630">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

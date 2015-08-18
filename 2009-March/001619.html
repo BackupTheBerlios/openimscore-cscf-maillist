@@ -1,0 +1,364 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 400 bad request-Not following indicated service routes-after domain name changes
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20400%20bad%20request-Not%20following%20indicated%0A%20service%20routes-after%20domain%20name%20changes&In-Reply-To=%3C49AF0A93.9010601%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001615.html">
+   <LINK REL="Next"  HREF="001616.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 400 bad request-Not following indicated service routes-after domain name changes</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20400%20bad%20request-Not%20following%20indicated%0A%20service%20routes-after%20domain%20name%20changes&In-Reply-To=%3C49AF0A93.9010601%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] 400 bad request-Not following indicated service routes-after domain name changes">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Mar  5 00:11:15 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001615.html">[OpenIMSCore-CSCF] 400 bad request-Not following indicated service routes-after domain name changes
+</A></li>
+        <LI>Next message: <A HREF="001616.html">[OpenIMSCore-CSCF] problem while loading pcscf.so module
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1619">[ date ]</a>
+              <a href="thread.html#1619">[ thread ]</a>
+              <a href="subject.html#1619">[ subject ]</a>
+              <a href="author.html#1619">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Nevermind, found it - just get the port out of the quotes in the 
+pcscf.cfg.... It seems that I just committed the same bug that you 
+discovered in r620. Re-fixed in r624.
+
+Cheers,
+-Dragos
+
+Dragos Vingarzan wrote:
+&gt;<i> I am quite puzzled... The thing is that your alias list does not seem to 
+</I>&gt;<i> contain the pcscf alias... are you sure that it is correctly configured 
+</I>&gt;<i> in the pcscf.cfg? Could you also please send the pcscf.cfg file? Then is 
+</I>&gt;<i> the DNS correctly configured for that alias?
+</I>&gt;<i>
+</I>&gt;<i> A short term solution would be to disable the P_follows_service_route() 
+</I>&gt;<i> in pcscf.cfg and enable the other variant, which will just put the right 
+</I>&gt;<i> routes.
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> siddhu k wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi Dragos,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Attaching the pcscf log and trace file.I have observed the same issue 
+</I>&gt;&gt;<i> of &quot;400 Bad Request-Not following Service Route&quot;  when you use double 
+</I>&gt;&gt;<i> quotes on the working setup with alias parameter set to &quot;open-ims.test&quot;.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Please  help on this issue.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Regards,
+</I>&gt;&gt;<i> Siddhu
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> On Wed, Feb 25, 2009 at 5:25 PM, Dragos Vingarzan 
+</I>&gt;&gt;<i> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A> 
+</I>&gt;&gt;<i> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>&gt;&gt; wrote:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     Hi Siddhu,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     could you please send us a trace showing the SIP messages? I
+</I>&gt;&gt;<i>     couldn't find one in the discussion summary.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     The mechanism is that the P-CSCF would check if the Route headers
+</I>&gt;&gt;<i>     in the initial request match the list saved with Service-Route.
+</I>&gt;&gt;<i>     Additionally, if the first Route is to the outbound P-CSCF and
+</I>&gt;&gt;<i>     this is not in the Service-Routes, it is still ignored. evidently
+</I>&gt;&gt;<i>     this check_self() fails...
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     Cheers,
+</I>&gt;&gt;<i>     -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     siddhu k wrote:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         Hi ,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         I found the root cause for the service route invalid
+</I>&gt;&gt;<i>         behaviour,it's the alias parameter in pcscf.cfg file with
+</I>&gt;&gt;<i>         double quotes i.e alias=&quot;ims.mnc045.mcc404.3gppnetwork.org
+</I>&gt;&gt;<i>         &lt;<A HREF="http://ims.mnc045.mcc404.3gppnetwork.org">http://ims.mnc045.mcc404.3gppnetwork.org</A>&gt;
+</I>&gt;&gt;<i>         &lt;<A HREF="http://ims.mnc045.mcc404.3gppnetwork.org/">http://ims.mnc045.mcc404.3gppnetwork.org/</A>&gt;&quot; causing the error
+</I>&gt;&gt;<i>         response .
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         The function grep_aliases() called in check_self()
+</I>&gt;&gt;<i>         function(forward.c file) is failing .Below is the pcscf log
+</I>&gt;&gt;<i>         which confirms the same.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         check_self: host != me
+</I>&gt;&gt;<i>         [00m 3(21247) [01;30mloose_route: RURI is NOT myself
+</I>&gt;&gt;<i>         [00m 3(21247) [01;30mgrep_sock_info - checking if host==us:
+</I>&gt;&gt;<i>         39==12 &amp;&amp;  [pcscf.ims.mnc045.mcc404.3gppnetwork.org
+</I>&gt;&gt;<i>         &lt;<A HREF="http://pcscf.ims.mnc045.mcc404.3gppnetwork.org">http://pcscf.ims.mnc045.mcc404.3gppnetwork.org</A>&gt;
+</I>&gt;&gt;<i>         &lt;<A HREF="http://pcscf.ims.mnc045.mcc404.3gppnetwork.org/">http://pcscf.ims.mnc045.mcc404.3gppnetwork.org/</A>&gt;] ==
+</I>&gt;&gt;<i>         [10.28.136.52]
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         [00m 3(21247) [01;30mgrep_sock_info - checking if port 4060
+</I>&gt;&gt;<i>         matches port 4060
+</I>&gt;&gt;<i>         [00m 3(21247) [01;30mgrep_sock_info - checking if host==us:
+</I>&gt;&gt;<i>         39==12 &amp;&amp;  [pcscf.ims.mnc045.mcc404.3gppnetwork.org
+</I>&gt;&gt;<i>         &lt;<A HREF="http://pcscf.ims.mnc045.mcc404.3gppnetwork.org">http://pcscf.ims.mnc045.mcc404.3gppnetwork.org</A>&gt;
+</I>&gt;&gt;<i>         &lt;<A HREF="http://pcscf.ims.mnc045.mcc404.3gppnetwork.org/">http://pcscf.ims.mnc045.mcc404.3gppnetwork.org/</A>&gt;] ==
+</I>&gt;&gt;<i>         [10.28.136.52]
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         [00m 3(21247) [01;30mgrep_sock_info - checking if port 4060
+</I>&gt;&gt;<i>         matches port 4060
+</I>&gt;&gt;<i>         [00m 3(21247) [01;30mcheck_self: host != me
+</I>&gt;&gt;<i>         [00m 3(21247) [01;30mafter_loose: Topmost URI is NOT myself
+</I>&gt;&gt;<i>         [00m 3(21247) [01;30mafter_loose: URI to be processed:
+</I>&gt;&gt;<i>         'sip:pcscf.ims.mnc045.mcc404.3gppnetwork.org:4060;lr'60;lr
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         mDBG:P-CSCF:P_follows_service_route: mst
+</I>&gt;&gt;<i>         sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.ims.mnc045.mcc404.3gppnetwork.org</A>:6060;lr
+</I>&gt;&gt;<i>         mDBG:P-CSCF:P_follows_service_route: src
+</I>&gt;&gt;<i>         sip:pcscf.ims.mnc045.mcc404.3gppnetwork.org:4060;lr
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         The above 2 lines must be same when  P_follows_service_route()
+</I>&gt;&gt;<i>         function is called,which is not in my case.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         Log for successful case:
+</I>&gt;&gt;<i>         DBG:P-CSCF:P_follows_service_
+</I>&gt;&gt;<i>         route: mst sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr
+</I>&gt;&gt;<i>         ^[[00m 3(24966) ^[[01;30mDBG:P-CSCF:P_follows_service_route:
+</I>&gt;&gt;<i>         src sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr
+</I>&gt;&gt;<i>         ^[[00m 3(24966) ^[[01;30mDBG:P-CSCF:P_follows_service_route:
+</I>&gt;&gt;<i>         src match
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         Please look into this and help me to proceed.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         Regards,
+</I>&gt;&gt;<i>         Siddhu
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         On Wed, Feb 18, 2009 at 10:51 AM, siddhu k
+</I>&gt;&gt;<i>         &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">siddhukolkur at gmail.com</A> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">siddhukolkur at gmail.com</A>&gt;
+</I>&gt;&gt;<i>         &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">siddhukolkur at gmail.com</A>
+</I>&gt;&gt;<i>         &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">siddhukolkur at gmail.com</A>&gt;&gt;&gt; wrote:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>            Hi All,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>            Please look into below issue as described by Franz and help me
+</I>&gt;&gt;<i>            resolve the same.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>            Thanks &amp; Regards,
+</I>&gt;&gt;<i>            Siddhu
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>            On Tue, Feb 17, 2009 at 11:03 AM, Franz Edler
+</I>&gt;&gt;<i>         &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz-edler at aon.at</A> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz-edler at aon.at</A>&gt;
+</I>&gt;&gt;<i>            &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz-edler at aon.at</A> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz-edler at aon.at</A>&gt;&gt;&gt; wrote:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                Hi Siddhu,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                after all your troubles and trace files provided I now
+</I>&gt;&gt;<i>         agree
+</I>&gt;&gt;<i>                that there is a
+</I>&gt;&gt;<i>                problem which might be solved by another expert (Dragos?):
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                I summarize from you last pcscf-log:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                These are the data from the registration:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                 [00m 5(21249)  [01;32mINF:P-CSCF:----------  Registrar
+</I>&gt;&gt;<i>                Contents begin
+</I>&gt;&gt;<i>                --------
+</I>&gt;&gt;<i>                 [00m 5(21249)  [01;32m [01;32mINF:P-CSCF:[ 145] C:
+</I>&gt;&gt;<i>                &lt; [01;31m0://10.28.136.106:5062
+</I>&gt;&gt;<i>         &lt;<A HREF="http://10.28.136.106:5062">http://10.28.136.106:5062</A>&gt; &lt;<A HREF="http://10.28.136.106:5062">http://10.28.136.106:5062</A>&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                [01;32m&gt; Exp:[ [01;35m  60 [01;32m]
+</I>&gt;&gt;<i>                R:[ [01;35m 1 [01;32m] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 10.28.136.106</A>:5062
+</I>&gt;&gt;<i>         &lt;<A HREF="http://sip:alice@10.28.136.106:5062">http://sip:alice@10.28.136.106:5062</A>&gt;
+</I>&gt;&gt;<i>                &lt;<A HREF="http://sip:alice@10.28.136.106:5062">http://sip:alice@10.28.136.106:5062</A>&gt;&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                 [00m 5(21249)  [01;32m [01;32mINF:P-CSCF:         SR:
+</I>&gt;&gt;<i>                &lt;
+</I>&gt;&gt;<i>              
+</I>&gt;&gt;<i>          [01;33msip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.ims.mnc045.mcc404.3gppnetwork.org</A>:6060;lr
+</I>&gt;&gt;<i>                [01;32m&gt;
+</I>&gt;&gt;<i>                 [00m 5(21249)  [01;32m [01;32mINF:P-CSCF:
+</I>&gt;&gt;<i>                NAT:&lt; [01;36m1://10.28.136.106:5062
+</I>&gt;&gt;<i>         &lt;<A HREF="http://10.28.136.106:5062">http://10.28.136.106:5062</A>&gt;
+</I>&gt;&gt;<i>                &lt;<A HREF="http://10.28.136.106:5062">http://10.28.136.106:5062</A>&gt; [01;32m&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                 [00m 5(21249)  [01;32m [01;32mINF:P-CSCF:          P: D[X]
+</I>&gt;&gt;<i>                &lt; [01;34msip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at ims.mnc045.mcc404.3gppnetwork.org</A>
+</I>&gt;&gt;<i>         &lt;mailto:01%3B34msip%<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3Aalice at ims.mnc045.mcc404.3gppnetwork.org</A>&gt;
+</I>&gt;&gt;<i>              
+</I>&gt;&gt;<i>          &lt;mailto:01%3B34msip%<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3Aalice at ims.mnc045.mcc404.3gppnetwork.org</A>
+</I>&gt;&gt;<i>         &lt;mailto:01%253B34msip%<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">253Aalice at ims.mnc045.mcc404.3gppnetwork.org</A>&gt;&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                [01;32m&gt;
+</I>&gt;&gt;<i>                 [00m 5(21249)  [01;32mINF:P-CSCF:----------  Registrar
+</I>&gt;&gt;<i>                Contents end
+</I>&gt;&gt;<i>                ----------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                And this is the point at an incoming INVITE where no
+</I>&gt;&gt;<i>         match of the
+</I>&gt;&gt;<i>                Service-Route is detected:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                 [00m 3(21247)
+</I>&gt;&gt;<i>          [01;30mDBG:P-CSCF:P_follows_service_route: mst
+</I>&gt;&gt;<i>                sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.ims.mnc045.mcc404.3gppnetwork.org</A>:6060;lr
+</I>&gt;&gt;<i>                 [00m 3(21247)
+</I>&gt;&gt;<i>          [01;30mDBG:P-CSCF:P_follows_service_route: src
+</I>&gt;&gt;<i>                sip:pcscf.ims.mnc045.mcc404.3gppnetwork.org:4060;lr
+</I>&gt;&gt;<i>                 [00m 3(21247) qm_malloc(0x8160c80, 53) called from ut.c:
+</I>&gt;&gt;<i>                as_asciiz(135)
+</I>&gt;&gt;<i>                 [00m 3(21247) qm_malloc(0x8160c80, 56) returns address
+</I>&gt;&gt;<i>                0x81bb07c frag.
+</I>&gt;&gt;<i>                0x81bb064 (size=56) on 1 -th hit
+</I>&gt;&gt;<i>                 [00m 3(21247)  [01;30mparse_headers:
+</I>&gt;&gt;<i>         flags=ffffffffffffffff
+</I>&gt;&gt;<i>                 [00m 3(21247)  [01;30mcheck_via_address(10.28.136.106,
+</I>&gt;&gt;<i>                10.28.136.106, 0)
+</I>&gt;&gt;<i>                 [00m 3(21247) qm_malloc(0x8160c80, 12) called from
+</I>&gt;&gt;<i>                msg_translator.c:
+</I>&gt;&gt;<i>                rport_builder(353)
+</I>&gt;&gt;<i>                 [00m 3(21247) qm_malloc(0x8160c80, 12) returns address
+</I>&gt;&gt;<i>                0x81bb6c4 frag.
+</I>&gt;&gt;<i>                0x81bb6ac (size=24) on 1 -th hit
+</I>&gt;&gt;<i>                 [00m 3(21247) qm_malloc(0x8160c80, 701) called from
+</I>&gt;&gt;<i>                msg_translator.c:
+</I>&gt;&gt;<i>                build_res_buf_from_sip_req(1847)
+</I>&gt;&gt;<i>                 [00m 3(21247) qm_malloc(0x8160c80, 704) returns address
+</I>&gt;&gt;<i>                0x81bb0e4 frag.
+</I>&gt;&gt;<i>                0x81bb0cc (size=1204) on 1 -th hit
+</I>&gt;&gt;<i>                 [00m 3(21247) qm_free(0x8160c80, 0x81bb6c4), called from
+</I>&gt;&gt;<i>                msg_translator.c:
+</I>&gt;&gt;<i>                build_res_buf_from_sip_req(2027)
+</I>&gt;&gt;<i>                 [00m 3(21247) qm_free: freeing frag. 0x81bb6ac
+</I>&gt;&gt;<i>         alloc'ed from
+</I>&gt;&gt;<i>                msg_translator.c: rport_builder(353)
+</I>&gt;&gt;<i>                 [00m 3(21247) qm_free(0x8160c80, 0x81bb0e4), called from
+</I>&gt;&gt;<i>                sl_funcs.c:
+</I>&gt;&gt;<i>                sl_send_reply(193)
+</I>&gt;&gt;<i>                 [00m 3(21247) qm_free: freeing frag. 0x81bb0cc
+</I>&gt;&gt;<i>         alloc'ed from
+</I>&gt;&gt;<i>                msg_translator.c: build_res_buf_from_sip_req(1847)
+</I>&gt;&gt;<i>                 [00m 3(21247) qm_free(0x8160c80, 0x81bb07c), called
+</I>&gt;&gt;<i>         from sl.c:
+</I>&gt;&gt;<i>                w_sl_send_reply(180)
+</I>&gt;&gt;<i>                 [00m 3(21247) qm_free: freeing frag. 0x81bb064
+</I>&gt;&gt;<i>         alloc'ed from
+</I>&gt;&gt;<i>                ut.c:
+</I>&gt;&gt;<i>                as_asciiz(135)
+</I>&gt;&gt;<i>                 [00m 3(21247)  [01;30mDEBUG:destroy_avp_list:
+</I>&gt;&gt;<i>         destroying list
+</I>&gt;&gt;<i>                (nil)
+</I>&gt;&gt;<i>                 [00m 3(21247)  [01;30mDEBUG:destroy_avp_list:
+</I>&gt;&gt;<i>         destroying list
+</I>&gt;&gt;<i>                (nil)
+</I>&gt;&gt;<i>                 [00m 3(21247)  [01;30mDEBUG:destroy_avp_list:
+</I>&gt;&gt;<i>         destroying list
+</I>&gt;&gt;<i>                (nil)
+</I>&gt;&gt;<i>                 [00m 3(21247)  [01;30mDEBUG:destroy_avp_list:
+</I>&gt;&gt;<i>         destroying list
+</I>&gt;&gt;<i>                (nil)
+</I>&gt;&gt;<i>                 [00m 3(21247)  [01;30mDEBUG:destroy_avp_list:
+</I>&gt;&gt;<i>         destroying list
+</I>&gt;&gt;<i>                (nil)
+</I>&gt;&gt;<i>                 [00m 3(21247)  [01;30mDEBUG:destroy_avp_list:
+</I>&gt;&gt;<i>         destroying list
+</I>&gt;&gt;<i>                (nil)
+</I>&gt;&gt;<i>                 [00m 3(21247)  [01;30mreceive_msg: cleaning up
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                It is not clear to me why there is no match.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                regards
+</I>&gt;&gt;<i>                Franz
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         ------------------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         _______________________________________________
+</I>&gt;&gt;<i>         OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i>         <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i>         &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>&gt;
+</I>&gt;&gt;<i>         <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>          
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     -- 
+</I>&gt;&gt;<i>     -----------------------------------------
+</I>&gt;&gt;<i>     Dipl. Eng. Dragos Vingarzan
+</I>&gt;&gt;<i>     Fraunhofer FOKUS/NGNI
+</I>&gt;&gt;<i>     Kaiserin-Augusta-Allee 31
+</I>&gt;&gt;<i>     10589 Berlin,Germany
+</I>&gt;&gt;<i>     Phone +49 (0)30 - 3463 - 7385
+</I>&gt;&gt;<i>     Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;&gt;<i>     Web www.fokus.fraunhofer.de &lt;<A HREF="http://www.fokus.fraunhofer.de">http://www.fokus.fraunhofer.de</A>&gt;
+</I>&gt;&gt;<i>     www.openimscore.org &lt;<A HREF="http://www.openimscore.org">http://www.openimscore.org</A>&gt;
+</I>&gt;&gt;<i>     We could change the world if God would give us the source code...
+</I>&gt;&gt;<i>     -----------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001615.html">[OpenIMSCore-CSCF] 400 bad request-Not following indicated service routes-after domain name changes
+</A></li>
+	<LI>Next message: <A HREF="001616.html">[OpenIMSCore-CSCF] problem while loading pcscf.so module
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1619">[ date ]</a>
+              <a href="thread.html#1619">[ thread ]</a>
+              <a href="subject.html#1619">[ subject ]</a>
+              <a href="author.html#1619">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

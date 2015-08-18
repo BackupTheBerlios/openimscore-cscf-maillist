@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r728 - -added exported function	LRF_sw2options - separated the code to switch to the OPTIONS	transaction from the NOTIFY transaction directly from the	script -added exported function LRF_options_empty_repl - send	a transactional reply to the OPTIONS request,	sl_send_reply from the script was sending replies to the NOTIFY	request,	to be used to send (error) replies to the OPTIONS request with no	body
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r728%20-%20-added%20exported%20function%0A%09LRF_sw2options%20-%20separated%20the%20code%20to%20switch%20to%20the%20OPTIONS%0A%09transaction%20from%20the%20NOTIFY%20transaction%20directly%20from%20the%0A%09script%20-added%20exported%20function%20LRF_options_empty_repl%20-%20send%0A%09a%20transactional%20reply%20to%20the%20OPTIONS%20request%2C%0A%09sl_send_reply%20from%20the%20script%20was%20sending%20replies%20to%20the%20NOTIFY%0A%09request%2C%0A%09to%20be%20used%20to%20send%20%28error%29%20replies%20to%20the%20OPTIONS%20request%20with%20no%0A%09body&In-Reply-To=%3C200909240711.n8O7BTM0006678%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001794.html">
+   <LINK REL="Next"  HREF="001790.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r728 - -added exported function	LRF_sw2options - separated the code to switch to the OPTIONS	transaction from the NOTIFY transaction directly from the	script -added exported function LRF_options_empty_repl - send	a transactional reply to the OPTIONS request,	sl_send_reply from the script was sending replies to the NOTIFY	request,	to be used to send (error) replies to the OPTIONS request with no	body</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r728%20-%20-added%20exported%20function%0A%09LRF_sw2options%20-%20separated%20the%20code%20to%20switch%20to%20the%20OPTIONS%0A%09transaction%20from%20the%20NOTIFY%20transaction%20directly%20from%20the%0A%09script%20-added%20exported%20function%20LRF_options_empty_repl%20-%20send%0A%09a%20transactional%20reply%20to%20the%20OPTIONS%20request%2C%0A%09sl_send_reply%20from%20the%20script%20was%20sending%20replies%20to%20the%20NOTIFY%0A%09request%2C%0A%09to%20be%20used%20to%20send%20%28error%29%20replies%20to%20the%20OPTIONS%20request%20with%20no%0A%09body&In-Reply-To=%3C200909240711.n8O7BTM0006678%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r728 - -added exported function	LRF_sw2options - separated the code to switch to the OPTIONS	transaction from the NOTIFY transaction directly from the	script -added exported function LRF_options_empty_repl - send	a transactional reply to the OPTIONS request,	sl_send_reply from the script was sending replies to the NOTIFY	request,	to be used to send (error) replies to the OPTIONS request with no	body">aon at users.berlios.de
+       </A><BR>
+    <I>Thu Sep 24 09:11:29 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001794.html">[OpenIMSCore-CSCF] Mis-interpretation of absent Expires header.
+</A></li>
+        <LI>Next message: <A HREF="001790.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r729 - -added exported function	E_fwded_dialog to check if the initial INVITE request was	forwarded to the PSAP,	to be used to check if the ACK or CANCEL should be forwarded as well	-modified the exported function E_get_location to return TRUE	(ok) if no Geolocation header is found,	as the location can be retrieved by the LRF through the GLE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1789">[ date ]</a>
+              <a href="thread.html#1789">[ thread ]</a>
+              <a href="subject.html#1789">[ subject ]</a>
+              <a href="author.html#1789">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2009-09-24 09:11:10 +0200 (Thu, 24 Sep 2009)
+New Revision: 728 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=728">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=728</A> 
+
+Log:
+-added exported function LRF_sw2options - separated the code to switch to the OPTIONS transaction from the NOTIFY transaction directly from the script
+-added exported function LRF_options_empty_repl - send a transactional reply to the OPTIONS request, sl_send_reply from the script was sending replies to the NOTIFY request, to be used to send (error) replies to the OPTIONS request with no body
+
+
+
+Modified:
+   U	ser_ims/branches/12_em_services/modules/lrf/locsip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip.c?rev=728&amp;view=diff&amp;r1=728&amp;r2=727">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip.c?rev=728&amp;view=diff&amp;r1=728&amp;r2=727</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/locsip.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip.h?rev=728&amp;view=diff&amp;r1=728&amp;r2=727">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip.h?rev=728&amp;view=diff&amp;r1=728&amp;r2=727</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.c?rev=728&amp;view=diff&amp;r1=728&amp;r2=727">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.c?rev=728&amp;view=diff&amp;r1=728&amp;r2=727</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/lost.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/lost.c?rev=728&amp;view=diff&amp;r1=728&amp;r2=727">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/lost.c?rev=728&amp;view=diff&amp;r1=728&amp;r2=727</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/mod.c?rev=728&amp;view=diff&amp;r1=728&amp;r2=727">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/mod.c?rev=728&amp;view=diff&amp;r1=728&amp;r2=727</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/multipart_parse.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/multipart_parse.c?rev=728&amp;view=diff&amp;r1=728&amp;r2=727">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/multipart_parse.c?rev=728&amp;view=diff&amp;r1=728&amp;r2=727</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/user_data.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/user_data.c?rev=728&amp;view=diff&amp;r1=728&amp;r2=727">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/user_data.c?rev=728&amp;view=diff&amp;r1=728&amp;r2=727</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/user_data.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/user_data.h?rev=728&amp;view=diff&amp;r1=728&amp;r2=727">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/user_data.h?rev=728&amp;view=diff&amp;r1=728&amp;r2=727</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001794.html">[OpenIMSCore-CSCF] Mis-interpretation of absent Expires header.
+</A></li>
+	<LI>Next message: <A HREF="001790.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r729 - -added exported function	E_fwded_dialog to check if the initial INVITE request was	forwarded to the PSAP,	to be used to check if the ACK or CANCEL should be forwarded as well	-modified the exported function E_get_location to return TRUE	(ok) if no Geolocation header is found,	as the location can be retrieved by the LRF through the GLE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1789">[ date ]</a>
+              <a href="thread.html#1789">[ thread ]</a>
+              <a href="subject.html#1789">[ subject ]</a>
+              <a href="author.html#1789">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Calls PSTN to IMS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Calls%20PSTN%20to%20IMS&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C025A2BAA%40INOAVREX05.ptin.corpPT.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000570.html">
+   <LINK REL="Next"  HREF="000581.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Calls PSTN to IMS</H1>
+    <B>Jos&#233; Carlos Amorim</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Calls%20PSTN%20to%20IMS&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C025A2BAA%40INOAVREX05.ptin.corpPT.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Calls PSTN to IMS">jose-c-amorim at ptinovacao.pt
+       </A><BR>
+    <I>Wed May  9 10:46:59 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000570.html">[OpenIMSCore-CSCF] Calls PSTN to IMS
+</A></li>
+        <LI>Next message: <A HREF="000581.html">[OpenIMSCore-CSCF] Calls PSTN to IMS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#579">[ date ]</a>
+              <a href="thread.html#579">[ thread ]</a>
+              <a href="subject.html#579">[ subject ]</a>
+              <a href="author.html#579">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+Answer inline...
+I also attached some mails related to this subject that I don't know if you read.
+
+
+Jos&#233; Carlos Silva
+-----Mensagem original-----
+De: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+Enviada: quarta-feira, 9 de Maio de 2007 9:06
+Para: Jos&#233; Carlos Amorim
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Assunto: Re: [OpenIMSCore-CSCF] Calls PSTN to IMS
+
+Hello Jose,
+
+Having a default realm when none is found could be a good idea, although
+it lacks flexibility.
+
+Then, what about indicating and extracting the realm for TEL URLs from
+the phone-context parameter?
+[Jos&#233;] This could be done but there are situations where there is no phone-context ex. when the Tel URI contains an international number. Maybe the best thing would be extracting from the phone-context if this parameter exists and if it doesn't exist use the default realm.
+
+-Dragos
+
+Jos&#233; Carlos Amorim wrote:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I'm testing OpenIMSCore interaction with PSTN, and I ran into to some
+</I>&gt;<i> problems, I solved some of them and will be posting the patch soon but
+</I>&gt;<i> there is one that I need an opinion.
+</I>&gt;<i>
+</I>&gt;<i> The problem is when I try to make a call PSTN to IMS and the RURI is a
+</I>&gt;<i> Tel URI. When I-CSCF tries to initiate a LIR request I get an error
+</I>&gt;<i> because the function cscf_get_realm_from_ruri does not return a realm
+</I>&gt;<i> (which is correct because the Tel URI does not have this information)
+</I>&gt;<i> but the realm is needed for the destination realm AVP. I don't know
+</I>&gt;<i> how I should get this parameter, does any body have an idea? The only
+</I>&gt;<i> thing that I thought about was, export a script parameter that holds
+</I>&gt;<i> this value and use it in this case.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+-------------- next part --------------
+An embedded message was scrubbed...
+From: =?iso-8859-1?Q?Jos=E9_Carlos_Amorim?= &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jose-c-amorim at ptinovacao.pt</A>&gt;
+Subject: Calls to PSTN
+Date: Thu, 19 Apr 2007 14:46:45 +0100
+Size: 1359
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070509/e98f93fc/attachment.mht">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070509/e98f93fc/attachment.mht</A>&gt;
+-------------- next part --------------
+An embedded message was scrubbed...
+From: =?iso-8859-1?Q?Jos=E9_Carlos_Amorim?= &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jose-c-amorim at ptinovacao.pt</A>&gt;
+Subject: Patch for calls to PSTN
+Date: Thu, 3 May 2007 10:56:59 +0100
+Size: 11777
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070509/e98f93fc/attachment-0001.mht">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070509/e98f93fc/attachment-0001.mht</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000570.html">[OpenIMSCore-CSCF] Calls PSTN to IMS
+</A></li>
+	<LI>Next message: <A HREF="000581.html">[OpenIMSCore-CSCF] Calls PSTN to IMS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#579">[ date ]</a>
+              <a href="thread.html#579">[ thread ]</a>
+              <a href="subject.html#579">[ subject ]</a>
+              <a href="author.html#579">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Half Call Model ,	re-INVITE  w/wo route header
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Half%20Call%20Model%20%2C%0A%09re-INVITE%20%20w/wo%20route%20header&In-Reply-To=%3C22ADF346694DD0448EFE12703693E8D6018F286C%40USCHEXC006.nsn-intra.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001496.html">
+   <LINK REL="Next"  HREF="001498.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Half Call Model ,	re-INVITE  w/wo route header</H1>
+    <B>Pavesi, Valdemar (NSN - US/Boca Raton)</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Half%20Call%20Model%20%2C%0A%09re-INVITE%20%20w/wo%20route%20header&In-Reply-To=%3C22ADF346694DD0448EFE12703693E8D6018F286C%40USCHEXC006.nsn-intra.net%3E"
+       TITLE="[OpenIMSCore-CSCF] Half Call Model ,	re-INVITE  w/wo route header">valdemar.pavesi at nsn.com
+       </A><BR>
+    <I>Wed Sep 24 15:22:20 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001496.html">[OpenIMSCore-CSCF] Half Call Model ,	re-INVITE  w/wo route header
+</A></li>
+        <LI>Next message: <A HREF="001498.html">[OpenIMSCore-CSCF] Configure a diferent domain
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1497">[ date ]</a>
+              <a href="thread.html#1497">[ thread ]</a>
+              <a href="subject.html#1497">[ subject ]</a>
+              <a href="author.html#1497">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Thanks Franz.
+ 
+
+-----Original Message-----
+From: ext Franz Edler [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at inode.at</A>] 
+Sent: Wednesday, September 24, 2008 12:04 AM
+To: Pavesi, Valdemar (NSN - US/Boca Raton);
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: RE: [OpenIMSCore-CSCF] Half Call Model , re-INVITE w/wo route
+header
+
+Hi Valdemar,
+
+&gt;<i> USER-----re-invite----&gt; CSCFP --------&gt; CSCFS ------(ad route header
+</I>??)--
+&gt;<i> ----&gt; AS.
+</I>&gt;<i> 
+</I>&gt;<i> For re-invite Do I have to add the two route header to send back to AS
+</I>?
+
+For re-INVITE (a request within the dialog) you always have to use the
+dialog route. This is the route setup during the dialog initiating
+request
+(the first INVITE) and is based on the Record-Route header fields
+included
+by the network nodes traversed. 
+
+If the AS &quot;record-routed&quot; then it has to be included, otherwise not.
+
+-franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001496.html">[OpenIMSCore-CSCF] Half Call Model ,	re-INVITE  w/wo route header
+</A></li>
+	<LI>Next message: <A HREF="001498.html">[OpenIMSCore-CSCF] Configure a diferent domain
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1497">[ date ]</a>
+              <a href="thread.html#1497">[ thread ]</a>
+              <a href="subject.html#1497">[ subject ]</a>
+              <a href="author.html#1497">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [OpenIMSCore-HSS] [OpenIMSCore-Users] Could I change port number in 200 ok message so the client will sent INVITE to p
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BOpenIMSCore-HSS%5D%20%5BOpenIMSCore-Users%5D%20Could%0A%20I%20change%20port%20number%20in%20200%20ok%20message%20so%20the%20client%20will%20sent%20INVITE%20to%20p&In-Reply-To=%3C477B9729.2070806%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001110.html">
+   <LINK REL="Next"  HREF="001111.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [OpenIMSCore-HSS] [OpenIMSCore-Users] Could I change port number in 200 ok message so the client will sent INVITE to p</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BOpenIMSCore-HSS%5D%20%5BOpenIMSCore-Users%5D%20Could%0A%20I%20change%20port%20number%20in%20200%20ok%20message%20so%20the%20client%20will%20sent%20INVITE%20to%20p&In-Reply-To=%3C477B9729.2070806%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [OpenIMSCore-HSS] [OpenIMSCore-Users] Could I change port number in 200 ok message so the client will sent INVITE to p">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Jan  2 14:52:41 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001110.html">[OpenIMSCore-CSCF] daemonize SER
+</A></li>
+        <LI>Next message: <A HREF="001111.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r511 - New Server StateFul	Authentication State Machine in the CDiameterPeer. New	Subscription-Id included in the AAR from PCSCF Solved Bug for	CSeq and UAC BYE generated in the PCSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1114">[ date ]</a>
+              <a href="thread.html#1114">[ thread ]</a>
+              <a href="subject.html#1114">[ subject ]</a>
+              <a href="author.html#1114">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Jingyi Hu,
+
+I don't understand exactly the issue... What port in the 200 OK? Do you
+mean the Service-Route? That is intentional like that. Instead, try to
+force your client to use the P-CSCF as a strict outbound proxy and
+always send all the requests through there or always add a Route header
+with it to all the initial requests such that proper routing happens.
+
+Cheers,
+-Dragos
+
+Jingyi Hu wrote:
+&gt;<i>
+</I>&gt;<i> Hi All,
+</I>&gt;<i>  
+</I>&gt;<i> Thank you for all the helps. Right now I can register my phone (Hello
+</I>&gt;<i> Soft Client, I do not think it is a IMS compalient) and get 200 OK
+</I>&gt;<i> message. But when my phone send the INVITE message. It send to 6060
+</I>&gt;<i> which read from 200 OK message. There no configuration parameters
+</I>&gt;<i> which you can force it send to port 4060. Can I change in IMS core 200
+</I>&gt;<i> OK message so the phone will send to port 4060.
+</I>&gt;<i>  
+</I>&gt;<i> Thanks.
+</I>&gt;<i>  
+</I>&gt;<i> Best regards,
+</I>&gt;<i>  
+</I>&gt;<i> Jingyi Hu
+</I>&gt;<i>  
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i> You keep typing, we keep giving. Download Messenger and join the i&#8217;m
+</I>&gt;<i> Initiative now. Join in!
+</I>&gt;<i> &lt;<A HREF="http://im.live.com/messenger/im/home/?source=CRM_WL_joinnow">http://im.live.com/messenger/im/home/?source=CRM_WL_joinnow</A>&gt;
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-HSS mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-HSS at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-hss">https://lists.berlios.de/mailman/listinfo/openimscore-hss</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001110.html">[OpenIMSCore-CSCF] daemonize SER
+</A></li>
+	<LI>Next message: <A HREF="001111.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r511 - New Server StateFul	Authentication State Machine in the CDiameterPeer. New	Subscription-Id included in the AAR from PCSCF Solved Bug for	CSeq and UAC BYE generated in the PCSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1114">[ date ]</a>
+              <a href="thread.html#1114">[ thread ]</a>
+              <a href="subject.html#1114">[ subject ]</a>
+              <a href="author.html#1114">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

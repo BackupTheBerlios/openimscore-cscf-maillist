@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] NOTIFY issue
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20NOTIFY%20issue&In-Reply-To=%3C000301cc0832%24d1ca39e0%24755eada0%24%40technikum-wien.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002517.html">
+   <LINK REL="Next"  HREF="002519.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] NOTIFY issue</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20NOTIFY%20issue&In-Reply-To=%3C000301cc0832%24d1ca39e0%24755eada0%24%40technikum-wien.at%3E"
+       TITLE="[OpenIMSCore-CSCF] NOTIFY issue">franz.edler at technikum-wien.at
+       </A><BR>
+    <I>Sun May  1 21:06:04 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002517.html">[OpenIMSCore-CSCF] HELP! How do I make a 2G handset register into	OpenIMSCore as a SIP endpoint
+</A></li>
+        <LI>Next message: <A HREF="002519.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1081 - Client_Rf: updated to be	used also for MESSAGE requests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2518">[ date ]</a>
+              <a href="thread.html#2518">[ thread ]</a>
+              <a href="subject.html#2518">[ subject ]</a>
+              <a href="author.html#2518">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I Mohsen,
+
+&gt;<i> Thanks for the catch, makes totally sense. Now it works when it goes
+</I>&gt;<i> unprotected; but when I try to do the same use case over ip-sec; REGISTER
+</I>is
+&gt;<i> fine , but P-CSCF rejects the SUBSCRIBE with &quot;403 Forbidden - Not
+</I>&gt;<i> Registered! You must register first a S-CSCF&quot; ; I have attached
+</I>P-CSCF/S-CSCF
+&gt;<i> display log and UE-P-CSCF messaging.
+</I>
+To help you analyse the problem I need two things:
+
+1. the trace-file should not be a textfile but a file in pcap-format
+produced inside the Linux machine with &quot;tcpdump -i any -s 3000 -w
+/var/tmp/tracefile.pcap&quot;.
+
+2. Add a trace-statement into pcscf.cfg and scscf.cfg to mark a request when
+it arrives. I do this with the command at the beginning of themain routing
+block:
+     xlog(&quot;L_INFO&quot;,&quot;%CybTracepoint: %cs %rm %ru from %si:%sp From: %fu  To:
+%tu\n%Cxx&quot;);
+    Therfore you also have to load the xlog module: loadmodule
+&quot;/opt/OpenIMSCore/ser_ims/modules/xlog/xlog.so&quot;
+
+BR
+Franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002517.html">[OpenIMSCore-CSCF] HELP! How do I make a 2G handset register into	OpenIMSCore as a SIP endpoint
+</A></li>
+	<LI>Next message: <A HREF="002519.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1081 - Client_Rf: updated to be	used also for MESSAGE requests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2518">[ date ]</a>
+              <a href="thread.html#2518">[ thread ]</a>
+              <a href="subject.html#2518">[ subject ]</a>
+              <a href="author.html#2518">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Resent Packet on wireshark
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Resent%20Packet%20on%20wireshark&In-Reply-To=%3C2e66ff2b0904060623g525f4c7bwd468f9585e1ea3a3%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="001662.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Resent Packet on wireshark</H1>
+    <B>Arnaud MORIN</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Resent%20Packet%20on%20wireshark&In-Reply-To=%3C2e66ff2b0904060623g525f4c7bwd468f9585e1ea3a3%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Resent Packet on wireshark">arnaud.morin at gmail.com
+       </A><BR>
+    <I>Mon Apr  6 15:23:03 CEST 2009</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="001662.html">[OpenIMSCore-CSCF] Resent Packet on wireshark
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1661">[ date ]</a>
+              <a href="thread.html#1661">[ thread ]</a>
+              <a href="subject.html#1661">[ subject ]</a>
+              <a href="author.html#1661">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello everyone,
+
+I am currently working with openimscore and displaying SIP trace with
+Wireshark. The problem is that wireshark is displaying 2 identical frames.
+Example :
+
+----------------------------------------------------------------------------------------------
+
+Frame 22 (1205 bytes on wire, 1205 bytes captured)
+Internet Protocol, Src: 172.20.110.236 (172.20.110.236), Dst:
+172.20.110.230 (172.20.110.230)
+User Datagram Protocol, Src Port: 4060 (4060), Dst Port: 6060 (6060)
+
+Session Initiation Protocol
+    Request-Line: INVITE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">233 at open-ims.test</A> SIP/2.0
+        Method: INVITE
+        [Resent Packet: False]
+    Message Header
+        Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+
+        Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+
+----------------------------------------------------------------------------------------------
+Frame 23 (1205 bytes on wire, 1205 bytes captured)
+
+Internet Protocol, Src: 172.20.110.236 (172.20.110.236), Dst: 172.20.110.230
+(172.20.110.230)
+User Datagram Protocol, Src Port: 4060 (4060), Dst Port: 6060 (6060)
+Session Initiation Protocol
+Request-Line: INVITE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">233 at open-ims.test</A> SIP/2.0
+Method: INVITE
+[Resent Packet: True]
+[Suspected resend of frame: 22]
+Message Header
+Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+
+
+
+This is very strange. Do CSCF resent frames or is it a bad configuration
+with wireshark ?
+Thank you for your help !
+
+Cheers,
+Arnaud Morin.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090406/4d437636/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090406/4d437636/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="001662.html">[OpenIMSCore-CSCF] Resent Packet on wireshark
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1661">[ date ]</a>
+              <a href="thread.html#1661">[ thread ]</a>
+              <a href="subject.html#1661">[ subject ]</a>
+              <a href="author.html#1661">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

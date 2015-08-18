@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Call Session Control Functions support]	Integrate between 2 IMS Core
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20support%5D%0A%09Integrate%20between%202%20IMS%20Core&In-Reply-To=%3Ctype%3Dproject%26nid%3D134%26cid%3D57%26host%3D%40www.openimscore.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001421.html">
+   <LINK REL="Next"  HREF="001422.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Call Session Control Functions support]	Integrate between 2 IMS Core</H1>
+    <B>jvdploe</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20support%5D%0A%09Integrate%20between%202%20IMS%20Core&In-Reply-To=%3Ctype%3Dproject%26nid%3D134%26cid%3D57%26host%3D%40www.openimscore.org%3E"
+       TITLE="[OpenIMSCore-CSCF] [Call Session Control Functions support]	Integrate between 2 IMS Core">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Jul 25 22:15:50 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001421.html">[OpenIMSCore-CSCF] [Call Session Control Functions support]	Integrate between 2 IMS Core
+</A></li>
+        <LI>Next message: <A HREF="001422.html">[OpenIMSCore-CSCF] OpemIMS+Asterisk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1423">[ date ]</a>
+              <a href="thread.html#1423">[ thread ]</a>
+              <a href="subject.html#1423">[ subject ]</a>
+              <a href="author.html#1423">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Issue status update for 
+<A HREF="http://www.openimscore.org/node/134">http://www.openimscore.org/node/134</A>
+Post a follow up: 
+<A HREF="http://www.openimscore.org/project/comments/add/134">http://www.openimscore.org/project/comments/add/134</A>
+
+ Project:      Call Session Control Functions
+ Version:      &lt;none&gt;
+ Component:    Documentation
+ Category:     support requests
+ Priority:     normal
+ Assigned to:  
+ Reported by:  osman10
+ Updated by:   jvdploe
+ Status:       active
+
+can you describe what the problem is?
+
+
+things to look at:
+- did you correctly rename the domain for the two setups?
+- did you specify the domain when setting up a call?
+- did you implement DNS such that the two hosts can resolve each other?
+For example, implement a top-leven DNS with two subzones, maybe using
+zone delegation or so..
+
+
+and then...
+- when you try to register a user from a 'foreign' network on an ims,
+you should setup the visited network in your HSS
+
+
+and then.. it works :-) (I hope, it does for me)
+
+
+
+
+jvdploe
+
+
+
+Previous comments:
+------------------------------------------------------------------------
+
+Wed, 23 Jul 2008 02:47:59 +0000 : osman10
+
+I managed to download and install 2 ims core with difference domain
+name. Let say IMS Core 1 and IMS Core 2 and both work properly with IMS
+Client. But what i tried to do is to integrate between this 2 IMS core
+so that client from IMS Core 1 can communicate with client at IMS Core 2
+but its cannot work. How to do that? Can somebody can assist me.
+
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001421.html">[OpenIMSCore-CSCF] [Call Session Control Functions support]	Integrate between 2 IMS Core
+</A></li>
+	<LI>Next message: <A HREF="001422.html">[OpenIMSCore-CSCF] OpemIMS+Asterisk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1423">[ date ]</a>
+              <a href="thread.html#1423">[ thread ]</a>
+              <a href="subject.html#1423">[ subject ]</a>
+              <a href="author.html#1423">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

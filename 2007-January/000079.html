@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P-CSCF reg-event re-subscription does not re-use	initial From-tag
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20reg-event%20re-subscription%20does%20not%20re-use%0A%09initial%20From-tag&In-Reply-To=%3C000001c72da9%24d13dce00%240200a8c0%40notebookFE%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000088.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P-CSCF reg-event re-subscription does not re-use	initial From-tag</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20reg-event%20re-subscription%20does%20not%20re-use%0A%09initial%20From-tag&In-Reply-To=%3C000001c72da9%24d13dce00%240200a8c0%40notebookFE%3E"
+       TITLE="[OpenIMSCore-CSCF] P-CSCF reg-event re-subscription does not re-use	initial From-tag">franz.edler at inode.at
+       </A><BR>
+    <I>Mon Jan  1 14:36:13 CET 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000088.html">[OpenIMSCore-CSCF] P-CSCF reg-event re-subscription does not re-use	initial From-tag
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#79">[ date ]</a>
+              <a href="thread.html#79">[ thread ]</a>
+              <a href="subject.html#79">[ subject ]</a>
+              <a href="author.html#79">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I just found that the P-CSCF does not re-use the initial From-tag on
+re-subscription to the reg-event. The Call-Id is the same one but the
+From-tag is a new one and therefore it is not the same dialog as requested
+by RFC&#160;3265.
+
+See the attached Wireshark trace-file.
+- Initial subscription to reg-event of Bob in packet 32
+- Re-subscription to reg-event of Bob in packet 106
+- Initial subscription to reg-event of Alice in packet 89
+- Re-subscription to reg-event of Alice in packet 135
+
+I think that's a bug.
+
+cheers 
+Franz
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: osims7645-net1.zip
+Type: application/x-zip-compressed
+Size: 16898 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070101/365d38a9/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070101/365d38a9/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000088.html">[OpenIMSCore-CSCF] P-CSCF reg-event re-subscription does not re-use	initial From-tag
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#79">[ date ]</a>
+              <a href="thread.html#79">[ thread ]</a>
+              <a href="subject.html#79">[ subject ]</a>
+              <a href="author.html#79">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

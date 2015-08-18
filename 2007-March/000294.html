@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r191 - Fixed	P_follows_service_routes() to ignore &quot;myself&quot; in the first	Route header. Fixed the configuration scripts - the alias had	no port and check_self() was matching for any port.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r191%20-%20Fixed%0A%09P_follows_service_routes%28%29%20to%20ignore%20%22myself%22%20in%20the%20first%0A%09Route%20header.%20Fixed%20the%20configuration%20scripts%20-%20the%20alias%20had%0A%09no%20port%20and%20check_self%28%29%20was%20matching%20for%20any%20port.&In-Reply-To=%3C200703092139.l29LdjCt022550%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000293.html">
+   <LINK REL="Next"  HREF="000295.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r191 - Fixed	P_follows_service_routes() to ignore &quot;myself&quot; in the first	Route header. Fixed the configuration scripts - the alias had	no port and check_self() was matching for any port.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r191%20-%20Fixed%0A%09P_follows_service_routes%28%29%20to%20ignore%20%22myself%22%20in%20the%20first%0A%09Route%20header.%20Fixed%20the%20configuration%20scripts%20-%20the%20alias%20had%0A%09no%20port%20and%20check_self%28%29%20was%20matching%20for%20any%20port.&In-Reply-To=%3C200703092139.l29LdjCt022550%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r191 - Fixed	P_follows_service_routes() to ignore &quot;myself&quot; in the first	Route header. Fixed the configuration scripts - the alias had	no port and check_self() was matching for any port.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Fri Mar  9 22:39:45 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000293.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r187 - Introduced vendor-id for	CableLabs and ETSI and renamed the default vendor-id to 3GPP	Introduced enums for CableLabs and ETSI AVPs for authentication.
+</A></li>
+        <LI>Next message: <A HREF="000295.html">[OpenIMSCore-CSCF] s-cscf provisioning problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#294">[ date ]</a>
+              <a href="thread.html#294">[ thread ]</a>
+              <a href="subject.html#294">[ subject ]</a>
+              <a href="author.html#294">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-03-09 22:39:30 +0100 (Fri, 09 Mar 2007)
+New Revision: 191 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=191">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=191</A> 
+
+Log:
+Fixed P_follows_service_routes() to ignore &quot;myself&quot; in the first Route header.
+Fixed the configuration scripts - the alias had no port and check_self() was matching for any port.
+
+
+Modified:
+   U	ser_ims/trunk/cfg/icscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/icscf.cfg?rev=191&amp;view=diff&amp;r1=191&amp;r2=190">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/icscf.cfg?rev=191&amp;view=diff&amp;r1=191&amp;r2=190</A>
+   U	ser_ims/trunk/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=191&amp;view=diff&amp;r1=191&amp;r2=190">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=191&amp;view=diff&amp;r1=191&amp;r2=190</A>
+   U	ser_ims/trunk/cfg/scscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=191&amp;view=diff&amp;r1=191&amp;r2=190">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=191&amp;view=diff&amp;r1=191&amp;r2=190</A>
+   U	ser_ims/trunk/modules/pcscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.c?rev=191&amp;view=diff&amp;r1=191&amp;r2=190">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.c?rev=191&amp;view=diff&amp;r1=191&amp;r2=190</A>
+   U	ser_ims/trunk/modules/scscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registration.c?rev=191&amp;view=diff&amp;r1=191&amp;r2=190">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registration.c?rev=191&amp;view=diff&amp;r1=191&amp;r2=190</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000293.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r187 - Introduced vendor-id for	CableLabs and ETSI and renamed the default vendor-id to 3GPP	Introduced enums for CableLabs and ETSI AVPs for authentication.
+</A></li>
+	<LI>Next message: <A HREF="000295.html">[OpenIMSCore-CSCF] s-cscf provisioning problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#294">[ date ]</a>
+              <a href="thread.html#294">[ thread ]</a>
+              <a href="subject.html#294">[ subject ]</a>
+              <a href="author.html#294">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

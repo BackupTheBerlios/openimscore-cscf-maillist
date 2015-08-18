@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Calls PSTN to IMS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Calls%20PSTN%20to%20IMS&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C025A2B98%40INOAVREX05.ptin.corpPT.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000530.html">
+   <LINK REL="Next"  HREF="000502.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Calls PSTN to IMS</H1>
+    <B>Jos&#233; Carlos Amorim</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Calls%20PSTN%20to%20IMS&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C025A2B98%40INOAVREX05.ptin.corpPT.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Calls PSTN to IMS">jose-c-amorim at ptinovacao.pt
+       </A><BR>
+    <I>Tue Apr 24 11:07:26 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000530.html">[OpenIMSCore-CSCF] P-Charging-Function-Addresses header missing
+</A></li>
+        <LI>Next message: <A HREF="000502.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Missing	P-Charging-Function-Addresses in 200 OK to REGISTER
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#496">[ date ]</a>
+              <a href="thread.html#496">[ thread ]</a>
+              <a href="subject.html#496">[ subject ]</a>
+              <a href="author.html#496">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+ 
+
+I'm testing OpenIMSCore interaction with PSTN, and I ran into to some problems, I solved some of them and will be posting the patch soon but there is one that I need an opinion.
+
+The problem is when I try to make a call PSTN to IMS and the RURI is a Tel URI. When I-CSCF tries to initiate a LIR request I get an error because the function cscf_get_realm_from_ruri does not return a realm (which is correct because the Tel URI does not have this information) but the realm is needed for the destination realm AVP. I don't know how I should get this parameter, does any body have an idea? The only thing that I thought about was, export a script parameter that holds this value and use it in this case.
+
+ 
+
+Thanks,
+
+Jos&#233; Carlos Silva
+
+ 
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070424/8a98ec00/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070424/8a98ec00/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000530.html">[OpenIMSCore-CSCF] P-Charging-Function-Addresses header missing
+</A></li>
+	<LI>Next message: <A HREF="000502.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Missing	P-Charging-Function-Addresses in 200 OK to REGISTER
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#496">[ date ]</a>
+              <a href="thread.html#496">[ thread ]</a>
+              <a href="subject.html#496">[ subject ]</a>
+              <a href="author.html#496">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

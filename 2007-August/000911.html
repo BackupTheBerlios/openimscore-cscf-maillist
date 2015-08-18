@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Loading TLS-module for PCSCF: undefined symbol:	deflate
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Loading%20TLS-module%20for%20PCSCF%3A%20undefined%20symbol%3A%0A%09deflate&In-Reply-To=%3C20070803084038.275520%40gmx.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000910.html">
+   <LINK REL="Next"  HREF="000912.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Loading TLS-module for PCSCF: undefined symbol:	deflate</H1>
+    <B>Klemens Schragel</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Loading%20TLS-module%20for%20PCSCF%3A%20undefined%20symbol%3A%0A%09deflate&In-Reply-To=%3C20070803084038.275520%40gmx.net%3E"
+       TITLE="[OpenIMSCore-CSCF] Loading TLS-module for PCSCF: undefined symbol:	deflate">klemens.schragel at gmx.at
+       </A><BR>
+    <I>Fri Aug  3 10:40:38 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000910.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r433 - Same issue as on S-CSCF.
+</A></li>
+        <LI>Next message: <A HREF="000912.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Module	for the Gq/Gq' interface on PCSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#911">[ date ]</a>
+              <a href="thread.html#911">[ thread ]</a>
+              <a href="subject.html#911">[ subject ]</a>
+              <a href="author.html#911">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello all,
+
+I have a problem loading the tls-module with PCSCF-Ser; when starting PCSCF I get the error message
+
+ 0(2032) ERROR: load_module: could not open module &lt;/opt/OpenIMSCore/ser_ims/modules/tls/tls.so&gt;: /opt/OpenIMSCore/ser_ims/modules/tls/tls.so: undefined symbol: deflate
+ 0(2032) parse error (106,13-14): failed to load module
+
+My OS is Slackware 11 running on VMWare, I've installed OpenSSL as described in INSTALL-file without any modifications, also making the TLS-modul for OSIMS was done as described in the How To.
+
+I found some information there could be a problem with TLS using zlib (my version is the current one i.e. 1.2.3) which could be solved by appending -lz at installation, but this did not work.
+Also compiling OpenSSL without compression-support did not help...
+
+Maybe someone had the same problem, anyway I couln't find anything in the mailing-list archives...
+
+Thanks in advance and br, Klemens
+-- 
+Ist Ihr Browser Vista-kompatibel? Jetzt die neuesten 
+Browser-Versionen downloaden: <A HREF="http://www.gmx.net/de/go/browser">http://www.gmx.net/de/go/browser</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000910.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r433 - Same issue as on S-CSCF.
+</A></li>
+	<LI>Next message: <A HREF="000912.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Module	for the Gq/Gq' interface on PCSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#911">[ date ]</a>
+              <a href="thread.html#911">[ thread ]</a>
+              <a href="subject.html#911">[ subject ]</a>
+              <a href="author.html#911">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

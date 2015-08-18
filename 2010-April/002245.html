@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r936 - More fixes for the	fd_exchange_pipe
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r936%20-%20More%20fixes%20for%20the%0A%09fd_exchange_pipe&In-Reply-To=%3C201004281128.o3SBSWgt007486%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002244.html">
+   <LINK REL="Next"  HREF="002246.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r936 - More fixes for the	fd_exchange_pipe</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r936%20-%20More%20fixes%20for%20the%0A%09fd_exchange_pipe&In-Reply-To=%3C201004281128.o3SBSWgt007486%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r936 - More fixes for the	fd_exchange_pipe">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Apr 28 13:28:32 CEST 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002244.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r935 - Changed the way the first	connections are made - were done by the diameter_peer_start()	by calling the peer_timer();	now they are actually called from the timer.
+</A></li>
+        <LI>Next message: <A HREF="002246.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r937 - Fixed the peermanager timer	not being started - was added with an expires_in==0 and that	was not acceptable for the timer
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2245">[ date ]</a>
+              <a href="thread.html#2245">[ thread ]</a>
+              <a href="subject.html#2245">[ subject ]</a>
+              <a href="author.html#2245">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2010-04-28 13:28:30 +0200 (Wed, 28 Apr 2010)
+New Revision: 936 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=936">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=936</A> 
+
+Log:
+More fixes for the fd_exchange_pipe
+
+
+Modified:
+   U	ser_ims/trunk/modules/cdp/diameter_peer.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_peer.c?rev=936&amp;view=diff&amp;r1=936&amp;r2=935">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_peer.c?rev=936&amp;view=diff&amp;r1=936&amp;r2=935</A>
+   U	ser_ims/trunk/modules/cdp/peer.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peer.h?rev=936&amp;view=diff&amp;r1=936&amp;r2=935">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peer.h?rev=936&amp;view=diff&amp;r1=936&amp;r2=935</A>
+   U	ser_ims/trunk/modules/cdp/receiver.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/receiver.c?rev=936&amp;view=diff&amp;r1=936&amp;r2=935">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/receiver.c?rev=936&amp;view=diff&amp;r1=936&amp;r2=935</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002244.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r935 - Changed the way the first	connections are made - were done by the diameter_peer_start()	by calling the peer_timer();	now they are actually called from the timer.
+</A></li>
+	<LI>Next message: <A HREF="002246.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r937 - Fixed the peermanager timer	not being started - was added with an expires_in==0 and that	was not acceptable for the timer
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2245">[ date ]</a>
+              <a href="thread.html#2245">[ thread ]</a>
+              <a href="subject.html#2245">[ subject ]</a>
+              <a href="author.html#2245">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

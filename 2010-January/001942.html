@@ -1,0 +1,571 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] pid_list need to be initiliazed 0
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20pid_list%20need%20to%20be%20initiliazed%200&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A02180137%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001940.html">
+   <LINK REL="Next"  HREF="001945.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] pid_list need to be initiliazed 0</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20pid_list%20need%20to%20be%20initiliazed%200&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A02180137%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] pid_list need to be initiliazed 0">wang at basis-audionet.com
+       </A><BR>
+    <I>Fri Jan  8 20:15:15 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001940.html">[OpenIMSCore-CSCF] pid_list need to be initiliazed 0
+</A></li>
+        <LI>Next message: <A HREF="001945.html">[OpenIMSCore-CSCF] pid_list need to be initiliazed 0
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1942">[ date ]</a>
+              <a href="thread.html#1942">[ thread ]</a>
+              <a href="subject.html#1942">[ subject ]</a>
+              <a href="author.html#1942">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>HI dragos:
+
+Thanks for the info.
+ 
+&gt;<i> Well, it's a mix of funding on our side. It's mainly industry money,
+</I>yet
+&gt;<i> I can not also rule out state money as we do obtain grants, although
+</I>not
+&gt;<i> directly for this project. There is no roadmap now, the project being
+</I>&gt;<i> driven rather by its users and contributors as they need and expand
+</I>it.
+&gt;<i> 
+</I>&gt;<i> We (as FOKUS) are using it as a core network for our R&amp;D work on NGN,
+</I>&gt;<i> SOA and lately also NGMN. But commercially (in the sense of running a
+</I>&gt;<i> telecom network and charging subscribers for the usage) we are not and
+</I>&gt;<i> it is certainly out of our scope. There's a whole list of patents that
+</I>&gt;<i> you'll probably want to dodge if you'd use it like that, some of them
+</I>as
+&gt;<i> ridiculous as establishing calls by using proxies.
+</I>&gt;<i> 
+</I>
+I guess it is not openIMSCore issue, anybody who implements the 3gpp IMS
+will also have the similar issue. 
+
+Most of 3gpp IMS based on the IETF standards. my impression was IETF
+standard has no patent.???
+
+To figure out all those patents issue would be painful. Is there any
+site to list these patents? 
+
+
+
+&gt;<i> But these is valid however with any IMS core network. The Open IMS
+</I>Core
+&gt;<i> is licensed under the GPL license, which does not restrict your rights
+</I>&gt;<i> to use it in any way you want. That being said, although many parties
+</I>&gt;<i> have been interested into doing this, I am not aware of anybody
+</I>actually
+&gt;<i> doing it.
+</I>
+Yah that is the good thing about GPL.  
+
+If openimscore is stable-enough, high-performance, IMHO more parties
+will use it as production platform. 
+
+
+Kind regards.
+
+Min Wang
+
+
+
+&gt;<i> 
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> Min Wang wrote:
+</I>&gt;<i> &gt; Hi Dragos:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Thanks
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; yes - copying should be enough. I used a separated directory of
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; modules,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; just because there are so many modules now there.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; in the module Makefiles:
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; ifeq ($(CFG_NAME),sip-router)
+</I>&gt;<i> &gt;&gt;     DEFS+=-DSER_MOD_INTERFACE
+</I>&gt;<i> &gt;&gt;     SERLIBPATH=../../lib
+</I>&gt;<i> &gt;&gt;     SER_LIBS+=$(SERLIBPATH)/srdb1/srdb1
+</I>&gt;<i> &gt;&gt;     LIBS+=-L../../lib/cds -lser_cds
+</I>&gt;<i> &gt;&gt; else
+</I>&gt;<i> &gt;&gt;     LIBS+=-L../../lib/cds -l_ser_cds
+</I>&gt;<i> &gt;&gt; endif
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; So we're using in sip-router the SER module interface and not the
+</I>&gt;<i> &gt;&gt; OpenSER one and some library paths are different. Also if you have
+</I>the
+&gt;<i> &gt;&gt; SER_MOD_INTERFACE defined, then it means we're compiling not in
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; ser_ims
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; but in sip-router - this is used actually in the code for things
+</I>that
+&gt;<i> &gt;&gt; are different.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; The biggest change was to eliminate dynamic forking on connections
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; from
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; cdp. This was necessary as many other core modules we're never
+</I>built
+&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; for
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; this. But the new model seems to work already quite fine.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; That sounds good. I have not got the chance to play it with
+</I>sip-router
+&gt;<i> &gt; yet.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; Many of the SER/OpenSER/SIP-Router developers worked here at FOKUS
+</I>&gt;<i> &gt;&gt; before, so we know each other for a long time. But historically,
+</I>they
+&gt;<i> &gt;&gt; went commercial with SER and OpenSER around the time that we
+</I>launched
+&gt;<i> &gt;&gt; OpenIMSCore, so we have somehow split.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Is FOKUS/OpenIMSCore funded by government/education department? How
+</I>many
+&gt;<i> &gt; people working on OpenIMSCore at FOKUS?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; Stabilizing the Open IMS Core is tricky issue - it could be done
+</I>with
+&gt;<i> &gt;&gt; the proper resources, but then it will slow innovation and new
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; features.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; Some time ago we were involved in standardizing IMS benchmarking so
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; then
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; running it for 1M calls was a hard-requirement... but lately I
+</I>guess
+&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; the
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; vast majority of our users don't go much beyond the 2 default
+</I>users.
+&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Stability/Performance is certainly a commercial production
+</I>requirement.
+&gt;<i> &gt; So seems there are certainly different interests here.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Is there any road-map for new features/innovation?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Or does openimscore plan to go to commercial? There is  Open IMS
+</I>&gt;<i> &gt; Playground @ FOKUS, which seems want to have some sort of
+</I>commercial???
+&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Kind regards.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Min Wang
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; Cheers,
+</I>&gt;<i> &gt;&gt; -Dragos
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Min Wang wrote:
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Hi Dragos:
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Thanks.
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; the first and easier part of the migration was done by making the
+</I>&gt;<i> &gt;&gt;&gt;&gt; modules work also with sip-router. The modules in our trunk
+</I>should
+&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; be
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; usable now even there.
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; The second and harder part is the big move to the sip-router
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; repository.
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Here we just need to copy our modules, as the rest of the core
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; changes
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; has been mostly ironed already.
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Unfortunately just changing repositories is not as easy at it
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; sounds.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Where would the IMS core be placed there (main trunk,
+</I>experimental
+&gt;<i> &gt;&gt;&gt;&gt; branches, etc)?
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; First of all, in order to migration to sip-router, is it enough to
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt; just
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt; copy  the p-cscf etc modules or is there any big changes for the
+</I>&gt;<i> &gt;&gt;&gt; core-module?
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; IMS core = ser-core +  ( imscore-modules: p-cscf/cdp modules etc )
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Right?
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; How (and most importantly who can find the time) can
+</I>&gt;<i> &gt;&gt;&gt;&gt; maintenance be done, such that we will continuously make sure
+</I>that
+&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; the
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; rest of the changes in sip-router - and there are quite many now
+</I>-
+&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; would
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; not break the Open IMS Core functionality?
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; If    IMS core = ser-core +  ( imscore-modules: p-cscf/cdp modules
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt; etc )
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt; Is right, then only changes is in imscore-modules. But I guess
+</I>major
+&gt;<i> &gt;&gt;&gt; functions call are the same, right?
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; We have already an automatic
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; import of our svn repository in the git there, which also follows
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; all
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; our svn changes. But would it be possible to also push this
+</I>&gt;<i> &gt;&gt;&gt;&gt; automatically to a branch that would merge both changes from Open
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; IMS
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Core modules and the sip-router main branch?
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;     It depends on how to do it, it is possible. Git is good at
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt; merge.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt; But still need human to check.
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Then once we move it there,
+</I>&gt;<i> &gt;&gt;&gt;&gt; we'll need to still maintain for at least a short period
+</I>backwards
+&gt;<i> &gt;&gt;&gt;&gt; compatibility, so maybe a push-back in our repository would be
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; helpful.
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Mostly this is a question of time, which unfortunately I for one
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; can
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt; not
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; commit now. If anyone would want to help here I will give him my
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; full
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; support. We have already discussed with the sip-router developers
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; and
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; they are very open and helpful into accepting us in their
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; repository.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt; Yah I read your posts there. Sip-router seems a good/friendly
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt; community.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt; I can help on it if I find time.
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; I guess first of all we have to make openimscore a little bit
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt; stable.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Cheers,
+</I>&gt;<i> &gt;&gt;&gt;&gt; -Dragos
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Min Wang wrote:
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Hi Dragos
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; All the modules should be also usable under sip-router now. I
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; usually
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; create a new modules_osims or something and copy there the
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; following
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; modules, which still have changes on our side:
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; cdp  ecscf  enum  icscf  isc  lrf  pcscf  scscf  tls
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Then just put the new directory into Makefile.dirs and you're
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; set.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Thanks a lot. I will try.
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Hopefully we should be able soon to move there,
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; What are the blocking issues to move to sip-router? Could it be
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; that
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; simple to just copy the module to there as you describe above?
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; but I am not really sure
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; how the repository would look such that both patches from
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; sip-router
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; main trunk and OpenIMSCore would be merged automatically
+</I>somehow.
+&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; I am not sure what you mean exactly. If migrated OK, OpenIMScore
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; will be
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; part of the sip-router's modules, right?
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; I guess after moving to sip-router, then openimscore could get
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; more
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; exposure, and more people could be involved, and bug-fix could
+</I>be
+&gt;<i> &gt;&gt;&gt;&gt;&gt; faster.
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Kind Regards
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Min Wang
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Anyway, in case of any trouble there, just let me know.
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Cheers,
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; -Dragos
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Min Wang wrote:
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; Hi
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;    Another small patch for modules/cdp/diameter_peer.c
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; The pid_list need to be initialized to 0  ( it cause crashes
+</I>in
+&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; some
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; cases)
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; index 459885f..0834619 100644 (file)
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; --- a/modules/cdp/diameter_peer.c
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; +++ b/modules/cdp/diameter_peer.c
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; @@ -209,6 +209,8 @@ int diameter_peer_init_real()
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;         /* init the pid list */
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;         pid_list = shm_malloc(sizeof(pid_list_head_t));
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; +       pid_list-&gt;head = 0;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; +       pid_list-&gt;tail = 0;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;         pid_list_lock = lock_alloc();
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; BTW, any plan to migrate to use git?
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; Also what is the status of Migration of Open IMS Core to
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; sip-router?
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; Kind Regards
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; Min Wang
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; --
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; -----------------------------------------
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Fraunhofer FOKUS/NGNI
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Kaiserin-Augusta-Allee 31
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; 10589 Berlin,Germany
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; We could change the world if God would give us the source
+</I>code...
+&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>-----------------------------------------------------------------
+&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; --
+</I>&gt;<i> &gt;&gt;&gt;&gt; -----------------------------------------
+</I>&gt;<i> &gt;&gt;&gt;&gt; Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> &gt;&gt;&gt;&gt; Fraunhofer FOKUS/NGNI
+</I>&gt;<i> &gt;&gt;&gt;&gt; Kaiserin-Augusta-Allee 31
+</I>&gt;<i> &gt;&gt;&gt;&gt; 10589 Berlin,Germany
+</I>&gt;<i> &gt;&gt;&gt;&gt; Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> &gt;&gt;&gt;&gt; Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> &gt;&gt;&gt;&gt; Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> &gt;&gt;&gt;&gt; We could change the world if God would give us the source code...
+</I>&gt;<i> &gt;&gt;&gt;&gt; -----------------------------------------------------------------
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; --
+</I>&gt;<i> &gt;&gt; -----------------------------------------
+</I>&gt;<i> &gt;&gt; Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> &gt;&gt; Fraunhofer FOKUS/NGNI
+</I>&gt;<i> &gt;&gt; Kaiserin-Augusta-Allee 31
+</I>&gt;<i> &gt;&gt; 10589 Berlin,Germany
+</I>&gt;<i> &gt;&gt; Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> &gt;&gt; Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> &gt;&gt; Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> &gt;&gt; We could change the world if God would give us the source code...
+</I>&gt;<i> &gt;&gt; -----------------------------------------------------------------
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001940.html">[OpenIMSCore-CSCF] pid_list need to be initiliazed 0
+</A></li>
+	<LI>Next message: <A HREF="001945.html">[OpenIMSCore-CSCF] pid_list need to be initiliazed 0
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1942">[ date ]</a>
+              <a href="thread.html#1942">[ thread ]</a>
+              <a href="subject.html#1942">[ subject ]</a>
+              <a href="author.html#1942">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

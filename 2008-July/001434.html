@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 08_cdp_sessions branch realm problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%2008_cdp_sessions%20branch%20realm%20problem&In-Reply-To=%3C489043DF.3070808%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001433.html">
+   <LINK REL="Next"  HREF="001435.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 08_cdp_sessions branch realm problem</H1>
+    <B>Alberto Diez</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%2008_cdp_sessions%20branch%20realm%20problem&In-Reply-To=%3C489043DF.3070808%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] 08_cdp_sessions branch realm problem">Alberto.Diez at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Jul 30 12:35:11 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001433.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r576 - Applied Sebastian Felis	patches/updaates for building debian packages
+</A></li>
+        <LI>Next message: <A HREF="001435.html">[OpenIMSCore-CSCF] Test UCT IMS CLIENT/Xlite
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1434">[ date ]</a>
+              <a href="thread.html#1434">[ thread ]</a>
+              <a href="subject.html#1434">[ subject ]</a>
+              <a href="author.html#1434">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi richard,
+
+I guess you are talking about the Origin-Realm and Destination-Realm 
+AVPs? This are Diameter Routing related AVPs
+
+I really do not understand what you are talking about.
+
+
+
+-- 
+Alberto Diez Albaladejo
+Fraunhofer FOKUS
+Kaiserin-Augusta-Allee 31
+10589 Berlin
+Tel 00493034637307
+
+
+
+On your message from 26 Jun 2008
+--------------------------
+
+Hi,
+
+When using the 08_cdp_sessions branch with 2 domains I've found that the
+orig_realm and terminating realm AVPs in the AAR messages created by the
+P-CSCF in each realm are not  correct.
+
+I have 2 clients running in 2 different domains (e.g. dom1, dom2).  When
+I setup a session across domains from dom1 to dom2 - the AAR messages
+created by the P-CSCF's in each domain should list dom1 as the
+originating realm and dom2 as the terminating realm.  Instead the P-CSCF
+puts the domain of the forced QoS peer (The PCRF) as both originating
+and terminating realms (i.e. P-CSCF in dom1 has dom1 as terminating and
+originating realm, while P-CSCF has dom2 as terminating and originating
+realm).
+
+Regards,
+Richard.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001433.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r576 - Applied Sebastian Felis	patches/updaates for building debian packages
+</A></li>
+	<LI>Next message: <A HREF="001435.html">[OpenIMSCore-CSCF] Test UCT IMS CLIENT/Xlite
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1434">[ date ]</a>
+              <a href="thread.html#1434">[ thread ]</a>
+              <a href="subject.html#1434">[ subject ]</a>
+              <a href="author.html#1434">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

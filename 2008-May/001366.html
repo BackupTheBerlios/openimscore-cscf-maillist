@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] (no subject)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%28no%20subject%29&In-Reply-To=%3C1211043784.482f0fc87b7f4%40webmail.uoa.gr%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001374.html">
+   <LINK REL="Next"  HREF="001379.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] (no subject)</H1>
+    <B>std03096 at di.uoa.gr</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%28no%20subject%29&In-Reply-To=%3C1211043784.482f0fc87b7f4%40webmail.uoa.gr%3E"
+       TITLE="[OpenIMSCore-CSCF] (no subject)">std03096 at di.uoa.gr
+       </A><BR>
+    <I>Sat May 17 19:03:04 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001374.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+        <LI>Next message: <A HREF="001379.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1366">[ date ]</a>
+              <a href="thread.html#1366">[ thread ]</a>
+              <a href="subject.html#1366">[ subject ]</a>
+              <a href="author.html#1366">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Any ideas how I can solve the segmentation fault (because of port unreachable-
+problem related with host)?????
+
+sudo ./pcscf.sh
+
+ 5(6814) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(6814) INF:P-CSCF:[ 149] C: &lt;0://84.38.11.117:5061&gt; Exp:[599296] R:[ 1]
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 84.38.11.117</A>:5061;line=6766797437f1181&gt;
+ 5(6814) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(6814) INF:P-CSCF:        NAT:&lt;127.0.0.1:5061&gt;
+ 5(6814) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt; 
+ 5(6814) INF:P-CSCF:----------  Registrar Contents end ----------
+ 5(6814) INF:P-CSCF:----------  Subscription list begin ---------
+ 5(6814) INF:P-CSCF:[   3]      P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt; D:[600030]
+E:[599326] Att:[-1]
+ 5(6814) INF:P-CSCF:----------  Subscription list end -----------
+ 5(6814) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(6814) INF:P-CSCF:[ 149] C: &lt;0://84.38.11.117:5061&gt; Exp:[599286] R:[ 1]
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 84.38.11.117</A>:5061;line=6766797437f1181&gt;
+ 5(6814) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(6814) INF:P-CSCF:        NAT:&lt;127.0.0.1:5061&gt;
+ 5(6814) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt; 
+ 5(6814) INF:P-CSCF:----------  Registrar Contents end ----------
+
+sudo ./icscf.sh
+
+12(6892) DBG:peer_timer(): Peer hss.open-ims.test       State 5 
+12(6892) --- Peer List: ---
+12(6892)  S[R_Open] hss.open-ims.test:3868 D[ ]
+12(6892)         [16777216,10415]
+12(6892)         [16777216,4491]
+12(6892)         [16777216,13019]
+12(6892)         [16777217,10415]
+12(6892)         [16777221,10415]
+12(6892) ------------------
+18(7046) DBG:sm_process(): Peer hss.open-ims.test       State R_Open    Event
+R_Rcv_DWR
+18(7046) DBG:sm_process(): Peer hss.open-ims.test       State R_Open    Event
+R_Rcv_DWA
+12(6892) --- Peer List: ---
+12(6892)  S[R_Open] hss.open-ims.test:3868 D[ ]
+12(6892)         [16777216,10415]
+12(6892)         [16777216,4491]
+12(6892)         [16777216,13019]
+12(6892)         [16777217,10415]
+12(6892)         [16777221,10415]
+12(6892) ------------------
+12(6892) --- Peer List: ---
+12(6892)  S[R_Open] hss.open-ims.test:3868 D[ ]
+12(6892)         [16777216,10415]
+12(6892)         [16777216,4491]
+12(6892)         [16777216,13019]
+12(6892)         [16777217,10415]
+12(6892)         [16777221,10415]
+12(6892) ------------------
+12(6892) --- Peer List: ---
+12(6892)  S[R_Open] hss.open-ims.test:3868 D[ ]
+12(6892)         [16777216,10415]
+12(6892)         [16777216,4491]
+12(6892)         [16777216,13019]
+12(6892)         [16777217,10415]
+12(6892)         [16777221,10415]
+12(6892) ------------------
+12(6892) --- Peer List: ---
+12(6892)  S[R_Open] hss.open-ims.test:3868 D[ ]
+12(6892)         [16777216,10415]
+12(6892)         [16777216,4491]
+12(6892)         [16777216,13019]
+12(6892)         [16777217,10415]
+12(6892)         [16777221,10415]
+12(6892) ------------------
+
+sudo ./scscf.sh
+
+
+ 5(6938) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(6938) INF:S-CSCF:[   3] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; 
+ 5(6938) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(6938) INF:S-CSCF:         C:
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 84.38.11.117</A>:5061;line=6766797437f1181&gt; Exp:[599203]
+ 5(6938) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(6938) INF:S-CSCF:           UA: &lt;UCT IMS Client&gt;
+ 5(6938) INF:S-CSCF:         S: Event[0] Exp:[599203] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 84.38.11.117</A>:5061&gt; 
+ 5(6938) INF:S-CSCF:         S: Event[0] Exp:[599241]
+&lt;sip:pcscf.open-ims.test:4060&gt; 
+ 5(6938) INF:S-CSCF:----------  Registrar Contents end ----------
+12(6945) --- Peer List: ---
+12(6945)  S[R_Open] hss.open-ims.test:3868 D[ ]
+12(6945)         [16777216,10415]
+12(6945)         [16777216,4491]
+12(6945)         [16777216,13019]
+12(6945)         [16777217,10415]
+12(6945)         [16777221,10415]
+12(6945) ------------------
+
+sudo ./startup.sh
+
+Building Classpath
+Classpath is
+lib/xml-apis.jar:lib/xercesImpl.jar:lib/xerces-2.4.0.jar:lib/xalan-2.4.0.jar:lib/tomcat-util.jar:lib/tomcat-http.jar:lib/tomcat-coyote.jar:lib/struts.jar:lib/servlets-default.jar:lib/servlet-api.jar:lib/naming-resources.jar:lib/naming-factory.jar:lib/mysql-connector-java-3.1.12-bin.jar:lib/mx4j-3.0.1.jar:lib/log4j.jar:lib/junit.jar:lib/junitee.jar:lib/jta.jar:lib/jsp-api.jar:lib/jmx.jar:lib/jdp.jar:lib/jasper-runtime.jar:lib/jasper-compiler-jdt.jar:lib/jasper-compiler.jar:lib/hibernate3.jar:lib/FHoSS.jar:lib/ehcache-1.1.jar:lib/dom4j-1.6.1.jar:lib/commons-validator.jar:lib/commons-modeler.jar:lib/commons-logging.jar:lib/commons-logging-1.0.4.jar:lib/commons-lang.jar:lib/commons-fileupload.jar:lib/commons-el.jar:lib/commons-digester.jar:lib/commons-collections-3.1.jar:lib/commons-beanutils.jar:lib/cglib-2.1.3.jar:lib/catalina-optional.jar:lib/catalina.jar:lib/c3p0-0.9.1.jar:lib/base64.jar:lib/asm.jar:lib/asm-attrs.jar:lib/antlr-2.7.6.jar::log4j.properties:..
+2008-05-17 19:45:24,999 INFO  de.fhg.fokus.hss.main.TomcatServer - startTomcat
+Tomcat-Server is started.
+2008-05-17 19:45:26,826 WARN  org.apache.catalina.connector.MapperListener -
+registerEngine Unknown default host: 127.0.0.1
+2008-05-17 19:45:28,361 INFO  de.fhg.fokus.hss.web.servlet.ResponseFilter - init
+Response Filter Initialisation!
+2008-05-17 19:45:29,153 INFO  de.fhg.fokus.hss.main.TomcatServer - startTomcat
+WebConsole of FHoSS was started !
+2008-05-17 19:45:32,257 WARN  org.hibernate.impl.SessionFactoryObjectFactory -
+addInstance InitialContext did not implement EventContext
+2008-05-17 19:45:32,404 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+&lt;init&gt; FQDN: hss.open-ims.test
+2008-05-17 19:45:32,404 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+&lt;init&gt; Realm: open-ims.test
+2008-05-17 19:45:32,405 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+&lt;init&gt; Vendor_ID : 10415
+2008-05-17 19:45:32,405 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+&lt;init&gt; Product Name: JavaDiameterPeer
+2008-05-17 19:45:32,405 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+&lt;init&gt; AcceptUnknwonPeers: true
+2008-05-17 19:45:32,405 INFO  de.fhg.fokus.diameter.DiameterPeer.DiameterPeer -
+&lt;init&gt; DropUnknownOnDisconnect: true
+2008-05-17 19:45:32,520 INFO  de.fhg.fokus.hss.main.HSSContainer - waitForExit 
+Type &quot;exit&quot; to stop FHoSS!
+2008-05-17 19:45:49,475 DEBUG de.fhg.fokus.hss.main.Task - execute Processing UAR!
+2008-05-17 19:45:49,684 DEBUG de.fhg.fokus.hss.main.Task - execute Processing MAR!
+2008-05-17 19:45:49,708 DEBUG de.fhg.fokus.hss.cx.op.MAR - generateAuthVector
+Auth-Scheme is Digest-MD5
+2008-05-17 19:45:49,866 DEBUG de.fhg.fokus.hss.main.Task - execute Processing UAR!
+2008-05-17 19:45:49,896 DEBUG de.fhg.fokus.hss.main.Task - execute Processing SAR!
+2008-05-17 19:45:49,974 INFO  de.fhg.fokus.hss.cx.op.SAR - downloadUserData 
+
+The UserData XML document which is sent to the S-CSCF:
+&lt;?xml version=&quot;1.0&quot;
+encoding=&quot;UTF-8&quot;?&gt;&lt;IMSSubscription&gt;&lt;PrivateID&gt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&lt;/PrivateID&gt;&lt;ServiceProfile&gt;&lt;PublicIdentity&gt;&lt;Identity&gt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&lt;/Identity&gt;&lt;Extension&gt;&lt;IdentityType&gt;0&lt;/IdentityType&gt;&lt;/Extension&gt;&lt;/PublicIdentity&gt;&lt;InitialFilterCriteria&gt;&lt;Priority&gt;0&lt;/Priority&gt;&lt;TriggerPoint&gt;&lt;ConditionTypeCNF&gt;1&lt;/ConditionTypeCNF&gt;&lt;SPT&gt;&lt;ConditionNegated&gt;0&lt;/ConditionNegated&gt;&lt;Group&gt;0&lt;/Group&gt;&lt;Method&gt;PUBLISH&lt;/Method&gt;&lt;Extension&gt;&lt;/Extension&gt;&lt;/SPT&gt;&lt;SPT&gt;&lt;ConditionNegated&gt;0&lt;/ConditionNegated&gt;&lt;Group&gt;0&lt;/Group&gt;&lt;Method&gt;SUBSCRIBE&lt;/Method&gt;&lt;Extension&gt;&lt;/Extension&gt;&lt;/SPT&gt;&lt;SPT&gt;&lt;ConditionNegated&gt;0&lt;/ConditionNegated&gt;&lt;Group&gt;1&lt;/Group&gt;&lt;SIPHeader&gt;&lt;Header&gt;Event&lt;/Header&gt;&lt;Content&gt;.*presence.*&lt;/Content&gt;&lt;/SIPHeader&gt;&lt;Extension&gt;&lt;/Extension&gt;&lt;/SPT&gt;&lt;/TriggerPoint&gt;&lt;ApplicationServer&gt;&lt;ServerName&gt;sip:127.0.0.1:5065&lt;/ServerName&gt;&lt;DefaultHandling&gt;0&lt;/DefaultHandling&gt;&lt;/ApplicationServer&gt;&lt;/InitialFilterCriteria&gt;&lt;/ServiceProfile&gt;&lt;/IMSSubscription&gt;
+2008-05-17 19:45:49,983 INFO  de.fhg.fokus.hss.cx.op.SAR - processRequest 
+User with Public Identity: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A> and all its coresponding
+implicit-set identities are Registered!
+2008-05-17 19:45:58,908 DEBUG de.fhg.fokus.hss.main.Task - execute Processing LIR!
+2008-05-17 19:52:37,106 DEBUG de.fhg.fokus.hss.main.Task - execute Processing LIR!
+2008-05-17 19:52:37,171 DEBUG de.fhg.fokus.hss.main.Task - execute Processing LIR!
+
+
+uctimsclient
+
+UCT IMS Client - SIP port 5061 - Audio Port: 32906 - Video Port: 29833
+
+UCTIMSCLIENT: Error sending subscribe to presence.winfo
+Segmentation fault (core dumped)
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: Screenshot-1.png
+Type: image/png
+Size: 126749 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080517/ab7f3d74/attachment.png">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080517/ab7f3d74/attachment.png</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: Screenshot-2.png
+Type: image/png
+Size: 126599 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080517/ab7f3d74/attachment-0001.png">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080517/ab7f3d74/attachment-0001.png</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001374.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+	<LI>Next message: <A HREF="001379.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1366">[ date ]</a>
+              <a href="thread.html#1366">[ thread ]</a>
+              <a href="subject.html#1366">[ subject ]</a>
+              <a href="author.html#1366">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

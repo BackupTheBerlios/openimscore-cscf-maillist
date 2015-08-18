@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] CSCF processes hang on termination
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20CSCF%20processes%20hang%20on%20termination&In-Reply-To=%3C4670EF3D.4050008%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000719.html">
+   <LINK REL="Next"  HREF="000734.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] CSCF processes hang on termination</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20CSCF%20processes%20hang%20on%20termination&In-Reply-To=%3C4670EF3D.4050008%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] CSCF processes hang on termination">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Jun 14 09:33:17 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000719.html">[OpenIMSCore-CSCF] CSCF processes hang on termination
+</A></li>
+        <LI>Next message: <A HREF="000734.html">[OpenIMSCore-CSCF] CSCF processes hang on termination
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#730">[ date ]</a>
+              <a href="thread.html#730">[ thread ]</a>
+              <a href="subject.html#730">[ subject ]</a>
+              <a href="author.html#730">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Vance,
+
+Yes, this is a known issue that has been dragged along for a relative
+long time. The reason for nobody taking care of it is that we were
+looking at upgrading the SER base and usually when we do we have to
+rewrite parts of the code that could do this lock. But practically
+speaking and by looking at the current SER evolution and current CVS
+head status, this might take a few months at least, so I created a bug
+report here: <A HREF="http://www.openimscore.org/node/78">http://www.openimscore.org/node/78</A>
+
+-Dragos
+
+
+Vance Shipley wrote:
+&gt;<i> Folks,
+</I>&gt;<i>
+</I>&gt;<i> During my testing I am shutting down the CSCFs
+</I>&gt;<i> by typing a Ctl-C however they don't usually
+</I>&gt;<i> exit by themselves.  I have to go to another
+</I>&gt;<i> screen and manually kill them.  
+</I>&gt;<i>
+</I>&gt;<i> Is this problem common to all or is it maybe
+</I>&gt;<i> specific to my Solaris port?
+</I>&gt;<i>
+</I>&gt;<i> I got a core dump from icscf while it's last
+</I>&gt;<i> process was hanging and got the following 
+</I>&gt;<i> backtrace from gdb:
+</I>&gt;<i>
+</I>&gt;<i>    #0  0xff1bfeb4 in lwp_yield () from /lib/libc.so.1
+</I>&gt;<i>    #1  0xff304b2c in sched_yield () from /lib/librt.so.1
+</I>&gt;<i>    #2  0x00087194 in qm_sums (qm=0x10ad28) at fastlock.h:323
+</I>&gt;<i>    #3  0x00037b10 in cleanup (show_status=1) at main.c:462
+</I>&gt;<i>    #4  0x00038214 in shutdown_children (sig=1090560,show_status=1) at main.c:561
+</I>&gt;<i>    #5  0x00038b1c in handle_sigs () at main.c:634
+</I>&gt;<i>    #6  0x00039508 in main_loop () at main.c:1110
+</I>&gt;<i>    #7  0x0003aec0 in main (argc=0, argv=0x0) at main.c:1614
+</I>&gt;<i>
+</I>&gt;<i> ... and this one from scscf:
+</I>&gt;<i>
+</I>&gt;<i>    #0  0xff1bfeb4 in lwp_yield () from /lib/libc.so.1
+</I>&gt;<i>    #1  0xff304b2c in sched_yield () from /lib/librt.so.1
+</I>&gt;<i>    #2  0xfede3fb8 in mod_destroy () at ../fastlock.h:323
+</I>&gt;<i>    #3  0x00068dac in destroy_modules () at sr_module.c:393
+</I>&gt;<i>    #4  0x00037a14 in cleanup (show_status=1) at main.c:439
+</I>&gt;<i>    #5  0x00038214 in shutdown_children (sig=1090560,show_status=1) at main.c:561
+</I>&gt;<i>    #6  0x00038b1c in handle_sigs () at main.c:634
+</I>&gt;<i>    #7  0x00039508 in main_loop () at main.c:1110
+</I>&gt;<i>    #8  0x0003aec0 in main (argc=0, argv=0x0) at main.c:1614
+</I>&gt;<i>
+</I>&gt;<i> Any ideas?
+</I>&gt;<i>
+</I>&gt;<i> 	-Vance
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000719.html">[OpenIMSCore-CSCF] CSCF processes hang on termination
+</A></li>
+	<LI>Next message: <A HREF="000734.html">[OpenIMSCore-CSCF] CSCF processes hang on termination
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#730">[ date ]</a>
+              <a href="thread.html#730">[ thread ]</a>
+              <a href="subject.html#730">[ subject ]</a>
+              <a href="author.html#730">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

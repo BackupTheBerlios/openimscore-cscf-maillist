@@ -1,0 +1,371 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] PSI on CSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PSI%20on%20CSCF&In-Reply-To=%3C47EC3133.3070805%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001259.html">
+   <LINK REL="Next"  HREF="001265.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] PSI on CSCF</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PSI%20on%20CSCF&In-Reply-To=%3C47EC3133.3070805%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] PSI on CSCF">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Mar 28 00:43:47 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001259.html">[OpenIMSCore-CSCF] PSI on CSCF
+</A></li>
+        <LI>Next message: <A HREF="001265.html">[OpenIMSCore-CSCF] PSI on CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1263">[ date ]</a>
+              <a href="thread.html#1263">[ thread ]</a>
+              <a href="subject.html#1263">[ subject ]</a>
+              <a href="author.html#1263">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>errm... not exactly... almost though :).
+
+So I mean that when you detect a Request-URI change (and you can do this 
+with a function called in the scscf.cfg in route[Term] after the 
+ISC_match_filter block, but before S_lookup()) you should just relay the 
+message out towards the destination, triggering in this way another 
+terminating leg... or at least this seems logical to me to do...other 
+opinions?
+
+the formulation below:
+
+&quot;then scscf should change to the ana's originating side (as it was a new 
+call) and, acting as an originating side, forwards the request to the 
+terminating side of the new calle (bob or psi or directly to the ip of 
+other user that doesn't belong to our net if it was the case).&quot;
+
+...seems a little bit to get... it shouldn't move to an originating 
+state actually, just fwd it out towards another terminating leg (I-CSCF 
+- LIR/LIA - S-CSCF) for the new R-URI...
+
+
+Of course, if the new Request-URI is not a PSI or IMPU, then the request 
+would not go through I-CSCF-&gt;S-CSCF, but directly to the destination, 
+like e.g.: sip:mrf.open-ims.test ... but this is basic SIP routing in 
+the end...
+
+Here's an scscf.cfg example:
+
+route[Term]
+{
+        log(1,&quot;&gt;&gt;       Term\n&quot;);
+
+        if (S_terminating_barred()){
+                sl_send_reply(&quot;404&quot;,&quot;Not Found - Terminating user barred&quot;);
+                exit;
+        }
+
+        if (method==&quot;INVITE&quot;||method==&quot;SUBSCRIBE&quot;){
+                route(Check_Session_Expires);
+                if (!S_is_record_routed(&quot;term&quot;))
+                        S_record_route(&quot;term&quot;);
+
+                if (!S_save_dialog(&quot;term&quot;)){
+                        sl_send_reply(&quot;514&quot;,&quot;Terminating dialog save 
+failure - S-CSCF maximum dialog count reached!&quot;);
+                        exit;
+                }
+        }
+
+        loose_route();
+
+        # check if dialog saved as fwded to AS
+        if (ISC_match_filter(&quot;term&quot;)){
+                t_on_reply(&quot;ISC_Term_reply&quot;);
+                t_on_failure(&quot;ISC_Term_failure&quot;);
+                log(1,&quot;&gt;&gt;       Term - msg was fwded to AS\n&quot;);
+                exit;
+        }
+
+*        if (ISC_changed_RURI()){
+            # The destination changed and probably can't be handled here 
+anymore
+            if (!t_relay()) {
+                    sl_send_reply(&quot;500&quot;,&quot;Error forwarding towards 
+terminating leg&quot;);
+            };
+            exit;         
+        }
+*
+        if (!S_lookup()){
+                if (uri=~&quot;sip:(.*)@open-ims\.test(.*)&quot;) {
+                        if ( !t_newtran()) {
+                                sl_reply_error();
+                                exit;
+                        };
+                        t_reply(&quot;404&quot;,&quot;Not Found - destination user not 
+found on this S-CSCF&quot;);
+                        exit;
+                }
+        }
+
+
+        t_on_reply(&quot;Term_reply&quot;);
+        #t_on_failure(&quot;Term_failure&quot;);
+
+        S_apply_privacy();
+
+        if (!t_relay()) {
+                sl_send_reply(&quot;500&quot;,&quot;Error forwarding towards 
+terminating leg&quot;);
+                exit;
+        };
+}
+
+
+
+Cheers,
+-Dragos
+
+
+Enrique de Meer wrote:
+&gt;<i> Hi Dragos, 
+</I>&gt;<i>
+</I>&gt;<i> I've been thinking deeply about the last mail you sent me (below) and I
+</I>&gt;<i> would like you to confirm if I am right about what you meant, please:
+</I>&gt;<i>
+</I>&gt;<i> I guess you mean that when the ana's (user subscribed to the service)
+</I>&gt;<i> terminating side recieves the INVITE from the AS with the changed
+</I>&gt;<i> requested-URI, then scscf should change to the ana's originating side
+</I>&gt;<i> (as it was a new call) and, acting as an originating side, forwards the
+</I>&gt;<i> request to the terminating side of the new calle (bob or psi or directly
+</I>&gt;<i> to the ip of other user that doesn't belong to our net if it was the
+</I>&gt;<i> case).
+</I>&gt;<i>
+</I>&gt;<i> Is this correct? Is that the &quot;extension&quot; of the S-CSCF that you mention?
+</I>&gt;<i>
+</I>&gt;<i> Thanks in advance.
+</I>&gt;<i>
+</I>&gt;<i> Regards, Enrique
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> El jue, 20-03-2008 a las 18:18 +0100, Dragos Vingarzan escribi&#243;:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi Enrique,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Well... strange situation. This should not happen when triggering on the 
+</I>&gt;&gt;<i> originating side... But it should also work on the terminating side... I 
+</I>&gt;&gt;<i> think that we need to extend the S-CSCF to detect Request-URI changes 
+</I>&gt;&gt;<i> and if changed to forward the request out just like the S-CSCF does on 
+</I>&gt;&gt;<i> the originating side. This detection is fairly simple as the old 
+</I>&gt;&gt;<i> Request-URI si saved in the ISC route header.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Is there maybe anything in the standards about this situation? Anyone?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Cheers,
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Enrique de Meer wrote:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Hi Alberto and all,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Thank you very much for your clear explanation. Really useful. But I'm
+</I>&gt;&gt;&gt;<i> having an error:
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I've provisioned a PSI in the HSS for S-CSCF routing as you describe
+</I>&gt;&gt;&gt;<i> below and everything is all right (only the thing that i have had to put
+</I>&gt;&gt;&gt;<i> a 0 in &quot;can register&quot; directly in the HSS database because in the GUI
+</I>&gt;&gt;&gt;<i> when i click in &quot;can register&quot; to unmark it, then when i click &quot;save&quot;
+</I>&gt;&gt;&gt;<i> the mark in &quot;can register&quot; appears again all the time). After that i
+</I>&gt;&gt;&gt;<i> have two different scenarios:
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 1.- If I call with a registered client directly to PSI (what it is not
+</I>&gt;&gt;&gt;<i> very useful for me) everything is all right. (i attach the trace for
+</I>&gt;&gt;&gt;<i> this)
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 2.- I have an AS who decides to let a call continue to the callee
+</I>&gt;&gt;&gt;<i> without doing nothing in some cases or decides to redirect the call to a
+</I>&gt;&gt;&gt;<i> PSI in other cases (an answering machine which makes the caller hear an
+</I>&gt;&gt;&gt;<i> audio message).
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> In this last cases, my AS replaces the Request-URI of the SIP INVITE
+</I>&gt;&gt;&gt;<i> request with the SIP URI of the PSI and sends it back to S-CSCF, and
+</I>&gt;&gt;&gt;<i> then the S-CSCF sends a &quot;404 Not Found - Destination user not found on
+</I>&gt;&gt;&gt;<i> this S-CSCF&quot;.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Looking up in scscf.cfg and registrar.c I guess that this error is sent
+</I>&gt;&gt;&gt;<i> because S-CSCF looks up the sip uri in the Request-URI of the INVITE in
+</I>&gt;&gt;&gt;<i> registrar, and it doesn't find it.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> My PSI sip uri is not in registrar because is not registered, is it? So,
+</I>&gt;&gt;&gt;<i> Why do i recieve that error? What am I doing wrong? Any help? 
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I send the trace for this situation, as well.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Thank you very much in advance.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Regards,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Un saludo, Enrique.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> El jue, 06-03-2008 a las 12:15 +0100, Alberto Diez escribi&#243;:
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;&gt;&gt;<i> hi Enrique and all!
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> PSI are implemented and work. There are several issues.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Distinct PSI and Wildcarded PSI are supported
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Provisioning an PSI in the HSS is not easy, so you&#180;ll need to play 
+</I>&gt;&gt;&gt;&gt;<i> around a bit.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> if you want I-CSCF routing is a bit easier and there wont be any S-CSCF 
+</I>&gt;&gt;&gt;&gt;<i> involved, this procedure is defined by 3GPP for trusted AS that don&#180;t 
+</I>&gt;&gt;&gt;&gt;<i> need to go through the S-CSCF
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> I-CSCF routing
+</I>&gt;&gt;&gt;&gt;<i> -------------------------
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> ---- put the address of your AS as a preferred-SCSCF (and set priority 
+</I>&gt;&gt;&gt;&gt;<i> to 1 at least)
+</I>&gt;&gt;&gt;&gt;<i> ---- create an IMSU for your AS and asign the preferred-SCSCF to it
+</I>&gt;&gt;&gt;&gt;<i> --- create IMPI and IMPU  and attach the whole thing  IMSU-IMPI-IMPU
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> UE--{SIP INVITE}----&gt;I-CSCF----{Diameter LIR}---&gt;HSS--{-Diameter 
+</I>&gt;&gt;&gt;&gt;<i> LIA}---&gt;I-CSCF----{SIP INVITE}--&gt;AS
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> S-CSCF routing
+</I>&gt;&gt;&gt;&gt;<i> --------------------------
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> --create Application Server with your settings for the AS that hosts the PSI
+</I>&gt;&gt;&gt;&gt;<i> --create iFC with no Trigger point (that means matchs everything) and 
+</I>&gt;&gt;&gt;&gt;<i> profile part indicator Any or Unregistered
+</I>&gt;&gt;&gt;&gt;<i> --attach ifC to AS
+</I>&gt;&gt;&gt;&gt;<i> --Create a service profile and attach ifC created
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> ---create an IMSU and asign a normal preferred-SCSCF to it (but asign 
+</I>&gt;&gt;&gt;&gt;<i> one! if not it wont work)
+</I>&gt;&gt;&gt;&gt;<i> --- create an IMPI
+</I>&gt;&gt;&gt;&gt;<i> ---create an IMPU choosing Distinct or Wildcard and write the wildcard 
+</I>&gt;&gt;&gt;&gt;<i> int he appropriate format 
+</I>&gt;&gt;&gt;&gt;<i> (sip:your*wildcarded?expre??<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ion at open-ims.test</A>), it would be logical to 
+</I>&gt;&gt;&gt;&gt;<i> click in the Can Register thing and dont let this IMPU to register  and 
+</I>&gt;&gt;&gt;&gt;<i> of course you have to click the PSI Activation to activate it and select 
+</I>&gt;&gt;&gt;&gt;<i> the created service profile for that PSI
+</I>&gt;&gt;&gt;&gt;<i> --- attach IMPU to IMPI and IMPI to IMSU
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> UE--{SIP INVITE}----&gt;I-CSCF----{Diameter LIR}---&gt;HSS---{Diameter 
+</I>&gt;&gt;&gt;&gt;<i> LIA}---&gt;I-CSCF----{SIP INVITE}--&gt;S-CSCF---{Diameter 
+</I>&gt;&gt;&gt;&gt;<i> SAR}--&gt;HSS---&gt;{Diameter SAA}--&gt;S-CSCF---{SIP INVITE}--&gt;AS
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> ***************************************************************
+</I>&gt;&gt;&gt;&gt;<i> Wildcarded PSI issues
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> - I didnt use the standardised format for PSI definition (TS23003?) but 
+</I>&gt;&gt;&gt;&gt;<i> an easier one
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>     you define  sip:*<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">games at open-ims.test</A>  and  it would match 
+</I>&gt;&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">sportgames at open-ims.test</A> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">sims2.games at open-ims.test</A> ...            
+</I>&gt;&gt;&gt;&gt;<i>     you define sip:channel.?<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">.tv at open-ims.test</A>   and it matches 
+</I>&gt;&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">channel.1.tv at open-ims.test</A>  <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">channel.e.tv at open-ims.test</A>  ..
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> do not forget the sip: in the HSS interface
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> - Support for Wildcard PSI makes S-CSCF a bit inefficent because when it 
+</I>&gt;&gt;&gt;&gt;<i> receives a request for an user, it searchs in the user database and 
+</I>&gt;&gt;&gt;&gt;<i> afterwards if no match it trys to match with all wildcards
+</I>&gt;&gt;&gt;&gt;<i>   to activate this support you have to put a parameter in S-CSCF config 
+</I>&gt;&gt;&gt;&gt;<i> file modparam(&quot;scscf&quot;,&quot;support_wildcardPSI&quot;,1)
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Distinct work always
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> May suggestion is to have a network with two S-CSCF one with the 
+</I>&gt;&gt;&gt;&gt;<i> parameter enabled and this is selected as preferred for all the PSI 
+</I>&gt;&gt;&gt;&gt;<i> things and the other one for the normal users (much quicker!)
+</I>&gt;&gt;&gt;&gt;<i> **********************************************************************
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> We might make some changes in the FHoSS web to give some hints on doing 
+</I>&gt;&gt;&gt;&gt;<i> this, but i guess dedicating one hour to play with the different 
+</I>&gt;&gt;&gt;&gt;<i> possibilities you are an expert in PSI provisioning
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Good Luck!
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Alberto Diez Albaladejo
+</I>&gt;&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Alberto.Diez at fokus.fraunhofer.de</A>
+</I>&gt;&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;&gt;<i>         
+</I>&gt;&gt;&gt;<i> AVISO LEGAL 
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Este mensaje y los archivos que en su caso lleve adjuntos son privados y confidenciales y se dirigen exclusivamente a su destinatario. Por ello, se informa a quien lo reciba por error que la informaci&#243;n contenida en el mismo es reservada y su utilizaci&#243;n, copia o distribuci&#243;n est&#225; prohibida, por lo que en tal caso le rogamos que nos lo comunique por esta misma v&#237;a o por tel&#233;fono (+34976013300) y proceda a borrarlo de inmediato. 
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i> ------------------------------------------------------------------------
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001259.html">[OpenIMSCore-CSCF] PSI on CSCF
+</A></li>
+	<LI>Next message: <A HREF="001265.html">[OpenIMSCore-CSCF] PSI on CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1263">[ date ]</a>
+              <a href="thread.html#1263">[ thread ]</a>
+              <a href="subject.html#1263">[ subject ]</a>
+              <a href="author.html#1263">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

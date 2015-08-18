@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r95 - in ser_ims/trunk/modules:	pcscf scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r95%20-%20in%20ser_ims/trunk/modules%3A%0A%09pcscf%20scscf&In-Reply-To=%3C200701191620.l0JGK1ZR004753%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000146.html">
+   <LINK REL="Next"  HREF="000144.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r95 - in ser_ims/trunk/modules:	pcscf scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r95%20-%20in%20ser_ims/trunk/modules%3A%0A%09pcscf%20scscf&In-Reply-To=%3C200701191620.l0JGK1ZR004753%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r95 - in ser_ims/trunk/modules:	pcscf scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Fri Jan 19 17:20:01 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000146.html">[OpenIMSCore-CSCF] P-Charging-Vector: parameter string value incorrect
+</A></li>
+        <LI>Next message: <A HREF="000144.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r96 - ser_ims/trunk/modules/pcscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#143">[ date ]</a>
+              <a href="thread.html#143">[ thread ]</a>
+              <a href="subject.html#143">[ subject ]</a>
+              <a href="author.html#143">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-01-19 17:19:58 +0100 (Fri, 19 Jan 2007)
+New Revision: 95
+
+Modified:
+   ser_ims/trunk/modules/pcscf/dlg_state.c
+   ser_ims/trunk/modules/scscf/dlg_state.c
+Log:
+Fixed bug regarding re-invites:
+ - on subsequent INVITES, the Record-routes were overwritten if the terminating side was using the same CSeq as in the first INVITE.
+
+
+Modified: ser_ims/trunk/modules/pcscf/dlg_state.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/dlg_state.c	2007-01-17 18:51:39 UTC (rev 94)
++++ ser_ims/trunk/modules/pcscf/dlg_state.c	2007-01-19 16:19:58 UTC (rev 95)
+@@ -638,7 +638,8 @@
+ 		cseq = cscf_get_cseq(msg,&amp;h);
+ 		if (cseq==0 || h==0) return CSCF_RETURN_FALSE;
+ 		if (d-&gt;first_cseq==cseq &amp;&amp; d-&gt;method_str.len == ((struct cseq_body *)h-&gt;parsed)-&gt;method.len &amp;&amp;
+-			strncasecmp(d-&gt;method_str.s,((struct cseq_body *)h-&gt;parsed)-&gt;method.s,d-&gt;method_str.len)==0){
++			strncasecmp(d-&gt;method_str.s,((struct cseq_body *)h-&gt;parsed)-&gt;method.s,d-&gt;method_str.len)==0 &amp;&amp;
++			d-&gt;state &lt; DLG_STATE_CONFIRMED){
+ 			/* reply to initial request */
+ 			if (response&lt;200){
+ 				save_dialog_routes(msg,str1,d);
+
+Modified: ser_ims/trunk/modules/scscf/dlg_state.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/dlg_state.c	2007-01-17 18:51:39 UTC (rev 94)
++++ ser_ims/trunk/modules/scscf/dlg_state.c	2007-01-19 16:19:58 UTC (rev 95)
+@@ -654,7 +654,8 @@
+ 		cseq = cscf_get_cseq(msg,&amp;h);
+ 		if (cseq==0 || h==0) return CSCF_RETURN_FALSE;
+ 		if (d-&gt;first_cseq==cseq &amp;&amp; d-&gt;method_str.len == ((struct cseq_body *)h-&gt;parsed)-&gt;method.len &amp;&amp;
+-			strncasecmp(d-&gt;method_str.s,((struct cseq_body *)h-&gt;parsed)-&gt;method.s,d-&gt;method_str.len)==0){
++			strncasecmp(d-&gt;method_str.s,((struct cseq_body *)h-&gt;parsed)-&gt;method.s,d-&gt;method_str.len)==0 &amp;&amp;
++			d-&gt;state &lt; DLG_STATE_CONFIRMED){
+ 			/* reply to initial request */
+ 			if (response&lt;200){
+ 				d-&gt;state = DLG_STATE_EARLY;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000146.html">[OpenIMSCore-CSCF] P-Charging-Vector: parameter string value incorrect
+</A></li>
+	<LI>Next message: <A HREF="000144.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r96 - ser_ims/trunk/modules/pcscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#143">[ date ]</a>
+              <a href="thread.html#143">[ thread ]</a>
+              <a href="subject.html#143">[ subject ]</a>
+              <a href="author.html#143">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

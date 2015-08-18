@@ -1,0 +1,377 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r139 - ser_ims/trunk/modules/cdp
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r139%20-%20ser_ims/trunk/modules/cdp&In-Reply-To=%3C200702132027.l1DKR7dO024190%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000215.html">
+   <LINK REL="Next"  HREF="000217.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r139 - ser_ims/trunk/modules/cdp</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r139%20-%20ser_ims/trunk/modules/cdp&In-Reply-To=%3C200702132027.l1DKR7dO024190%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r139 - ser_ims/trunk/modules/cdp">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Feb 13 21:27:07 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000215.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r138 - ser_ims/trunk/modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000217.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r140 -	ser_ims/trunk/modules/sip2ims
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#216">[ date ]</a>
+              <a href="thread.html#216">[ thread ]</a>
+              <a href="subject.html#216">[ subject ]</a>
+              <a href="author.html#216">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-13 21:27:02 +0100 (Tue, 13 Feb 2007)
+New Revision: 139
+
+Modified:
+   ser_ims/trunk/modules/cdp/acceptor.c
+   ser_ims/trunk/modules/cdp/diameter_peer.c
+   ser_ims/trunk/modules/cdp/globals.c
+   ser_ims/trunk/modules/cdp/globals.h
+   ser_ims/trunk/modules/cdp/peermanager.h
+   ser_ims/trunk/modules/cdp/peerstatemachine.c
+   ser_ims/trunk/modules/cdp/receiver.c
+   ser_ims/trunk/modules/cdp/timer.c
+   ser_ims/trunk/modules/cdp/utils.h
+   ser_ims/trunk/modules/cdp/worker.c
+Log:
+Re-orgarnized the CDiameterPeer for better usage outside SER
+Upgraded to support pkg/shm_sums() for memory leak detection
+Fixed various logging levels
+
+
+Modified: ser_ims/trunk/modules/cdp/acceptor.c
+===================================================================
+--- ser_ims/trunk/modules/cdp/acceptor.c	2007-02-13 18:59:18 UTC (rev 138)
++++ ser_ims/trunk/modules/cdp/acceptor.c	2007-02-13 20:27:02 UTC (rev 139)
+@@ -105,7 +105,21 @@
+ 
+ 	for(i=0;listening_socks[i];i++)
+ 		close(listening_socks[i]);
+-	dp_del_pid(getpid());	
++	
++	if (listening_socks) pkg_free(listening_socks);
++#ifdef CDP_FOR_SER
++#else
++#ifdef PKG_MALLOC
++	#ifdef PKG_MALLOC
++		LOG(memlog, &quot;Acceptor Memory status (pkg):\n&quot;);
++		//pkg_status();
++		#ifdef pkg_sums
++			pkg_sums();
++		#endif 
++	#endif
++#endif
++		dp_del_pid(getpid());		
++#endif		
+ done:		
+ 	LOG(L_INFO,&quot;INFO:... Acceptor process finished\n&quot;);
+ 	exit(0);
+
+Modified: ser_ims/trunk/modules/cdp/diameter_peer.c
+===================================================================
+--- ser_ims/trunk/modules/cdp/diameter_peer.c	2007-02-13 18:59:18 UTC (rev 138)
++++ ser_ims/trunk/modules/cdp/diameter_peer.c	2007-02-13 20:27:02 UTC (rev 139)
+@@ -409,23 +409,28 @@
+ 	}
+ 	lock_destroy(handlers_lock);
+ 	lock_dealloc((void*)handlers_lock);
+-	
+-	
++	shm_free(handlers);
++		
+ 	free_dp_config(config);	
+ 	LOG(L_CRIT,&quot;INFO:destroy_diameter_peer(): Bye Bye from C Diameter Peer test\n&quot;);
+ 
+-	
+ #ifndef CDP_FOR_SER
++	#ifdef PKG_MALLOC
++		LOG(memlog, &quot;Memory status (pkg):\n&quot;);
++		//pkg_status();
++		#ifdef pkg_sums
++			pkg_sums();
++		#endif 
++	#endif
+ 	#ifdef SHM_MEM
+ 		LOG(memlog, &quot;Memory status (shm):\n&quot;);
+-		shm_status();
++		//shm_status();
++		#ifdef shm_sums
++			shm_sums();
++		#endif 
+ 		/* zero all shmem alloc vars that we still use */
+ 		shm_mem_destroy();
+ 	#endif
+-	#ifdef PKG_MALLOC
+-		LOG(memlog, &quot;Memory status (pkg):\n&quot;);
+-		pkg_status();
+-	#endif
+ #endif	
+ }
+ 
+
+Modified: ser_ims/trunk/modules/cdp/globals.c
+===================================================================
+--- ser_ims/trunk/modules/cdp/globals.c	2007-02-13 18:59:18 UTC (rev 138)
++++ ser_ims/trunk/modules/cdp/globals.c	2007-02-13 20:27:02 UTC (rev 139)
+@@ -60,11 +60,12 @@
+ #ifdef CDP_FOR_SER
+ 
+ #else
+-	unsigned int shm_mem_size = SHM_MEM_SIZE;
+-	int memlog = L_NOTICE;
+-	int debug = 9;
++	unsigned long shm_mem_size = SHM_MEM_SIZE;
++	int memlog = L_DBG;
++	int memdbg = L_MEM;
++	int debug = L_MEM;
+ 	int log_facility = 1;
+-	int log_stderr = 2;
++	int log_stderr = 1;
+ 	int process_no=0;
+ #endif
+ 
+
+Modified: ser_ims/trunk/modules/cdp/globals.h
+===================================================================
+--- ser_ims/trunk/modules/cdp/globals.h	2007-02-13 18:59:18 UTC (rev 138)
++++ ser_ims/trunk/modules/cdp/globals.h	2007-02-13 20:27:02 UTC (rev 139)
+@@ -67,7 +67,7 @@
+ 
+ #ifdef CDP_FOR_SER
+ #else
+-extern unsigned int shm_mem_size;
++extern unsigned long shm_mem_size;
+ extern int memlog;
+ #endif
+ 
+
+Modified: ser_ims/trunk/modules/cdp/peermanager.h
+===================================================================
+--- ser_ims/trunk/modules/cdp/peermanager.h	2007-02-13 18:59:18 UTC (rev 138)
++++ ser_ims/trunk/modules/cdp/peermanager.h	2007-02-13 20:27:02 UTC (rev 139)
+@@ -71,6 +71,8 @@
+ 
+ void peer_manager_destroy();
+ 
++void log_peer_list(int level);
++
+ void add_peer(peer *p);
+ 
+ void remove_peer(peer *p);
+@@ -86,4 +88,5 @@
+ AAAMsgIdentifier next_hopbyhop();
+ AAAMsgIdentifier next_endtoend();
+ 
++
+ #endif
+
+Modified: ser_ims/trunk/modules/cdp/peerstatemachine.c
+===================================================================
+--- ser_ims/trunk/modules/cdp/peerstatemachine.c	2007-02-13 18:59:18 UTC (rev 138)
++++ ser_ims/trunk/modules/cdp/peerstatemachine.c	2007-02-13 20:27:02 UTC (rev 139)
+@@ -113,6 +113,7 @@
+ 						R_Disc(p);
+ 						p-&gt;state = Closed;
+ 					}
++					log_peer_list(L_INFO);
+ 					break;
+ 				case Stop:
+ 					/* just ignore this state */
+@@ -160,11 +161,12 @@
+ 				case I_Rcv_CEA:
+ 					result_code = Process_CEA(p,msg);
+ 					//if (result_code&gt;=2000 &amp;&amp; result_code&lt;3000)
+-						p-&gt;state = I_Open; 
++						p-&gt;state = I_Open; 												
+ 					//else {
+ 					//	Cleanup(p,p.I_comm);
+ 					//	p.state = Closed;
+ 					//}
++					log_peer_list(L_INFO);
+ 					break;
+ 				case R_Conn_CER:
+ 					R_Accept(p,sock);
+@@ -285,10 +287,12 @@
+ 					Snd_DPA(p,msg,AAA_SUCCESS,p-&gt;R_sock);
+ 					R_Disc(p);
+ 					p-&gt;state = Closed;
++					log_peer_list(L_INFO);
+ 					break;
+ 				case R_Peer_Disc:
+ 					R_Disc(p);
+ 					p-&gt;state = Closed;
++					log_peer_list(L_INFO);
+ 					break;
+ 				case R_Rcv_CER:
+ 					result_code = Process_CER(p,msg);
+@@ -308,6 +312,7 @@
+ 						/*R_Disc(p);p.state = Closed;*/
+ 						p-&gt;state = R_Open; /* Or maybe I should disconnect it?*/
+ 					}
++					log_peer_list(L_INFO);
+ 					break;
+ 				default:
+ 					LOG(L_DBG,&quot;DBG:sm_process(): In state %s invalid event %s\n&quot;,
+@@ -348,10 +353,12 @@
+ 					Snd_DPA(p,msg,2001,p-&gt;I_sock);
+ 					R_Disc(p);
+ 					p-&gt;state = Closed;
++					log_peer_list(L_INFO);
+ 					break;
+ 				case I_Peer_Disc:
+ 					I_Disc(p);
+ 					p-&gt;state = Closed;
++					log_peer_list(L_INFO);
+ 					break;
+ 				case I_Rcv_CER:
+ 					result_code = Process_CER(p,msg);
+
+Modified: ser_ims/trunk/modules/cdp/receiver.c
+===================================================================
+--- ser_ims/trunk/modules/cdp/receiver.c	2007-02-13 18:59:18 UTC (rev 138)
++++ ser_ims/trunk/modules/cdp/receiver.c	2007-02-13 20:27:02 UTC (rev 139)
+@@ -157,9 +157,19 @@
+ 	/* remove pid from list of running processes */
+ 	dp_del_pid(getpid());
+ 	
+-	#ifdef CDP_FOR_SER
+-		drop_my_process();	
++#ifdef CDP_FOR_SER
++	drop_my_process();		
++#else
++#ifdef PKG_MALLOC
++	#ifdef PKG_MALLOC
++		LOG(memlog, &quot;Receiver[%d] Memory status (pkg):\n&quot;,sock);
++		//pkg_status();
++		#ifdef pkg_sums
++			pkg_sums();
++		#endif 
+ 	#endif
++#endif
++#endif		
+ 		
+ 	LOG(L_INFO,&quot;INFO:receiver_process(): [%d]... Receiver process finished.\n&quot;,sock);
+ 	exit(0);
+
+Modified: ser_ims/trunk/modules/cdp/timer.c
+===================================================================
+--- ser_ims/trunk/modules/cdp/timer.c	2007-02-13 18:59:18 UTC (rev 138)
++++ ser_ims/trunk/modules/cdp/timer.c	2007-02-13 20:27:02 UTC (rev 139)
+@@ -212,8 +212,13 @@
+ #ifdef CDP_FOR_SER
+ #else
+ #ifdef PKG_MALLOC
+-			LOG(memlog, &quot;Timer Memory status (pkg):\n&quot;);
+-			pkg_status();
++	#ifdef PKG_MALLOC
++		LOG(memlog, &quot;Timer Memory status (pkg):\n&quot;);
++		//pkg_status();
++		#ifdef pkg_sums
++			pkg_sums();
++		#endif 
++	#endif
+ #endif
+ 		dp_del_pid(getpid());		
+ #endif		
+
+Modified: ser_ims/trunk/modules/cdp/utils.h
+===================================================================
+--- ser_ims/trunk/modules/cdp/utils.h	2007-02-13 18:59:18 UTC (rev 138)
++++ ser_ims/trunk/modules/cdp/utils.h	2007-02-13 20:27:02 UTC (rev 139)
+@@ -69,12 +69,12 @@
+ 
+ #else
+ 
+-#include &quot;chess/utils/config.h&quot;
+-#include &quot;chess/utils/dprint.h&quot;
+-#include &quot;chess/utils/str.h&quot;
+-#include &quot;chess/utils/mem.h&quot;
+-#include &quot;chess/utils/shm_mem.h&quot;
+-#include &quot;chess/utils/locking.h&quot;
++#include &quot;../utils/config.h&quot;
++#include &quot;../utils/dprint.h&quot;
++#include &quot;../utils/str.h&quot;
++#include &quot;../utils/mem.h&quot;
++#include &quot;../utils/shm_mem.h&quot;
++#include &quot;../utils/locking.h&quot;
+ 
+ #endif
+ 
+
+Modified: ser_ims/trunk/modules/cdp/worker.c
+===================================================================
+--- ser_ims/trunk/modules/cdp/worker.c	2007-02-13 18:59:18 UTC (rev 138)
++++ ser_ims/trunk/modules/cdp/worker.c	2007-02-13 20:27:02 UTC (rev 139)
+@@ -103,8 +103,7 @@
+ static inline void cdp_lock_release(int sid)
+ {
+ 	if(/*(semctl(sid, 0, SETVAL, 1)*/
+-	semop(sid, &amp;cdp_sem_unlock, 1)
+-	 == -1)
++	semop(sid, &amp;cdp_sem_unlock, 1) == -1)
+ 	{
+ 		if (shutdownx&amp;&amp;(*shutdownx)) return;
+     	LOG(L_ERR,&quot;ERROR:cdp_lock_release(): Error on semop %s &gt; %s Q[%2d/%2d]\n&quot;,
+@@ -337,12 +336,15 @@
+ 	LOG(L_INFO,&quot;INFO:[%d]... Worker process finished\n&quot;,id);	
+ #ifdef CDP_FOR_SER
+ #else
+-#ifdef PKG_MALLOC
+-	LOG(memlog, &quot;Worker[%d] Memory status (pkg):\n&quot;,id);
+-	pkg_status();
++	#ifdef PKG_MALLOC
++		LOG(memlog, &quot;Worker[%d] Memory status (pkg):\n&quot;,id);
++		//pkg_status();
++		#ifdef pkg_sums
++			pkg_sums();
++		#endif 
++	#endif
++	dp_del_pid(getpid());	
+ #endif
+-#endif	
+-	dp_del_pid(getpid());
+ 	exit(0);
+ }
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000215.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r138 - ser_ims/trunk/modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000217.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r140 -	ser_ims/trunk/modules/sip2ims
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#216">[ date ]</a>
+              <a href="thread.html#216">[ thread ]</a>
+              <a href="subject.html#216">[ subject ]</a>
+              <a href="author.html#216">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

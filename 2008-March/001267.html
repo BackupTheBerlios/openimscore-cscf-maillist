@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 08_cdp_sessions AVP problems
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%2008_cdp_sessions%20AVP%20problems&In-Reply-To=%3C47ECEE1F.9050904%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001266.html">
+   <LINK REL="Next"  HREF="001268.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 08_cdp_sessions AVP problems</H1>
+    <B>Alberto Diez</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%2008_cdp_sessions%20AVP%20problems&In-Reply-To=%3C47ECEE1F.9050904%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] 08_cdp_sessions AVP problems">Alberto.Diez at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Mar 28 14:09:51 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001266.html">[OpenIMSCore-CSCF] 08_cdp_sessions AVP problems
+</A></li>
+        <LI>Next message: <A HREF="001268.html">[OpenIMSCore-CSCF] BUG in REGISTER message trigger point handling
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1267">[ date ]</a>
+              <a href="thread.html#1267">[ thread ]</a>
+              <a href="subject.html#1267">[ subject ]</a>
+              <a href="author.html#1267">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>--&gt; answer follows
+
+Hi Alberto,
+
+Ok, I checked the specs and realise my error with the Media-Sub-Component AVP - 
+the second one with the incremented port number is for RTCP traffic
+associated with that RTP flow.
+
+--&gt; very good!
+
+But then I still have a problem when using an RTP Proxy.
+
+My understanding is that essentially a connection is setup between each UE 
+and the RTP Proxy. e.g. UE1 uses port 29893 and communicates with RTP Proxy on port 35020, 
+while UE2 uses port 31302 and communicates with RTP Proxy on port 35016.  
+However a Media-Sub-Component AVP only exists for the flow between UE1 and the RTP Proxy, 
+and not between UE2 and the RTP Proxy.  This makes gating/policy control very tricky 
+because we only have information about one half of the connection.
+
+--&gt; here you have to read the specs again so that you find your new missunderstanding 
+about how the whole Policy and Charging Control architecture works .. I give you a bit of help 
+key words  originating and terminating...
+
+Attached is a Wireshark trace - it shows INVITE - 183 - Diameter AAR. You can see the 
+bandwidth information and Bandwidth AVPs in this trace, and can hopefully also see the 
+problem I am having with the RTP proxy.  I hope my explanation is clear!
+
+--&gt; this looks like my error programming something ! Probably something related with which
+b line i am taking when parsing the SDP content... but i have to create some sipp scripts to replicate
+the error and find out exactly where is it because even though i reread the code i dont find it...
+it will take a bit of time but i will find it don&#180;t worry..
+
+
+Regards,
+Richard.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001266.html">[OpenIMSCore-CSCF] 08_cdp_sessions AVP problems
+</A></li>
+	<LI>Next message: <A HREF="001268.html">[OpenIMSCore-CSCF] BUG in REGISTER message trigger point handling
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1267">[ date ]</a>
+              <a href="thread.html#1267">[ thread ]</a>
+              <a href="subject.html#1267">[ subject ]</a>
+              <a href="author.html#1267">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

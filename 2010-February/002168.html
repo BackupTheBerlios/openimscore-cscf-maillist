@@ -1,0 +1,1385 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20pcscf.xml%2C%20and%20Send_STR&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BD4F1%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002166.html">
+   <LINK REL="Next"  HREF="002170.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20pcscf.xml%2C%20and%20Send_STR&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BD4F1%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR">wang at basis-audionet.com
+       </A><BR>
+    <I>Tue Feb 16 18:59:50 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002166.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+        <LI>Next message: <A HREF="002170.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2168">[ date ]</a>
+              <a href="thread.html#2168">[ thread ]</a>
+              <a href="subject.html#2168">[ subject ]</a>
+              <a href="author.html#2168">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Ancuta:
+
+I will wait a little bit to see if there is any response from UCT
+mailing list since adding port does make sense. 
+
+
+
+Kind Regards
+ 
+Min Wang
+
+&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Andreea Ancuta Onofrei
+</I>&gt;<i> [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.onofrei at fokus.fraunhofer.de</A>]
+</I>&gt;<i> Sent: Tuesday, February 16, 2010 11:23 AM
+</I>&gt;<i> To: Min Wang
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: RE: [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</I>&gt;<i> 
+</I>&gt;<i> Hello Min,
+</I>&gt;<i> 
+</I>&gt;<i> Can you modify the pcrf to display the length of the ipFilterRule and
+</I>&gt;<i> test for version 848 of the pcscf also(The era before ports for
+</I>&gt;<i> register). You will have to use the pcscf script from the same version
+</I>&gt;<i> as well.
+</I>&gt;<i> 
+</I>&gt;<i> If not, maybe the guys from UCT can help :d.
+</I>&gt;<i> 
+</I>&gt;<i> This would be the starting point to analyze in which scenario
+</I>&gt;<i> (registration or dialog) and where the &quot;compatibility&quot; was lost :d.
+</I>&gt;<i> 
+</I>&gt;<i> Let us know when you have such a table with before and after and we
+</I>will
+&gt;<i> see what can be done.
+</I>&gt;<i> 
+</I>&gt;<i> Best regards,
+</I>&gt;<i> Ancuta
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> On Tue, 2010-02-16 at 17:04 +0100, Min Wang wrote:
+</I>&gt;<i> &gt; Hi Ancuta:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Tried with port disabled, seems the same as before:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; //log from uct prcf
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; INFO: Received AAR DIAMETER message from P-CSCF
+</I>&gt;<i> &gt; DEBUG: Session ID: pcscf.centercall.net;2882060697;1
+</I>&gt;<i> &gt; DEBUG: Orig Realm: centercall.net
+</I>&gt;<i> &gt; DEBUG: Dest Realm: centercall.net
+</I>&gt;<i> &gt; DEBUG: Media Component Number: 1
+</I>&gt;<i> &gt; DEBUG: Flow Number: 1
+</I>&gt;<i> &gt; DEBUG: Flow Description: permit out ip from 172.16.8.43 to
+</I>172.16.8.42
+&gt;<i> &gt; DEBUG: Source IP: 172.16.8.43
+</I>&gt;<i> &gt; DEBUG: Dest IP: 172.16.8.42
+</I>&gt;<i> &gt; Exception in thread &quot;Thread-2&quot; java.util.NoSuchElementException
+</I>&gt;<i> &gt;         at
+</I>java.util.StringTokenizer.nextToken(StringTokenizer.java:332)
+&gt;<i> &gt;         at
+</I>&gt;<i> &gt;
+</I>de.fhg.fokus.pcrf_diam.rx.AARCommandListener.recvMessage(AARCommandListe
+&gt;<i> &gt; ner.java:218)
+</I>&gt;<i> &gt;         at
+</I>&gt;<i> &gt;
+</I>de.fhg.fokus.diameter.DiameterPeer.DiameterWorker.run(DiameterWorker.jav
+&gt;<i> &gt; a:100)
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Kind Regards
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Min Wang
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; &gt; -----Original Message-----
+</I>&gt;<i> &gt; &gt; From: Andreea Ancuta Onofrei
+</I>&gt;<i> &gt; &gt; [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.onofrei at fokus.fraunhofer.de</A>]
+</I>&gt;<i> &gt; &gt; Sent: Tuesday, February 16, 2010 10:58 AM
+</I>&gt;<i> &gt; &gt; To: Min Wang
+</I>&gt;<i> &gt; &gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; Subject: RE: [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Hi Min,
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Thanks for the fix.
+</I>&gt;<i> &gt; &gt; I have made a small in the ipfilrule creation.
+</I>&gt;<i> &gt; &gt; Can you try again testing without ports?
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; About the tm cell, it has to do with the state of the transaction.
+</I>It
+&gt;<i> &gt; is
+</I>&gt;<i> &gt; &gt; not easy to fix it (tm module is old and gray :D). I guess it has
+</I>a
+&gt;<i> &gt; low
+</I>&gt;<i> &gt; &gt; priority in Dragos's opinion.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; If you are curios, you can try to see what is the message flow
+</I>&gt;<i> &gt; regarding
+</I>&gt;<i> &gt; &gt; the INVITE transaction. Maybe some messages do not match. Probably
+</I>you
+&gt;<i> &gt; &gt; will find the problem yourself by reading the logs and viewing the
+</I>&gt;<i> &gt; &gt; message flow from wireshark ;).
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; We are now focused on the media description and rtpproxy :).
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Best regards,
+</I>&gt;<i> &gt; &gt; Ancuta
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; On Tue, 2010-02-16 at 16:32 +0100, Min Wang wrote:
+</I>&gt;<i> &gt; &gt; &gt; Hi Ancuta:
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Thanks. Just added a small fix for dup_routing_avps.
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; It works now.
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; However something still bothers me:
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; The scenario is the same as before:
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Alice make call to bob, prcf is reject the call, the p-cscf send
+</I>STR
+&gt;<i> &gt; and
+</I>&gt;<i> &gt; &gt; &gt; hang up the call.
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; In the p-cscf log, there is some tm cell can not be deleted,
+</I>that
+&gt;<i> &gt; means
+</I>&gt;<i> &gt; &gt; &gt; something is not cleaned completely.
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Feb 16 10:28:23 im1 /usr/sbin/ser[14251]:
+</I>&gt;<i> &gt; &gt; &gt; -------------------------------------
+</I>&gt;<i> &gt; &gt; &gt; Feb 16 10:28:23 im1 /usr/sbin/ser[14228]: DEBUG: delete_cell
+</I>&gt;<i> &gt; 0xb5ab1848:
+</I>&gt;<i> &gt; &gt; &gt; can't delete -- still reffed (3)
+</I>&gt;<i> &gt; &gt; &gt; Feb 16 10:28:23 im1 /usr/sbin/ser[14228]: DEBUG: delete_cell
+</I>&gt;<i> &gt; 0xb5ab4048:
+</I>&gt;<i> &gt; &gt; &gt; can't delete -- still reffed (1)
+</I>&gt;<i> &gt; &gt; &gt; Feb 16 10:28:23 im1 /usr/sbin/ser[14228]: DEBUG: delete_cell
+</I>&gt;<i> &gt; 0xb5ab1848:
+</I>&gt;<i> &gt; &gt; &gt; can't delete -- still reffed (3)
+</I>&gt;<i> &gt; &gt; &gt; Feb 16 10:28:23 im1 /usr/sbin/ser[14228]: DEBUG: delete_cell
+</I>&gt;<i> &gt; 0xb5ab4048:
+</I>&gt;<i> &gt; &gt; &gt; can't delete -- still reffed (1)
+</I>&gt;<i> &gt; &gt; &gt; Feb 16 10:28:23 im1 /usr/sbin/ser[14228]: DEBUG: delete_cell
+</I>&gt;<i> &gt; 0xb5ab1848:
+</I>&gt;<i> &gt; &gt; &gt; can't delete -- still reffed (3)
+</I>&gt;<i> &gt; &gt; &gt; Feb 16 10:28:23 im1 /usr/sbin/ser[14228]: DEBUG: delete_cell
+</I>&gt;<i> &gt; 0xb5ab4048:
+</I>&gt;<i> &gt; &gt; &gt; can't delete -- still reffed (1)
+</I>&gt;<i> &gt; &gt; &gt; Feb 16 10:28:24 im1 /usr/sbin/ser[14228]: DEBUG: delete_cell
+</I>&gt;<i> &gt; 0xb5ab1848:
+</I>&gt;<i> &gt; &gt; &gt; can't delete -- still reffed (3)
+</I>&gt;<i> &gt; &gt; &gt; Feb 16 10:28:24 im1 /usr/sbin/ser[14228]: DEBUG: delete_cell
+</I>&gt;<i> &gt; 0xb5ab4048:
+</I>&gt;<i> &gt; &gt; &gt; can't delete -- still reffed (1)
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Kind Regards
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Min Wang
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; -----Original Message-----
+</I>&gt;<i> &gt; &gt; &gt; &gt; From: Andreea Ancuta Onofrei
+</I>&gt;<i> &gt; &gt; &gt; &gt; [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.onofrei at fokus.fraunhofer.de</A>]
+</I>&gt;<i> &gt; &gt; &gt; &gt; Sent: Tuesday, February 16, 2010 3:13 AM
+</I>&gt;<i> &gt; &gt; &gt; &gt; To: Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; Subject: RE: [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; Hello Min,
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; I have implemented a function dup_routing_avps called from
+</I>&gt;<i> &gt; Send_STR()
+</I>&gt;<i> &gt; &gt; &gt; &gt; from the cdp module. This function duplicates Orig-Host and
+</I>&gt;<i> &gt; Orig-Realm
+</I>&gt;<i> &gt; &gt; &gt; &gt; into Destination-Host and Destination-Realm.
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; After testing, this is the output:
+</I>&gt;<i> &gt; &gt; &gt; &gt; DBG:dup_routing_avps: Origin Host AVP present, duplicating
+</I>&gt;<i> &gt; &gt; &gt; &gt; pcrf.open-ims.test
+</I>&gt;<i> &gt; &gt; &gt; &gt; 12(28829) DBG:dup_routing_avps: Origin Realm AVP present,
+</I>&gt;<i> &gt; duplicating
+</I>&gt;<i> &gt; &gt; &gt; &gt; open-ims.test
+</I>&gt;<i> &gt; &gt; &gt; &gt; 12(28829) get_first_connected_route in list 0xb5e07240 for
+</I>app_id
+&gt;<i> &gt; &gt; &gt; &gt; 16777236 and vendor_id 0
+</I>&gt;<i> &gt; &gt; &gt; &gt; 12(28829) The peer clf.open-ims.test state is closed
+</I>&gt;<i> &gt; &gt; &gt; &gt; 12(28829) The peer pcrf.open-ims.test state is opened
+</I>&gt;<i> &gt; &gt; &gt; &gt; 12(28829) DBG: Checking if peer pcrf.open-ims.test handles
+</I>&gt;<i> &gt; application
+</I>&gt;<i> &gt; &gt; &gt; &gt; 16777236 for vendord 0
+</I>&gt;<i> &gt; &gt; &gt; &gt; 12(28829) The peer pcrf.open-ims.test matches - will forward
+</I>there
+&gt;<i> &gt; &gt; &gt; &gt; 12(28829) AAABuildMsgBuffer(): len=136
+</I>&gt;<i> &gt; &gt; &gt; &gt; 12(28829) DBG:peer_send_msg(): Pipe push [0xb5e0bdfc]
+</I>&gt;<i> &gt; &gt; &gt; &gt; 12(28829) success sending STR
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; So, this should be fixed now for error response code as well.
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; Best regards,
+</I>&gt;<i> &gt; &gt; &gt; &gt; Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; On Mon, 2010-02-15 at 19:17 +0100, Min Wang wrote:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; Hi Ancuta:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; Here is the scenario:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; p-cscf send AAR to PCRF, being reject with 5036 etc.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; Then received msg goes to:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;     auth_client_statefull_sm_process
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; first -&gt; Send_STR BEFORE it reaches PCC_AAA.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; So in this case Origin-Host and Origin-Realm has not been
+</I>copied
+&gt;<i> &gt; to
+</I>&gt;<i> &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; session-&gt;dest/realm etc.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; Kind Regards
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; -----Original Message-----
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; From: Andreea Ancuta Onofrei
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.onofrei at fokus.fraunhofer.de</A>]
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Sent: Monday, February 15, 2010 1:08 PM
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; To: Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Subject: RE: [OpenIMSCore-CSCF] About pcscf.xml, and
+</I>Send_STR
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Hello Min,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; This was fixed and it works like this: when an AAA is
+</I>received
+&gt;<i> &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Origin-Host and Origin-Realm from the AAA are copied in
+</I>the
+&gt;<i> &gt; cdp
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; session
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; and next time a request is created, the avps will be added
+</I>as
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Destination-Host and Destination-AVP.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Please check if in this scenario that you are reporting
+</I>you
+&gt;<i> &gt; are
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; receiving an AAA from the pcrf and is not generated by the
+</I>cdp
+&gt;<i> &gt; &gt; &gt; stack.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; (wireshark helps)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Now, the function PCC_AAA, from pcc.c is handling the AAA.
+</I>&gt;<i> &gt; Please
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; paste
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; logs from functions, in this case PCC_AAA, the paste you
+</I>have
+&gt;<i> &gt; &gt; &gt; provided
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; is not human-readable.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; key points:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; a)what is the response code of the AAA. If no response
+</I>code is
+&gt;<i> &gt; &gt; &gt; found
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; function will return, as this is a malformed response :D.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; b) are Origin-Host and Origin-Realm included in the AAA?
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; is something like:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:PCC_AAA: AAA contains Origin Host
+</I>%.*s
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; \n&quot;,avp-&gt;data.len, avp-&gt;data.s);
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; or
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:PCC_AAA: missing or empty Origin
+</I>Host
+&gt;<i> &gt; &gt; &gt; AVP\n&quot;);
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; displayed.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Conclusion:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; In my setup, here is what it prints:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; INFO:P-CSCF:PCC_AAR: received AAA from PCRF
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;  1(4750) DBG:P-CSCF:PCC_get_result_code: AAA result
+</I>&gt;<i> &gt; &gt; &gt; DIAMETER_SUCCESS
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;  1(4750) DBG:P-CSCF:PCC_AAA: AAR request result code 2001
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;  1(4750) calling get session with id
+</I>&gt;<i> &gt; &gt; &gt; pcscf.open-ims.test;1209368718;8
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; and hash 93
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;  1(4750) looking for |pcscf.open-ims.test;1209368718;8| in
+</I>|<i>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; pcscf.open-ims.test;1209368718;8|
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;  1(4750) DBG:P-CSCF:PCC_AAA: AAA contains Origin Host
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; pcrf.open-ims.test
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;  1(4750) DBG:P-CSCF:PCC_AAA: AAA contains Origin Realm
+</I>&gt;<i> &gt; &gt; &gt; open-ims.test
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;  1(4750) INFO:P-CSCF:P_Rx:recieved an AAA with result code
+</I>&gt;<i> &gt; 2001
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; So...please check what is the scenario.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Best regards,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; On Mon, 2010-02-15 at 17:59 +0100, Min Wang wrote:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Hi Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; I thought has been fixed, but seems it is not for this
+</I>&gt;<i> &gt; Send_STR
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; issue.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; See the log the STR request does not filled up with
+</I>&gt;<i> &gt; dest_host
+</I>&gt;<i> &gt; &gt; &gt; etc.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Feb 15 11:24:40 im1 /usr/sbin/ser[11542]: DEBUG:
+</I>AAA_MESSAGE
+&gt;<i> &gt; -
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; 0xb5acd1cc
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Feb 15 11:24:40 im1 /usr/sbin/ser[11542]: ^ICode = 275
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Feb 15 11:24:40 im1 /usr/sbin/ser[11542]: ^IFlags = c0
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Feb 15 11:24:40 im1 /usr/sbin/ser[11542]:  AVP((nil) &lt;
+</I>&gt;<i> &gt; &gt; &gt; 0xb5aaf154
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;0xb5ac17d8);code=263,flags=40;
+</I>&gt;<i> &gt; &gt; &gt; DataType=1;VendorID=0;DataLen=34;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; String: &lt;pcscf.centercall.net;2825545458;13&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Feb 15 11:24:40 im1 /usr/sbin/ser[11542]:
+</I>AVP(0xb5aaf154 &lt;
+&gt;<i> &gt; &gt; &gt; &gt; &gt; 0xb5ac17d8
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;0xb5aaed5c);code=264,flags=40;
+</I>&gt;<i> &gt; &gt; &gt; DataType=1;VendorID=0;DataLen=20;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; String: &lt;pcscf.centercall.net&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Feb 15 11:24:40 im1 /usr/sbin/ser[11542]:
+</I>AVP(0xb5ac17d8 &lt;
+&gt;<i> &gt; &gt; &gt; &gt; &gt; 0xb5aaed5c
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;0xb5ac1880);code=296,flags=40;
+</I>&gt;<i> &gt; &gt; &gt; DataType=1;VendorID=0;DataLen=14;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; String: &lt;centercall.net&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Feb 15 11:24:40 im1 /usr/sbin/ser[11542]:
+</I>AVP(0xb5aaed5c &lt;
+&gt;<i> &gt; &gt; &gt; &gt; &gt; 0xb5ac1880
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;0xb5ac1fb8);code=258,flags=40;
+</I>&gt;<i> &gt; DataType=3;VendorID=0;DataLen=4;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; Int32:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &lt;16777236&gt;(1000014)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Feb 15 11:24:40 im1 /usr/sbin/ser[11542]:
+</I>AVP(0xb5ac1880 &lt;
+&gt;<i> &gt; &gt; &gt; &gt; &gt; 0xb5ac1fb8
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;(nil));code=295,flags=40;
+</I>DataType=0;VendorID=0;DataLen=4;
+&gt;<i> &gt; 0004
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Feb 15 11:24:40 im1 /usr/sbin/ser[11542]: Send_STR after
+</I>&gt;<i> &gt; dump
+</I>&gt;<i> &gt; &gt; &gt; STR
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; request !
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Feb 15 11:24:40 im1 /usr/sbin/ser[11542]:
+</I>&gt;<i> &gt; &gt; &gt; get_first_connected_route
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; in
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; list 0xb5aa6170 for app_id 16777236 and vendor_id 0
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Feb 15 11:24:40 im1 /usr/sbin/ser[11542]: The peer
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; clf.centercall.net
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; does not seem to be connected or configured
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Feb 15 11:24:40 im1 /usr/sbin/ser[11542]:
+</I>&gt;<i> &gt; &gt; &gt; ERROR:get_routing_peer():
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; No
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; connected DefaultRoute peer found for app_id 16777236
+</I>and
+&gt;<i> &gt; vendor
+</I>&gt;<i> &gt; &gt; &gt; id
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; 0.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Feb 15 11:24:40 im1 /usr/sbin/ser[11542]: unable to get
+</I>&gt;<i> &gt; routing
+</I>&gt;<i> &gt; &gt; &gt; peer
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; in
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Send_STR
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Kind Regards
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; -----Original Message-----
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; From: Andreea Ancuta Onofrei
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.onofrei at fokus.fraunhofer.de</A>]
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Sent: Tuesday, February 09, 2010 11:30 AM
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; To: Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Subject: RE: [OpenIMSCore-CSCF] About pcscf.xml, and
+</I>&gt;<i> &gt; Send_STR
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Remember to set the parameter pcc_use_ports to 0 if
+</I>you
+&gt;<i> &gt; want
+</I>&gt;<i> &gt; &gt; &gt; to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; disable
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; them.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; I will take care of the missing Destination-Host AVP
+</I>in
+&gt;<i> &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; following
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; commit. I guess you can test the &quot;ok&quot; scenario, with
+</I>no
+&gt;<i> &gt; STR.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Regards,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; On Tue, 2010-02-09 at 16:56 +0100, Min Wang wrote:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Hi Ancuta:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Thanks.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; In the p-cscf.cfg
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; route[Orig_Initial_Emergency] -&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; P_is_anonymous_identity() is missing?
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Kind Regards
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; -----Original Message-----
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; From: Andreea Ancuta Onofrei
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>[mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.onofrei at fokus.fraunhofer.de</A>]
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Sent: Tuesday, February 09, 2010 10:40 AM
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; To: Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Subject: RE: [OpenIMSCore-CSCF] About pcscf.xml,
+</I>and
+&gt;<i> &gt; &gt; &gt; Send_STR
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Sorry,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; I forgot to add some files. Now it should compile.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Best regards,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; On Tue, 2010-02-09 at 15:45 +0100, Min Wang wrote:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Hi Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Thanks for the fix. However I can not compile,
+</I>seems
+&gt;<i> &gt; &gt; &gt; some
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; files
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; are
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; missing, see the following:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; dlg_state.c:72:24: error: em_numbers.h: No such
+</I>file
+&gt;<i> &gt; or
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; directory
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; dlg_state.c: In function 'P_save_dialog':
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; dlg_state.c:896: error: 'urn_t' undeclared
+</I>(first
+&gt;<i> &gt; use in
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; this
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; function)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; dlg_state.c:896: error: (Each undeclared
+</I>identifier
+&gt;<i> &gt; is
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; reported
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; only
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; once
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; dlg_state.c:896: error: for each function it
+</I>appears
+&gt;<i> &gt; &gt; &gt; in.)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; dlg_state.c:896: error: expected ';' before
+</I>&gt;<i> &gt; 'urn_type'
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; dlg_state.c:897: error: 'urn_type' undeclared
+</I>(first
+&gt;<i> &gt; use
+</I>&gt;<i> &gt; &gt; &gt; in
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; this
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; function)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; dlg_state.c:897: error: 'NOT_URN' undeclared
+</I>(first
+&gt;<i> &gt; use
+</I>&gt;<i> &gt; &gt; &gt; in
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; this
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; function)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; dlg_state.c:897: error: 'NOT_EM_URN' undeclared
+</I>&gt;<i> &gt; (first
+</I>&gt;<i> &gt; &gt; &gt; use
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; in
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; this
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; function)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; make[2]: *** [dlg_state.o] Error 1
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Kind Regards
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; -----Original Message-----
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; From:
+</I><A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; [mailto:openimscore-cscf-
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bounces at lists.berlios.de</A>] On Behalf Of Andreea
+</I>&gt;<i> &gt; Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; Onofrei
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Sent: Tuesday, February 09, 2010 8:17 AM
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Subject: Re: [OpenIMSCore-CSCF] About
+</I>pcscf.xml,
+&gt;<i> &gt; and
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; Send_STR
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Dear Min,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; The Destination-Realm AVP was not corectly
+</I>set.
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; I fixed this. Please try again. I will take a
+</I>look
+&gt;<i> &gt; if
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; there is
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; any
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; problem with the destination-host as well.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Best regards,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; On Tue, 2010-02-09 at 12:02 +0100,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A>
+</I>wrote:
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Send OpenIMSCore-CSCF mailing list
+</I>submissions
+&gt;<i> &gt; to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; To subscribe or unsubscribe via the World
+</I>Wide
+&gt;<i> &gt; Web,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; visit
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; or, via email, send a message with subject
+</I>or
+&gt;<i> &gt; body
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; 'help' to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; You can reach the person managing the list
+</I>at
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-owner at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; When replying, please edit your Subject line
+</I>so
+&gt;<i> &gt; it
+</I>&gt;<i> &gt; &gt; &gt; is
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; more
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; specific
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; than &quot;Re: Contents of OpenIMSCore-CSCF
+</I>&gt;<i> &gt; digest...&quot;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Today's Topics:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;    1. About pcscf.xml, and Send_STR (Min
+</I>Wang)
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;    2. [SVN-ser_ims] r875 - added a parameter
+</I>in
+&gt;<i> &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; pcscf to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; enable
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;       or disable the usage of ports in the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; IPFilterRules
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; towards
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;       pcrf (<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">aon at users.berlios.de</A>)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;    3. Re: 2. Re: About pcc, p-cscf crash
+</I>(Min
+&gt;<i> &gt; Wang)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;       (Andreea Ancuta Onofrei)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;    4. Re: About pcscf.xml, and Send_STR
+</I>(Dragos
+&gt;<i> &gt; &gt; &gt; &gt; &gt; Vingarzan)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt;
+</I>----------------------------------------------------------------------
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Message: 1
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Date: Mon, 8 Feb 2010 21:46:16 +0100
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; From: &quot;Min Wang&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">wang at basis-audionet.com</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Subject: [OpenIMSCore-CSCF] About pcscf.xml,
+</I>and
+&gt;<i> &gt; &gt; &gt; &gt; &gt; Send_STR
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; To: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Message-ID:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; 	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">04A856F26940EE42A7D6129D5073F24A022BD185 at BASIS001152003.basis-</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; audionet.de&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Content-Type: text/plain;
+</I>&gt;<i> &gt; charset=&quot;us-ascii&quot;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Hi
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Question regarding the pcscf.xml config, I
+</I>have
+&gt;<i> &gt; &gt; &gt; &gt; &gt; following
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; config:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; In p-cscf.xml:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;         &lt;Peer FQDN=&quot;pcrf.xxx.net&quot;
+</I>&gt;<i> &gt; Realm=&quot;xxx.net&quot;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; port=&quot;4868&quot;/&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;         &lt;DefaultRoute FQDN=&quot;clf.xxx.net&quot;
+</I>&gt;<i> &gt; &gt; &gt; metric=&quot;10&quot;/&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &lt;/DiameterPeer&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; In p-cscf.cfg:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; modparam(&quot;pcscf&quot;,&quot;use_pcc&quot;,1)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; modparam(&quot;pcscf&quot;,&quot;forced_qos_peer&quot;,&quot;pcrf.xxx.net&quot;)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; modparam(&quot;pcscf&quot;,&quot;pcc_dest_realm&quot;,&quot;xxx.net&quot;)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; AAR is sent to pcrf,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; As pcrf return 5xxxx, the p-cscf will
+</I>Send_STR (
+&gt;<i> &gt; in
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; auth_client_statefull_sm_process),
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; However the Destination-Host AVP is not set,
+</I>so
+&gt;<i> &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; diameter
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; msg
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; is
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; using realm-based routing to find peer to
+</I>send,
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; As the default route is not pcrf.xxx.net,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; The msg does not send to pcrF, but try to
+</I>send
+&gt;<i> &gt; to
+</I>&gt;<i> &gt; &gt; &gt; clf (
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; in
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; my
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; case,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; I do
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; not have clf running.) so the msg goes no
+</I>where.
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Anything/configure wrong?
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Pcrf already advertise its CER to support
+</I>app,
+&gt;<i> &gt; shoud
+</I>&gt;<i> &gt; &gt; &gt; it
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; be
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; added
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; config-&gt;r_table-&gt;realms; ? Or something
+</I>else?
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Kind regards.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; ------------------------------
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Message: 2
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Date: Tue, 9 Feb 2010 11:08:37 +0100
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">aon at users.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Subject: [OpenIMSCore-CSCF] [SVN-ser_ims]
+</I>r875 -
+&gt;<i> &gt; &gt; &gt; added a
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; parameter
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; in
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 	the	pcscf to enable or disable the
+</I>&gt;<i> &gt; usage of
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; ports in
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 	IPFilterRules
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 	towards the pcrf
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Message-ID:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">201002091008.o19A8bxD015279 at sheep.berlios.de</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Content-Type: text/plain; charset=UTF-8
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Author: aon
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Date: 2010-02-09 11:08:35 +0100 (Tue, 09 Feb
+</I>&gt;<i> &gt; 2010)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; New Revision: 875
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=875">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=875</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Log:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; added a parameter in the pcscf to enable or
+</I>&gt;<i> &gt; disable
+</I>&gt;<i> &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; usage of
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; ports
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; in the IPFilterRules towards the pcrf
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Modified:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;    U
+</I>&gt;<i> &gt; &gt; &gt; ser_ims/branches/13_pcc_fixing/cfg/pcscf.cfg
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I><A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>xing/cfg/pcscf.cfg?rev=875&amp;view=diff&amp;r1=875&amp;r2=874
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;    U
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; ser_ims/branches/13_pcc_fixing/modules/pcscf/mod.c
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I><A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; xing/modules/pcscf/mod.c?rev=875&amp;view=diff&amp;r1=875&amp;r2=874
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;    U
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I><A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; xing/modules/pcscf/pcc_avp.c?rev=875&amp;view=diff&amp;r1=875&amp;r2=874
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; ------------------------------
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Message: 3
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Date: Tue, 09 Feb 2010 11:19:39 +0100
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; From: Andreea Ancuta Onofrei
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.onofrei at fokus.fraunhofer.de</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Subject: Re: [OpenIMSCore-CSCF] 2. Re: About
+</I>&gt;<i> &gt; pcc,
+</I>&gt;<i> &gt; &gt; &gt; p-cscf
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; crash
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; (Min
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 	Wang)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; To: Min Wang &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">wang at basis-audionet.com</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Message-ID:
+</I>&gt;<i> &gt; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1265710779.31120.11.camel at localhost</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Content-Type: text/plain
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Hello Min,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; I have added a parameter to the pcscf so
+</I>that it
+&gt;<i> &gt; can
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; ignore
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; ports.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; The specification TS 29.213 says that ports
+</I>&gt;<i> &gt; should
+</I>&gt;<i> &gt; &gt; &gt; be
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; used
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; so
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; PCRF
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; should support ports.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; We are testing the Open IMS Core with our
+</I>new
+&gt;<i> &gt; &gt; &gt; testbed:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; OpenEPC.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; You can find more information about our
+</I>toolkit
+&gt;<i> &gt; on:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; <A HREF="http://www.openepc.net/en/openepc/overview/openEPC/index.html">http://www.openepc.net/en/openepc/overview/openEPC/index.html</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; <A HREF="http://www.openepc.net/en/openepc/events/2010/index.html">http://www.openepc.net/en/openepc/events/2010/index.html</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; and...information about releases:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; <A HREF="http://www.openepc.net/en/openepc/overview/releases/index.html">http://www.openepc.net/en/openepc/overview/releases/index.html</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Enjoy the documentation,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; PS: I will add something to handle the error
+</I>&gt;<i> &gt; code
+</I>&gt;<i> &gt; &gt; &gt; for
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; registrations,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; but
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; it will take a while. Until then you are now
+</I>&gt;<i> &gt; able to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; test
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &quot;ok&quot;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; case.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Any ideas and feedback is welcome.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; On Mon, 2010-02-08 at 18:03 +0100, Min Wang
+</I>&gt;<i> &gt; wrote:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Hi Ancuta:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Thanks.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Some of the problems have been fixed,
+</I>&gt;<i> &gt; regarding
+</I>&gt;<i> &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; terminating
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; leg
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; PCC
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; stuff.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Handling the error code of the AAA is
+</I>one of
+&gt;<i> &gt; our
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; target,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; so
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; further
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; fixes will come soon :).
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; That would be great. Please let us know
+</I>when
+&gt;<i> &gt; you
+</I>&gt;<i> &gt; &gt; &gt; are
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; done,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; so
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; we
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; can
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; start to test.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; @Min: the only thing that could have
+</I>&gt;<i> &gt; triggered
+</I>&gt;<i> &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; error
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; code
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; that
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; you
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; receive is that the ports of the flows
+</I>are
+&gt;<i> &gt; now
+</I>&gt;<i> &gt; &gt; &gt; also
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; sent.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; For example, the log is pretty straight
+</I>&gt;<i> &gt; forward:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DBG:P-CSCF:PCC_create_media_component:
+</I>first
+&gt;<i> &gt; &gt; &gt; flow is
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; permit
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; out
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; ip
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; from
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 127.0.0.1 4060 to 127.0.0.1 9080
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; This is not a problem regarding Open IMS
+</I>&gt;<i> &gt; Core,
+</I>&gt;<i> &gt; &gt; &gt; but
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; it is
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; probably
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; PCRF you are using that is not able to
+</I>&gt;<i> &gt; handle
+</I>&gt;<i> &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; ports
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; as
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; well.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; I am using uct pcrf for testing, here is
+</I>the
+&gt;<i> &gt; log,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; probably
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; because
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; of
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; the adding flow port, the uct pcrf is
+</I>broken
+&gt;<i> &gt; seem
+</I>&gt;<i> &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; Dest
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; IP
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; is
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; empty.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; What kind of pcrf are you using?
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; INFO: Received AAR DIAMETER message from
+</I>&gt;<i> &gt; P-CSCF
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Session ID:
+</I>&gt;<i> &gt; &gt; &gt; pcscf.centercall.net;4000988146;3
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Orig Realm: centercall.net
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Dest Realm: centercall.net
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Media Component Number: 1
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Flow Number: 1
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Flow Description: permit out ip
+</I>from
+&gt;<i> &gt; &gt; &gt; &gt; &gt; 67.154.255.47
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 63556 to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 172.16.8.43 34822
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Source IP: 67.154.255.47
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Dest IP: to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Flow Description: permit in ip from
+</I>&gt;<i> &gt; &gt; &gt; 172.16.8.43
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; 34822
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 67.154.255.47 63556
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Flow Number: 2
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Flow Description: permit out ip
+</I>from
+&gt;<i> &gt; &gt; &gt; &gt; &gt; 67.154.255.47
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 63557 to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 172.16.8.43 34823
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Source IP: 67.154.255.47
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Dest IP: to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Flow Description: permit in ip from
+</I>&gt;<i> &gt; &gt; &gt; 172.16.8.43
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; 34823
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 67.154.255.47 63557
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: session id; originating realm;
+</I>&gt;<i> &gt; destination
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; realm
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>pcscf.centercall.net;4000988146;3;centercall.net;centercall.net
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: session id; flow id; source ip;
+</I>dest
+&gt;<i> &gt; ip;
+</I>&gt;<i> &gt; &gt; &gt; source
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; port;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; dest
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; port;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; usage; status; BW ul; BW dl; QoS class;
+</I>Media
+&gt;<i> &gt; Type
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt;
+</I>pcscf.centercall.net;4000988146;3;1,1;67.154.255.47;to;172.16.8.43;34822
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; ;63556;0;2;-1;-1;2;0
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt;
+</I>pcscf.centercall.net;4000988146;3;1,2;67.154.255.47;to;172.16.8.43;34823
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; ;63557;1;2;-1;-1;2;0
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUG: Codecs: 0;8;3;101
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; INFO: Codecs authorised
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; INFO: Originating and Destination Domains
+</I>&gt;<i> &gt; &gt; &gt; authorised
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Exception in thread &quot;Thread-2&quot;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; java.lang.NullPointerException
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;         at
+</I>&gt;<i> &gt; pcrf.xcap.getIPFlows(xcap.java:1219)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;         at
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; pcrf.DecisionEngine.termination_request(DecisionEngine.java:548)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;         at
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt;
+</I>de.fhg.fokus.pcrf_diam.rx.STRCommandListener.recvMessage(STRCommandListe
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; ner.java:145)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;         at
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt;
+</I>de.fhg.fokus.diameter.DiameterPeer.DiameterWorker.run(DiameterWorker.jav
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; a:100)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; INFO: Session ID:
+</I>&gt;<i> &gt; &gt; &gt; pcscf.centercall.net;4000988146;2
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; does
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; not
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; exist
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; INFO: Mon Feb 08 11:33:48 EST 2010 Session
+</I>&gt;<i> &gt; with ID
+</I>&gt;<i> &gt; &gt; &gt; :
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; pcscf.centercall.net;4000988146;2
+</I>attempted to
+&gt;<i> &gt; &gt; &gt; request
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; more
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; bandwidth
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; than the requested QoS class can handle.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; INFO: Sending DIAMETER AAA message to
+</I>P-CSCF
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; INFO: Codecs authorised
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; INFO: Originating and Destination Domains
+</I>&gt;<i> &gt; &gt; &gt; authorised
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; INFO: Session ID:
+</I>&gt;<i> &gt; &gt; &gt; pcscf.centercall.net;4000988146;3
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; does
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; not
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; exist
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; INFO: Mon Feb 08 11:33:48 EST 2010 Session
+</I>&gt;<i> &gt; with ID
+</I>&gt;<i> &gt; &gt; &gt; :
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; pcscf.centercall.net;4000988146;3
+</I>attempted to
+&gt;<i> &gt; &gt; &gt; request
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; more
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; bandwidth
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; than the requested QoS class can handle.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; INFO: Sending DIAMETER AAA message to
+</I>P-CSCF
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; --------------------------------------------------
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; INFO: Received STR DIAMETER message from
+</I>&gt;<i> &gt; P-CSCF
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; DEBUGGING: Session ID:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; pcscf.centercall.net;4000988146;3
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Exception in thread &quot;Thread-4&quot;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; java.lang.NullPointerException
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;         at
+</I>&gt;<i> &gt; pcrf.xcap.getIPFlows(xcap.java:1219)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;         at
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; pcrf.DecisionEngine.termination_request(DecisionEngine.java:548)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;         at
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt;
+</I>de.fhg.fokus.pcrf_diam.rx.STRCommandListener.recvMessage(STRCommandListe
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; ner.java:145)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;         at
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt;
+</I>de.fhg.fokus.diameter.DiameterPeer.DiameterWorker.run(DiameterWorker.jav
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; a:100)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Kind regards.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Best regards,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; On Fri, 2010-02-05 at 17:36 +0100, Min
+</I>Wang
+&gt;<i> &gt; &gt; &gt; wrote:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; HI Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; thanks!
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Kind regards
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; -----Original Message-----
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; From:
+</I>&gt;<i> &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> on
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; behalf
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; of
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Andreea
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Ancuta Onofrei
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Sent: Fri 2/5/2010 12:40 PM
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Subject: [OpenIMSCore-CSCF] 2. Re:
+</I>About
+&gt;<i> &gt; pcc,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; p-cscf
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; crash
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; (Min
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Wang)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Yup, that is just one of the problems.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; I am working on fixing it and other
+</I>&gt;<i> &gt; problems
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; related
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; PCC.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Please have a little bit of patience.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; If you want a run without crashes,
+</I>please
+&gt;<i> &gt; &gt; &gt; disable
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; PCC
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; related
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; functions on the terminating leg.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; I will let you know when this is safe
+</I>to
+&gt;<i> &gt; use
+</I>&gt;<i> &gt; &gt; &gt; :D.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Best regards,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; On Fri, 2010-02-05 at 12:01 +0100,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I><A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A>
+&gt;<i> &gt; &gt; &gt; wrote:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; 2. Re: About pcc, p-cscf crash (Min
+</I>&gt;<i> &gt; Wang)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; _______________________________________________
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I><A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; ------------------------------
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Message: 4
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Date: Tue, 09 Feb 2010 11:25:28 +0100
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; From: Dragos Vingarzan
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Subject: Re: [OpenIMSCore-CSCF] About
+</I>pcscf.xml,
+&gt;<i> &gt; and
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; Send_STR
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; To: Min Wang &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">wang at basis-audionet.com</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Message-ID:
+</I>&gt;<i> &gt; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4B713818.6090006 at fokus.fraunhofer.de</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Content-Type: text/plain;
+</I>charset=ISO-8859-1;
+&gt;<i> &gt; &gt; &gt; &gt; &gt; format=flowed
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Hi Min,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; this looks like a bug. The STR should
+</I>contain
+&gt;<i> &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Destination-Host/Relam
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; AVPs.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Cheers,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; -Dragos
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Min Wang wrote:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Hi
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Question regarding the pcscf.xml config, I
+</I>&gt;<i> &gt; have
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; following
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; config:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; In p-cscf.xml:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;         &lt;Peer FQDN=&quot;pcrf.xxx.net&quot;
+</I>&gt;<i> &gt; Realm=&quot;xxx.net&quot;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; port=&quot;4868&quot;/&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;         &lt;DefaultRoute FQDN=&quot;clf.xxx.net&quot;
+</I>&gt;<i> &gt; &gt; &gt; metric=&quot;10&quot;/&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &lt;/DiameterPeer&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; In p-cscf.cfg:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; modparam(&quot;pcscf&quot;,&quot;use_pcc&quot;,1)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; modparam(&quot;pcscf&quot;,&quot;forced_qos_peer&quot;,&quot;pcrf.xxx.net&quot;)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>modparam(&quot;pcscf&quot;,&quot;pcc_dest_realm&quot;,&quot;xxx.net&quot;)
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; AAR is sent to pcrf,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; As pcrf return 5xxxx, the p-cscf will
+</I>Send_STR
+&gt;<i> &gt; (
+</I>&gt;<i> &gt; &gt; &gt; in
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; auth_client_statefull_sm_process),
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; However the Destination-Host AVP is not
+</I>set,
+&gt;<i> &gt; so
+</I>&gt;<i> &gt; &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; diameter
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; msg
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; is
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; using realm-based routing to find peer to
+</I>&gt;<i> &gt; send,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; As the default route is not pcrf.xxx.net,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; The msg does not send to pcrF, but try to
+</I>send
+&gt;<i> &gt; to
+</I>&gt;<i> &gt; &gt; &gt; clf
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; ( in
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; my
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; case, I
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; do
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; not have clf running.) so the msg goes no
+</I>&gt;<i> &gt; where.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Anything/configure wrong?
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Pcrf already advertise its CER to support
+</I>app,
+&gt;<i> &gt; &gt; &gt; shoud
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; it to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; be
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; added to
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; config-&gt;r_table-&gt;realms; ? Or something
+</I>else?
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Kind regards.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>_______________________________________________
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002166.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+	<LI>Next message: <A HREF="002170.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2168">[ date ]</a>
+              <a href="thread.html#2168">[ thread ]</a>
+              <a href="subject.html#2168">[ subject ]</a>
+              <a href="author.html#2168">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

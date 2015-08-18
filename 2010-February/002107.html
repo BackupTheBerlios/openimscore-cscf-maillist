@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] About PCC AAR, sdp and NATed Client
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20PCC%20AAR%2C%20sdp%20and%20NATed%20Client&In-Reply-To=%3C4B7283DD.8080703%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002101.html">
+   <LINK REL="Next"  HREF="002114.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] About PCC AAR, sdp and NATed Client</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20PCC%20AAR%2C%20sdp%20and%20NATed%20Client&In-Reply-To=%3C4B7283DD.8080703%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] About PCC AAR, sdp and NATed Client">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Feb 10 11:01:01 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002101.html">[OpenIMSCore-CSCF] About PCC AAR, sdp and NATed Client
+</A></li>
+        <LI>Next message: <A HREF="002114.html">[OpenIMSCore-CSCF] About PCC AAR, sdp and NATed Client
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2107">[ date ]</a>
+              <a href="thread.html#2107">[ thread ]</a>
+              <a href="subject.html#2107">[ subject ]</a>
+              <a href="author.html#2107">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Min,
+
+yes, Ancuta and me already discussed this case and she will try and 
+provide an extension soon which will use the IP and ports of the 
+RTP-Proxy instead of those of the other client. It is a bit difficult 
+though as one can not see the modifications that the nathelper does in 
+the body, but will have to hook into those procedures.
+
+The case, as I see it is:
+
+PrivateIPClientA - PublicIPRTPProxyA - PublicIPRTPProxyB - PrivateIPClientB.
+
+So the flows would be:
+PrivateIPClientA &lt;-&gt; PublicIPRTPProxyA and PublicIPRTPProxyB &lt;-&gt; 
+PrivateIPClientB.
+
+Cheers,
+-Dragos
+
+
+Min Wang wrote:
+&gt;<i> Hi 
+</I>&gt;<i>
+</I>&gt;<i> I started this thread to keep this issue seperated.
+</I>&gt;<i>
+</I>&gt;<i> Another issue is: NAT issue.
+</I>&gt;<i>
+</I>&gt;<i> UE--&gt; NAT-Box --&gt; P-CSCF/rtp-proxy
+</I>&gt;<i>
+</I>&gt;<i> In this case the p-cscf send AAR to PCRF using private IP/PORT instead
+</I>&gt;<i> of public/P_SDP_manipulated one?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> INFO: Received AAR DIAMETER message from P-CSCF
+</I>&gt;<i> DEBUG: Session ID: pcscf.centercall.net;3406284349;1
+</I>&gt;<i> DEBUG: Orig Realm: centercall.net
+</I>&gt;<i> DEBUG: Dest Realm: centercall.net
+</I>&gt;<i> DEBUG: Media Component Number: 1
+</I>&gt;<i> DEBUG: Flow Number: 1
+</I>&gt;<i> DEBUG: Flow Description: permit out ip from 67.154.255.47 to 172.16.8.42
+</I>&gt;<i> DEBUG: Source IP: 67.154.255.47
+</I>&gt;<i> DEBUG: Dest IP: 172.16.8.42
+</I>&gt;<i> Exception in thread &quot;Thread-8&quot; java.util.NoSuchElementException
+</I>&gt;<i>         at java.util.StringTokenizer.nextToken(StringTokenizer.java:332)
+</I>&gt;<i>         at
+</I>&gt;<i> de.fhg.fokus.pcrf_diam.rx.AARCommandListener.recvMessage(AARCommandListe
+</I>&gt;<i> ner.java:217)
+</I>&gt;<i>         at
+</I>&gt;<i> de.fhg.fokus.diameter.DiameterPeer.DiameterWorker.run(DiameterWorker.jav
+</I>&gt;<i> a:100)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> -----Original Message-----
+</I>&gt;&gt;<i> From: Andreea Ancuta Onofrei 
+</I>&gt;&gt;<i> [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.onofrei at fokus.fraunhofer.de</A>] 
+</I>&gt;&gt;<i> Sent: Tuesday, February 09, 2010 12:13 PM
+</I>&gt;&gt;<i> To: Min Wang
+</I>&gt;&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;<i> Subject: RE: [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> It is already uploaded.
+</I>&gt;&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13</A>_
+</I>&gt;&gt;<i>     
+</I>&gt;<i> pcc_fixing/modules/pcscf/emerg_info.xml?revision=878&amp;view=markup
+</I>&gt;<i>   
+</I>&gt;&gt;<i> If there are any errors at run-time, let us know.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Regards,
+</I>&gt;&gt;<i> Ancuta
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Kind Regards
+</I>&gt;<i>  
+</I>&gt;<i> Min Wang
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002101.html">[OpenIMSCore-CSCF] About PCC AAR, sdp and NATed Client
+</A></li>
+	<LI>Next message: <A HREF="002114.html">[OpenIMSCore-CSCF] About PCC AAR, sdp and NATed Client
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2107">[ date ]</a>
+              <a href="thread.html#2107">[ thread ]</a>
+              <a href="subject.html#2107">[ subject ]</a>
+              <a href="author.html#2107">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

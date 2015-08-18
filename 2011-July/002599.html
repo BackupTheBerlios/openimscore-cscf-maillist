@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] public/private gruu - support
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20public/private%20gruu%20-%20support&In-Reply-To=%3C4E309C1B.4050409%40acision.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002598.html">
+   <LINK REL="Next"  HREF="002600.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] public/private gruu - support</H1>
+    <B>Daniel Ciprus</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20public/private%20gruu%20-%20support&In-Reply-To=%3C4E309C1B.4050409%40acision.com%3E"
+       TITLE="[OpenIMSCore-CSCF] public/private gruu - support">daniel.ciprus at acision.com
+       </A><BR>
+    <I>Thu Jul 28 01:15:39 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002598.html">[OpenIMSCore-CSCF] problem in pcscf using TCP
+</A></li>
+        <LI>Next message: <A HREF="002600.html">[OpenIMSCore-CSCF] public/private gruu - support
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2599">[ date ]</a>
+              <a href="thread.html#2599">[ thread ]</a>
+              <a href="subject.html#2599">[ subject ]</a>
+              <a href="author.html#2599">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Franz,
+
+attached is patch for pub-gruu with fix which add pub-gruu to NOTIFY 
+payload for 3rd party reg. Could this be posted to IMS core code ?
+
+thanks
+
+additional info:
+
+Patch is against this file:
+
+svn info registrar_notify.c
+
+Path: registrar_notify.c
+Name: registrar_notify.c
+URL: 
+<A HREF="http://svn.berlios.de/svnroot/repos/openimscore/ser_ims/trunk/modules/scscf/registrar_notify.c">http://svn.berlios.de/svnroot/repos/openimscore/ser_ims/trunk/modules/scscf/registrar_notify.c</A>
+Repository Root: <A HREF="http://svn.berlios.de/svnroot/repos/openimscore">http://svn.berlios.de/svnroot/repos/openimscore</A>
+Repository UUID: a36f3ba7-d720-0410-92d7-d12b36172079
+Revision: 1128
+Node Kind: file
+Schedule: normal
+Last Changed Author: vingarzan
+Last Changed Rev: 920
+Last Changed Date: 2010-03-05 14:07:50 -0500 (Fri, 05 Mar 2010)
+Text Last Updated: 2011-07-27 19:00:34 -0400 (Wed, 27 Jul 2011)
+Checksum: 6a92719591912a30710e0e29686da59c
+
+
+
+On 03/16/2011 09:44 AM, Daniel Ciprus wrote:
+&gt;<i> Thanks, I hope somebody from our development will take care of it and 
+</I>&gt;<i> once it's done we'll send the code ...
+</I>&gt;<i>
+</I>&gt;<i> On 03/16/2011 01:12 AM, Franz Edler wrote:
+</I>&gt;&gt;&gt;<i> thanks for the response, that's exactly what I meant - T-GRUU, sorry for
+</I>&gt;&gt;<i> bad
+</I>&gt;&gt;&gt;<i> wording .. Anyway is there any way to monitor a progress on this feature ?
+</I>&gt;&gt;<i> I think you have to implement it yourself.
+</I>&gt;&gt;<i> There seems to be low priority on this project at the development team at
+</I>&gt;&gt;<i> FOKUS.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> BR
+</I>&gt;&gt;<i> Franz
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> -- 
+</I>&gt;<i> *Daniel Ciprus*
+</I>&gt;<i> Integration engineer
+</I>&gt;<i> ------------------------------------------------------
+</I>&gt;<i> *<A HREF="http://www.acision.com*">http://www.acision.com*</A>
+</I>&gt;<i> 4870 Sadler Rd
+</I>&gt;<i> Suite 200
+</I>&gt;<i> Glen Allen, VA 23060
+</I>&gt;<i> USA
+</I>&gt;<i> T: +1 804 762 5601
+</I>&gt;<i> E: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">daniel.ciprus at acision.com</A>
+</I>
+-- 
+*Daniel Ciprus*
+Integration engineer
+------------------------------------------------------
+*<A HREF="http://www.acision.com*">http://www.acision.com*</A>
+4870 Sadler Rd
+Suite 200
+Glen Allen, VA 23060
+USA
+T: +1 804 762 5601
+E: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">daniel.ciprus at acision.com</A>
+
+
+This e-mail and any attachment is for authorised use by the intended recipient(s) only. It may contain proprietary material, confidential information and/or be subject to legal privilege. It should not be copied, disclosed to, retained or used by, any other party. If you are not an intended recipient then please promptly delete this e-mail and any attachment and all copies and inform the sender. Thank you.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110727/7ac2af9a/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110727/7ac2af9a/attachment.html</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: pub-gruu.patch
+Type: text/x-patch
+Size: 7409 bytes
+Desc: pub-gruu.patch
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110727/7ac2af9a/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110727/7ac2af9a/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002598.html">[OpenIMSCore-CSCF] problem in pcscf using TCP
+</A></li>
+	<LI>Next message: <A HREF="002600.html">[OpenIMSCore-CSCF] public/private gruu - support
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2599">[ date ]</a>
+              <a href="thread.html#2599">[ thread ]</a>
+              <a href="subject.html#2599">[ subject ]</a>
+              <a href="author.html#2599">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

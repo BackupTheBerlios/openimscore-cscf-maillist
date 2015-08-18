@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ISC and P-Asserted-Identity
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ISC%20and%20P-Asserted-Identity&In-Reply-To=%3C470B6380.90208%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000986.html">
+   <LINK REL="Next"  HREF="000991.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ISC and P-Asserted-Identity</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ISC%20and%20P-Asserted-Identity&In-Reply-To=%3C470B6380.90208%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] ISC and P-Asserted-Identity">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Oct  9 13:18:24 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000986.html">[OpenIMSCore-CSCF] ISC and P-Asserted-Identity
+</A></li>
+        <LI>Next message: <A HREF="000991.html">[OpenIMSCore-CSCF] ISC and P-Asserted-Identity
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#990">[ date ]</a>
+              <a href="thread.html#990">[ thread ]</a>
+              <a href="subject.html#990">[ subject ]</a>
+              <a href="author.html#990">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE><A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Stefan.Brozinski at materna.de</A> wrote:
+&gt;&gt;<i> Hmm... no... I would say that it does not support b - btw: 
+</I>&gt;&gt;<i> where do you extract the user domain from?
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> I don't understand this question. Could you clarify please?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>When you do &quot;tel:+1234567&quot; -&gt; &quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user_public at open_ims.test</A>&quot;, how do
+you know the &quot;open_ims.test&quot; part? I ask because it is not contained in
+the original tel uri...
+
+
+&gt;<i> The unexpected thing is that the second P-Asserted-Identity header (the
+</I>&gt;<i> one containing the tel-uri) is the VERY FIRST header of the SIP message,
+</I>&gt;<i> immediately after the Request-Line.
+</I>&gt;<i>   
+</I>well... yes, this was the easiest way to do it in code... is this a
+problem?... could be easily added after the old one or wherever we like,
+it was just trivial to insert it there.
+&gt;<i> BTW: The indentation of registrar.c:1579 is broken (one indent more than
+</I>&gt;<i> correct).
+</I>&gt;<i>   
+</I>yup, fixed.
+
+Cheers,
+-Dragos
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000986.html">[OpenIMSCore-CSCF] ISC and P-Asserted-Identity
+</A></li>
+	<LI>Next message: <A HREF="000991.html">[OpenIMSCore-CSCF] ISC and P-Asserted-Identity
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#990">[ date ]</a>
+              <a href="thread.html#990">[ thread ]</a>
+              <a href="subject.html#990">[ subject ]</a>
+              <a href="author.html#990">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

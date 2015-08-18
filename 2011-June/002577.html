@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Issues with using IPv6
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Issues%20with%20using%20IPv6&In-Reply-To=%3C703835.77892.qm%40web113614.mail.gq1.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002571.html">
+   <LINK REL="Next"  HREF="002578.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Issues with using IPv6</H1>
+    <B>Mohsen Emami-Nouri</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Issues%20with%20using%20IPv6&In-Reply-To=%3C703835.77892.qm%40web113614.mail.gq1.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Issues with using IPv6">memamin at yahoo.com
+       </A><BR>
+    <I>Wed Jun 22 03:29:49 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002571.html">[OpenIMSCore-CSCF] REGISTER over ipsec
+</A></li>
+        <LI>Next message: <A HREF="002578.html">[OpenIMSCore-CSCF] Issues with using IPv6
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2577">[ date ]</a>
+              <a href="thread.html#2577">[ thread ]</a>
+              <a href="subject.html#2577">[ subject ]</a>
+              <a href="author.html#2577">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi dears,
+I am trying to test my UE over IPv6; my tests are done successfully over IPv4.
+I created a site global IPv6address; and I only changed the followings in the  pcscf.cfg:
+listen=fd0f::250:b6ff:fe07:f562
+modparam(&quot;pcscf&quot;,&quot;ipsec_host&quot;,&quot;fd0f::250:b6ff:fe07:f562&quot;)
+
+PCSCF comes up with no problem , but then it replies to my UE REGISTER with &quot;500 I'm terribly sorry, server error occurred (7/TM)&quot;
+
+This is the PCSCF console log:
+ ERROR: uri2sock: no corresponding socket for af 2
+ 4(7387) ERROR: add_uac: can't fwd to af 2, proto 1  (no corresponding listening socket)
+ 4(7387) ERROR: t_forward_nonack: failure to add branches
+
+Your help is greatly appreciated.
+
+best regards,
+~Mohsen
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002571.html">[OpenIMSCore-CSCF] REGISTER over ipsec
+</A></li>
+	<LI>Next message: <A HREF="002578.html">[OpenIMSCore-CSCF] Issues with using IPv6
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2577">[ date ]</a>
+              <a href="thread.html#2577">[ thread ]</a>
+              <a href="subject.html#2577">[ subject ]</a>
+              <a href="author.html#2577">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

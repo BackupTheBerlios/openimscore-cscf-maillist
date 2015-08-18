@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] PCSCF: Problem with Authorization-Lifetime AVP value in Rx interface
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PCSCF%3A%20Problem%20with%20Authorization-Lifetime%0A%20AVP%20value%20in%20Rx%20interface&In-Reply-To=%3C6778F70CA9FEA94EB4BFD725156C88960C5FE1D8%40MADARRMAILBOX01.indra.es%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002559.html">
+   <LINK REL="Next"  HREF="002561.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] PCSCF: Problem with Authorization-Lifetime AVP value in Rx interface</H1>
+    <B>Huertas Garc&#237;a, V&#237;ctor</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PCSCF%3A%20Problem%20with%20Authorization-Lifetime%0A%20AVP%20value%20in%20Rx%20interface&In-Reply-To=%3C6778F70CA9FEA94EB4BFD725156C88960C5FE1D8%40MADARRMAILBOX01.indra.es%3E"
+       TITLE="[OpenIMSCore-CSCF] PCSCF: Problem with Authorization-Lifetime AVP value in Rx interface">vhuertas at indra.es
+       </A><BR>
+    <I>Fri May 20 16:26:07 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002559.html">[OpenIMSCore-CSCF] PCSCF: Problem with Authorization-Lifetime	AVP value in Rx interface
+</A></li>
+        <LI>Next message: <A HREF="002561.html">[OpenIMSCore-CSCF] PCSCF: Problem with Authorization-Lifetime	AVP value in Rx interface
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2560">[ date ]</a>
+              <a href="thread.html#2560">[ thread ]</a>
+              <a href="subject.html#2560">[ subject ]</a>
+              <a href="author.html#2560">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Do you mean all the INVITE, 183 Session Progress, PRACK, 200 OK, etc Exchange between lena and bob?
+The first AAR is generated as soon as the 183 Session Progress (with SDP info for precondition) reaches the P-CSCF.I have checked the content of all these messages (SIP and SDF part) and I haven't seen anything that indicates the Auth-lifetime value.
+
+Regards
+
+PD: BTW,  I try to copy/paste the logs extrated by the PCSCF but it is not possible. Is there any easy way to do it?
+
+________________________________
+De: Corici, Andreea Ancuta [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.corici at fokus.fraunhofer.de</A>]
+Enviado el: viernes, 20 de mayo de 2011 16:08
+Para: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+CC: Huertas Garc&#237;a, V&#237;ctor
+Asunto: RE: PCSCF: Problem with Authorization-Lifetime AVP value in Rx interface
+
+
+
+Hello Victor,
+
+I have analysed the logs.
+As far as I remember the auth-lifetime is built on the dialog expires time.
+Can you send us which expires values Bob and Lena are sending when creating the dialog, and also the output from the P-CSCF related to the dialog.
+
+Best regards,
+Ancuta Corici
+
+
+
+-----Original Message-----
+From: Huertas Garc&#237;a, V&#237;ctor [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vhuertas at indra.es</A>]
+Sent: Fri 5/20/2011 3:50 PM
+To: Corici, Andreea Ancuta; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: RE: PCSCF: Problem with Authorization-Lifetime         AVP     value in Rx interface
+
+Thank you for your answer,
+
+The logs for registration in the PCSCF are these ones (typed):
+
+----------------- Registrar Contents begin ----------------
+[   23] C: &lt;0://192.168.1.4:5060&gt; Exp:[3419] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 192.168.1.4</A>:5060&gt;
+          SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+         NAT:&lt;1://192.168.1.4:5060&gt;
+           P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+[  128] C: &lt;0://10.1.3.208:5060&gt; Exp:[3264] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">lena at 10.1.3.108</A>:5060&gt;
+       SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+      NAT:&lt;1://10.1.3.208:5060&gt;
+        P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">lena at open-ims.test</A>&gt;
+----------------- Registrar Contents end ------------------
+----------------- Subscription list begin ----------------
+[   52] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt; D:[ 3630] E:[ 3449] Att[-1]
+[  139] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">lena at open-ims.test</A>&gt; D:[ 3630] E:[ 3394] Att[-1]
+----------------- Subscription list end ------------------
+
+
+AAR messages generated by the P-CSCF in a voice call establishment from bob to lena. You can see what I meant in my previous message.
+
+This is the log for &quot;bob&quot;
+
+Ethernet II, Src: DellPcba_d2:34:8c (00:0d:56:d2:34:8c), Dst: D-Link_0b:f6:70 (00:26:5a:0b:f6:70)
+Internet Protocol, Src: 10.1.3.201 (10.1.3.201), Dst: 10.1.3.215 (10.1.3.215)
+Transmission Control Protocol, Src Port: 55560 (55560), Dst Port: phrelay (4868), Seq: 681, Ack: 221, Len: 548
+Diameter Protocol
+    Version: 0x01
+    Length: 548
+    Flags: 0xc0
+    Command Code: 265 AA
+    ApplicationId: 16777236
+    Hop-by-Hop Identifier: 0x1aca7a69
+    End-to-End Identifier: 0x921f15bc
+    [Answer In: 43]
+    AVP: Session-Timeout(27) l=12 f=-M- val=6000
+    AVP: Auth-Grace-Period(276) l=12 f=-M- val=60
+    AVP: Authorization-Lifetime(291) l=12 f=-M- val=3600
+    AVP: Session-Id(263) l=40 f=-M- val=pcscf.open-ims.test;2053527841;2
+    AVP: Origin-Host(264) l=27 f=-M- val=pcscf.open-ims.test
+    AVP: Origin-Realm(296) l=21 f=-M- val=open-ims.test
+    AVP: Auth-Application-Id(258) l=12 f=-M- val=3GPP Rx (16777236)
+    AVP: Vendor-Specific-Application-Id(260) l=32 f=-M-
+    AVP: Destination-Realm(283) l=21 f=-M- val=open-ims.test
+    AVP: AF-Application-Identifier(504) l=28 f=VM- vnd=TGPP val=494D5320526567697374726174696F6E
+    AVP: Media-Component-Description(517) l=192 f=VM- vnd=TGPP
+    AVP: Framed-IP-Address(8) l=12 f=-M- val=192.168.1.4 (192.168.1.4)
+    AVP: Specific-Action(513) l=16 f=VM- vnd=TGPP val=INDICATION_OF_RELEASE_OF_BEARER (4)
+    AVP: Specific-Action(513) l=16 f=VM- vnd=TGPP val=Unknown (6)
+    AVP: Subscription-Id(443) l=52 f=-M-
+        AVP Code: 443 Subscription-Id
+        AVP Flags: 0x40
+        AVP Length: 52
+        Subscription-Id: 000001C24000000C00000002000001BC4000001D7369703A...
+            AVP: Subscription-Id-Type(450) l=12 f=-M- val=END_USER_SIP_URI (2)
+            AVP: Subscription-Id-Data(444) l=29 f=-M- val=sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>
+    AVP: Reservation-priority(458) l=16 f=V-- vnd=ETSI val=Unknown (0)
+
+
+
+This is the log for lena
+
+Ethernet II, Src: DellPcba_d2:34:8c (00:0d:56:d2:34:8c), Dst: D-Link_0b:f6:70 (00:26:5a:0b:f6:70)
+Internet Protocol, Src: 10.1.3.201 (10.1.3.201), Dst: 10.1.3.215 (10.1.3.215)
+Transmission Control Protocol, Src Port: 55560 (55560), Dst Port: phrelay (4868), Seq: 1229, Ack: 357, Len: 1252
+Diameter Protocol
+    Version: 0x01
+    Length: 1252
+    Flags: 0xc0
+    Command Code: 265 AA
+    ApplicationId: 16777236
+    Hop-by-Hop Identifier: 0x1aca7a6a
+    End-to-End Identifier: 0x921f15bd
+    [Answer In: 54]
+    AVP: Session-Timeout(27) l=12 f=-M- val=6000
+    AVP: Auth-Grace-Period(276) l=12 f=-M- val=0
+    AVP: Authorization-Lifetime(291) l=12 f=-M- val=60
+    AVP: Session-Id(263) l=40 f=-M- val=pcscf.open-ims.test;2053527841;3
+    AVP: Origin-Host(264) l=27 f=-M- val=pcscf.open-ims.test
+    AVP: Origin-Realm(296) l=21 f=-M- val=open-ims.test
+    AVP: Auth-Application-Id(258) l=12 f=-M- val=3GPP Rx (16777236)
+    AVP: Vendor-Specific-Application-Id(260) l=32 f=-M-
+    AVP: Destination-Realm(283) l=21 f=-M- val=open-ims.test
+    AVP: AF-Application-Identifier(504) l=24 f=VM- vnd=TGPP val=494D53205365727669636573
+    AVP: Media-Component-Description(517) l=944 f=VM- vnd=TGPP
+    AVP: Subscription-Id(443) l=52 f=-M-
+        AVP Code: 443 Subscription-Id
+        AVP Flags: 0x40
+        AVP Length: 52
+        Subscription-Id: 000001C24000000C00000002000001BC4000001E7369703A...
+            AVP: Subscription-Id-Type(450) l=12 f=-M- val=END_USER_SIP_URI (2)
+            AVP: Subscription-Id-Data(444) l=30 f=-M- val=sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">lena at open-ims.test</A>
+    AVP: Reservation-priority(458) l=16 f=V-- vnd=ETSI val=Unknown (0)
+
+
+
+Regards
+
+Victor
+________________________________
+De: Corici, Andreea Ancuta [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.corici at fokus.fraunhofer.de</A>]
+Enviado el: viernes, 20 de mayo de 2011 12:40
+Para: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+CC: Huertas Garc&#237;a, V&#237;ctor
+Asunto: PCSCF: Problem with Authorization-Lifetime AVP value in Rx interface
+
+
+
+Hello Victor,
+
+This sounds like a bug. Maybe you can also send a log capture with the registration list from the P-CSCF. This might make things more clear.
+The diameter capture would also help.
+
+Best regards,
+Ancuta
+
+
+________________________________
+Este correo electr&#243;nico y, en su caso, cualquier fichero anexo al mismo, contiene informaci&#243;n de car&#225;cter confidencial exclusivamente dirigida a su destinatario o destinatarios. Si no es vd. el destinatario indicado, queda notificado que la lectura, utilizaci&#243;n, divulgaci&#243;n y/o copia sin autorizaci&#243;n est&#225; prohibida en virtud de la legislaci&#243;n vigente. En el caso de haber recibido este correo electr&#243;nico por error, se ruega notificar inmediatamente esta circunstancia mediante reenv&#237;o a la direcci&#243;n electr&#243;nica del remitente.
+Evite imprimir este mensaje si no es estrictamente necesario.
+
+This email and any file attached to it (when applicable) contain(s) confidential information that is exclusively addressed to its recipient(s). If you are not the indicated recipient, you are informed that reading, using, disseminating and/or copying it without authorisation is forbidden in accordance with the legislation in effect. If you have received this email by mistake, please immediately notify the sender of the situation by resending it to their email address.
+Avoid printing this message if it is not absolutely necessary.
+
+
+________________________________
+Este correo electr&#243;nico y, en su caso, cualquier fichero anexo al mismo, contiene informaci&#243;n de car&#225;cter confidencial exclusivamente dirigida a su destinatario o destinatarios. Si no es vd. el destinatario indicado, queda notificado que la lectura, utilizaci&#243;n, divulgaci&#243;n y/o copia sin autorizaci&#243;n est&#225; prohibida en virtud de la legislaci&#243;n vigente. En el caso de haber recibido este correo electr&#243;nico por error, se ruega notificar inmediatamente esta circunstancia mediante reenv&#237;o a la direcci&#243;n electr&#243;nica del remitente.
+Evite imprimir este mensaje si no es estrictamente necesario.
+
+This email and any file attached to it (when applicable) contain(s) confidential information that is exclusively addressed to its recipient(s). If you are not the indicated recipient, you are informed that reading, using, disseminating and/or copying it without authorisation is forbidden in accordance with the legislation in effect. If you have received this email by mistake, please immediately notify the sender of the situation by resending it to their email address.
+Avoid printing this message if it is not absolutely necessary.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110520/d36ca9c7/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110520/d36ca9c7/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002559.html">[OpenIMSCore-CSCF] PCSCF: Problem with Authorization-Lifetime	AVP value in Rx interface
+</A></li>
+	<LI>Next message: <A HREF="002561.html">[OpenIMSCore-CSCF] PCSCF: Problem with Authorization-Lifetime	AVP value in Rx interface
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2560">[ date ]</a>
+              <a href="thread.html#2560">[ thread ]</a>
+              <a href="subject.html#2560">[ subject ]</a>
+              <a href="author.html#2560">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

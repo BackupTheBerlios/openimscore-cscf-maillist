@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] SCSCF sending 403 error when an AS change	theRequest URI of anINVITE
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SCSCF%20sending%20403%20error%20when%20an%20AS%20change%0A%09theRequest%20URI%20of%20anINVITE&In-Reply-To=%3C009b01c87b6a%24d201eaf0%240200a8c0%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="001217.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] SCSCF sending 403 error when an AS change	theRequest URI of anINVITE</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SCSCF%20sending%20403%20error%20when%20an%20AS%20change%0A%09theRequest%20URI%20of%20anINVITE&In-Reply-To=%3C009b01c87b6a%24d201eaf0%240200a8c0%40notebook%3E"
+       TITLE="[OpenIMSCore-CSCF] SCSCF sending 403 error when an AS change	theRequest URI of anINVITE">franz.edler at inode.at
+       </A><BR>
+    <I>Sat Mar  1 08:06:49 CET 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="001217.html">[OpenIMSCore-CSCF] SCSCF sending 403 error when an ASchange	theRequest URI of anINVITE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1215">[ date ]</a>
+              <a href="thread.html#1215">[ thread ]</a>
+              <a href="subject.html#1215">[ subject ]</a>
+              <a href="author.html#1215">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Enriqe,
+
+&gt;<i> Here it is my problem. I replace in the AS the Request-URI of the SIP
+</I>&gt;<i> INVITE request with the SIP URI of the MRFC in the AS, and the AS sends
+</I>&gt;<i> the INVITE to the SCSCF, but then the SCSCF responses to the AS with a
+</I>&gt;<i> &quot;403 - Forbidden&quot;.
+</I>
+The situation is unclear. It seems that the trace is not complete.
+Packet 10 is a response which cannot be matched to a request.
+Packet 7 which could be a matching request has the same source and
+destination. 
+The fragment in packet 9 also cannot be assigned.
+
+Another quick guess: Did you read the failure response fully?
+SIP/2.0 403 Forbidden - Dialog not found on S-CSCF or Terminating user not
+suitable for unregistered services.
+
+Maybe you did not configure the trigger point for <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ana at open-ims.test</A> for
+unregistered terminating service.
+
+Franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="001217.html">[OpenIMSCore-CSCF] SCSCF sending 403 error when an ASchange	theRequest URI of anINVITE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1215">[ date ]</a>
+              <a href="thread.html#1215">[ thread ]</a>
+              <a href="subject.html#1215">[ subject ]</a>
+              <a href="author.html#1215">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

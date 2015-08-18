@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Mobicents%20SIP%20WAKE%20UP&In-Reply-To=%3Ca42e68ed0808290304m50dd8e95ycd78c37117ee9d70%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001462.html">
+   <LINK REL="Next"  HREF="001464.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Mobicents SIP WAKE UP</H1>
+    <B>ims.asuser ims.asuser</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Mobicents%20SIP%20WAKE%20UP&In-Reply-To=%3Ca42e68ed0808290304m50dd8e95ycd78c37117ee9d70%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Mobicents SIP WAKE UP">ims.asuser at gmail.com
+       </A><BR>
+    <I>Fri Aug 29 12:04:38 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001462.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+        <LI>Next message: <A HREF="001464.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1463">[ date ]</a>
+              <a href="thread.html#1463">[ thread ]</a>
+              <a href="subject.html#1463">[ subject ]</a>
+              <a href="author.html#1463">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Thank you Franz,
+
+I've managed to forward the REGISTER Message to Mobicents and it works very
+well.
+On the FHoSS, i've set up a TP that forward all messages to Mobicents (just
+to start with). But the OpenIMS told me &quot;403 Forbidden-Not registered! You
+must first register first with a S-CSCF.&quot;
+
+It's kind of difficult to get registered with the SCSF if it forward the
+Register message to mobicents.
+
+What I want is:
+
+*Register*
+Bob (REGISTER) --&gt; OpenIMS(REGISTER)--&gt;Mobicents
+Mobicents(200 OK)--&gt;OpenIMS(200 OK)--&gt;Bob
+This works well
+
+*Message*
+Bob (MESSAGE)--&gt; OpenIMS(MESSAGE)--&gt;Mobicents
+Mobicents (MESSAGE)--&gt;OpenIMS(MESSAGE)--&gt;Bob
+OpenIMS wants Bob to be registered with the SCSCF (even if Bob is registered
+with Mobicents)
+
+I've tried to play with Profile Part Indicator in the IFC but it does not
+work.
+Any idea?
+
+Thanks a lot
+Khaldon
+
+2008/8/29 Franz Edler &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at inode.at</A>&gt;
+
+&gt;<i> Hi Khaldon,
+</I>&gt;<i>
+</I>&gt;<i> &gt; ... is it possible to forward the registration message directly to
+</I>&gt;<i> Mobicents?
+</I>&gt;<i>
+</I>&gt;<i> Yes of course. Just use a proper trigger point on REGISTER requests than
+</I>&gt;<i> you
+</I>&gt;<i> will get a 3rd party registration on Mobicents.
+</I>&gt;<i>
+</I>&gt;<i> -franz
+</I>&gt;<i>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080829/760b0992/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080829/760b0992/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001462.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+	<LI>Next message: <A HREF="001464.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1463">[ date ]</a>
+              <a href="thread.html#1463">[ thread ]</a>
+              <a href="subject.html#1463">[ subject ]</a>
+              <a href="author.html#1463">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

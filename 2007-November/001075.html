@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ACK%20to%20404%20resulting%20in%20SAR%20unregistered-user&In-Reply-To=%3C474DE96F.2060901%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001071.html">
+   <LINK REL="Next"  HREF="001080.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ACK%20to%20404%20resulting%20in%20SAR%20unregistered-user&In-Reply-To=%3C474DE96F.2060901%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Nov 28 23:19:27 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001071.html">[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+</A></li>
+        <LI>Next message: <A HREF="001080.html">[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1075">[ date ]</a>
+              <a href="thread.html#1075">[ thread ]</a>
+              <a href="subject.html#1075">[ subject ]</a>
+              <a href="author.html#1075">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>wait... isn't the ACK for the &gt;=300 responses hop-by-hop? Then it does
+not need relaying... if it is for 2xx, then it should have the proper
+dialog Routes...
+
+well... if it works and does not break the 200 - ACK case, commit it.
+
+-Dragos
+
+
+Jo&#227;o Filipe Pl&#225;cido wrote:
+&gt;<i> Adding the following to the S-CSCF script seems to solve it. Dragos,
+</I>&gt;<i> do you agree on commiting this fix?
+</I>&gt;<i>
+</I>&gt;<i> 		# Originating
+</I>&gt;<i> 		route(Orig);
+</I>&gt;<i> 		break;				
+</I>&gt;<i> 	}else{
+</I>&gt;<i>   
+</I>&gt;&gt;<i> 		if (method==&quot;ACK&quot;) {
+</I>&gt;&gt;<i> 			t_relay();
+</I>&gt;&gt;<i> 			exit;
+</I>&gt;&gt;<i> 		}
+</I>&gt;&gt;<i>     
+</I>&gt;<i> 		if (S_is_in_dialog(&quot;orig&quot;)){
+</I>&gt;<i> 			route(Orig_Subsequent);
+</I>&gt;<i> 			break;
+</I>&gt;<i> 		}
+</I>&gt;<i>
+</I>&gt;<i> JF
+</I>&gt;<i>
+</I>&gt;<i> On Nov 28, 2007 11:30 AM, Jo&#227;o Filipe Pl&#225;cido
+</I>&gt;<i> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">joao-f-placido at ptinovacao.pt</A>&gt; wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi all, Dragos,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> We noticed the following situation:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> - using two different S-CSCFs
+</I>&gt;&gt;<i> - call from bob to alice
+</I>&gt;&gt;<i> - bob is registered in S-CSCF1
+</I>&gt;&gt;<i> - alice is not registered
+</I>&gt;&gt;<i> - the terminating S-CSCF (S-CSCF2 selected by I-CSCF according to the
+</I>&gt;&gt;<i> capabilities sent by the HSS) sends back a 404 Not Found (after
+</I>&gt;&gt;<i> triggering an AS responsible for unregistered-user services that
+</I>&gt;&gt;<i> didn't do anything but loose-route)
+</I>&gt;&gt;<i> - when this 404 reaches originating P-CSCF, it sends an ACK to the
+</I>&gt;&gt;<i> originating S-CSCF (S-CSCF1)
+</I>&gt;&gt;<i> - S-CSCF1 is treating this ACK as if it was an INVITE (sending a SAR
+</I>&gt;&gt;<i> with Server-Assignment-Type==Unregistered-User)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> We need to further distinguish ACKs in the routing logic and/or make
+</I>&gt;&gt;<i> them carry orig indications when appropriate.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> We'll try to look further into this, but meanwhile it's recorded here.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> JF
+</I>&gt;&gt;<i> --
+</I>&gt;&gt;<i> PT Inova&#231;&#227;o
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001071.html">[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+</A></li>
+	<LI>Next message: <A HREF="001080.html">[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1075">[ date ]</a>
+              <a href="thread.html#1075">[ thread ]</a>
+              <a href="subject.html#1075">[ subject ]</a>
+              <a href="author.html#1075">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

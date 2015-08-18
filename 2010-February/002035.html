@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r849 - possible fix for lock	problem at ims session termination needs to be tested,	maybe the pcc_callback needs to be re-written
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r849%20-%20possible%20fix%20for%20lock%0A%09problem%20at%20ims%20session%20termination%20needs%20to%20be%20tested%2C%0A%09maybe%20the%20pcc_callback%20needs%20to%20be%20re-written&In-Reply-To=%3C201002021842.o12Ig5ev004274%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002034.html">
+   <LINK REL="Next"  HREF="002036.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r849 - possible fix for lock	problem at ims session termination needs to be tested,	maybe the pcc_callback needs to be re-written</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r849%20-%20possible%20fix%20for%20lock%0A%09problem%20at%20ims%20session%20termination%20needs%20to%20be%20tested%2C%0A%09maybe%20the%20pcc_callback%20needs%20to%20be%20re-written&In-Reply-To=%3C201002021842.o12Ig5ev004274%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r849 - possible fix for lock	problem at ims session termination needs to be tested,	maybe the pcc_callback needs to be re-written">aon at users.berlios.de
+       </A><BR>
+    <I>Tue Feb  2 19:42:05 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002034.html">[OpenIMSCore-CSCF] ERR:auth_client_statefull_sm_process(): Received	invalid event 21 while in state Idle!(data (nil))
+</A></li>
+        <LI>Next message: <A HREF="002036.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r850 - Properly fixed the deadlock	on dialog termination by moving the pcc_session_id outside of	the dialog and terminating the pcc session outside of the	critical zone. Otherwise the termination on the PCC session	was racing towards dropping the same dialog,	for which the P_drop_dialog that actually trigger this call.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2035">[ date ]</a>
+              <a href="thread.html#2035">[ thread ]</a>
+              <a href="subject.html#2035">[ subject ]</a>
+              <a href="author.html#2035">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2010-02-02 19:42:02 +0100 (Tue, 02 Feb 2010)
+New Revision: 849 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=849">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=849</A> 
+
+Log:
+
+possible fix for lock problem at ims session termination
+needs to be tested, maybe the pcc_callback needs to be re-written
+
+
+Modified:
+   U	ser_ims/branches/13_pcc_fixing/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/cfg/pcscf.cfg?rev=849&amp;view=diff&amp;r1=849&amp;r2=848">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/cfg/pcscf.cfg?rev=849&amp;view=diff&amp;r1=849&amp;r2=848</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/dlg_state.c?rev=849&amp;view=diff&amp;r1=849&amp;r2=848">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/dlg_state.c?rev=849&amp;view=diff&amp;r1=849&amp;r2=848</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002034.html">[OpenIMSCore-CSCF] ERR:auth_client_statefull_sm_process(): Received	invalid event 21 while in state Idle!(data (nil))
+</A></li>
+	<LI>Next message: <A HREF="002036.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r850 - Properly fixed the deadlock	on dialog termination by moving the pcc_session_id outside of	the dialog and terminating the pcc session outside of the	critical zone. Otherwise the termination on the PCC session	was racing towards dropping the same dialog,	for which the P_drop_dialog that actually trigger this call.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2035">[ date ]</a>
+              <a href="thread.html#2035">[ thread ]</a>
+              <a href="subject.html#2035">[ subject ]</a>
+              <a href="author.html#2035">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Modified%20Invite%20coming%20back%20from%20TAS%20not%0A%20recognized%20as%20different%20%28Call%20Forwarding%20on%20Busy%29&In-Reply-To=%3C488B5A14.8050401%40alcatel-lucent.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001424.html">
+   <LINK REL="Next"  HREF="001426.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)</H1>
+    <B>Dick Gooris</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Modified%20Invite%20coming%20back%20from%20TAS%20not%0A%20recognized%20as%20different%20%28Call%20Forwarding%20on%20Busy%29&In-Reply-To=%3C488B5A14.8050401%40alcatel-lucent.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)">gooris at alcatel-lucent.com
+       </A><BR>
+    <I>Sat Jul 26 19:08:36 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001424.html">[OpenIMSCore-CSCF]  OpemIMS+Asterisk
+</A></li>
+        <LI>Next message: <A HREF="001426.html">[OpenIMSCore-CSCF] Modified Invite coming back from TAS not	recognized as different (Call Forwarding on Busy)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1425">[ date ]</a>
+              <a href="thread.html#1425">[ thread ]</a>
+              <a href="subject.html#1425">[ subject ]</a>
+              <a href="author.html#1425">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+When adding a TAS to the OpenImsCore, I want to make the scenario that a 
+call gets forwarded due to a Busy Number.
+The Invite that addresses the new number is received by the s-cscf, but 
+not treated in such way it actually sends it to the
+alternative subscriber.  The s-cscf log says 'Trans already in 
+processing... skip', so it apparently cannot distinguish it as a new call.
+The result is that the call forwarding does not take place.
+
+The Tas is based on a stateless proxy, and therefore does not deal with 
+any alterations in the call-id's, tags, etc.
+
+  Attached a one-page .png diagram of the call scenario illustrating the 
+issue including addresses, numbers, ifc's etc..
+
+  Attached the call-trace for wireshark. This ends with the new Invite.
+     ( please set your preferences--&gt;protocols--&gt;ip--&gt;reassemble 
+fragmented ip datagrams to OFF )
+
+  Attached the relevant piece of the s-cscf logfile that ends with the 
+'skip'.*
+
+*I would assume that the s-cscf can distinguish the new call due to its 
+new request uri. How should this work ?
+
+The software version of OpenIMSCore i'm using is of end of April.
+
+Thanks in advance, and kind regards,
+
+       - Dick Gooris
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080726/b7c4f0fa/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080726/b7c4f0fa/attachment.html</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: CallFlow-Xtas-With-Tas-Target-cfb.png
+Type: image/png
+Size: 32391 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080726/b7c4f0fa/attachment.png">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080726/b7c4f0fa/attachment.png</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: ims-trace.pcap
+Type: application/octet-stream
+Size: 72304 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080726/b7c4f0fa/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080726/b7c4f0fa/attachment.obj</A>&gt;
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: scscf.log
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080726/b7c4f0fa/attachment.ksh">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080726/b7c4f0fa/attachment.ksh</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001424.html">[OpenIMSCore-CSCF]  OpemIMS+Asterisk
+</A></li>
+	<LI>Next message: <A HREF="001426.html">[OpenIMSCore-CSCF] Modified Invite coming back from TAS not	recognized as different (Call Forwarding on Busy)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1425">[ date ]</a>
+              <a href="thread.html#1425">[ thread ]</a>
+              <a href="subject.html#1425">[ subject ]</a>
+              <a href="author.html#1425">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

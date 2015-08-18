@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r633 - Added support Emergency	Registrations and Calls in the S-CSCF Patch by: Andreea	Ancuta Onofrei
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r633%20-%20Added%20support%20Emergency%0A%09Registrations%20and%20Calls%20in%20the%20S-CSCF%20Patch%20by%3A%20Andreea%0A%09Ancuta%20Onofrei&In-Reply-To=%3C200903121755.n2CHts5R004607%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001644.html">
+   <LINK REL="Next"  HREF="001647.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r633 - Added support Emergency	Registrations and Calls in the S-CSCF Patch by: Andreea	Ancuta Onofrei</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r633%20-%20Added%20support%20Emergency%0A%09Registrations%20and%20Calls%20in%20the%20S-CSCF%20Patch%20by%3A%20Andreea%0A%09Ancuta%20Onofrei&In-Reply-To=%3C200903121755.n2CHts5R004607%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r633 - Added support Emergency	Registrations and Calls in the S-CSCF Patch by: Andreea	Ancuta Onofrei">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Thu Mar 12 18:55:54 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001644.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r632 - Added support Emergency	Registrations and Calls in the P-CSCF Patch by: Andreea	Ancuta Onofrei
+</A></li>
+        <LI>Next message: <A HREF="001647.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1645">[ date ]</a>
+              <a href="thread.html#1645">[ thread ]</a>
+              <a href="subject.html#1645">[ subject ]</a>
+              <a href="author.html#1645">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2009-03-12 18:55:51 +0100 (Thu, 12 Mar 2009)
+New Revision: 633 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=633">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=633</A> 
+
+Log:
+Added support Emergency Registrations and Calls in the S-CSCF
+Patch by: Andreea Ancuta Onofrei
+
+Added:
+   A	ser_ims/trunk/modules/scscf/emerg.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/emerg.c?rev=633&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/emerg.c?rev=633&amp;view=markup</A>
+   A	ser_ims/trunk/modules/scscf/emerg.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/emerg.h?rev=633&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/emerg.h?rev=633&amp;view=markup</A>
+Modified:
+   U	ser_ims/trunk/cfg/scscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=633&amp;view=diff&amp;r1=633&amp;r2=632">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=633&amp;view=diff&amp;r1=633&amp;r2=632</A>
+   U	ser_ims/trunk/modules/scscf/cx_avp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/cx_avp.c?rev=633&amp;view=diff&amp;r1=633&amp;r2=632">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/cx_avp.c?rev=633&amp;view=diff&amp;r1=633&amp;r2=632</A>
+   U	ser_ims/trunk/modules/scscf/cx_avp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/cx_avp.h?rev=633&amp;view=diff&amp;r1=633&amp;r2=632">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/cx_avp.h?rev=633&amp;view=diff&amp;r1=633&amp;r2=632</A>
+   U	ser_ims/trunk/modules/scscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=633&amp;view=diff&amp;r1=633&amp;r2=632">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=633&amp;view=diff&amp;r1=633&amp;r2=632</A>
+   U	ser_ims/trunk/modules/scscf/mod.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.h?rev=633&amp;view=diff&amp;r1=633&amp;r2=632">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.h?rev=633&amp;view=diff&amp;r1=633&amp;r2=632</A>
+   U	ser_ims/trunk/modules/scscf/registrar.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.c?rev=633&amp;view=diff&amp;r1=633&amp;r2=632">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.c?rev=633&amp;view=diff&amp;r1=633&amp;r2=632</A>
+   U	ser_ims/trunk/modules/scscf/registrar_storage.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.c?rev=633&amp;view=diff&amp;r1=633&amp;r2=632">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.c?rev=633&amp;view=diff&amp;r1=633&amp;r2=632</A>
+   U	ser_ims/trunk/modules/scscf/registrar_storage.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.h?rev=633&amp;view=diff&amp;r1=633&amp;r2=632">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.h?rev=633&amp;view=diff&amp;r1=633&amp;r2=632</A>
+   U	ser_ims/trunk/modules/scscf/sip_messages.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip_messages.h?rev=633&amp;view=diff&amp;r1=633&amp;r2=632">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip_messages.h?rev=633&amp;view=diff&amp;r1=633&amp;r2=632</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001644.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r632 - Added support Emergency	Registrations and Calls in the P-CSCF Patch by: Andreea	Ancuta Onofrei
+</A></li>
+	<LI>Next message: <A HREF="001647.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1645">[ date ]</a>
+              <a href="thread.html#1645">[ thread ]</a>
+              <a href="subject.html#1645">[ subject ]</a>
+              <a href="author.html#1645">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

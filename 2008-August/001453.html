@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Bad DNS request from P-CSCF since r573
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Bad%20DNS%20request%20from%20P-CSCF%20since%20r573&In-Reply-To=%3C48AE9232.8040800%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001447.html">
+   <LINK REL="Next"  HREF="001446.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Bad DNS request from P-CSCF since r573</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Bad%20DNS%20request%20from%20P-CSCF%20since%20r573&In-Reply-To=%3C48AE9232.8040800%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Bad DNS request from P-CSCF since r573">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Aug 22 12:17:22 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001447.html">[OpenIMSCore-CSCF] Bad DNS request from P-CSCF since r573
+</A></li>
+        <LI>Next message: <A HREF="001446.html">[OpenIMSCore-CSCF] Module for the Rf interface on CSCFs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1453">[ date ]</a>
+              <a href="thread.html#1453">[ thread ]</a>
+              <a href="subject.html#1453">[ subject ]</a>
+              <a href="author.html#1453">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Jose,
+
+Yes, but this would probably break the SRV standards. So I refixed the
+DNS zone instead, in r577. Seems that &quot;_&quot; is allowed in SRV entries, but
+not in A ones. I was overzealous and not thinking too deep when changing
+the previous zone file.
+
+Cheers,
+-Dragos
+
+
+
+Jose Antonio Rodr&#237;guez Fdez. wrote:
+&gt;<i>
+</I>&gt;<i> Hi again,
+</I>&gt;<i>
+</I>&gt;<i> I've been playing with the source code and I think the problem could
+</I>&gt;<i> be solved modifying ser_ims/config.h
+</I>&gt;<i>
+</I>&gt;<i> -#define SRV_UDP_PREFIX &quot;_sip._udp.&quot;
+</I>&gt;<i> +#define SRV_UDP_PREFIX &quot;sip.udp.&quot;
+</I>&gt;<i>
+</I>&gt;<i> -#define SRV_TCP_PREFIX &quot;_sip._tcp.&quot;
+</I>&gt;<i> +#define SRV_TCP_PREFIX &quot;sip.tcp.&quot;
+</I>&gt;<i>
+</I>&gt;<i> -#define SRV_TLS_PREFIX &quot;_sips._tcp.&quot;
+</I>&gt;<i> +#define SRV_TLS_PREFIX &quot;sips.tcp.&quot;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> This seems to work fine but I have only tested the UDP case.
+</I>&gt;<i>
+</I>&gt;<i> Please, find attached a patch. I am not a developer and I don't know
+</I>&gt;<i> exactly how to make a patch, so I hope this is useful.
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i> Jose-Antonio
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Jose Antonio Rodr&#237;guez Fdez. escribi&#243;:
+</I>&gt;&gt;<i> Hi all,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I'm having problems registering OpenIC Lite (v1.3) with OSIMS r573 (or
+</I>&gt;&gt;<i> later) only if I change the I-CSCF port.
+</I>&gt;&gt;<i> After some tests I've realized that the problem is related with the
+</I>&gt;&gt;<i> modification introduced in r573 about &quot;_&quot; in open-ims.dnszone.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> The former _sip._udp.open-ims.test is sip.udp.open-ims.test now, but
+</I>&gt;&gt;<i> P-CSCF is still requesting _sip._udp.open-ims.test to DNS. Of course,
+</I>&gt;&gt;<i> this request fails, but if you have your I-CSCF running on default port
+</I>&gt;&gt;<i> (5060), P-CSCF finally tries to connect on that port. But if you have
+</I>&gt;&gt;<i> changed I-CSCF port, P-CSCF never reach I-CSCF.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I think this is a P-CSCF bug, but maybe I'm wrong.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Thank you,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Jose-Antonio
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001447.html">[OpenIMSCore-CSCF] Bad DNS request from P-CSCF since r573
+</A></li>
+	<LI>Next message: <A HREF="001446.html">[OpenIMSCore-CSCF] Module for the Rf interface on CSCFs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1453">[ date ]</a>
+              <a href="thread.html#1453">[ thread ]</a>
+              <a href="subject.html#1453">[ subject ]</a>
+              <a href="author.html#1453">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

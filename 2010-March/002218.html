@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Fwd: add TimeStamp to message header]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BFwd%3A%20add%20TimeStamp%20to%20message%20header%5D&In-Reply-To=%3C1268221909.12760.40.camel%40localhost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002217.html">
+   <LINK REL="Next"  HREF="002219.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Fwd: add TimeStamp to message header]</H1>
+    <B>Andreea Ancuta Onofrei</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BFwd%3A%20add%20TimeStamp%20to%20message%20header%5D&In-Reply-To=%3C1268221909.12760.40.camel%40localhost%3E"
+       TITLE="[OpenIMSCore-CSCF] [Fwd: add TimeStamp to message header]">andreea.ancuta.onofrei at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Mar 10 12:51:49 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002217.html">[OpenIMSCore-CSCF] [Fwd: add TimeStamp to message header]
+</A></li>
+        <LI>Next message: <A HREF="002219.html">[OpenIMSCore-CSCF] No record-route in out-dialog REFER request
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2218">[ date ]</a>
+              <a href="thread.html#2218">[ thread ]</a>
+              <a href="subject.html#2218">[ subject ]</a>
+              <a href="author.html#2218">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi again,
+
+For the moment I think you can use:
+
+hdr_field* cscf_get_header(struct sip_msg * msg , str header_name)
+, where header_name contains the name of the header you are looking for.
+
+Please send the next message on the mailing list, not only to me. This
+increases your chances of getting a reply on time ;)
+
+Best regards,
+Ancuta
+
+On Wed, 2010-03-10 at 12:48 +0100, Andreea Ancuta Onofrei wrote:
+&gt;<i> Hello Mustafa,
+</I>&gt;<i> 
+</I>&gt;<i> Usually an open-source project will add a new feature it is necessary
+</I>&gt;<i> (need) and there is someone that wants to do it (resource). So it is
+</I>&gt;<i> something like:
+</I>&gt;<i> if(need &amp;&amp; resource) then new_feature.
+</I>&gt;<i> 
+</I>&gt;<i> Why do the other projects not support this, you should ask the
+</I>&gt;<i> developers of the projects if they are considering it.
+</I>&gt;<i> 
+</I>&gt;<i> If you need and have the resources to do it for Open IMS Core, we will
+</I>&gt;<i> gladly accept a patch.
+</I>&gt;<i> 
+</I>&gt;<i> Best regards,
+</I>&gt;<i> Ancuta
+</I>&gt;<i> email message attachment, &quot;Forwarded message - add TimeStamp to
+</I>&gt;<i> message header&quot;
+</I>&gt;<i> &gt; -------- Forwarded Message --------
+</I>&gt;<i> &gt; From: mustafa rifaee &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mustafa.rifaee at gmail.com</A>&gt;
+</I>&gt;<i> &gt; To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.onofrei at fokus.fraunhofer.de</A>
+</I>&gt;<i> &gt; Subject: add TimeStamp to message header
+</I>&gt;<i> &gt; Date: Wed, 10 Mar 2010 01:53:03 -0500
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Hi Andreea,
+</I>&gt;<i> &gt; How are you, i would ask you about the Timestamp header in SIP
+</I>&gt;<i> &gt; messages,  and why this header does not   supported in OpenIMSCore.
+</I>&gt;<i> &gt;  Is there any open source support the time stamp header (i.e. SER,
+</I>&gt;<i> &gt; Kamailio, OpenSER...), and why this header not supported in Open IMS
+</I>&gt;<i> &gt; Core or in most open SIP server.
+</I>&gt;<i> &gt; Please Help me;
+</I>&gt;<i> &gt; Thanks;
+</I>&gt;<i> &gt; Best Regards
+</I>&gt;<i> &gt; Mustafa ALRifaee
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002217.html">[OpenIMSCore-CSCF] [Fwd: add TimeStamp to message header]
+</A></li>
+	<LI>Next message: <A HREF="002219.html">[OpenIMSCore-CSCF] No record-route in out-dialog REFER request
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2218">[ date ]</a>
+              <a href="thread.html#2218">[ thread ]</a>
+              <a href="subject.html#2218">[ subject ]</a>
+              <a href="author.html#2218">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

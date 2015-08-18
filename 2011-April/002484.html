@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] About my &quot;carstenbock/ims&quot; branch on the	sip-router.org GIT repository
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20my%20%22carstenbock/ims%22%20branch%20on%0A%20the%09sip-router.org%20GIT%20repository&In-Reply-To=%3C4D9C3FF1.7000208%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002494.html">
+   <LINK REL="Next"  HREF="002489.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] About my &quot;carstenbock/ims&quot; branch on the	sip-router.org GIT repository</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20my%20%22carstenbock/ims%22%20branch%20on%0A%20the%09sip-router.org%20GIT%20repository&In-Reply-To=%3C4D9C3FF1.7000208%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] About my &quot;carstenbock/ims&quot; branch on the	sip-router.org GIT repository">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Apr  6 12:26:57 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002494.html">[OpenIMSCore-CSCF] About my &quot;carstenbock/ims&quot; branch on the sip-router.org GIT repository
+</A></li>
+        <LI>Next message: <A HREF="002489.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1073 - Client_Rf: added some	ifdef-s for compilation from other platforms
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2484">[ date ]</a>
+              <a href="thread.html#2484">[ thread ]</a>
+              <a href="subject.html#2484">[ subject ]</a>
+              <a href="author.html#2484">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Carsten,
+
+this is of course great news! If you would also find time to write or at
+least link from our SVN and openimscore.org website to your work, I
+think everyone here will appreciate it greatly. For example a simple
+how-to like our Installation Guide would be very good. Also maybe you
+could update the Download pages to additionally point to your branch there?
+
+An OpenIMSCore revamp is long overdue as we are still kind of stuck on a
+very old version of SIP Express Router. I am sure that this will bring a
+lot of more power to the CSCFs and also flexibility.
+
+For any rights, we would like to implement a WiKi-like style of version
+control, so you and anyone that would like to make changes in the
+repository and/or website, just let me know your account name on BerliOs
+(respectively www.openimscore.org) and I will put you in the required ACLs.
+
+You have quite a big plan, so probably the functionality will be
+available in parallel from 2 options - the old modules and the new ones,
+with the old ones gradually phased out.
+
+What would be great is to keep the common modules in a single place. For
+example the cdp module for Diameter will probably stay mostly the same,
+so I don't know, but maybe you could just use it as svn:external? I am
+doing this for all FOKUS projects for the following modules: cdp,
+cdp_avp, Client_Rf. This means that there were many bug-fixes and
+improvements there, even though these did not come from the OpenIMSCore
+project.
+
+P.S. I unfortunately was quite inactive in the past years, as I am
+putting all my energy in a new project. I can only maintain now the
+Diameter module. Otherwise from FOKUS Ancuta Onofrei/Corici is still a
+bit active in the Emergency related topics and a bit more in the Rx and
+Rf implementations for Policy and Charging Control. But in any case,
+don't worry on changing things ;-).
+
+
+Cheers,
+-Dragos
+
+
+
+On 04/05/2011 12:30 PM, Carsten Bock wrote:
+&gt;<i> Hi everyone,
+</I>&gt;<i>
+</I>&gt;<i> i just wanted to notice, that i am actually working on re-integrating
+</I>&gt;<i> the OpenIMS-core into the sip-router.org/Kamailio project.
+</I>&gt;<i> It is not a fork of the official OpenIMSCore project, but more a merge
+</I>&gt;<i> of the OpenIMScore Project into the Kamailio/sip-router.org project.
+</I>&gt;<i>
+</I>&gt;<i> As a first step, i've made all the CSCF modules compile and work with
+</I>&gt;<i> a current Kamailio source. In order to do this, only minor adaptions
+</I>&gt;<i> were required.
+</I>&gt;<i>
+</I>&gt;<i> As a second step, i am working on a better integration into the
+</I>&gt;<i> existing structures of the Kamailio project; i want to achieve the
+</I>&gt;<i> following things:
+</I>&gt;<i> - replace integrated dialog awareness of the CSCF modules with
+</I>&gt;<i> Kamailio's dialog module
+</I>&gt;<i> - replcae integrated registrar of the CSCF modules with Kamailio's
+</I>&gt;<i> registrar module
+</I>&gt;<i> - replace integrated nathelper support with the sip-router.org
+</I>&gt;<i> nathelper/rtpproxy moduels
+</I>&gt;<i> - replcae integrated RFC 3680 support with Kamailio's
+</I>&gt;<i> Presence/Presence-User-Agent modules
+</I>&gt;<i> - add documentation in accordance with the other sip-router.org modules
+</I>&gt;<i>
+</I>&gt;<i> I've already changed quite a few things in the Kamailio core, in order
+</I>&gt;<i> to achieve this: K's dialog module is now able to store additional
+</I>&gt;<i> data to a dialog (works great), K's usrloc/registrar module is able to
+</I>&gt;<i> store additional information to an contact (still buggy) and i have
+</I>&gt;<i> already added support for RFC 3680 to Kamailio's presence/pua
+</I>&gt;<i> infrastructure (when you register, the system will &quot;PUBLISH&quot; the
+</I>&gt;<i> registration state; another system may already &quot;SUBSCRIBE&quot; to the
+</I>&gt;<i> status and &quot;NOTIFY&quot; requests are already parsed (but not stored yet)).
+</I>&gt;<i> So it is going on. I have also already modified some of the config to
+</I>&gt;<i> use generic append_hf() and remove_hf() functions instead of custom
+</I>&gt;<i> implemented functions...
+</I>&gt;<i>
+</I>&gt;<i> The progress is slow but steady since i work on it apart from my
+</I>&gt;<i> regular work. I try to publish any new developments on this on my
+</I>&gt;<i> blog/homepage (www.ng-voice.com), where you may also find some more
+</I>&gt;<i> information about the installation and the components of the project
+</I>&gt;<i> (i provide a repository of the last step for easy installation).
+</I>&gt;<i>
+</I>&gt;<i> I started implementing an own HSS some time ago (openhss.org), but the
+</I>&gt;<i> development on this currently stopped. First, i do not have enough
+</I>&gt;<i> time to work on both the Kamailio integration, regular work and the
+</I>&gt;<i> HSS; second the main developer on the HSS (Brian) just resigned due to
+</I>&gt;<i> health reasons.
+</I>&gt;<i>
+</I>&gt;<i> Some of you may have noticed, that i am working for Telefonica in
+</I>&gt;<i> Germany as a regular work. I am working on the Class 4/5
+</I>&gt;<i> infrastructure at Telefonica and we have already implemented an
+</I>&gt;<i> Ericsson IMS core. However, i wanted to mention, that neither
+</I>&gt;<i> Telefonica nor O2 is behind this project. The only support i get from
+</I>&gt;<i> Telefonica is, that i get a monthly salary and that i may use some
+</I>&gt;<i> time to work on the OpenIMS-project during normal office-hours (as
+</I>&gt;<i> time allows).
+</I>&gt;<i> If i do things, i do it by heart and not half-hearted... that probably
+</I>&gt;<i> explains a lot of the effort spent on the project.
+</I>&gt;<i>
+</I>&gt;<i> Kind regards,
+</I>&gt;<i> Carsten
+</I>&gt;<i>
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002494.html">[OpenIMSCore-CSCF] About my &quot;carstenbock/ims&quot; branch on the sip-router.org GIT repository
+</A></li>
+	<LI>Next message: <A HREF="002489.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1073 - Client_Rf: added some	ifdef-s for compilation from other platforms
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2484">[ date ]</a>
+              <a href="thread.html#2484">[ thread ]</a>
+              <a href="subject.html#2484">[ subject ]</a>
+              <a href="author.html#2484">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

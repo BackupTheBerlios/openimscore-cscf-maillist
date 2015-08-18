@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] OpenIMSCore doesn't prompt for authentication when private and public identities are different
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenIMSCore%20doesn%27t%20prompt%20for%20authentication%0A%20when%20private%20and%20public%20identities%20are%20different&In-Reply-To=%3C4C1D7841.2070100%40misc.lka.org.lu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002269.html">
+   <LINK REL="Next"  HREF="002271.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] OpenIMSCore doesn't prompt for authentication when private and public identities are different</H1>
+    <B>Alain Knaff (OpenIMSCore list)</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenIMSCore%20doesn%27t%20prompt%20for%20authentication%0A%20when%20private%20and%20public%20identities%20are%20different&In-Reply-To=%3C4C1D7841.2070100%40misc.lka.org.lu%3E"
+       TITLE="[OpenIMSCore-CSCF] OpenIMSCore doesn't prompt for authentication when private and public identities are different">openimscore at misc.lka.org.lu
+       </A><BR>
+    <I>Sun Jun 20 04:09:05 CEST 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002269.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r953 - cdp/cdp_avp: added	definitions for the S6a/d interfaces (TS 29.272)
+</A></li>
+        <LI>Next message: <A HREF="002271.html">[OpenIMSCore-CSCF] OpenIMSCore doesn't prompt for	authentication when private and public identities are different
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2270">[ date ]</a>
+              <a href="thread.html#2270">[ thread ]</a>
+              <a href="subject.html#2270">[ subject ]</a>
+              <a href="author.html#2270">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+Many user agents, such as Ekiga, only include an &quot;Authorization&quot; header
+if prompted by the server using the WWW-Authenticate header.
+
+However, if the private and public identity are different, OpenIMSCore
+fails to recognize the public identity as a valid user account and
+replies with &quot;403 Forbidden - HSS User Unknown&quot; instead of &quot;401
+Unauthorized - Challenging the UE&quot;, and so the client gives up before
+sending its Authorization header.
+
+If the same private and public identity are used, it works.
+
+If a client is used that includes the Authorization header from the
+beginning, without being prompted, it works too (even if public and
+private identity are different), but as far as I understood, the
+authorization dialog should behave the same way as the one between web
+browsers and web servers, where the client only sends the info if
+requested by server.
+
+Thanks,
+
+Alain
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002269.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r953 - cdp/cdp_avp: added	definitions for the S6a/d interfaces (TS 29.272)
+</A></li>
+	<LI>Next message: <A HREF="002271.html">[OpenIMSCore-CSCF] OpenIMSCore doesn't prompt for	authentication when private and public identities are different
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2270">[ date ]</a>
+              <a href="thread.html#2270">[ thread ]</a>
+              <a href="subject.html#2270">[ subject ]</a>
+              <a href="author.html#2270">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

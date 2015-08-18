@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r253 - Added	P-Charging-Function-Addresses header to 200 OK for	registration if the P-CSCF is in the home network.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r253%20-%20Added%0A%09P-Charging-Function-Addresses%20header%20to%20200%20OK%20for%0A%09registration%20if%20the%20P-CSCF%20is%20in%20the%20home%20network.&In-Reply-To=%3C200704251640.l3PGeYIk028796%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000527.html">
+   <LINK REL="Next"  HREF="000531.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r253 - Added	P-Charging-Function-Addresses header to 200 OK for	registration if the P-CSCF is in the home network.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r253%20-%20Added%0A%09P-Charging-Function-Addresses%20header%20to%20200%20OK%20for%0A%09registration%20if%20the%20P-CSCF%20is%20in%20the%20home%20network.&In-Reply-To=%3C200704251640.l3PGeYIk028796%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r253 - Added	P-Charging-Function-Addresses header to 200 OK for	registration if the P-CSCF is in the home network.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Apr 25 18:40:34 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000527.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Support	Globally Routable User URIs
+</A></li>
+        <LI>Next message: <A HREF="000531.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r254 - Commited safety patch for	cdp module provided by Marius Patea.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#528">[ date ]</a>
+              <a href="thread.html#528">[ thread ]</a>
+              <a href="subject.html#528">[ subject ]</a>
+              <a href="author.html#528">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-04-25 18:40:19 +0200 (Wed, 25 Apr 2007)
+New Revision: 253 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=253">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=253</A> 
+
+Log:
+Added P-Charging-Function-Addresses header to 200 OK for registration if the P-CSCF is in the home network.
+
+
+Modified:
+   U	ser_ims/trunk/cfg/scscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=253&amp;view=diff&amp;r1=253&amp;r2=252">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=253&amp;view=diff&amp;r1=253&amp;r2=252</A>
+   U	ser_ims/trunk/modules/cdp/diameter_ims.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_ims.h?rev=253&amp;view=diff&amp;r1=253&amp;r2=252">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_ims.h?rev=253&amp;view=diff&amp;r1=253&amp;r2=252</A>
+   U	ser_ims/trunk/modules/scscf/bin_scscf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_scscf.c?rev=253&amp;view=diff&amp;r1=253&amp;r2=252">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_scscf.c?rev=253&amp;view=diff&amp;r1=253&amp;r2=252</A>
+   U	ser_ims/trunk/modules/scscf/cx.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/cx.c?rev=253&amp;view=diff&amp;r1=253&amp;r2=252">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/cx.c?rev=253&amp;view=diff&amp;r1=253&amp;r2=252</A>
+   U	ser_ims/trunk/modules/scscf/cx_avp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/cx_avp.c?rev=253&amp;view=diff&amp;r1=253&amp;r2=252">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/cx_avp.c?rev=253&amp;view=diff&amp;r1=253&amp;r2=252</A>
+   U	ser_ims/trunk/modules/scscf/cx_avp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/cx_avp.h?rev=253&amp;view=diff&amp;r1=253&amp;r2=252">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/cx_avp.h?rev=253&amp;view=diff&amp;r1=253&amp;r2=252</A>
+   U	ser_ims/trunk/modules/scscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=253&amp;view=diff&amp;r1=253&amp;r2=252">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=253&amp;view=diff&amp;r1=253&amp;r2=252</A>
+   U	ser_ims/trunk/modules/scscf/registrar.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.c?rev=253&amp;view=diff&amp;r1=253&amp;r2=252">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.c?rev=253&amp;view=diff&amp;r1=253&amp;r2=252</A>
+   U	ser_ims/trunk/modules/scscf/registrar.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.h?rev=253&amp;view=diff&amp;r1=253&amp;r2=252">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.h?rev=253&amp;view=diff&amp;r1=253&amp;r2=252</A>
+   U	ser_ims/trunk/modules/scscf/registrar_storage.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.c?rev=253&amp;view=diff&amp;r1=253&amp;r2=252">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.c?rev=253&amp;view=diff&amp;r1=253&amp;r2=252</A>
+   U	ser_ims/trunk/modules/scscf/registrar_storage.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.h?rev=253&amp;view=diff&amp;r1=253&amp;r2=252">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.h?rev=253&amp;view=diff&amp;r1=253&amp;r2=252</A>
+   U	ser_ims/trunk/modules/scscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registration.c?rev=253&amp;view=diff&amp;r1=253&amp;r2=252">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registration.c?rev=253&amp;view=diff&amp;r1=253&amp;r2=252</A>
+   U	ser_ims/trunk/modules/scscf/registration.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registration.h?rev=253&amp;view=diff&amp;r1=253&amp;r2=252">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registration.h?rev=253&amp;view=diff&amp;r1=253&amp;r2=252</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000527.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Support	Globally Routable User URIs
+</A></li>
+	<LI>Next message: <A HREF="000531.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r254 - Commited safety patch for	cdp module provided by Marius Patea.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#528">[ date ]</a>
+              <a href="thread.html#528">[ thread ]</a>
+              <a href="subject.html#528">[ subject ]</a>
+              <a href="author.html#528">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

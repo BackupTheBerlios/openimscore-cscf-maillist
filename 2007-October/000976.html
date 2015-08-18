@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ISC and P-Asserted-Identity
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ISC%20and%20P-Asserted-Identity&In-Reply-To=%3CCE74D45C9564494998E85AE3C4CA3E3501BAAB5A%40hb-altair.hb.buc.materna.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000981.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ISC and P-Asserted-Identity</H1>
+    <B>Stefan.Brozinski at materna.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ISC%20and%20P-Asserted-Identity&In-Reply-To=%3CCE74D45C9564494998E85AE3C4CA3E3501BAAB5A%40hb-altair.hb.buc.materna.com%3E"
+       TITLE="[OpenIMSCore-CSCF] ISC and P-Asserted-Identity">Stefan.Brozinski at materna.de
+       </A><BR>
+    <I>Mon Oct  1 18:28:12 CEST 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000981.html">[OpenIMSCore-CSCF] ISC and P-Asserted-Identity
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#976">[ date ]</a>
+              <a href="thread.html#976">[ thread ]</a>
+              <a href="subject.html#976">[ subject ]</a>
+              <a href="author.html#976">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello everybody,
+
+on ISC (the interface between the S-CSCF and an AS), the S-CSCF shall
+make sure that some SIP requests that are passed to the AS have *two*
+P-Asserted-Identity headers: One with a SIP URI, one with a TEL URI.
+
+The condition is: If the user is using a service profile that is
+associated with a SIP URI as well as with a TEL URI, both
+P-Asserted-Identity headers shall be present.
+
+
+As far as I see, OpenIMSCore doesn't fully support this (yet).
+
+
+Here is a short excerpt from the spec.
+
+--- begin 24.229 V7.7.0 ---
+
+5.4.3 General treatment for all dialogs and standalone transactions
+excluding requests terminated by the S-CSCF
+
+[...]
+
+5.4.3.2 Requests initiated by the served user
+
+When the S-CSCF receives from the served user or from a PSI an initial
+request for a dialog or a request for a standalone transaction
+
+[...]
+
+the S-CSCF shall:
+
+
+[...]
+
+9) if there is no original dialog identifier present in the topmost
+Route header of the incoming request and if the SCSCF has knowledge that
+the SIP URI contained in the received P-Asserted-Identity header is an
+alias SIP URI for a tel URI, add a second P-Asserted-Identity header
+containing this tel-URI, including the display name associated with the
+tel URI, if available.
+
+If the P-Asserted-Identity header contains only a tel URI, the S-CSCF
+shall add a second P-Asserted-Identity header containing a SIP URI. The
+added SIP URI shall contain in the user part a &quot;+&quot; followed by the
+international public telecommunication number contained in tel URI, and
+user's home domain name in the hostport part. The added SIP URI shall
+contain the same value in the display name as contained in the tel URI.
+The S-CSCF shall also add a user parameter equals &quot;phone&quot; to the SIP
+URI;
+
+NOTE 4: The S-CSCF recognizes that a given SIP URI is an alias SIP URI
+of a tel URI, since they have the same service profile and belong to the
+same set of implicitly registered public user identities. If tel URI is
+shared URI so is the alias SIP URI.
+
+[...]
+
+--- end 24.229 V7.7.0 ---
+
+
+More from the spec: A useful example which illustrates this behaviour is
+given in 24.341 V7.1.0, Table B.5-3. Note that in table B.5-2, where the
+same SIP request is passed from the P-CSCF to the S-CSCF, there is only
+a SIP URI present. On the next leg (between S-CSCF and AS) there are
+both SIP URI and TEL URI present.
+
+
+Now, back to OpenIMSCore.
+
+I have looked through the source code and found something interesting in
+'scscf/registrar.c': OpenIMSCore's function &quot;S_add_p_asserted_identity&quot;
+seems to be close but not complete.
+
+(a) It handles a special case (&quot;sip:+1234567&quot; -&gt; &quot;tel:+1234567&quot;) which I
+wasn't aware of (and I can't find it in the spec).
+
+(b) It also looks like it can handle &quot;tel:+1234567&quot; -&gt;
+&quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user_public at open_ims.test</A>&quot;, but I have not had a good test
+environment yet to prove this.
+
+(c) It does NOT seem to have any support for
+&quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user_public at open_ims.test</A>&quot; -&gt; &quot;tel:+1234567&quot;. Unfortunately, this
+is what interests me most at the moment and how I got aware of this
+problem.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000981.html">[OpenIMSCore-CSCF] ISC and P-Asserted-Identity
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#976">[ date ]</a>
+              <a href="thread.html#976">[ thread ]</a>
+              <a href="subject.html#976">[ subject ]</a>
+              <a href="author.html#976">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

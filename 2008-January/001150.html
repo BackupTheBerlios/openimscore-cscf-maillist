@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Disable DNS resolving of hostname on P-CSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Disable%20DNS%20resolving%20of%20hostname%20on%20P-CSCF&In-Reply-To=%3C47975CF9.8070908%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001146.html">
+   <LINK REL="Next"  HREF="001147.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Disable DNS resolving of hostname on P-CSCF</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Disable%20DNS%20resolving%20of%20hostname%20on%20P-CSCF&In-Reply-To=%3C47975CF9.8070908%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Disable DNS resolving of hostname on P-CSCF">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Jan 23 16:27:53 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001146.html">[OpenIMSCore-CSCF] Disable DNS resolving of hostname on P-CSCF
+</A></li>
+        <LI>Next message: <A HREF="001147.html">[OpenIMSCore-CSCF] Patch: Expire Header Evaluation
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1150">[ date ]</a>
+              <a href="thread.html#1150">[ thread ]</a>
+              <a href="subject.html#1150">[ subject ]</a>
+              <a href="author.html#1150">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Nick,
+
+My responses inlined below...
+
+
+Nick.Burmester wrote:
+&gt;<i> I think we &quot;talk&quot; at cross :-),  in the most facts you write before i fully
+</I>&gt;<i> agree.
+</I>&gt;<i>   
+</I>it's email and this is the only way it works ;-).
+&gt;<i> So the client will send a Register to our P-CSCF and our P-CSCF should send this
+</I>&gt;<i> register to our I-CSCF but now there should be the change.
+</I>&gt;<i>   
+</I>Here I don't see what the purpose of your first I-CSCF is. According to
+the IMS standards, the I-CSCF does not do this kind of work. If you just
+want to route all your messages from the P-CSCF through and IBCF, then
+why don't you just add a Route header to the message in the P-CSCF???
+and send the message there by normal SIP routing procedures? Check the
+Service-Route and Path RFCs and see that there can be multiple values in
+these headers, including such an IBCF. The IBCF is actually included I
+think since 3GPP Rel7 (you might reinvent the wheel there, but I don't
+know for sure). I fail to see why you still need that I-CSCF and you
+also need to hijack DNS, to a broadcast and things like that.
+&gt;<i> The I-CSCF notice that this Register can not processed by our S-CSCF because we
+</I>&gt;<i> dont know the network and so our S-CSCF don't has the User-Profile.
+</I>&gt;<i>   
+</I>Is this done through UAR and actually the HSS &quot;notices&quot; it? If yes, I
+think it's just wasted resources on one extra signaling. Normally, the
+standards are thought to use DNS to redirect all the domain queries like
+the one for the REGISTER's Request-URI towards I-CSCFs that are
+responsible for those domains. This information is stored in DNS, so
+it's accessible also by the P-CSCF or the IBCF, which can directly make
+a decision, without a pseudo-I-CSCF in the middle.
+&gt;<i> So the the I-CSCF should look in a database if there is an entry for the network
+</I>&gt;<i>  [open-ims.sk] and a IBCF.
+</I>&gt;<i>   
+</I>The IBCF can do this without your pseudo-I-CSCF I think...
+&gt;<i> It is the same process like to discover a S-CSCF.
+</I>&gt;<i>   
+</I>not really. the S-CSCFs are per subscriber while the I-CSCF is per
+domain. Little-big difference that eliminates the need to query the
+sensitive HSS from the operation.
+&gt;<i> for example in the database is an entry open-ims.sk --&gt; ibcf1.open-ims.test
+</I>&gt;<i>   
+</I>Sorry, but you are just describing DNS. As I said, it's up to you if you
+want to re-implement DNS, but you'll have to think again about all its
+features.
+&gt;<i> so the I-CSCF will send the Register to the ibcf1.open-ims.test which is
+</I>&gt;<i> connected over a gateway to ibcfxy.open-ims.sk.
+</I>&gt;<i> The Gateway will secure the connections between the IBCFs (VPN, IPSec etc.)
+</I>&gt;<i> the IBCF will filtering informations that the other network doesn't need.
+</I>&gt;<i> for example the Via headers to hide the inner network topologies.
+</I>&gt;<i>   
+</I>we have this already, but as this was developed a looong time ago, it's
+part of the I-CSCF. The THIG functionality needs just to be extracted
+from there and called &quot;IBCF&quot;. It will work for either if you put it
+after the P-CSCF or before the I-CSCF, at any entry/exit-point from your
+network. As I remember, even the Service-Route/Path things have been
+integrated...
+
+&gt;<i> Or adding additional Informations (AAA etc. )
+</I>&gt;<i>
+</I>&gt;<i> If there is no entry in the database the I-CSCF should send a DNS query to all
+</I>&gt;<i> known IBCFs. if the resolve has success the I-CSCF will write an entry for the 
+</I>&gt;<i>  network and IBCF in the database.
+</I>&gt;<i>   
+</I>I think that this is exactly what I said before regarding your attempt
+to close the network with a proprietary discovery procedure. What is the
+problem with DNS? It can be secured, if you are concerned about that...
+&gt;<i> (I hope that this outlines will displayed right)
+</I>&gt;<i>
+</I>&gt;<i> UE---&gt;P-CSCF--&gt;I-CSCF---&gt;IBCF--&gt;Gateway&lt;-----&gt;Gateway---&gt;IBCF---&gt;I-CSCF--&gt;S-CSCF
+</I>&gt;<i>   
+</I>Got it... Now again, what does the first I-CSCF do that the P-CSCF won't
+be able to do by just adding a Route: IBCF to all initial requests going
+out of your home network?
+&gt;<i>
+</I>&gt;<i> ibcf1.open-ims.test ---&gt;open-ims.sk
+</I>&gt;<i> ibcf2.open-ims.test ---&gt;open-ims.fr
+</I>&gt;<i> .
+</I>&gt;<i> .
+</I>&gt;<i> .
+</I>&gt;<i>
+</I>&gt;<i> Perhaps there could be another peering scenario with a peering network where all
+</I>&gt;<i> IMS networks are connected and a central DNS register. But at the moment we
+</I>&gt;<i> trying only to connect only one network over each IBCF.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> (I hope that this outlines will displayed right)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>                (open-ims.fr)
+</I>&gt;<i> UE---&gt;P-CSCF--&gt;I-CSCF---&gt;IBCF--&gt;Gateway&lt;-------
+</I>&gt;<i>                                               |
+</I>&gt;<i>                                               |
+</I>&gt;<i>                                               V
+</I>&gt;<i> UE---&gt;P-CSCF--&gt;I-CSCF---&gt;IBCF--&gt;Gateway&lt;---&gt;(DNS)&lt;---&gt;Gateway---&gt;IBCF---&gt;I-CSCF--&gt;S-CSCF
+</I>&gt;<i>                (open-ims.test)                                  (open-ims.sk)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I hope that you now understand why I want disable the the DNS resolving in the
+</I>&gt;<i> P-CSCF (and only in the P-CSCF).
+</I>&gt;<i>   
+</I>I still think that there is no blocking reason for disabling DNS in the
+P-CSCF. If you want to pipe your signaling through an IBCF, which is a
+SIP proxy, then use a SIP way of doing it - insert a Route with the IBCF.
+&gt;<i> At the moment my changes at the I-CSCF dont working because packets from
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A> dont pass the P-CSCF:  because the network cant resolve by DNS.
+</I>&gt;<i>   
+</I>if you have a route, then it will go to the first route not to the
+request-uri.... that I think you can DNS resolve.
+
+Cheers,
+-Dragos
+&gt;<i> I manipulated the DNS Server so that the Domain open-ims.sk will resolved to
+</I>&gt;<i> pass the P-CSCF, but this was only a test to see what is happen on the changed
+</I>&gt;<i> I-CSCF.
+</I>&gt;<i> For future it would be easier for me to deactivate the DNS resolving on P-CSCF.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> with best regards
+</I>&gt;<i> Nick Burmester
+</I>&gt;<i>
+</I>&gt;<i> sorry for my bad english :-)
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001146.html">[OpenIMSCore-CSCF] Disable DNS resolving of hostname on P-CSCF
+</A></li>
+	<LI>Next message: <A HREF="001147.html">[OpenIMSCore-CSCF] Patch: Expire Header Evaluation
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1150">[ date ]</a>
+              <a href="thread.html#1150">[ thread ]</a>
+              <a href="subject.html#1150">[ subject ]</a>
+              <a href="author.html#1150">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

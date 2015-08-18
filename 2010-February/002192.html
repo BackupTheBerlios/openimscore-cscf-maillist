@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] CSCF source address selection
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20CSCF%20source%20address%20selection&In-Reply-To=%3C4B85205F.8030901%40ip-solutions.se%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002191.html">
+   <LINK REL="Next"  HREF="002193.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] CSCF source address selection</H1>
+    <B>Kenneth L&#246;fstrand</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20CSCF%20source%20address%20selection&In-Reply-To=%3C4B85205F.8030901%40ip-solutions.se%3E"
+       TITLE="[OpenIMSCore-CSCF] CSCF source address selection">kenneth at ip-solutions.se
+       </A><BR>
+    <I>Wed Feb 24 13:49:35 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002191.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r916 - cdp documentation fixes
+</A></li>
+        <LI>Next message: <A HREF="002193.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r917 - Moved the current_spi	counter to shm,	so that it is visible and changed by all processes. Added a lock_spi	although not much is added.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2192">[ date ]</a>
+              <a href="thread.html#2192">[ thread ]</a>
+              <a href="subject.html#2192">[ subject ]</a>
+              <a href="author.html#2192">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi
+I would like to use different address spaces in my access network and 
+the core network. My P-CSCF is configured to listen to 10.1.0.10 
+(access) as well as 172.28.0.10 (core). What happens when I send a 
+request from a client on the access network to the access address of the 
+P-CSCF it becomes forwarded to the core network also using the access 
+address, e.g.
+
+Register from 10.1.0.99 ---&gt; 10.1.0.10 becomes forwarded as
+Register from 10.1.0.10 ---&gt; 172.28.0.10
+
+I would like to see that the P-CSCF used the core address when 
+forwarding towards the core network. Is it possible make that happen 
+through the configuration file?
+
+The same thing happens in the opposite direction, when forwarding the 
+request the P-CSCF uses the source address of the core network instead 
+of the access address.
+
+Regards
+Kenneth L&#246;fstrand
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002191.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r916 - cdp documentation fixes
+</A></li>
+	<LI>Next message: <A HREF="002193.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r917 - Moved the current_spi	counter to shm,	so that it is visible and changed by all processes. Added a lock_spi	although not much is added.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2192">[ date ]</a>
+              <a href="thread.html#2192">[ thread ]</a>
+              <a href="subject.html#2192">[ subject ]</a>
+              <a href="author.html#2192">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

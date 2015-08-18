@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Detecting AS failure
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Detecting%20AS%20failure&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C025A2BA4%40INOAVREX05.ptin.corpPT.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000559.html">
+   <LINK REL="Next"  HREF="000575.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Detecting AS failure</H1>
+    <B>Jos&#233; Carlos Amorim</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Detecting%20AS%20failure&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C025A2BA4%40INOAVREX05.ptin.corpPT.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Detecting AS failure">jose-c-amorim at ptinovacao.pt
+       </A><BR>
+    <I>Mon May  7 16:09:30 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000559.html">[OpenIMSCore-CSCF] problem while connecting weblogic with openIMS
+</A></li>
+        <LI>Next message: <A HREF="000575.html">[OpenIMSCore-CSCF] Detecting AS failure
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#560">[ date ]</a>
+              <a href="thread.html#560">[ thread ]</a>
+              <a href="subject.html#560">[ subject ]</a>
+              <a href="author.html#560">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+ 
+
+In the sequence of tests with our AS's I found that &quot;isc_failure&quot; function was considering 408 and 480 responses as failures to contact the AS, which is not in accordance with 24.229, since the specification says &quot;If the S-CSCF fails to receive a SIP response or receives a 408 (Request Timeout) response or a 5xx response from the AS, the S-CSCF shall:...&quot;. 
+
+ 
+
+In my case I switched the following line:
+
+if (ps-&gt;code!=408 &amp;&amp; ps-&gt;code!=480) {
+
+with this one:
+
+if (ps-&gt;code!=408 &amp;&amp; (ps-&gt;code/100!=5)){
+
+ 
+
+Regards,
+
+Jos&#233; Carlos Silva
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070507/f6ed435d/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070507/f6ed435d/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000559.html">[OpenIMSCore-CSCF] problem while connecting weblogic with openIMS
+</A></li>
+	<LI>Next message: <A HREF="000575.html">[OpenIMSCore-CSCF] Detecting AS failure
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#560">[ date ]</a>
+              <a href="thread.html#560">[ thread ]</a>
+              <a href="subject.html#560">[ subject ]</a>
+              <a href="author.html#560">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

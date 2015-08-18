@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] loose_route behaviour,	detecting single Route with myself
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20loose_route%20behaviour%2C%0A%09detecting%20single%20Route%20with%20myself&In-Reply-To=%3Cb33002040706191055i4f3ac886q58a240e485bca53d%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000744.html">
+   <LINK REL="Next"  HREF="000769.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] loose_route behaviour,	detecting single Route with myself</H1>
+    <B>JF</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20loose_route%20behaviour%2C%0A%09detecting%20single%20Route%20with%20myself&In-Reply-To=%3Cb33002040706191055i4f3ac886q58a240e485bca53d%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] loose_route behaviour,	detecting single Route with myself">jfkavaka at gmail.com
+       </A><BR>
+    <I>Tue Jun 19 19:55:19 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000744.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r323 - Fixed bug observed by	Stefan Spodniak: the SIP-Authorization AVP in MAR was	RAND|AUTN|AUTS instead of RAND|AUTS.
+</A></li>
+        <LI>Next message: <A HREF="000769.html">[OpenIMSCore-CSCF] [Serusers] loose_route behaviour,	detecting single Route with	myself
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#745">[ date ]</a>
+              <a href="thread.html#745">[ thread ]</a>
+              <a href="subject.html#745">[ subject ]</a>
+              <a href="author.html#745">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+
+When SER receives an INVITE with a single Route header pointing to
+itself, it's supposed to delete it and process the message as if no
+Route header was there in the first place. This is what RFC3261
+mandates, right?
+
+But currently the loose_route function returns true to the script in
+this case, just like when more Route headers are present.
+
+So I have some routing logic for when no Route headers are present,
+and if I want to apply the same routing logic to the case when there
+is a single Route header pointing to myself (naturally, as it's the
+same as if no Route header was present), I currently have to replicate
+the same routing logic inside the if (loose_route())...
+
+Or is there an other way? Do I have to develop my own module function
+or use some regexp search from the script to detect if there are more
+Routes besides myself before I call loose_route?
+
+The best would be to change loose_route to return false and just
+remove the Route header pointing to myself when there are no more
+Route headers in the message... what do you think?
+
+JF
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000744.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r323 - Fixed bug observed by	Stefan Spodniak: the SIP-Authorization AVP in MAR was	RAND|AUTN|AUTS instead of RAND|AUTS.
+</A></li>
+	<LI>Next message: <A HREF="000769.html">[OpenIMSCore-CSCF] [Serusers] loose_route behaviour,	detecting single Route with	myself
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#745">[ date ]</a>
+              <a href="thread.html#745">[ thread ]</a>
+              <a href="subject.html#745">[ subject ]</a>
+              <a href="author.html#745">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

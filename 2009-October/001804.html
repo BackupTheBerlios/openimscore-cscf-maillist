@@ -1,0 +1,994 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] PCSCF rejects CANCEL with 403 Forbidden -You	must register first with a S-CSCF when ECSCF and LRF is configured
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PCSCF%20rejects%20CANCEL%20with%20403%20Forbidden%20-You%0A%09must%20register%20first%20with%20a%20S-CSCF%20when%20ECSCF%20and%20LRF%20is%20configured&In-Reply-To=%3Ca0ccca020910010843w50994a42u527d59acf8afa3a9%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001803.html">
+   <LINK REL="Next"  HREF="001805.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] PCSCF rejects CANCEL with 403 Forbidden -You	must register first with a S-CSCF when ECSCF and LRF is configured</H1>
+    <B>Sathiyamoorthy natarajan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PCSCF%20rejects%20CANCEL%20with%20403%20Forbidden%20-You%0A%09must%20register%20first%20with%20a%20S-CSCF%20when%20ECSCF%20and%20LRF%20is%20configured&In-Reply-To=%3Ca0ccca020910010843w50994a42u527d59acf8afa3a9%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] PCSCF rejects CANCEL with 403 Forbidden -You	must register first with a S-CSCF when ECSCF and LRF is configured">n.sathiyamoorthy at gmail.com
+       </A><BR>
+    <I>Thu Oct  1 17:43:10 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001803.html">[OpenIMSCore-CSCF] PCSCF rejects CANCEL with 403 Forbidden -You	must register first with a S-CSCF when ECSCF and LRF is configured
+</A></li>
+        <LI>Next message: <A HREF="001805.html">[OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 36, Issue 2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1804">[ date ]</a>
+              <a href="thread.html#1804">[ thread ]</a>
+              <a href="subject.html#1804">[ subject ]</a>
+              <a href="author.html#1804">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Ancuta,
+Thanks for your reply.
+Here with this mail I just attached the configuration file pcscf.cfg.
+
+Last time attached which is not attached properly Hence pasting
+directly to mail.
+
+#
+# $Id: pcscf.cfg 720 2009-08-13 12:15:37Z aon $
+#
+# Proxy - CSCF configuration script
+#
+
+# ----------- global configuration parameters ------------------------
+
+debug=4
+log_stderror=yes
+memlog=5
+sip_warning=yes
+
+fork=yes
+children=4
+
+
+listen=172.16.8.234
+port=4060
+
+# Uncomment here to enable TLS!
+#listen=tls:172.16.8.234
+#tls_port_no=4061
+#enable_tls=yes
+
+alias=&quot;pcscf.open-ims.test&quot;:4060
+
+check_via=no		# (cmd. line: -v)
+dns=no			# (cmd. line: -r)
+rev_dns=no		# (cmd. line: -R)
+
+# ------------------ module loading ----------------------------------
+
+
+loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/sl/sl.so&quot;
+loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/tm/tm.so&quot;
+loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/dialog/dialog.so&quot;
+loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/rr/rr.so&quot;
+loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/maxfwd/maxfwd.so&quot;
+loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/textops/textops.so&quot;
+
+loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/pcscf/pcscf.so&quot;
+
+modparam(&quot;pcscf&quot;,&quot;name&quot;,&quot;sip:pcscf.open-ims.test:4060&quot;)
+
+modparam(&quot;pcscf&quot;,&quot;registrar_hash_size&quot;,256)
+modparam(&quot;pcscf&quot;,&quot;reginfo_dtd&quot;,&quot;/opt/OpenIMSCore/ser_ims/modules/pcscf/reginfo.dtd&quot;)
+
+modparam(&quot;pcscf&quot;,&quot;subscriptions_hash_size&quot;,256)
+
+modparam(&quot;pcscf&quot;,&quot;dialogs_hash_size&quot;,256)
+modparam(&quot;pcscf&quot;,&quot;dialogs_expiration_time&quot;,3600)
+modparam(&quot;pcscf&quot;,&quot;dialogs_enable_release&quot;,1)
+modparam(&quot;pcscf&quot;,&quot;max_dialog_count&quot;,20000)
+modparam(&quot;pcscf&quot;,&quot;min_se&quot;,90)
+
+modparam(&quot;pcscf&quot;,&quot;use_ipsec&quot;,1)
+modparam(&quot;pcscf&quot;,&quot;ipsec_host&quot;,&quot;172.16.8.234&quot;)
+modparam(&quot;pcscf&quot;,&quot;ipsec_port_c&quot;,4060)
+modparam(&quot;pcscf&quot;,&quot;ipsec_port_s&quot;,4060)
+
+# Comment here to enable TLS!
+modparam(&quot;pcscf&quot;,&quot;use_tls&quot;,0)
+# Uncomment here to enable TLS!
+#modparam(&quot;pcscf&quot;,&quot;use_tls&quot;,1)
+#modparam(&quot;pcscf&quot;,&quot;tls_port&quot;,4061)
+
+modparam(&quot;pcscf&quot;,&quot;ipsec_P_Inc_Req&quot;,&quot;/opt/OpenIMSCore/ser_ims/modules/pcscf/ipsec_P_Inc_Req.sh&quot;)
+modparam(&quot;pcscf&quot;,&quot;ipsec_P_Out_Rpl&quot;,&quot;/opt/OpenIMSCore/ser_ims/modules/pcscf/ipsec_P_Out_Rpl.sh&quot;)
+modparam(&quot;pcscf&quot;,&quot;ipsec_P_Out_Req&quot;,&quot;/opt/OpenIMSCore/ser_ims/modules/pcscf/ipsec_P_Out_Req.sh&quot;)
+modparam(&quot;pcscf&quot;,&quot;ipsec_P_Inc_Rpl&quot;,&quot;/opt/OpenIMSCore/ser_ims/modules/pcscf/ipsec_P_Inc_Rpl.sh&quot;)
+modparam(&quot;pcscf&quot;,&quot;ipsec_P_Drop&quot;,&quot;/opt/OpenIMSCore/ser_ims/modules/pcscf/ipsec_P_Drop.sh&quot;)
+
+modparam(&quot;pcscf&quot;,&quot;NAT_enable&quot;, 1)
+modparam(&quot;pcscf&quot;,&quot;ping&quot;, 1)
+modparam(&quot;pcscf&quot;,&quot;ping_all&quot;, 0)
+modparam(&quot;pcscf&quot;,&quot;nat_detection_type&quot;, 0x17)
+modparam(&quot;pcscf&quot;,&quot;rtpproxy_socket&quot;, &quot;udp:172.16.8.234:34999&quot;)
+modparam(&quot;pcscf&quot;,&quot;rtpproxy_enable&quot;, 0)
+modparam(&quot;pcscf&quot;,&quot;rtpproxy_disable_tout&quot;, 60)
+modparam(&quot;pcscf&quot;,&quot;rtpproxy_retr&quot;, 5)
+modparam(&quot;pcscf&quot;,&quot;rtpproxy_tout&quot;, 1)
+
+
+modparam(&quot;pcscf&quot;,&quot;subscribe_retries&quot;, 1)
+
+modparam(&quot;pcscf&quot;,&quot;assert_fallback&quot;, 0)
+
+modparam(&quot;pcscf&quot;,&quot;icid_value_prefix&quot;,&quot;P-CSCFabcd&quot;)
+modparam(&quot;pcscf&quot;,&quot;icid_gen_addr&quot;,&quot;172.16.8.234&quot;)
+modparam(&quot;pcscf&quot;,&quot;orig_ioi&quot;,&quot;open-ims.test&quot;)
+modparam(&quot;pcscf&quot;,&quot;term_ioi&quot;,&quot;open-ims.test&quot;)
+
+# persistency_mode - 0 None / 1 Files / 2 Databases
+modparam(&quot;pcscf&quot;,&quot;persistency_mode&quot;,0)
+
+#modparam(&quot;pcscf&quot;,&quot;persistency_mode&quot;,1)
+#modparam(&quot;pcscf&quot;,&quot;persistency_location&quot;,&quot;/opt/OpenIMSCore/persistency&quot;)
+#modparam(&quot;pcscf&quot;,&quot;persistency_timer_dialogs&quot;,60)
+#modparam(&quot;pcscf&quot;,&quot;persistency_timer_registrar&quot;,60)
+#modparam(&quot;pcscf&quot;,&quot;persistency_timer_subscriptions&quot;,60)
+
+
+# e2 Interface configuration (NASS-Bundled Authentication)
+#modparam(&quot;pcscf&quot;,&quot;forced_clf_peer&quot;,&quot;clf.open-ims.test&quot;)
+modparam(&quot;pcscf&quot;,&quot;use_e2&quot;,0)
+
+# Uncomment here to enable the e2 interface (NASS-Bundled Authentication)
+#loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/cdp/cdp.so&quot;
+#modparam(&quot;cdp&quot;, &quot;config_file&quot;, &quot;/opt/OpenIMSCore/pcscf.xml&quot;)
+
+
+# -- rr params --
+# add value to ;lr param to make some broken UAs happy
+modparam(&quot;rr&quot;, &quot;enable_full_lr&quot;, 1)
+
+# Uncomment here to enable TLS!
+#loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/tls/tls.so&quot;
+
+#modparam(&quot;tls&quot;, &quot;tls_method&quot;, &quot;TLSv1&quot;)
+#modparam(&quot;tls&quot;, &quot;private_key&quot;,
+&quot;/opt/OpenIMSCore/PCSCF_CA/pcscf_private_key.pem&quot;)
+#modparam(&quot;tls&quot;, &quot;certificate&quot;, &quot;/opt/OpenIMSCore/PCSCF_CA/pcscf_cert.pem&quot;)
+#modparam(&quot;tls&quot;, &quot;ca_list&quot;, &quot;/opt/OpenIMSCore/PCSCF_CA/pcscf_ca_list.pem&quot;)
+#modparam(&quot;tls&quot;, &quot;verify_certificate&quot;, 1)
+#modparam(&quot;tls&quot;, &quot;require_certificate&quot;, 0)
+#modparam(&quot;tls&quot;, &quot;tls_disable_compression&quot;, 1)
+
+#set the emergency support: 0 for disable and 1 for enable
+modparam(&quot;pcscf&quot;,&quot;emerg_support&quot;,1)
+modparam(&quot;pcscf&quot;,&quot;anonym_em_call_support&quot;,1)
+modparam(&quot;pcscf&quot;,&quot;ecscf_uri&quot;, &quot;sip:ecscf.open-ims.test:7060&quot;)
+
+# -------------------------  request routing logic -------------------
+
+# main routing logic
+
+route{
+	
+	route(Sanity_Checks);
+		
+	force_rport();
+	
+	# Early-IMS checks
+	if (!P_check_via_sent_by()){
+		P_add_via_received();		
+	}
+	
+	if (method==&quot;REGISTER&quot;) {
+		route(REGISTER);
+		break;
+	}
+# Only allow REGISTER as unprotected message 	
+#	else {
+#		if (!P_is_integrity_protected()){
+#			append_to_reply(&quot;Proxy-Require: sec-agree\r\n&quot;);
+#			sl_send_reply(&quot;494&quot;,&quot;Security Agreement Required&quot;);
+#			exit;
+#		}
+#	}
+
+	if (method==&quot;NOTIFY&quot;&amp;&amp;uri==myself){
+		route(NOTIFY);
+		break;
+	}
+		
+	if (!P_mobile_terminating()){
+		
+		# Request Initiated by the UE
+		
+		
+		if (P_is_in_dialog(&quot;orig&quot;)){
+			if (method!=&quot;CANCEL&quot;) route(Orig_Subsequent);
+			else route(Orig_Standalone);
+			break;
+		}
+		
+		if (P_is_in_dialog(&quot;term&quot;)){
+			if (method!=&quot;CANCEL&quot;) route(Term_Subsequent);
+			else route(Orig_Standalone);
+			break;
+		}
+				
+		# No dialog yet - ACK not relayed as hop-to-hop
+		if (method==&quot;ACK&quot;){
+			t_release();
+			break;
+		}else						
+		if (method==&quot;INVITE&quot; || method==&quot;SUBSCRIBE&quot;){
+			route(Orig_Initial);
+			break;
+		}else{
+			if (method==&quot;UPDATE&quot;){
+				sl_send_reply(&quot;403&quot;,&quot;Forbidden - Target refresh outside dialog not
+allowed&quot;);
+				break;
+			}
+			if (method==&quot;BYE&quot; || method==&quot;PRACK&quot;){
+				sl_send_reply(&quot;403&quot;,&quot;Forbidden - Originating subsequent requests
+outside dialog not allowed&quot;);
+				break;
+			}
+			route(Orig_Standalone);
+			break;
+		}
+		
+	}else{
+
+		# TODO - check if this does come from an UE and that UE is unregistered
+		
+		# Request Terminated by the UE
+		
+		if (!P_is_in_dialog(&quot;term&quot;) &amp;&amp;
+			(method==&quot;INVITE&quot; || method==&quot;SUBSCRIBE&quot;)){
+			route(Term_Initial);
+			break;
+		} else {
+			if (P_is_in_dialog(&quot;term&quot;)){
+				if (method!=&quot;CANCEL&quot;) route(Term_Subsequent);
+				else route(Term_Standalone);
+				break;
+			}else{
+				if (method==UPDATE){
+					sl_send_reply(&quot;403&quot;,&quot;Forbidden - Target refresh outside dialog
+not allowed&quot;);
+					break;
+				}
+				if (method==&quot;BYE&quot; || method==&quot;ACK&quot; || method==&quot;PRACK&quot;){
+					sl_send_reply(&quot;403&quot;,&quot;Forbidden - Terminating subsequent requests
+outside dialog not allowed&quot;);
+					break;
+				}				
+				route(Term_Standalone);
+				break;
+			}
+		}		
+		break;
+	}
+
+}
+
+route[Sanity_Checks]
+{
+	# initial sanity checks -- messages with
+	# max_forwards==0, or excessively long requests
+	if (!mf_process_maxfwd_header(&quot;10&quot;)) {
+		sl_send_reply(&quot;483&quot;,&quot;Too Many Hops&quot;);
+		exit;
+	};
+	
+	if (msg:len &gt;=  max_len ) {
+		sl_send_reply(&quot;513&quot;, &quot;Message too big&quot;);
+		exit;
+	};
+
+	if(@hf_value.max_forwards==&quot;0&quot;){
+		
+		exit;
+	}
+}
+
+route[Check_Session_Expires]
+{
+	if (!P_check_session_expires())	{
+		P_422_session_expires();
+		exit;
+	};		
+}	
+
+
+route[REGISTER_494]
+{
+	append_to_reply(&quot;Proxy-Require: sec-agree\r\n&quot;);
+	t_reply(&quot;494&quot;,&quot;Security Agreement Required&quot;);
+}
+
+route[REGISTER]
+{
+
+	log(1,&quot;Got a REGISTER\n&quot;);
+	
+    t_newtran();
+
+	if(P_emergency_flag()){
+		log(1, &quot;&gt;&gt; emergency flag in REGISTER\n&quot;);
+		if(!P_emergency_serv_enabled()){	
+			P_380_em_alternative_serv(&quot;no Emergency Services support at this PCSCF&quot;);
+			t_reply(&quot;503&quot;, &quot;Service Unavailable&quot;);
+			exit;	
+		}
+    }
+
+	if (!P_verify_security()) {
+		route(REGISTER_494);
+		break;
+	};
+	if (!P_is_integrity_protected()){
+		#Variant 1 - accept also non IPSec clients
+		P_remove_security_client();
+		
+		#Variant 2 - accept only IPSec clients
+		#if (!P_remove_security_client()){
+		#	route(REGISTER_494);
+		#	break;
+		#}
+		P_add_integrity_protected(&quot;no&quot;);
+	}else{
+		if (!P_remove_security_verify()||!P_remove_security_client()){
+			route(REGISTER_494);		
+			break;
+		}
+		P_add_integrity_protected(&quot;yes&quot;);
+	};
+
+	P_remove_header_tag(&quot;Require&quot;,&quot;sec-agree&quot;);
+	P_remove_header_tag(&quot;Proxy-Require&quot;,&quot;sec-agree&quot;);
+	P_remove_security_verify();
+	P_add_path();
+	P_add_require();
+	P_add_p_charging_vector();
+	P_add_p_visited_network_id(&quot;open-ims.test&quot;);
+	
+	# trigger the UDR on the e2 interface (NASS-Bundled Authentication)
+	P_access_network_info(&quot;open-ims.test&quot;);
+
+	t_on_reply(&quot;REGISTER_reply&quot;);
+	t_on_failure(&quot;REGISTER_failure&quot;);
+		
+	if (!t_relay()) {
+		sl_send_reply(&quot;500&quot;,&quot;Error forwarding to Home Domain&quot;);
+		break;
+	};
+}
+
+onreply_route[REGISTER_reply]
+{
+	#log(-1,&quot;Got a response for REGISTER!!!\n&quot;);
+	if (t_check_status(&quot;401&quot;)){
+		if (!P_remove_ck_ik()){
+#			t_reply(&quot;500&quot;,&quot;P-CSCF Error on hiding CK, IK&quot;);
+			break;
+		}
+		P_security_401();
+	}
+	if (t_check_status(&quot;200&quot;)){
+		if (!P_save_location()){
+#			t_reply(&quot;500&quot;,&quot;P-CSCF Error on saving location&quot;);
+			break;
+		}		
+		P_security_200();
+		P_subscribe();
+	}
+	if (!P_security_relay()) 	
+		P_NAT_relay();
+	exit;	
+}
+
+failure_route[REGISTER_failure]
+{
+	#log(-1,&quot;Got a failure for REGISTER!!!\n&quot;);
+	if (t_check_status(&quot;408&quot;))
+		t_reply(&quot;504&quot;,&quot;Server Time-Out&quot;);
+}
+
+
+
+
+route[NOTIFY]
+{
+	if ( !t_newtran()) {
+		sl_reply_error();
+		break;
+	}		
+	if (P_process_notification()) {
+		t_reply(&quot;200&quot;,&quot;OK - P-CSCF processed notification&quot;);
+		break;
+	}else{
+		t_reply(&quot;500&quot;,&quot;Error encountered while processing notification&quot;);
+		break;
+	}
+}
+
+#######                   ORIGINATING
+
+
+route[Orig_Initial]
+{
+	 t_newtran();
+
+	log(1,&quot;&gt;&gt;       Orig_Initial\n&quot;);
+	if (P_emergency_ruri()){
+		route(Orig_Initial_Emergency);
+		break;
+	}
+
+	if (!P_is_registered()){
+	        sl_send_reply(&quot;403&quot;,&quot;Forbidden - Not Registered! You must
+register first with a S-CSCF&quot;);
+	        break;
+	};
+	if (!P_assert_identity(&quot;non-emerg&quot;)){
+	        sl_send_reply(&quot;403&quot;,&quot;Forbidden - You must register first with
+a S-CSCF&quot;);
+	        break;
+	};
+	# add IBCF/THIG route here if required
+	loose_route();
+	if (!P_follows_service_routes()){		
+		#Variant 1 - deny access to the network
+		sl_send_reply(&quot;400&quot;,&quot;Bad Request - Not following indicated
+Service-Routes&quot;);
+		break;
+		#Variant 2 - enforce routes and let the dialog continue
+   		#P_enforce_service_routes();
+	}			
+	
+	P_record_route(&quot;orig&quot;);
+
+	P_remove_header_tag(&quot;Require&quot;,&quot;sec-agree&quot;);
+    P_remove_header_tag(&quot;Proxy-Require&quot;,&quot;sec-agree&quot;);
+    P_remove_security_verify();
+	
+	P_add_p_charging_vector();	
+	
+	route(Check_Session_Expires);	
+			
+	if (!P_save_dialog(&quot;orig&quot;, &quot;non-emerg&quot;)){
+		sl_send_reply(&quot;514&quot;,&quot;Originating dialog save failure - P-CSCF
+maximum dialog count reached!&quot;);
+		exit;
+	}
+	
+	if (method==&quot;INVITE&quot;){
+		P_SDP_manipulate();
+	}
+		
+	t_on_reply(&quot;Orig_Initial_reply&quot;);
+	t_on_failure(&quot;Orig_Initial_failure&quot;);
+	if (!t_relay()) {
+		sl_send_reply(&quot;500&quot;,&quot;Error forwarding originating initial request&quot;);
+		P_drop_dialog(&quot;orig&quot;);
+		break;
+	};
+}
+
+route[Orig_Initial_Emergency]
+{
+	log(1,&quot;&gt;&gt;       Emergency Call\n&quot;);
+	route(Verify_Emergency);
+	#loose_route();
+	
+	P_record_route(&quot;orig&quot;);
+
+	P_remove_header_tag(&quot;Require&quot;,&quot;sec-agree&quot;);
+    	P_remove_header_tag(&quot;Proxy-Require&quot;,&quot;sec-agree&quot;);
+    	P_remove_security_verify();
+	
+	P_add_p_charging_vector();	
+	
+	route(Check_Session_Expires);	
+
+	if (!P_save_dialog(&quot;orig&quot;, &quot;emerg&quot;)){
+		sl_send_reply(&quot;514&quot;,&quot;Originating dialog save failure - P-CSCF
+maximum dialog count reached!&quot;);
+		exit;
+	}
+	#select and enforce a route to an ECSCF
+	if(!P_select_ecscf()){
+	        sl_send_reply(&quot;503&quot;,&quot;Internal Error, could not select an E-CSCF&quot;);
+		exit;
+	}
+	if(!P_enforce_sos_routes()){
+	        sl_send_reply(&quot;503&quot;,&quot;Internal Error, could not fwd to an E-CSCF&quot;);
+	        exit;
+	}
+
+	if (method==&quot;INVITE&quot;){
+		P_SDP_manipulate();
+	}
+		
+	t_on_reply(&quot;Orig_Initial_reply&quot;);
+	t_on_failure(&quot;Orig_Initial_failure&quot;);
+	
+	if (!t_relay()) {
+		sl_send_reply(&quot;500&quot;,&quot;Error forwarding originating initial request&quot;);
+		P_drop_dialog(&quot;orig&quot;);
+		break;
+	};
+
+}
+
+route[Verify_Emergency]
+{
+	if(!P_emergency_serv_enabled()){
+		log(1, &quot;&gt;&gt;  this P-CSCF has no Emergency Services enabled&quot;);
+		P_380_em_alternative_serv(&quot;no Emergency Services support at this PCSCF&quot;);
+		t_reply(&quot;380&quot;, &quot;Alternative Services&quot;);
+		exit;
+	}
+	
+	if (P_is_anonymous_user()){
+		if(P_accept_anonym_em_call()){
+			log(1,&quot;&gt;&gt; Anonymous caller! sending it to E-CSCF\n&quot;);
+		}else{
+			t_reply(&quot;503&quot;, &quot;Service Unavailable&quot;);
+			exit;
+		}
+	}else{
+		#non-roaming user
+		if(from_uri=~&quot;.*@open-ims\.test.*&quot;){
+			if(!P_is_registered()){
+
+				if (!P_is_em_registered()){#TODO: Alternative Service
+					P_380_em_alternative_serv(&quot;You must first do an Emergency
+Registration&quot;);
+					t_reply(&quot;380&quot;, &quot;Alternative Services&quot;);
+		        		exit;
+				};
+				if (!P_assert_identity(&quot;emerg&quot;)){
+		        		t_reply(&quot;403&quot;,&quot;Forbidden - You must register first with a
+S-CSCF or use an Anonymous Identity for Emergency&quot;);
+				        exit;
+				};
+
+			}else {
+				if (!P_assert_identity(&quot;non-emerg&quot;)){
+		        		t_reply(&quot;403&quot;,&quot;Forbidden - You must register first with a
+S-CSCF or use an Anonymous Identity for Emergency&quot;);
+				        exit;
+				};
+			}
+		}else{
+			if (!P_is_em_registered()){#TODO: Alternative Service
+					P_380_em_alternative_serv(&quot;roaming users must first do an
+Emergency Registration&quot;);
+					t_reply(&quot;380&quot;, &quot;Alternative Services&quot;);
+		        		exit;
+			};
+			if (!P_assert_identity(&quot;emerg&quot;)){
+	        		t_reply(&quot;403&quot;,&quot;Forbidden - You must register first with a
+S-CSCF or use an Anonymous Identity for Emergency&quot;);
+			        exit;
+			};
+
+		}
+	
+		log(1,&quot;&gt;&gt; Registered caller! sending it to E-CSCF\n&quot;);
+	}
+
+}
+
+onreply_route[Orig_Initial_reply]
+{
+	log(1,&quot;&gt;&gt;       Orig_Initial_reply\n&quot;);
+	if (t_check_status(&quot;(180)|(183)|([2-9]..)&quot;)){
+		P_SDP_manipulate();
+	}
+	if (!t_check_status(&quot;(408)|(480)&quot;)){
+		P_update_dialog(&quot;orig&quot;);
+	}else{
+		P_drop_dialog(&quot;orig&quot;);
+	}	
+	if (!P_security_relay())
+		P_NAT_relay();
+	break;
+}
+
+failure_route[Orig_Initial_failure]
+{
+	log(1,&quot;&gt;&gt;       Orig_Initial_failure\n&quot;);
+	if (t_check_status(&quot;(408)|(480)&quot;)){
+		P_drop_dialog(&quot;orig&quot;);
+		break;
+	}
+	#if (method==&quot;INVITE&quot;)
+	#	P_drop_session();
+	#P_drop_dialog();
+	break;
+}
+
+
+route[Orig_Subsequent]
+{
+	log(1,&quot;&gt;&gt;       Orig_Subsequent\n&quot;);
+	t_newtran();
+	if (P_is_registered()){
+		if (!P_assert_identity(&quot;non-emerg&quot;)){
+		        sl_send_reply(&quot;403&quot;,&quot;Forbidden - You must register first
+with a S-CSCF&quot;);
+	    	    break;
+		};
+	}
+	if (P_is_em_registered()){
+		if (!P_assert_identity(&quot;emerg&quot;)){
+		        sl_send_reply(&quot;403&quot;,&quot;Forbidden - You must register first
+with a S-CSCF&quot;);
+	    	    break;
+		};
+	}
+
+#	else{
+		# let it continue as this probably does not come from an UE
+        #sl_send_reply(&quot;403&quot;,&quot;Forbidden - Not Registered! You must
+register first with a S-CSCF&quot;);
+        #break;
+
+#	}
+
+	loose_route();
+
+	if (method!=&quot;CANCEL&quot; &amp;&amp; !P_follows_dialog_routes(&quot;orig&quot;)){		
+		log(1,&quot;&gt;&gt;       Orig_Subsequent: Request not following indicated
+dialog routes\n&quot;);
+		#Variant 1 - deny access to the network
+		if (method!=ACK){
+		    sl_send_reply(&quot;400&quot;,&quot;Bad Request - Not following indicated
+dialog routes&quot;);
+		} else{
+			log(1,&quot;&gt;&gt;	Orig_Subsequent: ACK not following dialog routes
+discarded silently!!!\n&quot;);
+		}
+		break;
+		#Variant 2 - enforce routes and let the dialog continue
+		#P_enforce_dialog_routes(&quot;term&quot;);
+		#break;
+	}	
+		
+	#P_record_route(&quot;orig&quot;);
+
+	route(Check_Session_Expires);	
+
+	P_update_dialog(&quot;orig&quot;);	
+
+	if (method==&quot;ACK&quot; || method==&quot;BYE&quot;){
+		P_SDP_manipulate();
+	}
+
+	P_remove_header_tag(&quot;Require&quot;,&quot;sec-agree&quot;);
+        P_remove_header_tag(&quot;Proxy-Require&quot;,&quot;sec-agree&quot;);
+        P_remove_security_verify();
+
+	# reply routes unused as empty at the moment
+	t_on_reply(&quot;Orig_Subsequent_reply&quot;);
+	#t_on_failure(&quot;Orig_Subsequent_failure&quot;);
+	
+	if (!t_relay()) {
+		sl_send_reply(&quot;500&quot;,&quot;Error forwarding originating subsequent request&quot;);
+		break;
+	};
+}
+
+onreply_route[Orig_Subsequent_reply]
+{
+	log(1,&quot;&gt;&gt;       Orig_Subsequent_reply\n&quot;);
+	if (t_check_status(&quot;[1-2]..&quot;)){
+		P_update_dialog(&quot;orig&quot;);		
+		#	P_replace_contact();???
+	}
+	if (!P_security_relay())
+			P_NAT_relay();
+	break;
+}
+
+failure_route[Orig_Subsequent_failure]
+{
+	log(1,&quot;&gt;&gt;       Orig_Subsequent_failure\n&quot;);
+	break;
+}
+
+
+route[Orig_Standalone]
+{
+	log(1,&quot;&gt;&gt;       Orig_Standalone\n&quot;);
+	
+	loose_route();
+	t_newtran();
+	if (P_emergency_ruri()){
+		route(Verify_Emergency);
+		if(!P_enforce_sos_routes()){
+		        sl_send_reply(&quot;503&quot;,&quot;Internal Error, could not fwd to an E-CSCF&quot;);
+		        exit;
+		}
+	}else{	
+		if (P_is_registered()){
+		        t_reply(&quot;403&quot;,&quot;Forbidden - You must register first with a S-CSCF&quot;);
+			break;
+		}
+		if (!P_assert_identity(&quot;non-emerg&quot;)){
+			t_reply(&quot;403&quot;,&quot;Forbidden - You must register first with a S-CSCF&quot;);
+	    	    	break;
+		};
+	
+		if (!P_follows_service_routes()){		
+			#Variant 1 - deny access to the network
+			sl_send_reply(&quot;400&quot;,&quot;Bad Request - Not following indicated service routes&quot;);
+			break;
+			#Variant 2 - enforce routes and let the dialog continue
+   			#P_enforce_service_routes();
+		}	
+		P_add_p_charging_vector();			
+	}
+
+	# add IBCF/THIG route here if required
+	
+	P_remove_header_tag(&quot;Require&quot;,&quot;sec-agree&quot;);
+	P_remove_header_tag(&quot;Proxy-Require&quot;,&quot;sec-agree&quot;);
+	P_remove_security_verify();
+
+	# reply routes unused as empty at the moment
+	t_on_reply(&quot;Orig_Standalone_reply&quot;);
+	#t_on_failure(&quot;Orig_Standalone_failure&quot;);
+	
+
+	if(!t_relay()) {
+		sl_send_reply(&quot;500&quot;,&quot;Error forwarding originating standalone request&quot;);
+		break;
+	};
+
+}
+
+onreply_route[Orig_Standalone_reply]
+{
+	log(1,&quot;&gt;&gt;       Orig_Standalone_reply\n&quot;);
+	#P_store_charging();
+	if (!P_security_relay())
+			P_NAT_relay();
+	break;
+}
+
+failure_route[Orig_Standalone_failure]
+{
+	log(1,&quot;&gt;&gt;       Orig_Standalone_failure\n&quot;);
+	break;
+}
+
+
+#######                   TERMINATING
+
+route[Term_Initial]
+{
+	log(1,&quot;&gt;&gt;       Term_Initial\n&quot;);
+
+	P_record_route(&quot;term&quot;);
+
+	route(Check_Session_Expires);	
+
+	if (!P_save_dialog(&quot;term&quot;, &quot;non-emerg&quot;)){
+		sl_send_reply(&quot;514&quot;,&quot;Terminating dialog save failure - P-CSCF
+maximum dialog count reached!&quot;);
+		exit;
+	}
+	
+	loose_route();
+		
+	t_on_reply(&quot;Term_Initial_reply&quot;);
+	#t_on_failure(&quot;Term_Initial_failure&quot;);
+	if (method==&quot;INVITE&quot;) {
+		P_SDP_manipulate();
+	}	
+	if (!P_security_relay())
+			P_NAT_relay();
+	t_on_reply(&quot;Term_Initial_reply&quot;);
+	#t_on_failure(&quot;Term_Initial_failure&quot;);
+	if (!t_relay()) {
+		sl_send_reply(&quot;500&quot;,&quot;Error forwarding terminating initial request&quot;);
+		P_drop_dialog(&quot;term&quot;);
+		break;
+	};
+
+}
+
+
+onreply_route[Term_Initial_reply]
+{
+	log(1,&quot;&gt;&gt;       Term_Initial_reply\n&quot;);
+	if (t_check_status(&quot;(180)|(183)|([2-9]..)&quot;)){
+		P_SDP_manipulate();
+	}
+	
+	if (!P_follows_via_list()) {
+		log(1,&quot;&gt;&gt;      P_follows_via_list - failed&quot;);
+		P_enforce_via_list();
+	};
+	
+	if (t_check_status(&quot;(1[1-9].)|(1.[1-9])|(2..)&quot;)){
+		if (!P_follows_record_routes()){
+			log(1,&quot;&gt;&gt;      P_follows_record_routes - failed\n&quot;);
+			P_enforce_record_routes();
+		}	
+	}
+	
+	if (!t_check_status(&quot;(408)|(480)&quot;)){
+		P_assert_called_identity();
+		P_update_dialog(&quot;term&quot;);		
+		break;
+	}else{
+		P_drop_dialog(&quot;term&quot;);
+		break;
+	}
+	
+}
+
+failure_route[Term_Initial_failure]
+{
+	log(1,&quot;&gt;&gt;       Term_Initial_failure\n&quot;);
+	if (!P_follows_via_list()) {
+		log(1,&quot;&gt;&gt;      P_follows_via_list - failed - this is a bug in
+P_follows_via_list()!\n&quot;);
+	#	P_enforce_via_list();
+	};
+	if (t_check_status(&quot;(408)|(480)&quot;)){
+		P_drop_dialog(&quot;term&quot;);
+		break;
+	}
+	break;
+}
+
+
+
+route[Term_Subsequent]
+{
+	log(1,&quot;&gt;&gt;       Term_Subsequent\n&quot;);
+
+	route(Check_Session_Expires);	
+
+	P_update_dialog(&quot;term&quot;);
+	
+	loose_route();
+	
+	#P_record_route(&quot;term&quot;);
+
+	if (method==&quot;ACK&quot; || method==&quot;BYE&quot;){
+		P_SDP_manipulate();
+	}
+	
+
+	P_remove_header_tag(&quot;Require&quot;,&quot;sec-agree&quot;);
+        P_remove_header_tag(&quot;Proxy-Require&quot;,&quot;sec-agree&quot;);
+        P_remove_security_verify();
+
+	t_on_reply(&quot;Term_Subsequent_reply&quot;);
+	#t_on_failure(&quot;Term_Subsequent_failure&quot;);
+	if (!P_security_relay())
+			P_NAT_relay();
+	if (!t_relay()) {
+		sl_send_reply(&quot;500&quot;,&quot;Error forwarding terminating subsequent request&quot;);
+		break;
+	};
+
+}
+
+onreply_route[Term_Subsequent_reply]
+{
+	log(1,&quot;&gt;&gt;       Term_Subsequent_reply\n&quot;);	
+	if (!P_follows_via_list()) {
+		log(1,&quot;&gt;&gt;      P_follows_via_list - failed\n&quot;);
+		P_enforce_via_list();
+	};	
+	if (t_check_status(&quot;[1-2]..&quot;)){
+		P_update_dialog(&quot;term&quot;);		
+	}	
+	break;
+}
+
+failure_route[Term_Subsequent_failure]
+{
+	log(1,&quot;&gt;&gt;       Term_Subsequent_failure\n&quot;);	
+	if (!P_follows_via_list()) {
+		log(1,&quot;&gt;&gt;      P_follows_via_list - failed\n&quot;);
+		P_enforce_via_list();
+	};
+	break;
+}
+
+
+route[Term_Standalone]
+{
+	log(1,&quot;&gt;&gt;       Term_Standalone\n&quot;);
+
+	loose_route();		
+
+	t_on_reply(&quot;Term_Standalone_reply&quot;);
+	#t_on_failure(&quot;Term_Standalone_failure&quot;);
+	if (!P_security_relay())
+			P_NAT_relay();
+	if (!t_relay()) {
+		sl_send_reply(&quot;500&quot;,&quot;Error forwarding terminating standalone request&quot;);
+		break;
+	};
+	
+}
+
+onreply_route[Term_Standalone_reply]
+{
+	log(1,&quot;&gt;&gt;       Term_Standalone_reply\n&quot;);
+	P_assert_called_identity();
+	if (!P_follows_via_list()) {
+		log(1,&quot;&gt;&gt;      P_follows_via_list - failed\n&quot;);
+		P_enforce_via_list();
+	};
+	break;
+}
+
+failure_route[Term_Standalone_failure]
+{
+	log(1,&quot;&gt;&gt;       Term_Standalone_failure\n&quot;);
+	if (!P_follows_via_list()) {
+		log(1,&quot;&gt;&gt;      P_follows_via_list - failed\n&quot;);
+		P_enforce_via_list();
+	};
+	break;
+}
+
+
+
+
+
+
+regards,
+ Sathiya
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: phpn76SVc
+Type: application/octet-stream
+Size: 21812 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20091001/9387a0d0/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20091001/9387a0d0/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001803.html">[OpenIMSCore-CSCF] PCSCF rejects CANCEL with 403 Forbidden -You	must register first with a S-CSCF when ECSCF and LRF is configured
+</A></li>
+	<LI>Next message: <A HREF="001805.html">[OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 36, Issue 2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1804">[ date ]</a>
+              <a href="thread.html#1804">[ thread ]</a>
+              <a href="subject.html#1804">[ subject ]</a>
+              <a href="author.html#1804">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

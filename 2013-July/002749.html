@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] tls.so: undefined symbol: SSLv2_client_method
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2013-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20tls.so%3A%20undefined%20symbol%3A%20SSLv2_client_method&In-Reply-To=%3C919AEBD9C7E70B45B2E8734B5BD039B15FE78550%40HEFRMBX02.sofr.hefr.lan%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002748.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] tls.so: undefined symbol: SSLv2_client_method</H1>
+    <B>Gremaud Cyrill</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20tls.so%3A%20undefined%20symbol%3A%20SSLv2_client_method&In-Reply-To=%3C919AEBD9C7E70B45B2E8734B5BD039B15FE78550%40HEFRMBX02.sofr.hefr.lan%3E"
+       TITLE="[OpenIMSCore-CSCF] tls.so: undefined symbol: SSLv2_client_method">cyrill.gremaud at hefr.ch
+       </A><BR>
+    <I>Thu Jul 25 07:42:01 CEST 2013</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002748.html">[OpenIMSCore-CSCF] tls.so: undefined symbol: SSLv2_client_method
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2749">[ date ]</a>
+              <a href="thread.html#2749">[ thread ]</a>
+              <a href="subject.html#2749">[ subject ]</a>
+              <a href="author.html#2749">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I have installed the package python-m2crypto for another personal project and now, when I try to launch the pcscf.sh, I don't have the same error. I have the following :
+
+undefined symbol: ssl_session_hash
+
+do you have an idea ??? I really don't know how to enable TLS on the GM interface with my Ubuntu 12.04 LTS. It's really a serious problem !!!
+
+cyrill gremaud
+________________________________________
+De : <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>] de la part de Gremaud Cyrill [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">cyrill.gremaud at hefr.ch</A>]
+Envoy&#233; : mardi 23 juillet 2013 13:43
+&#192; : <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Objet : [OpenIMSCore-CSCF] tls.so: undefined symbol: SSLv2_client_method
+
+Hi EveryBody,
+
+I'm trying to use TLS on the P-CSCF but I have the following error when I run the pcscf.
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user at esis03</A>:/opt/OpenIMSCore$ sudo ./pcscf.sh
+
+ 0(21156) ERROR: load_module: could not open module &lt;/opt/OpenIMSCore/ser_ims/modules/tls/tls.so&gt;: /opt/OpenIMSCore/ser_ims/modules/tls/tls.so: undefined symbol: SSLv2_client_method
+
+0(21156) parse error (174,13-14): failed to load module
+./pcscf.sh: line 7: 21156 Segmentation fault      (core dumped) LD_LIBRARY_PATH=&quot;/usr/local/lib/ser&quot; /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/pcscf.cfg -D -D
+
+I have following the instruction given at <A HREF="http://www.openimscore.org/node/82">http://www.openimscore.org/node/82</A> to editing pcscf.cfg.
+
+I have made some research about my error and the unique way that I have found is to downgrade my Ubuntu distribution because SSLv2 is not build when we install the openssl package...
+
+There is another solution ? I really need your help because I need TLS for my application.
+
+Thank you a lot.
+
+Cyrill Gremaud - Telecommunication Engineer - Switzerland
+_______________________________________________
+OpenIMSCore-CSCF mailing list
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002748.html">[OpenIMSCore-CSCF] tls.so: undefined symbol: SSLv2_client_method
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2749">[ date ]</a>
+              <a href="thread.html#2749">[ thread ]</a>
+              <a href="subject.html#2749">[ subject ]</a>
+              <a href="author.html#2749">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

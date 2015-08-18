@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed tolocal IP
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20changes%20to%20mysql%20when%20127.0.0.1%20is%20changed%0A%20tolocal%20IP&In-Reply-To=%3C45CB57B7.90808%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000201.html">
+   <LINK REL="Next"  HREF="000195.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed tolocal IP</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20changes%20to%20mysql%20when%20127.0.0.1%20is%20changed%0A%20tolocal%20IP&In-Reply-To=%3C45CB57B7.90808%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed tolocal IP">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Feb  8 18:02:47 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000201.html">[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed	tolocal IP
+</A></li>
+        <LI>Next message: <A HREF="000195.html">[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed to	local IP
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#202">[ date ]</a>
+              <a href="thread.html#202">[ thread ]</a>
+              <a href="subject.html#202">[ subject ]</a>
+              <a href="author.html#202">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>This seems to be caused by connect():
+
+EACCES, EPERM
+              The user tried to connect to a broadcast address without
+having the socket broadcast flag enabled or the
+              connection request failed because of a local firewall rule.
+
+-Dragos
+
+Sudhakar Patil wrote:
+&gt;<i> Hi, 
+</I>&gt;<i> I am getting the following error (&quot;Not owner&quot;) in
+</I>&gt;<i> S-CSCF after changing the IP addresses from 127.0.0.1
+</I>&gt;<i> to the actual IP address of the machine. Any pointers?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 11(20104) DBG:peer_timer(): Peer hss.open-ims.test  
+</I>&gt;<i> State 0
+</I>&gt;<i> 11(20104) DBG:sm_process(): Peer hss.open-ims.test  
+</I>&gt;<i> State Closed    Event Star
+</I>&gt;<i> 11(20104) DBG:I_Snd_Conn_Req(): Peer hss.open-ims.test
+</I>&gt;<i> 11(20104) WARNING:peer_connect(): Error opening
+</I>&gt;<i> connection to hss.open-ims.test
+</I>&gt;<i> 3868 &gt;Not owner
+</I>&gt;<i> 11(20104) DBG:sm_process(): Peer hss.open-ims.test  
+</I>&gt;<i> State Wait_Conn_Ack     Ev
+</I>&gt;<i> nt I_Rcv_Conn_NAck
+</I>&gt;<i>
+</I>&gt;<i> S-CSCF is not able to connect to HSS. Will try to
+</I>&gt;<i> provide traces soon, but if anything jumps from the
+</I>&gt;<i> above error message can you please let me know. 
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i> Sudhakar.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --- &quot;Emin, Umut&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Umut.Emin at fokus.fraunhofer.de</A>&gt;
+</I>&gt;<i> wrote:
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hei Sudhakar,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> you can change the 127.0.0.1 in DiameterPeerHSS.xml
+</I>&gt;&gt;<i> to the machine's ip
+</I>&gt;&gt;<i> address. About hibernate.properties: I guess you run
+</I>&gt;&gt;<i> your mysql server
+</I>&gt;&gt;<i> on the same machine as FHoSS. In that case you dont
+</I>&gt;&gt;<i> need to change it.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> greetz,
+</I>&gt;&gt;<i> Umut
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -----Urspr&#252;ngliche Nachricht-----
+</I>&gt;&gt;<i> Von: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> im
+</I>&gt;&gt;<i> Auftrag von Sudhakar Patil
+</I>&gt;&gt;<i> Gesendet: Do 08.02.2007 00:01
+</I>&gt;&gt;<i> An: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;<i> Betreff: [OpenIMSCore-CSCF] changes to mysql when
+</I>&gt;&gt;<i> 127.0.0.1 is changed tolocal IP
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i> Hi,
+</I>&gt;&gt;<i> Should we also change
+</I>&gt;&gt;<i> FHoSS/deploy/DiameterPeerHSS.xml
+</I>&gt;&gt;<i> from 127.0.0.1 to the machine's IP address? 
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Also should we change
+</I>&gt;&gt;<i> FHoSS/deploy/hibernate.properties? 
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Regards,
+</I>&gt;&gt;<i> Sudhakar.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i> ____________________________________________________________________________________
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Want to start your own business?
+</I>&gt;&gt;<i> Learn how on Yahoo! Small Business.
+</I>&gt;&gt;<i> <A HREF="http://smallbusiness.yahoo.com/r-index">http://smallbusiness.yahoo.com/r-index</A>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i> ____________________________________________________________________________________
+</I>&gt;<i> Do you Yahoo!?
+</I>&gt;<i> Everyone is raving about the all-new Yahoo! Mail beta.
+</I>&gt;<i> <A HREF="http://new.mail.yahoo.com">http://new.mail.yahoo.com</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000201.html">[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed	tolocal IP
+</A></li>
+	<LI>Next message: <A HREF="000195.html">[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed to	local IP
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#202">[ date ]</a>
+              <a href="thread.html#202">[ thread ]</a>
+              <a href="subject.html#202">[ subject ]</a>
+              <a href="author.html#202">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

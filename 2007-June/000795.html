@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] &quot;403 Dialog not found on S-CSCF or Terminating user not suitable for unregisted services.&quot; response returned	from S-CSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%22403%20Dialog%20not%20found%20on%20S-CSCF%20or%0A%20Terminating%20user%20not%20suitable%20for%20unregisted%20services.%22%20response%0A%20returned%09from%20S-CSCF&In-Reply-To=%3C468266D0.20100%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000796.html">
+   <LINK REL="Next"  HREF="000798.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] &quot;403 Dialog not found on S-CSCF or Terminating user not suitable for unregisted services.&quot; response returned	from S-CSCF</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%22403%20Dialog%20not%20found%20on%20S-CSCF%20or%0A%20Terminating%20user%20not%20suitable%20for%20unregisted%20services.%22%20response%0A%20returned%09from%20S-CSCF&In-Reply-To=%3C468266D0.20100%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] &quot;403 Dialog not found on S-CSCF or Terminating user not suitable for unregisted services.&quot; response returned	from S-CSCF">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Jun 27 15:32:00 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000796.html">[OpenIMSCore-CSCF] &quot;403 Dialog not found on S-CSCF or	Terminating user not suitable for unregisted services.&quot;	response returned from S-CSCF
+</A></li>
+        <LI>Next message: <A HREF="000798.html">[OpenIMSCore-CSCF] &quot;403 Dialog not found on S-CSCF or	Terminating user not suitable for unregisted services.&quot;	response returned from S-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#795">[ date ]</a>
+              <a href="thread.html#795">[ thread ]</a>
+              <a href="subject.html#795">[ subject ]</a>
+              <a href="author.html#795">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello gonzou,
+
+A1: don't know...
+A2: probably the way that your AS performs the 3PCC is wrong in the
+sense of how to do originating/termination from an AS
+A3: the block in case has nothing to do with the error. It is commented
+on purpose.
+
+Well, I think that you would agree with me that there are an almost
+infinite possibilities on what you have actually sent. We can't really
+tell why and what went wrong unless you send us a network trace and
+explain a little which entities are supposed to do what.
+
+Cheers,
+-Dragos
+
+gonzou wrote:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> I did procedures below with OSIMS.
+</I>&gt;<i> OSIMS(S-CSCF) returned &quot;403 Dialog not found on S-CSCF or Terminating
+</I>&gt;<i> user not suitable for unregisted services.&quot;
+</I>&gt;<i>
+</I>&gt;<i> 1.Register Alice and Bob using 3PCC from AS.
+</I>&gt;<i>   (Note that AS does not issues REGISTER.It only issue INVITE to Alice
+</I>&gt;<i> and Bob)
+</I>&gt;<i> 2.Alice and Bob establish sip session.
+</I>&gt;<i> 3.Disconnect from UE.(Alice send Bye to Bob)
+</I>&gt;<i> 4.403 error is retured.
+</I>&gt;<i>
+</I>&gt;<i> Q1.Is this behavior suitable for specifications?
+</I>&gt;<i> Q2.If I am missing something, please notify me.
+</I>&gt;<i> Q3.Related topic to the phenomenon, I noticed that in scscf.cfg some
+</I>&gt;<i> ISC related block is comment out.
+</I>&gt;<i> Is it intentionally commented out?
+</I>&gt;<i> Is this commented out block related to 403 response from S-CSCF?
+</I>&gt;<i> ----------------------------------------------------------------------------------
+</I>&gt;<i>     # check if dialog saved as fwded to AS
+</I>&gt;<i>     if (ISC_match_filter(&quot;term&quot;)){
+</I>&gt;<i> #       t_on_reply(&quot;ISC_Term_reply&quot;);
+</I>&gt;<i> #       t_on_failure(&quot;ISC_Term_failure&quot;);  
+</I>&gt;<i> #       if (!t_relay()) {
+</I>&gt;<i> #           sl_send_reply(&quot;500&quot;,&quot;Error forwarding to AS&quot;);
+</I>&gt;<i> #           exit;
+</I>&gt;<i> #       };
+</I>&gt;<i>         exit;
+</I>&gt;<i>     }
+</I>&gt;<i> ----------------------------------------------------------------------------------
+</I>&gt;<i>  
+</I>&gt;<i>  
+</I>&gt;<i> Best Regards,
+</I>&gt;<i> gonzou
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000796.html">[OpenIMSCore-CSCF] &quot;403 Dialog not found on S-CSCF or	Terminating user not suitable for unregisted services.&quot;	response returned from S-CSCF
+</A></li>
+	<LI>Next message: <A HREF="000798.html">[OpenIMSCore-CSCF] &quot;403 Dialog not found on S-CSCF or	Terminating user not suitable for unregisted services.&quot;	response returned from S-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#795">[ date ]</a>
+              <a href="thread.html#795">[ thread ]</a>
+              <a href="subject.html#795">[ subject ]</a>
+              <a href="author.html#795">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

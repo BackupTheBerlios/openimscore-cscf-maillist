@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] p-cscf crash if PRCF not running, hang in del_session
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%20crash%20if%20PRCF%20not%20running%2C%0A%20hang%20in%20del_session&In-Reply-To=%3C4B47717B.5080604%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001936.html">
+   <LINK REL="Next"  HREF="001944.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] p-cscf crash if PRCF not running, hang in del_session</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%20crash%20if%20PRCF%20not%20running%2C%0A%20hang%20in%20del_session&In-Reply-To=%3C4B47717B.5080604%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] p-cscf crash if PRCF not running, hang in del_session">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Jan  8 18:55:07 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001936.html">[OpenIMSCore-CSCF] p-cscf crash if PRCF not running,	hang in del_session
+</A></li>
+        <LI>Next message: <A HREF="001944.html">[OpenIMSCore-CSCF] p-cscf crash if PRCF not running,	hang in del_session
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1938">[ date ]</a>
+              <a href="thread.html#1938">[ thread ]</a>
+              <a href="subject.html#1938">[ subject ]</a>
+              <a href="author.html#1938">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Then you will be disappointed to hear that actually all of our hash-slot 
+structures are locked in the same way ;-). Or happy that we are at list 
+consistent, however you want to take it.
+
+I think that the issue is that the parameter for the unlock function is 
+the hash number and not the data structure. This however has the 
+practical advantage that you can do some other things, like deleting the 
+data structure out and then unlocking on a copy of the hash number.
+
+Ideally, I think that this lock/unlock function parameter should be a 
+pointer to the object, so that we can also set it to 0 after the unlock. 
+Yet not everybody would be happy then as one might have an object on a 
+stack and no pointer to reset.
+
+Cheers,
+-Dragos
+
+Min Wang wrote:
+&gt;<i> Hi Dragos:
+</I>&gt;<i>
+</I>&gt;<i> For me the code seems not clean enough, and will hard to maintenance and
+</I>&gt;<i> expand in the future if we do not distinguish session lock and hash slot
+</I>&gt;<i> lock since there are fundamentally different things in concept.  
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Kind Regards
+</I>&gt;<i>  
+</I>&gt;<i> Min Wang
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> -----Original Message-----
+</I>&gt;&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]
+</I>&gt;&gt;<i> Sent: Friday, January 08, 2010 6:29 AM
+</I>&gt;&gt;<i> To: Min Wang
+</I>&gt;&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;<i> Subject: Re: [OpenIMSCore-CSCF] p-cscf crash if PRCF not running, hang
+</I>&gt;&gt;<i>     
+</I>&gt;<i> in
+</I>&gt;<i>   
+</I>&gt;&gt;<i> del_session
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Hi Min,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Min Wang wrote:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> One more question:
+</I>&gt;&gt;&gt;<i>    AAACreateAuthSession &amp; AAAGetAuthSession --&gt; calls
+</I>&gt;&gt;&gt;<i> AAASessionsLock(hash)
+</I>&gt;&gt;&gt;<i>  which is the lock to protect manipulation of sessions[hash], but
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;<i> seems
+</I>&gt;<i>   
+</I>&gt;&gt;&gt;<i> not on the session itself??
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> yes, this is correct.
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i>   Look at the following:
+</I>&gt;&gt;&gt;<i>   e.g.: session1/session2 may belong to the same hash
+</I>&gt;&gt;&gt;<i> sessions[hash1]--&gt;session1 --&gt; session2 ...
+</I>&gt;&gt;&gt;<i> sessions[hash2]--&gt;session3 --&gt; session4 ...
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>    when the hash1 is lock, session1 and session2 ... are locked, but
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;<i> I
+</I>&gt;<i>   
+</I>&gt;&gt;&gt;<i> guess what we really want is to get the lock of session1.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>    So seems need to add lock to cdp_session_t?
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> errm... yes and no. Adding a lock on every session would actually
+</I>&gt;&gt;<i> complicate a lot things. This is because we can't really give-up the
+</I>&gt;&gt;<i> slot lock, as we'll still need to lock it whenever we do changes to
+</I>&gt;&gt;<i>     
+</I>&gt;<i> the
+</I>&gt;<i>   
+</I>&gt;&gt;<i> list - additions and deletions. Of course some complex solutions would
+</I>&gt;&gt;<i> be possible, but I doubt the benefits.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> After all, locking the entire hash-slot is not that bad. The number of
+</I>&gt;&gt;<i> hash slots is configurable and I usually recommend to keep this within
+</I>&gt;&gt;<i> an order of magnitude of the estimated typical number of elements. So
+</I>&gt;&gt;<i>     
+</I>&gt;<i> if
+</I>&gt;<i>   
+</I>&gt;&gt;<i> you'd say that you have 10M sessions, 1M for the hash size would be a
+</I>&gt;&gt;<i> good choice. This would take 1M*sizeof(void*) bytes when empty and
+</I>&gt;&gt;<i>     
+</I>&gt;<i> would
+</I>&gt;<i>   
+</I>&gt;&gt;<i> reduce the lock collision domain to 10 sessions, which is
+</I>&gt;&gt;<i> probabilistically quite low to happen.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Also the slots should not be locked for long periods of time, but
+</I>&gt;&gt;<i>     
+</I>&gt;<i> should
+</I>&gt;<i>   
+</I>&gt;&gt;<i> be used in an &quot;asynchronous&quot; model: retrieve+lock -&gt; process -&gt; unlock
+</I>&gt;&gt;<i> -&gt; wait for data -&gt; retrieve+lock -&gt; process -&gt; unlock ...
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Which reminds me that I should change the current behavior of waiting
+</I>&gt;&gt;<i> for the response and then unlocking - this might actually generate the
+</I>&gt;&gt;<i> dead-locks as the session would be processed in the state machine for
+</I>&gt;&gt;<i> the response, but that can't get the lock on the session cause it is
+</I>&gt;&gt;<i> already taken.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i>    It is : mwang
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> done.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i> svn+<A HREF="ssh://mwang@svn.berlios.de/svnroot/repos/openimscore/ser_ims/branche">ssh://mwang@svn.berlios.de/svnroot/repos/openimscore/ser_ims/branche</A>
+</I>&gt;<i> s/
+</I>&gt;<i>   
+</I>&gt;&gt;<i> 13_pcc_fixing
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Cheers,
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> --
+</I>&gt;&gt;<i> -----------------------------------------
+</I>&gt;&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;&gt;<i> 10589 Berlin,Germany
+</I>&gt;&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;&gt;<i> -----------------------------------------------------------------
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001936.html">[OpenIMSCore-CSCF] p-cscf crash if PRCF not running,	hang in del_session
+</A></li>
+	<LI>Next message: <A HREF="001944.html">[OpenIMSCore-CSCF] p-cscf crash if PRCF not running,	hang in del_session
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1938">[ date ]</a>
+              <a href="thread.html#1938">[ thread ]</a>
+              <a href="subject.html#1938">[ subject ]</a>
+              <a href="author.html#1938">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

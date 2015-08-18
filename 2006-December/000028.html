@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r57 - in ser_ims/trunk/modules:	pcscf scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r57%20-%20in%20ser_ims/trunk/modules%3A%0A%09pcscf%20scscf&In-Reply-To=%3C200612071840.kB7Ief5b019355%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000027.html">
+   <LINK REL="Next"  HREF="000029.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r57 - in ser_ims/trunk/modules:	pcscf scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r57%20-%20in%20ser_ims/trunk/modules%3A%0A%09pcscf%20scscf&In-Reply-To=%3C200612071840.kB7Ief5b019355%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r57 - in ser_ims/trunk/modules:	pcscf scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Thu Dec  7 19:40:41 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000027.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r56 - ser_ims/trunk/modules/cdp
+</A></li>
+        <LI>Next message: <A HREF="000029.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r60 - ser_ims/trunk/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#28">[ date ]</a>
+              <a href="thread.html#28">[ thread ]</a>
+              <a href="subject.html#28">[ subject ]</a>
+              <a href="author.html#28">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2006-12-07 19:40:40 +0100 (Thu, 07 Dec 2006)
+New Revision: 57
+
+Modified:
+   ser_ims/trunk/modules/pcscf/nat_helper.c
+   ser_ims/trunk/modules/pcscf/registrar.c
+   ser_ims/trunk/modules/scscf/sip.c
+Log:
+Fixed memory leak for parse_expires() - because of parsing on a request in tm the new parsed structure was not freed.
+Fixed memory leak for parse_contact() - because of nat_helper detecting 1918 contact... not sure why it was a leak...
+
+
+Modified: ser_ims/trunk/modules/pcscf/nat_helper.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/nat_helper.c	2006-12-07 14:01:11 UTC (rev 56)
++++ ser_ims/trunk/modules/pcscf/nat_helper.c	2006-12-07 18:40:40 UTC (rev 57)
+@@ -417,8 +417,8 @@
+ 	if((pcscf_nat_detection_type &amp; NAT_UAC_TEST_RCVD) &amp;&amp; received_test(msg))
+ 		return 1;
+ 	
+-	if((pcscf_nat_detection_type &amp; NAT_UAC_TEST_C_1918) &amp;&amp; contact_1918(msg))
+-		return 1;
++//	if((pcscf_nat_detection_type &amp; NAT_UAC_TEST_C_1918) &amp;&amp; contact_1918(msg))
++		//return 1;
+ 	
+ //	if((pcscf_nat_detection_type &amp; NAT_UAC_TEST_S_1918) &amp;&amp; sdp_1918(msg))
+ //		return 1;
+
+Modified: ser_ims/trunk/modules/pcscf/registrar.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/registrar.c	2006-12-07 14:01:11 UTC (rev 56)
++++ ser_ims/trunk/modules/pcscf/registrar.c	2006-12-07 18:40:40 UTC (rev 57)
+@@ -278,8 +278,9 @@
+ 	}
+ 	
+ 	expires_hdr = cscf_get_expires_hdr(rpl);
+-	if (expires_hdr&lt;0) 
+-		expires_hdr = cscf_get_expires_hdr(req);
++	/** Removed because this would parse the hdr, but then it will fail to free the hdr-&gt;parsed */
++//	if (expires_hdr&lt;0) 
++//		expires_hdr = cscf_get_expires_hdr(req);
+ 	
+ 	if (parse_headers(rpl, HDR_EOH_F, 0) &lt;0) {
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:r_save_location: error parsing headers\n&quot;);
+
+Modified: ser_ims/trunk/modules/scscf/sip.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/sip.c	2006-12-07 14:01:11 UTC (rev 56)
++++ ser_ims/trunk/modules/scscf/sip.c	2006-12-07 18:40:40 UTC (rev 57)
+@@ -224,7 +224,7 @@
+ }
+ 
+ 
+-
++	
+ /**
+  * Returns the expires value from the Expires header in the message.
+  * It searches into the Expires header and if not found returns -1
+@@ -241,9 +241,10 @@
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:cscf_get_expires_hdr: Error parsing until header EXPIRES: \n&quot;);
+ 		return -1;
+ 	}
+-	
+-	if (msg-&gt;expires){
+-		if (!msg-&gt;expires-&gt;parsed) parse_expires(msg-&gt;expires);
++	if (msg-&gt;expires){		
++		if (!msg-&gt;expires-&gt;parsed) {
++			parse_expires(msg-&gt;expires);
++		}
+ 		if (msg-&gt;expires-&gt;parsed) {
+ 			exp = (exp_body_t*) msg-&gt;expires-&gt;parsed;
+ 			if (exp-&gt;valid) {
+@@ -253,6 +254,7 @@
+ 			}
+ 		}
+ 	}
++	
+ 	return -1;
+ }
+ 
+@@ -265,28 +267,12 @@
+  */
+ int cscf_get_expires(struct sip_msg *msg)
+ {
+-	exp_body_t *exp;
+ 	int expires = 3600,i;
+ 	contact_t *c;
+ 	param_t *param;
+ 	contact_body_t *cbody; 
+ 	/*first search in Expires header */
+-	if (parse_headers(msg,HDR_EXPIRES_F,0)!=0) {
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:cscf_get_expires: Error parsing until header EXPIRES: \n&quot;);
+-		//don'r return, look for contact
+-	}
+-	
+-	if (msg-&gt;expires){
+-		parse_expires(msg-&gt;expires);
+-		if (msg-&gt;expires-&gt;parsed) {
+-			exp = (exp_body_t*) msg-&gt;expires-&gt;parsed;
+-			if (exp-&gt;valid) {
+-				expires = exp-&gt;val;
+-				LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:cscf_get_expires: &lt;%d&gt; \n&quot;,expires);
+-				return expires;
+-			}
+-		}
+-	}
++	expires = cscf_get_expires_hdr(msg);
+ 	cscf_parse_contacts(msg);
+ 	if (msg-&gt;contact &amp;&amp; msg-&gt;contact-&gt;parsed) {
+ 		cbody = (contact_body_t *) msg-&gt;contact-&gt;parsed;
+@@ -703,7 +689,6 @@
+ 			}					
+ 			ptr = ptr-&gt;next;
+ 		}
+-
+ 	}
+ 	if (!msg-&gt;contact) return 0;
+ 	return msg-&gt;contact-&gt;parsed;
+@@ -845,7 +830,8 @@
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:cscf_get_contact: Contact header not found.\n&quot;);
+ 		return id;
+ 	}
+-	if (parse_contact(h)&lt;0){
++	if (h-&gt;parsed==0 &amp;&amp;
++		parse_contact(h)&lt;0){
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:cscf_get_contact: Error parsing contacts.\n&quot;);
+ 		return id;
+ 	}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000027.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r56 - ser_ims/trunk/modules/cdp
+</A></li>
+	<LI>Next message: <A HREF="000029.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r60 - ser_ims/trunk/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#28">[ date ]</a>
+              <a href="thread.html#28">[ thread ]</a>
+              <a href="subject.html#28">[ subject ]</a>
+              <a href="author.html#28">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

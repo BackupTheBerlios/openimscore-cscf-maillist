@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] DNS setting for pcscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20DNS%20setting%20for%20pcscf&In-Reply-To=%3C00b501c7cf84%24d7269090%240f40000a%40blr.velankani.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000864.html">
+   <LINK REL="Next"  HREF="000889.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] DNS setting for pcscf</H1>
+    <B>Rishin Chakraborty</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20DNS%20setting%20for%20pcscf&In-Reply-To=%3C00b501c7cf84%24d7269090%240f40000a%40blr.velankani.com%3E"
+       TITLE="[OpenIMSCore-CSCF] DNS setting for pcscf">rchakraborty at velankani.com
+       </A><BR>
+    <I>Thu Jul 26 14:59:45 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000864.html">[OpenIMSCore-CSCF] DNS setting for pcscf
+</A></li>
+        <LI>Next message: <A HREF="000889.html">[OpenIMSCore-CSCF] DNS setting for pcscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#886">[ date ]</a>
+              <a href="thread.html#886">[ thread ]</a>
+              <a href="subject.html#886">[ subject ]</a>
+              <a href="author.html#886">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi, 
+
+The Cisco phone is behaving in an unexpected manner. It does not use the
+domain name in the REGISTER URI. Instead it uses the entry for Proxy as the
+REGISTER URI. 
+
+As a result, both the phone and the P-CSCF are making queries that resolve
+to the same IP address and port. This is causing the REGISTER message to go
+into loop and 483 response thereby.
+
+Dragos,
+Thanks for your suggestion. I tried with playing around with the SRV
+entries, but because of the above problem I am not able to get the phone
+working with OpenIMS.
+
+Thanks,
+Rishin
+
+-----Original Message-----
+From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>] 
+Sent: Monday, July 23, 2007 6:32 PM
+To: Rishin Chakraborty
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] DNS setting for pcscf
+
+Hello Rishin,
+
+Looks like the Cisco phone does a SRV query. There is already an example
+of SRV entries in the default DNS zone file, but for
+_sip._udp/_tcp.open-ims.test. It looks like you just need to add some
+entries for _sip._udp/_tcp.pcscf.open-ims.test...
+
+-Dragos
+
+
+Rishin Chakraborty wrote:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I am facing a problem with DNS configuration on my setup.
+</I>&gt;<i>
+</I>&gt;<i> In my OpenIMS setup, I am running pcscf on one machine (say machine X)
+</I>&gt;<i> and s/icscf and HSS on the other (machine Y). The DNS server is set on
+</I>&gt;<i> the same machine (Y) running HSS and s/icscsf. The pcscf entry in the
+</I>&gt;<i> dnszone file points to the machine X's address.
+</I>&gt;<i>
+</I>&gt;<i> Now, when I try to register an X-lite user, it registers fine.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> The same thing when I try with a Cisco phone, it does not work. The
+</I>&gt;<i> problem lies with the phone's settings. I cannot assign an IP address
+</I>&gt;<i> for the proxy address. To have the Cisco phone work properly, a DNS
+</I>&gt;<i> name must be assigned to the proxy address. But since the pcscf is now
+</I>&gt;<i> on a different machine, the proxy entry on the phone looks like this
+</I>&gt;<i> &quot;pcscf.open-ims.test&quot;. This leads to a DNS query for
+</I>&gt;<i> _sip._udp.pcscf.open-ims.test from the phone, which doesn't look
+</I>&gt;<i> correct to me. The DNS server responds with a &quot;no such name&quot; response.
+</I>&gt;<i> There is no such problem with X-Lite as X-Lite allows IP address for
+</I>&gt;<i> proxy entry.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Can anyone give me some pointers to resolve this issue?
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i>
+</I>&gt;<i> Rishin
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000864.html">[OpenIMSCore-CSCF] DNS setting for pcscf
+</A></li>
+	<LI>Next message: <A HREF="000889.html">[OpenIMSCore-CSCF] DNS setting for pcscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#886">[ date ]</a>
+              <a href="thread.html#886">[ thread ]</a>
+              <a href="subject.html#886">[ subject ]</a>
+              <a href="author.html#886">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

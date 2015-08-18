@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r1055 - IPSec implementation for	Gm interface. TCP: tested registration and voice call UDP:	tested registration only
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1055%20-%20IPSec%20implementation%20for%0A%09Gm%20interface.%20TCP%3A%20tested%20registration%20and%20voice%20call%20UDP%3A%0A%09tested%20registration%20only&In-Reply-To=%3C20110329110100.1CFA9480AA1%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002453.html">
+   <LINK REL="Next"  HREF="002455.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r1055 - IPSec implementation for	Gm interface. TCP: tested registration and voice call UDP:	tested registration only</H1>
+    <B>neits at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1055%20-%20IPSec%20implementation%20for%0A%09Gm%20interface.%20TCP%3A%20tested%20registration%20and%20voice%20call%20UDP%3A%0A%09tested%20registration%20only&In-Reply-To=%3C20110329110100.1CFA9480AA1%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r1055 - IPSec implementation for	Gm interface. TCP: tested registration and voice call UDP:	tested registration only">neits at users.berlios.de
+       </A><BR>
+    <I>Tue Mar 29 13:01:00 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002453.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1054 - Client_Rf: compilation fix
+</A></li>
+        <LI>Next message: <A HREF="002455.html">[OpenIMSCore-CSCF] 401 unauthorized-challenging the UE doesn't	contains CK and IK
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2454">[ date ]</a>
+              <a href="thread.html#2454">[ thread ]</a>
+              <a href="subject.html#2454">[ subject ]</a>
+              <a href="author.html#2454">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: neits
+Date: 2011-03-29 13:00:59 +0200 (Tue, 29 Mar 2011)
+New Revision: 1055 <A HREF="http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1055">http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1055</A> 
+
+Log:
+IPSec implementation for Gm interface.
+TCP: tested registration and voice call
+UDP: tested registration only
+
+
+Added:
+   A	ser_ims/trunk/modules/pcscf/udp_threads.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/udp_threads.c?rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/udp_threads.c?rev=1055&amp;peg=1055</A>
+   A	ser_ims/trunk/modules/pcscf/udp_threads.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/udp_threads.h?rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/udp_threads.h?rev=1055&amp;peg=1055</A>
+Modified:
+   U	ser_ims/trunk/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/cfg/pcscf.cfg?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/cfg/pcscf.cfg?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/ip_addr.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/ip_addr.h?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/ip_addr.h?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/modules/pcscf/Makefile
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/Makefile?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/Makefile?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/modules/pcscf/ipsec_P_Out_Req.sh
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/ipsec_P_Out_Req.sh?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/ipsec_P_Out_Req.sh?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/modules/pcscf/ipsec_P_Out_Rpl.sh
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/ipsec_P_Out_Rpl.sh?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/ipsec_P_Out_Rpl.sh?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/modules/pcscf/registrar.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/registrar.c?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/registrar.c?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/modules/pcscf/registrar_storage.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/registrar_storage.c?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/registrar_storage.c?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/modules/pcscf/registrar_storage.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/registrar_storage.h?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/registrar_storage.h?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/modules/pcscf/registration.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/registration.c?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/registration.c?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/modules/pcscf/security.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/security.c?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/security.c?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/socket_info.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/socket_info.c?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/socket_info.c?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/socket_info.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/socket_info.h?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/socket_info.h?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/tcp_conn.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/tcp_conn.h?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/tcp_conn.h?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/tcp_main.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/tcp_main.c?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/tcp_main.c?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/udp_server.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/udp_server.c?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/udp_server.c?op=diff&amp;rev=1055&amp;peg=1055</A>
+   U	ser_ims/trunk/udp_server.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/udp_server.h?op=diff&amp;rev=1055&amp;peg=1055">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/udp_server.h?op=diff&amp;rev=1055&amp;peg=1055</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002453.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1054 - Client_Rf: compilation fix
+</A></li>
+	<LI>Next message: <A HREF="002455.html">[OpenIMSCore-CSCF] 401 unauthorized-challenging the UE doesn't	contains CK and IK
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2454">[ date ]</a>
+              <a href="thread.html#2454">[ thread ]</a>
+              <a href="subject.html#2454">[ subject ]</a>
+              <a href="author.html#2454">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

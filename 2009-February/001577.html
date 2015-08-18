@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Does Openims supports REFER Method ?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Does%20Openims%20supports%20REFER%20Method%20%3F&In-Reply-To=%3C70ACCD8F319E4CCA9A63CFD6040E2E0E%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001576.html">
+   <LINK REL="Next"  HREF="001580.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Does Openims supports REFER Method ?</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Does%20Openims%20supports%20REFER%20Method%20%3F&In-Reply-To=%3C70ACCD8F319E4CCA9A63CFD6040E2E0E%40notebook%3E"
+       TITLE="[OpenIMSCore-CSCF] Does Openims supports REFER Method ?">franz-edler at aon.at
+       </A><BR>
+    <I>Sun Feb 15 13:24:55 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001576.html">[OpenIMSCore-CSCF] Does Openims supports REFER Method ?
+</A></li>
+        <LI>Next message: <A HREF="001580.html">[OpenIMSCore-CSCF] Does Openims supports REFER Method ?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1577">[ date ]</a>
+              <a href="thread.html#1577">[ thread ]</a>
+              <a href="subject.html#1577">[ subject ]</a>
+              <a href="author.html#1577">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Vasant,
+
+&gt;<i> I am working on REFER method for call transfer.I am initiating
+</I>&gt;<i> REFER method from User Equipment(UE).i am getting error as:
+</I>&gt;<i> 
+</I>&gt;<i> &quot;400 Bad Request - Not following indicated service routes&quot;
+</I>&gt;<i> 
+</I>&gt;<i> The REFER is going to P-cscf and terminationg there....it is not reaching
+</I>&gt;<i> to s-cscf also!
+</I>
+It is clear that the request is not forwarded by P-CSCF to S-CSCF because of
+the above issue. It is one of the fundamental tasks of a P-CSCF to check if
+terminals honour the Service-Route indicated during registration. 
+
+&gt;<i> I also see there is no handling for REFER in P-cscf.cfg and S-
+</I>&gt;<i> cscf.cfg.should i write code for handling REFER Method or openims already
+</I>&gt;<i> handles this REFER Method.....
+</I>
+No. This is not necessary. REFER requests should be handled perfectly by the
+existing algorithms of pcsdcf.cfg.
+You have to solve your service-Route problem first. Then it will most
+probably work fine. 
+If you need some hints in this issue please add a trace of the signalling
+messages. 
+
+Regards
+Franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001576.html">[OpenIMSCore-CSCF] Does Openims supports REFER Method ?
+</A></li>
+	<LI>Next message: <A HREF="001580.html">[OpenIMSCore-CSCF] Does Openims supports REFER Method ?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1577">[ date ]</a>
+              <a href="thread.html#1577">[ thread ]</a>
+              <a href="subject.html#1577">[ subject ]</a>
+              <a href="author.html#1577">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

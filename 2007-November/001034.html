@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] source port and VIA's sent-to port differ &amp;	digest [GishPuppy]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20source%20port%20and%20VIA%27s%20sent-to%20port%20differ%0A%20%26%09digest%20%5BGishPuppy%5D&In-Reply-To=%3C47319CB4.30505%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001033.html">
+   <LINK REL="Next"  HREF="001035.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] source port and VIA's sent-to port differ &amp;	digest [GishPuppy]</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20source%20port%20and%20VIA%27s%20sent-to%20port%20differ%0A%20%26%09digest%20%5BGishPuppy%5D&In-Reply-To=%3C47319CB4.30505%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] source port and VIA's sent-to port differ &amp;	digest [GishPuppy]">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Nov  7 12:08:36 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001033.html">[OpenIMSCore-CSCF] P-CSCF release of calls problem
+</A></li>
+        <LI>Next message: <A HREF="001035.html">[OpenIMSCore-CSCF] source port and VIA's sent-to port differ &amp;digest [GishPuppy]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1034">[ date ]</a>
+              <a href="thread.html#1034">[ thread ]</a>
+              <a href="subject.html#1034">[ subject ]</a>
+              <a href="author.html#1034">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Fran,
+
+The reason for sending back to the source is to allow clients to work
+over NAT. So instead of sending towards the NAT box at the port
+indicated in the Via header, we send towards the source - if you have
+100 clients behind NAT that all indicate port 5060, the P-CSCF won't be
+able otherwise to send them messages.
+
+This is however just the default behavior that fits for most of our
+users. You can disable the NAT functionality from the script - disable
+NAT and/or remove P_NAT_relay() calls.
+
+When changing the authentication scheme it is not enough to change the
+default authentication scheme in the HSS. This default scheme is chosen
+ONLY if the S-CSCF has been configured with a HSS-Selected
+authentication scheme. The S-CSCF is mainly responsible for choosing the
+authentication scheme and this can only be deferred and not for all
+cases (like ETSI/TISPAN HTTP Digest MD5).
+
+Cheers,
+-Dragos
+
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">berliosde.xg3 at gishpuppy.com</A> wrote:
+&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i> I had 2 questions.
+</I>&gt;<i>
+</I>&gt;<i> I'm using a SIP client library that sends SIP register request over UDP.
+</I>&gt;<i> It uses a random UDP source port for sending
+</I>&gt;<i> In the SIP request the VIA header has a sent-to port number 5060.
+</I>&gt;<i> According to the RFC 3261, the server should reply to 5060.
+</I>&gt;<i> But instead I see with wireshark that the p-cscf uses the source port.
+</I>&gt;<i> It ignores the request's VIA header.
+</I>&gt;<i> As the SIP client library only listens on 5060, 
+</I>&gt;<i> it never gets the SIP response from the p-cscf.
+</I>&gt;<i>
+</I>&gt;<i> Is it allowed behavior (from client as well as server)?
+</I>&gt;<i> I cannot change the library because it's binary only.
+</I>&gt;<i> Can somebody give a hint where to change the open IMS source,
+</I>&gt;<i> so that it uses the VIA's sent-to port instead to the source UDP port?
+</I>&gt;<i>
+</I>&gt;<i> I tried to change the AKAv1-MD5 algorithm through the web GUI
+</I>&gt;<i> Only the AKAv2-MD5 seems to be supported.
+</I>&gt;<i> Other digest algorithms are not supported?
+</I>&gt;<i> Or am I mistaken? 
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i> fran
+</I>&gt;<i>
+</I>&gt;<i> Gishpuppy | To reply to this email, click here: 
+</I>&gt;<i> <A HREF="http://www.gishpuppy.com/cgi-bin/edit.py?email=berliosde.xg3@gishpuppy.com">http://www.gishpuppy.com/cgi-bin/edit.py?email=berliosde.xg3@gishpuppy.com</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001033.html">[OpenIMSCore-CSCF] P-CSCF release of calls problem
+</A></li>
+	<LI>Next message: <A HREF="001035.html">[OpenIMSCore-CSCF] source port and VIA's sent-to port differ &amp;digest [GishPuppy]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1034">[ date ]</a>
+              <a href="thread.html#1034">[ thread ]</a>
+              <a href="subject.html#1034">[ subject ]</a>
+              <a href="author.html#1034">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

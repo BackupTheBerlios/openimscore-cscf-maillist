@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Error when starting icscf.sh
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Error%20when%20starting%20icscf.sh&In-Reply-To=%3CBAY144-DS1AC4322A95597AF5976CDE6480%40phx.gbl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001125.html">
+   <LINK REL="Next"  HREF="001130.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Error when starting icscf.sh</H1>
+    <B>jun.wen at msn.com</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Error%20when%20starting%20icscf.sh&In-Reply-To=%3CBAY144-DS1AC4322A95597AF5976CDE6480%40phx.gbl%3E"
+       TITLE="[OpenIMSCore-CSCF] Error when starting icscf.sh">jun.wen at msn.com
+       </A><BR>
+    <I>Tue Jan  8 09:29:48 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001125.html">[OpenIMSCore-CSCF] Error when starting icscf.sh
+</A></li>
+        <LI>Next message: <A HREF="001130.html">[OpenIMSCore-CSCF] Error when starting icscf.sh
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1126">[ date ]</a>
+              <a href="thread.html#1126">[ thread ]</a>
+              <a href="subject.html#1126">[ subject ]</a>
+              <a href="author.html#1126">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Thanks, let me check later if I've installed what you listed.
+ 
+Regards
+ 
+Jun
+
+  _____  
+
+From: Eduardo Moreno [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">eduardo.moreno at inycom.es</A>] 
+Sent: 2008&#24180;1&#26376;8&#26085; 16:21
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jun.wen at msn.com</A>
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] Error when starting icscf.sh
+
+
+Hi.
+
+Yes, it is possible, but shouldn't be necessary. We use MySQL 5.0 without problems:
+
+This is what we are using in an Ubuntu 7.04: 
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">aire at srvimscore</A>:~$ dpkg --list '*mysql*'|grep ^ii
+
+ii  libdbd-mysql-perl          3.0008-1build1     A Perl5 database interface to the MySQL data
+
+ii  libmysqlclient15-dev       5.0.38-0ubuntu1.2  mysql database development files
+
+ii  libmysqlclient15off        5.0.38-0ubuntu1.2  mysql database client library
+
+ii  mysql-admin                1.2.5rc-1          GUI tool for intuitive MySQL administration
+
+ii  mysql-admin-common         1.2.5rc-1          Architecture independent files for MySQL Adm
+
+ii  mysql-client-5.0           5.0.38-0ubuntu1.2  mysql database client binaries
+
+ii  mysql-common               5.0.38-0ubuntu1.2  mysql database common files (e.g. /etc/mysql
+
+ii  mysql-query-browser        1.2.5beta-3ubuntu4 Official GUI tool to query MySQL database
+
+ii  mysql-query-browser-common 1.2.5beta-3ubuntu4 Architecture independent files for MySQL Que
+
+ii  mysql-server               5.0.38-0ubuntu1.2  mysql database server (meta package dependin
+
+ii  mysql-server-5.0           5.0.38-0ubuntu1.2  mysql database server binaries
+
+ii  php5-mysql                 5.2.1-0ubuntu1.5   MySQL module for php5
+
+
+Regards...
+
+
+El lun, 07-01-2008 a las 20:56 +0800, <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jun.wen at msn.com</A> escribi&#243;: 
+
+I've went through the mail list archives and found this issue was reported
+
+and answered several times. Any final solution addressing that issue ? I've
+
+installed libmysqlclient-devel-5 and re-compile source code but it was still
+
+failed as before. Some one of you suggest to downgrade mysql from 5.0 to
+
+4.0, is it viable ?
+
+
+
+Thanks
+
+
+
+Jun
+
+
+
+-----&#37038;&#20214;&#21407;&#20214;-----
+
+&#21457;&#20214;&#20154;: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jun.wen at msn.com</A> [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jun.wen at msn.com</A>] 
+
+&#21457;&#36865;&#26102;&#38388;: 2008&#24180;1&#26376;6&#26085; 15:03
+
+&#25910;&#20214;&#20154;: '<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>'
+
+&#20027;&#39064;: Error when starting icscf.sh
+
+
+
+Hi, Gentlemen,
+
+
+
+When I tried to start icscf.sh, an error was reported as following
+
+statement. It seems some of problems in mysqld configuration during
+
+installation. 
+
+
+
+Anything I should do ? Was that icscf.sh in service normally ?
+
+
+
+Regards and thanks in advance.
+
+
+
+Jun
+
+
+
+--------------------------------------------------------------------
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at localhost</A> OpenIMSCore]# sh icscf.sh
+
+icscf.sh: line 3: killser: command not found
+
+ 0(3962) ERROR: load_module: could not open module
+
+&lt;/opt/OpenIMSCore/ser_ims/modules/mysql/mysql.so&gt;:
+
+/opt/OpenIMSCore/ser_ims/modules/mysql/mysql.so: undefined symbol: log
+
+ 0(3962) parse error (30,13-14): failed to load module
+
+ERROR: bad config file (1 errors)
+
+ 0(3962) INFO:cdp:cdp_exit(): CDiameterPeer stoping ...
+
+icscf.sh: line 4:  3962 error               /opt/OpenIMSCore/ser_ims/ser -f
+
+/opt/OpenIMSCore/icscf.cfg -D -D
+
+
+
+------ Semaphore Arrays --------
+
+key        semid      owner      perms      nsems   
+
+--------------------------------------------------------------------
+
+
+
+_______________________________________________
+
+OpenIMSCore-CSCF mailing list
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+
+AVISO LEGAL 
+
+
+Este mensaje y los archivos que en su caso lleve adjuntos son privados y confidenciales y se dirigen exclusivamente a su destinatario. Por ello, se informa a quien lo reciba por error que la informaci&#243;n contenida en el mismo es reservada y su utilizaci&#243;n, copia o distribuci&#243;n est&#225; prohibida, por lo que en tal caso le rogamos que nos lo comunique por esta misma v&#237;a o por tel&#233;fono (+34976013300) y proceda a borrarlo de inmediato. 
+
+ 
+
+En cumplimiento del Art. 5 de la Ley Org&#225;nica 15/1999, de 13 de diciembre, de Protecci&#243;n de Datos de Car&#225;cter Personal, se le informa que sus datos personales forman parte de un fichero propiedad de INSTRUMENTACI&#211;N Y COMPONENTES, S.A.  En cualquier momento podr&#225; ejercitar sus derechos de acceso, cancelaci&#243;n, rectificaci&#243;n y oposici&#243;n RESPONDIENDO a este correo.
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080108/4ccaeb00/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080108/4ccaeb00/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001125.html">[OpenIMSCore-CSCF] Error when starting icscf.sh
+</A></li>
+	<LI>Next message: <A HREF="001130.html">[OpenIMSCore-CSCF] Error when starting icscf.sh
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1126">[ date ]</a>
+              <a href="thread.html#1126">[ thread ]</a>
+              <a href="subject.html#1126">[ subject ]</a>
+              <a href="author.html#1126">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

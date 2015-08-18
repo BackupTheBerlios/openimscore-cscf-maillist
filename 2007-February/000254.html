@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Sipp tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Sipp%20tests&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C013973D1%40INOAVREX05.ptin.corpPT.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000253.html">
+   <LINK REL="Next"  HREF="000255.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Sipp tests</H1>
+    <B>Jos&#233; Carlos Amorim</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Sipp%20tests&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C013973D1%40INOAVREX05.ptin.corpPT.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Sipp tests">jose-c-amorim at ptinovacao.pt
+       </A><BR>
+    <I>Tue Feb 27 16:11:32 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000253.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r157 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000255.html">[OpenIMSCore-CSCF] Sipp tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#254">[ date ]</a>
+              <a href="thread.html#254">[ thread ]</a>
+              <a href="subject.html#254">[ subject ]</a>
+              <a href="author.html#254">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+ 
+
+I'm doing some simple tests with Sipp, openimscore and our HSS but I can't figure out a correct configuration for cdp module. At this moment we have I-, S- and Hss on the same machine. The problem that I'm running into is that I have situations that it takes 40 ms and more for I- and S- to send out a SIP response after they get a Diameter answer. 
+
+On the tests CDP is configured with 6 worker processes and a queue length of 30. 
+
+I run I- an S- with 10 children each and with -m parameter of 512. 
+
+We are only able to put Sipp generating 5 Registers/s without having the 40 ms delay I talked about.
+
+The machine were we are running the I-,S- and Hss is a Pentium4 3GHz and with 2GB of RAM.
+
+ 
+
+Did anybody else do these kind of tests?
+
+Dragos any pointers on what I should alter, or any reference scenarios were you tested and configurations you used? 
+
+What can we expect as the maximum number of Registers/Invites an I- or S- can support?
+
+ 
+
+Best regards,
+
+Jos&#233; Carlos Silva
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070227/2c64cd00/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070227/2c64cd00/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000253.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r157 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000255.html">[OpenIMSCore-CSCF] Sipp tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#254">[ date ]</a>
+              <a href="thread.html#254">[ thread ]</a>
+              <a href="subject.html#254">[ subject ]</a>
+              <a href="author.html#254">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

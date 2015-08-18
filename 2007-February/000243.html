@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Unpredictable behaviour on REGISTER and	SUBSCRIBE
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Unpredictable%20behaviour%20on%20REGISTER%20and%0A%09SUBSCRIBE&In-Reply-To=%3C45DEE734.9010507%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000238.html">
+   <LINK REL="Next"  HREF="000239.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Unpredictable behaviour on REGISTER and	SUBSCRIBE</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Unpredictable%20behaviour%20on%20REGISTER%20and%0A%09SUBSCRIBE&In-Reply-To=%3C45DEE734.9010507%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Unpredictable behaviour on REGISTER and	SUBSCRIBE">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Feb 23 14:08:04 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000238.html">[OpenIMSCore-CSCF] Unpredictable behaviour on REGISTER and SUBSCRIBE
+</A></li>
+        <LI>Next message: <A HREF="000239.html">[OpenIMSCore-CSCF] changing domain name : scscf.cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#243">[ date ]</a>
+              <a href="thread.html#243">[ thread ]</a>
+              <a href="subject.html#243">[ subject ]</a>
+              <a href="author.html#243">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Strange things indeed. However, we have to consider that while the
+S-CSCF does support implicit sets of public identities, the HSS is not
+yet there. Adrian, any opinion on this strange thing?
+
+In any case, the implicit set should come in the next weeks.
+
+-Dragos
+
+Dave Waiting wrote:
+&gt;<i> Hi all
+</I>&gt;<i>
+</I>&gt;<i> I've noticed that when a user has more than one Public user identity
+</I>&gt;<i> that there is some strange behaviour when I register and subscribe to
+</I>&gt;<i> the reg event.
+</I>&gt;<i>
+</I>&gt;<i> Sometimes the whole process works fine and the S-CSCF returns the
+</I>&gt;<i> correct list of P-Associated-URIs, and I can subscribe to the reg
+</I>&gt;<i> event. But sometimes either the S-CSCF doesn't return all the public
+</I>&gt;<i> UIs, or the SUBSCRIBE fails with: 404 Not Found - User not registered
+</I>&gt;<i> on this S-CSCF.
+</I>&gt;<i>
+</I>&gt;<i> I have attached the 3 wireshark traces of the scenarios above. In each
+</I>&gt;<i> case I do exactly the same thing. Could this be a problem with the
+</I>&gt;<i> client (which is written by some lazy guy that doesn't read RFCs), or
+</I>&gt;<i> is it a problem in the core?
+</I>&gt;<i>
+</I>&gt;<i> Regards
+</I>&gt;<i>
+</I>&gt;<i> Dave
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000238.html">[OpenIMSCore-CSCF] Unpredictable behaviour on REGISTER and SUBSCRIBE
+</A></li>
+	<LI>Next message: <A HREF="000239.html">[OpenIMSCore-CSCF] changing domain name : scscf.cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#243">[ date ]</a>
+              <a href="thread.html#243">[ thread ]</a>
+              <a href="subject.html#243">[ subject ]</a>
+              <a href="author.html#243">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

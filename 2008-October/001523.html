@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] core dump due to checking trigger point,	session description
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20core%20dump%20due%20to%20checking%20trigger%20point%2C%0A%09session%20description&In-Reply-To=%3C4909DD49.5060105%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001515.html">
+   <LINK REL="Next"  HREF="001516.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] core dump due to checking trigger point,	session description</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20core%20dump%20due%20to%20checking%20trigger%20point%2C%0A%09session%20description&In-Reply-To=%3C4909DD49.5060105%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] core dump due to checking trigger point,	session description">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Oct 30 17:14:01 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001515.html">[OpenIMSCore-CSCF] core dump due to checking trigger point,	session description
+</A></li>
+        <LI>Next message: <A HREF="001516.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r594 - user preferences rfc3840	and its successor
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1523">[ date ]</a>
+              <a href="thread.html#1523">[ thread ]</a>
+              <a href="subject.html#1523">[ subject ]</a>
+              <a href="author.html#1523">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Bin,
+
+It would be very helpful if you would paste your Service Profile here
+(copy it from the SAA Diameter message).
+
+Also it would help a lot if you could run a &quot;gdb
+/opt/OpenIMSCore/ser_ims/ser &lt;core_file&gt;&quot;, type there bt&lt;enter&gt; and
+paste back the result.
+
+And are you using a newer revision?
+
+Cheers,
+-Dragos
+
+
+Bin Zhou wrote:
+&gt;<i> Hi Dragos,
+</I>&gt;<i>
+</I>&gt;<i> I got core dump when I using an iFC with session description. Is there
+</I>&gt;<i> anything wrong with my iFC? Here is the debug info:
+</I>&gt;<i>
+</I>&gt;<i> 4(16885) INFO:ISC:isc_checker_find: starting search
+</I>&gt;<i>  4(16885) DEBUG:ISC:ifc_checker_trigger: Starting expression check: 
+</I>&gt;<i>  4(16885) DEBUG:ISC:ifc_check_spt:             SPT type 2 -&gt; Method ==
+</I>&gt;<i> INVITE ?
+</I>&gt;<i>  4(16885) DEBUG:ISC:ifc_check_spt:               Found method INVITE 
+</I>&gt;<i>  4(16885) DEBUG:ISC:ifc_checker_trigger:       - group compromised,
+</I>&gt;<i> skipping to next group
+</I>&gt;<i>  4(16885) DEBUG:ISC:ifc_check_spt:             SPT type 5 -&gt; Session
+</I>&gt;<i> Desc.[o]  %= 100.250.200.200 ?
+</I>&gt;<i>  4(16885) parse_headers: flags=1800
+</I>&gt;<i>  4(16885) DEBUG:ISC:ifc_check_session_desc:      Found Content-Type ==
+</I>&gt;<i> appliction/sdp
+</I>&gt;<i>  4(16885) parse_headers: flags=ffffffffffffffff
+</I>&gt;<i>  4(16885) BUG: qm_*: fragm. 0x81b5c08 (address 0x81b5c20) end
+</I>&gt;<i> overwritten(35322e30, 30322e30)!
+</I>&gt;<i> 17(16898) ERROR: receive_fd: EOF on 9
+</I>&gt;<i> 17(16898) DBG: handle_ser_child: dead child 4, pid 16885 (shutting
+</I>&gt;<i> down?)
+</I>&gt;<i> 17(16898) DBG: io_watch_del (0x814f380, 9, -1, 0x0) fd_no=21 called
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i>
+</I>&gt;<i> Bin
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001515.html">[OpenIMSCore-CSCF] core dump due to checking trigger point,	session description
+</A></li>
+	<LI>Next message: <A HREF="001516.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r594 - user preferences rfc3840	and its successor
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1523">[ date ]</a>
+              <a href="thread.html#1523">[ thread ]</a>
+              <a href="subject.html#1523">[ subject ]</a>
+              <a href="author.html#1523">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

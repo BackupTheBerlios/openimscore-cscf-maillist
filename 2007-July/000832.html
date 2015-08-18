@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r379 - Added NASS-Bundled Auth	Suport through e2 interface
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r379%20-%20Added%20NASS-Bundled%20Auth%0A%09Suport%20through%20e2%20interface&In-Reply-To=%3C200707051730.l65HUUXh013541%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000831.html">
+   <LINK REL="Next"  HREF="000833.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r379 - Added NASS-Bundled Auth	Suport through e2 interface</H1>
+    <B>flp at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r379%20-%20Added%20NASS-Bundled%20Auth%0A%09Suport%20through%20e2%20interface&In-Reply-To=%3C200707051730.l65HUUXh013541%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r379 - Added NASS-Bundled Auth	Suport through e2 interface">flp at users.berlios.de
+       </A><BR>
+    <I>Thu Jul  5 19:30:30 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000831.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] Drop the	r_ipsec on failure to set SAs
+</A></li>
+        <LI>Next message: <A HREF="000833.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r380 - Fixed error when cdp module	not loaded
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#832">[ date ]</a>
+              <a href="thread.html#832">[ thread ]</a>
+              <a href="subject.html#832">[ subject ]</a>
+              <a href="author.html#832">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: flp
+Date: 2007-07-05 19:30:13 +0200 (Thu, 05 Jul 2007)
+New Revision: 379 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=379">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=379</A> 
+
+Log:
+Added NASS-Bundled Auth Suport through e2 interface
+
+
+Added:
+   A	ser_ims/branches/06_NASS_Bundled/cfg/pcscf.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/cfg/pcscf.xml?rev=379&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/cfg/pcscf.xml?rev=379&amp;view=markup</A>
+   A	ser_ims/branches/06_NASS_Bundled/cfg/pcscf_nass.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/cfg/pcscf_nass.cfg?rev=379&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/cfg/pcscf_nass.cfg?rev=379&amp;view=markup</A>
+   A	ser_ims/branches/06_NASS_Bundled/cfg/scscf_nass.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/cfg/scscf_nass.cfg?rev=379&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/cfg/scscf_nass.cfg?rev=379&amp;view=markup</A>
+   A	ser_ims/branches/06_NASS_Bundled/modules/pcscf/e2.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/pcscf/e2.c?rev=379&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/pcscf/e2.c?rev=379&amp;view=markup</A>
+   A	ser_ims/branches/06_NASS_Bundled/modules/pcscf/e2.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/pcscf/e2.h?rev=379&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/pcscf/e2.h?rev=379&amp;view=markup</A>
+   A	ser_ims/branches/06_NASS_Bundled/modules/pcscf/e2_avp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/pcscf/e2_avp.c?rev=379&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/pcscf/e2_avp.c?rev=379&amp;view=markup</A>
+   A	ser_ims/branches/06_NASS_Bundled/modules/pcscf/e2_avp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/pcscf/e2_avp.h?rev=379&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/pcscf/e2_avp.h?rev=379&amp;view=markup</A>
+Modified:
+   U	ser_ims/branches/06_NASS_Bundled/modules/cdp/diameter.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/cdp/diameter.h?rev=379&amp;view=diff&amp;r1=379&amp;r2=378">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/cdp/diameter.h?rev=379&amp;view=diff&amp;r1=379&amp;r2=378</A>
+   U	ser_ims/branches/06_NASS_Bundled/modules/cdp/diameter_ims.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/cdp/diameter_ims.h?rev=379&amp;view=diff&amp;r1=379&amp;r2=378">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/cdp/diameter_ims.h?rev=379&amp;view=diff&amp;r1=379&amp;r2=378</A>
+   U	ser_ims/branches/06_NASS_Bundled/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/pcscf/mod.c?rev=379&amp;view=diff&amp;r1=379&amp;r2=378">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/pcscf/mod.c?rev=379&amp;view=diff&amp;r1=379&amp;r2=378</A>
+   U	ser_ims/branches/06_NASS_Bundled/modules/pcscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/pcscf/registration.c?rev=379&amp;view=diff&amp;r1=379&amp;r2=378">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/pcscf/registration.c?rev=379&amp;view=diff&amp;r1=379&amp;r2=378</A>
+   U	ser_ims/branches/06_NASS_Bundled/modules/pcscf/registration.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/pcscf/registration.h?rev=379&amp;view=diff&amp;r1=379&amp;r2=378">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/pcscf/registration.h?rev=379&amp;view=diff&amp;r1=379&amp;r2=378</A>
+   U	ser_ims/branches/06_NASS_Bundled/modules/scscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/scscf/registration.c?rev=379&amp;view=diff&amp;r1=379&amp;r2=378">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/scscf/registration.c?rev=379&amp;view=diff&amp;r1=379&amp;r2=378</A>
+   U	ser_ims/branches/06_NASS_Bundled/modules/scscf/sip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/scscf/sip.c?rev=379&amp;view=diff&amp;r1=379&amp;r2=378">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/06_NASS_Bundled/modules/scscf/sip.c?rev=379&amp;view=diff&amp;r1=379&amp;r2=378</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000831.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] Drop the	r_ipsec on failure to set SAs
+</A></li>
+	<LI>Next message: <A HREF="000833.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r380 - Fixed error when cdp module	not loaded
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#832">[ date ]</a>
+              <a href="thread.html#832">[ thread ]</a>
+              <a href="subject.html#832">[ subject ]</a>
+              <a href="author.html#832">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

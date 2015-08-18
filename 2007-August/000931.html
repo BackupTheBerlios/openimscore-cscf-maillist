@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] S-CSCF Crash r380
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20S-CSCF%20Crash%20r380&In-Reply-To=%3C14513D9CD9650446BF2F0A76846EE312010EA2FB%40inosplex01.ptin.corpPT.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000930.html">
+   <LINK REL="Next"  HREF="000932.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] S-CSCF Crash r380</H1>
+    <B>Jo&#227;o Vitor Torres</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20S-CSCF%20Crash%20r380&In-Reply-To=%3C14513D9CD9650446BF2F0A76846EE312010EA2FB%40inosplex01.ptin.corpPT.com%3E"
+       TITLE="[OpenIMSCore-CSCF] S-CSCF Crash r380">joao-v-torres at ptinovacao.pt
+       </A><BR>
+    <I>Mon Aug 20 21:18:36 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000930.html">[OpenIMSCore-CSCF] S-CSCF Crash r380
+</A></li>
+        <LI>Next message: <A HREF="000932.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r436 - Removed the spaces from	inside the P-Charging-Vector header.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#931">[ date ]</a>
+              <a href="thread.html#931">[ thread ]</a>
+              <a href="subject.html#931">[ subject ]</a>
+              <a href="author.html#931">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+
+The crash is solved. Messages routing is ok, however the log displays a bug message. See below.
+
+Regards,
+
+Jo&#227;o Vitor Torres
+
+12(4863) ------------------
+ 4(4855) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the message
+ 4(4855) DBG:S-CSCF:cscf_get_terminating_identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">5555 at ptinovacao.pt</A>&gt;
+ 4(4855) &gt;&gt;       Term
+ 4(4855) DBG:S-CSCF:S_save_dialog(term): Call-ID &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">6e12dec2473158d3706afd1270065a28 at ptinovacao.pt</A>&gt;
+ 4(4855) INFO:ISC:ISC_match_filter(term): Checking triggers
+ 4(4855) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the message
+ 4(4855) INFO:ISC:ISC_match_filter(term): Starting triggering
+ 4(4855) INFO:ISC:ISC_match_filter(term): Term User &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">5555 at ptinovacao.pt</A>&gt; [-1]
+ 4(4855) INFO:ISC:isc_checker_find: starting search
+ 4(4855) INFO:ISC:isc_checker_find: MATCH -&gt; sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vccmo at 10.51.160.235</A>:5060 (VCC_MO) handling 0
+ 4(4855) INFO:ISC:isc_mark_set: NEW mark &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.ptinovacao.pt</A>:6060;lr;s=1;h=0;d=2&gt;
+ 4(4855) INFO:ISC&gt;&gt;       msg was fwded to AS
+ 4(4855) &gt;&gt;       Term - msg was fwded to AS
+ 2(4853) &gt;&gt;       ISC_Term_reply
+ 2(4853) DBG:S-CSCF:S_update_dialog(term): Call-ID &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">6e12dec2473158d3706afd1270065a28 at ptinovacao.pt</A>&gt;
+12(4863) --- Peer List: ---
+12(4863)  S[R_Open] hss.ptinovacao.pt:3868 D[ ]
+12(4863)         [16777216,10415]
+12(4863)         [16777217,10415]
+12(4863)         [16777221,10415]
+12(4863) ------------------
+ 1(4852) &gt;&gt;       Orig
+ 1(4852) DBG:S-CSCF:S_save_dialog(orig): Call-ID &lt;JPFcFNfkLYkZRmEikmtI-w&gt;
+ 1(4852) INFO:ISC:ISC_match_filter(orig): Checking triggers
+ 1(4852) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the message
+ 1(4852) INFO:ISC:ISC_match_filter(orig): Starting triggering
+ 1(4852) INFO:ISC:ISC_match_filter(orig): Orig User &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">joaovitor at ptinovacao.pt</A>&gt; [-1]
+ 1(4852) INFO:ISC:isc_checker_find: starting search
+ 1(4852) INFO:ISC:isc_checker_find: MATCH -&gt; sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vccmo at 10.51.160.235</A>:5060 (VCC_MO) handling 0
+ 1(4852) INFO:ISC:isc_mark_set: NEW mark &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.ptinovacao.pt</A>:6060;lr;s=3;h=0;d=0&gt;
+ 1(4852) INFO:ISC&gt;&gt;       msg was fwded to AS
+ 1(4852) &gt;&gt;       Orig - msg was fwded to AS
+ 2(4853) &gt;&gt;       ISC_Orig_reply
+ 2(4853) DBG:S-CSCF:S_update_dialog(orig): Call-ID &lt;JPFcFNfkLYkZRmEikmtI-w&gt;
+ 3(4854) &gt;&gt;       ISC_Orig_reply
+ 3(4854) DBG:S-CSCF:S_update_dialog(orig): Call-ID &lt;JPFcFNfkLYkZRmEikmtI-w&gt;
+ 3(4854) DBG:S-CSCF:S_drop_dialog(orig): Call-ID &lt;JPFcFNfkLYkZRmEikmtI-w&gt; DIR[0]
+ 3(4854) DBG:S-CSCF:del_s_dialog(): Deleting dialog &lt;JPFcFNfkLYkZRmEikmtI-w&gt; DIR[0]
+ 3(4854) &gt;&gt;       ISC_Orig_failure
+ 3(4854) INFO:ISC:ISC_match_filter(orig): Checking triggers
+ 3(4854) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the message
+ 3(4854) INFO:ISC:ISC_match_filter(orig): Starting triggering
+ 3(4854) INFO:ISC:ISC_match_filter(orig): failure
+ 3(4854) INFO:ISC:ISC_match_filter(orig): Orig User &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">joaovitor at ptinovacao.pt</A>&gt; [-1]
+ 3(4854) INFO:ISC:isc_checker_find: starting search
+ 3(4854) INFO:ISC:isc_checker_find: MATCH -&gt; sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vccmo at 10.51.160.235</A>:5060 (VCC_MO) handling 0
+ 3(4854) INFO:ISC:ISC_match_filter(orig): Orig User &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">joaovitor at ptinovacao.pt</A>&gt; [-1]
+ 3(4854) INFO:ISC:isc_checker_find: resuming search from 3
+ 3(4854) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the message
+ 3(4854) DBG:S-CSCF:cscf_get_terminating_identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at ptinovacao.pt</A>&gt;
+ 3(4854) ERROR: t_forward_nonack: no branches for forwarding
+ 3(4854) ERROR: w_t_relay (failure mode): forwarding failed
+ 3(4854) WARNING: -_set_fr_timer- already added: 0xb60fa620 , tl=0xb60fa630!!!
+ 3(4854) BUG: set_final_timer: start retr failed for 0xb60fa620
+
+-----Original Message-----
+From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>] 
+Sent: segunda-feira, 20 de agosto de 2007 15:33
+To: Jo&#227;o Vitor Torres
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] S-CSCF Crash r380
+
+Hello Joao,
+
+
+Could you please confirm that this still happens with the latest
+revision? There were a lot of bug fixes concerning crashes that I can
+not longer keep track of all of them and their implications.
+
+
+Thanx again,
+-Dragos
+
+Jo&#227;o Vitor Torres wrote:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> S-CSCF crashes in the call flow attached.
+</I>&gt;<i>
+</I>&gt;<i> A MG initiates the dialog,
+</I>&gt;<i>
+</I>&gt;<i> An AS is called,
+</I>&gt;<i>
+</I>&gt;<i> AS initiates a new dialog for an unregistered user,
+</I>&gt;<i>
+</I>&gt;<i> In the new dialog AS is called again,
+</I>&gt;<i>
+</I>&gt;<i> AS responds with a 501 this time,
+</I>&gt;<i>
+</I>&gt;<i> Call is forwarded to destination user,
+</I>&gt;<i>
+</I>&gt;<i> Destination user is not registered too, then 404 not found is returned,
+</I>&gt;<i>
+</I>&gt;<i> Then S-CSCF crashes.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> S-CSCF log is attached too.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> **Jo&#227;o Vitor Torres**
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000930.html">[OpenIMSCore-CSCF] S-CSCF Crash r380
+</A></li>
+	<LI>Next message: <A HREF="000932.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r436 - Removed the spaces from	inside the P-Charging-Vector header.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#931">[ date ]</a>
+              <a href="thread.html#931">[ thread ]</a>
+              <a href="subject.html#931">[ subject ]</a>
+              <a href="author.html#931">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r125 - ser_ims/trunk/cfg
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r125%20-%20ser_ims/trunk/cfg&In-Reply-To=%3C200702071934.l17JYM9v026331%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000197.html">
+   <LINK REL="Next"  HREF="000188.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r125 - ser_ims/trunk/cfg</H1>
+    <B>jsbach at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r125%20-%20ser_ims/trunk/cfg&In-Reply-To=%3C200702071934.l17JYM9v026331%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r125 - ser_ims/trunk/cfg">jsbach at users.berlios.de
+       </A><BR>
+    <I>Wed Feb  7 20:34:22 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000197.html">[OpenIMSCore-CSCF] Scscf strange behavior
+</A></li>
+        <LI>Next message: <A HREF="000188.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r126 - in	ser_ims/branches/01_persistency: cfg lib/cds lib/presence	lib/xcap modules/pcscf modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#187">[ date ]</a>
+              <a href="thread.html#187">[ thread ]</a>
+              <a href="subject.html#187">[ subject ]</a>
+              <a href="author.html#187">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: jsbach
+Date: 2007-02-07 20:34:20 +0100 (Wed, 07 Feb 2007)
+New Revision: 125
+
+Modified:
+   ser_ims/trunk/cfg/configurator.sh
+Log:
+added support for passing arguments at command line
+
+
+
+Modified: ser_ims/trunk/cfg/configurator.sh
+===================================================================
+--- ser_ims/trunk/cfg/configurator.sh	2007-02-07 17:05:08 UTC (rev 124)
++++ ser_ims/trunk/cfg/configurator.sh	2007-02-07 19:34:20 UTC (rev 125)
+@@ -1,7 +1,9 @@
+ #!/bin/bash
+ 
+ # Initialization &amp; global vars
+-clear
++# if you execute this script for the second time
++# you should change these variables to the latest
++# domain name and ip address
+ DDOMAIN=&quot;open-ims\.test&quot;
+ DSDOMAIN=&quot;open-ims\\\.test&quot;
+ DEFAULTIP=&quot;127\.0\.0\.1&quot;
+@@ -16,41 +18,51 @@
+ # input domain is to be slashed for cfg regexes 
+ slasheddomain=`echo $domainname | sed 's/\./\\\\\\\\\./g'`
+ 
+-printf &quot;File to change [\&quot;all\&quot; for everything, \&quot;exit\&quot; to quit]:&quot;
++	if [ $# != 0 ] 
++	then 
++	printf &quot;changing: &quot;
++	    for j in $* 
++	    do
++		sed -i -e &quot;s/$DDOMAIN/$domainname/g&quot; $j
++		sed -i -e &quot;s/$DSDOMAIN/$slasheddomain/g&quot; $j
++		sed -i -e &quot;s/$DEFAULTIP/$ip_address/g&quot; $j
++		printf &quot;$j &quot; 
++	    done
++	echo 
++	else 
++	printf &quot;File to change [\&quot;all\&quot; for everything, \&quot;exit\&quot; to quit]:&quot;
++	# loop
++	    while read filename ;
++	    do
++		    if [ &quot;$filename&quot; = &quot;exit&quot; ] 
++		    then 
++		    printf &quot;exitting...\n&quot;
++		    break ;
+ 
+-# main loop
+-    while read filename ;
+-    do
+-	    if [ &quot;$filename&quot; = &quot;exit&quot; ] 
+-	    then 
+-	    printf &quot;exitting...\n&quot;
+-	    break ;
++			elif [ &quot;$filename&quot; = &quot;all&quot; ]
++			then    
++			    printf &quot;changing: &quot;
++			   for i in $CONFFILES 
++			   do
++				sed -i -e &quot;s/$DDOMAIN/$domainname/g&quot; $i
++				sed -i -e &quot;s/$DSDOMAIN/$slasheddomain/g&quot; $i
++				sed -i -e &quot;s/$DEFAULTIP/$ip_address/g&quot; $i
++				
++				printf &quot;$i &quot; 
++			   done 
++			   echo 
++			   break;
+ 
+-		elif [ &quot;$filename&quot; = &quot;all&quot; ]
+-		then    
+-		    printf &quot;changing: &quot;
+-		   for i in $CONFFILES 
+-		   do
+-			sed -i -e &quot;s/$DDOMAIN/$domainname/g&quot; $i
+-			sed -i -e &quot;s/$DSDOMAIN/$slasheddomain/g&quot; $i
+-			sed -i -e &quot;s/$DEFAULTIP/$ip_address/g&quot; $i
+-			
+-			printf &quot;$i &quot; 
+-		   done 
+-		   echo 
+-		   break;
++				elif [ -w $filename ] 
++				then
++				    printf &quot;changing $filename \n&quot;
++				    sed -i -e &quot;s/$DDOMAIN/$domainname/g&quot; $filename
++				    sed -i -e &quot;s/$DSDOMAIN/$slasheddomain/g&quot; $filename
++				    sed -i -e &quot;s/$DEFAULTIP/$ip_address/g&quot; $filename
+ 
+-			elif [ -w $filename ] 
+-			then
+-			    printf &quot;changing $filename \n&quot;
+-			    sed -i -e &quot;s/$DDOMAIN/$domainname/g&quot; $filename
+-			    sed -i -e &quot;s/$DSDOMAIN/$slasheddomain/g&quot; $filename
+-			    sed -i -e &quot;s/$DEFAULTIP/$ip_address/g&quot; $filename
+-
+-				else 
+-				printf &quot;cannot access file $filename. skipping... \n&quot; 
+-	    fi
+-
+-	    printf &quot;File to Change:&quot;
+-    done 
+-
++					else 
++					printf &quot;cannot access file $filename. skipping... \n&quot; 
++		    fi
++		    printf &quot;File to Change:&quot;
++	    done 
++	fi
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000197.html">[OpenIMSCore-CSCF] Scscf strange behavior
+</A></li>
+	<LI>Next message: <A HREF="000188.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r126 - in	ser_ims/branches/01_persistency: cfg lib/cds lib/presence	lib/xcap modules/pcscf modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#187">[ date ]</a>
+              <a href="thread.html#187">[ thread ]</a>
+              <a href="subject.html#187">[ subject ]</a>
+              <a href="author.html#187">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

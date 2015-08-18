@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r212 - Applied Florin Popescu's	patch for checking transactional via lists.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r212%20-%20Applied%20Florin%20Popescu%27s%0A%09patch%20for%20checking%20transactional%20via%20lists.&In-Reply-To=%3C200704021013.l32ADQSu014928%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000378.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r212 - Applied Florin Popescu's	patch for checking transactional via lists.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r212%20-%20Applied%20Florin%20Popescu%27s%0A%09patch%20for%20checking%20transactional%20via%20lists.&In-Reply-To=%3C200704021013.l32ADQSu014928%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r212 - Applied Florin Popescu's	patch for checking transactional via lists.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Mon Apr  2 12:13:26 CEST 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000378.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r213 - Removed $rev from	Makefile.defs as it was buggy - printed the last revision of	the Makefile.defs file and not of the project.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#377">[ date ]</a>
+              <a href="thread.html#377">[ thread ]</a>
+              <a href="subject.html#377">[ subject ]</a>
+              <a href="author.html#377">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-04-02 12:13:20 +0200 (Mon, 02 Apr 2007)
+New Revision: 212 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=212">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=212</A> 
+
+Log:
+Applied Florin Popescu's patch for checking transactional via lists.
+
+
+Modified:
+   U	ser_ims/trunk/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=212&amp;view=diff&amp;r1=212&amp;r2=211">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=212&amp;view=diff&amp;r1=212&amp;r2=211</A>
+   U	ser_ims/trunk/mem/q_malloc.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/mem/q_malloc.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/mem/q_malloc.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211</A>
+   U	ser_ims/trunk/modules/icscf/scscf_list.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/scscf_list.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/scscf_list.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211</A>
+   U	ser_ims/trunk/modules/icscf/thig.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/thig.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/thig.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211</A>
+   U	ser_ims/trunk/modules/pcscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211</A>
+   U	ser_ims/trunk/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211</A>
+   U	ser_ims/trunk/modules/pcscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211</A>
+   U	ser_ims/trunk/modules/pcscf/security.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/security.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/security.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211</A>
+   U	ser_ims/trunk/modules/pcscf/security.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/security.h?rev=212&amp;view=diff&amp;r1=212&amp;r2=211">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/security.h?rev=212&amp;view=diff&amp;r1=212&amp;r2=211</A>
+   U	ser_ims/trunk/modules/scscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/dlg_state.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/dlg_state.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211</A>
+   U	ser_ims/trunk/modules/scscf/registrar.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211</A>
+   U	ser_ims/trunk/modules/scscf/sip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.c?rev=212&amp;view=diff&amp;r1=212&amp;r2=211</A>
+   U	ser_ims/trunk/modules/scscf/sip.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.h?rev=212&amp;view=diff&amp;r1=212&amp;r2=211">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.h?rev=212&amp;view=diff&amp;r1=212&amp;r2=211</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000378.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r213 - Removed $rev from	Makefile.defs as it was buggy - printed the last revision of	the Makefile.defs file and not of the project.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#377">[ date ]</a>
+              <a href="thread.html#377">[ thread ]</a>
+              <a href="subject.html#377">[ subject ]</a>
+              <a href="author.html#377">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

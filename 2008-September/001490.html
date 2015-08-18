@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OSIMS%20bug%20on%20processing%20FQDNs&In-Reply-To=%3C48C50E93.8060803%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001487.html">
+   <LINK REL="Next"  HREF="001494.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OSIMS%20bug%20on%20processing%20FQDNs&In-Reply-To=%3C48C50E93.8060803%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Mon Sep  8 13:37:55 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001487.html">[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+</A></li>
+        <LI>Next message: <A HREF="001494.html">[OpenIMSCore-CSCF] [[SPAM?]] Re: OSIMS bug on processing FQDNs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1490">[ date ]</a>
+              <a href="thread.html#1490">[ thread ]</a>
+              <a href="subject.html#1490">[ subject ]</a>
+              <a href="author.html#1490">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>okok, but why don't you just put some quotes around your alias?
+
+alias=&quot;pcscf.ims.3abc.org:5060&quot;
+
+This is a known SER parsing issue, which was discussed before, I think...
+
+Anyway, I think that the simplicity of the fix should not mandate for a
+redesign of the entire grammar of the routing config, no matter how
+wrong the original authors were.
+
+Cheers
+-Dragos
+
+
+Hannes L. Weisgrab wrote:
+&gt;<i> Hi Franz,
+</I>&gt;<i> I disagree. The Text you cited is taken from the paragraph labeled
+</I>&gt;<i> &quot;Preferred name syntax&quot;. Consequently I think that this &quot;must&quot; must be
+</I>&gt;<i> interpreted in the context of the paragraph, which is only a
+</I>&gt;<i> recommendation. I am sure the definition of the DNS namespace is much
+</I>&gt;<i> more complex than just the 6 lines given in RFC-1035.
+</I>&gt;<i> In contrast to the text cited, the same paragraph reads:
+</I>&gt;<i> The DNS specifications attempt to be as general as possible in the rules
+</I>&gt;<i> for constructing domain names.  The idea is that the name of any
+</I>&gt;<i> existing object can be expressed as a domain name with minimal changes.
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;<i> ... which means quite the opposite.
+</I>&gt;<i>
+</I>&gt;<i> But the most important fact that your interpretation cannot be correct
+</I>&gt;<i> is that in this case you could NEVER do a DNS reverse lookup!
+</I>&gt;<i>
+</I>&gt;<i> Moreover there are a lot of 2nd level domains starting with a number,
+</I>&gt;<i> like &quot;6net.org&quot; or &quot;3gpp.org&quot; and I doubt that Root Server
+</I>&gt;<i> administrators disobey the rules of the DNS namespace.
+</I>&gt;<i>
+</I>&gt;<i> Therefore OSIMS must accept DNS names where one or more parts of it
+</I>&gt;<i> start with a number. Apart from that, core-dumping is always a bug in
+</I>&gt;<i> the software gegardless of its intended behavior.
+</I>&gt;<i>
+</I>&gt;<i> Best regards,
+</I>&gt;<i> Hannes.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Franz Edler schrieb:
+</I>&gt;&gt;<i> Hi Hannes,
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i> Thus, the error points exactly to the &quot;3&quot; in the name and indeed, if I
+</I>&gt;&gt;&gt;<i> remove the &quot;3&quot; from the name (and reconfigure everything else
+</I>&gt;&gt;&gt;<i> accordingly), it works!
+</I>&gt;&gt;&gt;<i>     
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> This is according to the definition of labels in DNS. See at RFC 1035: &quot;The
+</I>&gt;&gt;<i> labels must follow the rules for ARPANET host names.  They must start with a
+</I>&gt;&gt;<i> letter, end with a letter or digit, and have as interior characters only
+</I>&gt;&gt;<i> letters, digits, and hyphen.  There are also some restrictions on the
+</I>&gt;&gt;<i> length.  Labels must be 63 characters or less.&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> It is not allowed to start a label with a digit.
+</I>&gt;&gt;<i> So you have to find another solution for your domain configuration.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Cheers
+</I>&gt;&gt;<i> -franz
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>   
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001487.html">[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+</A></li>
+	<LI>Next message: <A HREF="001494.html">[OpenIMSCore-CSCF] [[SPAM?]] Re: OSIMS bug on processing FQDNs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1490">[ date ]</a>
+              <a href="thread.html#1490">[ thread ]</a>
+              <a href="subject.html#1490">[ subject ]</a>
+              <a href="author.html#1490">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

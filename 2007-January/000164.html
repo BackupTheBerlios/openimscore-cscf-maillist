@@ -1,0 +1,509 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r113 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r113%20-%20in%0A%09ser_ims/branches/01_persistency%3A%20cfg%20modules/scscf&In-Reply-To=%3C200701312206.l0VM6A8N017117%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000163.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r113 - in	ser_ims/branches/01_persistency: cfg modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r113%20-%20in%0A%09ser_ims/branches/01_persistency%3A%20cfg%20modules/scscf&In-Reply-To=%3C200701312206.l0VM6A8N017117%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r113 - in	ser_ims/branches/01_persistency: cfg modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Jan 31 23:06:10 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000163.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r112 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#164">[ date ]</a>
+              <a href="thread.html#164">[ thread ]</a>
+              <a href="subject.html#164">[ subject ]</a>
+              <a href="author.html#164">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-01-31 23:06:07 +0100 (Wed, 31 Jan 2007)
+New Revision: 113
+
+Modified:
+   ser_ims/branches/01_persistency/cfg/scscf.cfg
+   ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+   ser_ims/branches/01_persistency/modules/scscf/bin_scscf.h
+   ser_ims/branches/01_persistency/modules/scscf/mod.c
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.h
+Log:
+Added dialog persistency.
+Redone the dump/load structure.
+
+
+Modified: ser_ims/branches/01_persistency/cfg/scscf.cfg
+===================================================================
+--- ser_ims/branches/01_persistency/cfg/scscf.cfg	2007-01-31 21:04:58 UTC (rev 112)
++++ ser_ims/branches/01_persistency/cfg/scscf.cfg	2007-01-31 22:06:07 UTC (rev 113)
+@@ -12,7 +12,7 @@
+ sip_warning=yes
+ 
+ fork=yes
+-children=1
++children=4
+ 
+ 
+ listen=127.0.0.1
+@@ -69,7 +69,8 @@
+ 
+ modparam(&quot;scscf&quot;,&quot;persistency_mode&quot;,1)
+ modparam(&quot;scscf&quot;,&quot;persistency_location&quot;,&quot;/opt/OpenIMSCore/persistency&quot;)
+-modparam(&quot;scscf&quot;,&quot;persistency_auth_data_timer&quot;,5)
++modparam(&quot;scscf&quot;,&quot;persistency_auth_data_timer&quot;,60)
++modparam(&quot;scscf&quot;,&quot;persistency_dialogs_timer&quot;,5)
+ 
+ loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/isc/isc.so&quot;
+ 
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-01-31 21:04:58 UTC (rev 112)
++++ ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-01-31 22:06:07 UTC (rev 113)
+@@ -938,3 +938,92 @@
+ 
+ 
+ 
++
++
++
++
++/**
++ * Encode an authentication userdata into a binary form
++ * @param x - binary data to append to
++ * @param u - the authentication usedata to encode
++ * @returns 1 on succcess or 0 on error
++ */
++int bin_encode_s_dialog(bin_data *x,s_dialog *d)
++{
++	if (!bin_encode_int4(x,d-&gt;hash)) goto error;	
++	if (!bin_encode_str(x,&amp;(d-&gt;call_id))) goto error;
++	if (!bin_encode_int1(x,d-&gt;direction)) goto error;
++	
++	if (!bin_encode_str(x,&amp;(d-&gt;aor))) goto error;
++	
++	if (!bin_encode_int1(x,d-&gt;method)) goto error;	
++	if (!bin_encode_str(x,&amp;(d-&gt;method_str))) goto error;
++	
++	if (!bin_encode_int4(x,d-&gt;first_cseq)) goto error;	
++	if (!bin_encode_int4(x,d-&gt;last_cseq)) goto error;	
++
++	if (!bin_encode_int1(x,d-&gt;state)) goto error;	
++
++	if (!bin_encode_int4(x,d-&gt;expires)) goto error;	
++	
++	return 1;
++error:
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_encode_s_dialog: Error while encoding.\n&quot;);
++	return 0;		
++}
++
++/**
++ *	Decode an authentication userdata from a binary data structure
++ * @param x - binary data to decode from
++ * @returns the auth_userdata* where the data has been decoded
++ */
++s_dialog* bin_decode_s_dialog(bin_data *x)
++{
++	s_dialog *d=0;
++	int len,k;
++	str s;
++	
++	len = sizeof(s_dialog);
++	d = (s_dialog*) shm_malloc(len);
++	if (!d) {
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_s_dialog: Error allocating %d bytes.\n&quot;,len);
++		goto error;
++	}
++	memset(d,0,len);
++
++	if (!bin_decode_int4(x,	&amp;(d-&gt;hash))) goto error;		
++	if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(d-&gt;call_id),&amp;s)) goto error;
++
++	if (!bin_decode_int1(x,	&amp;k)) goto error;
++	d-&gt;direction = k;
++	
++	if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(d-&gt;aor),&amp;s)) goto error;
++		
++	if (!bin_decode_int1(x,	&amp;k)) goto error;
++	d-&gt;method = k;
++	if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(d-&gt;method_str),&amp;s)) goto error;
++	
++	if (!bin_decode_int4(x,	&amp;k)) goto error;
++	d-&gt;first_cseq = k;
++	if (!bin_decode_int4(x,	&amp;k)) goto error;
++	d-&gt;last_cseq = k;
++
++	if (!bin_decode_int1(x,	&amp;k)) goto error;
++	d-&gt;state = k;
++	
++	if (!bin_decode_int4(x,	&amp;k)) goto error;
++	d-&gt;expires = k;
++	
++	return d;
++error:
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_s_dialog: Error while decoding (at %d (%04x)).\n&quot;,x-&gt;max,x-&gt;max);
++	if (d) {
++		if (d-&gt;call_id.s) shm_free(d-&gt;call_id.s);
++		if (d-&gt;aor.s) shm_free(d-&gt;aor.s);
++		if (d-&gt;method_str.s) shm_free(d-&gt;method_str.s);
++		shm_free(d);
++	}
++	return 0;
++}
++
++
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin_scscf.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin_scscf.h	2007-01-31 21:04:58 UTC (rev 112)
++++ ser_ims/branches/01_persistency/modules/scscf/bin_scscf.h	2007-01-31 22:06:07 UTC (rev 113)
+@@ -61,6 +61,7 @@
+ #include &quot;ifc_datastruct.h&quot;
+ #include &quot;registration.h&quot;
+ #include &quot;registrar_storage.h&quot;
++#include &quot;dlg_state.h&quot;
+ 
+ #define BIN_INITIAL_ALLOC_SIZE 256
+ 
+@@ -73,4 +74,7 @@
+ int bin_encode_auth_userdata(bin_data *x,auth_userdata *u);
+ auth_userdata* bin_decode_auth_userdata(bin_data *x);
+ 
++int bin_encode_s_dialog(bin_data *x,s_dialog *d);
++s_dialog* bin_decode_s_dialog(bin_data *x);
++
+ #endif
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/mod.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/mod.c	2007-01-31 21:04:58 UTC (rev 112)
++++ ser_ims/branches/01_persistency/modules/scscf/mod.c	2007-01-31 22:06:07 UTC (rev 113)
+@@ -117,6 +117,7 @@
+ persistency_mode_t scscf_persistency_mode=NO_PERSISTENCY;			/**&lt; the type of persistency				*/
+ char* scscf_persistency_location=&quot;/opt/OpenIMSCore/persistency&quot;;	/**&lt; where to dump the persistency data 	*/
+ int scscf_persistency_auth_data_timer=60;							/**&lt; interval to snapshot authorization data*/ 
++int scscf_persistency_dialogs_timer=60;								/**&lt; interval to snapshot dialogs data		*/ 
+ 
+ /* fixed parameter storage */
+ str scscf_name_str;						/**&lt; fixed name of the S-CSCF 							*/
+@@ -251,6 +252,8 @@
+  * &lt;p&gt;
+  * - persistency_mode - how to do persistency - 0 none; 1 with files; 2 with db	
+  * - persistency_location - where to dump/load the persistency data to/from
++ * - persistency_auth_data_timer - interval to make authorization data snapshots at
++ * - persistency_dialogs_timer - interval to make dialogs data snapshots at
+  */	
+ static param_export_t scscf_params[]={ 
+ 	{&quot;name&quot;, 							STR_PARAM, &amp;scscf_name},
+@@ -286,6 +289,7 @@
+ 	{&quot;persistency_mode&quot;,	 			INT_PARAM, &amp;scscf_persistency_mode},	
+ 	{&quot;persistency_location&quot;, 			STR_PARAM, &amp;scscf_persistency_location},
+ 	{&quot;persistency_auth_data_timer&quot;,		INT_PARAM, &amp;scscf_persistency_auth_data_timer},
++	{&quot;persistency_dialogs_timer&quot;,		INT_PARAM, &amp;scscf_persistency_dialogs_timer},
+ 	{0,0,0} 
+ };
+ 
+@@ -502,6 +506,10 @@
+ 		LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:mod_init: Error initializing the Hash Table for stored dialogs\n&quot;);
+ 		goto error;
+ 	}		
++	if (scscf_persistency_mode!=NO_PERSISTENCY){
++		load_snapshot_dlg();
++		if (register_timer(dlg_persistency_timer,0,scscf_persistency_dialogs_timer)&lt;0) goto error;
++	}
+ 
+ 	/* register the dialog timer */
+ 	if (register_timer(dialog_timer,s_dialogs,60)&lt;0) goto error;
+@@ -564,6 +572,7 @@
+ 	if (do_destroy){
+ 		/* First let's snapshot everything */
+ 		make_snapshot_auth();
++		make_snapshot_dlg();
+ 		/* Then nuke it all */
+ 		auth_data_destroy();
+ 		parser_destroy();
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-01-31 21:04:58 UTC (rev 112)
++++ ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-01-31 22:06:07 UTC (rev 113)
+@@ -61,14 +61,9 @@
+ 
+ extern persistency_mode_t scscf_persistency_mode;/**&lt; the type of persistency					*/
+ extern char* scscf_persistency_location;		/**&lt; where to dump the persistency data 		*/ 
+-
+-
+ int scscf_persistency_keep_count=3;				/**&lt; how many old snapshots to keep				*/
+ 
+-extern auth_hash_slot_t *auth_data;				/**&lt; Authentication vector hash table 			*/
+-extern int auth_data_hash_size;					/**&lt; authentication vector hash table size 		*/
+ 
+-
+ /**
+  * Writes the binary data to a snapshot file.
+  * The file names contain the time of the dump. If a file was dumped 
+@@ -173,8 +168,55 @@
+ }
+ 
+ 
++/**
++ * Dump a binary data where configured to.
++ * @param x - binary data to dump
++ * @returns 1 on success or 0 on failure
++ */
++int bin_dump(bin_data *x,char* prepend_fname)
++{	
++	switch (scscf_persistency_mode){
++		case NO_PERSISTENCY:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but persistency was disabled...\n&quot;);
++			return 0;
++		case WITH_FILES:
++			return bin_dump_to_file(x,prepend_fname);
++		case WITH_DATABASE:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but WITH_DATABASE not implemented...\n&quot;);
++			return 0;
++		default:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but no such mode %d\n&quot;,scscf_persistency_mode);
++			return 0;
++	}
++}
+ 
+ /**
++ * Reloads the bin_data from where configured to.
++ * @param x - where to load into
++ * @returns 1 on success, 0 on error
++ */
++int bin_load(bin_data *x,char* prepend_fname)
++{
++	switch (scscf_persistency_mode){
++		case NO_PERSISTENCY:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load: Persistency support was disabled\n&quot;);
++			return 0;
++		case WITH_FILES:
++			return bin_load_from_file(x,prepend_fname);		
++		case WITH_DATABASE:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load: WITH_DATABASE not implemented...\n&quot;);
++			return 0;
++		default:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load: Can't resume because no such mode %d\n&quot;,scscf_persistency_mode);
++			return 0;
++	}
++}
++
++
++extern auth_hash_slot_t *auth_data;				/**&lt; Authentication vector hash table 			*/
++extern int auth_data_hash_size;					/**&lt; authentication vector hash table size 		*/
++
++/**
+  * Creates a snapshots of the authorization data and then calls the dumping function.
+  * @returns 1 on success or 0 on failure
+  */
+@@ -182,10 +224,8 @@
+ {
+ 	bin_data x;
+ 	auth_userdata *aud;
+-	int i;
+-	
+-	if (!bin_alloc(&amp;x,256)) goto error;
+-	
++	int i;	
++	if (!bin_alloc(&amp;x,256)) goto error;		
+ 	for(i=0;i&lt;auth_data_hash_size;i++){
+ 		auth_data_lock(i);
+ 		aud = auth_data[i].head;
+@@ -196,49 +236,22 @@
+ 		auth_data_unlock(i);
+ 	}
+ 	bin_print(&amp;x);
+-	switch (scscf_persistency_mode){
+-		case NO_PERSISTENCY:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:make_snapshot_auth: Snapshot done but persistency was disabled...\n&quot;);
+-			i = 0;
+-			break;
+-		case WITH_FILES:
+-			i = bin_dump_to_file(&amp;x,&quot;authdata&quot;);
+-			break;
+-		case WITH_DATABASE:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:make_snapshot_auth: Snapshot done but WITH_DATABASE not implemented...\n&quot;);
+-			i = 0;
+-			break;
+-		default:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:make_snapshot_auth: Snapshot done but no such mode %d\n&quot;,scscf_persistency_mode);
+-			i = 0;
+-	}
+-	
++	i = bin_dump(&amp;x,&quot;authdata&quot;);		
+ 	bin_free(&amp;x);
+ 	return i;
+ error:
+ 	return 0;
+ }  
+ 
++/**
++ * Loads the authorization data from the last snapshot.
++ * @returns 1 on success or 0 on failure
++ */
+ int load_snapshot_auth()
+ {
+ 	bin_data x;
+ 	auth_userdata *aud;
+-	switch (scscf_persistency_mode){
+-		case NO_PERSISTENCY:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:load_snapshot_auth: Persistency support was disabled\n&quot;);
+-			return 0;
+-			break;
+-		case WITH_FILES:
+-			if (!bin_load_from_file(&amp;x,&quot;authdata&quot;)) goto error;		
+-			break;
+-		case WITH_DATABASE:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:load_snapshot_auth: WITH_DATABASE not implemented...\n&quot;);
+-			goto error;
+-			break;
+-		default:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:load_snapshot_auth: Can't resume because no such mode %d\n&quot;,scscf_persistency_mode);
+-			goto error;
+-	}
++	if (!bin_load(&amp;x,&quot;authdata&quot;)) goto error;
+ 	bin_print(&amp;x);
+ 	x.max=0;
+ 	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_auth: max %d len %d\n&quot;,x.max,x.len);
+@@ -273,3 +286,79 @@
+ }
+ 
+ 
++
++
++
++extern int s_dialogs_hash_size;						/**&lt; size of the dialog hash table 					*/
++extern s_dialog_hash_slot *s_dialogs;				/**&lt; the hash table									*/
++
++/**
++ * Creates a snapshots of the authorization data and then calls the dumping function.
++ * @returns 1 on success or 0 on failure
++ */
++int make_snapshot_dlg()
++{
++	bin_data x;
++	s_dialog *d;
++	int i;	
++	if (!bin_alloc(&amp;x,256)) goto error;		
++	for(i=0;i&lt;s_dialogs_hash_size;i++){
++		d_lock(i);
++		d = s_dialogs[i].head;
++		while(d){
++			if (!bin_encode_s_dialog(&amp;x,d)) goto error;
++			d = d-&gt;next;
++		}
++		d_unlock(i);
++	}
++	bin_print(&amp;x);
++	i = bin_dump(&amp;x,&quot;dlg&quot;);		
++	bin_free(&amp;x);
++	return i;
++error:
++	return 0;
++}  
++
++/**
++ * Loads the authorization data from the last snapshot.
++ * @returns 1 on success or 0 on failure
++ */
++int load_snapshot_dlg()
++{
++	bin_data x;
++	s_dialog *d;
++	if (!bin_load(&amp;x,&quot;dlg&quot;)) goto error;
++	bin_print(&amp;x);
++	x.max=0;
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_dlg: max %d len %d\n&quot;,x.max,x.len);
++	while(x.max&lt;x.len){
++		d = bin_decode_s_dialog(&amp;x);
++		if (!d) return 0;
++		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_dlg: Loaded s_dialog for &lt;%.*s&gt;\n&quot;,d-&gt;aor.len,d-&gt;aor.s);
++		d_lock(d-&gt;hash);
++		d-&gt;prev = s_dialogs[d-&gt;hash].tail;
++		d-&gt;next = 0;
++		if (s_dialogs[d-&gt;hash].tail) s_dialogs[d-&gt;hash].tail-&gt;next = d;
++		s_dialogs[d-&gt;hash].tail = d;
++		if (!s_dialogs[d-&gt;hash].head) s_dialogs[d-&gt;hash].head = d;
++		d_unlock(d-&gt;hash);
++	}
++	bin_free(&amp;x);
++	return 1;
++error:
++	return 0;
++	
++}
++
++
++/**
++ * Timer callback for persistency dumps
++ * @param ticks - what's the time
++ * @param param - a given parameter to be called with
++ */
++void dlg_persistency_timer(unsigned int ticks, void* param)
++{
++	make_snapshot_dlg();	 	
++}
++
++
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/s_persistency.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/s_persistency.h	2007-01-31 21:04:58 UTC (rev 112)
++++ ser_ims/branches/01_persistency/modules/scscf/s_persistency.h	2007-01-31 22:06:07 UTC (rev 113)
+@@ -67,7 +67,10 @@
+ 
+ int make_snapshot_auth();
+ int load_snapshot_auth();
+-
+ void auth_persistency_timer(unsigned int ticks, void* param);
+ 
++int make_snapshot_dlg();
++int load_snapshot_dlg();
++void dlg_persistency_timer(unsigned int ticks, void* param);
++
+ #endif
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000163.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r112 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#164">[ date ]</a>
+              <a href="thread.html#164">[ thread ]</a>
+              <a href="subject.html#164">[ subject ]</a>
+              <a href="author.html#164">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

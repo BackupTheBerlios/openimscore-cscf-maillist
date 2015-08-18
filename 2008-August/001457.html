@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] IMS Routing
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20IMS%20Routing&In-Reply-To=%3Ca42e68ed0808260826v1a4a1fd7h39d6b85d69a0be09%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001456.html">
+   <LINK REL="Next"  HREF="001458.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] IMS Routing</H1>
+    <B>ims.asuser ims.asuser</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20IMS%20Routing&In-Reply-To=%3Ca42e68ed0808260826v1a4a1fd7h39d6b85d69a0be09%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] IMS Routing">ims.asuser at gmail.com
+       </A><BR>
+    <I>Tue Aug 26 17:26:44 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001456.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r581 - Fixed the Framed-IP-Address,	Framed-IPv6-Prefix AVP unpacking.
+</A></li>
+        <LI>Next message: <A HREF="001458.html">[OpenIMSCore-CSCF] How to connect Core IMS network elements to IMS	Core
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1457">[ date ]</a>
+              <a href="thread.html#1457">[ thread ]</a>
+              <a href="subject.html#1457">[ subject ]</a>
+              <a href="author.html#1457">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi All,
+
+I have set up a Skype gateway (on the machine 192.168.3.9) and I would like
+to integrate it to OpenIMS (running 192.168.3.7).
+For that:
+
+1) I've created an Application server towards sip:192.168.3.9:5070
+2) I've created a trigger point (SIP Header To and SIP header content:
+.*skype.open-ims.test.*) The callee address is like
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at skype.open-ims.test</A>
+3) I've created an IFC.
+4) I've attached the skype IFC to Service Profiles and Shared IFC Sets
+
+Outcome: the call is directed to 192.168.3.9:5060 and not sip:
+192.168.3.9:5070
+The existing presence and IPTV routing are working very well so I modified
+the application server on the IPTV IFC (Instead of IPTV server I set up the
+adress of my skype gateway) and it works!
+
+I may be missed something but do not know what.
+
+Can anyone help me?
+
+K.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080826/56ead875/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080826/56ead875/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001456.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r581 - Fixed the Framed-IP-Address,	Framed-IPv6-Prefix AVP unpacking.
+</A></li>
+	<LI>Next message: <A HREF="001458.html">[OpenIMSCore-CSCF] How to connect Core IMS network elements to IMS	Core
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1457">[ date ]</a>
+              <a href="thread.html#1457">[ thread ]</a>
+              <a href="subject.html#1457">[ subject ]</a>
+              <a href="author.html#1457">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

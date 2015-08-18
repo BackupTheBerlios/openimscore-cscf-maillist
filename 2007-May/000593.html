@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS Identity not registered
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DS-CSCF%20returns%20404%20Not%20Found%20-%20HSS%0A%20Identity%20not%20registered&In-Reply-To=%3C4642E35C.3060200%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000588.html">
+   <LINK REL="Next"  HREF="000595.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS Identity not registered</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DS-CSCF%20returns%20404%20Not%20Found%20-%20HSS%0A%20Identity%20not%20registered&In-Reply-To=%3C4642E35C.3060200%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS Identity not registered">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu May 10 11:18:20 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000588.html">[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS	Identity not registered
+</A></li>
+        <LI>Next message: <A HREF="000595.html">[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found -	HSSIdentity not registered
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#593">[ date ]</a>
+              <a href="thread.html#593">[ thread ]</a>
+              <a href="subject.html#593">[ subject ]</a>
+              <a href="author.html#593">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>OK. I did the change in the I-CSCF in r266. I actually forgot about the
+I-CSCF location.c. In the S-CSCF... I don't know... I mean if you get
+there, the S-CSCF does not know if the user exists or not, so I would
+keep it to 404... Anyway, you should not get this unless there is an
+error or something...
+
+-Dragos
+
+Hideyuki Yamashita wrote:
+&gt;<i> Hi Franz and Dragos,
+</I>&gt;<i>
+</I>&gt;<i> Thanks for your opinion.
+</I>&gt;<i>
+</I>&gt;<i> By the way,the response code is not configurable in icscf.cfg.
+</I>&gt;<i> 404 response is not generated from icscf.cfg.
+</I>&gt;<i>
+</I>&gt;<i> In /opt/OpenIMS/ser_ims/modules/icscf/location.c ,
+</I>&gt;<i> the code resides.(I-CSCF query location of callee using Cx 
+</I>&gt;<i> interface(LIR/LIA))
+</I>&gt;<i>
+</I>&gt;<i> I quote source code below.
+</I>&gt;<i> (I commented **** comment ******,where I think the cause of 404).
+</I>&gt;<i>
+</I>&gt;<i> /**
+</I>&gt;<i>  * Process a Location-Information-Answer.
+</I>&gt;<i>  * Called from the Cx_LIA handler when the LIA is received
+</I>&gt;<i>  * @param msg - the original SIP message retrieved from the transaction
+</I>&gt;<i>  * @param lia - the LIA diameter answer received from the HSS
+</I>&gt;<i>  * @returns #CSCF_RETURN_TRUE on success or #CSCF_RETURN_FALSE on error
+</I>&gt;<i>  */
+</I>&gt;<i> int I_LIA(struct sip_msg* msg, AAAMessage* lia)
+</I>&gt;<i> {
+</I>&gt;<i> 	int rc=-1,experimental_rc=-1;
+</I>&gt;<i> 	str server_name;
+</I>&gt;<i> 	int *m_capab=0,m_capab_cnt=0;
+</I>&gt;<i> 	int *o_capab=0,o_capab_cnt=0;
+</I>&gt;<i> 	scscf_list *list=0;
+</I>&gt;<i> 	str call_id;	
+</I>&gt;<i> 	
+</I>&gt;<i> 	if (!lia){
+</I>&gt;<i> 		//TODO - add the warning code 99 in the reply	
+</I>&gt;<i> 		cscf_reply_transactional(msg,480,MSG_480_DIAMETER_TIMEOUT_LIA);		
+</I>&gt;<i> 		return CSCF_RETURN_BREAK;
+</I>&gt;<i> 	}
+</I>&gt;<i> 	
+</I>&gt;<i> 	if (!Cx_get_result_code(lia,&amp;rc)&amp;&amp;
+</I>&gt;<i> 		!Cx_get_experimental_result_code(lia,&amp;experimental_rc))
+</I>&gt;<i> 	{
+</I>&gt;<i> 		cscf_reply_transactional(msg,480,MSG_480_DIAMETER_MISSING_AVP_LIA);		
+</I>&gt;<i> 		return CSCF_RETURN_BREAK;			
+</I>&gt;<i> 	}
+</I>&gt;<i> 	
+</I>&gt;<i> 	switch(rc){
+</I>&gt;<i> 		case -1:
+</I>&gt;<i> 			switch(experimental_rc){
+</I>&gt;<i> 				
+</I>&gt;<i> 				case RC_IMS_DIAMETER_ERROR_USER_UNKNOWN:
+</I>&gt;<i> 					cscf_reply_transactional(msg,604,MSG_604_USER_UNKNOWN);
+</I>&gt;<i> 					return CSCF_RETURN_BREAK;
+</I>&gt;<i> **************************** In here, source code maps LIA exper
+</I>&gt;<i> imental code(5004?) to SIP 404*************
+</I>&gt;<i>  				case 
+</I>&gt;<i> 					RC_IMS_DIAMETER_ERROR_IDENTITY_NOT_REGISTERED:						cscf_reply_transactional(msg,404,MSG_404_NOT_REGISTERED);		
+</I>&gt;<i> 			return CSCF_RETURN_BREAK;
+</I>&gt;<i> ****************************************************************									case 
+</I>&gt;<i> RC_IMS_DIAMETER_UNREGISTERED_SERVICE:					goto 
+</I>&gt;<i> success;	
+</I>&gt;<i> 				
+</I>&gt;<i> 				default:
+</I>&gt;<i> 					cscf_reply_transactional(msg,403,MSG_403_UNKOWN_EXPERIMENTAL_RC);		
+</I>&gt;<i> 					return CSCF_RETURN_BREAK;
+</I>&gt;<i> 			}
+</I>&gt;<i> 			break;
+</I>&gt;<i> 		
+</I>&gt;<i> 		case AAA_UNABLE_TO_COMPLY:
+</I>&gt;<i> 			cscf_reply_transactional(msg,403,MSG_403_UNABLE_TO_COMPLY);		
+</I>&gt;<i> 			return CSCF_RETURN_BREAK;
+</I>&gt;<i> 			break;
+</I>&gt;<i> 				
+</I>&gt;<i> 		case AAA_SUCCESS:
+</I>&gt;<i> 			goto success;			
+</I>&gt;<i> 			break;
+</I>&gt;<i> 						
+</I>&gt;<i> 		default:
+</I>&gt;<i> 			cscf_reply_transactional(msg,403,MSG_403_UNKOWN_RC);		
+</I>&gt;<i> 			return CSCF_RETURN_BREAK;
+</I>&gt;<i> 	}
+</I>&gt;<i> 	
+</I>&gt;<i> success:
+</I>&gt;<i> 	server_name = Cx_get_server_name(lia);
+</I>&gt;<i> 	if (server_name.len){
+</I>&gt;<i> 		list = shm_malloc(sizeof(scscf_list));
+</I>&gt;<i> 		list-&gt;scscf_name=server_name;
+</I>&gt;<i> 		list-&gt;score=MAXINT;
+</I>&gt;<i> 		list-&gt;next=0;
+</I>&gt;<i> 	}else{
+</I>&gt;<i> 		Cx_get_capabilities(lia,&amp;m_capab,&amp;m_capab_cnt,&amp;o_capab,&amp;o_capab_cnt);
+</I>&gt;<i> 		list = I_get_capab_ordered(server_name,m_capab,m_capab_cnt,o_capab,o_capab_cnt);
+</I>&gt;<i> 		if (m_capab) shm_free(m_capab);
+</I>&gt;<i> 		if (o_capab) shm_free(o_capab);
+</I>&gt;<i> 	}
+</I>&gt;<i>
+</I>&gt;<i> 	if (!list) {
+</I>&gt;<i> 		cscf_reply_transactional(msg,600,MSG_600_EMPTY_LIST);	
+</I>&gt;<i> 		return CSCF_RETURN_BREAK;
+</I>&gt;<i> 	}
+</I>&gt;<i> 	call_id = cscf_get_call_id(msg,0);
+</I>&gt;<i> 	if (!call_id.len||!add_s_list(call_id,list)){
+</I>&gt;<i> 		cscf_reply_transactional(msg,500,MSG_500_ERROR_SAVING_LIST);	
+</I>&gt;<i> 		return CSCF_RETURN_BREAK;
+</I>&gt;<i> 	}
+</I>&gt;<i> 	//print_s_list(L_ERR);	
+</I>&gt;<i> 		
+</I>&gt;<i> 	return CSCF_RETURN_TRUE;
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i> Hideyuki
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi Hideyuki and Dragos,
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Well, I am not sure if this is in the specs or we felt that 404 is more
+</I>&gt;&gt;&gt;<i> appropriate as 480 might mean a Time-out... In the end it's a matter of
+</I>&gt;&gt;&gt;<i> taste.
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> In principle I agree with Hideyuki referring to the definition of response
+</I>&gt;&gt;<i> codes in RFC 3261. But I now have another problem:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I did not find a statement where a response like 404 Not Found -HSS Identity
+</I>&gt;&gt;<i> not registered is created; neither in scscf.cfg nor in icscf.cfg. Maybe
+</I>&gt;&gt;<i> because I am already using revision 261.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Hideyuki please help me to find the position. 
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Cheers
+</I>&gt;&gt;<i> Franz
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000588.html">[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS	Identity not registered
+</A></li>
+	<LI>Next message: <A HREF="000595.html">[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found -	HSSIdentity not registered
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#593">[ date ]</a>
+              <a href="thread.html#593">[ thread ]</a>
+              <a href="subject.html#593">[ subject ]</a>
+              <a href="author.html#593">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] request time out for PUBLISH and SUBSCRIBE
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20request%20time%20out%20for%20PUBLISH%20and%20SUBSCRIBE&In-Reply-To=%3C17558de60706112304i25dda3edx9958e0950c799c83%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000726.html">
+   <LINK REL="Next"  HREF="000727.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] request time out for PUBLISH and SUBSCRIBE</H1>
+    <B>sravan kumar</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20request%20time%20out%20for%20PUBLISH%20and%20SUBSCRIBE&In-Reply-To=%3C17558de60706112304i25dda3edx9958e0950c799c83%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] request time out for PUBLISH and SUBSCRIBE">jcskreddy at gmail.com
+       </A><BR>
+    <I>Tue Jun 12 08:04:34 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000726.html">[OpenIMSCore-CSCF] SCSCF contacting the AS(presence server)
+</A></li>
+        <LI>Next message: <A HREF="000727.html">[OpenIMSCore-CSCF] request time out for PUBLISH and SUBSCRIBE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#718">[ date ]</a>
+              <a href="thread.html#718">[ thread ]</a>
+              <a href="subject.html#718">[ subject ]</a>
+              <a href="author.html#718">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi all,
+
+when i send PUBLISH/SUBSCRIBE using UCT client i get request time
+out(408)..Can someone help me to solve this problem why SCSCF is not able to
+handle this presence messages with OPEN-SER(as presence server)..
+
+Pls check the SCSCF trace.:
+S[I_Open] hss.open-ims.test:3868 D[ ]
+12(10699) ------------------
+ 5(10692) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(10692) INF:S-CSCF:[  52] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt;
+ 5(10692) INF:S-CSCF:         CCF1: &lt;prim_chrg&gt; CCF2: &lt;sec_chrg&gt;
+ 5(10692) INF:S-CSCF:         ECF1: &lt;pri_event&gt; ECF2: &lt;sec_event&gt;
+ 5(10692) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 192.168.1.61</A>:5061&gt; Exp:[599707]
+ 5(10692) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(10692) INF:S-CSCF:           UA: &lt;eXosip/2.2.2&gt;
+ 5(10692) INF:S-CSCF:         S: Event[0] Exp:[599707] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 192.168.1.61</A>
+:<i>5061&gt;
+</I> 5(10692) INF:S-CSCF:         S: Event[0] Exp:[599737] &lt;sip:
+pcscf.open-ims.test:4060&gt;
+ 5(10692) INF:S-CSCF:----------  Registrar Contents end ----------
+12(10699) --- Peer List: ---
+12(10699)  S[I_Open] hss.open-ims.test:3868 D[ ]
+12(10699) ------------------
+12(10699) --- Peer List: ---
+12(10699)  S[I_Open] hss.open-ims.test:3868 D[ ]
+12(10699) ------------------
+ 4(10691) &gt;&gt;       Orig
+ 4(10691) INFO:ISC:ISC_match_filter(orig): Checking triggers
+ 4(10691) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+ 4(10691) INFO:ISC:ISC_match_filter(orig): Starting triggering
+ 4(10691) INFO:ISC:ISC_match_filter(orig): Orig User &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+[1]
+ 4(10691) INFO:ISC:isc_checker_find: starting search
+ 4(10691) INFO:ISC:isc_checker_find: MATCH -&gt; sip:127.0.0.1:5065 () handling
+0
+ 4(10691) INFO:ISC:isc_mark_set: NEW mark &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>
+:<i>6060;lr;s=1;h=0;d=0&gt;
+</I> 4(10691) INF:ISC:cscf_get_transaction: Transaction 59575 1802235379
+exists.Retransmission?
+ 4(10691) &gt;&gt;       Orig - msg was fwded to AS
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Found &lt;
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0;d=0&gt;
+ 2(10689) INFO:ISC:ISC_from_AS(orig): Message returned s=1;h=0;d=0
+ 2(10689) &gt;&gt;       Orig
+ 2(10689) INFO:ISC:ISC_match_filter(orig): Checking triggers
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Found &lt;
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0;d=0&gt;
+ 2(10689) INFO:ISC:ISC_match_filter(orig): Message returned s=1;h=0;d=0
+ 2(10689) INFO:ISC:ISC_match_filter(orig): Orig User &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+[1]
+ 2(10689) INFO:ISC:isc_checker_find: resuming search from 1
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Found &lt;
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0;d=0&gt;
+ 2(10689) INFO:ISC:ISC_from_AS(orig): Message returned s=1;h=0;d=0
+ 2(10689) DBG:S-CSCF:cscf_get_terminating_identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+ 2(10689) DBG:S-CSCF:cscf_get_terminating_identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+ 2(10689) &gt;&gt;       Term
+ 2(10689) INFO:ISC:ISC_match_filter(term): Checking triggers
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+ 2(10689) INFO:ISC:ISC_match_filter(term): Starting triggering
+ 2(10689) INFO:ISC:ISC_match_filter(term): Orig User &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+[1]
+ 2(10689) INFO:ISC:isc_checker_find: starting search
+ 2(10689) INFO:ISC:isc_checker_find: MATCH -&gt; sip:127.0.0.1:5065 () handling
+0
+ 2(10689) INFO:ISC:isc_mark_set: NEW mark &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>
+:<i>6060;lr;s=1;h=0;d=1&gt;
+</I> 2(10689) INF:ISC:cscf_get_transaction: Transaction 59575 1802235381
+exists.Retransmission?
+ 2(10689) &gt;&gt;       Term - msg was fwded to AS
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Found &lt;
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0;d=1&gt;
+ 2(10689) INFO:ISC:ISC_from_AS(orig): Message returned s=1;h=0;d=1
+ 2(10689) DBG:S-CSCF:cscf_get_terminating_identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+ 2(10689) &gt;&gt;       Term
+ 2(10689) INFO:ISC:ISC_match_filter(term): Checking triggers
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Found &lt;
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0;d=1&gt;
+ 2(10689) INFO:ISC:ISC_match_filter(term): Message returned s=1;h=0;d=1
+ 2(10689) INFO:ISC:ISC_match_filter(term): Orig User &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+[1]
+ 2(10689) INFO:ISC:isc_checker_find: resuming search from 1
+ 2(10689) DBG:S-CSCF:cscf_get_terminating_identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+12(10699) DBG:peer_timer(): Peer hss.open-ims.test      State 6
+12(10699) --- Peer List: ---
+12(10699)  S[I_Open] hss.open-ims.test:3868 D[ ]
+12(10699) ------------------
+18(10729) DBG:sm_process(): Peer hss.open-ims.test      State I_Open
+Event I_Rcv_DWA
+ 2(10689) Trans already in processing... skip
+ 2(10689) Trans already in processing... skip
+ 3(10690) Trans already in processing... skip
+ 2(10689) Trans already in processing... skip
+ 3(10690) Trans already in processing... skip
+ 3(10690) Trans already in processing... skip
+ 3(10690) Trans already in processing... skip
+ 4(10691) Trans already in processing... skip
+ 5(10692) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(10692) INF:S-CSCF:[  52] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt;
+ 5(10692) INF:S-CSCF:         CCF1: &lt;prim_chrg&gt; CCF2: &lt;sec_chrg&gt;
+ 5(10692) INF:S-CSCF:         ECF1: &lt;pri_event&gt; ECF2: &lt;sec_event&gt;
+ 5(10692) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 192.168.1.61</A>:5061&gt; Exp:[599697]
+ 5(10692) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(10692) INF:S-CSCF:           UA: &lt;eXosip/2.2.2&gt;
+ 5(10692) INF:S-CSCF:         S: Event[0] Exp:[599697] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 192.168.1.61</A>
+:<i>5061&gt;
+</I> 5(10692) INF:S-CSCF:         S: Event[0] Exp:[599727] &lt;sip:
+pcscf.open-ims.test:4060&gt;
+ 5(10692) INF:S-CSCF:----------  Registrar Contents end ----------
+12(10699) --- Peer List: ---
+12(10699)  S[I_Open] hss.open-ims.test:3868 D[ ]
+12(10699) ------------------
+ 3(10690)  1(10688) Trans already in processing... skip
+Trans already in processing... skip
+ 1(10688) Trans already in processing... skip
+ 4(10691) Trans already in processing... skip
+ 5(10692) INFO:ISC:isc_failure: reached with s=1;h=0;d=0
+ 5(10692) DBG:ISC:isc_bootstrap(): marking for bootstrap
+ 5(10692) INFO:ISC:isc_mark_set: NEW mark &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>
+:<i>6060;lr;s=1;h=0;d=0&gt;
+</I> 5(10692)  2(10689) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark
+from the message
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Found &lt;
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0;d=0&gt;
+ 2(10689) INFO:ISC:ISC_from_AS(orig): Message returned s=1;h=0;d=0
+ 2(10689) &gt;&gt;       Orig
+ 2(10689) INFO:ISC:ISC_match_filter(orig): Checking triggers
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Found &lt;
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0;d=0&gt;
+ 2(10689) INFO:ISC:ISC_match_filter(orig): Message returned s=1;h=0;d=0
+ 2(10689) INFO:ISC:ISC_match_filter(orig): Orig User &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+[1]
+ 2(10689) INFO:ISC:isc_checker_find: resuming search from 1
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Found &lt;
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0;d=0&gt;
+ 2(10689) INFO:ISC:ISC_from_AS(orig): Message returned s=1;h=0;d=0
+ 2(10689) DBG:S-CSCF:cscf_get_terminating_identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+ 2(10689) DBG:S-CSCF:cscf_get_terminating_identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+ 2(10689) &gt;&gt;       Term
+ 2(10689) INFO:ISC:ISC_match_filter(term): Checking triggers
+ 2(10689) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+ 2(10689) INFO:ISC:ISC_match_filter(term): Starting triggering
+ 2(10689) INFO:ISC:ISC_match_filter(term): Orig User &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+[1]
+ 2(10689) INFO:ISC:isc_checker_find: starting search
+ 2(10689) INFO:ISC:isc_checker_find: MATCH -&gt; sip:127.0.0.1:5065 () handling
+0
+ 2(10689) INFO:ISC:isc_mark_set: NEW mark &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>
+:<i>6060;lr;s=1;h=0;d=1&gt;
+</I> 2(10689) INF:ISC:cscf_get_transaction: Transaction 59575 1802235384
+exists.Retransmission?
+ 2(10689) &gt;&gt;       Term - msg was fwded to AS
+&gt;&gt;<i>       ISC_Orig_failure
+</I> 5(10692) BUG:t_check_status: t_pick_branch failed to get  a final response
+in MODE_ONFAILURE
+ 5(10692) &gt;&gt;       Orig_failure
+ 5(10692) INFO:ISC:isc_failure: reached with s=1;h=0;d=1
+ 5(10692) DBG:ISC:isc_bootstrap(): marking for bootstrap
+ 5(10692) INFO:ISC:isc_mark_set: NEW mark &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>
+:<i>6060;lr;s=1;h=0;d=1&gt;
+</I> 5(10692) &gt;&gt;       ISC_Term_failure
+ 5(10692) BUG:t_check_status: t_pick_branch failed to get  a final response
+in MODE_ONFAILURE
+ 5(10692) &gt;&gt;       Term_failure
+ 4(10691) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the
+message
+ 4(10691) INFO:ISC:isc_mark_get_from_msg: Found &lt;
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0;d=1&gt;
+ 4(10691) INFO:ISC:ISC_from_AS(orig): Message returned s=1;h=0;d=1
+ 4(10691) DBG:S-CSCF:cscf_get_terminating_identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+ 4(10691) &gt;&gt;       Term
+
+
+
+Rgds
+sravan reddy
+
+
+
+&gt;<i>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070612/92da260a/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070612/92da260a/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000726.html">[OpenIMSCore-CSCF] SCSCF contacting the AS(presence server)
+</A></li>
+	<LI>Next message: <A HREF="000727.html">[OpenIMSCore-CSCF] request time out for PUBLISH and SUBSCRIBE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#718">[ date ]</a>
+              <a href="thread.html#718">[ thread ]</a>
+              <a href="subject.html#718">[ subject ]</a>
+              <a href="author.html#718">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

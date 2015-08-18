@@ -1,0 +1,832 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] problem updating dialog on reply after a trigger to a B2BUA AS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20problem%20updating%20dialog%20on%20reply%20after%20a%0A%20trigger%20to%20a%20B2BUA%20AS&In-Reply-To=%3C46542CEA.3020105%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000628.html">
+   <LINK REL="Next"  HREF="000625.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] problem updating dialog on reply after a trigger to a B2BUA AS</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20problem%20updating%20dialog%20on%20reply%20after%20a%0A%20trigger%20to%20a%20B2BUA%20AS&In-Reply-To=%3C46542CEA.3020105%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] problem updating dialog on reply after a trigger to a B2BUA AS">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed May 23 14:00:42 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000628.html">[OpenIMSCore-CSCF] problem updating dialog on reply after a	trigger to a B2BUA AS
+</A></li>
+        <LI>Next message: <A HREF="000625.html">[OpenIMSCore-CSCF] SIP REGISTER with AKAv1-MD5 auth with seagull
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#639">[ date ]</a>
+              <a href="thread.html#639">[ thread ]</a>
+              <a href="subject.html#639">[ subject ]</a>
+              <a href="author.html#639">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>super! I committed it r281
+
+JF wrote:
+&gt;<i> Hi Dragos,
+</I>&gt;<i>
+</I>&gt;<i> Tested successfully both with B2BUA AS triggered in the originating
+</I>&gt;<i> case and terminating case.
+</I>&gt;<i>
+</I>&gt;<i> Jo&#227;o
+</I>&gt;<i>
+</I>&gt;<i> On 5/17/07, Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt; wrote:
+</I>&gt;&gt;<i> Hi Joao,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> In the CVS, no way! In SVN, with great pleasure ;-).
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Here is the file after I edited it. It's quite hard for me to test the
+</I>&gt;&gt;<i> cases now (traveling, again :( ). Could you please test it and provide
+</I>&gt;&gt;<i> me with some feedback? I have update also the originating part (hope I
+</I>&gt;&gt;<i> didn't break it).
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> JF wrote:
+</I>&gt;&gt;<i> &gt; Found it!
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; Changing the S-CSCF script the following way it works fine. Probably
+</I>&gt;&gt;<i> &gt; the same is needed for orig routes...
+</I>&gt;&gt;<i> &gt; The problem was that ISC_match_filter calls t_relay inside function
+</I>&gt;&gt;<i> &gt; isc_foward(), but obviously doesn't install onreply_routes, so no
+</I>&gt;&gt;<i> &gt; chance for updating the dialogs in the middle of triggers when the AS
+</I>&gt;&gt;<i> &gt; creates new dialogs.
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; Note: this causes t_onreply() to be called twice in the script, but
+</I>&gt;&gt;<i> &gt; this is not a problem IMO.
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; Can these changes be commited on CVS?
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; Jo&#227;o Filipe Pl&#225;cido
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; 1) inside route[Term]:
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; # check if dialog saved as fwded to AS
+</I>&gt;&gt;<i> &gt; t_on_reply(&quot;ISC_Term_reply&quot;);  # must be called before
+</I>&gt;&gt;<i> &gt; ISC_match_filter forwards the message through TM
+</I>&gt;&gt;<i> &gt; t_on_failure(&quot;ISC_Term_failure&quot;);
+</I>&gt;&gt;<i> &gt; if (ISC_match_filter(&quot;term&quot;)){
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #       if (!t_relay()) {
+</I>&gt;&gt;<i> &gt; #           sl_send_reply(&quot;500&quot;,&quot;Error forwarding to AS&quot;);
+</I>&gt;&gt;<i> &gt; #           exit;
+</I>&gt;&gt;<i> &gt; #       };
+</I>&gt;&gt;<i> &gt;         exit;
+</I>&gt;&gt;<i> &gt; }
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; 2) update dialog inside ISC_Term_reply:
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; onreply_route[ISC_Term_reply]
+</I>&gt;&gt;<i> &gt; {
+</I>&gt;&gt;<i> &gt;     log(1,&quot;&gt;&gt;       ISC_Term_reply\n&quot;);
+</I>&gt;&gt;<i> &gt;     if (t_check_status(&quot;1..&quot;)||t_check_status(&quot;2..&quot;)){
+</I>&gt;&gt;<i> &gt;         if (!S_update_dialog(&quot;term&quot;)){
+</I>&gt;&gt;<i> &gt;             log(1,&quot;&gt;&gt;       Error updating term dialog - maybe
+</I>&gt;&gt;<i> &gt; non-dialog request...\n&quot;);
+</I>&gt;&gt;<i> &gt;         }
+</I>&gt;&gt;<i> &gt;     }
+</I>&gt;&gt;<i> &gt;     break;
+</I>&gt;&gt;<i> &gt; }
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; On 5/17/07, JF &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jfkavaka at gmail.com</A>&gt; wrote:
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;&gt; Hi all,
+</I>&gt;&gt;<i> &gt;&gt;
+</I>&gt;&gt;<i> &gt;&gt; We're facing the following situation:
+</I>&gt;&gt;<i> &gt;&gt;
+</I>&gt;&gt;<i> &gt;&gt; After a MT trigger to a B2BUA AS, we receive
+</I>&gt;&gt;<i> &gt;&gt;
+</I>&gt;&gt;<i> &gt;&gt;  [00m 3(19987)  [01;32mINFO:ISC:isc_failure: reached with s=1;h=0;d=1
+</I>&gt;&gt;<i> &gt;&gt;  [00m 3(19987)  [01;30mDEBUG: t_check: msg id=4 global id=4 T
+</I>&gt;&gt;<i> end=0xb60ea634
+</I>&gt;&gt;<i> &gt;&gt;  [00m 3(19987)  [01;30mDEBUG: reply_received: org. status uas=100,
+</I>&gt;&gt;<i> &gt;&gt; uac[0]=100 local=0 is_invite=1)
+</I>&gt;&gt;<i> &gt;&gt;  [00m 3(19987)  [01;30m-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; T_code=100, new_code=180
+</I>&gt;&gt;<i> &gt;&gt;  [00m 3(19987)  [01;30mDEBUG: relay_reply: branch=0, save=0, relay=0
+</I>&gt;&gt;<i> &gt;&gt;
+</I>&gt;&gt;<i> &gt;&gt; After this, the reply is relayed but the Term_reply route is NOT
+</I>&gt;&gt;<i> &gt;&gt; called, and thus the dialog update doesn't take place, which then
+</I>&gt;&gt;<i> &gt;&gt; leads to deletion of the dialog by the release_call code after 60
+</I>&gt;&gt;<i> &gt;&gt; seconds.
+</I>&gt;&gt;<i> &gt;&gt;
+</I>&gt;&gt;<i> &gt;&gt; This seems like a bug in the ISC module code. Dragos, can you take a
+</I>&gt;&gt;<i> &gt;&gt; look? I will also try to dig deeper into it.
+</I>&gt;&gt;<i> &gt;&gt;
+</I>&gt;&gt;<i> &gt;&gt; Thanks,
+</I>&gt;&gt;<i> &gt;&gt;
+</I>&gt;&gt;<i> &gt;&gt; Jo&#227;o Filipe Pl&#225;cido
+</I>&gt;&gt;<i> &gt;&gt;
+</I>&gt;&gt;<i> &gt;&gt;
+</I>&gt;&gt;<i> &gt; _______________________________________________
+</I>&gt;&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -- 
+</I>&gt;&gt;<i> -----------------------------------------
+</I>&gt;&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;&gt;<i> 10589 Berlin,Germany
+</I>&gt;&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;&gt;<i> -----------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> #
+</I>&gt;&gt;<i> # $Id: scscf.cfg 268 2007-05-10 11:12:30Z vingarzan $
+</I>&gt;&gt;<i> #
+</I>&gt;&gt;<i> # Serving - CSCF configuration script
+</I>&gt;&gt;<i> #
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> # ----------- global configuration parameters ------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> debug=3
+</I>&gt;&gt;<i> log_stderror=yes
+</I>&gt;&gt;<i> memlog=5
+</I>&gt;&gt;<i> sip_warning=yes
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> fork=yes
+</I>&gt;&gt;<i> children=4
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> listen=127.0.0.1
+</I>&gt;&gt;<i> port=6060
+</I>&gt;&gt;<i> alias=scscf.open-ims.test:6060
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> check_via=no            # (cmd. line: -v)
+</I>&gt;&gt;<i> dns=no                  # (cmd. line: -r)
+</I>&gt;&gt;<i> rev_dns=no              # (cmd. line: -R)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> # ------------------ module loading ----------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/sl/sl.so&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/tm/tm.so&quot;
+</I>&gt;&gt;<i> modparam(&quot;tm&quot;, &quot;fr_timer&quot;, 5000)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/dialog/dialog.so&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/rr/rr.so&quot;
+</I>&gt;&gt;<i> loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/maxfwd/maxfwd.so&quot;
+</I>&gt;&gt;<i> loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/textops/textops.so&quot;
+</I>&gt;&gt;<i> loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/enum/enum.so&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/scscf/scscf.so&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;name&quot;,&quot;sip:scscf.open-ims.test:6060&quot;)
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;aaa_peer&quot;,&quot;hss.open-ims.test&quot;)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;auth_data_hash_size&quot;,64)
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;auth_vector_timeout&quot;,60)
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;auth_data_timeout&quot;,60)
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;av_request_at_once&quot;,1)
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;av_request_at_sync&quot;,1)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;server_assignment_store_data&quot;,0)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> # only one of user_data validation file should normaly be declared here
+</I>&gt;&gt;<i> # because if both are specified the data will be checked twice
+</I>&gt;&gt;<i> #modparam(&quot;scscf&quot;,&quot;user_data_dtd&quot;,&quot;/opt/OpenIMSCore/ser_ims/modules/scscf/CxDataType.dtd&quot;)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;user_data_xsd&quot;,&quot;/opt/OpenIMSCore/ser_ims/modules/scscf/CxDataType_Rel7.xsd&quot;)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;registrar_hash_size&quot;,256)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;registration_default_expires&quot;,3600)
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;registration_min_expires&quot;,30)
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;registration_max_expires&quot;,1000000)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;registration_default_algorithm&quot;,&quot;AKAv1-MD5&quot;)
+</I>&gt;&gt;<i> #modparam(&quot;scscf&quot;,&quot;registration_default_algorithm&quot;,&quot;AKAv2-MD5&quot;)
+</I>&gt;&gt;<i> #modparam(&quot;scscf&quot;,&quot;registration_default_algorithm&quot;,&quot;MD5&quot;)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> # The next authentication methods are in implementation - please do
+</I>&gt;&gt;<i> not use yet
+</I>&gt;&gt;<i> #modparam(&quot;scscf&quot;,&quot;registration_default_algorithm&quot;,&quot;CableLabs-Digest&quot;)
+</I>&gt;&gt;<i> #modparam(&quot;scscf&quot;,&quot;registration_default_algorithm&quot;,&quot;TISPAN-HTTP_DIGEST_MD5&quot;)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> # Let the HSS decide
+</I>&gt;&gt;<i> #modparam(&quot;scscf&quot;,&quot;registration_default_algorithm&quot;,&quot;HSS-Selected&quot;)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;registration_disable_early_ims&quot;,0)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;subscription_default_expires&quot;,3600)
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;subscription_min_expires&quot;,30)
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;subscription_max_expires&quot;,1000000)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;dialogs_expiration_time&quot;,3600)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> # persistency_mode - 0 None / 1 Files / 2 Databases
+</I>&gt;&gt;<i> modparam(&quot;scscf&quot;,&quot;persistency_mode&quot;,0)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> #modparam(&quot;scscf&quot;,&quot;persistency_mode&quot;,1)
+</I>&gt;&gt;<i> #modparam(&quot;scscf&quot;,&quot;persistency_location&quot;,&quot;/opt/OpenIMSCore/persistency&quot;)
+</I>&gt;&gt;<i> #modparam(&quot;scscf&quot;,&quot;persistency_timer_authdata&quot;,60)
+</I>&gt;&gt;<i> #modparam(&quot;scscf&quot;,&quot;persistency_timer_dialogs&quot;,60)
+</I>&gt;&gt;<i> #modparam(&quot;scscf&quot;,&quot;persistency_timer_registrar&quot;,60)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/isc/isc.so&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> modparam(&quot;isc&quot;,&quot;my_uri&quot;,&quot;scscf.open-ims.test:6060&quot;)
+</I>&gt;&gt;<i> modparam(&quot;isc&quot;,&quot;expires_grace&quot;,120)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/cdp/cdp.so&quot;
+</I>&gt;&gt;<i> modparam(&quot;cdp&quot;,&quot;config_file&quot;,&quot;/opt/OpenIMSCore/scscf.xml&quot;)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> # add value to ;lr param to make some broken UAs happy
+</I>&gt;&gt;<i> modparam(&quot;rr&quot;, &quot;enable_full_lr&quot;, 1)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> # -------------------------  request routing logic -------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> # main routing logic
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> route{
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         route(Sanity_Checks);
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         # don't repeat work for a transaction already in processing
+</I>&gt;&gt;<i>         if (method!=&quot;ACK&quot; &amp;&amp; S_trans_in_processing()) {
+</I>&gt;&gt;<i>                 log(1,&quot;Trans already in processing... skip\n&quot;);
+</I>&gt;&gt;<i>                 break;
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         if (method==&quot;REGISTER&quot;) {
+</I>&gt;&gt;<i>                 route(REGISTER);
+</I>&gt;&gt;<i>                 break;
+</I>&gt;&gt;<i>     }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         if (method==&quot;SUBSCRIBE&quot; &amp;&amp; search(&quot;^Event:([ \t]+)reg&quot;)) {
+</I>&gt;&gt;<i>                 route(SUBSCRIBE);
+</I>&gt;&gt;<i>                 break;
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         if (S_mobile_originating()||ISC_from_AS(&quot;orig&quot;)){
+</I>&gt;&gt;<i>                 # Originating
+</I>&gt;&gt;<i>                 route(Orig);
+</I>&gt;&gt;<i>                 break;
+</I>&gt;&gt;<i>         }else{
+</I>&gt;&gt;<i>                 if (S_is_in_dialog(&quot;orig&quot;)){
+</I>&gt;&gt;<i>                         route(Orig_Subsequent);
+</I>&gt;&gt;<i>                         break;
+</I>&gt;&gt;<i>                 }
+</I>&gt;&gt;<i>                 if (S_is_in_dialog(&quot;term&quot;)){
+</I>&gt;&gt;<i>                         route(Term_Subsequent);
+</I>&gt;&gt;<i>                         break;
+</I>&gt;&gt;<i>                 }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                 # Terminating
+</I>&gt;&gt;<i>                 if (uri=~&quot;sip:(.*)@open-ims\.test(.*)&quot;){
+</I>&gt;&gt;<i>                         if (S_term_not_registered())
+</I>&gt;&gt;<i>                                 S_assign_server_unreg(&quot;open-ims.test&quot;);
+</I>&gt;&gt;<i>                 }else{
+</I>&gt;&gt;<i>                         sl_send_reply(&quot;403&quot;,&quot;Forbidden - Dialog not
+</I>&gt;&gt;<i> found on S-CSCF or Terminating user not suitable for unregistered
+</I>&gt;&gt;<i> services&quot;);
+</I>&gt;&gt;<i>                         exit();
+</I>&gt;&gt;<i>                 }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                 route(Term);
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                 break;
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> route[Sanity_Checks]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         # initial sanity checks -- messages with
+</I>&gt;&gt;<i>         # max_forwards==0, or excessively long requests
+</I>&gt;&gt;<i>         if (!mf_process_maxfwd_header(&quot;10&quot;)) {
+</I>&gt;&gt;<i>                 sl_send_reply(&quot;483&quot;,&quot;Too Many Hops&quot;);
+</I>&gt;&gt;<i>                 exit;
+</I>&gt;&gt;<i>         };
+</I>&gt;&gt;<i>         if (msg:len &gt;=  max_len ) {
+</I>&gt;&gt;<i>                 sl_send_reply(&quot;513&quot;, &quot;Message too big&quot;);
+</I>&gt;&gt;<i>                 exit;
+</I>&gt;&gt;<i>         };
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> route[REGISTER]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         if (uri=~&quot;sip:(.*)open-ims\.test(.*)&quot;){
+</I>&gt;&gt;<i>                 if ( !t_newtran()) {
+</I>&gt;&gt;<i>                         sl_reply_error();
+</I>&gt;&gt;<i>                         break;
+</I>&gt;&gt;<i>                 };
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                 if (!S_is_integrity_protected(&quot;open-ims.test&quot;)){
+</I>&gt;&gt;<i>                         # Unprotected REGISTER
+</I>&gt;&gt;<i>                         # Variant 1 - accept also non IPSec clients
+</I>&gt;&gt;<i>                         if (!S_is_authorized(&quot;open-ims.test&quot;)) {
+</I>&gt;&gt;<i>                                 S_challenge(&quot;open-ims.test&quot;);
+</I>&gt;&gt;<i>                                 route(Service_Routes);
+</I>&gt;&gt;<i>                                 t_reply(&quot;401&quot;, &quot;Unauthorized -
+</I>&gt;&gt;<i> Challenging the UE&quot;);
+</I>&gt;&gt;<i>                                 exit;
+</I>&gt;&gt;<i>                         }else{
+</I>&gt;&gt;<i>                                 if (S_orig_not_registered()){
+</I>&gt;&gt;<i>                                         if
+</I>&gt;&gt;<i> (S_assign_server(&quot;open-ims.test&quot;)){
+</I>&gt;&gt;<i>                                                 route(Service_Routes);
+</I>&gt;&gt;<i>                                                
+</I>&gt;&gt;<i> route(Charging_Function_Addresses);
+</I>&gt;&gt;<i>                                                 t_reply(&quot;200&quot;,&quot;OK -
+</I>&gt;&gt;<i> SAR succesful and registrar saved&quot;);
+</I>&gt;&gt;<i>                                                 ISC_match_filter_reg();
+</I>&gt;&gt;<i>                                                 exit;
+</I>&gt;&gt;<i>                                         }else{
+</I>&gt;&gt;<i>                                                 t_reply(&quot;500&quot;,&quot;Server
+</I>&gt;&gt;<i> Internal Error - Server Assignment failed&quot;);
+</I>&gt;&gt;<i>                                                 exit;
+</I>&gt;&gt;<i>                                         }
+</I>&gt;&gt;<i>                                 }else{
+</I>&gt;&gt;<i>                                         ISC_match_filter_reg();
+</I>&gt;&gt;<i>                                         if
+</I>&gt;&gt;<i> (S_assign_server(&quot;open-ims.test&quot;)){
+</I>&gt;&gt;<i>                                                 route(Service_Routes);
+</I>&gt;&gt;<i>                                                
+</I>&gt;&gt;<i> route(Charging_Function_Addresses);
+</I>&gt;&gt;<i>                                                 t_reply(&quot;200&quot;,&quot;OK -
+</I>&gt;&gt;<i> SAR succesful and registrar saved&quot;);
+</I>&gt;&gt;<i>                                                 exit;
+</I>&gt;&gt;<i>                                         }else{
+</I>&gt;&gt;<i>                                                 t_reply(&quot;500&quot;,&quot;Server
+</I>&gt;&gt;<i> Internal Error - Server Assignment failed&quot;);
+</I>&gt;&gt;<i>                                                 exit;
+</I>&gt;&gt;<i>                                         }
+</I>&gt;&gt;<i>                                 }
+</I>&gt;&gt;<i>                         }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                         # Variant 2 - accept only IPSec clients
+</I>&gt;&gt;<i>                         #S_challenge(&quot;open-ims.test&quot;);
+</I>&gt;&gt;<i>                         #route(Service_Routes);
+</I>&gt;&gt;<i>                         #t_reply(&quot;401&quot;, &quot;Unauthorized - Challenging
+</I>&gt;&gt;<i> the UE&quot;);
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                         break;
+</I>&gt;&gt;<i>                 }else{
+</I>&gt;&gt;<i>                         # Protected REGISTER
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                         # Variant 1 - Always require reauthentication
+</I>&gt;&gt;<i>                         #if (!S_is_authorized(&quot;open-ims.test&quot;)) {
+</I>&gt;&gt;<i>                         #       S_challenge(&quot;open-ims.test&quot;);
+</I>&gt;&gt;<i>                         #       route(Service_Routes);
+</I>&gt;&gt;<i>                         #       t_reply(&quot;401&quot;, &quot;Unauthorized -
+</I>&gt;&gt;<i> Challenging the UE&quot;);
+</I>&gt;&gt;<i>                         #       exit;
+</I>&gt;&gt;<i>                         #}
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                         # Variant 2 - trust protected REGISTER
+</I>&gt;&gt;<i>                         if (S_orig_not_registered()){
+</I>&gt;&gt;<i>                                 if (S_assign_server(&quot;open-ims.test&quot;)){
+</I>&gt;&gt;<i>                                         route(Service_Routes);
+</I>&gt;&gt;<i>                                        
+</I>&gt;&gt;<i> route(Charging_Function_Addresses);
+</I>&gt;&gt;<i>                                         t_reply(&quot;200&quot;,&quot;OK - SAR
+</I>&gt;&gt;<i> succesful and registrar saved&quot;);
+</I>&gt;&gt;<i>                                         ISC_match_filter_reg();
+</I>&gt;&gt;<i>                                         exit;
+</I>&gt;&gt;<i>                                 }else{
+</I>&gt;&gt;<i>                                         t_reply(&quot;500&quot;,&quot;Server
+</I>&gt;&gt;<i> Internal Error - Server Assignment failed&quot;);
+</I>&gt;&gt;<i>                                         exit;
+</I>&gt;&gt;<i>                                 }
+</I>&gt;&gt;<i>                         }else{
+</I>&gt;&gt;<i>                                 ISC_match_filter_reg();
+</I>&gt;&gt;<i>                                 if (S_update_contacts()){
+</I>&gt;&gt;<i>                                         route(Service_Routes);
+</I>&gt;&gt;<i>                                        
+</I>&gt;&gt;<i> route(Charging_Function_Addresses);
+</I>&gt;&gt;<i>                                         t_reply(&quot;200&quot;,&quot;OK - SAR
+</I>&gt;&gt;<i> succesful and registrar saved&quot;);
+</I>&gt;&gt;<i>                                         exit;
+</I>&gt;&gt;<i>                                 }else{
+</I>&gt;&gt;<i>                                         t_reply(&quot;500&quot;,&quot;Server
+</I>&gt;&gt;<i> Internal Error - Update Contacts failed&quot;);
+</I>&gt;&gt;<i>                                         exit;
+</I>&gt;&gt;<i>                                 }
+</I>&gt;&gt;<i>                         }
+</I>&gt;&gt;<i>                 }
+</I>&gt;&gt;<i>         } else {
+</I>&gt;&gt;<i>                 sl_send_reply(&quot;403&quot;, &quot;Forbidden - Domain not serviced&quot;);
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> route[Service_Routes]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i> #       if (!S_check_visited_network_id(&quot;open-ims\.test&quot;)){
+</I>&gt;&gt;<i> #               S_add_service_route(&quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">thig at icscf.open-ims.test</A>&quot;);
+</I>&gt;&gt;<i> #       }
+</I>&gt;&gt;<i>         S_add_path_service_routes();
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> route[Charging_Function_Addresses]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         if (S_check_visited_network_id(&quot;open-ims\.test&quot;)){
+</I>&gt;&gt;<i>                 S_add_p_charging_function_addresses();
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> route[SUBSCRIBE]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         if ( !t_newtran()) {
+</I>&gt;&gt;<i>                 sl_reply_error();
+</I>&gt;&gt;<i>                 break;
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>         if (!S_term_registered()){
+</I>&gt;&gt;<i>                 t_reply(&quot;404&quot;,&quot;Not Found - User not registered on
+</I>&gt;&gt;<i> this S-CSCF&quot;);
+</I>&gt;&gt;<i>                 exit;
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>         if (S_can_subscribe()){
+</I>&gt;&gt;<i>                 if (S_subscribe()){
+</I>&gt;&gt;<i>                         # This is replied from S_subscribe, as that
+</I>&gt;&gt;<i> also add extra headers
+</I>&gt;&gt;<i>                         #t_reply(&quot;200&quot;,&quot;OK - Subscription saved&quot;);
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                         exit;
+</I>&gt;&gt;<i>                 }else{
+</I>&gt;&gt;<i>                         t_reply(&quot;500&quot;,&quot;Server Error saving
+</I>&gt;&gt;<i> subscription&quot;);
+</I>&gt;&gt;<i>                         exit;
+</I>&gt;&gt;<i>                 }
+</I>&gt;&gt;<i>         }else{
+</I>&gt;&gt;<i>                 t_reply(&quot;403&quot;,&quot;Forbidden to SUBSCRIBE&quot;);
+</I>&gt;&gt;<i>                 exit;
+</I>&gt;&gt;<i>         };
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> #                       ORIGINATING
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> route[Orig]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       Orig\n&quot;);
+</I>&gt;&gt;<i>         if (S_originating_barred()){
+</I>&gt;&gt;<i>                 sl_send_reply(&quot;403&quot;,&quot;Forbidden - Originating Public
+</I>&gt;&gt;<i> Identity barred&quot;);
+</I>&gt;&gt;<i>                 exit;
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>         if (method==&quot;INVITE&quot;||method==&quot;SUBSCRIBE&quot;){
+</I>&gt;&gt;<i>                 if (!S_is_record_routed(&quot;orig&quot;))
+</I>&gt;&gt;<i>                         S_record_route(&quot;orig&quot;);
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                 S_save_dialog(&quot;orig&quot;);
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         loose_route();
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         # check if dialog saved as fwded to AS
+</I>&gt;&gt;<i>         t_on_reply(&quot;ISC_Orig_reply&quot;);
+</I>&gt;&gt;<i>         t_on_failure(&quot;ISC_Orig_failure&quot;);
+</I>&gt;&gt;<i>         if (ISC_match_filter(&quot;orig&quot;)){
+</I>&gt;&gt;<i>                 log(1,&quot;&gt;&gt;       Orig - msg was fwded to AS\n&quot;);
+</I>&gt;&gt;<i>                 exit;
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         # if THIG_required -&gt; add THIG route
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         if (!ISC_from_AS(&quot;orig&quot;)){
+</I>&gt;&gt;<i>                 S_add_p_asserted_identity();
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         #PSTN gateway handling
+</I>&gt;&gt;<i>         if (method==&quot;INVITE&quot;) {
+</I>&gt;&gt;<i>                 if (uri=~&quot;tel:+(.*)&quot;){
+</I>&gt;&gt;<i>                         if(!enum_query()){
+</I>&gt;&gt;<i>                                 route(PSTN);
+</I>&gt;&gt;<i>                                 break;
+</I>&gt;&gt;<i>                         }
+</I>&gt;&gt;<i>                 }
+</I>&gt;&gt;<i>                 if (uri=~&quot;sip:[0-9]<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">+ at open-ims</A>\.test(.*)&quot;){
+</I>&gt;&gt;<i>                         route(PSTN);
+</I>&gt;&gt;<i>                         break;
+</I>&gt;&gt;<i>                 }
+</I>&gt;&gt;<i>     }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         t_on_reply(&quot;Orig_reply&quot;);
+</I>&gt;&gt;<i>         t_on_failure(&quot;Orig_failure&quot;);
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     # Do not loop through the I-CSCF if the terminating user is here
+</I>&gt;&gt;<i>     # might not work if other routes are present
+</I>&gt;&gt;<i>         if (S_term_registered()){
+</I>&gt;&gt;<i>                 t_relay_to_udp(&quot;127.0.0.1&quot;,6060);
+</I>&gt;&gt;<i>                 exit;
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         if (!t_relay()) {
+</I>&gt;&gt;<i>                 sl_send_reply(&quot;500&quot;,&quot;Error forwarding towards
+</I>&gt;&gt;<i> terminating leg&quot;);
+</I>&gt;&gt;<i>                 exit;
+</I>&gt;&gt;<i>         };
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> onreply_route[Orig_reply]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       Orig_reply\n&quot;);
+</I>&gt;&gt;<i>         if (t_check_status(&quot;1..&quot;)||t_check_status(&quot;2..&quot;)){
+</I>&gt;&gt;<i>                 if (!S_update_dialog(&quot;orig&quot;)){
+</I>&gt;&gt;<i>                         log(1,&quot;&gt;&gt;       Error updating orig dialog -
+</I>&gt;&gt;<i> maybe non-dialog request...\n&quot;);
+</I>&gt;&gt;<i>                 }
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> failure_route[Orig_failure]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       Orig_failure\n&quot;);
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> onreply_route[ISC_Orig_reply]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       ISC_Orig_reply\n&quot;);
+</I>&gt;&gt;<i>         if (t_check_status(&quot;1..&quot;)||t_check_status(&quot;2..&quot;)){
+</I>&gt;&gt;<i>                 if (!S_update_dialog(&quot;orign&quot;)){
+</I>&gt;&gt;<i>                         log(1,&quot;&gt;&gt;       Error updating orig dialog -
+</I>&gt;&gt;<i> maybe non-dialog request...\n&quot;);
+</I>&gt;&gt;<i>                 }
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>         break;
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> failure_route[ISC_Orig_failure]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       ISC_Orig_failure\n&quot;);
+</I>&gt;&gt;<i>         if (t_check_status(&quot;408&quot;)) {
+</I>&gt;&gt;<i>                 if (ISC_is_session_continued()){
+</I>&gt;&gt;<i>                         log(1,&quot;&gt;&gt;       ISC continue session not
+</I>&gt;&gt;<i> implemented :(\n&quot;);
+</I>&gt;&gt;<i>                 break;
+</I>&gt;&gt;<i>                 }else{
+</I>&gt;&gt;<i>                         t_reply(&quot;555&quot;,&quot;AS failed to respond&quot;);
+</I>&gt;&gt;<i>                 }
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> route[Orig_Subsequent]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       Orig_Subsequent\n&quot;);
+</I>&gt;&gt;<i>         loose_route();
+</I>&gt;&gt;<i>         if (method==&quot;INVITE&quot;){
+</I>&gt;&gt;<i>                 S_update_dialog(&quot;orig&quot;);
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>         #S_record_route(&quot;orig&quot;);
+</I>&gt;&gt;<i>         t_on_reply(&quot;Orig_Subsequent_reply&quot;);
+</I>&gt;&gt;<i>         #t_on_failure(&quot;Orig_Subsequent_failure&quot;);
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         if (!t_relay()) {
+</I>&gt;&gt;<i>                 sl_send_reply(&quot;500&quot;,&quot;Error forwarding subsequent
+</I>&gt;&gt;<i> request towards terminating leg&quot;);
+</I>&gt;&gt;<i>                 exit;
+</I>&gt;&gt;<i>         };
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> onreply_route[Orig_Subsequent_reply]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       Orig_Subsequent_reply\n&quot;);
+</I>&gt;&gt;<i>         if (t_check_status(&quot;1..&quot;)||t_check_status(&quot;2..&quot;)){
+</I>&gt;&gt;<i>                 S_update_dialog(&quot;orig&quot;);
+</I>&gt;&gt;<i>                 break;
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i> #       if (t_check_status(&quot;305&quot;)){
+</I>&gt;&gt;<i> #               S_proxy_request();
+</I>&gt;&gt;<i> #               break;
+</I>&gt;&gt;<i> #       }
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> failure_route[Orig_Subsequent_failure]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       Orig_Subsequent_failure\n&quot;);
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> #                               TERMINATING
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> route[Term]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       Term\n&quot;);
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         if (method==&quot;INVITE&quot;||method==&quot;SUBSCRIBE&quot;){
+</I>&gt;&gt;<i>                 if (!S_is_record_routed(&quot;term&quot;))
+</I>&gt;&gt;<i>                         S_record_route(&quot;term&quot;);
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>                 S_save_dialog(&quot;term&quot;);
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         loose_route();
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         # check if dialog saved as fwded to AS
+</I>&gt;&gt;<i>         t_on_reply(&quot;ISC_Term_reply&quot;);
+</I>&gt;&gt;<i>         t_on_failure(&quot;ISC_Term_failure&quot;);
+</I>&gt;&gt;<i>         if (ISC_match_filter(&quot;term&quot;)){
+</I>&gt;&gt;<i>                 log(1,&quot;&gt;&gt;       Term - msg was fwded to AS\n&quot;);
+</I>&gt;&gt;<i>                 exit;
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         if (!S_lookup()){
+</I>&gt;&gt;<i>                 if (uri=~&quot;sip:(.*)@open-ims\.test(.*)&quot;) {
+</I>&gt;&gt;<i>                         if ( !t_newtran()) {
+</I>&gt;&gt;<i>                                 sl_reply_error();
+</I>&gt;&gt;<i>                                 exit;
+</I>&gt;&gt;<i>                         };
+</I>&gt;&gt;<i>                         t_reply(&quot;404&quot;,&quot;Not Found - destination user
+</I>&gt;&gt;<i> not found on this S-CSCF&quot;);
+</I>&gt;&gt;<i>                         exit;
+</I>&gt;&gt;<i>                 }
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         t_on_reply(&quot;Term_reply&quot;);
+</I>&gt;&gt;<i>         t_on_failure(&quot;Term_failure&quot;);
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         if (!t_relay()) {
+</I>&gt;&gt;<i>                 sl_send_reply(&quot;500&quot;,&quot;Error forwarding towards
+</I>&gt;&gt;<i> terminating leg&quot;);
+</I>&gt;&gt;<i>                 exit;
+</I>&gt;&gt;<i>         };
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> onreply_route[Term_reply]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       Term_reply\n&quot;);
+</I>&gt;&gt;<i>         if (t_check_status(&quot;1..&quot;)||t_check_status(&quot;2..&quot;)){
+</I>&gt;&gt;<i>                 if (!S_update_dialog(&quot;term&quot;)){
+</I>&gt;&gt;<i>                         log(1,&quot;&gt;&gt;       Error updating term dialog -
+</I>&gt;&gt;<i> maybe non-dialog request...\n&quot;);
+</I>&gt;&gt;<i>                 }
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> failure_route[Term_failure]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       Term_failure\n&quot;);
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> onreply_route[ISC_Term_reply]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       ISC_Term_reply\n&quot;);
+</I>&gt;&gt;<i>         if (t_check_status(&quot;1..&quot;)||t_check_status(&quot;2..&quot;)){
+</I>&gt;&gt;<i>             if (!S_update_dialog(&quot;term&quot;)){
+</I>&gt;&gt;<i>                 log(1,&quot;&gt;&gt;       Error updating term dialog - maybe
+</I>&gt;&gt;<i> non-dialog request...\n&quot;);
+</I>&gt;&gt;<i>             }
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>         break;
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> failure_route[ISC_Term_failure]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       ISC_Term_failure\n&quot;);
+</I>&gt;&gt;<i>         if (t_check_status(&quot;408&quot;)) {
+</I>&gt;&gt;<i>                 if (ISC_is_session_continued()){
+</I>&gt;&gt;<i>                         log(1,&quot;&gt;&gt;       ISC continue session not
+</I>&gt;&gt;<i> implemented :(\n&quot;);
+</I>&gt;&gt;<i>                 break;
+</I>&gt;&gt;<i>                 }else{
+</I>&gt;&gt;<i>                         t_reply(&quot;555&quot;,&quot;AS failed to respond&quot;);
+</I>&gt;&gt;<i>                 }
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> route[Term_Subsequent]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       Term_Subsequent\n&quot;);
+</I>&gt;&gt;<i>         loose_route();
+</I>&gt;&gt;<i>         if (method==&quot;INVITE&quot;){
+</I>&gt;&gt;<i>                 S_update_dialog(&quot;term&quot;);
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         #S_record_route(&quot;term&quot;);
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         t_on_reply(&quot;Term_Subsequent_reply&quot;);
+</I>&gt;&gt;<i>         #t_on_failure(&quot;Term_Subsequent_failure&quot;);
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>         if (!t_relay()) {
+</I>&gt;&gt;<i>                 sl_send_reply(&quot;500&quot;,&quot;Error forwarding subsequent
+</I>&gt;&gt;<i> request towards user&quot;);
+</I>&gt;&gt;<i>                 exit;
+</I>&gt;&gt;<i>         };
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> onreply_route[Term_Subsequent_reply]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       Term_Subsequent_reply\n&quot;);
+</I>&gt;&gt;<i>         if (t_check_status(&quot;1..&quot;)||t_check_status(&quot;2..&quot;)){
+</I>&gt;&gt;<i>                 S_update_dialog(&quot;term&quot;);
+</I>&gt;&gt;<i>                 break;
+</I>&gt;&gt;<i>         }
+</I>&gt;&gt;<i> #       if (t_check_status(&quot;305&quot;)){
+</I>&gt;&gt;<i> #               S_proxy_request();
+</I>&gt;&gt;<i> #               break;
+</I>&gt;&gt;<i> #       }
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> failure_route[Term_Subsequent_failure]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         log(1,&quot;&gt;&gt;       Term_Subsequent_failure\n&quot;);
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> route[PSTN]
+</I>&gt;&gt;<i> {
+</I>&gt;&gt;<i>         t_relay_to_udp(&quot;127.0.0.1&quot;, &quot;9060&quot;);
+</I>&gt;&gt;<i>         exit;
+</I>&gt;&gt;<i> }
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000628.html">[OpenIMSCore-CSCF] problem updating dialog on reply after a	trigger to a B2BUA AS
+</A></li>
+	<LI>Next message: <A HREF="000625.html">[OpenIMSCore-CSCF] SIP REGISTER with AKAv1-MD5 auth with seagull
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#639">[ date ]</a>
+              <a href="thread.html#639">[ thread ]</a>
+              <a href="subject.html#639">[ subject ]</a>
+              <a href="author.html#639">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

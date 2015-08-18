@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] No record-route in out-dialog REFER request
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20No%20record-route%20in%20out-dialog%20REFER%20request&In-Reply-To=%3C0ca801cac0e6%24901f9380%24830810ac%40globaledgesoft.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002219.html">
+   <LINK REL="Next"  HREF="002220.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] No record-route in out-dialog REFER request</H1>
+    <B>hanifa.mohammed</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20No%20record-route%20in%20out-dialog%20REFER%20request&In-Reply-To=%3C0ca801cac0e6%24901f9380%24830810ac%40globaledgesoft.com%3E"
+       TITLE="[OpenIMSCore-CSCF] No record-route in out-dialog REFER request">hanifa.mohammed at globaledgesoft.com
+       </A><BR>
+    <I>Thu Mar 11 07:46:22 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002219.html">[OpenIMSCore-CSCF] No record-route in out-dialog REFER request
+</A></li>
+        <LI>Next message: <A HREF="002220.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r929 - cdp: PCC: fixed a checking	for error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2221">[ date ]</a>
+              <a href="thread.html#2221">[ thread ]</a>
+              <a href="subject.html#2221">[ subject ]</a>
+              <a href="author.html#2221">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Pl find the attachment.
+
+Best Regards,
+Mohammed Hanifa
+
+&quot;Things seem complex if we don't have a simple way to describe them.&quot; ~ Wolfram
+  ----- Original Message ----- 
+  From: hanifa.mohammed 
+  To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A> 
+  Sent: Wednesday, March 10, 2010 9:50 PM
+  Subject: [OpenIMSCore-CSCF] No record-route in out-dialog REFER request
+
+
+  Hi all,
+
+      When a REFER is sent outside the dialog, P-CSCF and S-CSCF does not seem 
+  to add the
+  Record-Route, by default. So, the pcscf.cfg and scscf.cfg are modified as 
+  below and also
+  attached the modified files. Now, for REFER request, both P-CSCF and S-CSCF 
+  adds
+  record-route.
+      Pl share your thoughts. (This is my first time, modifying these files!)
+
+  [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at open-ims</A> OpenIMSCore]# diff -up pcscf.cfg pcscf.cfg.orig
+  --- pcscf.cfg   2010-03-10 23:52:06.000000000 +0530
+  +++ pcscf.cfg.orig      2010-03-10 23:50:48.000000000 +0530
+  @@ -198,7 +198,7 @@ route{
+                          t_release();
+                          break;
+                  }else
+  -               if (method==&quot;INVITE&quot; || method==&quot;SUBSCRIBE&quot;){
+  +               if (method==&quot;INVITE&quot; || method==&quot;SUBSCRIBE&quot; || 
+  method==&quot;REFER&quot;){
+
+                          route(Orig_Initial);
+                          break;
+                  }else{
+  @@ -221,7 +221,7 @@ route{
+                  # Request Terminated by the UE
+
+                  if (!P_is_in_dialog(&quot;term&quot;) &amp;&amp;
+  -                       (method==&quot;INVITE&quot; || method==&quot;SUBSCRIBE&quot;)){
+  +                       (method==&quot;INVITE&quot; || method==&quot;SUBSCRIBE&quot; || 
+  method==&quot;REFER&quot;)){
+
+                          route(Term_Initial);
+                          break;
+                  } else {
+
+  --- scscf.cfg.orig      2010-03-11 02:26:37.000000000 +0530
+  +++ scscf.cfg   2010-03-11 00:43:59.000000000 +0530
+  @@ -380,7 +380,7 @@ route[Orig]
+                  sl_send_reply(&quot;403&quot;,&quot;Forbidden - Originating Public Identity 
+  barred&quot;);
+                  exit;
+          }
+  -       if (method==&quot;INVITE&quot;||method==&quot;SUBSCRIBE&quot;){
+  +       if (method==&quot;INVITE&quot;||method==&quot;SUBSCRIBE&quot; ||method==&quot;REFER&quot;){
+                  route(Check_Session_Expires);
+
+                  if (!S_is_record_routed(&quot;orig&quot;))
+  @@ -560,7 +560,7 @@ route[Term]
+                  exit;
+          }
+
+  -       if (method==&quot;INVITE&quot;||method==&quot;SUBSCRIBE&quot;){
+  +       if (method==&quot;INVITE&quot;||method==&quot;SUBSCRIBE&quot; || method==&quot;REFER&quot;){
+                  route(Check_Session_Expires);
+                  if (!S_is_record_routed(&quot;term&quot;))
+                          S_record_route(&quot;term&quot;);
+  [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at open-ims</A> OpenIMSCore]#
+
+
+  Best Regards,
+  Mohammed Hanifa 
+
+  _______________________________________________
+  OpenIMSCore-CSCF mailing list
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20100311/ad951b3a/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20100311/ad951b3a/attachment.html</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: pcscf.cfg
+Type: application/octet-stream
+Size: 20917 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20100311/ad951b3a/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20100311/ad951b3a/attachment.obj</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: scscf.cfg
+Type: application/octet-stream
+Size: 17233 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20100311/ad951b3a/attachment-0001.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20100311/ad951b3a/attachment-0001.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002219.html">[OpenIMSCore-CSCF] No record-route in out-dialog REFER request
+</A></li>
+	<LI>Next message: <A HREF="002220.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r929 - cdp: PCC: fixed a checking	for error
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2221">[ date ]</a>
+              <a href="thread.html#2221">[ thread ]</a>
+              <a href="subject.html#2221">[ subject ]</a>
+              <a href="author.html#2221">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

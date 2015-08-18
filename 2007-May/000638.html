@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r281 - Fixed the S-CSCF script for	ISC dialogs. Added RFC4028 Session expires - Florin Popescu	Fixed SUBSCRIBE dialog expiration bug.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r281%20-%20Fixed%20the%20S-CSCF%20script%20for%0A%09ISC%20dialogs.%20Added%20RFC4028%20Session%20expires%20-%20Florin%20Popescu%0A%09Fixed%20SUBSCRIBE%20dialog%20expiration%20bug.&In-Reply-To=%3C200705231129.l4NBTogE024681%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000635.html">
+   <LINK REL="Next"  HREF="000640.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r281 - Fixed the S-CSCF script for	ISC dialogs. Added RFC4028 Session expires - Florin Popescu	Fixed SUBSCRIBE dialog expiration bug.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r281%20-%20Fixed%20the%20S-CSCF%20script%20for%0A%09ISC%20dialogs.%20Added%20RFC4028%20Session%20expires%20-%20Florin%20Popescu%0A%09Fixed%20SUBSCRIBE%20dialog%20expiration%20bug.&In-Reply-To=%3C200705231129.l4NBTogE024681%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r281 - Fixed the S-CSCF script for	ISC dialogs. Added RFC4028 Session expires - Florin Popescu	Fixed SUBSCRIBE dialog expiration bug.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed May 23 13:29:50 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000635.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r280 - Initial commit for	_experimental_ version of acc_rf module,	implementing IMS offline charging (Rf interface). Partly inspired on	SER acc modules,	and using CDP accounting session support. Includes contributions from	Shengyao Chen (shc -at- fokus dot fraunhofer dot de).
+</A></li>
+        <LI>Next message: <A HREF="000640.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r282 - Fixed typo in pcscf.cfg	Fixed Early-IMS - sent-by was not a parameter,	but the actual via-&gt;host Disable Early-IMS by default in the S-CSCF	as the Early-IMS case can not be detected automatically and	as such there could be useless MARs for MD5.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#638">[ date ]</a>
+              <a href="thread.html#638">[ thread ]</a>
+              <a href="subject.html#638">[ subject ]</a>
+              <a href="author.html#638">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-05-23 13:29:48 +0200 (Wed, 23 May 2007)
+New Revision: 281 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=281">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=281</A> 
+
+Log:
+Fixed the S-CSCF script for ISC dialogs.
+Added RFC4028 Session expires - Florin Popescu
+Fixed SUBSCRIBE dialog expiration bug.
+
+
+Modified:
+   U	ser_ims/trunk/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=281&amp;view=diff&amp;r1=281&amp;r2=280">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=281&amp;view=diff&amp;r1=281&amp;r2=280</A>
+   U	ser_ims/trunk/cfg/scscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=281&amp;view=diff&amp;r1=281&amp;r2=280">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=281&amp;view=diff&amp;r1=281&amp;r2=280</A>
+   U	ser_ims/trunk/modules/pcscf/bin_pcscf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_pcscf.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_pcscf.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280</A>
+   U	ser_ims/trunk/modules/pcscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280</A>
+   U	ser_ims/trunk/modules/pcscf/dlg_state.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.h?rev=281&amp;view=diff&amp;r1=281&amp;r2=280">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.h?rev=281&amp;view=diff&amp;r1=281&amp;r2=280</A>
+   U	ser_ims/trunk/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280</A>
+   U	ser_ims/trunk/modules/pcscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registration.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280</A>
+   U	ser_ims/trunk/modules/scscf/bin_scscf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_scscf.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_scscf.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280</A>
+   U	ser_ims/trunk/modules/scscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/dlg_state.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/dlg_state.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280</A>
+   U	ser_ims/trunk/modules/scscf/dlg_state.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/dlg_state.h?rev=281&amp;view=diff&amp;r1=281&amp;r2=280">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/dlg_state.h?rev=281&amp;view=diff&amp;r1=281&amp;r2=280</A>
+   U	ser_ims/trunk/modules/scscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280</A>
+   U	ser_ims/trunk/modules/scscf/sip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.c?rev=281&amp;view=diff&amp;r1=281&amp;r2=280</A>
+   U	ser_ims/trunk/modules/scscf/sip.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.h?rev=281&amp;view=diff&amp;r1=281&amp;r2=280">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.h?rev=281&amp;view=diff&amp;r1=281&amp;r2=280</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000635.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r280 - Initial commit for	_experimental_ version of acc_rf module,	implementing IMS offline charging (Rf interface). Partly inspired on	SER acc modules,	and using CDP accounting session support. Includes contributions from	Shengyao Chen (shc -at- fokus dot fraunhofer dot de).
+</A></li>
+	<LI>Next message: <A HREF="000640.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r282 - Fixed typo in pcscf.cfg	Fixed Early-IMS - sent-by was not a parameter,	but the actual via-&gt;host Disable Early-IMS by default in the S-CSCF	as the Early-IMS case can not be detected automatically and	as such there could be useless MARs for MD5.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#638">[ date ]</a>
+              <a href="thread.html#638">[ thread ]</a>
+              <a href="subject.html#638">[ subject ]</a>
+              <a href="author.html#638">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

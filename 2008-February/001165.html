@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] OpenSer as  presence server
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenSer%20as%20%20presence%20server&In-Reply-To=%3C63373.82.137.217.247.1201954978.squirrel%40wmail.cec.sy%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001164.html">
+   <LINK REL="Next"  HREF="001166.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] OpenSer as  presence server</H1>
+    <B>mustafa at cec.sy</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenSer%20as%20%20presence%20server&In-Reply-To=%3C63373.82.137.217.247.1201954978.squirrel%40wmail.cec.sy%3E"
+       TITLE="[OpenIMSCore-CSCF] OpenSer as  presence server">mustafa at cec.sy
+       </A><BR>
+    <I>Sat Feb  2 13:22:58 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001164.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r516 - Support for Wildcarded PSI	in the S-CSCF routing mode
+</A></li>
+        <LI>Next message: <A HREF="001166.html">[OpenIMSCore-CSCF] OpenSer as  presence server
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1165">[ date ]</a>
+              <a href="thread.html#1165">[ thread ]</a>
+              <a href="subject.html#1165">[ subject ]</a>
+              <a href="author.html#1165">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+i try to run the OpenSer server version 1.2 (for ubuntu OS) (as presence
+server), how i can configure the openser to run as presence server.i try
+the following config file but i get the error :bad cfg file.
+thanks
+Best Regards
+#
+# $Id: openser_presence.cfg 30-05-2007
+#
+# Simple quick-start config script for the openser to act as a presence
+server
+
+# To be used with the Open Source IMS Core <A HREF="http://www.openimscore.org">http://www.openimscore.org</A>
+# and the UCTIMSClient <A HREF="http://www.uctimsclient.berlios.de">http://www.uctimsclient.berlios.de</A>
+
+# Please refer to the Core CookBook at
+<A HREF="http://www.openser.org/dokuwiki/doku.php">http://www.openser.org/dokuwiki/doku.php</A>
+# for a explanation of possible statements, functions and parameters.
+#
+# ----------- global configuration parameters ------------------------
+
+debug=3
+log_stderror=yes
+
+fork=yes
+#log_stderror=no    # (cmd line: -E)
+children=4
+
+# Uncomment these lines to enter debugging mode
+#fork=no
+#log_stderror=yes
+
+
+listen=127.0.0.1
+port=5065
+
+# uncomment the following lines for TLS support
+#disable_tls = 0
+#listen = tls:your_IP:5061
+#tls_verify_server = 1
+#tls_verify_client = 1
+#tls_require_client_certificate = 0
+#tls_method = TLSv1
+#tls_certificate = &quot;/etc/openser/tls/user/user-cert.pem&quot;
+#tls_private_key = &quot;/etc/openser/tls/user/user-privkey.pem&quot;
+#tls_ca_list = &quot;/etc/openser/tls/user/user-calist.pem&quot;
+
+# ------------------ module loading ----------------------------------
+
+#set module path
+mpath=&quot;/usr/lib/openser/modules/&quot;
+
+
+
+# Uncomment this if you want to use SQL database
+loadmodule &quot;mysql.so&quot;
+
+loadmodule &quot;sl.so&quot;
+loadmodule &quot;tm.so&quot;
+loadmodule &quot;rr.so&quot;
+loadmodule &quot;presence.so&quot;
+loadmodule &quot;maxfwd.so&quot;
+loadmodule &quot;usrloc.so&quot;
+loadmodule &quot;registrar.so&quot;
+loadmodule &quot;textops.so&quot;
+loadmodule &quot;mi_fifo.so&quot;
+
+# Uncomment this if you want digest authentication
+# mysql.so must be loaded !
+#loadmodule &quot;auth.so&quot;
+#loadmodule &quot;auth_db.so&quot;
+
+# ----------------- setting module-specific parameters ---------------
+
+# -- mi_fifo params --
+
+modparam(&quot;mi_fifo&quot;, &quot;fifo_name&quot;, &quot;/tmp/openser_fifo&quot;)
+
+# -- usrloc params --
+
+modparam(&quot;usrloc&quot;, &quot;db_mode&quot;,   0)
+
+# Uncomment this if you want to use SQL database
+# for persistent storage and comment the previous line
+#modparam(&quot;usrloc&quot;, &quot;db_mode&quot;, 2)
+
+# -- auth params --
+# Uncomment if you are using auth module
+#
+#modparam(&quot;auth_db&quot;, &quot;calculate_ha1&quot;, yes)
+#
+# If you set &quot;calculate_ha1&quot; parameter to yes (which true in this config),
+# uncomment also the following parameter)
+#
+#modparam(&quot;auth_db&quot;, &quot;password_column&quot;, &quot;password&quot;)
+
+# -- rr params --
+# add value to ;lr param to make some broken UAs happy
+modparam(&quot;rr&quot;, &quot;enable_full_lr&quot;, 1)
+
+
+# -- presence params --
+modparam(&quot;presence&quot;, &quot;db_url&quot;, &quot;<A HREF="mysql://openser:openserrw@localhost/openser">mysql://openser:openserrw@localhost/openser</A>&quot;)
+modparam(&quot;presence&quot;, &quot;presentity_table&quot;, &quot;presentity&quot;)
+modparam(&quot;presence&quot;, &quot;active_watchers_table&quot;, &quot;active_watchers&quot;)
+modparam(&quot;presence&quot;, &quot;watchers_table&quot;, &quot;watchers&quot;)
+modparam(&quot;presence&quot;, &quot;xcap_table&quot;, &quot;xcaps&quot;)
+modparam(&quot;presence&quot;, &quot;clean_period&quot;, 100)
+modparam(&quot;presence&quot;, &quot;to_tag_pref&quot;, 'a')
+modparam(&quot;presence&quot;, &quot;lock_set_size&quot;, 8)
+modparam(&quot;presence&quot;, &quot;expires_offset&quot;, 10)
+modparam(&quot;presence&quot;, &quot;force_active&quot;, 1)
+modparam(&quot;presence&quot;, &quot;max_expires&quot;, 3600)
+modparam(&quot;presence&quot;, &quot;server_address&quot;, &quot;sip:localhost:5065&quot;)
+
+# -------------------------  request routing logic -------------------
+
+# main routing logic
+
+route{
+
+	# initial sanity checks -- messages with
+	# max_forwards==0, or excessively long requests
+	if (!mf_process_maxfwd_header(&quot;10&quot;)) {
+		sl_send_reply(&quot;483&quot;,&quot;Too Many Hops&quot;);
+		exit;
+	};
+
+	if (msg:len &gt;=  2048 ) {
+		sl_send_reply(&quot;513&quot;, &quot;Message too big&quot;);
+		exit;
+	};
+
+
+	# if the request is for other domain use UsrLoc
+	# (in case, it does not work, use the following command
+	# with proper names and addresses in it)
+
+
+	# presence handling
+	if(method==&quot;PUBLISH&quot;){
+		route(2);
+	}
+
+	if(method==&quot;SUBSCRIBE&quot;){
+		route(2);
+	}
+
+	route(1);
+}
+
+route[1]
+{
+	# send it out now; use stateful forwarding as it works reliably
+	# even for UDP2TCP
+	if (!t_relay()) {
+		sl_reply_error();
+	};
+	exit;
+}
+
+# presence handling route
+route[2]
+{
+	# absorb retransmissions
+	if (! t_newtran())
+	{
+	        sl_reply_error();
+	        exit;
+	};
+
+	if(is_method(&quot;PUBLISH&quot;))
+	{
+		handle_publish();
+		t_release();
+	} else if( is_method(&quot;SUBSCRIBE&quot;)) {
+		handle_subscribe();
+		t_release();
+	};
+
+	exit;
+}
+
+
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001164.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r516 - Support for Wildcarded PSI	in the S-CSCF routing mode
+</A></li>
+	<LI>Next message: <A HREF="001166.html">[OpenIMSCore-CSCF] OpenSer as  presence server
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1165">[ date ]</a>
+              <a href="thread.html#1165">[ thread ]</a>
+              <a href="subject.html#1165">[ subject ]</a>
+              <a href="author.html#1165">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

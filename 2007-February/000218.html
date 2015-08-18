@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P-CSCF IPSec issues
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20IPSec%20issues&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C013973BB%40INOAVREX05.ptin.corpPT.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000217.html">
+   <LINK REL="Next"  HREF="000219.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P-CSCF IPSec issues</H1>
+    <B>Jos&#233; Carlos Amorim</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20IPSec%20issues&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C013973BB%40INOAVREX05.ptin.corpPT.com%3E"
+       TITLE="[OpenIMSCore-CSCF] P-CSCF IPSec issues">jose-c-amorim at ptinovacao.pt
+       </A><BR>
+    <I>Wed Feb 14 12:29:17 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000217.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r140 -	ser_ims/trunk/modules/sip2ims
+</A></li>
+        <LI>Next message: <A HREF="000219.html">[OpenIMSCore-CSCF] P-CSCF IPSec issues
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#218">[ date ]</a>
+              <a href="thread.html#218">[ thread ]</a>
+              <a href="subject.html#218">[ subject ]</a>
+              <a href="author.html#218">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+ 
+
+I have been doing some tests with our IMS client and OpenIMSCore, and noticed an incorrect behavior at the P-CSCF. Since our IMS client does not support IPSec it does not establish the Security Associations, but even do it does not have this capacity it sends the various Security headers that would be necessary to establish the Security associations with the P-CSCF. Although sending the Security headers without support for IPSec is incorrect it was useful to detect this problem. 
+
+The P-CSCF has the following behavior, when the 401 challenge to the Register Request passes, an r_ipsec structure is created (even if the security association was not created) and added to the r_contact. When the Second Register arrives at the P-CSCF it will check if the message has a r_ipsec and if the ports are correct, if so it will add an integrity-protected=&quot;yes&quot;. 
+
+In our situation when the 401 passes the P-CSCF no security association is created, but the r_ipsec structure is created and added to r_contact, and when the second register reaches the P-CSCF since the ports are correct and the r_contact structure has r_ipsec structure (which is wrong) it includes the integrity-protected=&quot;yes&quot; (when it should be integrity-protected=&quot;no&quot;). This will lead to the user registering without being authenticated unless you uncomment the part of S-CSCF script which checks the authentication response when the user is integrity-protected.
+
+ 
+
+So my question is, is there any way to detect that the scripts that are called to create the Security associations create everything correctly?
+
+ 
+
+Regards,
+
+Jos&#233; Carlos Silva
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070214/af5bf546/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070214/af5bf546/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000217.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r140 -	ser_ims/trunk/modules/sip2ims
+</A></li>
+	<LI>Next message: <A HREF="000219.html">[OpenIMSCore-CSCF] P-CSCF IPSec issues
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#218">[ date ]</a>
+              <a href="thread.html#218">[ thread ]</a>
+              <a href="subject.html#218">[ subject ]</a>
+              <a href="author.html#218">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

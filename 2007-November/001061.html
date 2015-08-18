@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Forwarding a request to the proper node
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Forwarding%20a%20request%20to%20the%20proper%20node&In-Reply-To=%3C474315E1.6030506%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001059.html">
+   <LINK REL="Next"  HREF="001060.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Forwarding a request to the proper node</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Forwarding%20a%20request%20to%20the%20proper%20node&In-Reply-To=%3C474315E1.6030506%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Forwarding a request to the proper node">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Nov 20 18:14:09 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001059.html">[OpenIMSCore-CSCF] Forwarding a request to the proper node
+</A></li>
+        <LI>Next message: <A HREF="001060.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r495 - Added the preferred S-CSCF	names from UAA/LIA to the list of S-CSCFs.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1061">[ date ]</a>
+              <a href="thread.html#1061">[ thread ]</a>
+              <a href="subject.html#1061">[ subject ]</a>
+              <a href="author.html#1061">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Rosa,
+
+the CSCFs usually use the tm functions, like t_relay() to forward
+messages. The tm then will figures out what the next node is based in
+order on things like msg-&gt;dst_uri (forced next hop), request-uri. The rr
+module than helps transfer the first and not myself Route header into
+dst_uri.
+
+The tm would probably call the SER message sending functions which would
+figure out the next node by using the SER DNS functions. So, t_relay()
+from tm would somehow (sorry, the tm modules is the most obfuscated one,
+please ask for more support on the SER mailing lists) do the DNS query
+and fwd the message.
+
+For the P-CSCF, if the direction is terminating then the P-CSCF would
+relay the message towards the NAT pinhole or IPSec SA or TLS connection.
+If it is originating it will do loose-routing and fwd to the next Route.
+
+Cheers,
+-Dragos
+
+Rosa Maria Martinez Perallon wrote:
+&gt;<i>
+</I>&gt;<i> Hello,
+</I>&gt;<i> Looking at the code, I do not understand how a CSCF node realise which
+</I>&gt;<i> is the next node to send a request.
+</I>&gt;<i> For example, could anyone tell me in which function or file the P-CSCF
+</I>&gt;<i> sends a DNS query in order to obtain the I-CSCF IP?
+</I>&gt;<i>
+</I>&gt;<i> Thanks.
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001059.html">[OpenIMSCore-CSCF] Forwarding a request to the proper node
+</A></li>
+	<LI>Next message: <A HREF="001060.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r495 - Added the preferred S-CSCF	names from UAA/LIA to the list of S-CSCFs.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1061">[ date ]</a>
+              <a href="thread.html#1061">[ thread ]</a>
+              <a href="subject.html#1061">[ subject ]</a>
+              <a href="author.html#1061">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

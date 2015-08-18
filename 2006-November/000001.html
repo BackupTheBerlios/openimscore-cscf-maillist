@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r14 - in ser_ims/trunk: .	.settings cfg
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r14%20-%20in%20ser_ims/trunk%3A%20.%0A%09.settings%20cfg&In-Reply-To=%3C200611241249.kAOCn9Za022883%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000000.html">
+   <LINK REL="Next"  HREF="000002.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r14 - in ser_ims/trunk: .	.settings cfg</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r14%20-%20in%20ser_ims/trunk%3A%20.%0A%09.settings%20cfg&In-Reply-To=%3C200611241249.kAOCn9Za022883%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r14 - in ser_ims/trunk: .	.settings cfg">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Fri Nov 24 13:49:09 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000000.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r6 - in ser_ims/trunk: cfg	modules/icscf modules/pcscf modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000002.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r18 - ser_ims/trunk/doxygen
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1">[ date ]</a>
+              <a href="thread.html#1">[ thread ]</a>
+              <a href="subject.html#1">[ subject ]</a>
+              <a href="author.html#1">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2006-11-24 13:49:07 +0100 (Fri, 24 Nov 2006)
+New Revision: 14
+
+Added:
+   ser_ims/trunk/.project
+   ser_ims/trunk/.settings/org.eclipse.ltk.core.refactoring.prefs
+Modified:
+   ser_ims/trunk/.cdtproject
+   ser_ims/trunk/.settings/org.eclipse.cdt.core.prefs
+   ser_ims/trunk/cfg/open-ims.dnszone
+Log:
+Added sip2ims to the DNS zone file.
+
+
+Modified: ser_ims/trunk/.cdtproject
+===================================================================
+--- ser_ims/trunk/.cdtproject	2006-11-23 23:13:44 UTC (rev 13)
++++ ser_ims/trunk/.cdtproject	2006-11-24 12:49:07 UTC (rev 14)
+@@ -59,119 +59,119 @@
+ &lt;buildTargets&gt;
+ &lt;target name=&quot;pcscf&quot; path=&quot;modules/pcscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;pcscf clean&quot; path=&quot;modules/pcscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;all&quot; path=&quot;modules/cdp&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;clean&quot; path=&quot;modules/cdp&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;isc&quot; path=&quot;modules/isc&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;isc clean&quot; path=&quot;modules/isc&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;icscf&quot; path=&quot;modules/icscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;icscf clean&quot; path=&quot;modules/icscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;all&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;distclean&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;distclean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;clean&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;modules&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;modules&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;doxygen&quot; path=&quot;doxygen&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;doxygen&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;doxygen.config&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;false&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;sip2ims&quot; path=&quot;modules/sip2ims&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;sip2ims clean&quot; path=&quot;modules/sip2ims&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;scscf&quot; path=&quot;modules/scscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;scscf clean&quot; path=&quot;modules/scscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+
+Added: ser_ims/trunk/.project
+
+Modified: ser_ims/trunk/.settings/org.eclipse.cdt.core.prefs
+===================================================================
+--- ser_ims/trunk/.settings/org.eclipse.cdt.core.prefs	2006-11-23 23:13:44 UTC (rev 13)
++++ ser_ims/trunk/.settings/org.eclipse.cdt.core.prefs	2006-11-24 12:49:07 UTC (rev 14)
+@@ -1,3 +1,3 @@
+-#Sat Oct 21 15:09:52 CEST 2006
++#Wed Nov 22 14:45:59 CET 2006
+ eclipse.preferences.version=1
+ indexerId=org.eclipse.cdt.core.nullindexer
+
+Added: ser_ims/trunk/.settings/org.eclipse.ltk.core.refactoring.prefs
+
+Modified: ser_ims/trunk/cfg/open-ims.dnszone
+===================================================================
+--- ser_ims/trunk/cfg/open-ims.dnszone	2006-11-23 23:13:44 UTC (rev 13)
++++ ser_ims/trunk/cfg/open-ims.dnszone	2006-11-24 12:49:07 UTC (rev 14)
+@@ -24,6 +24,8 @@
+ 
+ scscf                   1D IN A         127.0.0.1
+ 
++sip2ims			1D IN A		127.0.0.1
++
+ hss                     1D IN A         127.0.0.1
+ 
+ ue                      1D IN A         127.0.0.1
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000000.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r6 - in ser_ims/trunk: cfg	modules/icscf modules/pcscf modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000002.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r18 - ser_ims/trunk/doxygen
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1">[ date ]</a>
+              <a href="thread.html#1">[ thread ]</a>
+              <a href="subject.html#1">[ subject ]</a>
+              <a href="author.html#1">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

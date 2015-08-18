@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Send B2B BYE on INVITE dialog expiration
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Send%20B2B%20BYE%20on%20INVITE%20dialog%20expiration&In-Reply-To=%3C4694B2CC.4070604%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000842.html">
+   <LINK REL="Next"  HREF="000843.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Send B2B BYE on INVITE dialog expiration</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Send%20B2B%20BYE%20on%20INVITE%20dialog%20expiration&In-Reply-To=%3C4694B2CC.4070604%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Send B2B BYE on INVITE dialog expiration">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Jul 11 12:37:00 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000842.html">[OpenIMSCore-CSCF] Send B2B BYE on INVITE dialog expiration
+</A></li>
+        <LI>Next message: <A HREF="000843.html">[OpenIMSCore-CSCF] TelURI
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#846">[ date ]</a>
+              <a href="thread.html#846">[ thread ]</a>
+              <a href="subject.html#846">[ subject ]</a>
+              <a href="author.html#846">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>IMO, we need a switch to disable this, just in case... Should be too
+hard to do...
+
+-Dragos
+
+JF wrote:
+&gt;<i> But on top of that you have e.g. section 5.4.5 of 3GPP TS 24.229-730
+</I>&gt;<i> for the S-CSCF.
+</I>&gt;<i> The question is: does session expiration constitute &quot;an network
+</I>&gt;<i> internal indication to release a session&quot;? Section 5.4.5.3 seems to
+</I>&gt;<i> imply that it should only delete the dialog state, not terminate it...
+</I>&gt;<i> What do you think?
+</I>&gt;<i>
+</I>&gt;<i> JF
+</I>&gt;<i>
+</I>&gt;<i> 5.4.5    Call release
+</I>&gt;<i> 5.4.5.1    S-CSCF-initiated session release
+</I>&gt;<i> 5.4.5.1.1    Cancellation of a session currently being established
+</I>&gt;<i> Upon receipt of an network internal indication to release a session
+</I>&gt;<i> which is currently being established, the S-CSCF shall cancel the
+</I>&gt;<i> related dialogs by sending the CANCEL request according to the
+</I>&gt;<i> procedures described in RFC 3261 [26].
+</I>&gt;<i> 5.4.5.1.2    Release of an existing session
+</I>&gt;<i> Upon receipt of a network internal indication to release an existing
+</I>&gt;<i> multimedia session, the S-CSCF shall:
+</I>&gt;<i> 1)    generate the first BYE request for the called user based on the
+</I>&gt;<i> information saved for the related dialog, including:
+</I>&gt;<i> -    a Request-URI, set to the stored Contact header provided by the
+</I>&gt;<i> called user;
+</I>&gt;<i> -    a To header, set to the To header value as received in the 200 OK
+</I>&gt;<i> response for the initial INVITE request;
+</I>&gt;<i> -    a From header, set to the From header value as received in the
+</I>&gt;<i> initial INVITE request;
+</I>&gt;<i> -    a Call-ID header, set to the Call-Id header value as received in the
+</I>&gt;<i> initial INVITE request;
+</I>&gt;<i> -    a CSeq header, set to the CSeq value that was stored for the
+</I>&gt;<i> direction from the calling to the called user, incremented by one;
+</I>&gt;<i> -    a Route header, set to the routeing information towards the called
+</I>&gt;<i> user as stored for the dialog;
+</I>&gt;<i> -    a Reason header that contains proper SIP response code;
+</I>&gt;<i> -    further headers, based on local policy.
+</I>&gt;<i> 2)    generate the second BYE request for the calling user based on the
+</I>&gt;<i> information saved for the related dialog, including:
+</I>&gt;<i> -    a Request-URI, set to the stored Contact header provided by the
+</I>&gt;<i> calling user;
+</I>&gt;<i> -    a To header, set to the From header value as received in the initial
+</I>&gt;<i> INVITE request;
+</I>&gt;<i> -    a From header, set to the To header value as received in the 200 OK
+</I>&gt;<i> response for the initial INVITE request;
+</I>&gt;<i> -    a Call-ID header, set to the Call-Id header value as received in the
+</I>&gt;<i> initial INVITE request;
+</I>&gt;<i> -    a CSeq header, set to the CSeq value that was stored for the
+</I>&gt;<i> direction from the called to the calling user, incremented by one &#8211; if
+</I>&gt;<i> no CSeq value was stored for that session it shall generate and apply
+</I>&gt;<i> a random number within the valid range for CSeqs;
+</I>&gt;<i> -    a Route header, set to the routeing information towards the calling
+</I>&gt;<i> user as stored for the dialog;
+</I>&gt;<i> -    a Reason header that contains proper SIP response code;
+</I>&gt;<i> -    further headers, based on local policy.
+</I>&gt;<i> 3)    if the S-CSCF serves the calling user, treat the first BYE request
+</I>&gt;<i> as if received directly from the calling user, i.e. send it to
+</I>&gt;<i> internal service control and based on the outcome further on towards
+</I>&gt;<i> the called user;
+</I>&gt;<i> 4)    if the S-CSCF serves the calling user, send the second BYE request
+</I>&gt;<i> directly to the calling user.
+</I>&gt;<i> 5)    if the S-CSCF serves the called user, send the first BYE request
+</I>&gt;<i> directly to the called user;
+</I>&gt;<i> 6)    if the S-CSCF serves the called user, treat the second BYE request
+</I>&gt;<i> as if received directly from the called user, i.e. shall send it to
+</I>&gt;<i> internal service control and based on the outcome further on towards
+</I>&gt;<i> to the calling user.
+</I>&gt;<i> Upon receipt of the 2xx responses for both BYE requests, the S-CSCF
+</I>&gt;<i> shall release all information related to the dialog and the related
+</I>&gt;<i> multimedia session.
+</I>&gt;<i> 5.4.5.1.2A    Release of the existing dialogs due to registration
+</I>&gt;<i> expiration
+</I>&gt;<i> When the registration lifetime of the only public user identity
+</I>&gt;<i> currently registered with its associated set of implicitly registered
+</I>&gt;<i> public user identities (i.e. no other is registered) expires while
+</I>&gt;<i> there are still active multimedia sessions that includes this user,
+</I>&gt;<i> where the session was initiated with the public user identity
+</I>&gt;<i> currently registered or with one of the implicitly registered public
+</I>&gt;<i> used identities, the S-CSCF shall release each of these multimedia
+</I>&gt;<i> sessions by applying the steps listed in the subclause 5.4.5.1.2.
+</I>&gt;<i> 5.4.5.1.3    Abnormal cases
+</I>&gt;<i> Upon receipt of a request on a dialog for which the S-CSCF initiated
+</I>&gt;<i> session release, the S-CSCF shall terminate the received request and
+</I>&gt;<i> answer it with a 481 (Call/Transaction Does Not Exist) response.
+</I>&gt;<i> 5.4.5.2    Session release initiated by any other entity
+</I>&gt;<i> Upon receipt of a 2xx response for a BYE request matching an existing
+</I>&gt;<i> dialog, the S-CSCF shall delete all the stored information related to
+</I>&gt;<i> the dialog.
+</I>&gt;<i> 5.4.5.3    Session expiration
+</I>&gt;<i> If the S-CSCF requested the session to be refreshed periodically, and
+</I>&gt;<i> the S-CSCF got the indication that the session will be refreshed, when
+</I>&gt;<i> the session timer expires, the S-CSCF shall delete all the stored
+</I>&gt;<i> information related to the dialog.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> On 7/9/07, fancy_xiao &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">fancy_xiao at astrocom.cn</A>&gt; wrote:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> openimscore-cscf&#65292;&#20320;&#22909;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  See RFC 4028,the proxy behavior about session expires,the proxy must
+</I>&gt;&gt;<i> not
+</I>&gt;&gt;<i> send BYE.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ///////////////////////////////////////////////////////////////////////////////////
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> 8.3.  Session Expiration
+</I>&gt;&gt;<i>    When the current time equals or passes the session expiration for a
+</I>&gt;&gt;<i>    session, the proxy MAY remove associated call state, and MAY free any
+</I>&gt;&gt;<i>    resources associated with the call.  Unlike the UA, it MUST NOT send
+</I>&gt;&gt;<i>    a BYE.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> fancy_xiao&#65292;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">fancy_xiao at astrocom.cn</A>
+</I>&gt;&gt;<i> 2007-07-09
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000842.html">[OpenIMSCore-CSCF] Send B2B BYE on INVITE dialog expiration
+</A></li>
+	<LI>Next message: <A HREF="000843.html">[OpenIMSCore-CSCF] TelURI
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#846">[ date ]</a>
+              <a href="thread.html#846">[ thread ]</a>
+              <a href="subject.html#846">[ subject ]</a>
+              <a href="author.html#846">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

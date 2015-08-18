@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r1094 - client_rf: ACR message:	adding PS Information AVP and the stored 3GPP charging id in	both sdp_media_component AVP and PS-Information AVP
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1094%20-%20client_rf%3A%20ACR%20message%3A%0A%09adding%20PS%20Information%20AVP%20and%20the%20stored%203GPP%20charging%20id%20in%0A%09both%20sdp_media_component%20AVP%20and%20PS-Information%20AVP&In-Reply-To=%3C20110508105143.0E0B94814CF%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002535.html">
+   <LINK REL="Next"  HREF="002537.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r1094 - client_rf: ACR message:	adding PS Information AVP and the stored 3GPP charging id in	both sdp_media_component AVP and PS-Information AVP</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1094%20-%20client_rf%3A%20ACR%20message%3A%0A%09adding%20PS%20Information%20AVP%20and%20the%20stored%203GPP%20charging%20id%20in%0A%09both%20sdp_media_component%20AVP%20and%20PS-Information%20AVP&In-Reply-To=%3C20110508105143.0E0B94814CF%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r1094 - client_rf: ACR message:	adding PS Information AVP and the stored 3GPP charging id in	both sdp_media_component AVP and PS-Information AVP">aon at users.berlios.de
+       </A><BR>
+    <I>Sun May  8 12:51:43 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002535.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1093 - client_rf: exporting the	function for loading the client_rf bindings
+</A></li>
+        <LI>Next message: <A HREF="002537.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1095 - Client_Rf: small memory	free function fix
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2536">[ date ]</a>
+              <a href="thread.html#2536">[ thread ]</a>
+              <a href="subject.html#2536">[ subject ]</a>
+              <a href="author.html#2536">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2011-05-08 12:51:42 +0200 (Sun, 08 May 2011)
+New Revision: 1094 <A HREF="http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1094">http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1094</A> 
+
+Log:
+client_rf: ACR message: adding PS Information AVP and the stored 3GPP charging id in both sdp_media_component AVP and PS-Information AVP
+
+
+Modified:
+   U	ser_ims/trunk/modules/Client_Rf/Rf_data.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/Rf_data.c?op=diff&amp;rev=1094&amp;peg=1094">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/Rf_data.c?op=diff&amp;rev=1094&amp;peg=1094</A>
+   U	ser_ims/trunk/modules/Client_Rf/Rf_data.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/Rf_data.h?op=diff&amp;rev=1094&amp;peg=1094">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/Rf_data.h?op=diff&amp;rev=1094&amp;peg=1094</A>
+   U	ser_ims/trunk/modules/Client_Rf/acr.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/acr.c?op=diff&amp;rev=1094&amp;peg=1094">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/acr.c?op=diff&amp;rev=1094&amp;peg=1094</A>
+   U	ser_ims/trunk/modules/Client_Rf/charging.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/charging.c?op=diff&amp;rev=1094&amp;peg=1094">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/charging.c?op=diff&amp;rev=1094&amp;peg=1094</A>
+   U	ser_ims/trunk/modules/Client_Rf/charging.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/charging.h?op=diff&amp;rev=1094&amp;peg=1094">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/charging.h?op=diff&amp;rev=1094&amp;peg=1094</A>
+   U	ser_ims/trunk/modules/Client_Rf/ims_rf.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/ims_rf.c?op=diff&amp;rev=1094&amp;peg=1094">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/ims_rf.c?op=diff&amp;rev=1094&amp;peg=1094</A>
+   U	ser_ims/trunk/modules/cdp/diameter_epc_code_avp.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/cdp/diameter_epc_code_avp.h?op=diff&amp;rev=1094&amp;peg=1094">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/cdp/diameter_epc_code_avp.h?op=diff&amp;rev=1094&amp;peg=1094</A>
+   U	ser_ims/trunk/modules/cdp_avp/epcapp.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/cdp_avp/epcapp.h?op=diff&amp;rev=1094&amp;peg=1094">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/cdp_avp/epcapp.h?op=diff&amp;rev=1094&amp;peg=1094</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002535.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1093 - client_rf: exporting the	function for loading the client_rf bindings
+</A></li>
+	<LI>Next message: <A HREF="002537.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1095 - Client_Rf: small memory	free function fix
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2536">[ date ]</a>
+              <a href="thread.html#2536">[ thread ]</a>
+              <a href="subject.html#2536">[ subject ]</a>
+              <a href="author.html#2536">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

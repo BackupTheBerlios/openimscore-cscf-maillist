@@ -1,0 +1,382 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r50 - in ser_ims/trunk/modules:	isc scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r50%20-%20in%20ser_ims/trunk/modules%3A%0A%09isc%20scscf&In-Reply-To=%3C200612041920.kB4JKW9N031753%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000014.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r50 - in ser_ims/trunk/modules:	isc scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r50%20-%20in%20ser_ims/trunk/modules%3A%0A%09isc%20scscf&In-Reply-To=%3C200612041920.kB4JKW9N031753%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r50 - in ser_ims/trunk/modules:	isc scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Mon Dec  4 20:20:32 CET 2006</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000014.html">[OpenIMSCore-CSCF] Interfacing MRF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#13">[ date ]</a>
+              <a href="thread.html#13">[ thread ]</a>
+              <a href="subject.html#13">[ subject ]</a>
+              <a href="author.html#13">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2006-12-04 20:20:29 +0100 (Mon, 04 Dec 2006)
+New Revision: 50
+
+Modified:
+   ser_ims/trunk/modules/isc/checker.c
+   ser_ims/trunk/modules/isc/isc.c
+   ser_ims/trunk/modules/isc/mark.c
+   ser_ims/trunk/modules/isc/mod.c
+   ser_ims/trunk/modules/isc/sip.c
+   ser_ims/trunk/modules/scscf/dlg_state.c
+   ser_ims/trunk/modules/scscf/registrar.c
+   ser_ims/trunk/modules/scscf/registration.c
+   ser_ims/trunk/modules/scscf/sip.c
+Log:
+Reduced debug logging to normal level because of performance impact.
+
+
+Modified: ser_ims/trunk/modules/isc/checker.c
+===================================================================
+--- ser_ims/trunk/modules/isc/checker.c	2006-12-04 11:59:53 UTC (rev 49)
++++ ser_ims/trunk/modules/isc/checker.c	2006-12-04 19:20:29 UTC (rev 50)
+@@ -445,7 +445,7 @@
+ 					}
+ 				}
+ 				if (isc_check_filter_criteria(fc,msg,direction,registration_type)){
+-					LOG(L_CRIT,&quot;INFO:&quot;M_NAME&quot;:isc_checker_find: MATCH -&gt; %.*s (%.*s) handling %d \n&quot;,
++					LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:isc_checker_find: MATCH -&gt; %.*s (%.*s) handling %d \n&quot;,
+ 						fc-&gt;application_server.server_name.len,
+ 						fc-&gt;application_server.server_name.s,
+ 						fc-&gt;application_server.service_info.len,
+
+Modified: ser_ims/trunk/modules/isc/isc.c
+===================================================================
+--- ser_ims/trunk/modules/isc/isc.c	2006-12-04 11:59:53 UTC (rev 49)
++++ ser_ims/trunk/modules/isc/isc.c	2006-12-04 19:20:29 UTC (rev 50)
+@@ -147,7 +147,7 @@
+ 		LOG( L_INFO,&quot;INFO:&quot;M_NAME&quot;:ifc:isc_failure reached but already treated... so skipped.\n&quot;);
+ 		return;
+ 	}
+-	LOG(L_CRIT,&quot;INFO:&quot;M_NAME&quot;:isc_failure: reached with s=%d;h=%d;d=%d\n&quot;,
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:isc_failure: reached with s=%d;h=%d;d=%d\n&quot;,
+ 		mark-&gt;skip,mark-&gt;handling,mark-&gt;direction);	
+ 
+ 	/* non 408 */
+@@ -170,7 +170,7 @@
+ 		isc_mark_free(mark);
+ 		isc_tmb.t_reply(ps-&gt;req,IFC_AS_UNAVAILABLE_STATUS_CODE,
+ 			&quot;AS Contacting Failed - iFC terminated dialog&quot;);
+-		LOG(L_ERR,&quot;INFO:&quot;M_NAME&quot;:isc_failure: Responding with %d &quot;
++		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:isc_failure: Responding with %d &quot;
+ 			&quot;to URI: %.*s\n&quot;,IFC_AS_UNAVAILABLE_STATUS_CODE,
+ 			ps-&gt;req-&gt;first_line.u.request.uri.len,
+ 			ps-&gt;req-&gt;first_line.u.request.uri.s);
+
+Modified: ser_ims/trunk/modules/isc/mark.c
+===================================================================
+--- ser_ims/trunk/modules/isc/mark.c	2006-12-04 11:59:53 UTC (rev 49)
++++ ser_ims/trunk/modules/isc/mark.c	2006-12-04 19:20:29 UTC (rev 50)
+@@ -136,7 +136,7 @@
+ 	route.len = strlen(chr_mark);
+ 	if (match) as = match-&gt;server_name;
+ 	isc_mark_write_route(msg,&amp;as,&amp;route);
+-	LOG(L_ERR,&quot;INFO:&quot;M_NAME&quot;:isc_mark_set: NEW mark &lt;%s&gt;\n&quot;,chr_mark);	
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:isc_mark_set: NEW mark &lt;%s&gt;\n&quot;,chr_mark);	
+ 	
+ 	return 1;
+ }
+@@ -190,7 +190,7 @@
+ 	struct hdr_field *hdr;
+ 	rr_t *rr;
+ 	str x;
+-	LOG(L_ERR,&quot;INFO:&quot;M_NAME&quot;:isc_mark_get_from_msg: Trying to get the mark from the message \n&quot;);
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:isc_mark_get_from_msg: Trying to get the mark from the message \n&quot;);
+ 	
+ 	memset(mark,0,sizeof(isc_mark));
+ 	
+@@ -211,7 +211,7 @@
+ 					strncasecmp(x.s,ISC_MARK_USERNAME,ISC_MARK_USERNAME_LEN)==0 &amp;&amp;
+ 					strncasecmp(x.s+ISC_MARK_USERNAME_LEN+1,isc_my_uri.s,isc_my_uri.len)==0)
+ 				{
+-					LOG(L_ERR,&quot;INFO:&quot;M_NAME&quot;:isc_mark_get_from_msg: Found &lt;%.*s&gt;\n&quot;,x.len,x.s);						
++					LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:isc_mark_get_from_msg: Found &lt;%.*s&gt;\n&quot;,x.len,x.s);						
+ 					isc_mark_get(x,mark);
+ 					return 1;
+ 				}					
+
+Modified: ser_ims/trunk/modules/isc/mod.c
+===================================================================
+--- ser_ims/trunk/modules/isc/mod.c	2006-12-04 11:59:53 UTC (rev 49)
++++ ser_ims/trunk/modules/isc/mod.c	2006-12-04 19:20:29 UTC (rev 50)
+@@ -280,7 +280,7 @@
+ 			while(rr){
+ 				if (rr-&gt;nameaddr.uri.len &gt;= ISC_MARK_USERNAME_LEN &amp;&amp;
+ 					strncasecmp(rr-&gt;nameaddr.uri.s,ISC_MARK_USERNAME,ISC_MARK_USERNAME_LEN)==0)	{
+-						LOG(L_ERR,&quot;DEBUG:&quot;M_NAME&quot;:isc_appserver_forward: Found S-CSCF marking &lt;%.*s&gt; \n&quot;,rr-&gt;nameaddr.uri.len,rr-&gt;nameaddr.uri.s);
++						LOG(L_INFO,&quot;DEBUG:&quot;M_NAME&quot;:isc_appserver_forward: Found S-CSCF marking &lt;%.*s&gt; \n&quot;,rr-&gt;nameaddr.uri.len,rr-&gt;nameaddr.uri.s);
+ 						/* delete the header */					
+ 						if (!del_lump(msg, hdr-&gt;name.s - msg-&gt;buf, hdr-&gt;len, 0)) {
+ 							LOG(L_ERR, &quot;ERROR:&quot;M_NAME&quot;:isc_appserver_forward: Can't remove Route HF\n&quot;);
+@@ -334,7 +334,7 @@
+ 		case '1':
+ 			return DLG_MOBILE_TERMINATING;
+ 		default:
+-			LOG(L_CRIT,&quot;ERR:&quot;M_NAME&quot;:get_dialog_direction(): Unknown direction %s&quot;,direction);
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:get_dialog_direction(): Unknown direction %s&quot;,direction);
+ 			return DLG_MOBILE_UNKNOWN;
+ 	}
+ }
+@@ -357,7 +357,7 @@
+ 	
+ 	enum dialog_direction dir = get_dialog_direction(str1);
+ 	
+-	LOG(L_ERR,&quot;INFO:&quot;M_NAME&quot;:ISC_match_filter(%s): Checking triggers\n&quot;,str1);
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:ISC_match_filter(%s): Checking triggers\n&quot;,str1);
+ 	
+ 	if (dir==DLG_MOBILE_UNKNOWN) 
+ 		return ISC_RETURN_BREAK;
+@@ -367,11 +367,11 @@
+ 	/* starting or resuming? */
+ 	memset(&amp;old_mark,0,sizeof(isc_mark));
+ 	if (isc_mark_get_from_msg(msg,&amp;old_mark)){		
+-		LOG(L_CRIT,&quot;INFO:&quot;M_NAME&quot;:ISC_match_filter(%s): Message returned s=%d;h=%d;d=%d\n&quot;,
++		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:ISC_match_filter(%s): Message returned s=%d;h=%d;d=%d\n&quot;,
+ 			str1,old_mark.skip,old_mark.handling,old_mark.direction);
+ 	}
+ 	else {
+-		LOG(L_CRIT,&quot;INFO:&quot;M_NAME&quot;:ISC_match_filter(%s): Starting triggering\n&quot;,str1);				
++		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:ISC_match_filter(%s): Starting triggering\n&quot;,str1);				
+ 	}
+ 
+ 	/* originating leg */
+@@ -381,7 +381,7 @@
+ 			k = isc_is_registered(&amp;s);
+ 			if (k==NOT_REGISTERED) return ISC_MSG_NOT_FORWARDED;
+ 			
+-			LOG(L_ERR,&quot;INFO:&quot;M_NAME&quot;:ISC_match_filter(%s): Orig User &lt;%.*s&gt; [%d]\n&quot;,str1,
++			LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:ISC_match_filter(%s): Orig User &lt;%.*s&gt; [%d]\n&quot;,str1,
+ 				s.len,s.s,k);
+ 			m = isc_checker_find(s,old_mark.direction,old_mark.skip,msg);
+ 			if (m){
+@@ -406,7 +406,7 @@
+ 			} else {
+ 				new_mark.direction = IFC_TERMINATING_UNREGISTERED;
+ 			}
+-			LOG(L_ERR,&quot;INFO:&quot;M_NAME&quot;:ISC_match_filter(%s): Orig User &lt;%.*s&gt; [%d]\n&quot;,str1,
++			LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:ISC_match_filter(%s): Orig User &lt;%.*s&gt; [%d]\n&quot;,str1,
+ 				s.len,s.s,k);
+ 			m = isc_checker_find(s,new_mark.direction,old_mark.skip,msg);
+ 			if (m){
+@@ -447,7 +447,7 @@
+ 		
+ 	/* starting or resuming? */
+ 	if (isc_mark_get_from_msg(msg,&amp;old_mark)){		
+-		LOG(L_CRIT,&quot;INFO:&quot;M_NAME&quot;:ISC_from_AS(%s): Message returned s=%d;h=%d;d=%d\n&quot;,
++		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:ISC_from_AS(%s): Message returned s=%d;h=%d;d=%d\n&quot;,
+ 			str1,old_mark.skip,old_mark.handling,old_mark.direction);
+ 		if (old_mark.direction==IFC_ORIGINATING_SESSION &amp;&amp; dir!=DLG_MOBILE_ORIGINATING)
+ 			ret = ISC_RETURN_FALSE;
+@@ -491,7 +491,7 @@
+ 		
+ 	/* starting or resuming? */
+ 	if (isc_mark_get_from_lump(req,&amp;old_mark)){		
+-		LOG(L_CRIT,&quot;INFO:&quot;M_NAME&quot;:ISC_is_session_continued(): Message returned handling [%d] \n&quot;,old_mark.handling);
++		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:ISC_is_session_continued(): Message returned handling [%d] \n&quot;,old_mark.handling);
+ 		if (old_mark.handling == IFC_SESSION_CONTINUED) 
+ 			ret = ISC_RETURN_TRUE;
+ 		else 
+
+Modified: ser_ims/trunk/modules/isc/sip.c
+===================================================================
+--- ser_ims/trunk/modules/isc/sip.c	2006-12-04 11:59:53 UTC (rev 49)
++++ ser_ims/trunk/modules/isc/sip.c	2006-12-04 19:20:29 UTC (rev 50)
+@@ -175,7 +175,7 @@
+ 			id = r-&gt;nameaddr; 
+ 			free_rr((rr_t**)(&amp;h-&gt;parsed));
+ 			h-&gt;parsed=0;
+-			LOG(L_CRIT,&quot;%.*s&quot;,id.uri.len,id.uri.s);
++			//LOG(L_RIT,&quot;%.*s&quot;,id.uri.len,id.uri.s);
+ 			return id.uri;
+ 		}
+ 		h = h-&gt;next;
+@@ -305,7 +305,7 @@
+ {	
+ 	if (msg-&gt;expires) {
+ 		if (parse_expires(msg-&gt;expires) &lt; 0) {
+- 			LOG(L_ERR, &quot;INFO:ifc:ifc_get_expires:Error while parsing Expires header\n&quot;);
++ 			LOG(L_INFO, &quot;INFO:ifc:ifc_get_expires:Error while parsing Expires header\n&quot;);
+ 		    return -1;
+  		}
+ 		 return ((exp_body_t*) msg-&gt;expires-&gt;parsed)-&gt;val;
+
+Modified: ser_ims/trunk/modules/scscf/dlg_state.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/dlg_state.c	2006-12-04 11:59:53 UTC (rev 49)
++++ ser_ims/trunk/modules/scscf/dlg_state.c	2006-12-04 19:20:29 UTC (rev 50)
+@@ -502,7 +502,7 @@
+ //	LOG(L_CRIT,&quot;%d - %d\n&quot;,dir,dirmsg);
+ 	if (dir!=dirmsg) return CSCF_RETURN_FALSE;				
+ 			
+-	print_s_dialogs(L_ERR);
++//	print_s_dialogs(L_ERR);
+ 	call_id = cscf_get_call_id(msg,0);
+ 	if (!call_id.len){
+ 		
+@@ -577,7 +577,7 @@
+ 
+ 	d_unlock(d-&gt;hash);
+ 	
+-	print_s_dialogs(L_INFO);
++//	print_s_dialogs(L_INFO);
+ 	
+ 	return CSCF_RETURN_TRUE;	
+ }
+@@ -642,7 +642,7 @@
+ 
+ 	if (msg-&gt;first_line.type==SIP_REQUEST){
+ 		/* Request */
+-		LOG(L_ERR,&quot;DBG:&quot;M_NAME&quot;:S_update_dialog(%s): Method &lt;%.*s&gt; \n&quot;,str1,
++		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_update_dialog(%s): Method &lt;%.*s&gt; \n&quot;,str1,
+ 			msg-&gt;first_line.u.request.method.len,msg-&gt;first_line.u.request.method.s);
+ 		cseq = cscf_get_cseq(msg,&amp;h);
+ 		if (cseq&gt;d-&gt;last_cseq) d-&gt;last_cseq = cseq;
+@@ -713,7 +713,7 @@
+ 	
+ 	d_unlock(d-&gt;hash);
+ 	
+-	print_s_dialogs(L_INFO);
++//	print_s_dialogs(L_INFO);
+ 	
+ 	return CSCF_RETURN_TRUE;	
+ }
+@@ -769,7 +769,7 @@
+ 		
+ 	d_unlock(hash);
+ 	
+-	print_s_dialogs(L_INFO);
++//	print_s_dialogs(L_INFO);
+ 	
+ 	return CSCF_RETURN_TRUE;	
+ }
+@@ -801,7 +801,7 @@
+ 			}
+ 		d_unlock(i);
+ 	}
+-	print_s_dialogs(L_INFO);	
++	//print_s_dialogs(L_INFO);	
+ 	return cnt;
+ }
+ 
+@@ -959,7 +959,7 @@
+ 			}
+ 		d_unlock(i);
+ 	}
+-	print_s_dialogs(L_INFO);
++//	print_s_dialogs(L_INFO);
+ }
+ 
+ 
+
+Modified: ser_ims/trunk/modules/scscf/registrar.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar.c	2006-12-04 11:59:53 UTC (rev 49)
++++ ser_ims/trunk/modules/scscf/registrar.c	2006-12-04 19:20:29 UTC (rev 50)
+@@ -1480,7 +1480,7 @@
+ 	str r={0,0};
+ 
+ 	r = cscf_get_first_route(msg,0);
+-	LOG(L_ERR,&quot;DBG:&quot;M_NAME&quot;:S_mobile_originating: &lt;%.*s&gt;\n&quot;,r.len,r.s);	
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_mobile_originating: &lt;%.*s&gt;\n&quot;,r.len,r.s);	
+ 	
+ 	if (!r.len) return CSCF_RETURN_FALSE;
+ 		
+
+Modified: ser_ims/trunk/modules/scscf/registration.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registration.c	2006-12-04 11:59:53 UTC (rev 49)
++++ ser_ims/trunk/modules/scscf/registration.c	2006-12-04 19:20:29 UTC (rev 50)
+@@ -333,6 +333,9 @@
+ 	uri = cscf_get_digest_uri(msg,realm);
+ 	
+ 	av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_SENT,&amp;nonce);
++	if (!av)
++	    av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_USELESS,&amp;nonce);
++	
+ 	if (!av) {
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_is_authorized: no matching auth vector found - maybe timer expired\n&quot;);		
+ 		return ret;
+@@ -362,7 +365,7 @@
+ 	}else {
+ 		/* fix to accept old AKA auth */
+ 		if (response16.len==av-&gt;authorization.len &amp;&amp; strncasecmp(response16.s,av-&gt;authorization.s,response16.len)==0){
+-			LOG(L_CRIT,&quot;INFO:&quot;M_NAME&quot;:S_is_authorized: Accepted client with non-MD5 AKAv1. Fix the client!!!\n&quot;);
++			LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:S_is_authorized: Accepted client with non-MD5 AKAv1. Fix the client!!!\n&quot;);
+ 			av-&gt;status = AUTH_VECTOR_USELESS;
+ 			ret = CSCF_RETURN_TRUE;
+ 			return ret;
+@@ -1152,8 +1155,8 @@
+ 				LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:reg_await_timer: .. AV %4d - %d Exp %3d  %p\n&quot;,
+ 					av-&gt;item_number,av-&gt;status,av-&gt;expires,av);
+ 				av_next = av-&gt;next;
+-				if (av-&gt;status == AUTH_VECTOR_USELESS || 
+-					(av-&gt;status == AUTH_VECTOR_SENT &amp;&amp; av-&gt;expires&lt;ticks))
++				if ((av-&gt;status == AUTH_VECTOR_USELESS || 
++					av-&gt;status == AUTH_VECTOR_SENT) &amp;&amp; av-&gt;expires&lt;ticks)
+ 				{
+ 					LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:reg_await_timer: ... dropping av %d - %d\n&quot;,						
+ 						av-&gt;item_number,av-&gt;status);
+
+Modified: ser_ims/trunk/modules/scscf/sip.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/sip.c	2006-12-04 11:59:53 UTC (rev 49)
++++ ser_ims/trunk/modules/scscf/sip.c	2006-12-04 19:20:29 UTC (rev 50)
+@@ -814,7 +814,7 @@
+ 			id = r-&gt;nameaddr; 
+ 			free_rr((rr_t**)(&amp;h-&gt;parsed));
+ 			h-&gt;parsed=0;
+-			LOG(L_CRIT,&quot;%.*s&quot;,id.uri.len,id.uri.s);
++			//LOG(L_CRIT,&quot;%.*s&quot;,id.uri.len,id.uri.s);
+ 			return id.uri;
+ 		}
+ 		h = h-&gt;next;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000014.html">[OpenIMSCore-CSCF] Interfacing MRF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#13">[ date ]</a>
+              <a href="thread.html#13">[ thread ]</a>
+              <a href="subject.html#13">[ subject ]</a>
+              <a href="author.html#13">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r766 - added SIPp scripts for	emulating a LOCSIP server,	for both cases: the server knows the location information of the user	or not
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r766%20-%20added%20SIPp%20scripts%20for%0A%09emulating%20a%20LOCSIP%20server%2C%0A%09for%20both%20cases%3A%20the%20server%20knows%20the%20location%20information%20of%20the%20user%0A%09or%20not&In-Reply-To=%3C200911131322.nADDMVId009872%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001848.html">
+   <LINK REL="Next"  HREF="001850.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r766 - added SIPp scripts for	emulating a LOCSIP server,	for both cases: the server knows the location information of the user	or not</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r766%20-%20added%20SIPp%20scripts%20for%0A%09emulating%20a%20LOCSIP%20server%2C%0A%09for%20both%20cases%3A%20the%20server%20knows%20the%20location%20information%20of%20the%20user%0A%09or%20not&In-Reply-To=%3C200911131322.nADDMVId009872%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r766 - added SIPp scripts for	emulating a LOCSIP server,	for both cases: the server knows the location information of the user	or not">aon at users.berlios.de
+       </A><BR>
+    <I>Fri Nov 13 14:22:31 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001848.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r765 - Small fixes for state	machines
+</A></li>
+        <LI>Next message: <A HREF="001850.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r767 - modified the function	get_pidf_lo_body() to return 1 when no request body is found
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1849">[ date ]</a>
+              <a href="thread.html#1849">[ thread ]</a>
+              <a href="subject.html#1849">[ subject ]</a>
+              <a href="author.html#1849">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2009-11-13 14:22:28 +0100 (Fri, 13 Nov 2009)
+New Revision: 766 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=766">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=766</A> 
+
+Log:
+added SIPp scripts for emulating a LOCSIP server, for both cases: the server knows the location information of the user or not
+
+
+Added:
+   A	ser_ims/branches/12_em_services/test/emerg_serv/location.csv
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/test/emerg_serv/location.csv?rev=766&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/test/emerg_serv/location.csv?rev=766&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/test/emerg_serv/notify_active.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/test/emerg_serv/notify_active.xml?rev=766&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/test/emerg_serv/notify_active.xml?rev=766&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/test/emerg_serv/notify_terminated.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/test/emerg_serv/notify_terminated.xml?rev=766&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/test/emerg_serv/notify_terminated.xml?rev=766&amp;view=markup</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001848.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r765 - Small fixes for state	machines
+</A></li>
+	<LI>Next message: <A HREF="001850.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r767 - modified the function	get_pidf_lo_body() to return 1 when no request body is found
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1849">[ date ]</a>
+              <a href="thread.html#1849">[ thread ]</a>
+              <a href="subject.html#1849">[ subject ]</a>
+              <a href="author.html#1849">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r803 - enforce checks NULL	parameters this is a fix for the following case: Mercuro IMS	clien make a video call to PSTN plain phone which does not	support video the return 200 OK does not have m=video at all,	inside the loop of the extract_mclines(), the NULL *mlineB is	passed to:	nmlineB=find_next_sdp_line(*mlineB,(sdpB.s+sdpB.len),'m',NULL);	cause system crash
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r803%20-%20enforce%20checks%20NULL%0A%09parameters%20this%20is%20a%20fix%20for%20the%20following%20case%3A%20Mercuro%20IMS%0A%09clien%20make%20a%20video%20call%20to%20PSTN%20plain%20phone%20which%20does%20not%0A%09support%20video%20the%20return%20200%20OK%20does%20not%20have%20m%3Dvideo%20at%20all%2C%0A%09inside%20the%20loop%20of%20the%20extract_mclines%28%29%2C%20the%20NULL%20%2AmlineB%20is%0A%09passed%20to%3A%0A%09nmlineB%3Dfind_next_sdp_line%28%2AmlineB%2C%28sdpB.s%2BsdpB.len%29%2C%27m%27%2CNULL%29%3B%0A%09cause%20system%20crash&In-Reply-To=%3C201001121826.o0CIQwKd024215%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001952.html">
+   <LINK REL="Next"  HREF="001954.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r803 - enforce checks NULL	parameters this is a fix for the following case: Mercuro IMS	clien make a video call to PSTN plain phone which does not	support video the return 200 OK does not have m=video at all,	inside the loop of the extract_mclines(), the NULL *mlineB is	passed to:	nmlineB=find_next_sdp_line(*mlineB,(sdpB.s+sdpB.len),'m',NULL);	cause system crash</H1>
+    <B>mwang at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r803%20-%20enforce%20checks%20NULL%0A%09parameters%20this%20is%20a%20fix%20for%20the%20following%20case%3A%20Mercuro%20IMS%0A%09clien%20make%20a%20video%20call%20to%20PSTN%20plain%20phone%20which%20does%20not%0A%09support%20video%20the%20return%20200%20OK%20does%20not%20have%20m%3Dvideo%20at%20all%2C%0A%09inside%20the%20loop%20of%20the%20extract_mclines%28%29%2C%20the%20NULL%20%2AmlineB%20is%0A%09passed%20to%3A%0A%09nmlineB%3Dfind_next_sdp_line%28%2AmlineB%2C%28sdpB.s%2BsdpB.len%29%2C%27m%27%2CNULL%29%3B%0A%09cause%20system%20crash&In-Reply-To=%3C201001121826.o0CIQwKd024215%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r803 - enforce checks NULL	parameters this is a fix for the following case: Mercuro IMS	clien make a video call to PSTN plain phone which does not	support video the return 200 OK does not have m=video at all,	inside the loop of the extract_mclines(), the NULL *mlineB is	passed to:	nmlineB=find_next_sdp_line(*mlineB,(sdpB.s+sdpB.len),'m',NULL);	cause system crash">mwang at users.berlios.de
+       </A><BR>
+    <I>Tue Jan 12 19:26:58 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001952.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r802 - The last 3 characters may	not be lr; e.g.: sip:p-cscf.ims-test.com:4060; lr=true;	transport=udp So change the function to compare with fixed len:	pcscf_record_route_mt_uri.len and	pcscf_record_route_mo_uri.len instead of first_route.len - 3
+</A></li>
+        <LI>Next message: <A HREF="001954.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r804 - change cscf_get_first_route	to check if sip msg is from shmed or not
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1953">[ date ]</a>
+              <a href="thread.html#1953">[ thread ]</a>
+              <a href="subject.html#1953">[ subject ]</a>
+              <a href="author.html#1953">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: mwang
+Date: 2010-01-12 19:26:54 +0100 (Tue, 12 Jan 2010)
+New Revision: 803 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=803">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=803</A> 
+
+Log:
+	enforce checks NULL parameters
+
+	this is a fix for the following case:
+	Mercuro IMS clien make a video call to PSTN plain phone which does not support video
+	the return 200 OK does not have m=video at all, inside the loop of the extract_mclines(),
+	the NULL *mlineB is passed to:
+		nmlineB=find_next_sdp_line(*mlineB,(sdpB.s+sdpB.len),'m',NULL);
+	cause system crash
+
+Modified:
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/sdp_util.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/sdp_util.c?rev=803&amp;view=diff&amp;r1=803&amp;r2=802">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/sdp_util.c?rev=803&amp;view=diff&amp;r1=803&amp;r2=802</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001952.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r802 - The last 3 characters may	not be lr; e.g.: sip:p-cscf.ims-test.com:4060; lr=true;	transport=udp So change the function to compare with fixed len:	pcscf_record_route_mt_uri.len and	pcscf_record_route_mo_uri.len instead of first_route.len - 3
+</A></li>
+	<LI>Next message: <A HREF="001954.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r804 - change cscf_get_first_route	to check if sip msg is from shmed or not
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1953">[ date ]</a>
+              <a href="thread.html#1953">[ thread ]</a>
+              <a href="subject.html#1953">[ subject ]</a>
+              <a href="author.html#1953">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

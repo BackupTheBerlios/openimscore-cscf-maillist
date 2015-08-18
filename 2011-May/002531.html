@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r1089 - P-CSCF: getting the an-	charging-id from the AAA and sending it to the client_rf module
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1089%20-%20P-CSCF%3A%20getting%20the%20an-%0A%09charging-id%20from%20the%20AAA%20and%20sending%20it%20to%20the%20client_rf%20module&In-Reply-To=%3C20110506164309.7CF244804CA%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002530.html">
+   <LINK REL="Next"  HREF="002532.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r1089 - P-CSCF: getting the an-	charging-id from the AAA and sending it to the client_rf module</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1089%20-%20P-CSCF%3A%20getting%20the%20an-%0A%09charging-id%20from%20the%20AAA%20and%20sending%20it%20to%20the%20client_rf%20module&In-Reply-To=%3C20110506164309.7CF244804CA%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r1089 - P-CSCF: getting the an-	charging-id from the AAA and sending it to the client_rf module">aon at users.berlios.de
+       </A><BR>
+    <I>Fri May  6 18:43:09 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002530.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1088 - added some files to store	and retrieve the charging-address info
+</A></li>
+        <LI>Next message: <A HREF="002532.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1090 - client_rf: compilation fix	for wharf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2531">[ date ]</a>
+              <a href="thread.html#2531">[ thread ]</a>
+              <a href="subject.html#2531">[ subject ]</a>
+              <a href="author.html#2531">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2011-05-06 18:43:08 +0200 (Fri, 06 May 2011)
+New Revision: 1089 <A HREF="http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1089">http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1089</A> 
+
+Log:
+P-CSCF: getting the an- charging-id from the AAA and sending it to the client_rf module
+
+
+Added:
+   A	ser_ims/trunk/modules/Client_Rf/client_rf_load.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/client_rf_load.c?rev=1089&amp;peg=1089">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/client_rf_load.c?rev=1089&amp;peg=1089</A>
+   A	ser_ims/trunk/modules/Client_Rf/client_rf_load.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/client_rf_load.h?rev=1089&amp;peg=1089">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/client_rf_load.h?rev=1089&amp;peg=1089</A>
+Modified:
+   U	ser_ims/trunk/modules/Client_Rf/mod_export.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/mod_export.h?op=diff&amp;rev=1089&amp;peg=1089">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/mod_export.h?op=diff&amp;rev=1089&amp;peg=1089</A>
+   U	ser_ims/trunk/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/mod.c?op=diff&amp;rev=1089&amp;peg=1089">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/mod.c?op=diff&amp;rev=1089&amp;peg=1089</A>
+   U	ser_ims/trunk/modules/pcscf/pcc.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/pcc.c?op=diff&amp;rev=1089&amp;peg=1089">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/pcc.c?op=diff&amp;rev=1089&amp;peg=1089</A>
+   U	ser_ims/trunk/modules/pcscf/pcc.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/pcc.h?op=diff&amp;rev=1089&amp;peg=1089">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/pcc.h?op=diff&amp;rev=1089&amp;peg=1089</A>
+   U	ser_ims/trunk/modules/pcscf/pcc_avp.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/pcc_avp.c?op=diff&amp;rev=1089&amp;peg=1089">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/pcc_avp.c?op=diff&amp;rev=1089&amp;peg=1089</A>
+   U	ser_ims/trunk/modules/pcscf/pcc_avp.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/pcc_avp.h?op=diff&amp;rev=1089&amp;peg=1089">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/pcc_avp.h?op=diff&amp;rev=1089&amp;peg=1089</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002530.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1088 - added some files to store	and retrieve the charging-address info
+</A></li>
+	<LI>Next message: <A HREF="002532.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1090 - client_rf: compilation fix	for wharf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2531">[ date ]</a>
+              <a href="thread.html#2531">[ thread ]</a>
+              <a href="subject.html#2531">[ subject ]</a>
+              <a href="author.html#2531">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

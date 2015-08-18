@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Question]Value of Max-Forwards header after P-CSCF processing
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DValue%20of%20Max-Forwards%20header%20after%0A%20P-CSCF%20processing&In-Reply-To=%3C462F106F.9050800%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000511.html">
+   <LINK REL="Next"  HREF="000538.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header after P-CSCF processing</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DValue%20of%20Max-Forwards%20header%20after%0A%20P-CSCF%20processing&In-Reply-To=%3C462F106F.9050800%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header after P-CSCF processing">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Apr 25 10:25:19 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000511.html">[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header after	P-CSCF processing
+</A></li>
+        <LI>Next message: <A HREF="000538.html">[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header	afterP-CSCF processing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#517">[ date ]</a>
+              <a href="thread.html#517">[ thread ]</a>
+              <a href="subject.html#517">[ subject ]</a>
+              <a href="author.html#517">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Hideyuki,
+
+Your answer is in the maxfwd module in the way that it processes the
+Max-Forwards header in this function: mf_process_maxfwd_header():
+
+            if (max_limit &amp;&amp; val&gt;max_limit){
+                DBG(&quot;DBG:maxfwd:process_maxfwd_header: &quot;
+                    &quot;value %d decreased to %d\n&quot;, val, max_limit);
+                val = max_limit+1;
+            }
+            if ( decrement_maxfwd(msg, val, &amp;mf_value)!=1 )
+                LOG( L_ERR,&quot;ERROR:maxfwd:process_maxfwd_header: &quot;
+                    &quot;decrement failed!\n&quot;);
+
+So there is a max_limit, which be default is 16. You can change it by
+adding this line to the pcscf.cfg
+
+modparam(&quot;maxfwd&quot;,&quot;max_limit&quot;,&quot;100&quot;)
+
+If you put 0, then the maximum limit won't be checked.
+
+-Dragos
+
+Hideyuki Yamashita wrote:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> I have attached wireshark capture file.
+</I>&gt;<i> The relationship between ip address and IMS entity is like below.
+</I>&gt;<i>
+</I>&gt;<i> 172.16.3.155 -&gt; SIP Terminal(Not IMS compliant)
+</I>&gt;<i> 172.16.5.11  -&gt; P-CSCF
+</I>&gt;<i> 172.16.5.12  -&gt; I-CSCF
+</I>&gt;<i>
+</I>&gt;<i> I am very glad if somebody respond to my question.
+</I>&gt;<i>
+</I>&gt;<i> Thanks in advance,
+</I>&gt;<i> Hideyuki
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I have question about value of Max-Forwards after P-CSCF 
+</I>&gt;&gt;<i> processed a SIP request.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> [Question]
+</I>&gt;&gt;<i> After P-CSCF processed a SIP request(REGISTER,initial INVITE)
+</I>&gt;&gt;<i> the value of Max-Forwards header changes from 64 to 16.
+</I>&gt;&gt;<i> I think the value should be 63.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Is there any known bug when decrement Max-Forwards header?
+</I>&gt;&gt;<i> (I captured loop-back interface of P-CSCF machine but no sign of 
+</I>&gt;&gt;<i> loop detected.)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> [OpenIMSCore Release I use]
+</I>&gt;&gt;<i> CSCFs:ser_ims2007327.r0202
+</I>&gt;&gt;<i> HSS  :FHoSS2007329.r0204
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Best Regards,
+</I>&gt;&gt;<i> Hideyuki
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000511.html">[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header after	P-CSCF processing
+</A></li>
+	<LI>Next message: <A HREF="000538.html">[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header	afterP-CSCF processing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#517">[ date ]</a>
+              <a href="thread.html#517">[ thread ]</a>
+              <a href="subject.html#517">[ subject ]</a>
+              <a href="author.html#517">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

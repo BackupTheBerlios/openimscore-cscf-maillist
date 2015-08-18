@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r804 - change cscf_get_first_route	to check if sip msg is from shmed or not
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r804%20-%20change%20cscf_get_first_route%0A%09to%20check%20if%20sip%20msg%20is%20from%20shmed%20or%20not&In-Reply-To=%3C201001121827.o0CIR4eR024481%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001953.html">
+   <LINK REL="Next"  HREF="001955.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r804 - change cscf_get_first_route	to check if sip msg is from shmed or not</H1>
+    <B>mwang at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r804%20-%20change%20cscf_get_first_route%0A%09to%20check%20if%20sip%20msg%20is%20from%20shmed%20or%20not&In-Reply-To=%3C201001121827.o0CIR4eR024481%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r804 - change cscf_get_first_route	to check if sip msg is from shmed or not">mwang at users.berlios.de
+       </A><BR>
+    <I>Tue Jan 12 19:27:04 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001953.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r803 - enforce checks NULL	parameters this is a fix for the following case: Mercuro IMS	clien make a video call to PSTN plain phone which does not	support video the return 200 OK does not have m=video at all,	inside the loop of the extract_mclines(), the NULL *mlineB is	passed to:	nmlineB=find_next_sdp_line(*mlineB,(sdpB.s+sdpB.len),'m',NULL);	cause system crash
+</A></li>
+        <LI>Next message: <A HREF="001955.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r805 - Fixed memory leak for	parsing msg stored from tm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1954">[ date ]</a>
+              <a href="thread.html#1954">[ thread ]</a>
+              <a href="subject.html#1954">[ subject ]</a>
+              <a href="author.html#1954">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: mwang
+Date: 2010-01-12 19:27:01 +0100 (Tue, 12 Jan 2010)
+New Revision: 804 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=804">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=804</A> 
+
+Log:
+	change cscf_get_first_route to check if sip msg is from shmed or not
+
+Modified:
+   U	ser_ims/branches/13_pcc_fixing/modules/mgcf/mgcf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/mgcf/mgcf.c?rev=804&amp;view=diff&amp;r1=804&amp;r2=803">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/mgcf/mgcf.c?rev=804&amp;view=diff&amp;r1=804&amp;r2=803</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c?rev=804&amp;view=diff&amp;r1=804&amp;r2=803">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c?rev=804&amp;view=diff&amp;r1=804&amp;r2=803</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/registration.c?rev=804&amp;view=diff&amp;r1=804&amp;r2=803">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/registration.c?rev=804&amp;view=diff&amp;r1=804&amp;r2=803</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/scscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/scscf/dlg_state.c?rev=804&amp;view=diff&amp;r1=804&amp;r2=803">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/scscf/dlg_state.c?rev=804&amp;view=diff&amp;r1=804&amp;r2=803</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/scscf/registrar.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/scscf/registrar.c?rev=804&amp;view=diff&amp;r1=804&amp;r2=803">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/scscf/registrar.c?rev=804&amp;view=diff&amp;r1=804&amp;r2=803</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/scscf/sip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/scscf/sip.c?rev=804&amp;view=diff&amp;r1=804&amp;r2=803">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/scscf/sip.c?rev=804&amp;view=diff&amp;r1=804&amp;r2=803</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/scscf/sip.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/scscf/sip.h?rev=804&amp;view=diff&amp;r1=804&amp;r2=803">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/scscf/sip.h?rev=804&amp;view=diff&amp;r1=804&amp;r2=803</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001953.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r803 - enforce checks NULL	parameters this is a fix for the following case: Mercuro IMS	clien make a video call to PSTN plain phone which does not	support video the return 200 OK does not have m=video at all,	inside the loop of the extract_mclines(), the NULL *mlineB is	passed to:	nmlineB=find_next_sdp_line(*mlineB,(sdpB.s+sdpB.len),'m',NULL);	cause system crash
+</A></li>
+	<LI>Next message: <A HREF="001955.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r805 - Fixed memory leak for	parsing msg stored from tm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1954">[ date ]</a>
+              <a href="thread.html#1954">[ thread ]</a>
+              <a href="subject.html#1954">[ subject ]</a>
+              <a href="author.html#1954">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

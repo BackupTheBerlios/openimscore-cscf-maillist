@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OSIMS%20bug%20on%20processing%20FQDNs&In-Reply-To=%3C48BEC4CA.4050207%40ftw.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001493.html">
+   <LINK REL="Next"  HREF="001477.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs</H1>
+    <B>Hannes L. Weisgrab</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OSIMS%20bug%20on%20processing%20FQDNs&In-Reply-To=%3C48BEC4CA.4050207%40ftw.at%3E"
+       TITLE="[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs">weisi2 at ftw.at
+       </A><BR>
+    <I>Wed Sep  3 19:09:30 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001493.html">[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)
+</A></li>
+        <LI>Next message: <A HREF="001477.html">[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1476">[ date ]</a>
+              <a href="thread.html#1476">[ thread ]</a>
+              <a href="subject.html#1476">[ subject ]</a>
+              <a href="author.html#1476">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Dear list members,
+dear developers,
+I discovered a bug in the code/grammar parsing the (p)cscf config file. 
+If there is a part of the FQDN starting with a number, the program 
+crashes with a core-dump:
+========== console output begin ==========
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at pcscf</A>:/opt/OpenIMSCore# ./pcscf.sh
+./pcscf.sh: line 4: setkey: command not found
+./pcscf.sh: line 5: setkey: command not found
+ 0(11675) parse error (26,17-18): syntax error
+ 0(11675) parse error (26,17-18): invalid hostname
+./pcscf.sh: line 7: 11675 Segmentation fault      (core dumped) 
+LD_LIBRARY_PATH=&quot;/usr/local/lib/ser&quot; /opt/OpenIMSCore/ser_ims/ser -f 
+/opt/OpenIMSCore/pcscf.cfg -D -D
+========== console output end ==========
+this is line 26:
+alias=pcscf.ims.3abc.org:5060
+
+Thus, the error points exactly to the &quot;3&quot; in the name and indeed, if I 
+remove the &quot;3&quot; from the name (and reconfigure everything else 
+accordingly), it works!
+
+As we would need this for a domain which is already in place, two 
+questions suggest itself:
+1) [towards the developers ;-)) ] will this be fixed and if yes, how 
+long will this take (worst case assumption), and
+2) [towards everybody] can I work around this somehow? Like rewriting 
+&quot;From: &quot;, &quot;To: &quot;, ... headers before forwarding or the like?
+
+Thanks in advance &amp; best regards,
+Hannes.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001493.html">[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)
+</A></li>
+	<LI>Next message: <A HREF="001477.html">[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1476">[ date ]</a>
+              <a href="thread.html#1476">[ thread ]</a>
+              <a href="subject.html#1476">[ subject ]</a>
+              <a href="author.html#1476">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

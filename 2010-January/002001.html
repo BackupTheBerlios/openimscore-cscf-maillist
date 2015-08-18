@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp (s-cscf crashed !)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r821%20-%20Further%20fixes%20on%20cdp%0A%20%28s-cscf%20crashed%20%21%29&In-Reply-To=%3C4B5F2E7C.1040204%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001999.html">
+   <LINK REL="Next"  HREF="002002.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp (s-cscf crashed !)</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r821%20-%20Further%20fixes%20on%20cdp%0A%20%28s-cscf%20crashed%20%21%29&In-Reply-To=%3C4B5F2E7C.1040204%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp (s-cscf crashed !)">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Jan 26 19:03:40 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001999.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp	(s-cscf crashed !)
+</A></li>
+        <LI>Next message: <A HREF="002002.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp	(s-cscf crashed !)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2001">[ date ]</a>
+              <a href="thread.html#2001">[ thread ]</a>
+              <a href="subject.html#2001">[ subject ]</a>
+              <a href="author.html#2001">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Min,
+
+it's very helpful that you are reporting this, so that I can look for 
+the issue early!
+
+But... unfortunately I can't really find the bug here... all seems to be 
+ok... Could you maybe run it from the ser_ims directory, so that we 
+could also see the source code line that it crashes at?
+
+Cheers,
+-Dragos
+
+Min Wang wrote:
+&gt;<i> Just FYI:
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> With this version, the s-cscf crashed on the UE registeration.
+</I>&gt;<i> (I understand seems Dragos are in the middle of big changes of cdp, so
+</I>&gt;<i> it is just FYI)
+</I>&gt;<i>
+</I>&gt;<i> [New process 6342]
+</I>&gt;<i> #0  0xb7909bc0 in del_session () from /usr/lib/ser/modules/cdp.so
+</I>&gt;<i> (gdb) bt
+</I>&gt;<i> #0  0xb7909bc0 in del_session () from /usr/lib/ser/modules/cdp.so
+</I>&gt;<i> #1  0xb7909cca in AAADropSession () from /usr/lib/ser/modules/cdp.so
+</I>&gt;<i> #2  0xb7a7d867 in Cx_MAR () from /usr/lib/ser/modules/scscf.so
+</I>&gt;<i> #3  0xb7aab966 in S_MAR () from /usr/lib/ser/modules/scscf.so
+</I>&gt;<i> #4  0xb7aae43f in S_challenge () from /usr/lib/ser/modules/scscf.so
+</I>&gt;<i> #5  0x08054727 in do_action ()
+</I>&gt;<i> #6  0x08056471 in run_actions ()
+</I>&gt;<i> #7  0x080544bc in do_action ()
+</I>&gt;<i> #8  0x08056471 in run_actions ()
+</I>&gt;<i> #9  0x080544bc in do_action ()
+</I>&gt;<i> #10 0x08056471 in run_actions ()
+</I>&gt;<i> #11 0x080544bc in do_action ()
+</I>&gt;<i> #12 0x08056471 in run_actions ()
+</I>&gt;<i> #13 0x08054616 in do_action ()
+</I>&gt;<i> #14 0x08056471 in run_actions ()
+</I>&gt;<i> #15 0x080544bc in do_action ()
+</I>&gt;<i> #16 0x08056471 in run_actions ()
+</I>&gt;<i> #17 0x080916bf in receive_msg ()
+</I>&gt;<i> #18 0x080c920d in udp_rcv_loop ()
+</I>&gt;<i> #19 0x0807a2e0 in main_loop ()
+</I>&gt;<i> #20 0x0807c29d in main ()
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Kind Regards
+</I>&gt;<i>  
+</I>&gt;<i> Min Wang
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> -----Original Message-----
+</I>&gt;&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+</I>&gt;&gt;<i>     
+</I>&gt;<i> [mailto:openimscore-cscf-
+</I>&gt;<i>   
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bounces at lists.berlios.de</A>] On Behalf Of <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>
+</I>&gt;&gt;<i> Sent: Friday, January 22, 2010 2:35 PM
+</I>&gt;&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;<i> Subject: [OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Author: vingarzan
+</I>&gt;&gt;<i> Date: 2010-01-22 20:34:58 +0100 (Fri, 22 Jan 2010)
+</I>&gt;&gt;<i> New Revision: 821
+</I>&gt;&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=821">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=821</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Log:
+</I>&gt;&gt;<i> Further fixes on cdp
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Modified:
+</I>&gt;&gt;<i>    U	ser_ims/branches/13_pcc_fixing/modules/cdp/mod.c
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> xing/modules/cdp/mod.c?rev=821&amp;view=diff&amp;r1=821&amp;r2=820
+</I>&gt;&gt;<i>    U	ser_ims/branches/13_pcc_fixing/modules/cdp/peerstatemachine.c
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> xing/modules/cdp/peerstatemachine.c?rev=821&amp;view=diff&amp;r1=821&amp;r2=820
+</I>&gt;&gt;<i>    U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> xing/modules/pcscf/pcc.c?rev=821&amp;view=diff&amp;r1=821&amp;r2=820
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001999.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp	(s-cscf crashed !)
+</A></li>
+	<LI>Next message: <A HREF="002002.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp	(s-cscf crashed !)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2001">[ date ]</a>
+              <a href="thread.html#2001">[ thread ]</a>
+              <a href="subject.html#2001">[ subject ]</a>
+              <a href="author.html#2001">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

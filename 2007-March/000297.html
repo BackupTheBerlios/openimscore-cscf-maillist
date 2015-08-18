@@ -1,0 +1,950 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] FW: unable to start icscf and pcscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20FW%3A%20unable%20to%20start%20icscf%20and%20pcscf&In-Reply-To=%3C089781E831473740B23334AE52636CD38AB137%40SINBNGEX001.TechMahindra.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000300.html">
+   <LINK REL="Next"  HREF="000301.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] FW: unable to start icscf and pcscf</H1>
+    <B>Nagaraj K</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20FW%3A%20unable%20to%20start%20icscf%20and%20pcscf&In-Reply-To=%3C089781E831473740B23334AE52636CD38AB137%40SINBNGEX001.TechMahindra.com%3E"
+       TITLE="[OpenIMSCore-CSCF] FW: unable to start icscf and pcscf">knraj at TechMahindra.com
+       </A><BR>
+    <I>Sun Mar 11 15:01:31 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000300.html">[OpenIMSCore-CSCF] unable to start icscf and pcscf
+</A></li>
+        <LI>Next message: <A HREF="000301.html">[OpenIMSCore-CSCF] FW: unable to start icscf and pcscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#297">[ date ]</a>
+              <a href="thread.html#297">[ thread ]</a>
+              <a href="subject.html#297">[ subject ]</a>
+              <a href="author.html#297">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+ 
+
+Hello all,
+
+Sorry for posting below thread. I solved the problem by giving links to sip.c cx_avp.c bin.c in the modules directory.
+
+But when I testing connection only scscf or icscf getting connected to hss. the one starts first get connecting to hss.
+
+ 
+
+Pls help me.
+
+ 
+
+Regards,
+
+Naga
+
+________________________________
+
+From: Nagaraj K 
+Sent: Sunday, March 11, 2007 4:22 PM
+To: '<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>'
+Subject: unable to start icscf and pcscf
+
+ 
+
+Hello all,
+
+I' am new user. I have downloaded FHoSS, ser_ims.
+
+I have followed all the steps in the installation guide.
+
+I' am able to run HSS and scscf.
+
+But I' am unable to run pcscf and icscf
+
+When try to run icscf the following errors coming..
+
+ 
+
+ 
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at btchen01</A> OpenIMSCore]# ./icscf.sh
+
+./icscf.sh: line 3: killser: command not found
+
+ 0(24197) ERROR: load_module: could not open module &lt;/opt/OpenIMSCore/ser_ims/modules/icscf/icscf.so&gt;: /opt/OpenIMSCore/ser_ims/modules/icscf/icscf.so: undefined symbol: dialogb
+
+ 0(24197) parse error (41,13-14): failed to load module
+
+ 0(24197) set_mod_param_regex: No module matching &lt;icscf&gt; found
+
+ 0(24197) parse error (42,18-19): Can't set module parameter
+
+ 0(24197) set_mod_param_regex: No module matching &lt;icscf&gt; found
+
+ 0(24197) parse error (44,18-19): Can't set module parameter
+
+ 0(24197) set_mod_param_regex: No module matching &lt;icscf&gt; found
+
+ 0(24197) parse error (45,18-19): Can't set module parameter
+
+ 0(24197) set_mod_param_regex: No module matching &lt;icscf&gt; found
+
+ 0(24197) parse error (46,18-19): Can't set module parameter
+
+ 0(24197) set_mod_param_regex: No module matching &lt;icscf&gt; found
+
+ 0(24197) parse error (47,18-19): Can't set module parameter
+
+ 0(24197) set_mod_param_regex: No module matching &lt;icscf&gt; found
+
+ 0(24197) parse error (49,18-19): Can't set module parameter
+
+ 0(24197) set_mod_param_regex: No module matching &lt;icscf&gt; found
+
+ 0(24197) parse error (51,19-20): Can't set module parameter
+
+ 0(24197) set_mod_param_regex: No module matching &lt;icscf&gt; found
+
+ 0(24197) parse error (53,18-19): Can't set module parameter
+
+ 0(24197) set_mod_param_regex: No module matching &lt;icscf&gt; found
+
+ 0(24197) parse error (54,18-19): Can't set module parameter
+
+ 0(24197) set_mod_param_regex: No module matching &lt;icscf&gt; found
+
+ 0(24197) parse error (55,18-19): Can't set module parameter
+
+ 0(24197) set_mod_param_regex: No module matching &lt;icscf&gt; found
+
+ 0(24197) parse error (56,18-19): Can't set module parameter
+
+ 0(24197) parse error (130,24-25): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (136,23-24): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (143,28-29): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (148,14-15): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (149,24-25): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (162,17-18): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (183,16-17): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (191,24-25): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (204,16-17): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (212,28-29): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (215,12-13): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (216,24-25): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (229,17-18): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (250,16-17): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (258,24-25): unknown command, missing loadmodule?
+
+ 
+
+ 0(24197) parse error (271,16-17): unknown command, missing loadmodule?
+
+ 
+
+ERROR: bad config file (28 errors)
+
+ 0(24197) INFO:cdp:cdp_exit(): CDiameterPeer stoping ...
+
+./icscf.sh: line 4: 24197 Segmentation fault      /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+
+ 
+
+------ Semaphore Arrays --------
+
+key        semid      owner      perms      nsems
+
+ 
+
+ 
+
+ 
+
+when I' am try to run pcscf the following errors coming
+
+ 
+
+ 
+
+ 
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at btchen01</A> OpenIMSCore]# ./pcscf.sh
+
+./pcscf.sh: line 3: killser: command not found
+
+ 0(24205) ERROR: load_module: could not open module &lt;/opt/OpenIMSCore/ser_ims/modules/pcscf/pcscf.so&gt;: /opt/OpenIMSCore/ser_ims/modules/pcscf/pcscf.so: undefined symbol: cdpb
+
+ 0(24205) parse error (36,13-14): failed to load module
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (38,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (40,19-20): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (41,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (43,19-20): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (45,19-20): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (47,20-21): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (49,17-18): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (50,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (51,20-21): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (52,20-21): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (54,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (55,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (56,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (57,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (58,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (60,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (61,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (62,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (63,21-22): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (64,19-20): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (65,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (66,19-20): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (67,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (68,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (71,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (73,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (75,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (76,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (77,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (78,18-19): Can't set module parameter
+
+ 0(24205) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+
+ 0(24205) parse error (81,17-18): Can't set module parameter
+
+ 0(24205) parse error (118,28-29): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (123,24-25): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (128,24-25): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (160,25-26): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (165,25-26): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (217,13-14): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (218,16-17): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (219,26-27): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (220,32-33): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (222,28-29): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (229,31-32): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (231,33-34): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (231,62-63): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (235,31-32): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (237,31-32): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (252,23-24): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (256,15-16): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (259,24-25): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (263,15-16): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (264,15-16): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (266,17-18): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (285,29-30): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (300,23-24): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (304,25-26): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (310,32-33): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (320,19-20): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (322,33-34): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (324,18-19): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (327,20-21): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (343,20-21): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (346,21-22): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (348,19-20): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (350,17-18): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (358,19-20): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (371,22-23): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (372,26-27): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (386,47-48): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (400,20-21): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (403,20-21): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (420,21-22): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (423,17-18): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (437,23-24): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (441,25-26): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (448,32-33): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (458,26-27): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (475,17-18): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (492,19-20): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (494,18-19): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (501,16-17): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (503,20-21): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (519,20-21): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (522,28-29): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (523,21-22): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (526,19-20): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (537,19-20): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (549,20-21): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (556,20-21): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (561,16-17): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (573,21-22): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (593,16-17): unknown command, missing loadmodule?
+
+ 
+
+ 0(24205) parse error (604,27-28): unknown command, missing loadmodule?
+
+ 
+
+ERROR: bad config file (93 errors)
+
+ 
+
+ 
+
+When compiling there are warnings
+
+ 
+
+ 
+
+configparser.c:202: warning: pointer targets in passing argument 1 of &#226;strncasecmp&#226; differ in signedness
+
+configparser.c:206: warning: pointer targets in passing argument 1 of &#226;strlen&#226; differ in signedness
+
+configparser.c:206: warning: pointer targets in passing argument 1 of &#226;strncasecmp&#226; differ in signedness
+
+configparser.c:207: warning: pointer targets in passing argument 1 of &#226;strncasecmp&#226; differ in signedness
+
+configparser.c:237: warning: pointer targets in passing argument 1 of &#226;strlen&#226; differ in signedness
+
+configparser.c:237: warning: pointer targets in passing argument 1 of &#226;strncasecmp&#226; differ in signedness
+
+configparser.c:239: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+configparser.c:240: warning: pointer targets in passing argument 2 of &#226;quote_trim_dup&#226; differ in signedness
+
+configparser.c:241: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+configparser.c:242: warning: pointer targets in passing argument 2 of &#226;quote_trim_dup&#226; differ in signedness
+
+configparser.c:243: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+configparser.c:244: warning: pointer targets in passing argument 1 of &#226;atoi&#226; differ in signedness
+
+configparser.c:247: warning: pointer targets in passing argument 1 of &#226;strlen&#226; differ in signedness
+
+configparser.c:247: warning: pointer targets in passing argument 1 of &#226;strncasecmp&#226; differ in signedness
+
+configparser.c:249: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+configparser.c:250: warning: pointer targets in passing argument 2 of &#226;quote_trim_dup&#226; differ in signedness
+
+configparser.c:251: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+configparser.c:252: warning: pointer targets in passing argument 1 of &#226;atoi&#226; differ in signedness
+
+configparser.c:255: warning: pointer targets in passing argument 1 of &#226;strlen&#226; differ in signedness
+
+configparser.c:255: warning: pointer targets in passing argument 1 of &#226;strncasecmp&#226; differ in signedness
+
+configparser.c:256: warning: pointer targets in passing argument 1 of &#226;strncasecmp&#226; differ in signedness
+
+configparser.c:258: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+configparser.c:259: warning: pointer targets in passing argument 1 of &#226;atoi&#226; differ in signedness
+
+configparser.c:260: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+configparser.c:261: warning: pointer targets in passing argument 1 of &#226;atoi&#226; differ in signedness
+
+diameter_avp.c: In function &#226;AAAGroupAVPS&#226;:
+
+diameter_avp.c:598: warning: pointer targets in assignment differ in signedness
+
+diameter_avp.c:605: warning: pointer targets in assignment differ in signedness
+
+diameter_msg.c: In function &#226;AAABuildMsgBuffer&#226;:
+
+diameter_msg.c:92: warning: pointer targets in assignment differ in signedness
+
+diameter_msg.c:100: warning: pointer targets in assignment differ in signedness
+
+diameter_msg.c: In function &#226;AAATranslateMessage&#226;:
+
+diameter_msg.c:536: warning: pointer targets in passing argument 4 of &#226;AAACreateAVP&#226; differ in signedness
+
+diameter_msg.c:548: warning: pointer targets in assignment differ in signedness
+
+peerstatemachine.c: In function &#226;I_Snd_CER&#226;:
+
+peerstatemachine.c:540: warning: pointer targets in passing argument 3 of &#226;getsockname&#226; differ in signedness
+
+peerstatemachine.c: In function &#226;Snd_CEA&#226;:
+
+peerstatemachine.c:817: warning: pointer targets in passing argument 3 of &#226;getsockname&#226; differ in signedness
+
+receiver.c: In function &#226;receive_loop&#226;:
+
+receiver.c:327: warning: pointer targets in passing argument 1 of &#226;AAATranslateMessage&#226; differ in signedness
+
+bin.c: In function &#226;bin_decode_dlg_t&#226;:
+
+bin.c:516: warning: implicit declaration of function &#226;shm_malloc&#226;
+
+bin.c:528: warning: implicit declaration of function &#226;shm_free&#226;
+
+location.c: In function &#226;I_LIR&#226;:
+
+location.c:83: warning: &#226;public_identity.s&#226; may be used uninitialized in this function
+
+sip.c: In function &#226;cscf_get_asserted_identity&#226;:
+
+sip.c:802: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+sip.c: In function &#226;cscf_get_authorization&#226;:
+
+sip.c:1520: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+sip.c: In function &#226;cscf_get_preferred_identity&#226;:
+
+sip.c:2026: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+thig_ims_enc.c: In function &#226;thig_encrypt&#226;:
+
+thig_ims_enc.c:160: warning: pointer targets in passing argument 3 of &#226;blockEncrypt&#226; differ in signedness
+
+thig_ims_enc.c:160: warning: pointer targets in passing argument 5 of &#226;blockEncrypt&#226; differ in signedness
+
+thig_ims_enc.c: In function &#226;thig_decrypt&#226;:
+
+thig_ims_enc.c:212: warning: pointer targets in passing argument 3 of &#226;blockDecrypt&#226; differ in signedness
+
+thig_ims_enc.c:212: warning: pointer targets in passing argument 5 of &#226;blockDecrypt&#226; differ in signedness
+
+sip.c: In function &#226;cscf_get_asserted_identity&#226;:
+
+sip.c:195: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+registrar_subscribe.c: In function &#226;r_notification_parse&#226;:
+
+registrar_subscribe.c:732: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+registrar_subscribe.c:751: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+registrar_subscribe.c:752: warning: pointer targets in passing argument 2 of &#226;space_trim_dup&#226; differ in signedness
+
+registrar_subscribe.c:755: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+registrar_subscribe.c:756: warning: pointer targets in passing argument 2 of &#226;space_trim_dup&#226; differ in signedness
+
+registrar_subscribe.c:759: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+registrar_subscribe.c:778: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+registrar_subscribe.c:779: warning: pointer targets in passing argument 2 of &#226;space_trim_dup&#226; differ in signedness
+
+registrar_subscribe.c:782: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+registrar_subscribe.c:789: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+registrar_subscribe.c:829: warning: pointer targets in passing argument 2 of &#226;xmlGetProp&#226; differ in signedness
+
+registrar_subscribe.c:831: warning: pointer targets in passing argument 1 of &#226;atoi&#226; differ in signedness
+
+registrar_subscribe.c:840: warning: pointer targets in passing argument 2 of &#226;space_trim_dup&#226; differ in signedness
+
+sdp_util.c: In function &#226;force_rtp_proxy2_f&#226;:
+
+sdp_util.c:921: warning: &#226;pf&#226; may be used uninitialized in this function
+
+sip.c: In function &#226;cscf_get_asserted_identity&#226;:
+
+sip.c:802: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+sip.c: In function &#226;cscf_get_authorization&#226;:
+
+sip.c:1520: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+sip.c: In function &#226;cscf_get_preferred_identity&#226;:
+
+sip.c:2026: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+bin_scscf.c: In function &#226;bin_decode_spt&#226;:
+
+bin_scscf.c:223: warning: control reaches end of non-void function
+
+dlg_state.c: In function &#226;S_update_dialog&#226;:
+
+dlg_state.c:705: warning: &#226;expires&#226; is used uninitialized in this function
+
+registrar.c: In function &#226;S_lookup&#226;:
+
+registrar.c:1000: warning: comparisons like X&lt;=Y&lt;=Z do not have their mathematical meaning
+
+registrar.c:1006: warning: comparisons like X&lt;=Y&lt;=Z do not have their mathematical meaning
+
+registrar_parser.c: In function &#226;ifc_tDefaultHandling2char&#226;:
+
+registrar_parser.c:229: warning: pointer targets in passing argument 1 of &#226;strtol&#226; differ in signedness
+
+registrar_parser.c: In function &#226;ifc_tDirectionOfRequest2char&#226;:
+
+registrar_parser.c:252: warning: pointer targets in passing argument 1 of &#226;strtol&#226; differ in signedness
+
+registrar_parser.c: In function &#226;ifc_tProfilePartIndicator2char&#226;:
+
+registrar_parser.c:277: warning: pointer targets in passing argument 1 of &#226;strtol&#226; differ in signedness
+
+registrar_parser.c: In function &#226;parse_public_identity&#226;:
+
+registrar_parser.c:308: warning: pointer targets in passing argument 2 of &#226;space_trim_dup&#226; differ in signedness
+
+registrar_parser.c: In function &#226;parse_sip_header&#226;:
+
+registrar_parser.c:343: warning: pointer targets in passing argument 1 of &#226;strlen&#226; differ in signedness
+
+registrar_parser.c:347: warning: pointer targets in passing argument 2 of &#226;space_trim_dup&#226; differ in signedness
+
+registrar_parser.c:355: warning: pointer targets in passing argument 2 of &#226;space_quotes_trim_dup&#226; differ in signedness
+
+registrar_parser.c: In function &#226;parse_session_desc&#226;:
+
+registrar_parser.c:381: warning: pointer targets in passing argument 2 of &#226;space_trim_dup&#226; differ in signedness
+
+registrar_parser.c:386: warning: pointer targets in passing argument 2 of &#226;space_quotes_trim_dup&#226; differ in signedness
+
+registrar_parser.c: In function &#226;parse_spt&#226;:
+
+registrar_parser.c:426: warning: pointer targets in passing argument 1 of &#226;atoi&#226; differ in signedness
+
+registrar_parser.c:434: warning: pointer targets in passing argument 2 of &#226;space_trim_dup&#226; differ in signedness
+
+registrar_parser.c:439: warning: pointer targets in passing argument 1 of &#226;atoi&#226; differ in signedness
+
+registrar_parser.c:458: warning: pointer targets in passing argument 2 of &#226;space_trim_dup&#226; differ in signedness
+
+registrar_parser.c:492: warning: pointer targets in passing argument 1 of &#226;atoi&#226; differ in signedness
+
+registrar_parser.c: In function &#226;parse_application_server&#226;:
+
+registrar_parser.c:629: warning: pointer targets in passing argument 2 of &#226;space_trim_dup&#226; differ in signedness
+
+registrar_parser.c:634: warning: pointer targets in passing argument 2 of &#226;space_trim_dup&#226; differ in signedness
+
+registrar_parser.c: In function &#226;parse_filter_criteria&#226;:
+
+registrar_parser.c:672: warning: pointer targets in passing argument 1 of &#226;atoi&#226; differ in signedness
+
+registrar_parser.c: In function &#226;parse_cn_service_auth&#226;:
+
+registrar_parser.c:724: warning: pointer targets in passing argument 1 of &#226;atoi&#226; differ in signedness
+
+registrar_parser.c: In function &#226;parse_service_profile&#226;:
+
+registrar_parser.c:814: warning: pointer targets in passing argument 1 of &#226;atoi&#226; differ in signedness
+
+registrar_parser.c: In function &#226;parse_ims_subscription&#226;:
+
+registrar_parser.c:835: warning: pointer targets in passing argument 1 of &#226;strcasecmp&#226; differ in signedness
+
+registrar_parser.c:854: warning: pointer targets in passing argument 2 of &#226;space_trim_dup&#226; differ in signedness
+
+sip.c: In function &#226;cscf_get_asserted_identity&#226;:
+
+sip.c:802: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+sip.c: In function &#226;cscf_get_authorization&#226;:
+
+sip.c:1520: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+sip.c: In function &#226;cscf_get_preferred_identity&#226;:
+
+sip.c:2026: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+DigestAKAv1MD5.c: In function &#226;AKA&#226;:
+
+DigestAKAv1MD5.c:205: warning: pointer targets in passing argument 3 of &#226;f2345&#226; differ in signedness
+
+sip.c: In function &#226;sip2ims_get_private_identity&#226;:
+
+sip.c:201: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+sip.c: In function &#226;sip2ims_get_expires_hdr&#226;:
+
+sip.c:309: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+sip.c: In function &#226;sip2ims_get_auts&#226;:
+
+sip.c:531: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+sip.c: In function &#226;sip2ims_get_nonce_response&#226;:
+
+sip.c:630: warning: dereferencing type-punned pointer will break strict-aliasing rules
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at btchen01</A> ser_ims]#
+
+ 
+
+ 
+
+ 
+
+ 
+
+I have used open-ims.test as my domain name.
+
+I have followed the directory structure
+
+ 
+
+ 
+
+Please help me out....
+
+ 
+
+ 
+
+Regards,
+
+Naga
+
+
+
+============================================================================================================================
+
+Tech Mahindra, formerly Mahindra-British Telecom.
+ 
+Disclaimer:
+
+This message and the information contained herein is proprietary and confidential and subject to the Tech Mahindra policy statement, you may review at &lt;a href=&quot;<A HREF="http://www.techmahindra.com/Disclaimer.html">http://www.techmahindra.com/Disclaimer.html</A>&quot;&gt;<A HREF="http://www.techmahindra.com/Disclaimer.html&lt;/a">http://www.techmahindra.com/Disclaimer.html&lt;/a</A>&gt; externally and &lt;a href=&quot;<A HREF="http://tim.techmahindra.com/Disclaimer.html">http://tim.techmahindra.com/Disclaimer.html</A>&quot;&gt;<A HREF="http://tim.techmahindra.com/Disclaimer.html&lt;/a">http://tim.techmahindra.com/Disclaimer.html&lt;/a</A>&gt; internally within Tech Mahindra.
+
+============================================================================================================================
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070311/931da602/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070311/931da602/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000300.html">[OpenIMSCore-CSCF] unable to start icscf and pcscf
+</A></li>
+	<LI>Next message: <A HREF="000301.html">[OpenIMSCore-CSCF] FW: unable to start icscf and pcscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#297">[ date ]</a>
+              <a href="thread.html#297">[ thread ]</a>
+              <a href="subject.html#297">[ subject ]</a>
+              <a href="author.html#297">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

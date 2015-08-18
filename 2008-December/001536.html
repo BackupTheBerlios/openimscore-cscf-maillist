@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r605 - Added I-CSCF Web Interface	for editing the DB data (NDS, S-CSCF topology and capabilities).
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r605%20-%20Added%20I-CSCF%20Web%20Interface%0A%09for%20editing%20the%20DB%20data%20%28NDS%2C%20S-CSCF%20topology%20and%20capabilities%29.&In-Reply-To=%3C200812081211.mB8CBdvo019362%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001535.html">
+   <LINK REL="Next"  HREF="001537.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r605 - Added I-CSCF Web Interface	for editing the DB data (NDS, S-CSCF topology and capabilities).</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r605%20-%20Added%20I-CSCF%20Web%20Interface%0A%09for%20editing%20the%20DB%20data%20%28NDS%2C%20S-CSCF%20topology%20and%20capabilities%29.&In-Reply-To=%3C200812081211.mB8CBdvo019362%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r605 - Added I-CSCF Web Interface	for editing the DB data (NDS, S-CSCF topology and capabilities).">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Mon Dec  8 13:11:39 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001535.html">[OpenIMSCore-CSCF] How to create IMS Service?
+</A></li>
+        <LI>Next message: <A HREF="001537.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r606 - Fixed registration crash	due to too short contact buffer.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1536">[ date ]</a>
+              <a href="thread.html#1536">[ thread ]</a>
+              <a href="subject.html#1536">[ subject ]</a>
+              <a href="author.html#1536">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2008-12-08 13:11:34 +0100 (Mon, 08 Dec 2008)
+New Revision: 605 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=605">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=605</A> 
+
+Log:
+Added I-CSCF Web Interface for editing the DB data (NDS, S-CSCF topology and capabilities).
+
+
+Added:
+   A	ser_ims/trunk/modules/icscf/db_web_ui/
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/?rev=605">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/?rev=605</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/.htaccess
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/.htaccess?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/.htaccess?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/.htpasswd
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/.htpasswd?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/.htpasswd?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/config.inc
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/config.inc?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/config.inc?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/css/
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/css/?rev=605">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/css/?rev=605</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/css/testbed_style.css
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/css/testbed_style.css?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/css/testbed_style.css?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/functions.inc
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/functions.inc?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/functions.inc?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/?rev=605">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/?rev=605</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/bg_main.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/bg_main.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/bg_main.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/blind.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/blind.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/blind.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/hauptlogo_01_en.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/hauptlogo_01_en.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/hauptlogo_01_en.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/hauptlogo_02_en.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/hauptlogo_02_en.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/hauptlogo_02_en.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/icon_bild.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/icon_bild.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/icon_bild.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/icon_film.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/icon_film.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/icon_film.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/icon_link_fokus.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/icon_link_fokus.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/icon_link_fokus.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/icon_link_fue.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/icon_link_fue.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/icon_link_fue.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/icon_link_pup.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/icon_link_pup.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/icon_link_pup.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/icon_link_www.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/icon_link_www.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/icon_link_www.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/icon_text.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/icon_text.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/icon_text.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/ok.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/ok.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/ok.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/openims.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/openims.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/openims.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/openims.jpg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/openims.jpg?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/openims.jpg?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/progress_rem.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/progress_rem.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/progress_rem.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/save_edit.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/save_edit.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/save_edit.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/images/spacer.gif
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/spacer.gif?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/images/spacer.gif?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/inc/
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/?rev=605">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/?rev=605</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/inc/data_icscf.inc
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/data_icscf.inc?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/data_icscf.inc?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/inc/of_calendar.inc
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/of_calendar.inc?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/of_calendar.inc?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/inc/of_checkbox.inc
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/of_checkbox.inc?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/of_checkbox.inc?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/inc/of_file.inc
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/of_file.inc?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/of_file.inc?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/inc/of_radio.inc
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/of_radio.inc?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/of_radio.inc?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/inc/of_select.inc
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/of_select.inc?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/of_select.inc?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/inc/of_text.inc
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/of_text.inc?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/of_text.inc?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/inc/of_textarea.inc
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/of_textarea.inc?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/of_textarea.inc?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/inc/oohforms.inc
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/oohforms.inc?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/inc/oohforms.inc?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/index.php
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/index.php?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/index.php?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/index_main.php
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/index_main.php?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/index_main.php?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/index_under.php
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/index_under.php?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/index_under.php?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/menu_left.php
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/menu_left.php?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/menu_left.php?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/menu_top.php
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/menu_top.php?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/menu_top.php?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/nds.php
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/nds.php?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/nds.php?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/post.inc
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/post.inc?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/post.inc?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/pre_icscf.inc
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/pre_icscf.inc?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/pre_icscf.inc?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/scscf.php
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/scscf.php?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/scscf.php?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/style/
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/style/?rev=605">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/style/?rev=605</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/style/fokus_ngni.css
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/style/fokus_ngni.css?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/style/fokus_ngni.css?rev=605&amp;view=markup</A>
+   A	ser_ims/trunk/modules/icscf/db_web_ui/welcome.php
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/welcome.php?rev=605&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/db_web_ui/welcome.php?rev=605&amp;view=markup</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001535.html">[OpenIMSCore-CSCF] How to create IMS Service?
+</A></li>
+	<LI>Next message: <A HREF="001537.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r606 - Fixed registration crash	due to too short contact buffer.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1536">[ date ]</a>
+              <a href="thread.html#1536">[ thread ]</a>
+              <a href="subject.html#1536">[ subject ]</a>
+              <a href="author.html#1536">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

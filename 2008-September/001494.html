@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [[SPAM?]] Re: OSIMS bug on processing FQDNs
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5B%5BSPAM%3F%5D%5D%20Re%3A%20OSIMS%20bug%20on%20processing%20FQDNs&In-Reply-To=%3C48CAA960.6050506%40ftw.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001490.html">
+   <LINK REL="Next"  HREF="001478.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [[SPAM?]] Re: OSIMS bug on processing FQDNs</H1>
+    <B>Hannes L. Weisgrab</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5B%5BSPAM%3F%5D%5D%20Re%3A%20OSIMS%20bug%20on%20processing%20FQDNs&In-Reply-To=%3C48CAA960.6050506%40ftw.at%3E"
+       TITLE="[OpenIMSCore-CSCF] [[SPAM?]] Re: OSIMS bug on processing FQDNs">weisi2 at ftw.at
+       </A><BR>
+    <I>Fri Sep 12 19:39:44 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001490.html">[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+</A></li>
+        <LI>Next message: <A HREF="001478.html">[OpenIMSCore-CSCF] [Call Session Control Functions support] third	party register request from scscf to AS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1494">[ date ]</a>
+              <a href="thread.html#1494">[ thread ]</a>
+              <a href="subject.html#1494">[ subject ]</a>
+              <a href="author.html#1494">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+thanks for your answer.
+I simply did not know that one can put quotes around the alias (from 
+where should I?) ...
+BTW: Your suggestion does not work either; you must put the &quot;:port&quot; - 
+part outside the quotes!
+
+Best Greetings,
+Hannes.
+
+
+Dragos Vingarzan schrieb:
+&gt;<i> okok, but why don't you just put some quotes around your alias?
+</I>&gt;<i>
+</I>&gt;<i> alias=&quot;pcscf.ims.3abc.org:5060&quot;
+</I>&gt;<i>
+</I>&gt;<i> This is a known SER parsing issue, which was discussed before, I think...
+</I>&gt;<i>
+</I>&gt;<i> Anyway, I think that the simplicity of the fix should not mandate for a
+</I>&gt;<i> redesign of the entire grammar of the routing config, no matter how
+</I>&gt;<i> wrong the original authors were.
+</I>&gt;<i>
+</I>&gt;<i> Cheers
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Hannes L. Weisgrab wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi Franz,
+</I>&gt;&gt;<i> I disagree. The Text you cited is taken from the paragraph labeled
+</I>&gt;&gt;<i> &quot;Preferred name syntax&quot;. Consequently I think that this &quot;must&quot; must be
+</I>&gt;&gt;<i> interpreted in the context of the paragraph, which is only a
+</I>&gt;&gt;<i> recommendation. I am sure the definition of the DNS namespace is much
+</I>&gt;&gt;<i> more complex than just the 6 lines given in RFC-1035.
+</I>&gt;&gt;<i> In contrast to the text cited, the same paragraph reads:
+</I>&gt;&gt;<i> The DNS specifications attempt to be as general as possible in the rules
+</I>&gt;&gt;<i> for constructing domain names.  The idea is that the name of any
+</I>&gt;&gt;<i> existing object can be expressed as a domain name with minimal changes.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i> ... which means quite the opposite.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> But the most important fact that your interpretation cannot be correct
+</I>&gt;&gt;<i> is that in this case you could NEVER do a DNS reverse lookup!
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Moreover there are a lot of 2nd level domains starting with a number,
+</I>&gt;&gt;<i> like &quot;6net.org&quot; or &quot;3gpp.org&quot; and I doubt that Root Server
+</I>&gt;&gt;<i> administrators disobey the rules of the DNS namespace.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Therefore OSIMS must accept DNS names where one or more parts of it
+</I>&gt;&gt;<i> start with a number. Apart from that, core-dumping is always a bug in
+</I>&gt;&gt;<i> the software gegardless of its intended behavior.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Best regards,
+</I>&gt;&gt;<i> Hannes.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Franz Edler schrieb:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Hi Hannes,
+</I>&gt;&gt;&gt;<i>  
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;&gt;&gt;<i> Thus, the error points exactly to the &quot;3&quot; in the name and indeed, if I
+</I>&gt;&gt;&gt;&gt;<i> remove the &quot;3&quot; from the name (and reconfigure everything else
+</I>&gt;&gt;&gt;&gt;<i> accordingly), it works!
+</I>&gt;&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;&gt;<i>         
+</I>&gt;&gt;&gt;<i> This is according to the definition of labels in DNS. See at RFC 1035: &quot;The
+</I>&gt;&gt;&gt;<i> labels must follow the rules for ARPANET host names.  They must start with a
+</I>&gt;&gt;&gt;<i> letter, end with a letter or digit, and have as interior characters only
+</I>&gt;&gt;&gt;<i> letters, digits, and hyphen.  There are also some restrictions on the
+</I>&gt;&gt;&gt;<i> length.  Labels must be 63 characters or less.&quot;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> It is not allowed to start a label with a digit.
+</I>&gt;&gt;&gt;<i> So you have to find another solution for your domain configuration.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Cheers
+</I>&gt;&gt;&gt;<i> -franz
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> ------------------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080912/6dd8aa30/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080912/6dd8aa30/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001490.html">[OpenIMSCore-CSCF] OSIMS bug on processing FQDNs
+</A></li>
+	<LI>Next message: <A HREF="001478.html">[OpenIMSCore-CSCF] [Call Session Control Functions support] third	party register request from scscf to AS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1494">[ date ]</a>
+              <a href="thread.html#1494">[ thread ]</a>
+              <a href="subject.html#1494">[ subject ]</a>
+              <a href="author.html#1494">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

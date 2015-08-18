@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Bracnch parameters not getting populated in	ACKmessage
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Bracnch%20parameters%20not%20getting%20populated%20in%0A%09ACKmessage&In-Reply-To=%3C000601c730bc%24c99a0e50%240200a8c0%40notebookFE%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000104.html">
+   <LINK REL="Next"  HREF="000106.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Bracnch parameters not getting populated in	ACKmessage</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Bracnch%20parameters%20not%20getting%20populated%20in%0A%09ACKmessage&In-Reply-To=%3C000601c730bc%24c99a0e50%240200a8c0%40notebookFE%3E"
+       TITLE="[OpenIMSCore-CSCF] Bracnch parameters not getting populated in	ACKmessage">franz.edler at inode.at
+       </A><BR>
+    <I>Fri Jan  5 12:29:35 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000104.html">[OpenIMSCore-CSCF] Bracnch parameters not getting populated in ACKmessage
+</A></li>
+        <LI>Next message: <A HREF="000106.html">[OpenIMSCore-CSCF] Bracnch parameters not getting populated in	ACKmessage
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#105">[ date ]</a>
+              <a href="thread.html#105">[ thread ]</a>
+              <a href="subject.html#105">[ subject ]</a>
+              <a href="author.html#105">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> Well, yes it is 0... but how does this bother you? The branch is
+</I>&gt;<i> important just for the node that sets it. It seems that SER sets 0 for
+</I>&gt;<i> ACK (the S-CSCF does the same). Anyway, ACKs are not replied or
+</I>&gt;<i> anything, so the branch should be useless, right?
+</I>
+It does not really bother me. It's just a curiosity.
+Your arguments are o.k. The branch-value is not necessary in ACK.
+Interestingly: SER sets branch always 0 for ACKs, OpenSER does not.
+
+&gt;<i> I am not a SIP expert, so if I am wrong here please correct me.
+</I>
+I did not find any hint in RFC 3261 to an exceptional rule for the branch
+parameter in ACK. But as already mentioned it does not bother me anymore.
+
+-Franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000104.html">[OpenIMSCore-CSCF] Bracnch parameters not getting populated in ACKmessage
+</A></li>
+	<LI>Next message: <A HREF="000106.html">[OpenIMSCore-CSCF] Bracnch parameters not getting populated in	ACKmessage
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#105">[ date ]</a>
+              <a href="thread.html#105">[ thread ]</a>
+              <a href="subject.html#105">[ subject ]</a>
+              <a href="author.html#105">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

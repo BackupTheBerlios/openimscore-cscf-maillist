@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Resent Packet on wireshark
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Resent%20Packet%20on%20wireshark&In-Reply-To=%3C49DB12C6.4020204%40tuwien.ac.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001663.html">
+   <LINK REL="Next"  HREF="001665.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Resent Packet on wireshark</H1>
+    <B>Happenhofer Marco</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Resent%20Packet%20on%20wireshark&In-Reply-To=%3C49DB12C6.4020204%40tuwien.ac.at%3E"
+       TITLE="[OpenIMSCore-CSCF] Resent Packet on wireshark">marco.happenhofer at tuwien.ac.at
+       </A><BR>
+    <I>Tue Apr  7 10:45:58 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001663.html">[OpenIMSCore-CSCF] Resent Packet on wireshark
+</A></li>
+        <LI>Next message: <A HREF="001665.html">[OpenIMSCore-CSCF] Resent Packet on wireshark
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1664">[ date ]</a>
+              <a href="thread.html#1664">[ thread ]</a>
+              <a href="subject.html#1664">[ subject ]</a>
+              <a href="author.html#1664">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>If you run the CSCF on different machines and merge the pcap files you 
+will have each packet duplicated, because one time sending and one time 
+receiving.
+The resend timer of SIP is per default 500 ms and not  5 &#181;s. So I 
+believe this is the same packet captured on different interfaces!
+
+Also see packet 24 25, it is the same.
+
+So you captured on 172.20.110.230 and 172.20.110.236 and merged these 
+capture files. And so each packet which was sent between these two hosts 
+are duplicated!
+
+greets
+Arnaud MORIN schrieb:
+&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Timestamps are :
+</I>&gt;<i> 6.854142 for Frame 22
+</I>&gt;<i> 6.854147 for Frame 23
+</I>&gt;<i>
+</I>&gt;<i> It seems to be a retransmission. Is it normal ? How can I remove it ?
+</I>&gt;<i> The tracefile is attached.
+</I>&gt;<i>
+</I>&gt;<i> Thanks for your help,
+</I>&gt;<i> regards,
+</I>&gt;<i> Arnaud.
+</I>&gt;<i>
+</I>&gt;<i> On Tue, Apr 7, 2009 at 5:22 AM, Franz Edler &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz-edler at aon.at</A> 
+</I>&gt;<i> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz-edler at aon.at</A>&gt;&gt; wrote:
+</I>&gt;<i>
+</I>&gt;<i>     Hi Arnaud,
+</I>&gt;<i>
+</I>&gt;<i>     &gt; I am currently working with openimscore and displaying SIP trace
+</I>&gt;<i>     with
+</I>&gt;<i>     &gt; Wireshark. The problem is that wireshark is displaying 2
+</I>&gt;<i>     identical frames.
+</I>&gt;<i>
+</I>&gt;<i>     I assume it is a retransmission. What are the timestamp of the
+</I>&gt;<i>     packets?
+</I>&gt;<i>     In case of further doubts: attach the tracefile.
+</I>&gt;<i>
+</I>&gt;<i>     regards
+</I>&gt;<i>     Franz
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090407/6c123f45/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090407/6c123f45/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001663.html">[OpenIMSCore-CSCF] Resent Packet on wireshark
+</A></li>
+	<LI>Next message: <A HREF="001665.html">[OpenIMSCore-CSCF] Resent Packet on wireshark
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1664">[ date ]</a>
+              <a href="thread.html#1664">[ thread ]</a>
+              <a href="subject.html#1664">[ subject ]</a>
+              <a href="author.html#1664">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

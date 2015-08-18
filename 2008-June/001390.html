@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r566 - Fixed the P-CSCF crash due	to just one pinhole on REGISTER with multiple contacts.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r566%20-%20Fixed%20the%20P-CSCF%20crash%20due%0A%09to%20just%20one%20pinhole%20on%20REGISTER%20with%20multiple%20contacts.&In-Reply-To=%3C200806051255.m55Ct1WR021190%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001389.html">
+   <LINK REL="Next"  HREF="001391.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r566 - Fixed the P-CSCF crash due	to just one pinhole on REGISTER with multiple contacts.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r566%20-%20Fixed%20the%20P-CSCF%20crash%20due%0A%09to%20just%20one%20pinhole%20on%20REGISTER%20with%20multiple%20contacts.&In-Reply-To=%3C200806051255.m55Ct1WR021190%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r566 - Fixed the P-CSCF crash due	to just one pinhole on REGISTER with multiple contacts.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Thu Jun  5 14:55:01 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001389.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] Port number	in request URI initial INVITE fails
+</A></li>
+        <LI>Next message: <A HREF="001391.html">[OpenIMSCore-CSCF] Handling early calls problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1390">[ date ]</a>
+              <a href="thread.html#1390">[ thread ]</a>
+              <a href="subject.html#1390">[ subject ]</a>
+              <a href="author.html#1390">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2008-06-05 14:55:00 +0200 (Thu, 05 Jun 2008)
+New Revision: 566 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=566">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=566</A> 
+
+Log:
+Fixed the P-CSCF crash due to just one pinhole on REGISTER with multiple contacts.
+
+
+Modified:
+   U	ser_ims/trunk/modules/pcscf/nat_helper.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/nat_helper.c?rev=566&amp;view=diff&amp;r1=566&amp;r2=565">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/nat_helper.c?rev=566&amp;view=diff&amp;r1=566&amp;r2=565</A>
+   U	ser_ims/trunk/modules/pcscf/nat_helper.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/nat_helper.h?rev=566&amp;view=diff&amp;r1=566&amp;r2=565">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/nat_helper.h?rev=566&amp;view=diff&amp;r1=566&amp;r2=565</A>
+   U	ser_ims/trunk/modules/pcscf/registrar.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar.c?rev=566&amp;view=diff&amp;r1=566&amp;r2=565">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar.c?rev=566&amp;view=diff&amp;r1=566&amp;r2=565</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001389.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] Port number	in request URI initial INVITE fails
+</A></li>
+	<LI>Next message: <A HREF="001391.html">[OpenIMSCore-CSCF] Handling early calls problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1390">[ date ]</a>
+              <a href="thread.html#1390">[ thread ]</a>
+              <a href="subject.html#1390">[ subject ]</a>
+              <a href="author.html#1390">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

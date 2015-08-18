@@ -1,0 +1,1076 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] REGISTER over ipsec
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20REGISTER%20over%20ipsec&In-Reply-To=%3C813219.37091.qm%40web113608.mail.gq1.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002573.html">
+   <LINK REL="Next"  HREF="002575.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] REGISTER over ipsec</H1>
+    <B>Mohsen Emami-Nouri</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20REGISTER%20over%20ipsec&In-Reply-To=%3C813219.37091.qm%40web113608.mail.gq1.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] REGISTER over ipsec">memamin at yahoo.com
+       </A><BR>
+    <I>Fri Jun 10 00:44:36 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002573.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1115 - P-CSCF config: save the	dialog before generating the charging id,	so that the charging id is stored and used for PCC
+</A></li>
+        <LI>Next message: <A HREF="002575.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1116 - Client_Rf: fixed the rf	data creation for a request coming from the terminating leg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2574">[ date ]</a>
+              <a href="thread.html#2574">[ thread ]</a>
+              <a href="subject.html#2574">[ subject ]</a>
+              <a href="author.html#2574">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Franz,
+I use my own UE which is based on resiprocate stack. regarding the ipsec, the original REGISTER goes unprotected, and then everything goes protected until unregistered, including re registration, re subscription etc. I added P-CSCF and S-CSCF console traces to this email for you r review; it shows REGISTEr/SUBSCRIBE/NOITY. For some reason my OpenImsCore stopped generating xlog files, although I have not changed anything.
+best regards,
+~Mohsen
+
+PCSCF
+========
+ 2(7937) Tracepoint: 1 REGISTER sip:open-ims.test from 8.23.233.53:5060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>
+ 2(7937) DBG:P-CSCF:P_emergency_flag: Check if the user made an Emergency Registration
+ 2(7937) DBG:P-CSCF:P_verify_security: Looking for &lt;1://8.23.233.53:5060&gt; 
+ 2(7937) INFO:P-CSCF:get_r_contact: contact not found
+ 2(7937) INFO:P-CSCF:get_r_contact: contact not found
+ 2(7937) DBG:P-CSCF:P_remove_header_tag(): Original &lt;Require&gt; -&gt; &lt;sec-agree&gt;
+ 2(7937) DBG:P-CSCF:P_remove_header_tag(): Modified &lt;Require&gt; -&gt; &lt;&gt;
+ 2(7937) DBG:P-CSCF:P_remove_header_tag(): Original &lt;Proxy-Require&gt; -&gt; &lt;sec-agree&gt;
+ 2(7937) DBG:P-CSCF:P_remove_header_tag(): Modified &lt;Proxy-Require&gt; -&gt; &lt;&gt;
+ 1(7936) DBG:P-CSCF:P_security_401: Security-Client header found : &lt;ipsec-3gpp;alg=hmac-sha-1-96;spi-c=2345;spi-s=5432;port-c=5060;port-s=5060&gt;.
+ 1(7936) INFO:P-CSCF:get_r_contact: contact not found
+ 1(7936) INF:P-CSCF:execute_cmd: [/opt/OpenIMSCore/ser_ims/modules/pcscf/ipsec_P_Inc_Req.sh 8.23.233.53 5060 8.23.233.52 4060 5007 null 0xe22e6666f8dd6c4f747d229ddf554c1c hmac-sha1 0xeeaa6ee6c9ba1ffba6be6d7d19532a0e00000000 esp trans]
+ 1(7936) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.53:5060&gt; reg-state:-1
+ 1(7936) INFO:P-CSCF:P_NAT_relay: &lt;sip:8.23.233.53:5060&gt;
+ 3(7938) Tracepoint: 2 REGISTER sip:open-ims.test from 8.23.233.53:5060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>
+ 3(7938) DBG:P-CSCF:P_emergency_flag: Check if the user made an Emergency Registration
+ 3(7938) DBG:P-CSCF:P_verify_security: Looking for &lt;1://8.23.233.53:5060&gt; 
+ 3(7938) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.53:5060&gt; reg-state:-1
+ 3(7938) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.53:5060&gt; reg-state:-1
+ 3(7938) DBG:P-CSCF:P_remove_header_tag(): Original &lt;Require&gt; -&gt; &lt;sec-agree&gt;
+ 3(7938) DBG:P-CSCF:P_remove_header_tag(): Modified &lt;Require&gt; -&gt; &lt;&gt;
+ 3(7938) DBG:P-CSCF:P_remove_header_tag(): Original &lt;Proxy-Require&gt; -&gt; &lt;sec-agree&gt;
+ 3(7938) DBG:P-CSCF:P_remove_header_tag(): Modified &lt;Proxy-Require&gt; -&gt; &lt;&gt;
+ 4(7939) INFO:P-CSCF:update_r_contact(): sos_mask = NORMAL_REG
+ 4(7939) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.53:5060&gt; reg-state:-1
+ 4(7939) INFO:P-CSCF:update_r_contact(): contact found
+ 4(7939) DBG:P-CSCF:get_r_public  4(7939) DBG:P-CSCF:get_r_public  4(7939) DBG:P-CSCF:P_security_200: Looking for &lt;1://8.23.233.53:5060&gt; 
+ 4(7939) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.53:5060&gt; reg-state:1
+ 4(7939) DBG:P-CSCF:P_security_200: expires is:500 we should change the reg_state to REGISTERED?
+ 4(7939) INF:P-CSCF:execute_cmd: [/opt/OpenIMSCore/ser_ims/modules/pcscf/ipsec_P_Out_Rpl.sh 8.23.233.53 5060 8.23.233.52 4060 2345 null 0xe22e6666f8dd6c4f747d229ddf554c1c hmac-sha1 0xeeaa6ee6c9ba1ffba6be6d7d19532a0e00000000 esp trans]
+ 4(7939) INF:P-CSCF:execute_cmd: [/opt/OpenIMSCore/ser_ims/modules/pcscf/ipsec_P_Out_Req.sh 8.23.233.53 5060 8.23.233.52 4060 5432 null 0xe22e6666f8dd6c4f747d229ddf554c1c hmac-sha1 0xeeaa6ee6c9ba1ffba6be6d7d19532a0e00000000 esp trans]
+ 4(7939) INF:P-CSCF:execute_cmd: [/opt/OpenIMSCore/ser_ims/modules/pcscf/ipsec_P_Inc_Rpl.sh 8.23.233.53 5060 8.23.233.52 4060 5006 null 0xe22e6666f8dd6c4f747d229ddf554c1c hmac-sha1 0xeeaa6ee6c9ba1ffba6be6d7d19532a0e00000000 esp trans]
+ 4(7939) DBG:P-CSCF:P_is_deregistration: max expires is 300
+ 4(7939) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.53:5060&gt; reg-state:1
+ 4(7939) INFO:P-CSCF:P_security_relay: &lt;sip:8.23.233.53:5060&gt;
+ 2(7937) Tracepoint: 1 SUBSCRIBE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A> from 8.23.233.53:5060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>
+ 2(7937) DBG:P-CSCF:cscf_get_originating_contact: 1://8.23.233.53:5060 
+ 2(7937) DBG:P-CSCF:cscf_get_terminating_contact: 0://open-ims.test:0 
+ 2(7937) &gt;&gt;       Orig_Initial
+ 2(7937) DBG:P-CSCF:P_is_registered: Looking if registered
+ 2(7937) DBG:P-CSCF:P_is_registered: Looking for &lt;1://8.23.233.53:5060&gt;
+ 2(7937) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.53:5060&gt; reg-state:1
+ 2(7937) INF:P-CSCF:r_is_registered:contact found 2(7937) is registered:1 , registratio-state:1 and is current:1 2(7937) DBG:P-CSCF:r_is_registered:contact is OK 2(7937) INF:P-CSCF:P_assert_identity: Asserting Identity
+ 2(7937) DBG:P-CSCF:P_assert_identity:preffere &lt;&gt; , pcscf_assert_fallback:0
+ 2(7937) DBG:P-CSCF:P_assert_identity: Looking for &lt;1://8.23.233.53:5060&gt; Pref: 
+ 2(7937) INFO:P-CSCF:r_assert_identity: Asserting preferred id &lt;&gt;
+ 2(7937) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.53:5060&gt; reg-state:1
+ 2(7937) is registered:1 , registratio-state:1 and is current:1 2(7937) INFO:P-CSCF:r_assert_identity: preferred uri len is not 0 &lt;&gt;
+ 2(7937) INFO:P-CSCF:r_assert_identity: to &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt;
+ 2(7937) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.53:5060&gt; reg-state:1
+ 2(7937) DBG:P-CSCF:cscf_get_originating_contact: 1://8.23.233.53:5060 
+ 2(7937) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+ 2(7937) INF:P-CSCF:[  10] Dir:[0]	Call-ID:&lt;NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.&gt;	AOR:1://8.23.233.53:5060
+ 2(7937) INF:P-CSCF:		Method:[2] State:[1] SOS:[ ] Exp:[  60]
+ 2(7937) INF:P-CSCF:[ 168] Dir:[0]	Call-ID:&lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt;	AOR:1://8.23.233.51:5060
+ 2(7937) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[  81]
+ 2(7937) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 2(7937) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+ 1(7936) &gt;&gt;       Orig_Initial_reply
+ 1(7936) DBG:P-CSCF:cscf_get_originating_contact: 1://8.23.233.53:5060 
+ 1(7936) DBG:P-CSCF:P_update_dialog(orig): Call-ID &lt;NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.&gt; method &lt;SUBSCRIBE&gt; message:RSP
+ 1(7936) DBG:P-CSCF:P_update_dialog(orig): &lt;200&gt; 
+ 1(7936) DBG:P-CSCF:P_update_dialog: eqCseq:1 , eqMLen:1, eqMet:0, corDlgSts:1 
+ 1(7936) DBG:P-CSCF:save_dialog_routes: originating direction:orig, reversed routes order
+ 1(7936) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+ 1(7936) INF:P-CSCF:[  10] Dir:[0]	Call-ID:&lt;NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.&gt;	AOR:1://8.23.233.53:5060
+ 1(7936) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[3600]
+ 1(7936) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 1(7936) INF:P-CSCF:[ 168] Dir:[0]	Call-ID:&lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt;	AOR:1://8.23.233.51:5060
+ 1(7936) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[  81]
+ 1(7936) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 1(7936) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+ 1(7936) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.53:5060&gt; reg-state:1
+ 1(7936) INFO:P-CSCF:P_security_relay: &lt;sip:8.23.233.53:5060&gt;
+ 3(7938) Tracepoint: 10 NOTIFY sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A> from 8.23.233.52:6060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>
+ 3(7938) DBG:P-CSCF:cscf_get_originating_contact: 1://8.23.233.52:6060 
+ 3(7938) DBG:P-CSCF:cscf_get_terminating_contact: 0://8.23.233.53:0 
+ 3(7938) &gt;&gt;       Term_Subsequent
+ 3(7938) DBG:P-CSCF:cscf_get_terminating_contact: 0://8.23.233.53:0 
+ 3(7938) DBG:P-CSCF:P_update_dialog(term): Call-ID &lt;NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.&gt; method &lt;NOTIFY&gt; message:REQ
+ 3(7938) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+ 3(7938) INF:P-CSCF:[  10] Dir:[0]	Call-ID:&lt;NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.&gt;	AOR:1://8.23.233.53:5060
+ 3(7938) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[ 330]
+ 3(7938) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 3(7938) INF:P-CSCF:[ 168] Dir:[0]	Call-ID:&lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt;	AOR:1://8.23.233.51:5060
+ 3(7938) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[  78]
+ 3(7938) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 3(7938) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+ 3(7938) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.53:5060&gt; reg-state:1
+ 3(7938) INFO:P-CSCF:P_security_relay: &lt;sip:8.23.233.53:5060&gt;
+ 4(7939) &gt;&gt;       Term_Subsequent_reply
+ 4(7939) DBG:P-CSCF:cscf_via_matching: different branch param
+ 4(7939) DBG:P-CSCF:P_follows_via_list: first via not matching &lt;SIP/2.0/UDP 8.23.233.52:6060;branch=z9hG4bK8205.67aedea.0&gt;!=&lt;SIP/2.0/UDP 8.23.233.52:4060;branch=z9hG4bK8205.ce8ea62.0&gt;
+ 4(7939) &gt;&gt;      P_follows_via_list - failed
+ 4(7939) DBG:P-CSCF:cscf_get_terminating_contact: 0://8.23.233.53:0 
+ 4(7939) DBG:P-CSCF:P_update_dialog(term): Call-ID &lt;NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.&gt; method &lt;NOTIFY&gt; message:RSP
+ 4(7939) DBG:P-CSCF:P_update_dialog(term): &lt;200&gt; 
+ 4(7939) DBG:P-CSCF:P_update_dialog: eqCseq:0 , eqMLen:0, eqMet:5, corDlgSts:0 
+ 4(7939) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+ 4(7939) INF:P-CSCF:[  10] Dir:[0]	Call-ID:&lt;NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.&gt;	AOR:1://8.23.233.53:5060
+ 4(7939) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[ 330]
+ 4(7939) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 4(7939) INF:P-CSCF:[ 168] Dir:[0]	Call-ID:&lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt;	AOR:1://8.23.233.51:5060
+ 4(7939) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[  78]
+ 4(7939) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 4(7939) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+ 5(7940) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(7940) INF:P-CSCF:[ 225] C: &lt;0://8.23.233.53:5060&gt; Exp:[ 292] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5007  UAC: 5432:5060&lt;-5006 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:[ 227] C: &lt;0://8.23.233.51:5060&gt; Exp:[  42] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5003  UAC: 5432:5060&lt;-5002 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:----------  Registrar Contents end ----------
+ 5(7940) INF:P-CSCF:----------  Subscription list begin ---------
+ 5(7940) INF:P-CSCF:[  71]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; D:[  330] E:[-1307658913] Att:[ 0]
+ 5(7940) INF:P-CSCF:[  78]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; D:[  330] E:[   75] Att:[-1]
+ 5(7940) INF:P-CSCF:----------  Subscription list end -----------
+ 1(7936) Tracepoint: 10 NOTIFY sip:pcscf.open-ims.test:4060 from 8.23.233.52:6060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>  To: sip:pcscf.open-ims.test:4060
+ 1(7936) INFO:P-CSCF:r_notification_process: started!
+ 1(7936) INFO:P-CSCF:r_notification_process: processing Contact URI &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt;
+ 1(7936) INFO:P-CSCF:r_notification_process: reg_state = REGISTERED
+ 1(7936) INFO:P-CSCF:update_r_contact(): sos_mask = NORMAL_REG
+ 1(7936) INFO:P-CSCF:get_r_contact: contact not found
+ 1(7936) INFO:P-CSCF:r_notification_process: did  not refresh the host&lt;8.23.233.53&gt; port:0 protocol:0
+ 1(7936) INFO:P-CSCF:r_notification_process: processing Contact URI &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt;
+ 1(7936) INFO:P-CSCF:r_notification_process: reg_state = REGISTERED
+ 1(7936) INFO:P-CSCF:update_r_contact(): sos_mask = NORMAL_REG
+ 1(7936) INFO:P-CSCF:get_r_contact: contact not found
+ 1(7936) INFO:P-CSCF:r_notification_process: did  not refresh the host&lt;8.23.233.53&gt; port:0 protocol:0
+ 5(7940) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(7940) INF:P-CSCF:[ 225] C: &lt;0://8.23.233.53:5060&gt; Exp:[ 282] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5007  UAC: 5432:5060&lt;-5006 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:[ 227] C: &lt;0://8.23.233.51:5060&gt; Exp:[  32] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5003  UAC: 5432:5060&lt;-5002 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:----------  Registrar Contents end ----------
+ 5(7940) INF:P-CSCF:----------  Subscription list begin ---------
+ 5(7940) INF:P-CSCF:[  71]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; D:[  330] E:[  317] Att:[-1]
+ 5(7940) INF:P-CSCF:[  78]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; D:[  330] E:[   65] Att:[-1]
+ 5(7940) INF:P-CSCF:----------  Subscription list end -----------
+ 3(7938) Tracepoint: 287 REGISTER sip:open-ims.test from 8.23.233.51:5060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>
+ 3(7938) DBG:P-CSCF:P_emergency_flag: Check if the user made an Emergency Registration
+ 3(7938) DBG:P-CSCF:P_verify_security: Looking for &lt;1://8.23.233.51:5060&gt; 
+ 3(7938) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.51:5060&gt; reg-state:1
+ 3(7938) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.51:5060&gt; reg-state:1
+ 3(7938) DBG:P-CSCF:P_remove_header_tag(): Original &lt;Require&gt; -&gt; &lt;sec-agree&gt;
+ 3(7938) DBG:P-CSCF:P_remove_header_tag(): Modified &lt;Require&gt; -&gt; &lt;&gt;
+ 3(7938) DBG:P-CSCF:P_remove_header_tag(): Original &lt;Proxy-Require&gt; -&gt; &lt;sec-agree&gt;
+ 3(7938) DBG:P-CSCF:P_remove_header_tag(): Modified &lt;Proxy-Require&gt; -&gt; &lt;&gt;
+ 4(7939) INFO:P-CSCF:update_r_contact(): sos_mask = NORMAL_REG
+ 4(7939) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.51:5060&gt; reg-state:1
+ 4(7939) INFO:P-CSCF:update_r_contact(): contact found
+ 4(7939) DBG:P-CSCF:get_r_public  4(7939) DBG:P-CSCF:get_r_public  4(7939) DBG:P-CSCF:P_security_200: Looking for &lt;1://8.23.233.51:5060&gt; 
+ 4(7939) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.51:5060&gt; reg-state:1
+ 4(7939) DBG:P-CSCF:P_security_200: expires is:500 we should change the reg_state to REGISTERED?
+ 4(7939) INF:P-CSCF:execute_cmd: [/opt/OpenIMSCore/ser_ims/modules/pcscf/ipsec_P_Out_Rpl.sh 8.23.233.51 5060 8.23.233.52 4060 2345 null 0xc1d28faa267208718ff82480899755fb hmac-sha1 0x04041cfa5a8185ffc99d616149e4609800000000 esp trans]
+ 4(7939) INF:P-CSCF:execute_cmd: [/opt/OpenIMSCore/ser_ims/modules/pcscf/ipsec_P_Out_Req.sh 8.23.233.51 5060 8.23.233.52 4060 5432 null 0xc1d28faa267208718ff82480899755fb hmac-sha1 0x04041cfa5a8185ffc99d616149e4609800000000 esp trans]
+ 4(7939) INF:P-CSCF:execute_cmd: [/opt/OpenIMSCore/ser_ims/modules/pcscf/ipsec_P_Inc_Rpl.sh 8.23.233.51 5060 8.23.233.52 4060 5002 null 0xc1d28faa267208718ff82480899755fb hmac-sha1 0x04041cfa5a8185ffc99d616149e4609800000000 esp trans]
+ 4(7939) DBG:P-CSCF:P_is_deregistration: max expires is 300
+ 4(7939) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.51:5060&gt; reg-state:1
+ 4(7939) INFO:P-CSCF:P_security_relay: &lt;sip:8.23.233.51:5060&gt;
+ 2(7937) Tracepoint: 579 NOTIFY sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A> from 8.23.233.52:6060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>
+ 2(7937) DBG:P-CSCF:cscf_get_originating_contact: 1://8.23.233.52:6060 
+ 2(7937) DBG:P-CSCF:cscf_get_terminating_contact: 0://8.23.233.51:0 
+ 2(7937) &gt;&gt;       Term_Subsequent
+ 2(7937) DBG:P-CSCF:cscf_get_terminating_contact: 0://8.23.233.51:0 
+ 2(7937) DBG:P-CSCF:P_update_dialog(term): Call-ID &lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt; method &lt;NOTIFY&gt; message:REQ
+ 2(7937) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+ 2(7937) INF:P-CSCF:[  10] Dir:[0]	Call-ID:&lt;NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.&gt;	AOR:1://8.23.233.53:5060
+ 2(7937) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[ 310]
+ 2(7937) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 2(7937) INF:P-CSCF:[ 168] Dir:[0]	Call-ID:&lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt;	AOR:1://8.23.233.51:5060
+ 2(7937) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[ 330]
+ 2(7937) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 2(7937) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+ 2(7937) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.51:5060&gt; reg-state:1
+ 2(7937) INFO:P-CSCF:P_security_relay: &lt;sip:8.23.233.51:5060&gt;
+ 1(7936) &gt;&gt;       Term_Subsequent_reply
+ 1(7936) DBG:P-CSCF:cscf_via_matching: different branch param
+ 1(7936) DBG:P-CSCF:P_follows_via_list: first via not matching &lt;SIP/2.0/UDP 8.23.233.52:6060;branch=z9hG4bK793b.e682ed14.0&gt;!=&lt;SIP/2.0/UDP 8.23.233.52:4060;branch=z9hG4bK793b.f2edac34.0&gt;
+ 1(7936) &gt;&gt;      P_follows_via_list - failed
+ 1(7936) DBG:P-CSCF:cscf_get_terminating_contact: 0://8.23.233.51:0 
+ 1(7936) DBG:P-CSCF:P_update_dialog(term): Call-ID &lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt; method &lt;NOTIFY&gt; message:RSP
+ 1(7936) DBG:P-CSCF:P_update_dialog(term): &lt;200&gt; 
+ 1(7936) DBG:P-CSCF:P_update_dialog: eqCseq:0 , eqMLen:0, eqMet:5, corDlgSts:0 
+ 1(7936) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+ 1(7936) INF:P-CSCF:[  10] Dir:[0]	Call-ID:&lt;NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.&gt;	AOR:1://8.23.233.53:5060
+ 1(7936) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[ 310]
+ 1(7936) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 1(7936) INF:P-CSCF:[ 168] Dir:[0]	Call-ID:&lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt;	AOR:1://8.23.233.51:5060
+ 1(7936) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[ 330]
+ 1(7936) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 1(7936) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+ 5(7940) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(7940) INF:P-CSCF:[ 225] C: &lt;0://8.23.233.53:5060&gt; Exp:[ 272] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5007  UAC: 5432:5060&lt;-5006 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:[ 227] C: &lt;0://8.23.233.51:5060&gt; Exp:[ 292] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5003  UAC: 5432:5060&lt;-5002 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:----------  Registrar Contents end ----------
+ 5(7940) INF:P-CSCF:----------  Subscription list begin ---------
+ 5(7940) INF:P-CSCF:[  71]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; D:[  330] E:[  307] Att:[-1]
+ 5(7940) INF:P-CSCF:[  78]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; D:[  330] E:[   55] Att:[ 0]
+ 5(7940) INF:P-CSCF:----------  Subscription list end -----------
+ 4(7939) Tracepoint: 10 NOTIFY sip:pcscf.open-ims.test:4060 from 8.23.233.52:6060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>  To: sip:pcscf.open-ims.test:4060
+ 4(7939) INFO:P-CSCF:r_notification_process: started!
+ 4(7939) INFO:P-CSCF:r_notification_process: processing Contact URI &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt;
+ 4(7939) INFO:P-CSCF:r_notification_process: reg_state = REGISTERED
+ 4(7939) INFO:P-CSCF:update_r_contact(): sos_mask = NORMAL_REG
+ 4(7939) INFO:P-CSCF:get_r_contact: contact not found
+ 4(7939) INFO:P-CSCF:r_notification_process: did  not refresh the host&lt;8.23.233.51&gt; port:0 protocol:0
+ 4(7939) INFO:P-CSCF:r_notification_process: processing Contact URI &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt;
+ 4(7939) INFO:P-CSCF:r_notification_process: reg_state = REGISTERED
+ 4(7939) INFO:P-CSCF:update_r_contact(): sos_mask = NORMAL_REG
+ 4(7939) INFO:P-CSCF:get_r_contact: contact not found
+ 4(7939) INFO:P-CSCF:r_notification_process: did  not refresh the host&lt;8.23.233.51&gt; port:0 protocol:0
+ 5(7940) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+ 5(7940) INF:P-CSCF:[  10] Dir:[0]	Call-ID:&lt;NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.&gt;	AOR:1://8.23.233.53:5060
+ 5(7940) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[ 295]
+ 5(7940) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(7940) INF:P-CSCF:[ 168] Dir:[0]	Call-ID:&lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt;	AOR:1://8.23.233.51:5060
+ 5(7940) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[ 315]
+ 5(7940) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(7940) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+ 5(7940) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(7940) INF:P-CSCF:[ 225] C: &lt;0://8.23.233.53:5060&gt; Exp:[ 262] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5007  UAC: 5432:5060&lt;-5006 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:[ 227] C: &lt;0://8.23.233.51:5060&gt; Exp:[ 282] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5003  UAC: 5432:5060&lt;-5002 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:----------  Registrar Contents end ----------
+ 5(7940) INF:P-CSCF:----------  Subscription list begin ---------
+ 5(7940) INF:P-CSCF:[  71]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; D:[  330] E:[  297] Att:[-1]
+ 5(7940) INF:P-CSCF:[  78]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; D:[  330] E:[  317] Att:[-1]
+ 5(7940) INF:P-CSCF:----------  Subscription list end -----------
+ 5(7940) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(7940) INF:P-CSCF:[ 225] C: &lt;0://8.23.233.53:5060&gt; Exp:[ 252] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5007  UAC: 5432:5060&lt;-5006 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:[ 227] C: &lt;0://8.23.233.51:5060&gt; Exp:[ 272] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5003  UAC: 5432:5060&lt;-5002 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:----------  Registrar Contents end ----------
+ 5(7940) INF:P-CSCF:----------  Subscription list begin ---------
+ 5(7940) INF:P-CSCF:[  71]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; D:[  330] E:[  287] Att:[-1]
+ 5(7940) INF:P-CSCF:[  78]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; D:[  330] E:[  307] Att:[-1]
+ 5(7940) INF:P-CSCF:----------  Subscription list end -----------
+ 2(7937) Tracepoint: 286 SUBSCRIBE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A> from 8.23.233.51:5060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>
+ 2(7937) DBG:P-CSCF:cscf_get_originating_contact: 1://8.23.233.51:5060 
+ 2(7937) &gt;&gt;       Orig_Subsequent
+ 2(7937) DBG:P-CSCF:P_is_registered: Looking if registered
+ 2(7937) DBG:P-CSCF:P_is_registered: Looking for &lt;1://8.23.233.51:5060&gt;
+ 2(7937) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.51:5060&gt; reg-state:1
+ 2(7937) INF:P-CSCF:r_is_registered:contact found 2(7937) is registered:1 , registratio-state:1 and is current:1 2(7937) DBG:P-CSCF:r_is_registered:contact is OK 2(7937) INF:P-CSCF:P_assert_identity: Asserting Identity
+ 2(7937) DBG:P-CSCF:P_assert_identity:preffere &lt;&gt; , pcscf_assert_fallback:0
+ 2(7937) DBG:P-CSCF:P_assert_identity: Looking for &lt;1://8.23.233.51:5060&gt; Pref: 
+ 2(7937) INFO:P-CSCF:r_assert_identity: Asserting preferred id &lt;&gt;
+ 2(7937) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.51:5060&gt; reg-state:1
+ 2(7937) is registered:1 , registratio-state:1 and is current:1 2(7937) INFO:P-CSCF:r_assert_identity: preferred uri len is not 0 &lt;&gt;
+ 2(7937) INFO:P-CSCF:r_assert_identity: to &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;
+ 2(7937) DBG:P-CSCF:P_is_em_registered: Looking if it has emergency registered
+ 2(7937) DBG:P-CSCF:P_is_em_registered: Looking for &lt;1://8.23.233.51:5060&gt;
+ 2(7937) DBG:P-CSCF:get_r_contact: not our contact &lt;0://8.23.233.51:5060&gt; reg-state:1
+ 2(7937) INFO:P-CSCF:get_r_contact: contact not found
+ 2(7937) DBG:P-CSCF:r_is_registered:contact not found 2(7937) INFO:P-CSCF:P_follows_dialog_routes(): dialog direction: (null) 
+ 2(7937) DBG:P-CSCF:cscf_get_originating_contact: 1://8.23.233.51:5060 
+ 2(7937) DBG:P-CSCF:P_follows_dialog_routes(orig): Call-ID &lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt; 1://8.23.233.51:5060
+ 2(7937) DBG:P-CSCF:P_follows_dialog_routes:  method:2, dialog route:0,  &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 2(7937) DBG:P-CSCF:P_follows_dialog_routes: message routes:0,  &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt; 
+ 2(7937) DBG:P-CSCF:P_follows_dialog_routes:  must &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 2(7937) DBG:P-CSCF:P_follows_dialog_routes: src sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr
+ 2(7937) DBG:P-CSCF:P_follows_dialog_routes: src match
+ 2(7937) DBG:P-CSCF:cscf_get_originating_contact: 1://8.23.233.51:5060 
+ 2(7937) DBG:P-CSCF:P_update_dialog(orig): Call-ID &lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt; method &lt;SUBSCRIBE&gt; message:REQ
+ 2(7937) DBG:P-CSCF:P_update_dialog(NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.): Update expiration time to 3600 via Expire header 2
+ 2(7937) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+ 2(7937) INF:P-CSCF:[  10] Dir:[0]	Call-ID:&lt;NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.&gt;	AOR:1://8.23.233.53:5060
+ 2(7937) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[ 282]
+ 2(7937) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 2(7937) INF:P-CSCF:[ 168] Dir:[0]	Call-ID:&lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt;	AOR:1://8.23.233.51:5060
+ 2(7937) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[3600]
+ 2(7937) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 2(7937) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+ 1(7936) &gt;&gt;       Orig_Subsequent_reply
+ 1(7936) DBG:P-CSCF:cscf_get_originating_contact: 1://8.23.233.51:5060 
+ 1(7936) DBG:P-CSCF:P_update_dialog(orig): Call-ID &lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt; method &lt;SUBSCRIBE&gt; message:RSP
+ 1(7936) DBG:P-CSCF:P_update_dialog(orig): &lt;200&gt; 
+ 1(7936) DBG:P-CSCF:P_update_dialog: eqCseq:0 , eqMLen:1, eqMet:0, corDlgSts:0 
+ 1(7936) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+ 1(7936) INF:P-CSCF:[  10] Dir:[0]	Call-ID:&lt;NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.&gt;	AOR:1://8.23.233.53:5060
+ 1(7936) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[ 282]
+ 1(7936) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 1(7936) INF:P-CSCF:[ 168] Dir:[0]	Call-ID:&lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt;	AOR:1://8.23.233.51:5060
+ 1(7936) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[3600]
+ 1(7936) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 1(7936) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+ 1(7936) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.51:5060&gt; reg-state:1
+ 1(7936) INFO:P-CSCF:P_security_relay: &lt;sip:8.23.233.51:5060&gt;
+ 3(7938) Tracepoint: 580 NOTIFY sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A> from 8.23.233.52:6060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>
+ 3(7938) DBG:P-CSCF:cscf_get_originating_contact: 1://8.23.233.52:6060 
+ 3(7938) DBG:P-CSCF:cscf_get_terminating_contact: 0://8.23.233.51:0 
+ 3(7938) &gt;&gt;       Term_Subsequent
+ 3(7938) DBG:P-CSCF:cscf_get_terminating_contact: 0://8.23.233.51:0 
+ 3(7938) DBG:P-CSCF:P_update_dialog(term): Call-ID &lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt; method &lt;NOTIFY&gt; message:REQ
+ 3(7938) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+ 3(7938) INF:P-CSCF:[  10] Dir:[0]	Call-ID:&lt;NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.&gt;	AOR:1://8.23.233.53:5060
+ 3(7938) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[ 280]
+ 3(7938) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 3(7938) INF:P-CSCF:[ 168] Dir:[0]	Call-ID:&lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt;	AOR:1://8.23.233.51:5060
+ 3(7938) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[ 299]
+ 3(7938) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 3(7938) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+ 3(7938) DBG:P-CSCF:get_r_contact: contact found &lt;0://8.23.233.51:5060&gt; reg-state:1
+ 3(7938) INFO:P-CSCF:P_security_relay: &lt;sip:8.23.233.51:5060&gt;
+ 4(7939) &gt;&gt;       Term_Subsequent_reply
+ 4(7939) DBG:P-CSCF:cscf_via_matching: different branch param
+ 4(7939) DBG:P-CSCF:P_follows_via_list: first via not matching &lt;SIP/2.0/UDP 8.23.233.52:6060;branch=z9hG4bK0f0c.2a590fa1.0&gt;!=&lt;SIP/2.0/UDP 8.23.233.52:4060;branch=z9hG4bK0f0c.d6f3f3a3.0&gt;
+ 4(7939) &gt;&gt;      P_follows_via_list - failed
+ 4(7939) DBG:P-CSCF:cscf_get_terminating_contact: 0://8.23.233.51:0 
+ 4(7939) DBG:P-CSCF:P_update_dialog(term): Call-ID &lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt; method &lt;NOTIFY&gt; message:RSP
+ 4(7939) DBG:P-CSCF:P_update_dialog(term): &lt;200&gt; 
+ 4(7939) DBG:P-CSCF:P_update_dialog: eqCseq:0 , eqMLen:0, eqMet:5, corDlgSts:0 
+ 4(7939) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+ 4(7939) INF:P-CSCF:[  10] Dir:[0]	Call-ID:&lt;NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.&gt;	AOR:1://8.23.233.53:5060
+ 4(7939) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[ 280]
+ 4(7939) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 4(7939) INF:P-CSCF:[ 168] Dir:[0]	Call-ID:&lt;NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.&gt;	AOR:1://8.23.233.51:5060
+ 4(7939) INF:P-CSCF:		Method:[2] State:[3] SOS:[ ] Exp:[ 299]
+ 4(7939) INF:P-CSCF:		 RR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+ 4(7939) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+ 5(7940) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(7940) INF:P-CSCF:[ 225] C: &lt;0://8.23.233.53:5060&gt; Exp:[ 242] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5007  UAC: 5432:5060&lt;-5006 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:[ 227] C: &lt;0://8.23.233.51:5060&gt; Exp:[ 262] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5003  UAC: 5432:5060&lt;-5002 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:----------  Registrar Contents end ----------
+ 5(7940) INF:P-CSCF:----------  Subscription list begin ---------
+ 5(7940) INF:P-CSCF:[  71]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; D:[  330] E:[  277] Att:[-1]
+ 5(7940) INF:P-CSCF:[  78]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; D:[  330] E:[  297] Att:[-1]
+ 5(7940) INF:P-CSCF:----------  Subscription list end -----------
+ 5(7940) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(7940) INF:P-CSCF:[ 225] C: &lt;0://8.23.233.53:5060&gt; Exp:[ 232] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5007  UAC: 5432:5060&lt;-5006 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:[ 227] C: &lt;0://8.23.233.51:5060&gt; Exp:[ 252] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5003  UAC: 5432:5060&lt;-5002 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:----------  Registrar Contents end ----------
+ 5(7940) INF:P-CSCF:----------  Subscription list begin ---------
+ 5(7940) INF:P-CSCF:[  71]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; D:[  330] E:[  267] Att:[-1]
+ 5(7940) INF:P-CSCF:[  78]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; D:[  330] E:[  287] Att:[-1]
+ 5(7940) INF:P-CSCF:----------  Subscription list end -----------
+ 5(7940) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(7940) INF:P-CSCF:[ 225] C: &lt;0://8.23.233.53:5060&gt; Exp:[ 222] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5007  UAC: 5432:5060&lt;-5006 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:[ 227] C: &lt;0://8.23.233.51:5060&gt; Exp:[ 242] R:[ 1] SOS:[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt;
+ 5(7940) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(7940) INF:P-CSCF:        IPSec: UAS: 2345:5060-&gt;5003  UAC: 5432:5060&lt;-5002 E[null] I[hmac-sha1]
+ 5(7940) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:          P: D[ ] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; 
+ 5(7940) INF:P-CSCF:----------  Registrar Contents end ----------
+ 5(7940) INF:P-CSCF:----------  Subscription list begin ---------
+ 5(7940) INF:P-CSCF:[  71]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; D:[  330] E:[  257] Att:[-1]
+ 5(7940) INF:P-CSCF:[  78]	P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; D:[  330] E:[  277] Att:[-1]
+ 5(7940) INF:P-CSCF:----------  Subscription list end -----------
+
+
+
+SCSCF
+========
+ 2(30605) Tracepoint: 1 REGISTER sip:scscf.open-ims.test:6060 from 8.23.233.52:5060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>
+ 2(30605) DBG:S-CSCF:S_is_authorized: Checking if REGISTER is authorized...
+ 2(30605) DBG:S-CSCF:S_emergency_flag: Check if the user made an Emergency Registration
+ 1(30604) Tracepoint: 2 REGISTER sip:scscf.open-ims.test:6060 from 8.23.233.52:5060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>
+ 1(30604) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt;
+From: &quot;Askey2&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt;;tag=886a0136
+Call-ID: NGMzNDFmZGFlZmRiYjM4MDMxNjgyZGE1ZGRiZjgwN2Y.
+CSeq: 2 REGISTER
+Expires: 500
+Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, UPDATE, NOTIFY
+Supported: path, sec-agree
+User-Agent: limpc/1.0
+Content-Length: 0
+Authorization: Digest username=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">444555666777888 at open-ims.test</A>&quot;,realm=&quot;open-ims.test&quot;,nonce=&quot;Q2TbXGEWzUnscynEuHFuJkxxgRR8ugAAZjAm2Y1t9Uk=&quot;,uri=&quot;sip:open-ims.test&quot;,response=&quot;d491e9b2c8f7a3be9644dbf067d1f054&quot;,algorithm=AKAv1-MD5, integrity-protected=&quot;yes&quot;
+Path: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+Require: path
+P-Charging-Vector: icid-value=&quot;P-CSCFabcd4df14a980000015a&quot;;icid-generated-at=8.23.233.52;orig-ioi=&quot;open-ims.test&quot;
+P-Visited-Network-ID: open-ims.test
+
+, aor.len:28 1(30604) DBG:S-CSCF get_r_public: registrar-hash-head: 1(30604) DBG:S-CSCF:S_assign_server: Assigning server...
+ 1(30604) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt;
+From: &quot;Askey2&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt;;tag=886a0136
+Call-ID: NGMzNDFmZGFlZmRiYjM4MDMxNjgyZGE1ZGRiZjgwN2Y.
+CSeq: 2 REGISTER
+Expires: 500
+Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, UPDATE, NOTIFY
+Supported: path, sec-agree
+User-Agent: limpc/1.0
+Content-Length: 0
+Authorization: Digest username=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">444555666777888 at open-ims.test</A>&quot;,realm=&quot;open-ims.test&quot;,nonce=&quot;Q2TbXGEWzUnscynEuHFuJkxxgRR8ugAAZjAm2Y1t9Uk=&quot;,uri=&quot;sip:open-ims.test&quot;,response=&quot;d491e9b2c8f7a3be9644dbf067d1f054&quot;,algorithm=AKAv1-MD5, integrity-protected=&quot;yes&quot;
+Path: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+Require: path
+P-Charging-Vector: icid-value=&quot;P-CSCFabcd4df14a980000015a&quot;;icid-generated-at=8.23.233.52;orig-ioi=&quot;open-ims.test&quot;
+P-Visited-Network-ID: open-ims.test
+
+, aor.len:28 1(30604) DBG:S-CSCF get_r_public: registrar-hash-head: 1(30604) INFO:S-CSCF:Cx_get_charging_info: Failed finding avp
+ 1(30604) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;8.23.233
+, aor.len:28 1(30604) DBG:S-CSCF get_r_public: registrar-hash-head: 1(30604) DBG: S-CSCF add_r_public():with aor sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>
+ 1(30604) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;st-AKAv1
+, aor.len:28 1(30604) DBG:S-CSCF get_r_public: registrar-hash-head: 1(30604) DBG: S-CSCF add_r_public():with aor sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>
+ 1(30604) DBG:S-CSCF:SAR return: 1 1(30604) DBG:S-CSCF:S_emergency_flag: Check if the user made an Emergency Registration
+ 1(30604) DBG:S-CSCF:S_add_p_charging_function_addresses: Looking for &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt;
+ 1(30604) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt;
+From: &quot;Askey2&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt;;tag=886a0136
+Call-ID: NGMzNDFmZGFlZmRiYjM4MDMxNjgyZGE1ZGRiZjgwN2Y.
+CSeq: 2 REGISTER
+Expires: 500
+Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, UPDATE, NOTIFY
+Supported: path, sec-agree
+User-Agent: limpc/1.0
+Content-Length: 0
+Authorization: Digest username=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">444555666777888 at open-ims.test</A>&quot;,realm=&quot;open-ims.test&quot;,nonce=&quot;Q2TbXGEWzUnscynEuHFuJkxxgRR8ugAAZjAm2Y1t9Uk=&quot;,uri=&quot;sip:open-ims.test&quot;,response=&quot;d491e9b2c8f7a3be9644dbf067d1f054&quot;,algorithm=AKAv1-MD5, integrity-protected=&quot;yes&quot;
+Path: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+Require: path
+P-Charging-Vector: icid-value=&quot;P-CSCFabcd4df14a980000015a&quot;;icid-generated-at=8.23.233.52;orig-ioi=&quot;open-ims.test&quot;
+P-Visited-Network-ID: open-ims.test
+
+, aor.len:28 1(30604) DBG:S-CSCF get_r_public: registrar-hash-head: 1(30604) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.testt</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;ms.test; , p-&gt;aor.len:28 1(30604) DBG:S-CSCF:S_add_p_charging_function_addresses: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; has no charging functions storred 
+ 1(30604) INFO:ISC:ISC_match_filter_reg(): Checking triggers
+ 1(30604) INFO:ISC:ISC_match_filter_reg(): Starting triggering
+ 1(30604) INFO:ISC:ISC_match_filter_reg(): Orig User &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; [0]
+ 1(30604) INFO:ISC:isc_checker_find: starting search
+ 1(30604) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt;;tag=886a0136
+Call-ID: NGMzNDFmZGFlZmRiYjM4MDMxNjgyZGE1ZGRiZjgwN2Y.
+CSeq: 2 REGISTER
+Expires: 500
+Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, UPDATE, NOTIFY
+Supported: path, sec-agree
+User-Agent: limpc/1.0
+Content-Length: 0
+Authorization: Digest username=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">444555666777888 at open-ims.test</A>&quot;,realm=&quot;open-ims.test&quot;,nonce=&quot;Q2TbXGEWzUnscynEuHFuJkxxgRR8ugAAZjAm2Y1t9Uk=&quot;,uri=&quot;sip:open-ims.test&quot;,response=&quot;d491e9b2c8f7a3be9644dbf067d1f054&quot;,algorithm=AKAv1-MD5, integrity-protected=&quot;yes&quot;
+Path: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+Require: path
+P-Charging-Vector: icid-value=&quot;P-CSCFabcd4df14a980000015a&quot;;icid-generated-at=8.23.233.52;orig-ioi=&quot;open-ims.test&quot;
+P-Visited-Network-ID: open-ims.test
+
+, aor.len:28 1(30604) DBG:S-CSCF get_r_public: registrar-hash-head: 1(30604) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.testt</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;ms.test; , p-&gt;aor.len:28 1(30604) INFO:ISC:ISC_match_filter_reg(): No REGISTER match found in filter criteria
+ 4(30607) Tracepoint: 1 SUBSCRIBE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A> from 8.23.233.52:4060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>
+ 4(30607) DBG:S-CSCF:cscf_get_terminating_identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; 
+ 4(30607) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A> SIP/2.0
+Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;
+Via: SIP/2.0/UDP 8.23.233.52:4060;branch=z9hG4bK1491.133e1692.0
+Via: SIP/2.0/UDP 8.23.233.53:5060;branch=z9hG4bK-d8754z-5c90f9383795913f-1---d8754z-;rport=5060
+Max-Forwards: 15
+Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>&gt;
+To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt;
+From: &quot;Askey2&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt;;tag=8fbbc443
+Call-ID: NTQxYzBhZjBmYTM1NzdjYzJlMGM5NDRjOGJjYzBlMGQ.
+CSeq: 1 SUBSCRIBE
+Expires: 3600
+Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, UPDATE, NOTIFY
+User-Agent: limpc/1.0
+Event: reg
+P-Asserted-Identity: &quot;Askey2&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt;;tag=886a0136
+Content-Length: 0
+P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt;
+P-Charging-Vector: icid-value=&quot;P-CSCFabcd4df14a990000015b&quot;;icid-generated-at=8.23.233.52;orig-ioi=&quot;open-ims.test&quot;
+
+, aor.len:28 4(30607) DBG:S-CSCF get_r_public: registrar-hash-head: 4(30607) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.testt</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;ms.test; , p-&gt;aor.len:28 4(30607) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;58f39aaf
+, aor.len:28 4(30607) DBG:S-CSCF get_r_public: registrar-hash-head: 4(30607) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.testt</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;ms.test; , p-&gt;aor.len:28 4(30607) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;58f39aaf
+, aor.len:28 4(30607) DBG:S-CSCF get_r_public: registrar-hash-head: 4(30607) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.testt</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;ms.test; , p-&gt;aor.len:28 4(30607) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;st-AKAv1
+, aor.len:28 4(30607) DBG:S-CSCF get_r_public: registrar-hash-head: 4(30607) DBG:S-CSCF get_r_public:
+ p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>, p-&gt;aor.len:2814(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+14(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+ 5(30608) INF:S-CSCF:----------  S-CSCF Dialog List begin --------------
+ 5(30608) INF:S-CSCF:----------  S-CSCF Dialog List end   --------------
+ 5(30608) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(30608) INF:S-CSCF:[  65] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 292] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  71] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 292] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3592] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>&gt; 
+ 5(30608) INF:S-CSCF:[  73] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[  42] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  78] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[  42] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3374] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>&gt; 
+ 5(30608) INF:S-CSCF:----------  Registrar Contents end ----------
+ 2(30605) Tracepoint: 1 SUBSCRIBE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A> from 8.23.233.52:5060 From: sip:pcscf.open-ims.test:4060  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>
+ 2(30605) DBG:S-CSCF:cscf_get_terminating_identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; 
+ 2(30605) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A> SIP/2.0
+Route: &lt;sip:scscf.open-ims.test:6060&gt;
+Via: SIP/2.0/UDP 8.23.233.52;branch=z9hG4bK86a1.e7e5d2a6.0
+Via: SIP/2.0/UDP 8.23.233.52:4060;branch=z9hG4bK86a1.4ad14664.0
+To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>
+From: sip:pcscf.open-ims.test:4060;tag=658f39aaf0dc10ddca50090e79bf3b44-7db6
+CSeq: 1 SUBSCRIBE
+Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7bfffb04-7940 at 8.23.233.52</A>
+User-Agent: Sip EXpress router(2.1.0-dev1 OpenIMSCore (i386/linux))
+Event: reg
+Accept: application/reginfo+xml
+Content-Length: 0
+Max-Forwards:  8
+Expires: 330
+Contact: &lt;sip:pcscf.open-ims.test:4060&gt;
+P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060&gt;
+
+, aor.len:28 2(30605) DBG:S-CSCF get_r_public: registrar-hash-head: 2(30605) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.testt</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;ms.test; , p-&gt;aor.len:28 2(30605) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;en-ims.t
+, aor.len:28 2(30605) DBG:S-CSCF get_r_public: registrar-hash-head: 2(30605) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.testt</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;ms.test; , p-&gt;aor.len:28 2(30605) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;en-ims.t
+, aor.len:28 2(30605) DBG:S-CSCF get_r_public: registrar-hash-head: 2(30605) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.testt</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;ms.test; , p-&gt;aor.len:28 2(30605) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&#65533;&#65533;&#65533;&#65533;&#65533;&#65533;&#875;st-AKAv1
+, aor.len:28 2(30605) DBG:S-CSCF get_r_public: registrar-hash-head: 2(30605) DBG:S-CSCF get_r_public:
+ p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>, p-&gt;aor.len:2814(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+ 5(30608) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(30608) INF:S-CSCF:[  65] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 282] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  71] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 282] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3582] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>&gt; 
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[ 320] &lt;sip:pcscf.open-ims.test:4060&gt; 
+ 5(30608) INF:S-CSCF:[  73] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[  32] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  78] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[  32] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3364] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>&gt; 
+ 5(30608) INF:S-CSCF:----------  Registrar Contents end ----------
+14(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+ 4(30607) Tracepoint: 287 REGISTER sip:scscf.open-ims.test:6060 from 8.23.233.52:5060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>
+ 4(30607) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;
+From: &quot;Askey1&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;;tag=7be2340d
+Call-ID: ZGUwMDgyOWU3NDFmMmJhZDU2ZjA2ZDkyNzg2YjIwZTE.
+CSeq: 287 REGISTER
+Expires: 500
+Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, UPDATE, NOTIFY
+Supported: path, sec-agree
+User-Agent: limpc/1.0
+Content-Length: 0
+Authorization: Digest username=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">234555666777888 at open-ims.test</A>&quot;,realm=&quot;open-ims.test&quot;,nonce=&quot;gLgbnnwNohoPX45pa+mx5MjjXE89ogAAQkGhqu0UK1Y=&quot;,uri=&quot;sip:open-ims.test&quot;,response=&quot;5b83e2230536aaa93242480a647e8acd&quot;,algorithm=AKAv1-MD5, integrity-protected=&quot;yes&quot;
+Path: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+Require: path
+P-Charging-Vector: icid-value=&quot;P-CSCFabcd4df14aad0000015c&quot;;icid-generated-at=8.23.233.52;orig-ioi=&quot;open-ims.test&quot;
+P-Visited-Network-ID: open-ims.test
+
+, aor.len:28 4(30607) DBG:S-CSCF get_r_public: registrar-hash-head: 4(30607) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, p-&gt;aor.len:28 4(30607) INFO:ISC:ISC_match_filter_reg(): Checking triggers
+ 4(30607) INFO:ISC:ISC_match_filter_reg(): Starting triggering
+ 4(30607) INFO:ISC:ISC_match_filter_reg(): Orig User &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; [1]
+ 4(30607) INFO:ISC:isc_checker_find: starting search
+ 4(30607) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;;tag=7be2340d
+Call-ID: ZGUwMDgyOWU3NDFmMmJhZDU2ZjA2ZDkyNzg2YjIwZTE.
+CSeq: 287 REGISTER
+Expires: 500
+Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, UPDATE, NOTIFY
+Supported: path, sec-agree
+User-Agent: limpc/1.0
+Content-Length: 0
+Authorization: Digest username=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">234555666777888 at open-ims.test</A>&quot;,realm=&quot;open-ims.test&quot;,nonce=&quot;gLgbnnwNohoPX45pa+mx5MjjXE89ogAAQkGhqu0UK1Y=&quot;,uri=&quot;sip:open-ims.test&quot;,response=&quot;5b83e2230536aaa93242480a647e8acd&quot;,algorithm=AKAv1-MD5, integrity-protected=&quot;yes&quot;
+Path: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+Require: path
+P-Charging-Vector: icid-value=&quot;P-CSCFabcd4df14aad0000015c&quot;;icid-generated-at=8.23.233.52;orig-ioi=&quot;open-ims.test&quot;
+P-Visited-Network-ID: open-ims.test
+
+, aor.len:28 4(30607) DBG:S-CSCF get_r_public: registrar-hash-head: 4(30607) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, p-&gt;aor.len:28 4(30607) INFO:ISC:ISC_match_filter_reg(): No REGISTER match found in filter criteria
+ 4(30607) DBG:S-CSCF:S_assign_server: Assigning server...
+ 4(30607) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;
+From: &quot;Askey1&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;;tag=7be2340d
+Call-ID: ZGUwMDgyOWU3NDFmMmJhZDU2ZjA2ZDkyNzg2YjIwZTE.
+CSeq: 287 REGISTER
+Expires: 500
+Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, UPDATE, NOTIFY
+Supported: path, sec-agree
+User-Agent: limpc/1.0
+Content-Length: 0
+Authorization: Digest username=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">234555666777888 at open-ims.test</A>&quot;,realm=&quot;open-ims.test&quot;,nonce=&quot;gLgbnnwNohoPX45pa+mx5MjjXE89ogAAQkGhqu0UK1Y=&quot;,uri=&quot;sip:open-ims.test&quot;,response=&quot;5b83e2230536aaa93242480a647e8acd&quot;,algorithm=AKAv1-MD5, integrity-protected=&quot;yes&quot;
+Path: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+Require: path
+P-Charging-Vector: icid-value=&quot;P-CSCFabcd4df14aad0000015c&quot;;icid-generated-at=8.23.233.52;orig-ioi=&quot;open-ims.test&quot;
+P-Visited-Network-ID: open-ims.test
+
+, aor.len:28 4(30607) DBG:S-CSCF get_r_public: registrar-hash-head: 4(30607) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, p-&gt;aor.len:28 4(30607) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;
+From: &quot;Askey1&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;;tag=7be2340d
+Call-ID: ZGUwMDgyOWU3NDFmMmJhZDU2ZjA2ZDkyNzg2YjIwZTE.
+CSeq: 287 REGISTER
+Expires: 500
+Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, UPDATE, NOTIFY
+Supported: path, sec-agree
+User-Agent: limpc/1.0
+Content-Length: 0
+Authorization: Digest username=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">234555666777888 at open-ims.test</A>&quot;,realm=&quot;open-ims.test&quot;,nonce=&quot;gLgbnnwNohoPX45pa+mx5MjjXE89ogAAQkGhqu0UK1Y=&quot;,uri=&quot;sip:open-ims.test&quot;,response=&quot;5b83e2230536aaa93242480a647e8acd&quot;,algorithm=AKAv1-MD5, integrity-protected=&quot;yes&quot;
+Path: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+Require: path
+P-Charging-Vector: icid-value=&quot;P-CSCFabcd4df14aad0000015c&quot;;icid-generated-at=8.23.233.52;orig-ioi=&quot;open-ims.test&quot;
+P-Visited-Network-ID: open-ims.test
+
+, aor.len:28 4(30607) DBG:S-CSCF get_r_public: registrar-hash-head: 4(30607) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, p-&gt;aor.len:28 4(30607) DBG:S-CSCF:SAR return: 1 4(30607) DBG:S-CSCF:S_emergency_flag: Check if the user made an Emergency Registration
+ 4(30607) DBG:S-CSCF:S_add_p_charging_function_addresses: Looking for &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;
+ 4(30607) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;
+From: &quot;Askey1&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;;tag=7be2340d
+Call-ID: ZGUwMDgyOWU3NDFmMmJhZDU2ZjA2ZDkyNzg2YjIwZTE.
+CSeq: 287 REGISTER
+Expires: 500
+Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, UPDATE, NOTIFY
+Supported: path, sec-agree
+User-Agent: limpc/1.0
+Content-Length: 0
+Authorization: Digest username=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">234555666777888 at open-ims.test</A>&quot;,realm=&quot;open-ims.test&quot;,nonce=&quot;gLgbnnwNohoPX45pa+mx5MjjXE89ogAAQkGhqu0UK1Y=&quot;,uri=&quot;sip:open-ims.test&quot;,response=&quot;5b83e2230536aaa93242480a647e8acd&quot;,algorithm=AKAv1-MD5, integrity-protected=&quot;yes&quot;
+Path: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+Require: path
+P-Charging-Vector: icid-value=&quot;P-CSCFabcd4df14aad0000015c&quot;;icid-generated-at=8.23.233.52;orig-ioi=&quot;open-ims.test&quot;
+P-Visited-Network-ID: open-ims.test
+
+, aor.len:28 4(30607) DBG:S-CSCF get_r_public: registrar-hash-head: 4(30607) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, p-&gt;aor.len:2814(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+ 5(30608) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(30608) INF:S-CSCF:[  65] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 272] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  71] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 272] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3572] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>&gt; 
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[ 310] &lt;sip:pcscf.open-ims.test:4060&gt; 
+ 5(30608) INF:S-CSCF:[  73] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[ 292] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  78] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[ 292] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3354] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>&gt; 
+ 5(30608) INF:S-CSCF:----------  Registrar Contents end ----------
+ 2(30605) Tracepoint: 172 SUBSCRIBE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A> from 8.23.233.52:5060 From: sip:pcscf.open-ims.test:4060  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>
+ 2(30605) DBG:S-CSCF:cscf_get_terminating_identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; 
+ 2(30605) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A> SIP/2.0
+Route: &lt;sip:scscf.open-ims.test:6060&gt;
+Via: SIP/2.0/UDP 8.23.233.52;branch=z9hG4bK4a43.0c533d2.0
+Via: SIP/2.0/UDP 8.23.233.52:4060;branch=z9hG4bK4a43.17e4a9e5.0
+To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>;tag=3dd57194abfc3c8d3238a5a20083ec38-8215
+From: sip:pcscf.open-ims.test:4060;tag=658f39aaf0dc10ddca50090e79bf3b44-7a96
+CSeq: 172 SUBSCRIBE
+Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7bfffb02-7940 at 8.23.233.52</A>
+User-Agent: Sip EXpress router(2.1.0-dev1 OpenIMSCore (i386/linux))
+Event: reg
+Accept: application/reginfo+xml
+Content-Length: 0
+Max-Forwards:  8
+Expires: 330
+Contact: &lt;sip:pcscf.open-ims.test:4060&gt;
+P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060&gt;
+
+, aor.len:28 2(30605) DBG:S-CSCF get_r_public: registrar-hash-head: 2(30605) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, p-&gt;aor.len:28 2(30605) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, aor.len:28 2(30605) DBG:S-CSCF get_r_public: registrar-hash-head: 2(30605) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, p-&gt;aor.len:28 2(30605) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, aor.len:28 2(30605) DBG:S-CSCF get_r_public: registrar-hash-head: 2(30605) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, p-&gt;aor.len:28 2(30605) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>, aor.len:28 2(30605) DBG:S-CSCF get_r_public: registrar-hash-head: 2(30605) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.testdAAAiS7gv</A>/T7OMc=k, p-&gt;aor.len:2814(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+14(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+ 5(30608) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(30608) INF:S-CSCF:[  65] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 262] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  71] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 262] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3562] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>&gt; 
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[ 300] &lt;sip:pcscf.open-ims.test:4060&gt; 
+ 5(30608) INF:S-CSCF:[  73] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[ 282] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  78] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[ 282] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3344] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>&gt; 
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[ 320] &lt;sip:pcscf.open-ims.test:4060&gt; 
+ 5(30608) INF:S-CSCF:----------  Registrar Contents end ----------
+14(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+ 5(30608) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(30608) INF:S-CSCF:[  65] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 252] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  71] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 252] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3552] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>&gt; 
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[ 290] &lt;sip:pcscf.open-ims.test:4060&gt; 
+ 5(30608) INF:S-CSCF:[  73] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[ 272] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  78] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[ 272] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3334] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>&gt; 
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[ 310] &lt;sip:pcscf.open-ims.test:4060&gt; 
+ 5(30608) INF:S-CSCF:----------  Registrar Contents end ----------
+14(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+ 4(30607) Tracepoint: 286 SUBSCRIBE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A> from 8.23.233.52:5060 From: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>  To: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>
+ 4(30607) DBG:S-CSCF:cscf_get_terminating_identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; 
+ 4(30607) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A> SIP/2.0
+Route: &lt;sip:scscf.open-ims.test:6060&gt;
+Via: SIP/2.0/UDP 8.23.233.52;branch=z9hG4bKd01a.e102aef2.0
+Via: SIP/2.0/UDP 8.23.233.52:4060;branch=z9hG4bKd01a.00b66667.0
+Via: SIP/2.0/UDP 8.23.233.51:5060;branch=z9hG4bK-d8754z-d5a1c6650a8f8e5c-1---d8754z-;rport=5060
+Max-Forwards: 14
+Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>&gt;
+To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;;tag=3dd57194abfc3c8d3238a5a20083ec38-2712
+From: &quot;Askey1&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;;tag=df5be15f
+Call-ID: NTFhOWNjNjJmMzViNjQxNTJmOGFiZGU2MDA2MGQ5Zjc.
+CSeq: 286 SUBSCRIBE
+Expires: 3600
+Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, UPDATE, NOTIFY
+User-Agent: limpc/1.0
+Event: reg
+P-Asserted-Identity: &quot;Askey1&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;;tag=7be2340d
+Content-Length: 0
+P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt;
+
+, aor.len:28 4(30607) DBG:S-CSCF get_r_public: registrar-hash-head: 4(30607) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, p-&gt;aor.len:28 4(30607) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, aor.len:28 4(30607) DBG:S-CSCF get_r_public: registrar-hash-head: 4(30607) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, p-&gt;aor.len:28 4(30607) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, aor.len:28 4(30607) DBG:S-CSCF get_r_public: registrar-hash-head: 4(30607) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>, p-&gt;aor.len:28 4(30607) DBG:S-CSCF get_r_public: aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>, aor.len:28 4(30607) DBG:S-CSCF get_r_public: registrar-hash-head: 4(30607) DBG:S-CSCF get_r_public: p-&gt;aor.s:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.testdAAAiS7gv</A>/T7OMc=k, p-&gt;aor.len:2814(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+ 5(30608) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(30608) INF:S-CSCF:[  65] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 242] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  71] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 242] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3542] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>&gt; 
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[ 280] &lt;sip:pcscf.open-ims.test:4060&gt; 
+ 5(30608) INF:S-CSCF:[  73] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[ 262] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  78] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[ 262] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3593] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>&gt; 
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[ 300] &lt;sip:pcscf.open-ims.test:4060&gt; 
+ 5(30608) INF:S-CSCF:----------  Registrar Contents end ----------
+14(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+14(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+ 5(30608) INF:S-CSCF:----------  S-CSCF Dialog List begin --------------
+ 5(30608) INF:S-CSCF:----------  S-CSCF Dialog List end   --------------
+ 5(30608) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(30608) INF:S-CSCF:[  65] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 232] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  71] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 232] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3532] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>&gt; 
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[ 270] &lt;sip:pcscf.open-ims.test:4060&gt; 
+ 5(30608) INF:S-CSCF:[  73] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[ 252] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  78] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[ 252] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3583] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>&gt; 
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[ 290] &lt;sip:pcscf.open-ims.test:4060&gt; 
+ 5(30608) INF:S-CSCF:----------  Registrar Contents end ----------
+14(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+ 5(30608) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(30608) INF:S-CSCF:[  65] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 222] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  71] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>;rinstance=2fac9dd2f9898890&gt; Exp:[ 222] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3522] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666444 at 8.23.233.53</A>&gt; 
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[ 260] &lt;sip:pcscf.open-ims.test:4060&gt; 
+ 5(30608) INF:S-CSCF:[  73] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[ 242] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:[  78] P: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at open-ims.test</A>&gt; R[ 1] Early-IMS: &lt;&gt; Barred: [ ] 
+ 5(30608) INF:S-CSCF:         CCF1: &lt;pri_ccf_address&gt; CCF2: &lt;&gt; 
+ 5(30608) INF:S-CSCF:         C: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>;rinstance=7c96ac7106ac0b69&gt; Exp:[ 242] SOS:[ ]
+ 5(30608) INF:S-CSCF:           Path:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+ 5(30608) INF:S-CSCF:           UA: &lt;limpc/1.0&gt;
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[3573] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">3126666234 at 8.23.233.51</A>&gt; 
+ 5(30608) INF:S-CSCF:         S: Event[0] Exp:[ 280] &lt;sip:pcscf.open-ims.test:4060&gt; 
+ 5(30608) INF:S-CSCF:----------  Registrar Contents end ----------
+14(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+14(30617) --- Peer List: ---
+14(30617)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(30617) 	 [16777216,10415]
+14(30617) 	 [16777216,4491]
+14(30617) 	 [16777216,13019]
+14(30617) 	 [16777217,10415]
+14(30617) 	 [16777221,10415]
+14(30617) ------------------
+
+
+
+
+--- On Wed, 6/8/11, Franz Edler &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at technikum-wien.at</A>&gt; wrote:
+
+&gt;<i> From: Franz Edler &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at technikum-wien.at</A>&gt;
+</I>&gt;<i> Subject: RE: [OpenIMSCore-CSCF] REGISTER over ipsec
+</I>&gt;<i> To: &quot;'Mohsen Emami-Nouri'&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">memamin at yahoo.com</A>&gt;, <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Date: Wednesday, June 8, 2011, 8:30 PM
+</I>&gt;<i> Hi Mohsen,
+</I>&gt;<i> 
+</I>&gt;<i> &gt; Just reporting back how I resolved this issue. The
+</I>&gt;<i> reason for this
+</I>&gt;<i> behavior
+</I>&gt;<i> &gt; was that my UE was using a different port for ipsec
+</I>&gt;<i> protected messages
+</I>&gt;<i> then
+</I>&gt;<i> &gt; the port for unprotected messages; as soon as I
+</I>&gt;<i> started using the same
+</I>&gt;<i> port
+</I>&gt;<i> &gt; for both protected and unprotected; the issue with
+</I>&gt;<i> SUBSCRIBE was resolved.
+</I>&gt;<i> &gt; best regards,
+</I>&gt;<i> 
+</I>&gt;<i> I recently had also some trouble to get IPsec working.
+</I>&gt;<i> Therefor I am
+</I>&gt;<i> interested in your case.
+</I>&gt;<i> Can you add a tracefile?
+</I>&gt;<i> What is with the 2nd REGISTER request? 
+</I>&gt;<i> Was it already protected and only the SUBSCRIBE request
+</I>&gt;<i> unprotected?
+</I>&gt;<i> 
+</I>&gt;<i> What kind of client did you use?
+</I>&gt;<i> 
+</I>&gt;<i> BR
+</I>&gt;<i> Franz
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002573.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1115 - P-CSCF config: save the	dialog before generating the charging id,	so that the charging id is stored and used for PCC
+</A></li>
+	<LI>Next message: <A HREF="002575.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1116 - Client_Rf: fixed the rf	data creation for a request coming from the terminating leg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2574">[ date ]</a>
+              <a href="thread.html#2574">[ thread ]</a>
+              <a href="subject.html#2574">[ subject ]</a>
+              <a href="author.html#2574">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

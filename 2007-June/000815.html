@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r362 - I-CSCF support for routing	initial requests on unsuccessful user location query when the	response from the HSS indicates that the user does not exist,	according to 3GPP TS 24.229 V7.7.0. Example scenario: an AS initiates	a call to a SIP or tel URI belonging to another IMS/SIP	domain or to PSTN.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r362%20-%20I-CSCF%20support%20for%20routing%0A%09initial%20requests%20on%20unsuccessful%20user%20location%20query%20when%20the%0A%09response%20from%20the%20HSS%20indicates%20that%20the%20user%20does%20not%20exist%2C%0A%09according%20to%203GPP%20TS%2024.229%20V7.7.0.%20Example%20scenario%3A%20an%20AS%20initiates%0A%09a%20call%20to%20a%20SIP%20or%20tel%20URI%20belonging%20to%20another%20IMS/SIP%0A%09domain%20or%20to%20PSTN.&In-Reply-To=%3C200706291349.l5TDnwUQ028768%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000814.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r362 - I-CSCF support for routing	initial requests on unsuccessful user location query when the	response from the HSS indicates that the user does not exist,	according to 3GPP TS 24.229 V7.7.0. Example scenario: an AS initiates	a call to a SIP or tel URI belonging to another IMS/SIP	domain or to PSTN.</H1>
+    <B>placido at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r362%20-%20I-CSCF%20support%20for%20routing%0A%09initial%20requests%20on%20unsuccessful%20user%20location%20query%20when%20the%0A%09response%20from%20the%20HSS%20indicates%20that%20the%20user%20does%20not%20exist%2C%0A%09according%20to%203GPP%20TS%2024.229%20V7.7.0.%20Example%20scenario%3A%20an%20AS%20initiates%0A%09a%20call%20to%20a%20SIP%20or%20tel%20URI%20belonging%20to%20another%20IMS/SIP%0A%09domain%20or%20to%20PSTN.&In-Reply-To=%3C200706291349.l5TDnwUQ028768%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r362 - I-CSCF support for routing	initial requests on unsuccessful user location query when the	response from the HSS indicates that the user does not exist,	according to 3GPP TS 24.229 V7.7.0. Example scenario: an AS initiates	a call to a SIP or tel URI belonging to another IMS/SIP	domain or to PSTN.">placido at users.berlios.de
+       </A><BR>
+    <I>Fri Jun 29 15:49:58 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000814.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] Wrong	identification of UE when using IPSec
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#815">[ date ]</a>
+              <a href="thread.html#815">[ thread ]</a>
+              <a href="subject.html#815">[ subject ]</a>
+              <a href="author.html#815">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: placido
+Date: 2007-06-29 15:49:31 +0200 (Fri, 29 Jun 2007)
+New Revision: 362 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=362">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=362</A> 
+
+Log:
+I-CSCF support for routing initial requests on unsuccessful user location query when the response from the HSS indicates that the user does not exist, according to 3GPP TS 24.229 V7.7.0.
+Example scenario: an AS initiates a call to a SIP or tel URI belonging to another IMS/SIP domain or to PSTN.
+
+Modified:
+   U	ser_ims/trunk/cfg/icscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/icscf.cfg?rev=362&amp;view=diff&amp;r1=362&amp;r2=361">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/icscf.cfg?rev=362&amp;view=diff&amp;r1=362&amp;r2=361</A>
+   U	ser_ims/trunk/modules/icscf/location.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/location.c?rev=362&amp;view=diff&amp;r1=362&amp;r2=361">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/location.c?rev=362&amp;view=diff&amp;r1=362&amp;r2=361</A>
+   U	ser_ims/trunk/modules/icscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/mod.c?rev=362&amp;view=diff&amp;r1=362&amp;r2=361">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/mod.c?rev=362&amp;view=diff&amp;r1=362&amp;r2=361</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000814.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] Wrong	identification of UE when using IPSec
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#815">[ date ]</a>
+              <a href="thread.html#815">[ thread ]</a>
+              <a href="subject.html#815">[ subject ]</a>
+              <a href="author.html#815">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Fwd: [OpenSER-Users] NEW FEATURE: new logging design
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Fwd%3A%20%5BOpenSER-Users%5D%20NEW%20FEATURE%3A%20new%0A%20logging%20design&In-Reply-To=%3C474C6097.3070807%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001064.html">
+   <LINK REL="Next"  HREF="001065.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Fwd: [OpenSER-Users] NEW FEATURE: new logging design</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Fwd%3A%20%5BOpenSER-Users%5D%20NEW%20FEATURE%3A%20new%0A%20logging%20design&In-Reply-To=%3C474C6097.3070807%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Fwd: [OpenSER-Users] NEW FEATURE: new logging design">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Nov 27 19:23:19 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001064.html">[OpenIMSCore-CSCF] Fwd: [OpenSER-Users] NEW FEATURE: new logging	design
+</A></li>
+        <LI>Next message: <A HREF="001065.html">[OpenIMSCore-CSCF] Open IMS Client Source code
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1068">[ date ]</a>
+              <a href="thread.html#1068">[ thread ]</a>
+              <a href="subject.html#1068">[ subject ]</a>
+              <a href="author.html#1068">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Good idea and not that hard to have... Also... if we talk about the
+xmlrpc, there are a lot more things to report there if we want to. First
+thing would be to have functions to do a log-dump of registrars,
+dialogs, etc... so that we could interact better with running systems,
+without having to actually enable performance-killing logs.
+
+-Dragos
+
+JF wrote:
+&gt;<i> Would be nice to have this in OpenIMSCore. What do others think?
+</I>&gt;<i> Should I submit a feature request?
+</I>&gt;<i>
+</I>&gt;<i> The log/debug level runtime configuration could be implemented using
+</I>&gt;<i> SER's xmlrpc interface.
+</I>&gt;<i>
+</I>&gt;<i> JF
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ---------- Forwarded message ----------
+</I>&gt;<i> From: Bogdan-Andrei Iancu &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bogdan at voice-system.ro</A>&gt;
+</I>&gt;<i> Date: Jul 24, 2007 7:04 AM
+</I>&gt;<i> Subject: [OpenSER-Users] NEW FEATURE: new logging design
+</I>&gt;<i> To: &quot;users openser.org&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">users at openser.org</A>&gt;, devel &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">devel at openser.org</A>&gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> OpenSER trunk has a new logging design, covering new functionalities
+</I>&gt;<i> (for end-user), more simplicity (for developers), better log format, etc.
+</I>&gt;<i>
+</I>&gt;<i> End-user functionalities
+</I>&gt;<i> =========================
+</I>&gt;<i>
+</I>&gt;<i> 1) configurable debug level at runtime - so far we had static debug
+</I>&gt;<i> level, but now, there is a MI function to change it at runtime. If you
+</I>&gt;<i> want to have or not a configurable debug level, there is a compile
+</I>&gt;<i> option named CHANGEABLE_DEBUG_LEVEL (see Makefile.defs). By default is
+</I>&gt;<i> on, but, if there are performance concerns, you can turn it off.
+</I>&gt;<i> The MI function is called &quot;debug&quot;:
+</I>&gt;<i>   # display the current debug level
+</I>&gt;<i>   openserctl fifo debug
+</I>&gt;<i>   # set a new debug level (L_ERR)
+</I>&gt;<i>   openserctl fifo debug -1
+</I>&gt;<i>
+</I>&gt;<i> The function changes the global debug level, so all processes and all
+</I>&gt;<i> code will be affected.
+</I>&gt;<i>
+</I>&gt;<i> 2) script function for changing the debug level - this functions allows
+</I>&gt;<i> you to change the debug level from script, only for a specific script
+</I>&gt;<i> block. Only the debug level of the current process will be changed. This
+</I>&gt;<i> is very helpful if you are tracing and debugging only a specific piece
+</I>&gt;<i> of code.
+</I>&gt;<i> The script function is:
+</I>&gt;<i>     setdebug(4); # set debug level for debug
+</I>&gt;<i>     setdebug(); # reset the debug level to the global one
+</I>&gt;<i>
+</I>&gt;<i> Ex:
+</I>&gt;<i>     debug= -1 # err only
+</I>&gt;<i>     .....
+</I>&gt;<i>     {
+</I>&gt;<i>        ......
+</I>&gt;<i>        setdebug(4);
+</I>&gt;<i>        uac_replace_from(....);
+</I>&gt;<i>        setdebug();
+</I>&gt;<i>        .......
+</I>&gt;<i>     }
+</I>&gt;<i> The function change the debug level of the current process and changing
+</I>&gt;<i> the global debug level (MI function) does not affect it, so be careful
+</I>&gt;<i> and reset the pre process debug level when you are done.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> More simplicity
+</I>&gt;<i> =================
+</I>&gt;<i>
+</I>&gt;<i> The logging function used in code was replaced with a new set of
+</I>&gt;<i> functions, more simple and flexible:
+</I>&gt;<i>     LOG / DBG were replaced with:
+</I>&gt;<i>     LM_ALERT( ...)
+</I>&gt;<i>     LM_CRIT( ...)
+</I>&gt;<i>     LM_ERR( ...)
+</I>&gt;<i>     LM_WARN( ...)
+</I>&gt;<i>     LM_NOTICE( ...)
+</I>&gt;<i>     LM_INFO( ...)
+</I>&gt;<i>     LM_DBG( ...)
+</I>&gt;<i>
+</I>&gt;<i> Prototype is LM_XXX( &quot;FMT&quot;, .....);
+</I>&gt;<i> The functions will automatically add to the logged message the log
+</I>&gt;<i> level, the module name, function name, process pid and time stamp, so
+</I>&gt;<i> you do not have to care about it from the code.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Better log format
+</I>&gt;<i> ==================
+</I>&gt;<i>
+</I>&gt;<i> Even if you use syslog or stderr logging, the log message will contain
+</I>&gt;<i> information about log level, the module name, function name, process pid
+</I>&gt;<i> and time stamp.
+</I>&gt;<i>
+</I>&gt;<i> For syslog, the log level is mapped over the syslog levels, so no text
+</I>&gt;<i> will be used - you can configure syslog to use different files for each
+</I>&gt;<i> log level. Also time and pid are not pushed from openser as this info is
+</I>&gt;<i> automatically logged by syslog.
+</I>&gt;<i>
+</I>&gt;<i> For stderr logging, openser take care and appends the log level as text,
+</I>&gt;<i> time and pid (as text).
+</I>&gt;<i>
+</I>&gt;<i> Ex:
+</I>&gt;<i>     Jul 23 19:52:19 [0] INFO:sl:mod_init: Initializing StateLess engine
+</I>&gt;<i>
+</I>&gt;<i> So, either you are using syslog, either stderr, you will still get the
+</I>&gt;<i> same information logged.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> We still need to migrate all the log messages from script from the old
+</I>&gt;<i> to the new set of functions, so, for the moment, not all logs will be
+</I>&gt;<i> &quot;nice&quot; formatted.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i> Bogdan
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Users mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Users at openser.org</A>
+</I>&gt;<i> <A HREF="http://openser.org/cgi-bin/mailman/listinfo/users">http://openser.org/cgi-bin/mailman/listinfo/users</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001064.html">[OpenIMSCore-CSCF] Fwd: [OpenSER-Users] NEW FEATURE: new logging	design
+</A></li>
+	<LI>Next message: <A HREF="001065.html">[OpenIMSCore-CSCF] Open IMS Client Source code
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1068">[ date ]</a>
+              <a href="thread.html#1068">[ thread ]</a>
+              <a href="subject.html#1068">[ subject ]</a>
+              <a href="author.html#1068">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

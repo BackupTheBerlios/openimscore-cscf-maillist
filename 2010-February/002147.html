@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Ipfileter rule
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Ipfileter%20rule&In-Reply-To=%3C4B796019.8090101%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002138.html">
+   <LINK REL="Next"  HREF="002124.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Ipfileter rule</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Ipfileter%20rule&In-Reply-To=%3C4B796019.8090101%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Ipfileter rule">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Mon Feb 15 15:54:17 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002138.html">[OpenIMSCore-CSCF] Ipfileter rule
+</A></li>
+        <LI>Next message: <A HREF="002124.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2147">[ date ]</a>
+              <a href="thread.html#2147">[ thread ]</a>
+              <a href="subject.html#2147">[ subject ]</a>
+              <a href="author.html#2147">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>In 3GPP they are only enumerating the informational elements. The actual 
+format, is defined as IPFilterRule in RFC3588. I am only pasting what is 
+mostly relevant.
+
+IPFilterRule filters MUST follow the format:
+
+         action dir proto from src to dst [options]
+
+         action       permit - Allow packets that match the rule.
+                      deny   - Drop packets that match the rule.
+
+         dir          &quot;in&quot; is from the terminal, &quot;out&quot; is to the
+                      terminal.
+
+         proto        An IP protocol specified by number.  The &quot;ip&quot;
+                      keyword means any protocol will match.
+
+         src and dst  &lt;address/mask&gt; [ports]
+
+It seems that Rx, as you observed does away at least with port-ranges. On the other side, we're not really looking at masks. 
+So the rest that remains should be &quot;easy&quot; :-p
+
+
+Cheers,
+-Dragos
+
+Min Wang wrote:
+&gt;<i> Hi Ancuta:
+</I>&gt;<i>
+</I>&gt;<i> It seems the UCT is expect the flow to be:
+</I>&gt;<i>
+</I>&gt;<i>             /**session id; flow_id; source ip; dest ip; dest port;
+</I>&gt;<i> source port; usage; status; BW ul; BW dl; QoS class*/
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> The current p-cscf is sending like: source ip, source port, dest ip,
+</I>&gt;<i> dest port?
+</I>&gt;<i>
+</I>&gt;<i> DEBUG: Flow Description: permit out ip from 172.16.8.42 59312 to
+</I>&gt;<i> 172.16.8.43 31308
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Could you check the prevoius version was doing this way or not?
+</I>&gt;<i>
+</I>&gt;<i> The only informat I could found from TS 29.214 is:
+</I>&gt;<i>
+</I>&gt;<i> 5.3.8 Flow-Description AVP
+</I>&gt;<i> The Flow-Description AVP (AVP code 507) is of type IPFilterRule, and
+</I>&gt;<i> defines a packet filter for an IP flow with the
+</I>&gt;<i> following information:
+</I>&gt;<i> - Direction (in or out).
+</I>&gt;<i> - Source and destination IP address (possibly masked).
+</I>&gt;<i> - Protocol.
+</I>&gt;<i> - Source and destination port (The Source Port may be omitted to
+</I>&gt;<i> indicate that any source port is allowed. For the
+</I>&gt;<i> Rx interface, lists or ranges shall not be used.).
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> It does not specify the order, but it seems the UCT one is correct??
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Kind Regards
+</I>&gt;<i>  
+</I>&gt;<i> Min Wang
+</I>&gt;<i>   
+</I>&gt;&gt;<i> -----Original Message-----
+</I>&gt;&gt;<i> From: Andreea Ancuta Onofrei
+</I>&gt;&gt;<i> [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.onofrei at fokus.fraunhofer.de</A>]
+</I>&gt;&gt;<i> Sent: Friday, February 12, 2010 4:59 AM
+</I>&gt;&gt;<i> To: Dragos Vingarzan
+</I>&gt;&gt;<i> Cc: Min Wang; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;<i> Subject: Re: [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Hello Min,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> The AAR is send also for re-registration. I have just tested.
+</I>&gt;&gt;<i> There might be problems at updating the lifetime. I will investigate
+</I>&gt;&gt;<i>     
+</I>&gt;<i> the
+</I>&gt;<i>   
+</I>&gt;&gt;<i> updating mechanism using the avp AVP_Authorization_Lifetime, which you
+</I>&gt;&gt;<i> can see it is used in the AAR.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Best regards,
+</I>&gt;&gt;<i> Ancuta
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> On Thu, 2010-02-11 at 23:11 +0100, Dragos Vingarzan wrote:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Hi Min,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I think that it's already planned to do the Diameter session timer
+</I>&gt;&gt;&gt;<i> refresh on re-registration.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Cheers,
+</I>&gt;&gt;&gt;<i> -Dragos
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Min Wang wrote:
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;&gt;&gt;<i> Hi Ancuta
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> thanks.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> before sending email to UCT, I'd like to know what will be the
+</I>&gt;&gt;&gt;&gt;<i>         
+</I>&gt;<i> content
+</I>&gt;<i>   
+</I>&gt;&gt;&gt;&gt;<i> difference between the AAR for register and AAR for call?
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Also it seems if I try to re-register the UE, there seems no AAR
+</I>&gt;&gt;&gt;&gt;<i>         
+</I>&gt;<i> send
+</I>&gt;<i>   
+</I>&gt;&gt;&gt;&gt;<i> to PCRF?
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> I did not browse the code, please tell me in which case register
+</I>&gt;&gt;&gt;&gt;<i>         
+</I>&gt;<i> AAR
+</I>&gt;<i>   
+</I>&gt;&gt;&gt;&gt;<i> will be triggered?
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Kind Regards
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Min Wang
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>         
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002138.html">[OpenIMSCore-CSCF] Ipfileter rule
+</A></li>
+	<LI>Next message: <A HREF="002124.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2147">[ date ]</a>
+              <a href="thread.html#2147">[ thread ]</a>
+              <a href="subject.html#2147">[ subject ]</a>
+              <a href="author.html#2147">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

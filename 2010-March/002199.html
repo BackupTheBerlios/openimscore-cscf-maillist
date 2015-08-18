@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] +sip.instance field in contact header confuses	XML parser
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%2Bsip.instance%20field%20in%20contact%20header%20confuses%0A%09XML%20parser&In-Reply-To=%3C2f8b41c91003011609g9ea7269k63c54a433b62d34%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002198.html">
+   <LINK REL="Next"  HREF="002200.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] +sip.instance field in contact header confuses	XML parser</H1>
+    <B>Jan Kucerak</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%2Bsip.instance%20field%20in%20contact%20header%20confuses%0A%09XML%20parser&In-Reply-To=%3C2f8b41c91003011609g9ea7269k63c54a433b62d34%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] +sip.instance field in contact header confuses	XML parser">kucerj4 at fel.cvut.cz
+       </A><BR>
+    <I>Tue Mar  2 01:09:33 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002198.html">[OpenIMSCore-CSCF] BYE and dialog termination
+</A></li>
+        <LI>Next message: <A HREF="002200.html">[OpenIMSCore-CSCF] About moving to sip-router
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2199">[ date ]</a>
+              <a href="thread.html#2199">[ thread ]</a>
+              <a href="subject.html#2199">[ subject ]</a>
+              <a href="author.html#2199">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello
+
+I have just started to play with openIMS and it seems to work fine
+with Linksys phones (with soft clients like twinkle too),
+
+with SNOM phone I have encountered following issue
+
+-at the end of phone registration procedure S-CSCF is sending a NOTIFY
+message to P-CSCF with reg event containing a XML info about
+registered UA
+-SNOM phone includes +sip.instance field in its contact header....
+this field looks for example like this:
+
++sip.instance=\&quot;&lt;urn:uuid:564877cc-8a76-42c9-8907-43ac956b8da3&gt;\&quot;
+
+-it is correctly sent in NOTIFY in &lt;unknown_param name
+=&quot;+sip.instance&quot;&gt;.... but since it contains &lt; and &gt; characters it
+seems to confuse XML parser on P-CSCF side causing:
+
+500 Error encountered while processing notification
+
+I think it should be possible to deal with it in
+r_get_reginfo_full(...) in registrar_notify.c but Im too lame c++
+programmer to say how :-D
+
+Regards
+Jan
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002198.html">[OpenIMSCore-CSCF] BYE and dialog termination
+</A></li>
+	<LI>Next message: <A HREF="002200.html">[OpenIMSCore-CSCF] About moving to sip-router
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2199">[ date ]</a>
+              <a href="thread.html#2199">[ thread ]</a>
+              <a href="subject.html#2199">[ subject ]</a>
+              <a href="author.html#2199">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] About diameter API
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20diameter%20API&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A02180122%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001927.html">
+   <LINK REL="Next"  HREF="001931.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] About diameter API</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20diameter%20API&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A02180122%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] About diameter API">wang at basis-audionet.com
+       </A><BR>
+    <I>Fri Jan  8 16:49:35 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001927.html">[OpenIMSCore-CSCF] About diameter API
+</A></li>
+        <LI>Next message: <A HREF="001931.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r794 - Reduced the duration of the	session locking to exclude the Diameter SendRecv Cleaned-up a	lot of the code Added session callback trigger on drop session
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1937">[ date ]</a>
+              <a href="thread.html#1937">[ thread ]</a>
+              <a href="subject.html#1937">[ subject ]</a>
+              <a href="author.html#1937">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos
+
+Yes it is not a high priority task. 
+
+
+Kind Regards
+ 
+Min Wang
+
+&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]
+</I>&gt;<i> Sent: Friday, January 08, 2010 5:46 AM
+</I>&gt;<i> To: Min Wang
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] About diameter API
+</I>&gt;<i> 
+</I>&gt;<i> Hi Min,
+</I>&gt;<i> 
+</I>&gt;<i> well... it would be nice for some things, but for others like
+</I>&gt;<i> optimizations its not so great.
+</I>&gt;<i> 
+</I>&gt;<i> The thing is though that doing API changes now would be quite
+</I>&gt;<i> complicated, so we could probably only do this if we duplicate the cdp
+</I>&gt;<i> module into a new one for alignment while keeping the old one for
+</I>&gt;<i> compatibility with existing and too time consuming to migrate
+</I>&gt;<i> functionality.
+</I>&gt;<i> 
+</I>&gt;<i> Unfortunately this draft came after we started our Diameter stacks. On
+</I>&gt;<i> the good side though there are a LOT of identifiers which are
+</I>identical
+&gt;<i> to what we have. I won't say that the draft would be inspired by our
+</I>&gt;<i> stacks, as the main author is the maintainer of the Open Diameter
+</I>stack,
+&gt;<i> but I guess sometime in the past there was a common vision on this - I
+</I>&gt;<i> for one wrote the first parts of the cdp module by reusing some small
+</I>&gt;<i> parts of DISC (a Diameter implementation done at FOKUS by the original
+</I>&gt;<i> SER developers, but which was so old that Diameter itself was a draft
+</I>at
+&gt;<i> that time).
+</I>&gt;<i> 
+</I>&gt;<i> Then for the data structures, it would be good to align a bit the
+</I>names,
+&gt;<i> but otherwise many things are different - like the draft says that
+</I>&gt;<i> strings are null-terminated, which well, I don't see the point of
+</I>&gt;<i> imposing this restriction other than to make it easier for using the
+</I>&gt;<i> char*. One thing that would do good to cdp would be to move from data
+</I>&gt;<i> types like int to uint32_t or int32_t, which are more clear on what
+</I>they
+&gt;<i> contain.
+</I>&gt;<i> 
+</I>&gt;<i> But then the API goes on and defines functions which kind of impose
+</I>the
+&gt;<i> internal functionality of the stack - like the callbacks or the data
+</I>&gt;<i> type in the AVP (which is not sent over the network, but must be set
+</I>&gt;<i> from a static table). Some are good, but others I would argue that are
+</I>&gt;<i> not necessarily optimum.
+</I>&gt;<i> 
+</I>&gt;<i> And well, this unfortunately is not like a JSR let's say - you can't
+</I>go
+&gt;<i> later and just replace a stack. For one, the data structures are still
+</I>&gt;<i> abstract in the draft, so there would be different representations.
+</I>&gt;<i> 
+</I>&gt;<i> To conclude, I am for it, but don't see it as having a very high
+</I>priority.
+&gt;<i> 
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> Min Wang wrote:
+</I>&gt;<i> &gt; HI
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; There is IETF Draft diameter API
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; <A HREF="http://tools.ietf.org/html/draft-ietf-dime-diameter-api-08">http://tools.ietf.org/html/draft-ietf-dime-diameter-api-08</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Should we try to conform it in the cdp module as closer as possible
+</I>in
+&gt;<i> &gt; the future changes?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Kind Regards
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Min Wang
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001927.html">[OpenIMSCore-CSCF] About diameter API
+</A></li>
+	<LI>Next message: <A HREF="001931.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r794 - Reduced the duration of the	session locking to exclude the Diameter SendRecv Cleaned-up a	lot of the code Added session callback trigger on drop session
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1937">[ date ]</a>
+              <a href="thread.html#1937">[ thread ]</a>
+              <a href="subject.html#1937">[ subject ]</a>
+              <a href="author.html#1937">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

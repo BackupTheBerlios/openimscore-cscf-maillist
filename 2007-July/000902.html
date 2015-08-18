@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20How%20to%20interact%20AS%20and%20MRF%20over%20Mr%20interface%3F&In-Reply-To=%3C46AF3ED1.7060605%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000901.html">
+   <LINK REL="Next"  HREF="000903.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20How%20to%20interact%20AS%20and%20MRF%20over%20Mr%20interface%3F&In-Reply-To=%3C46AF3ED1.7060605%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Jul 31 15:53:21 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000901.html">[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?
+</A></li>
+        <LI>Next message: <A HREF="000903.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r428 - Added P/S-CSCF dialog	termination disable possibility. Fixed 4xx/ACK	retransmissions - still one remaining after 500ms	P(term)-&gt;4xx-&gt;S(Term)-&gt;ACK-&gt;P(term)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#902">[ date ]</a>
+              <a href="thread.html#902">[ thread ]</a>
+              <a href="subject.html#902">[ subject ]</a>
+              <a href="author.html#902">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Tom,
+
+Hmmm... the indication is quite proprietary in my opinion. So I won't go
+ahead and say that this is the clear indication that you would want your
+call routed to an MRF, like it is the case when you call something like
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">+49123123 at open-ims.test</A>;user=phone then it's clear that you want to
+route it to PSTN).
+You have 2 options:
+1. Configure and IFC that would match this R-URI and use the MRF as an
+AS (over the ISC interface)
+2. Take a look at how PSTN routing is applied and make a similar hook
+and MRF route in the S-CSCF cfg (this would be an Mr I guess...)
+
+I agree that we need a route[MRF] (2nd option), but I just don't know
+yet for what it should be triggered and what should it contain. Any
+contributions would be appreciated.
+
+-Dragos
+
+
+Tom Paris wrote:
+&gt;<i> Hi Dragos,
+</I>&gt;<i>  
+</I>&gt;<i> Thanks for your quick reply.
+</I>&gt;<i>  
+</I>&gt;<i> &gt;What is the
+</I>&gt;<i> &gt;identification in the message that should tell the S-CSCF that the
+</I>&gt;<i> &gt;message is to be fwded on the Mr interface?
+</I>&gt;<i>
+</I>&gt;<i> The indication is sip request-uri.
+</I>&gt;<i> The request uri is sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ivr at mdsaf.example.com</A>
+</I>&gt;<i> &lt;mailto:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ivr at mdsaf.example.com</A>&gt;
+</I>&gt;<i>  
+</I>&gt;<i> In addition,I want to send subsequential INFO request to MRF after sip
+</I>&gt;<i> session between alice and MRF has established.
+</I>&gt;<i> The INFO request includes MSCML as payload.
+</I>&gt;<i>  
+</I>&gt;<i> I am very appreciated if you have any idea how to configure the scscf.cfg.
+</I>&gt;<i>  
+</I>&gt;<i> Thanks and Best Regards,
+</I>&gt;<i> Thomas
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 2007/7/31, Tom Paris &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tom.paris001 at gmail.com</A>
+</I>&gt;<i> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tom.paris001 at gmail.com</A>&gt;&gt;:
+</I>&gt;<i>
+</I>&gt;<i>     Hi Dragos,
+</I>&gt;<i>      
+</I>&gt;<i>     Thanks for your quick reply.
+</I>&gt;<i>      
+</I>&gt;<i>     &gt;What is the
+</I>&gt;<i>     &gt;identification in the message that should tell the S-CSCF that the
+</I>&gt;<i>     &gt;message is to be fwded on the Mr interface?
+</I>&gt;<i>
+</I>&gt;<i>     The indication is sip request-uri.
+</I>&gt;<i>     The request uri is sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ivr at mdsaf.example.com</A>
+</I>&gt;<i>     &lt;mailto:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ivr at mdsaf.example.com</A>&gt;
+</I>&gt;<i>      
+</I>&gt;<i>     In addition,I want to send subsequential INFO request to MRF after
+</I>&gt;<i>     sip session between alice and MRF has established.
+</I>&gt;<i>     The INFO request includes MSCML as payload.
+</I>&gt;<i>      
+</I>&gt;<i>     I am very appreciated if you have any idea how to configure the
+</I>&gt;<i>     scscf.cfg.
+</I>&gt;<i>      
+</I>&gt;<i>     Thanks and Best Regards,
+</I>&gt;<i>     Thomas
+</I>&gt;<i>      
+</I>&gt;<i>     2007/7/30, Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>
+</I>&gt;<i>     &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>&gt;&gt;:
+</I>&gt;<i>
+</I>&gt;<i>         Hello Tom,
+</I>&gt;<i>
+</I>&gt;<i>         By default there is no configuration for the Mr interface. I
+</I>&gt;<i>         think that
+</I>&gt;<i>         it's a S-CSCF configuration matter. There is some
+</I>&gt;<i>         configuration for a
+</I>&gt;<i>         PSTN gateway that could be extended or taken as an example.
+</I>&gt;<i>         What is the
+</I>&gt;<i>         identification in the message that should tell the S-CSCF that the
+</I>&gt;<i>         message is to be fwded on the Mr interface?
+</I>&gt;<i>
+</I>&gt;<i>         -Dragos
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>         Tom Paris wrote:
+</I>&gt;<i>         &gt; Hi,
+</I>&gt;<i>         &gt;
+</I>&gt;<i>         &gt; I have some questions about interaction between AS and MRF
+</I>&gt;<i>         over Mr
+</I>&gt;<i>         &gt; interface.
+</I>&gt;<i>         &gt;
+</I>&gt;<i>         &gt; I tried to foward INVITE message from UE to MRF via AS(B2BUA
+</I>&gt;<i>         mode) as
+</I>&gt;<i>         &gt; follows.
+</I>&gt;<i>         &gt;
+</I>&gt;<i>         &gt; 1.Set alice's iFC on HSS to invoke AS when request URI
+</I>&gt;<i>         specifies MRF
+</I>&gt;<i>         &gt; service.
+</I>&gt;<i>         &gt; 2.Register alice.
+</I>&gt;<i>         &gt; 3.Send INVITE from alice to MRF service uri.
+</I>&gt;<i>         &gt; 4.S-CSCF executes iFC filtering.(INVITE request is forwarded
+</I>&gt;<i>         to AS)
+</I>&gt;<i>         &gt; 5.AS &lt;<A HREF="http://5.as/">http://5.as/</A>&gt; &lt;<A HREF="http://5.AS">http://5.AS</A> &lt;<A HREF="http://5.as/">http://5.as/</A>&gt;&gt; execute
+</I>&gt;<i>         something..
+</I>&gt;<i>         &gt; 6.AS &lt;<A HREF="http://6.as/">http://6.as/</A>&gt; &lt; <A HREF="http://6.AS">http://6.AS</A> &lt;<A HREF="http://6.as/">http://6.as/</A>&gt;&gt; receives
+</I>&gt;<i>         INVITE and create new message to MRF.
+</I>&gt;<i>         &gt; 7.403 Forbidden - &quot;Dialog not found on S-CSCF or Terminating
+</I>&gt;<i>         user not
+</I>&gt;<i>         &gt; suitable for unregistered services&quot;
+</I>&gt;<i>         &gt;   returned from S-CSCF.
+</I>&gt;<i>         &gt;
+</I>&gt;<i>         &gt; Note that MRF is not registered to S-CSCF.
+</I>&gt;<i>         &gt; Are there any way to avoid those problems?
+</I>&gt;<i>         &gt; (iFC configurations or PSI configurations?)
+</I>&gt;<i>         &gt;
+</I>&gt;<i>         &gt; Best Regards,
+</I>&gt;<i>         &gt; Thomas
+</I>&gt;<i>         &gt; ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i>         &gt;
+</I>&gt;<i>         &gt; _______________________________________________
+</I>&gt;<i>         &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i>         &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i>         &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>&gt;
+</I>&gt;<i>         &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>         &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>&gt;
+</I>&gt;<i>         &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>         --
+</I>&gt;<i>         -----------------------------------------
+</I>&gt;<i>         Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i>         Fraunhofer FOKUS/NGNI
+</I>&gt;<i>         Kaiserin-Augusta-Allee 31
+</I>&gt;<i>         10589 Berlin,Germany
+</I>&gt;<i>         Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i>         Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i>         Web www.fokus.fraunhofer.de &lt;<A HREF="http://www.fokus.fraunhofer.de/">http://www.fokus.fraunhofer.de/</A>&gt;
+</I>&gt;<i>         www.openimscore.org &lt;<A HREF="http://www.openimscore.org/">http://www.openimscore.org/</A>&gt;
+</I>&gt;<i>         We could change the world if God would give us the source code...
+</I>&gt;<i>         -----------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000901.html">[OpenIMSCore-CSCF] How to interact AS and MRF over Mr interface?
+</A></li>
+	<LI>Next message: <A HREF="000903.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r428 - Added P/S-CSCF dialog	termination disable possibility. Fixed 4xx/ACK	retransmissions - still one remaining after 500ms	P(term)-&gt;4xx-&gt;S(Term)-&gt;ACK-&gt;P(term)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#902">[ date ]</a>
+              <a href="thread.html#902">[ thread ]</a>
+              <a href="subject.html#902">[ subject ]</a>
+              <a href="author.html#902">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

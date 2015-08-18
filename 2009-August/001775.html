@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r717 - *changed the way the	location subscriptions are matched: for every user_data check	it it has the same address of user_data structure,	and for subscription responses and notify requests,	using the callid. This enables using separate subscriptions for every	emergency call.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r717%20-%20%2Achanged%20the%20way%20the%0A%09location%20subscriptions%20are%20matched%3A%20for%20every%20user_data%20check%0A%09it%20it%20has%20the%20same%20address%20of%20user_data%20structure%2C%0A%09and%20for%20subscription%20responses%20and%20notify%20requests%2C%0A%09using%20the%20callid.%20This%20enables%20using%20separate%20subscriptions%20for%20every%0A%09emergency%20call.&In-Reply-To=%3C200908121306.n7CD6Jcn000205%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001774.html">
+   <LINK REL="Next"  HREF="001776.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r717 - *changed the way the	location subscriptions are matched: for every user_data check	it it has the same address of user_data structure,	and for subscription responses and notify requests,	using the callid. This enables using separate subscriptions for every	emergency call.</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r717%20-%20%2Achanged%20the%20way%20the%0A%09location%20subscriptions%20are%20matched%3A%20for%20every%20user_data%20check%0A%09it%20it%20has%20the%20same%20address%20of%20user_data%20structure%2C%0A%09and%20for%20subscription%20responses%20and%20notify%20requests%2C%0A%09using%20the%20callid.%20This%20enables%20using%20separate%20subscriptions%20for%20every%0A%09emergency%20call.&In-Reply-To=%3C200908121306.n7CD6Jcn000205%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r717 - *changed the way the	location subscriptions are matched: for every user_data check	it it has the same address of user_data structure,	and for subscription responses and notify requests,	using the callid. This enables using separate subscriptions for every	emergency call.">aon at users.berlios.de
+       </A><BR>
+    <I>Wed Aug 12 15:06:19 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001774.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r716 - * added a pointer to the	location subscription in the user_data structure,	used to clean the information when LRF_del_user_data is called
+</A></li>
+        <LI>Next message: <A HREF="001776.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r718 - Solution to bug upon	freeing AVP List
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1775">[ date ]</a>
+              <a href="thread.html#1775">[ thread ]</a>
+              <a href="subject.html#1775">[ subject ]</a>
+              <a href="author.html#1775">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2009-08-12 15:06:17 +0200 (Wed, 12 Aug 2009)
+New Revision: 717 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=717">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=717</A> 
+
+Log:
+*changed the way the location subscriptions are matched: for every user_data check it it has the same address of user_data structure,
+and for subscription responses and notify requests, using the callid. This enables using separate subscriptions for every emergency call.
+
+
+Modified:
+   U	ser_ims/branches/12_em_services/modules/lrf/locsip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip.c?rev=717&amp;view=diff&amp;r1=717&amp;r2=716">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip.c?rev=717&amp;view=diff&amp;r1=717&amp;r2=716</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.c?rev=717&amp;view=diff&amp;r1=717&amp;r2=716">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.c?rev=717&amp;view=diff&amp;r1=717&amp;r2=716</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.h?rev=717&amp;view=diff&amp;r1=717&amp;r2=716">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.h?rev=717&amp;view=diff&amp;r1=717&amp;r2=716</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001774.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r716 - * added a pointer to the	location subscription in the user_data structure,	used to clean the information when LRF_del_user_data is called
+</A></li>
+	<LI>Next message: <A HREF="001776.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r718 - Solution to bug upon	freeing AVP List
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1775">[ date ]</a>
+              <a href="thread.html#1775">[ thread ]</a>
+              <a href="subject.html#1775">[ subject ]</a>
+              <a href="author.html#1775">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

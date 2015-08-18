@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] &quot;403 Dialog not found on S-CSCF or Terminating	user not suitable for unregisted services.&quot; response returned	from S-CSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%22403%20Dialog%20not%20found%20on%20S-CSCF%20or%20Terminating%0A%09user%20not%20suitable%20for%20unregisted%20services.%22%20response%20returned%0A%09from%20S-CSCF&In-Reply-To=%3Cbdb82ada0706250203r30bc880cnbd71d5c2fffa6fac%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000776.html">
+   <LINK REL="Next"  HREF="000790.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] &quot;403 Dialog not found on S-CSCF or Terminating	user not suitable for unregisted services.&quot; response returned	from S-CSCF</H1>
+    <B>gonzou</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%22403%20Dialog%20not%20found%20on%20S-CSCF%20or%20Terminating%0A%09user%20not%20suitable%20for%20unregisted%20services.%22%20response%20returned%0A%09from%20S-CSCF&In-Reply-To=%3Cbdb82ada0706250203r30bc880cnbd71d5c2fffa6fac%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] &quot;403 Dialog not found on S-CSCF or Terminating	user not suitable for unregisted services.&quot; response returned	from S-CSCF">cheep.markun at gmail.com
+       </A><BR>
+    <I>Mon Jun 25 11:03:36 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000776.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r341 - Fixed the RAND_LEN value	being wrong - AKA bug in synchronization.
+</A></li>
+        <LI>Next message: <A HREF="000790.html">[OpenIMSCore-CSCF] &quot;403 Dialog not found on S-CSCF or	Terminating user not suitable for unregisted services.&quot;	response returned from S-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#777">[ date ]</a>
+              <a href="thread.html#777">[ thread ]</a>
+              <a href="subject.html#777">[ subject ]</a>
+              <a href="author.html#777">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I did procedures below with OSIMS.
+OSIMS(S-CSCF) returned &quot;403 Dialog not found on S-CSCF or Terminating user
+not suitable for unregisted services.&quot;
+
+1.Register Alice and Bob using 3PCC from AS.
+  (Note that AS does not issues REGISTER.It only issue INVITE to Alice and
+Bob)
+2.Alice and Bob establish sip session.
+3.Disconnect from UE.(Alice send Bye to Bob)
+4.403 error is retured.
+Q1.Is this behavior suitable for specifications?
+Q2.If I am missing something, please notify me.
+Q3.Related topic to the phenomenon, I noticed that in scscf.cfg some ISC
+related block is comment out.
+Is it intentionally commented out?
+Is this commented out block related to 403 response from S-CSCF?
+----------------------------------------------------------------------------------
+    # check if dialog saved as fwded to AS
+    if (ISC_match_filter(&quot;term&quot;)){
+#       t_on_reply(&quot;ISC_Term_reply&quot;);
+#       t_on_failure(&quot;ISC_Term_failure&quot;);
+#       if (!t_relay()) {
+#           sl_send_reply(&quot;500&quot;,&quot;Error forwarding to AS&quot;);
+#           exit;
+#       };
+        exit;
+    }
+----------------------------------------------------------------------------------
+
+
+Best Regards,
+gonzou
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070625/ea8e0118/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070625/ea8e0118/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000776.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r341 - Fixed the RAND_LEN value	being wrong - AKA bug in synchronization.
+</A></li>
+	<LI>Next message: <A HREF="000790.html">[OpenIMSCore-CSCF] &quot;403 Dialog not found on S-CSCF or	Terminating user not suitable for unregisted services.&quot;	response returned from S-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#777">[ date ]</a>
+              <a href="thread.html#777">[ thread ]</a>
+              <a href="subject.html#777">[ subject ]</a>
+              <a href="author.html#777">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

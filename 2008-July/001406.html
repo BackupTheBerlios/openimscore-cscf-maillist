@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ISC%20Interface%20%3A%20IMS%20%2B%20Mobicents&In-Reply-To=%3C4869EF85.9090101%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="001407.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ISC%20Interface%20%3A%20IMS%20%2B%20Mobicents&In-Reply-To=%3C4869EF85.9090101%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Jul  1 10:49:09 CEST 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="001407.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r571 - Fixed the	ISC_match_filter_reg() - was not working for initial	registration only,	because the user was always detected as registered.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1406">[ date ]</a>
+              <a href="thread.html#1406">[ thread ]</a>
+              <a href="subject.html#1406">[ subject ]</a>
+              <a href="author.html#1406">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>well, in theory, you could have a transaction stateless AS, which does 
+not add a Via when it forwards the INVITE back to the S-CSCF. Then you 
+should not see any responses...
+
+However, I would strongly recommend that you don't do this. Haven't seen 
+a stateless SIP proxy for a long time now as it's no longer such a big 
+performance killer to be stateful... especially if you are an AS.
+
+-Dragos
+
+Raphael Alazard wrote:
+&gt;<i> Hi Franz,
+</I>&gt;<i> So If IMS forward an INVITE request to the AS and the AS returns it to 
+</I>&gt;<i> IMS with Route Header et Via Header updated, there is no way to forbid 
+</I>&gt;<i> the foward of all the following SIP requests like 180 Ringing, 200 Ok, 
+</I>&gt;<i> etc.?
+</I>&gt;<i> Best Regards
+</I>&gt;<i>
+</I>&gt;<i>                       Raphael
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="001407.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r571 - Fixed the	ISC_match_filter_reg() - was not working for initial	registration only,	because the user was always detected as registered.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1406">[ date ]</a>
+              <a href="thread.html#1406">[ thread ]</a>
+              <a href="subject.html#1406">[ subject ]</a>
+              <a href="author.html#1406">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

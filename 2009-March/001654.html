@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Call Session Control Functions feature]	Support for TEL URI as a IMPU
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20feature%5D%0A%09Support%20for%20TEL%20URI%20as%20a%20IMPU&In-Reply-To=%3Cbe1da43f0903140211x2ab79f0q1e13b84a8df481b%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001650.html">
+   <LINK REL="Next"  HREF="001652.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Call Session Control Functions feature]	Support for TEL URI as a IMPU</H1>
+    <B>Laurent Etiemble</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20feature%5D%0A%09Support%20for%20TEL%20URI%20as%20a%20IMPU&In-Reply-To=%3Cbe1da43f0903140211x2ab79f0q1e13b84a8df481b%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] [Call Session Control Functions feature]	Support for TEL URI as a IMPU">laurent.etiemble at inexbee.com
+       </A><BR>
+    <I>Sat Mar 14 10:11:21 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001650.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Support	for TEL URI as a IMPU
+</A></li>
+        <LI>Next message: <A HREF="001652.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] reg event	package data
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1654">[ date ]</a>
+              <a href="thread.html#1654">[ thread ]</a>
+              <a href="subject.html#1654">[ subject ]</a>
+              <a href="author.html#1654">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+I have actually test it within an IMPU set (two SIP Uri and one Tel Uri),
+and everything works well (registration, IMPU barring, sessions, identity
+assertion, etc.).
+
+So +1 to close the issue.
+
+Regards, Laurent Etiemble.
+
+Need an IMS Client ? Why don't you try out Mercuro IMS Client.
+More information at <A HREF="http://www.mercuro.net/">http://www.mercuro.net/</A>
+
+
+2009/3/14 vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt;
+
+&gt;<i> Issue status update for
+</I>&gt;<i> <A HREF="http://www.openimscore.org/node/45">http://www.openimscore.org/node/45</A>
+</I>&gt;<i> Post a follow up:
+</I>&gt;<i> <A HREF="http://www.openimscore.org/project/comments/add/45">http://www.openimscore.org/project/comments/add/45</A>
+</I>&gt;<i>
+</I>&gt;<i>  Project:      Call Session Control Functions
+</I>&gt;<i>  Version:      &lt;none&gt;
+</I>&gt;<i>  Component:    Code
+</I>&gt;<i>  Category:     feature requests
+</I>&gt;<i>  Priority:     normal
+</I>&gt;<i>  Assigned to:
+</I>&gt;<i>  Reported by:  webadmin
+</I>&gt;<i>  Updated by:   vingarzan
+</I>&gt;<i> -Status:       active
+</I>&gt;<i> +Status:       fixed
+</I>&gt;<i>
+</I>&gt;<i> no more complaints, seems to work.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> vingarzan
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Previous comments:
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Mon, 19 Mar 2007 21:59:55 +0000 : webadmin
+</I>&gt;<i>
+</I>&gt;<i> We have never tried to use the Open IMS Core with public identities in
+</I>&gt;<i> the form of TEL URI. There are reports that this does not work. We need
+</I>&gt;<i> to go through the SER scripts and the code and make the necessary
+</I>&gt;<i> modifications.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Tue, 17 Apr 2007 20:48:55 +0000 : vingarzan
+</I>&gt;<i>
+</I>&gt;<i> Initiated first step - it is now possible to register with tel uri as
+</I>&gt;<i> IMPU since r131.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Tue, 17 Apr 2007 20:49:23 +0000 : vingarzan
+</I>&gt;<i>
+</I>&gt;<i> Issue: the P-CSCF can not subscribe to reg for tel uris as SER's tm
+</I>&gt;<i> can't resolve tel uris.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Mon, 04 Jun 2007 16:37:36 +0000 : vingarzan
+</I>&gt;<i>
+</I>&gt;<i> Jose Carlos Amorim provided patches for better TEL URI integration:
+</I>&gt;<i> - support in LIR
+</I>&gt;<i> - added S_add_p_asserted_identity() function that adds a 2nd
+</I>&gt;<i> P-Asserted-Identity for TEL URL or &quot;sip:+.*&quot; in the original one
+</I>&gt;<i> - added enum_query in the scscf.cfg for PSTN handling
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=267">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=267</A>
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=268">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=268</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090314/be3b9f27/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090314/be3b9f27/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001650.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Support	for TEL URI as a IMPU
+</A></li>
+	<LI>Next message: <A HREF="001652.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] reg event	package data
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1654">[ date ]</a>
+              <a href="thread.html#1654">[ thread ]</a>
+              <a href="subject.html#1654">[ subject ]</a>
+              <a href="author.html#1654">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

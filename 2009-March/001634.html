@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Patch for PCSCF Record Route Audit . Feature	Request.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Patch%20for%20PCSCF%20Record%20Route%20Audit%20.%20Feature%0A%09Request.&In-Reply-To=%3C1E2ADD1268DF5342945DCCBF662EB0690F6880%40mail2.spanservices.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001633.html">
+   <LINK REL="Next"  HREF="001640.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Patch for PCSCF Record Route Audit . Feature	Request.</H1>
+    <B>Arjun Ramachandran</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Patch%20for%20PCSCF%20Record%20Route%20Audit%20.%20Feature%0A%09Request.&In-Reply-To=%3C1E2ADD1268DF5342945DCCBF662EB0690F6880%40mail2.spanservices.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Patch for PCSCF Record Route Audit . Feature	Request.">arjun_r at spanservices.com
+       </A><BR>
+    <I>Fri Mar  6 15:16:31 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001633.html">[OpenIMSCore-CSCF] Patch for PCSCF Record Route Audit . Feature Request.
+</A></li>
+        <LI>Next message: <A HREF="001640.html">[OpenIMSCore-CSCF] Patch for PCSCF Record Route Audit . Feature Request.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1634">[ date ]</a>
+              <a href="thread.html#1634">[ thread ]</a>
+              <a href="subject.html#1634">[ subject ]</a>
+              <a href="author.html#1634">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+My mistake. The cfg patch did not get generated properly. Please find the patch attached.
+
+-Arjun
+
+
+
+-----Original Message-----
+From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]
+Sent: Fri 3/6/2009 7:34 PM
+To: Arjun Ramachandran
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] Patch for PCSCF Record Route Audit . Feature Request.
+ 
+Great, thanx! I will check and commit it shortly. What about changes to 
+the pcscf.cfg? You probably already have them...
+
+Cheers,
+-Dragos
+
+Arjun Ramachandran wrote:
+&gt;<i> Hi
+</I>&gt;<i>
+</I>&gt;<i> I have attached the patches required for the feature request named PCSCF record route audit.
+</I>&gt;<i>
+</I>&gt;<i> The basic idea behind the implementation was to add 2 commands which would verify and if required enforce
+</I>&gt;<i>  record routes keeping in mind how via list were audited.
+</I>&gt;<i>
+</I>&gt;<i> security.c - Contains the implementation of P_follows_record_routes() and P_enforce_record_rotues()
+</I>&gt;<i> pcscf.cfg - Here the functions get called in Term_Initial_reply routing alg.
+</I>&gt;<i> mod.c - Commands P_follows_record_routes() and P_enforce_record_rotues() gets included
+</I>&gt;<i> security.h - P_follows_record_routes() and P_enforce_record_rotues() gets declared.
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i> Arjun
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: pcscf.cfg.patch
+Type: text/x-patch
+Size: 608 bytes
+Desc: pcscf.cfg.patch
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090306/c3689a89/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090306/c3689a89/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001633.html">[OpenIMSCore-CSCF] Patch for PCSCF Record Route Audit . Feature Request.
+</A></li>
+	<LI>Next message: <A HREF="001640.html">[OpenIMSCore-CSCF] Patch for PCSCF Record Route Audit . Feature Request.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1634">[ date ]</a>
+              <a href="thread.html#1634">[ thread ]</a>
+              <a href="subject.html#1634">[ subject ]</a>
+              <a href="author.html#1634">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

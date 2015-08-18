@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Regarding error in sipp xml file of openimscore
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Regarding%20error%20in%20sipp%20xml%20file%20of%20openimscore&In-Reply-To=%3CAANLkTinJ7%2BzKifEmML%2BKkvArkPsc75CP698NSxEe1UW%3D%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002437.html">
+   <LINK REL="Next"  HREF="002440.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Regarding error in sipp xml file of openimscore</H1>
+    <B>viswavardhanreddy karna</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Regarding%20error%20in%20sipp%20xml%20file%20of%20openimscore&In-Reply-To=%3CAANLkTinJ7%2BzKifEmML%2BKkvArkPsc75CP698NSxEe1UW%3D%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Regarding error in sipp xml file of openimscore">viswavardhanreddy at gmail.com
+       </A><BR>
+    <I>Wed Mar 16 20:19:13 CET 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002437.html">[OpenIMSCore-CSCF] error while inviting alice
+</A></li>
+        <LI>Next message: <A HREF="002440.html">[OpenIMSCore-CSCF] Regarding error in sipp xml file of	openimscore
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2439">[ date ]</a>
+              <a href="thread.html#2439">[ thread ]</a>
+              <a href="subject.html#2439">[ subject ]</a>
+              <a href="author.html#2439">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+         when i am trying to invite alice from one client as bob i am able
+to invite till first 200 ok and when the bob send ack to alice the alice is
+not able to receive the ack and not able to send back ack and bye messages
+... i dont know why this is happening i did a lot experiments i changed each
+and every line and check twice or thrice but still cant get any result...
+
+
+can any one help me where i did wrong in the xml file of sipp while inviting
+the client in openimscore...
+
+
+xml file...
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot; ?&gt;
+&lt;!DOCTYPE scenario SYSTEM &quot;sipp.dtd&quot;&gt;
+
+&lt;scenario name=&quot;Simple IMS Session Setup, client-side&quot;&gt;
+
+&lt;send retrans=&quot;500&quot;&gt;
+&lt;![CDATA[
+INVITE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A> SIP/2.0
+Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+Max-Forwards: 20
+P-Preferred-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+Privacy: none
+P-Access-Network-Info: 3GPP-UTRAN-TDD;utran-cell-id-3gpp=C359A3913B20E
+From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=[call_number]
+To: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;
+Call-ID: [call_id]
+CSeq: 10 INVITE
+Supported: 100rel
+Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:5060&gt;
+User-Agent: Sipp v1.1-TLS, version 20061124
+Allow: ACK, BYE, CANCEL, INVITE, REFER, OPTIONS, INFO, REGISTER, NOTIFY,
+UPDATE, SUBSCRIBE, PRACK
+Content-Type: application/sdp
+Content-Length: [len]
+
+v=0
+o=user1 53655765 2353687637 IN IP4 [local_ip]
+s=-
+c=IN IP4 [local_ip]
+t=0 0
+m=audio 30000 RTP/AVP 0 8
+a=rtpmap:0 PCMU/8000
+a=sendrecv
+]]&gt;
+&lt;/send&gt;
+
+&lt;recv response=&quot;100&quot; optional=&quot;true&quot;&gt;
+&lt;/recv&gt;
+
+&lt;recv response=&quot;180&quot; optional=&quot;true&quot;&gt;
+&lt;/recv&gt;
+
+&lt;recv response=&quot;200&quot; rrs=&quot;true&quot;&gt;
+&lt;/recv&gt;
+
+&lt;send crlf=&quot;true&quot;&gt;
+&lt;![CDATA[
+ACK sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A> SIP/2.0
+[last_Via:]
+Max-Forwards: 20
+[routes]
+From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=[call_number]
+[last_To:]
+Call-ID: [call_id]
+CSeq: 10 ACK
+Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:5060&gt;
+Content-Length: 0
+]]&gt;
+&lt;/send&gt;
+
+&lt;send retrans=&quot;500&quot;&gt;
+&lt;![CDATA[
+BYE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A> SIP/2.0
+[last_Via:]
+Max-Forwards: 20
+[routes]
+From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=[call_number]
+[last_To:]
+Call-ID: [call_id]
+CSeq: 11 BYE
+Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:5060&gt;
+Content-Length: 0
+]]&gt;
+&lt;/send&gt;
+
+&lt;recv response=&quot;200&quot; crlf=&quot;true&quot; next=&quot;2&quot;&gt;
+&lt;/recv&gt;
+
+&lt;label id=&quot;1&quot;/&gt;
+
+&lt;send crlf=&quot;true&quot;&gt;
+&lt;![CDATA[
+ACK sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A> SIP/2.0
+[last_Via:]
+Max-Forwards: 20
+From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=[call_number]
+[last_To:]
+Call-ID: [call_id]
+CSeq: 10 ACK
+Content-Length: 0
+]]&gt;
+&lt;/send&gt;
+
+&lt;label id=&quot;2&quot;/&gt;
+
+&lt;!-- definition of the response time repartition table (unit is ms)   --&gt;
+&lt;ResponseTimeRepartition value=&quot;10, 20&quot;/&gt;
+
+&lt;!-- definition of the call length repartition table (unit is ms)     --&gt;
+&lt;CallLengthRepartition value=&quot;10&quot;/&gt;
+
+&lt;/scenario&gt;
+
+
+
+
+thanks in advance any help will be appreciated,
+
+
+
+
+
+best regards,
+viswavardhan
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110316/20dc8971/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110316/20dc8971/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002437.html">[OpenIMSCore-CSCF] error while inviting alice
+</A></li>
+	<LI>Next message: <A HREF="002440.html">[OpenIMSCore-CSCF] Regarding error in sipp xml file of	openimscore
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2439">[ date ]</a>
+              <a href="thread.html#2439">[ thread ]</a>
+              <a href="subject.html#2439">[ subject ]</a>
+              <a href="author.html#2439">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

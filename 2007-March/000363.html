@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 400 Bad Request - Not following	indicatedService-Routes
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20400%20Bad%20Request%20-%20Not%20following%0A%09indicatedService-Routes&In-Reply-To=%3C4607D92A.4080304%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000361.html">
+   <LINK REL="Next"  HREF="000364.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 400 Bad Request - Not following	indicatedService-Routes</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20400%20Bad%20Request%20-%20Not%20following%0A%09indicatedService-Routes&In-Reply-To=%3C4607D92A.4080304%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] 400 Bad Request - Not following	indicatedService-Routes">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Mon Mar 26 16:31:06 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000361.html">[OpenIMSCore-CSCF] 400 Bad Request - Not following	indicatedService-Routes
+</A></li>
+        <LI>Next message: <A HREF="000364.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r202 - Fixed S-CSCF bug - crashing	on timeout deregistration - notification send because dialog	was previously dropped. Fixed S-CSCF bug - SAR function	always returning false when called internally (not from	script, from timeout de-registration).
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#363">[ date ]</a>
+              <a href="thread.html#363">[ thread ]</a>
+              <a href="subject.html#363">[ subject ]</a>
+              <a href="author.html#363">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Nagaraj,
+
+No, you receive a Service-Route header and you should use the values in
+Route headers in all initial requests from the User Endpoint. In case
+you do not do that and as such do not obey the routing policy of the
+home IMS network, your signaling will not be accepted.
+
+Take a look at RFC3608 for more details.
+
+-Dragos
+
+Nagaraj K wrote:
+&gt;<i> Hi Dragos,
+</I>&gt;<i> I am unable to get out of this problem.
+</I>&gt;<i> I have not used service routes with my knowledge when I send register
+</I>&gt;<i> request.
+</I>&gt;<i> Pls give some clues...
+</I>&gt;<i> The same problem occurs when I send invite request...
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i> Naga
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+</I>&gt;<i> Sent: Saturday, March 24, 2007 4:55 PM
+</I>&gt;<i> To: Nagaraj K
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] 400 Bad Request - Not following
+</I>&gt;<i> indicatedService-Routes
+</I>&gt;<i>
+</I>&gt;<i> Hello Nagaraj,
+</I>&gt;<i>
+</I>&gt;<i> As you can see from the message, your error is not related to
+</I>&gt;<i> registration, but to some sort of SUBSCRIBE (the CSeq header) that
+</I>&gt;<i> probably happens afterwards. And as the error code says, you have
+</I>&gt;<i> probably forgot to use the Service-Routes indicated at registration as
+</I>&gt;<i> routes in the respective SUBSCRIBE request.
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> Nagaraj K wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> When I try to register the following message comes.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> SIP/2.0 400 Bad Request - Not following indicated Service-Routes
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">d97fdce07a3cfe552ac2167f3f874841 at 10.20.2.189</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> CSeq: 1 SUBSCRIBE
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=23438274
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=8456b23699f06fdb908a4dfde0051a59.6a06
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i> 10.20.2.189:5062;branch=z9hG4bK26c3faa3080345d8095c5ad452f08857;rport=50
+</I>&gt;<i> 62
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Server: Sip EXpress router (2.1.0-dev1-OpenIMSCore (i386/linux))
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Warning: 392 127.0.0.1:4060 &quot;Noisy feedback tells:  pid=32554
+</I>&gt;&gt;<i> req_src_ip=10.20.2.189 req_src_port=5062 in_uri=sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>
+</I>&gt;&gt;<i> out_uri=sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A> via_cnt==1&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I have attached wiresherk trace with this mail.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>  
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> What may be the problem?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Regards,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Naga
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i> ========================================================================
+</I>&gt;<i> ====================================================
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Tech Mahindra, formerly Mahindra-British Telecom.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Disclaimer:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> This message and the information contained herein is proprietary and
+</I>&gt;&gt;<i> confidential and subject to the Tech Mahindra policy statement, you
+</I>&gt;&gt;<i> may review at <A HREF="http://www.techmahindra.com/Disclaimer.html">http://www.techmahindra.com/Disclaimer.html</A> externally
+</I>&gt;&gt;<i> and <A HREF="http://tim.techmahindra.com/Disclaimer.html">http://tim.techmahindra.com/Disclaimer.html</A> internally within Tech
+</I>&gt;&gt;<i> Mahindra.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i> ========================================================================
+</I>&gt;<i> ====================================================
+</I>&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>   
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000361.html">[OpenIMSCore-CSCF] 400 Bad Request - Not following	indicatedService-Routes
+</A></li>
+	<LI>Next message: <A HREF="000364.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r202 - Fixed S-CSCF bug - crashing	on timeout deregistration - notification send because dialog	was previously dropped. Fixed S-CSCF bug - SAR function	always returning false when called internally (not from	script, from timeout de-registration).
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#363">[ date ]</a>
+              <a href="thread.html#363">[ thread ]</a>
+              <a href="subject.html#363">[ subject ]</a>
+              <a href="author.html#363">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

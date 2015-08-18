@@ -1,0 +1,1171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r157 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r157%20-%20in%0A%09ser_ims/branches/01_persistency%3A%20cfg%20modules/scscf&In-Reply-To=%3C200702271218.l1RCIUEl019381%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000252.html">
+   <LINK REL="Next"  HREF="000254.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r157 - in	ser_ims/branches/01_persistency: cfg modules/scscf</H1>
+    <B>mariojvp at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r157%20-%20in%0A%09ser_ims/branches/01_persistency%3A%20cfg%20modules/scscf&In-Reply-To=%3C200702271218.l1RCIUEl019381%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r157 - in	ser_ims/branches/01_persistency: cfg modules/scscf">mariojvp at users.berlios.de
+       </A><BR>
+    <I>Tue Feb 27 13:18:30 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000252.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r156 - in ser_ims/trunk/modules:	icscf pcscf scscf
+</A></li>
+        <LI>Next message: <A HREF="000254.html">[OpenIMSCore-CSCF] Sipp tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#253">[ date ]</a>
+              <a href="thread.html#253">[ thread ]</a>
+              <a href="subject.html#253">[ subject ]</a>
+              <a href="author.html#253">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: mariojvp
+Date: 2007-02-27 13:17:59 +0100 (Tue, 27 Feb 2007)
+New Revision: 157
+
+Modified:
+   ser_ims/branches/01_persistency/cfg/my_scscf.sql
+   ser_ims/branches/01_persistency/cfg/pg_scscf.sql
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+Log:
+Added WITH_DATABASE_CACHE mode (to allow the cache implementation).
+Each hashtable element is dumped to DB separately.
+Dump of auth, registrar and dialogs information to DB.
+This information is loaded at S-CSCF startup.
+
+
+Modified: ser_ims/branches/01_persistency/cfg/my_scscf.sql
+===================================================================
+--- ser_ims/branches/01_persistency/cfg/my_scscf.sql	2007-02-27 10:40:51 UTC (rev 156)
++++ ser_ims/branches/01_persistency/cfg/my_scscf.sql	2007-02-27 12:17:59 UTC (rev 157)
+@@ -21,9 +21,26 @@
+     PRIMARY KEY (snapshot_version, step_version)
+ );
+ 
++CREATE TABLE dialogs_cache (
++    snapshot_version INT NOT NULL,
++    step_version INT NOT NULL,
++    call_id VARCHAR(256) NOT NULL,
++    aor VARCHAR(128) NOT NULL,
++    data BLOB NOT NULL,
++    PRIMARY KEY (snapshot_version, step_version, call_id, aor)
++);
++
+ CREATE TABLE registrar_bulk (
+     snapshot_version INT NOT NULL,
+     step_version INT NOT NULL,
+     data BLOB,
+     PRIMARY KEY (snapshot_version, step_version)
++);
++
++CREATE TABLE registrar_cache (
++    snapshot_version INT NOT NULL,
++    step_version INT NOT NULL,
++    aor VARCHAR(128) NOT NULL,
++    data BLOB NOT NULL,
++    PRIMARY KEY (snapshot_version, step_version, aor)
+ );
+\ No newline at end of file
+
+Modified: ser_ims/branches/01_persistency/cfg/pg_scscf.sql
+===================================================================
+--- ser_ims/branches/01_persistency/cfg/pg_scscf.sql	2007-02-27 10:40:51 UTC (rev 156)
++++ ser_ims/branches/01_persistency/cfg/pg_scscf.sql	2007-02-27 12:17:59 UTC (rev 157)
+@@ -10,7 +10,7 @@
+     step_version INTEGER NOT NULL,
+     private VARCHAR(80) NOT NULL,
+     public  VARCHAR(128) NOT NULL,
+-    data BYTEA,
++    data BYTEA NOT NULL,
+     PRIMARY KEY (snapshot_version, step_version, private, public)
+ );
+ 
+@@ -21,9 +21,26 @@
+     PRIMARY KEY (snapshot_version, step_version)
+ );
+ 
++CREATE TABLE dialogs_cache (
++    snapshot_version INTEGER NOT NULL,
++    step_version INTEGER NOT NULL,
++    call_id VARCHAR(256) NOT NULL,
++    aor VARCHAR(128) NOT NULL,
++    data BYTEA NOT NULL,
++    PRIMARY KEY (snapshot_version, step_version, call_id, aor)
++);
++
+ CREATE TABLE registrar_bulk (
+     snapshot_version INTEGER NOT NULL,
+     step_version INTEGER NOT NULL,
+     data BYTEA,
+     PRIMARY KEY (snapshot_version, step_version)
++);
++
++CREATE TABLE registrar_cache (
++    snapshot_version INTEGER NOT NULL,
++    step_version INTEGER NOT NULL,
++    aor VARCHAR(128) NOT NULL,
++    data BYTEA NOT NULL,
++    PRIMARY KEY (snapshot_version, step_version, aor)
+ );
+\ No newline at end of file
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-02-27 10:40:51 UTC (rev 156)
++++ ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-02-27 12:17:59 UTC (rev 157)
+@@ -63,7 +63,12 @@
+ 
+ extern auth_hash_slot_t *auth_data;				/**&lt; Authentication vector hash table 			*/
+ extern int auth_data_hash_size;					/**&lt; authentication vector hash table size 		*/
++extern int r_hash_size;						/**&lt; Size of S-CSCF registrar hash table		*/
++extern r_hash_slot *registrar;				/**&lt; The S-CSCF registrar 						*/
++extern int s_dialogs_hash_size;						/**&lt; size of the dialog hash table 					*/
++extern s_dialog_hash_slot *s_dialogs;				/**&lt; the hash table									*/
+ 
++
+ extern db_con_t* scscf_db; /**&lt; Database connection handle */
+ extern db_func_t scscf_dbf;	/**&lt; Structure with pointers to db functions */
+ extern int* auth_snapshot_version;
+@@ -85,21 +90,27 @@
+ {
+ 	bin_data x;
+ 	auth_userdata *aud;
+-	int i;	
+-	if (!bin_alloc(&amp;x,256)) goto error;		
+-	for(i=0;i&lt;auth_data_hash_size;i++){
+-		auth_data_lock(i);
+-		aud = auth_data[i].head;
+-		while(aud){
+-			if (!bin_encode_auth_userdata(&amp;x,aud)) goto error;
+-			aud = aud-&gt;next;
++	int i;
++	
++	/*In WITH_DATABASE_CACHE mode, serialize each hashtable element separately */
++	if(scscf_persistency_mode!=WITH_DATABASE_CACHE){	
++		if (!bin_alloc(&amp;x,256)) goto error;
++		for(i=0;i&lt;auth_data_hash_size;i++){
++			auth_data_lock(i);
++			aud = auth_data[i].head;
++			while(aud){
++				if (!bin_encode_auth_userdata(&amp;x,aud)) goto error;
++				aud = aud-&gt;next;
++			}
++			auth_data_unlock(i);
+ 		}
+-		auth_data_unlock(i);
++		bin_print(&amp;x);
+ 	}
+-	bin_print(&amp;x);
+ 	i=s_dump(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;authdata&quot;);
+ 	//i = bin_dump(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;authdata&quot;);		
+-	bin_free(&amp;x);
++	if(scscf_persistency_mode!=WITH_DATABASE_CACHE){
++		bin_free(&amp;x);
++	}
+ 	return i;
+ error:
+ 	return 0;
+@@ -118,8 +129,7 @@
+ 		case WITH_DATABASE_BULK:
+ 			return bin_dump_to_db(x, prepend_fname);
+ 		case WITH_DATABASE_CACHE:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:s_dump: Snapshot done but WITH_DATABASE_CACHE not implemented...\n&quot;);
+-			return 0;
++			return bin_dump_to_db(x, prepend_fname);//ignore x
+ 		default:
+ 			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:s_dump: Snapshot done but no such mode %d\n&quot;,mode);
+ 			return 0;
+@@ -127,6 +137,9 @@
+ }  
+ 
+ int bin_dump_to_table(bin_data *x, char* table, int snapshot_version, int step_version);
++int bin_dump_registrar_to_table_cache(char* table, int snapshot_version, int step_version);
++int bin_dump_dialogs_to_table_cache(char* table, int snapshot_version, int step_version);
++int bin_dump_auth_to_table_cache(char* table, int snapshot_version, int step_version);
+ 
+ /**
+  * Writes the binary data to a snapshot on the DB.
+@@ -141,21 +154,30 @@
+ 	int step_version;
+ 	
+ 	if(!strncmp(prepend_fname,&quot;sregistrar&quot;,10)){
+-		table=&quot;registrar_bulk&quot;;
+ 		snapshot_version=*registrar_snapshot_version;//registrar snapshot timer must increment it
+ 		step_version=*registrar_step_version;//registrar step timer must increment it
++		if(scscf_persistency_mode==WITH_DATABASE_CACHE){
++			return bin_dump_registrar_to_table_cache(&quot;registrar_cache&quot;, snapshot_version, step_version);
++		}
++		table=&quot;registrar_bulk&quot;;
+ 	}
+ 	else{
+ 		if(!strncmp(prepend_fname,&quot;sdialogs&quot;,8)){
+-			table=&quot;dialogs_bulk&quot;;
+ 			snapshot_version=*dialogs_snapshot_version;//dialogs snapshot timer must increment it
+ 			step_version=*dialogs_step_version;//dialogs step timer must increment it
++			if(scscf_persistency_mode==WITH_DATABASE_CACHE){
++				return bin_dump_dialogs_to_table_cache(&quot;dialogs_cache&quot;, snapshot_version, step_version);
++			}
++			table=&quot;dialogs_bulk&quot;;
+ 		}
+ 		else{
+ 			if(!strncmp(prepend_fname,&quot;authdata&quot;,8)){
+-				table=&quot;auth_data_bulk&quot;;
+ 				snapshot_version=*auth_snapshot_version;//auth snapshot timer must increment it
+ 				step_version=*auth_step_version;//auth step timer must increment it
++				if(scscf_persistency_mode==WITH_DATABASE_CACHE){
++					return bin_dump_auth_to_table_cache(&quot;auth_data_cache&quot;, snapshot_version, step_version);
++				}
++				table=&quot;auth_data_bulk&quot;;
+ 			}
+ 			else{
+ 				LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump_to_db: No such information to dump %s\n&quot;, prepend_fname);
+@@ -258,8 +280,284 @@
+ 	return 1;
+ }
+ 
++/**
++ * Writes each auth hashtable element to DB.
++ * @param table - where to dump.
++ * @param snapshot_version - version of the current snapshot
++ * @param step_version - the step in the current snapshot
++ * @returns 1 on success or 0 on failure
++ */
++int bin_dump_auth_to_table_cache(char* table, int snapshot_version, int step_version){
+ 
++	bin_data x;
++	auth_userdata *aud;
++	int i;
++	
++	//lock
++	lock_get(db_lock);
++
++	if (scscf_dbf.use_table(scscf_db, table) &lt; 0) {
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_dump_auth_to_table_cache(): Error in use_table\n&quot;);
++		goto error;
++	}
++	
++	for(i=0;i&lt;auth_data_hash_size;i++){
++		auth_data_lock(i);
++		aud = auth_data[i].head;
++		while(aud){
++			if (!bin_alloc(&amp;x,128)){
++				auth_data_unlock(i);
++				goto error;
++			}
++			if (!bin_encode_auth_userdata(&amp;x,aud)){
++				auth_data_unlock(i);
++				goto error;
++			}
++			
++			db_key_t keys[5];
++			db_val_t vals[5];
++
++			keys[0] = &quot;snapshot_version&quot;;
++			keys[1] = &quot;step_version&quot;;
++			keys[2] = &quot;private&quot;;
++			keys[3] = &quot;public&quot;;
++			keys[4] = &quot;data&quot;;
++
++			vals[0].type = DB_INT;
++			vals[0].nul = 0;
++			vals[0].val.int_val=snapshot_version;
++	
++			vals[1].type = DB_INT;
++			vals[1].nul = 0;
++			vals[1].val.int_val=step_version;
++
++			vals[2].type = DB_STR;
++			vals[2].nul = 0;
++			vals[2].val.str_val.s=aud-&gt;private_identity.s;
++			vals[2].val.str_val.len=MIN(aud-&gt;private_identity.len, 128);
++	
++			vals[3].type = DB_STR;
++			vals[3].nul = 0;
++			vals[3].val.str_val.s=aud-&gt;public_identity.s;
++			vals[3].val.str_val.len=MIN(aud-&gt;public_identity.len, 128);
++
++			vals[4].type = DB_BLOB;
++			vals[4].nul = 0;
++			str d={x.s, x.len};
++			vals[4].val.blob_val = d;
++			
++			if (scscf_dbf.insert(scscf_db, keys, vals, 5) &lt; 0) {
++				LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_dump_auth_to_table_cache(): Error while inserting on %s\n&quot;, table);
++				auth_data_unlock(i);
++				goto error;
++			}
++			bin_free(&amp;x);
++			
++			aud = aud-&gt;next;
++		}
++		auth_data_unlock(i);
++	}	
++	
++	//delete older snapshots
++	if (delete_older_snapshots(table, snapshot_version)!=1){
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_dump_auth_to_table_cache(): Error while deleting older snapshots from %s\n&quot;, table);
++		goto error;
++	}
++	
++	//unlock
++	lock_release(db_lock);
++	
++	return 1;
++
++error:
++	lock_release(db_lock);//unlock
++	return 0;
++}
++
+ /**
++ * Writes each dialogs hashtable element to DB.
++ * @param table - where to dump.
++ * @param snapshot_version - version of the current snapshot
++ * @param step_version - the step in the current snapshot
++ * @returns 1 on success or 0 on failure
++ */
++int bin_dump_dialogs_to_table_cache(char* table, int snapshot_version, int step_version){
++	
++	bin_data x;
++	s_dialog *d;
++	int i;
++	
++	//lock
++	lock_get(db_lock);
++
++	if (scscf_dbf.use_table(scscf_db, table) &lt; 0) {
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_dump_dialogs_to_table_cache(): Error in use_table\n&quot;);
++		goto error;
++	}
++	
++	for(i=0;i&lt;s_dialogs_hash_size;i++){
++		d_lock(i);
++		d = s_dialogs[i].head;
++		while(d){
++			if (!bin_alloc(&amp;x,128)){
++				d_unlock(i);
++				goto error;
++			}
++			if (!bin_encode_s_dialog(&amp;x,d)){
++				d_unlock(i);
++				goto error;
++			}
++			
++			db_key_t keys[5];
++			db_val_t vals[5];
++
++			keys[0] = &quot;snapshot_version&quot;;
++			keys[1] = &quot;step_version&quot;;
++			keys[2] = &quot;call_id&quot;;
++			keys[3] = &quot;aor&quot;;
++			keys[4] = &quot;data&quot;;
++
++			vals[0].type = DB_INT;
++			vals[0].nul = 0;
++			vals[0].val.int_val=snapshot_version;
++	
++			vals[1].type = DB_INT;
++			vals[1].nul = 0;
++			vals[1].val.int_val=step_version;
++
++			vals[2].type = DB_STR;
++			vals[2].nul = 0;
++			vals[2].val.str_val.s=d-&gt;call_id.s;
++			vals[2].val.str_val.len=MIN(d-&gt;call_id.len, 256);
++	
++			vals[3].type = DB_STR;
++			vals[3].nul = 0;
++			vals[3].val.str_val.s=d-&gt;aor.s;
++			vals[3].val.str_val.len=MIN(d-&gt;aor.len, 128);
++
++			vals[4].type = DB_BLOB;
++			vals[4].nul = 0;
++			str data={x.s, x.len};
++			vals[4].val.blob_val = data;
++			
++			if (scscf_dbf.insert(scscf_db, keys, vals, 5) &lt; 0) {
++				LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_dump_dialogs_to_table_cache(): Error while inserting on %s\n&quot;, table);
++				auth_data_unlock(i);
++				goto error;
++			}
++			bin_free(&amp;x);
++			
++			d = d-&gt;next;
++		}
++		d_unlock(i);
++	}	
++	
++	//delete older snapshots
++	if (delete_older_snapshots(table, snapshot_version)!=1){
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_dump_dialogs_to_table_cache(): Error while deleting older snapshots from %s\n&quot;, table);
++		goto error;
++	}
++	
++	//unlock
++	lock_release(db_lock);
++	
++	return 1;
++
++error:
++	lock_release(db_lock);//unlock
++	return 0;
++}
++
++/**
++ * Writes each registrar hashtable element to DB.
++ * @param table - where to dump.
++ * @param snapshot_version - version of the current snapshot
++ * @param step_version - the step in the current snapshot
++ * @returns 1 on success or 0 on failure
++ */
++int bin_dump_registrar_to_table_cache(char* table, int snapshot_version, int step_version){
++	
++	bin_data x;
++	r_public *p;
++	int i;
++	
++	//lock
++	lock_get(db_lock);
++
++	if (scscf_dbf.use_table(scscf_db, table) &lt; 0) {
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_dump_registrar_to_table_cache(): Error in use_table\n&quot;);
++		goto error;
++	}
++	
++	for(i=0;i&lt;r_hash_size;i++){
++		r_lock(i);
++		p = registrar[i].head;
++		while(p){
++			if (!bin_alloc(&amp;x,128)){
++				r_unlock(i);
++				goto error;
++			}
++			if (!bin_encode_r_public(&amp;x,p)){
++				r_unlock(i);
++				goto error;
++			}
++			
++			db_key_t keys[4];
++			db_val_t vals[4];
++
++			keys[0] = &quot;snapshot_version&quot;;
++			keys[1] = &quot;step_version&quot;;
++			keys[2] = &quot;aor&quot;;
++			keys[3] = &quot;data&quot;;
++
++			vals[0].type = DB_INT;
++			vals[0].nul = 0;
++			vals[0].val.int_val=snapshot_version;
++	
++			vals[1].type = DB_INT;
++			vals[1].nul = 0;
++			vals[1].val.int_val=step_version;
++	
++			vals[2].type = DB_STR;
++			vals[2].nul = 0;
++			vals[2].val.str_val.s=p-&gt;aor.s;
++			vals[2].val.str_val.len=MIN(p-&gt;aor.len, 128);
++
++			vals[3].type = DB_BLOB;
++			vals[3].nul = 0;
++			str data={x.s, x.len};
++			vals[3].val.blob_val = data;
++			
++			if (scscf_dbf.insert(scscf_db, keys, vals, 4) &lt; 0) {
++				LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_dump_registrar_to_table_cache(): Error while inserting on %s\n&quot;, table);
++				r_unlock(i);
++				goto error;
++			}
++			bin_free(&amp;x);
++			
++			p = p-&gt;next;
++		}
++		r_unlock(i);
++	}	
++	
++	//delete older snapshots
++	if (delete_older_snapshots(table, snapshot_version)!=1){
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_dump_registrar_to_table_cache(): Error while deleting older snapshots from %s\n&quot;, table);
++		goto error;
++	}
++	
++	//unlock
++	lock_release(db_lock);
++	
++	return 1;
++
++error:
++	lock_release(db_lock);//unlock
++	return 0;
++}
++
++
++/**
+  * Loads the authorization data from the last snapshot.
+  * @returns 1 on success or 0 on failure
+  */
+@@ -269,26 +567,28 @@
+ 	auth_userdata *aud;
+ 	if (!s_load(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;authdata&quot;)) goto error;
+ 	//if (!bin_load(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;authdata&quot;)) goto error;
+-	bin_print(&amp;x);
+-	x.max=0;
+-	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_auth: max %d len %d\n&quot;,x.max,x.len);
+-	while(x.max&lt;x.len){
+-		aud = bin_decode_auth_userdata(&amp;x);		
+-		if (!aud) return 0;
+-		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_auth: Loaded auth_userdata for &lt;%.*s&gt;\n&quot;,aud-&gt;private_identity.len,aud-&gt;private_identity.s);
+-		auth_data_lock(aud-&gt;hash);
+-		aud-&gt;prev = auth_data[aud-&gt;hash].tail;
+-		aud-&gt;next = 0;
+-		if (auth_data[aud-&gt;hash].tail) auth_data[aud-&gt;hash].tail-&gt;next = aud;
+-		auth_data[aud-&gt;hash].tail = aud;
+-		if (!auth_data[aud-&gt;hash].head) auth_data[aud-&gt;hash].head = aud;
+-		auth_data_unlock(aud-&gt;hash);
++	
++	if(scscf_persistency_mode!=WITH_DATABASE_CACHE){
++		bin_print(&amp;x);
++		x.max=0;
++		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_auth: max %d len %d\n&quot;,x.max,x.len);
++		while(x.max&lt;x.len){
++			aud = bin_decode_auth_userdata(&amp;x);		
++			if (!aud) return 0;
++			LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_auth: Loaded auth_userdata for &lt;%.*s&gt;\n&quot;,aud-&gt;private_identity.len,aud-&gt;private_identity.s);
++			auth_data_lock(aud-&gt;hash);
++			aud-&gt;prev = auth_data[aud-&gt;hash].tail;
++			aud-&gt;next = 0;
++			if (auth_data[aud-&gt;hash].tail) auth_data[aud-&gt;hash].tail-&gt;next = aud;
++			auth_data[aud-&gt;hash].tail = aud;
++			if (!auth_data[aud-&gt;hash].head) auth_data[aud-&gt;hash].head = aud;
++			auth_data_unlock(aud-&gt;hash);
++		}
++		bin_free(&amp;x);
+ 	}
+-	bin_free(&amp;x);
+ 	return 1;
+ error:
+ 	return 0;
+-	
+ }
+ 
+ int bin_load_from_db(bin_data *x, char* prepend_fname);
+@@ -304,8 +604,7 @@
+ 		case WITH_DATABASE_BULK:
+ 			return bin_load_from_db(x, prepend_fname);
+ 		case WITH_DATABASE_CACHE:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:s_load: WITH_DATABASE_CACHE not implemented...\n&quot;);
+-			return 0;
++			return bin_load_from_db(x, prepend_fname); //ignore x
+ 		default:
+ 			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:s_load: Can't resume because no such mode %d\n&quot;,mode);
+ 			return 0;
+@@ -313,6 +612,9 @@
+ }
+ 
+ int bin_load_from_table(bin_data *x, char* table);
++int bin_load_registrar_from_table_cache(char* table);
++int bin_load_dialogs_from_table_cache(char* table);
++int bin_load_auth_from_table_cache(char* table);
+ 
+ /**
+  * Reloads the last snapshot dumped to db.
+@@ -325,14 +627,23 @@
+ 	char* table;
+ 	
+ 	if(!strncmp(prepend_fname,&quot;sregistrar&quot;,10)){
++		if(scscf_persistency_mode==WITH_DATABASE_CACHE){
++			return bin_load_registrar_from_table_cache(&quot;registrar_cache&quot;);
++		}
+ 		table=&quot;registrar_bulk&quot;;
+ 	}
+ 	else{
+ 		if(!strncmp(prepend_fname,&quot;sdialogs&quot;,8)){
++			if(scscf_persistency_mode==WITH_DATABASE_CACHE){
++				return bin_load_dialogs_from_table_cache(&quot;dialogs_cache&quot;);
++			}
+ 			table=&quot;dialogs_bulk&quot;;
+ 		}
+ 		else{
+ 			if(!strncmp(prepend_fname,&quot;authdata&quot;,8)){
++				if(scscf_persistency_mode==WITH_DATABASE_CACHE){
++					return bin_load_auth_from_table_cache(&quot;auth_data_cache&quot;);
++				}
+ 				table=&quot;auth_data_bulk&quot;;
+ 			}
+ 			else{
+@@ -374,7 +685,7 @@
+ 			return 1;
+ 		}
+ 		
+-	//set snap/step versions
++	//set snapshot/step versions
+ 	set_versions(table, snapshot_version+1, 0);
+ 		
+ 	db_key_t keys[1];
+@@ -397,13 +708,13 @@
+ 	if (scscf_dbf.use_table(scscf_db, table) &lt; 0) {
+ 		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_load_from_table(): Error in use_table\n&quot;);
+ 		lock_release(db_lock);//unlock
+-		return -1;
++		return 0;
+ 	}
+ 	
+ 	if (scscf_dbf.query(scscf_db, keys, ops, vals, result_cols, 1, 1, 0, &amp;res) &lt; 0) {
+ 		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_load_from_table(): Error while querying %s\n&quot;, table);
+ 		lock_release(db_lock);//unlock
+-		return -1;
++		return 0;
+ 	}
+ 	
+ 	if (!res) {
+@@ -427,13 +738,291 @@
+ 	memcpy(x-&gt;s, row_vals[0].val.blob_val.s, len);
+ 	x-&gt;len+=len;
+ 	
++	scscf_dbf.free_result(scscf_db, res);
++	
+ 	lock_release(db_lock);//unlock
+ 	
+ 	return 1;
+ }
+ 
++/**
++ * Reloads all the entries corresponding to the last registrar snapshot dumped to db.
++ * The information is placed on the registrar hashtable.
++ * @param table - load from
++ * @returns 1 on success, 0 on error
++ */
++int bin_load_registrar_from_table_cache(char* table){
++	
++	int snapshot_version;
++	int r, len, i=0;
++	bin_data x;
++	r_public *p;
++	
++	//lock
++	lock_get(db_lock);
++	
++	if((r=db_get_last_snapshot_version(table, &amp;snapshot_version))==0){
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load_registrar_from_table_cache: Error while getting snapshot version\n&quot;);
++		goto error;
++	}
++	else if(r==-1){//empty table, nothing to load
++			LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_load_registrar_from_table_cache: %s empty\n&quot;, table);
++			lock_release(db_lock);//unlock
++			return 1;
++		}
++		
++	//set snapshot/step versions
++	set_versions(table, snapshot_version+1, 0);
++		
++	db_key_t keys[1];
++	db_val_t vals[1];
++	db_op_t ops[1];
++	db_key_t result_cols[1];
++	
++	db_res_t *res = NULL;
++	
++	keys[0] = &quot;snapshot_version&quot;;
++	
++	ops[0] = OP_EQ;
+ 
++	vals[0].type = DB_INT;
++	vals[0].nul = 0;
++	vals[0].val.int_val = snapshot_version;
++	
++	result_cols[0]=&quot;data&quot;;
++	
++	if (scscf_dbf.use_table(scscf_db, table) &lt; 0) {
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_load_registrar_from_table_cache(): Error in use_table\n&quot;);
++		goto error;
++	}
++	
++	if (scscf_dbf.query(scscf_db, keys, ops, vals, result_cols, 1, 1, 0, &amp;res) &lt; 0) {
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_load_registrar_from_table_cache(): Error while querying %s\n&quot;, table);
++		goto error;
++	}
++	
++	if (!res) goto error;
++	
++	for(i=0;i&lt;res-&gt;n;i++){
++		db_row_t *row = &amp;res-&gt;rows[i];
++		db_val_t *row_vals = ROW_VALUES(row);
++		
++		len = row_vals[0].val.blob_val.len;
++		bin_alloc(&amp;x,len);
++		memcpy(x.s, row_vals[0].val.blob_val.s, len);
++		x.len=len;
++		x.max=0;
++		p = bin_decode_r_public(&amp;x);
++		if (!p){
++			scscf_dbf.free_result(scscf_db, res);
++			goto error;
++		};
++		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_load_registrar_from_table_cache(): Loaded r_public for &lt;%.*s&gt;\n&quot;,p-&gt;aor.len,p-&gt;aor.s);
++		r_lock(p-&gt;hash);
++		p-&gt;prev = registrar[p-&gt;hash].tail;
++		p-&gt;next = 0;
++		if (registrar[p-&gt;hash].tail) registrar[p-&gt;hash].tail-&gt;next = p;
++		registrar[p-&gt;hash].tail = p;
++		if (!registrar[p-&gt;hash].head) registrar[p-&gt;hash].head = p;
++		r_unlock(p-&gt;hash);
++		bin_free(&amp;x);
++	}
++	
++	scscf_dbf.free_result(scscf_db, res);
++	lock_release(db_lock);//unlock
++	return 1;
++	
++error:
++	lock_release(db_lock);//unlock
++	return 0;
++}
++
+ /**
++ * Reloads all the entries corresponding to the last dialogs snapshot dumped to db.
++ * The information is placed on the dialogs hashtable.
++ * @param table - load from
++ * @returns 1 on success, 0 on error
++ */
++int bin_load_dialogs_from_table_cache(char* table){
++	
++	int snapshot_version;
++	int r, len, i=0;
++	bin_data x;
++	s_dialog *d;
++	
++	//lock
++	lock_get(db_lock);
++	
++	if((r=db_get_last_snapshot_version(table, &amp;snapshot_version))==0){
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load_dialogs_from_table_cache: Error while getting snapshot version\n&quot;);
++		goto error;
++	}
++	else if(r==-1){//empty table, nothing to load
++			LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_load_dialogs_from_table_cache: %s empty\n&quot;, table);
++			lock_release(db_lock);//unlock
++			return 1;
++		}
++		
++	//set snapshot/step versions
++	set_versions(table, snapshot_version+1, 0);
++		
++	db_key_t keys[1];
++	db_val_t vals[1];
++	db_op_t ops[1];
++	db_key_t result_cols[1];
++	
++	db_res_t *res = NULL;
++	
++	keys[0] = &quot;snapshot_version&quot;;
++	
++	ops[0] = OP_EQ;
++
++	vals[0].type = DB_INT;
++	vals[0].nul = 0;
++	vals[0].val.int_val = snapshot_version;
++	
++	result_cols[0]=&quot;data&quot;;
++	
++	if (scscf_dbf.use_table(scscf_db, table) &lt; 0) {
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_load_dialogs_from_table_cache(): Error in use_table\n&quot;);
++		goto error;
++	}
++	
++	if (scscf_dbf.query(scscf_db, keys, ops, vals, result_cols, 1, 1, 0, &amp;res) &lt; 0) {
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_load_dialogs_from_table_cache(): Error while querying %s\n&quot;, table);
++		goto error;
++	}
++	
++	if (!res) goto error;
++	
++	for(i=0;i&lt;res-&gt;n;i++){
++		db_row_t *row = &amp;res-&gt;rows[i];
++		db_val_t *row_vals = ROW_VALUES(row);
++		
++		len = row_vals[0].val.blob_val.len;
++		bin_alloc(&amp;x,len);
++		memcpy(x.s, row_vals[0].val.blob_val.s, len);
++		x.len=len;
++		x.max=0;
++		d = bin_decode_s_dialog(&amp;x);
++		if (!d){
++			scscf_dbf.free_result(scscf_db, res);
++			goto error;
++		};
++		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_load_dialogs_from_table_cache(): Loaded s_dialog for &lt;%.*s&gt;\n&quot;,d-&gt;aor.len,d-&gt;aor.s);
++		d_lock(d-&gt;hash);
++		d-&gt;prev = s_dialogs[d-&gt;hash].tail;
++		d-&gt;next = 0;
++		if (s_dialogs[d-&gt;hash].tail) s_dialogs[d-&gt;hash].tail-&gt;next = d;
++		s_dialogs[d-&gt;hash].tail = d;
++		if (!s_dialogs[d-&gt;hash].head) s_dialogs[d-&gt;hash].head = d;
++		d_unlock(d-&gt;hash);
++		bin_free(&amp;x);
++	}
++	
++	scscf_dbf.free_result(scscf_db, res);
++	lock_release(db_lock);//unlock
++	return 1;
++	
++error:
++	lock_release(db_lock);//unlock
++	return 0;
++}
++
++/**
++ * Reloads all the entries corresponding to the last auth snapshot dumped to db.
++ * The information is placed on the auth_userdata hashtable.
++ * @param table - load from
++ * @returns 1 on success, 0 on error
++ */
++int bin_load_auth_from_table_cache(char* table){
++	
++	int snapshot_version;
++	int r, len, i=0;
++	bin_data x;
++	auth_userdata *aud;
++	
++	//lock
++	lock_get(db_lock);
++	
++	if((r=db_get_last_snapshot_version(table, &amp;snapshot_version))==0){
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load_auth_from_table_cache: Error while getting snapshot version\n&quot;);
++		goto error;
++	}
++	else if(r==-1){//empty table, nothing to load
++			LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_load_auth_from_table_cache: %s empty\n&quot;, table);
++			lock_release(db_lock);//unlock
++			return 1;
++		}
++		
++	//set snapshot/step versions
++	set_versions(table, snapshot_version+1, 0);
++		
++	db_key_t keys[1];
++	db_val_t vals[1];
++	db_op_t ops[1];
++	db_key_t result_cols[1];
++	
++	db_res_t *res = NULL;
++	
++	keys[0] = &quot;snapshot_version&quot;;
++	
++	ops[0] = OP_EQ;
++
++	vals[0].type = DB_INT;
++	vals[0].nul = 0;
++	vals[0].val.int_val = snapshot_version;
++	
++	result_cols[0]=&quot;data&quot;;
++	
++	if (scscf_dbf.use_table(scscf_db, table) &lt; 0) {
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_load_auth_from_table_cache(): Error in use_table\n&quot;);
++		goto error;
++	}
++	
++	if (scscf_dbf.query(scscf_db, keys, ops, vals, result_cols, 1, 1, 0, &amp;res) &lt; 0) {
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_load_auth_from_table_cache(): Error while querying %s\n&quot;, table);
++		goto error;
++	}
++	
++	if (!res) goto error;
++	
++	for(i=0;i&lt;res-&gt;n;i++){
++		db_row_t *row = &amp;res-&gt;rows[i];
++		db_val_t *row_vals = ROW_VALUES(row);
++		
++		len = row_vals[0].val.blob_val.len;
++		bin_alloc(&amp;x,len);
++		memcpy(x.s, row_vals[0].val.blob_val.s, len);
++		x.len=len;
++		x.max=0;
++		aud = bin_decode_auth_userdata(&amp;x);
++		if (!aud){
++			scscf_dbf.free_result(scscf_db, res);
++			goto error;
++		};
++		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_load_auth_from_table_cache(): Loaded auth_userdata for &lt;%.*s&gt;\n&quot;,aud-&gt;private_identity.len,aud-&gt;private_identity.s);
++		auth_data_lock(aud-&gt;hash);
++		aud-&gt;prev = auth_data[aud-&gt;hash].tail;
++		aud-&gt;next = 0;
++		if (auth_data[aud-&gt;hash].tail) auth_data[aud-&gt;hash].tail-&gt;next = aud;
++		auth_data[aud-&gt;hash].tail = aud;
++		if (!auth_data[aud-&gt;hash].head) auth_data[aud-&gt;hash].head = aud;
++		auth_data_unlock(aud-&gt;hash);
++		bin_free(&amp;x);
++	}
++	
++	scscf_dbf.free_result(scscf_db, res);
++	lock_release(db_lock);//unlock
++	return 1;
++	
++error:
++	lock_release(db_lock);//unlock
++	return 0;
++}
++
++
++/**
+  * Gets the version of the last snapshot dumped to db.
+  * Used to load information form db on startup.
+  * @param table - the table to query
+@@ -480,6 +1069,8 @@
+ }
+ 
+ /**
++ * Sets the values of the global variables registrar/dialogs/auth_snapshot_version
++ * and registrar/dialogs/auth_step_version.
+  * @param table - auth, dialogs or registrar versions?
+  * @param snapshot_version - it must continue from the last snapshot version + 1
+  * @param step_version - it must continue from the last step version + 1 
+@@ -487,17 +1078,18 @@
+  */
+ int set_versions(char* table, int snapshot_version, int step_version){
+ 
+-	if(!strncmp(table,&quot;registrar_bulk&quot;,14)){
++	//registrar_bulk or registrar_cache
++	if(!strncmp(table,&quot;registrar&quot;,9)){
+ 		*registrar_snapshot_version=snapshot_version;
+ 		*registrar_step_version=step_version;
+ 	}
+-	else{
+-		if(!strncmp(table,&quot;dialogs_bulk&quot;,12)){
++	else{//dialogs_bulk or dialogs_cache
++		if(!strncmp(table,&quot;dialogs&quot;,7)){
+ 			*dialogs_snapshot_version=snapshot_version;
+ 			*dialogs_step_version=step_version;
+ 		}
+-		else{
+-			if(!strncmp(table,&quot;auth_data_bulk&quot;,14)){
++		else{//auth_data_bulk or auth_data_cache
++			if(!strncmp(table,&quot;auth_data&quot;,9)){
+ 				*auth_snapshot_version=snapshot_version;
+ 				*auth_step_version=step_version;
+ 			}
+@@ -524,11 +1116,6 @@
+ 
+ 
+ 
+-
+-
+-extern int s_dialogs_hash_size;						/**&lt; size of the dialog hash table 					*/
+-extern s_dialog_hash_slot *s_dialogs;				/**&lt; the hash table									*/
+-
+ /**
+  * Creates a snapshots of the dialogs data and then calls the dumping function.
+  * @returns 1 on success or 0 on failure
+@@ -538,20 +1125,26 @@
+ 	bin_data x;
+ 	s_dialog *d;
+ 	int i;	
+-	if (!bin_alloc(&amp;x,256)) goto error;		
+-	for(i=0;i&lt;s_dialogs_hash_size;i++){
+-		d_lock(i);
+-		d = s_dialogs[i].head;
+-		while(d){
+-			if (!bin_encode_s_dialog(&amp;x,d)) goto error;
+-			d = d-&gt;next;
++	
++	/*In WITH_DATABASE_CACHE mode, serialize each hashtable element separately */
++	if(scscf_persistency_mode!=WITH_DATABASE_CACHE){
++		if (!bin_alloc(&amp;x,256)) goto error;		
++		for(i=0;i&lt;s_dialogs_hash_size;i++){
++			d_lock(i);
++			d = s_dialogs[i].head;
++			while(d){
++				if (!bin_encode_s_dialog(&amp;x,d)) goto error;
++				d = d-&gt;next;
++			}
++			d_unlock(i);
+ 		}
+-		d_unlock(i);
++		bin_print(&amp;x);
+ 	}
+-	bin_print(&amp;x);
+ 	i=s_dump(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;sdialogs&quot;);
+ 	//i = bin_dump(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;sdialogs&quot;);		
+-	bin_free(&amp;x);
++	if(scscf_persistency_mode!=WITH_DATABASE_CACHE){
++		bin_free(&amp;x);
++	}
+ 	return i;
+ error:
+ 	return 0;
+@@ -567,26 +1160,28 @@
+ 	s_dialog *d;
+ 	if (!s_load(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;sdialogs&quot;)) goto error;
+ 	//if (!bin_load(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;sdialogs&quot;)) goto error;
+-	bin_print(&amp;x);
+-	x.max=0;
+-	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_dlg: max %d len %d\n&quot;,x.max,x.len);
+-	while(x.max&lt;x.len){
+-		d = bin_decode_s_dialog(&amp;x);
+-		if (!d) return 0;
+-		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_dlg: Loaded s_dialog for &lt;%.*s&gt;\n&quot;,d-&gt;aor.len,d-&gt;aor.s);
+-		d_lock(d-&gt;hash);
+-		d-&gt;prev = s_dialogs[d-&gt;hash].tail;
+-		d-&gt;next = 0;
+-		if (s_dialogs[d-&gt;hash].tail) s_dialogs[d-&gt;hash].tail-&gt;next = d;
+-		s_dialogs[d-&gt;hash].tail = d;
+-		if (!s_dialogs[d-&gt;hash].head) s_dialogs[d-&gt;hash].head = d;
+-		d_unlock(d-&gt;hash);
++	
++	if(scscf_persistency_mode!=WITH_DATABASE_CACHE){
++		bin_print(&amp;x);
++		x.max=0;
++		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_dlg: max %d len %d\n&quot;,x.max,x.len);
++		while(x.max&lt;x.len){
++			d = bin_decode_s_dialog(&amp;x);
++			if (!d) return 0;
++			LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_dlg: Loaded s_dialog for &lt;%.*s&gt;\n&quot;,d-&gt;aor.len,d-&gt;aor.s);
++			d_lock(d-&gt;hash);
++			d-&gt;prev = s_dialogs[d-&gt;hash].tail;
++			d-&gt;next = 0;
++			if (s_dialogs[d-&gt;hash].tail) s_dialogs[d-&gt;hash].tail-&gt;next = d;
++			s_dialogs[d-&gt;hash].tail = d;
++			if (!s_dialogs[d-&gt;hash].head) s_dialogs[d-&gt;hash].head = d;
++			d_unlock(d-&gt;hash);
++		}
++		bin_free(&amp;x);
+ 	}
+-	bin_free(&amp;x);
+ 	return 1;
+ error:
+ 	return 0;
+-	
+ }
+ 
+ 
+@@ -603,10 +1198,6 @@
+ }
+ 
+ 
+-
+-extern int r_hash_size;						/**&lt; Size of S-CSCF registrar hash table		*/
+-extern r_hash_slot *registrar;				/**&lt; The S-CSCF registrar 						*/
+-
+ /**
+  * Creates a snapshots of the registrar and then calls the dumping function.
+  * @returns 1 on success or 0 on failure
+@@ -615,21 +1206,27 @@
+ {
+ 	bin_data x;
+ 	r_public *p;
+-	int i;	
+-	if (!bin_alloc(&amp;x,256)) goto error;		
+-	for(i=0;i&lt;r_hash_size;i++){
+-		r_lock(i);
+-		p = registrar[i].head;
+-		while(p){
+-			if (!bin_encode_r_public(&amp;x,p)) goto error;
+-			p = p-&gt;next;
++	int i;
++	
++	/*In WITH_DATABASE_CACHE mode, serialize each hashtable element separately */
++	if(scscf_persistency_mode!=WITH_DATABASE_CACHE){
++		if (!bin_alloc(&amp;x,256)) goto error;		
++		for(i=0;i&lt;r_hash_size;i++){
++			r_lock(i);
++			p = registrar[i].head;
++			while(p){
++				if (!bin_encode_r_public(&amp;x,p)) goto error;
++				p = p-&gt;next;
++			}
++			r_unlock(i);
+ 		}
+-		r_unlock(i);
++		bin_print(&amp;x);
+ 	}
+-	bin_print(&amp;x);
+ 	i = s_dump(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;sregistrar&quot;);
+ 	//i = bin_dump(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;sregistrar&quot;);		
+-	bin_free(&amp;x);
++	if(scscf_persistency_mode!=WITH_DATABASE_CACHE){
++		bin_free(&amp;x);
++	}
+ 	return i;
+ error:
+ 	return 0;
+@@ -645,22 +1242,25 @@
+ 	r_public *p;
+ 	if (!s_load(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;sregistrar&quot;)) goto error;
+ 	//if (!bin_load(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;sregistrar&quot;)) goto error;
+-	bin_print(&amp;x);
+-	x.max=0;
+-	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_registrar: max %d len %d\n&quot;,x.max,x.len);
+-	while(x.max&lt;x.len){
+-		p = bin_decode_r_public(&amp;x);
+-		if (!p) return 0;
+-		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_registrar: Loaded r_public for &lt;%.*s&gt;\n&quot;,p-&gt;aor.len,p-&gt;aor.s);
+-		r_lock(p-&gt;hash);
+-		p-&gt;prev = registrar[p-&gt;hash].tail;
+-		p-&gt;next = 0;
+-		if (registrar[p-&gt;hash].tail) registrar[p-&gt;hash].tail-&gt;next = p;
+-		registrar[p-&gt;hash].tail = p;
+-		if (!registrar[p-&gt;hash].head) registrar[p-&gt;hash].head = p;
+-		r_unlock(p-&gt;hash);
++	
++	if(scscf_persistency_mode!=WITH_DATABASE_CACHE){
++		bin_print(&amp;x);
++		x.max=0;
++		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_registrar: max %d len %d\n&quot;,x.max,x.len);
++		while(x.max&lt;x.len){
++			p = bin_decode_r_public(&amp;x);
++			if (!p) return 0;
++			LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_registrar: Loaded r_public for &lt;%.*s&gt;\n&quot;,p-&gt;aor.len,p-&gt;aor.s);
++			r_lock(p-&gt;hash);
++			p-&gt;prev = registrar[p-&gt;hash].tail;
++			p-&gt;next = 0;
++			if (registrar[p-&gt;hash].tail) registrar[p-&gt;hash].tail-&gt;next = p;
++			registrar[p-&gt;hash].tail = p;
++			if (!registrar[p-&gt;hash].head) registrar[p-&gt;hash].head = p;
++			r_unlock(p-&gt;hash);
++		}
++		bin_free(&amp;x);
+ 	}
+-	bin_free(&amp;x);
+ 	return 1;
+ error:
+ 	return 0;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000252.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r156 - in ser_ims/trunk/modules:	icscf pcscf scscf
+</A></li>
+	<LI>Next message: <A HREF="000254.html">[OpenIMSCore-CSCF] Sipp tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#253">[ date ]</a>
+              <a href="thread.html#253">[ thread ]</a>
+              <a href="subject.html#253">[ subject ]</a>
+              <a href="author.html#253">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

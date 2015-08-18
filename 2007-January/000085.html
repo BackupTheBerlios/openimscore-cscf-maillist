@@ -1,0 +1,275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r80 - in ser_ims/trunk/modules:	cdp scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r80%20-%20in%20ser_ims/trunk/modules%3A%0A%09cdp%20scscf&In-Reply-To=%3C200701021510.l02FAEMw028594%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000132.html">
+   <LINK REL="Next"  HREF="000086.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r80 - in ser_ims/trunk/modules:	cdp scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r80%20-%20in%20ser_ims/trunk/modules%3A%0A%09cdp%20scscf&In-Reply-To=%3C200701021510.l02FAEMw028594%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r80 - in ser_ims/trunk/modules:	cdp scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Jan  2 16:10:14 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000132.html">[OpenIMSCore-CSCF] 3rd Party REGISTER: iFC does not trigger at de-registration
+</A></li>
+        <LI>Next message: <A HREF="000086.html">[OpenIMSCore-CSCF] Scscf does not treat RTR and PPR messages
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#85">[ date ]</a>
+              <a href="thread.html#85">[ thread ]</a>
+              <a href="subject.html#85">[ subject ]</a>
+              <a href="author.html#85">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-01-02 16:09:41 +0100 (Tue, 02 Jan 2007)
+New Revision: 80
+
+Modified:
+   ser_ims/trunk/modules/cdp/api_process.c
+   ser_ims/trunk/modules/cdp/api_process.h
+   ser_ims/trunk/modules/cdp/diameter_api.c
+   ser_ims/trunk/modules/cdp/diameter_peer.c
+   ser_ims/trunk/modules/scscf/mod.c
+Log:
+Fixed S-CSCF not reacting to PPR/RTR bug.
+
+
+Modified: ser_ims/trunk/modules/cdp/api_process.c
+===================================================================
+--- ser_ims/trunk/modules/cdp/api_process.c	2007-01-02 14:12:34 UTC (rev 79)
++++ ser_ims/trunk/modules/cdp/api_process.c	2007-01-02 15:09:41 UTC (rev 80)
+@@ -74,22 +74,22 @@
+ {
+ 	cdp_trans_t *t;
+ 	int auto_drop;	
+-	handler_list *h;
++	handler *h;
+ 	enum handler_types type;
+ 	AAAMessage *rsp;
+ 	if (is_req(msg)) type = REQUEST_HANDLER;
+ 	else type=RESPONSE_HANDLER;
+ 
+-	
+ 	lock_get(handlers_lock);
+-		for(h=handlers;h;h=h-&gt;next)
++		for(h=handlers-&gt;head;h;h=h-&gt;next){
+ 			if (h-&gt;type==type){
+ 				if (h-&gt;type == REQUEST_HANDLER) {					
+ 					rsp = (h-&gt;handler.requestHandler)(msg,h-&gt;param);
+ 					if (rsp) peer_send_msg(p,rsp);
+ 				}
+ 				else (h-&gt;handler.responseHandler)(msg,h-&gt;param);
+-			}		
++			}
++		}		
+ 	lock_release(handlers_lock);
+ 	
+ 	if (!is_req(msg)){		
+
+Modified: ser_ims/trunk/modules/cdp/api_process.h
+===================================================================
+--- ser_ims/trunk/modules/cdp/api_process.h	2007-01-02 14:12:34 UTC (rev 79)
++++ ser_ims/trunk/modules/cdp/api_process.h	2007-01-02 15:09:41 UTC (rev 80)
+@@ -69,17 +69,22 @@
+ /**
+  * Diameter message received handler list element.
+  */ 
+-typedef struct handler_list_t{
++typedef struct handler_t{
+ 	enum handler_types type;					/**&lt; type of the handler */
+ 	union {
+ 		AAARequestHandler_f *requestHandler;	/**&lt; request callback function */
+ 		AAAResponseHandler_f *responseHandler;  /**&lt; response callback function */
+ 	} handler;									/**&lt; union for handler callback function */
+ 	void *param;								/**&lt; transparent parameter to pass to callback */
+-	struct handler_list_t *next;				/**&lt; next handler in the list */
++	struct handler_t *next;				/**&lt; next handler in the list */
++	struct handler_t *prev;				/**&lt; prev handler in the list */
++} handler;
++		
++typedef struct handler_list_t{
++	handler *head;				/**&lt; first handler in the list */
++	handler *tail;				/**&lt; last handler in the list */
+ } handler_list;
+ 		
+-		
+ int api_callback(peer *p,AAAMessage *msg,void* ptr);
+ 
+ #endif /*API_PROCESS_H_*/
+
+Modified: ser_ims/trunk/modules/cdp/diameter_api.c
+===================================================================
+--- ser_ims/trunk/modules/cdp/diameter_api.c	2007-01-02 14:12:34 UTC (rev 79)
++++ ser_ims/trunk/modules/cdp/diameter_api.c	2007-01-02 15:09:41 UTC (rev 80)
+@@ -107,18 +107,21 @@
+  */
+ int AAAAddRequestHandler(AAARequestHandler_f *f,void *param)
+ {
+-	handler_list *h = shm_malloc(sizeof(handler_list));
++	handler *h = shm_malloc(sizeof(handler));
+ 	if (!h) {
+ 		LOG(L_ERR,&quot;ERR:AAAAddRequestHandler: error allocating %d bytes in shm\n&quot;,
+-			sizeof(handler_list));
++			sizeof(handler));
+ 		return 0;
+ 	}
+ 	h-&gt;type = REQUEST_HANDLER;
+ 	h-&gt;handler.requestHandler = f;
+ 	h-&gt;param = param;
++	h-&gt;next = 0;
+ 	lock_get(handlers_lock);
+-	h-&gt;next = handlers;
+-	handlers = h;
++	h-&gt;prev = handlers-&gt;tail;
++	if (handlers-&gt;tail) handlers-&gt;tail-&gt;next = h;
++	handlers-&gt;tail = h;
++	if (!handlers-&gt;head) handlers-&gt;head = h;
+ 	lock_release(handlers_lock);
+ 	return 1;
+ }
+@@ -131,18 +134,21 @@
+  */
+ int AAAAddResponseHandler(AAAResponseHandler_f *f,void *param)
+ {
+-	handler_list *h = shm_malloc(sizeof(handler_list));
++	handler *h = shm_malloc(sizeof(handler));
+ 	if (!h) {
+ 		LOG(L_ERR,&quot;ERR:AAAAddResponseHandler: error allocating %d bytes in shm\n&quot;,
+-			sizeof(handler_list));
++			sizeof(handler));
+ 		return 0;
+ 	}
+ 	h-&gt;type = RESPONSE_HANDLER;
+ 	h-&gt;handler.responseHandler = f;
+ 	h-&gt;param = param;
++	h-&gt;next = 0;
+ 	lock_get(handlers_lock);
+-	h-&gt;next = handlers;
+-	handlers = h;
++	h-&gt;prev = handlers-&gt;tail;
++	if (handlers-&gt;tail) handlers-&gt;tail-&gt;next = h;
++	handlers-&gt;tail = h;
++	if (!handlers-&gt;head) handlers-&gt;head = h;
+ 	lock_release(handlers_lock);
+ 	return 1;
+ }
+
+Modified: ser_ims/trunk/modules/cdp/diameter_peer.c
+===================================================================
+--- ser_ims/trunk/modules/cdp/diameter_peer.c	2007-01-02 14:12:34 UTC (rev 79)
++++ ser_ims/trunk/modules/cdp/diameter_peer.c	2007-01-02 15:09:41 UTC (rev 80)
+@@ -195,6 +195,13 @@
+ 	}
+ 	handlers_lock = lock_init(handlers_lock);
+ 
++	handlers = shm_malloc(sizeof(handler_list));
++	if (!handlers){
++		LOG_NO_MEM(&quot;shm&quot;,sizeof(handler_list));
++		goto error;
++	}
++	handlers-&gt;head=0;
++	handlers-&gt;tail=0;
+ 
+ 	/* init the pid list */
+ 	pid_list = shm_malloc(sizeof(pid_list_head_t));
+@@ -331,7 +338,7 @@
+ void diameter_peer_destroy()
+ {
+ 	int pid,status;
+-	handler_list *h;
++	handler *h;
+ 	
+ 	lock_get(shutdownx_lock);
+ 	if (*shutdownx) {
+@@ -395,10 +402,10 @@
+ 	lock_dealloc((void*)shutdownx_lock);
+ 	
+ 	lock_get(handlers_lock);
+-	while(handlers){
+-		h = handlers-&gt;next;
+-		shm_free(handlers);
+-		handlers = h;
++	while(handlers-&gt;head){
++		h = handlers-&gt;head-&gt;next;
++		shm_free(handlers-&gt;head);
++		handlers-&gt;head = h;
+ 	}
+ 	lock_destroy(handlers_lock);
+ 	lock_dealloc((void*)handlers_lock);
+
+Modified: ser_ims/trunk/modules/scscf/mod.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/mod.c	2007-01-02 14:12:34 UTC (rev 79)
++++ ser_ims/trunk/modules/scscf/mod.c	2007-01-02 15:09:41 UTC (rev 80)
+@@ -485,8 +485,6 @@
+ 	if (register_timer(dialog_timer,s_dialogs,60)&lt;0) goto error;
+ 
+ 
+-	//TODO - only for S-CSCF - I-CSCF does not respond to request
+-//	AAAAddRequestHandler(&amp;CxRequestHandler,0);
+ 	/* don't register response callback as we always set callback per transactions 
+ 	 *  and we're not interested in other responses */
+ 	/*AAAAddResponseHandler(&amp;CxAnswerHandler,0);*/
+@@ -497,6 +495,8 @@
+ 	return -1;
+ }
+ 
++extern gen_lock_t* process_lock;		/* lock on the process table */
++
+ /**
+  * Initializes the module in child.
+  */
+@@ -514,10 +514,12 @@
+ //		scscf_db_scscf_table,
+ //		scscf_db_capabilities_table);
+ 	/* init the diameter callback - must be done just once */
++	lock_get(process_lock);
+ 	if((*callback_singleton)==0){
++		*callback_singleton=1;
+ 		cdpb.AAAAddRequestHandler(CxRequestHandler,NULL);
+-		*callback_singleton=1;
+ 	}
++	lock_release(process_lock);
+ 	/* Init the user data parser */
+ 	if (!parser_init(scscf_user_data_dtd,scscf_user_data_xsd)) return -1;
+ 		
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000132.html">[OpenIMSCore-CSCF] 3rd Party REGISTER: iFC does not trigger at de-registration
+</A></li>
+	<LI>Next message: <A HREF="000086.html">[OpenIMSCore-CSCF] Scscf does not treat RTR and PPR messages
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#85">[ date ]</a>
+              <a href="thread.html#85">[ thread ]</a>
+              <a href="subject.html#85">[ subject ]</a>
+              <a href="author.html#85">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

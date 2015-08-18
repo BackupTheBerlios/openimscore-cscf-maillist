@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r723 - Removed useless logging	Changed the peer manager timer to be 1/5 of the Tc.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r723%20-%20Removed%20useless%20logging%0A%09Changed%20the%20peer%20manager%20timer%20to%20be%201/5%20of%20the%20Tc.&In-Reply-To=%3C200909210945.n8L9jPTs011398%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001782.html">
+   <LINK REL="Next"  HREF="001784.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r723 - Removed useless logging	Changed the peer manager timer to be 1/5 of the Tc.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r723%20-%20Removed%20useless%20logging%0A%09Changed%20the%20peer%20manager%20timer%20to%20be%201/5%20of%20the%20Tc.&In-Reply-To=%3C200909210945.n8L9jPTs011398%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r723 - Removed useless logging	Changed the peer manager timer to be 1/5 of the Tc.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Mon Sep 21 11:45:25 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001782.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r722 - Merged the 08_cdp_sessions	branch into trunk - support for Diameter Sessions - Diameter	Authorization state machine added - Diameter Accounting state	machine started - P-CSCF support for the Gq, Gq', Rx interfaces
+</A></li>
+        <LI>Next message: <A HREF="001784.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r724 - Added EPC constants to	CDiameterPeer Added missing Rel.8 Sh constants
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1783">[ date ]</a>
+              <a href="thread.html#1783">[ thread ]</a>
+              <a href="subject.html#1783">[ subject ]</a>
+              <a href="author.html#1783">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2009-09-21 11:45:06 +0200 (Mon, 21 Sep 2009)
+New Revision: 723 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=723">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=723</A> 
+
+Log:
+Removed useless logging
+Changed the peer manager timer to be 1/5 of the Tc.
+
+
+Modified:
+   U	ser_ims/trunk/modules/cdp/globals.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/globals.h?rev=723&amp;view=diff&amp;r1=723&amp;r2=722">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/globals.h?rev=723&amp;view=diff&amp;r1=723&amp;r2=722</A>
+   U	ser_ims/trunk/modules/cdp/peermanager.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peermanager.c?rev=723&amp;view=diff&amp;r1=723&amp;r2=722">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peermanager.c?rev=723&amp;view=diff&amp;r1=723&amp;r2=722</A>
+   U	ser_ims/trunk/modules/cdp/session.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/session.c?rev=723&amp;view=diff&amp;r1=723&amp;r2=722">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/session.c?rev=723&amp;view=diff&amp;r1=723&amp;r2=722</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001782.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r722 - Merged the 08_cdp_sessions	branch into trunk - support for Diameter Sessions - Diameter	Authorization state machine added - Diameter Accounting state	machine started - P-CSCF support for the Gq, Gq', Rx interfaces
+</A></li>
+	<LI>Next message: <A HREF="001784.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r724 - Added EPC constants to	CDiameterPeer Added missing Rel.8 Sh constants
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1783">[ date ]</a>
+              <a href="thread.html#1783">[ thread ]</a>
+              <a href="subject.html#1783">[ subject ]</a>
+              <a href="author.html#1783">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

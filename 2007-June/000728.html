@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SIGSEGV%20validating%20user%20data%20XML%20against%20XSD&In-Reply-To=%3C4670ED63.3020607%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000720.html">
+   <LINK REL="Next"  HREF="000737.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SIGSEGV%20validating%20user%20data%20XML%20against%20XSD&In-Reply-To=%3C4670ED63.3020607%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Jun 14 09:25:23 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000720.html">[OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD
+</A></li>
+        <LI>Next message: <A HREF="000737.html">[OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#728">[ date ]</a>
+              <a href="thread.html#728">[ thread ]</a>
+              <a href="subject.html#728">[ subject ]</a>
+              <a href="author.html#728">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Vance,
+
+could you please send us your XML so that we could try and replicate the
+issue?
+
+It looks like the bug is in libxml as it shouldn't crash in any case, no
+matter how wrong the xsd or xml should be. And if the dtd validates the
+xml, it should be OK anyway...
+
+-Dragos
+
+Vance Shipley wrote:
+&gt;<i> Folks,
+</I>&gt;<i>
+</I>&gt;<i> I am getting a repeatable segmentation violation in 
+</I>&gt;<i> the scscf module on registration.  Using gdb I see
+</I>&gt;<i> that it's in parse_user_data() where it tries to
+</I>&gt;<i> validate the user data XML against the XSD document
+</I>&gt;<i> (CxDataType_Rel7.xsd) using xmlSchemaValidateDoc()
+</I>&gt;<i> from libxml2.  The trace is below.
+</I>&gt;<i>
+</I>&gt;<i> I found that commenting out the &quot;user_data_xsd&quot; and
+</I>&gt;<i> uncommenting the &quot;user_data_dtd&quot; line in scscf.cfg
+</I>&gt;<i> worked around the problem:
+</I>&gt;<i>
+</I>&gt;<i>    # only one of user_data validation file should normaly be declared here
+</I>&gt;<i>    # because if both are specified the data will be checked twice
+</I>&gt;<i>    modparam(&quot;scscf&quot;,&quot;user_data_dtd&quot;,&quot;/usr/local/etc/ser/CxDataType.dtd&quot;)     
+</I>&gt;<i>    #modparam(&quot;scscf&quot;,&quot;user_data_xsd&quot;,&quot;/usr/local/etc/ser/CxDataType_Rel7.xsd&quot;)
+</I>&gt;<i>
+</I>&gt;<i> Maybe it's just my version of libxml2, I don't know.
+</I>&gt;<i> My platform is Solaris 10 with version 2.6.10 of libxml2.
+</I>&gt;<i>
+</I>&gt;<i> 	-Vance
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> #0  0xfed3eb34 in xmlSchemaValidateSimpleValueUnion ()
+</I>&gt;<i>    from /usr/lib/libxml2.so.2
+</I>&gt;<i> (gdb) bt
+</I>&gt;<i> #0  0xfed3eb34 in xmlSchemaValidateSimpleValueUnion ()
+</I>&gt;<i>    from /usr/lib/libxml2.so.2
+</I>&gt;<i> #1  0xfed3ee2c in xmlSchemaValidateSimpleValueInternal ()
+</I>&gt;<i>    from /usr/lib/libxml2.so.2
+</I>&gt;<i> #2  0xfed3f60c in xmlSchemaValidateSimpleType () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #3  0xfed4024c in xmlSchemaValidateContent () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #4  0xfed40b78 in xmlSchemaValidateType () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #5  0xfed3f7d0 in xmlSchemaValidateElementType () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #6  0xfed401dc in xmlSchemaValidateContent () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #7  0xfed3f314 in xmlSchemaValidateCallback () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #8  0xfed30ff0 in xmlRegCompactPushString () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #9  0xfed3fc4c in xmlSchemaValidateComplexType () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #10 0xfed4017c in xmlSchemaValidateContent () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #11 0xfed40b78 in xmlSchemaValidateType () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #12 0xfed3f7d0 in xmlSchemaValidateElementType () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #13 0xfed401dc in xmlSchemaValidateContent () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #14 0xfed3f314 in xmlSchemaValidateCallback () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #15 0xfed30ff0 in xmlRegCompactPushString () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #16 0xfed3fc4c in xmlSchemaValidateComplexType () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #17 0xfed4017c in xmlSchemaValidateContent () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #18 0xfed40b78 in xmlSchemaValidateType () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #19 0xfed3f7d0 in xmlSchemaValidateElementType () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #20 0xfed401dc in xmlSchemaValidateContent () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #21 0xfed3f314 in xmlSchemaValidateCallback () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #22 0xfed30ff0 in xmlRegCompactPushString () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #23 0xfed3fc4c in xmlSchemaValidateComplexType () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #24 0xfed4017c in xmlSchemaValidateContent () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #25 0xfed40b78 in xmlSchemaValidateType () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #26 0xfed40fc0 in xmlSchemaValidateElement () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #27 0xfed411e0 in xmlSchemaValidateDocument () from /usr/lib/libxml2.so.2
+</I>&gt;<i> #28 0xfedf3e44 in parse_user_data (xml=
+</I>&gt;<i>       {s = 0xfc9d3ba8 &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;\n&lt;IMSSubscription&gt;&lt;PrivateID&gt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vances at foo.net</A>&lt;/PrivateID&gt;&lt;ServiceProfile&gt;&lt;PublicIdentity&gt;&lt;BarringIndication&gt;false&lt;/BarringIndication&gt;&lt;Identity&gt;sip:vance.&quot;..., len = 879}) at registrar_parser.c:908
+</I>&gt;<i> #29 0xfede501c in save_location (msg=0x143480, assignment_type=1, 
+</I>&gt;<i>     xml=0xffbfdec0, ccf1=0xffbfdeb8, ccf2=0xffbfdeb0, ecf1=0xffbfdea8, 
+</I>&gt;<i>     ecf2=0xffbfdea0) at registrar.c:786
+</I>&gt;<i> #30 0xfede6ba4 in SAR (msg=0x143480, realm=
+</I>&gt;<i>       {s = 0xfc9d3ba8 &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;\n&lt;IMSSubscription&gt;&lt;PrivateID&gt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vances at foo.net</A>&lt;/PrivateID&gt;&lt;ServiceProfile&gt;&lt;PublicIdentity&gt;&lt;BarringIndication&gt;false&lt;/BarringIndication&gt;&lt;Identity&gt;sip:vance.&quot;..., len = 879}, public_identity={s = 0xfc9d3f5c &quot;pri_event&quot;, len = 9}, private_identity=
+</I>&gt;<i>       {s = 0xfc9d3f48 &quot;sec_chrg&quot;, len = 8}, assignment_type=1, 
+</I>&gt;<i>     data_available=-4202824) at registrar.c:420
+</I>&gt;<i> #31 0xfede79f8 in S_assign_server (msg=0x143480, str1=0xffbfdf68 &quot;&quot;, str2=0x0)
+</I>&gt;<i>     at registrar.c:264
+</I>&gt;<i> #32 0x0001a520 in do_action (a=0x12dfc8, msg=0x143480) at action.c:681
+</I>&gt;<i> #33 0x00018cfc in run_actions (a=0x12dfc8, msg=0x143480) at action.c:920
+</I>&gt;<i> #34 0x000548bc in eval_expr (e=0x12e0e8, msg=0x143480) at route.c:1050
+</I>&gt;<i> #35 0x00019948 in do_action (a=0x12eac0, msg=0x143480) at action.c:652
+</I>&gt;<i> #36 0x00018cfc in run_actions (a=0x12eac0, msg=0x143480) at action.c:920
+</I>&gt;<i> #37 0x00019998 in do_action (a=0x12f700, msg=0x143480) at action.c:675
+</I>&gt;<i> #38 0x00018cfc in run_actions (a=0x12f700, msg=0x143480) at action.c:920
+</I>&gt;<i> #39 0x00019998 in do_action (a=0x12f770, msg=0x143480) at action.c:675
+</I>&gt;<i> #40 0x00018cfc in run_actions (a=0x12f770, msg=0x143480) at action.c:920
+</I>&gt;<i> #41 0x00019998 in do_action (a=0x1311d0, msg=0x143480) at action.c:675
+</I>&gt;<i> #42 0x00018cfc in run_actions (a=0x12d230, msg=0x143480) at action.c:920
+</I>&gt;<i> #43 0x00019998 in do_action (a=0x1314c0, msg=0x143480) at action.c:675
+</I>&gt;<i> #44 0x00018cfc in run_actions (a=0x1314c0, msg=0x143480) at action.c:920
+</I>&gt;<i> #45 0x0001a36c in do_action (a=0x1298c8, msg=0x143480) at action.c:439
+</I>&gt;<i> #46 0x00018cfc in run_actions (a=0x1298c8, msg=0x143480) at action.c:920
+</I>&gt;<i> #47 0x00019998 in do_action (a=0x1299a8, msg=0x143480) at action.c:675
+</I>&gt;<i> #48 0x00018cfc in run_actions (a=0x129160, msg=0x143480) at action.c:920
+</I>&gt;<i> #49 0x0004bbe8 in receive_msg (buf=0x1 &lt;Address 0x1 out of bounds&gt;, 
+</I>&gt;<i>     len=1011712, rcv_info=0xffbff920) at receive.c:171
+</I>&gt;<i> #50 0x0007e240 in udp_rcv_loop () at udp_server.c:495
+</I>&gt;<i> #51 0x00039798 in main_loop () at main.c:1025
+</I>&gt;<i> #52 0x0003aec0 in main (argc=0, argv=0x0) at main.c:1614
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000720.html">[OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD
+</A></li>
+	<LI>Next message: <A HREF="000737.html">[OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#728">[ date ]</a>
+              <a href="thread.html#728">[ thread ]</a>
+              <a href="subject.html#728">[ subject ]</a>
+              <a href="author.html#728">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

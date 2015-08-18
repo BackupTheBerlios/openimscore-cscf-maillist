@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Missing Contact addresses in case of multiple	registrations
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Missing%20Contact%20addresses%20in%20case%20of%20multiple%0A%09registrations&In-Reply-To=%3C000001c72c4c%24aed1a520%240200a8c0%40notebookFE%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000073.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Missing Contact addresses in case of multiple	registrations</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Missing%20Contact%20addresses%20in%20case%20of%20multiple%0A%09registrations&In-Reply-To=%3C000001c72c4c%24aed1a520%240200a8c0%40notebookFE%3E"
+       TITLE="[OpenIMSCore-CSCF] Missing Contact addresses in case of multiple	registrations">franz.edler at inode.at
+       </A><BR>
+    <I>Sat Dec 30 20:57:01 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000073.html">[OpenIMSCore-CSCF] CSCF compilation error in dbase module (ser_ims folder)
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#78">[ date ]</a>
+              <a href="thread.html#78">[ thread ]</a>
+              <a href="subject.html#78">[ subject ]</a>
+              <a href="author.html#78">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi, 
+
+I just tested forking (o.k.) and found, that in case of multiple
+registrations of the same public user identity the Contact header in the
+200&#160;OK response of the REGISTER request does not list all registered contact
+addresses. It only lists the actually registered contact address.
+
+I assume this is a (minor) bug.
+
+See the attached scenario-trace. Alice registers with 2 UEs.
+F43 should also contain the contact address of F23.
+
+cheers
+Franz
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: osims7643.zip
+Type: application/x-zip-compressed
+Size: 9587 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20061230/4e4d1274/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20061230/4e4d1274/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000073.html">[OpenIMSCore-CSCF] CSCF compilation error in dbase module (ser_ims folder)
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#78">[ date ]</a>
+              <a href="thread.html#78">[ thread ]</a>
+              <a href="subject.html#78">[ subject ]</a>
+              <a href="author.html#78">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

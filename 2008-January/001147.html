@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Patch: Expire Header Evaluation
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Patch%3A%20Expire%20Header%20Evaluation&In-Reply-To=%3C4790A45C.1030601%40nw.neclab.eu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001150.html">
+   <LINK REL="Next"  HREF="001149.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Patch: Expire Header Evaluation</H1>
+    <B>Sebastian Felis</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Patch%3A%20Expire%20Header%20Evaluation&In-Reply-To=%3C4790A45C.1030601%40nw.neclab.eu%3E"
+       TITLE="[OpenIMSCore-CSCF] Patch: Expire Header Evaluation">felis at nw.neclab.eu
+       </A><BR>
+    <I>Fri Jan 18 14:06:36 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001150.html">[OpenIMSCore-CSCF] Disable DNS resolving of hostname on P-CSCF
+</A></li>
+        <LI>Next message: <A HREF="001149.html">[OpenIMSCore-CSCF] Disable DNS resolving of	hostname on P-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1147">[ date ]</a>
+              <a href="thread.html#1147">[ thread ]</a>
+              <a href="subject.html#1147">[ subject ]</a>
+              <a href="author.html#1147">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+We had the problem, that the P-CSCF and S-CSCF are updating the dialog's
+state mostly with the default expiration time. Here is a patch for the
+almost current SVN trunk (version 513) for the P-SCSF and S-CSCF to
+evaluate the Expires header and Subscription-State expire header
+parameter for updating the dialog expiration explicitly.
+
+- The patch evaluates the Expires header if available, otherwise it
+updates the dialog with the default expiration time. Both dlg_state.c
+files of P-CSCF and S-CSCF are updated.
+- It also fixes the cscf_get_subscription_state() function in
+modules/scscf/sip.c and adds the pending subscription state to extract
+the expiration time from the parameter.
+- (minor fix) Further is adjust the debug level in the function
+S_drop_dialog() of modules/[ps]cscf/dlg_state.c to the output text.
+
+Is it possible to integrate this patch to the trunk?
+
+Best regards
+
+Sebastian
+
+-- 
+Sebastian Felis
+Research Scientist
+NEC Europe Ltd.
+Kurf&#252;rsten-Anlage 36		
+69115 Heidelberg
+Germany
+		
+Phone:  +49 6221 4342 166
+Fax:    +49 6221 4342 155
+E-Mail: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">sebastian.felis at nw.neclab.eu</A>
+
+NEC Europe Limited | Registered Office: NEC House, 1 Victoria Road, 
+London W3 6BL | Registered in England 2832014
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: expire.svn513.patch.gz
+Type: application/x-gzip
+Size: 1601 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080118/9bdaa895/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080118/9bdaa895/attachment.bin</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 2394 bytes
+Desc: S/MIME Cryptographic Signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080118/9bdaa895/attachment-0001.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080118/9bdaa895/attachment-0001.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001150.html">[OpenIMSCore-CSCF] Disable DNS resolving of hostname on P-CSCF
+</A></li>
+	<LI>Next message: <A HREF="001149.html">[OpenIMSCore-CSCF] Disable DNS resolving of	hostname on P-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1147">[ date ]</a>
+              <a href="thread.html#1147">[ thread ]</a>
+              <a href="subject.html#1147">[ subject ]</a>
+              <a href="author.html#1147">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

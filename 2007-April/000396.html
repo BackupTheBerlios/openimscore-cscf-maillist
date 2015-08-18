@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] general IMS question - PDP contexts (notCSCF)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20general%20IMS%20question%20-%20PDP%20contexts%20%28notCSCF%29&In-Reply-To=%3C519809F7CC681F4687A800692341D775058FD7C2%40HATMSG010.TMOUSERSUK.AD.T-MOBILE.CO.UK%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000395.html">
+   <LINK REL="Next"  HREF="000397.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] general IMS question - PDP contexts (notCSCF)</H1>
+    <B>Leigh Hackett</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20general%20IMS%20question%20-%20PDP%20contexts%20%28notCSCF%29&In-Reply-To=%3C519809F7CC681F4687A800692341D775058FD7C2%40HATMSG010.TMOUSERSUK.AD.T-MOBILE.CO.UK%3E"
+       TITLE="[OpenIMSCore-CSCF] general IMS question - PDP contexts (notCSCF)">Leigh.Hackett at t-mobile.co.uk
+       </A><BR>
+    <I>Wed Apr  4 13:56:29 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000395.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r218 - add locking
+</A></li>
+        <LI>Next message: <A HREF="000397.html">[OpenIMSCore-CSCF] general IMS question - PDP contexts (notCSCF)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#396">[ date ]</a>
+              <a href="thread.html#396">[ thread ]</a>
+              <a href="subject.html#396">[ subject ]</a>
+              <a href="author.html#396">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Thanks JF
+
+That sounds sensible
+
+As I said to Karthik, I am confused by some of the flows, e.g. in 5.3.3,
+where SIP signalling appears to occur before context establishment
+
+The only explanation I can think of is that this is a separate PDP
+context for media 
+
+Best regards
+Leigh
+
+-----Original Message-----
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+[mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>] On Behalf Of JF
+Sent: 04 April 2007 12:24
+To: Leigh Hackett
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] general IMS question - PDP contexts
+(notCSCF)
+
+Hi Leigh,
+
+According to 24.228 the Proxy-CSCF address can be obtained from the
+PDP Context Activation signalling (when using GPRS access). This is
+called &quot;P-CSCF discovery procedure&quot;.
+The UE can send SIP signaling towards the core only after knowing the
+P-CSCF address (its &quot;outbound proxy&quot;), so only after establishing the
+PDP context.
+
+JF
+
+On 4/4/07, Leigh Hackett &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Leigh.Hackett at t-mobile.co.uk</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Can anyone explain why SIP INVITEs appear to happen outside of the
+</I>mobile
+&gt;<i> PDP context, in 3GPP 24.228? (Signalling flows for the IP multimedia
+</I>call
+&gt;<i> control based on Session Initiation Protocol (SIP) and Session
+</I>Description
+&gt;<i> Protocol (SDP))
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I find it hard to understand how SIP can travel through the GGSN to
+</I>the UE
+&gt;<i> before a context is established
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> p.s.
+</I>&gt;<i>
+</I>&gt;<i> If anyone knows of a better forum to raise this question then
+</I>suggestions
+&gt;<i> appreciated (I have posted to 3GPP NGN-IMS with no response)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Regards
+</I>&gt;<i>
+</I>&gt;<i> Leigh
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   T-Mobile (UK) Limited
+</I>&gt;<i> Company Registered Number: 02382161
+</I>&gt;<i> Registered Office Address: Hatfield Business Park, Hatfield,
+</I>Hertfordshire,
+&gt;<i> AL10 9BW
+</I>&gt;<i> Registered in England and Wales
+</I>&gt;<i>
+</I>&gt;<i> NOTICE AND DISCLAIMER
+</I>&gt;<i>
+</I>&gt;<i> This email (including attachments) is confidential. If you are not the
+</I>&gt;<i> intended recipient, notify the sender immediately, delete this email
+</I>from
+&gt;<i> your system and do not disclose or use for any purpose.
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>_______________________________________________
+OpenIMSCore-CSCF mailing list
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+T-Mobile (UK) Limited
+Company Registered Number: 02382161
+Registered Office Address: Hatfield Business Park, Hatfield, Hertfordshire, AL10 9BW
+Registered in England and Wales
+ 
+NOTICE AND DISCLAIMER
+ 
+This email (including attachments) is confidential. If you are not the intended recipient, notify the sender immediately, delete this email from your system and do not disclose or use for any purpose.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000395.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r218 - add locking
+</A></li>
+	<LI>Next message: <A HREF="000397.html">[OpenIMSCore-CSCF] general IMS question - PDP contexts (notCSCF)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#396">[ date ]</a>
+              <a href="thread.html#396">[ thread ]</a>
+              <a href="subject.html#396">[ subject ]</a>
+              <a href="author.html#396">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Service-Route not followed,	unable to send any message
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Service-Route%20not%20followed%2C%0A%09unable%20to%20send%20any%20message&In-Reply-To=%3CBLU124-W18A00A94A0EC1A51E3B4C9D6E20%40phx.gbl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001301.html">
+   <LINK REL="Next"  HREF="001309.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Service-Route not followed,	unable to send any message</H1>
+    <B>Persa Zaloshnja</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Service-Route%20not%20followed%2C%0A%09unable%20to%20send%20any%20message&In-Reply-To=%3CBLU124-W18A00A94A0EC1A51E3B4C9D6E20%40phx.gbl%3E"
+       TITLE="[OpenIMSCore-CSCF] Service-Route not followed,	unable to send any message">arushi58 at hotmail.com
+       </A><BR>
+    <I>Thu Apr 24 14:16:36 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001301.html">[OpenIMSCore-CSCF] RegistrationType &quot;DeReg&quot; causes XML	verification failure
+</A></li>
+        <LI>Next message: <A HREF="001309.html">[OpenIMSCore-CSCF] [OpenIMSCore-Users] Service-Route not	followed, unable to send any message
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1302">[ date ]</a>
+              <a href="thread.html#1302">[ thread ]</a>
+              <a href="subject.html#1302">[ subject ]</a>
+              <a href="author.html#1302">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+
+Hi all,
+ 
+Using the Open IMS Core I have come across an issue, namely using an IMS B2B user agent that is not using the service route it has received in the 200OK from the REGISTER, when sending an INVITE SIP header Route goes to the pcscf  (example: Route: &lt;sip:192.131.160.4:4060;lr&gt; instead of this received service route in the 200 OK: Service-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.openims.core</A>:6060;lr&gt; ) 
+ 
+At first a 400 message was return &quot;Bad request - Not following indicated service routes&quot;
+ 
+Looking at the configuration file ( pcscf.cfg) (This is a snippet of the config:)
+ 
+if (!P_follows_service_routes()){    #Variant 1 - deny access to the network  sl_send_reply(&quot;400&quot;,&quot;Bad Request - Not following indicated service routes&quot;);  break;  #Variant 2 - enforce routes and let the dialog continue     #P_enforce_service_routes();
+ 
+I enabled P_enforce_service_routes(); so I don't receive any longer a 400 back but yet there is no answer from Open IMS Core. Is there any work around this? Going through the RFC, it says that the Service-Route is not compulsory to be followed - is this specific for Open Ims Core only?
+ 
+ 
+Thank you in advance, 
+ 
+Persa
+_________________________________________________________________
+Explore the seven wonders of the world
+<A HREF="http://search.msn.com/results.aspx?q=7+wonders+world&amp;mkt=en-US&amp;form=QBRE">http://search.msn.com/results.aspx?q=7+wonders+world&amp;mkt=en-US&amp;form=QBRE</A>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080424/60bae27d/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080424/60bae27d/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001301.html">[OpenIMSCore-CSCF] RegistrationType &quot;DeReg&quot; causes XML	verification failure
+</A></li>
+	<LI>Next message: <A HREF="001309.html">[OpenIMSCore-CSCF] [OpenIMSCore-Users] Service-Route not	followed, unable to send any message
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1302">[ date ]</a>
+              <a href="thread.html#1302">[ thread ]</a>
+              <a href="subject.html#1302">[ subject ]</a>
+              <a href="author.html#1302">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

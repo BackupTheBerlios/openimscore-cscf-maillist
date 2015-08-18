@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] S-CSCF crash
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20S-CSCF%20crash&In-Reply-To=%3C465C159D.5030509%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000661.html">
+   <LINK REL="Next"  HREF="000667.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] S-CSCF crash</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20S-CSCF%20crash&In-Reply-To=%3C465C159D.5030509%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] S-CSCF crash">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue May 29 13:59:25 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000661.html">[OpenIMSCore-CSCF] S-CSCF crash
+</A></li>
+        <LI>Next message: <A HREF="000667.html">[OpenIMSCore-CSCF] S-CSCF crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#662">[ date ]</a>
+              <a href="thread.html#662">[ thread ]</a>
+              <a href="subject.html#662">[ subject ]</a>
+              <a href="author.html#662">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>No, it's pkg :(... That is the immediate destination of the message and
+to prevent a memory leak, before overwriting it, I free it.
+
+-Dragos
+
+JF wrote:
+&gt;<i> Hi,
+</I>&gt;<i> According to the trace the crash is actually at &quot;isc_bootstrap&quot;,
+</I>&gt;<i> line=253 of isc.c, when doing pkg_free of msg-&gt;dst_uri...
+</I>&gt;<i>
+</I>&gt;<i> The log says:
+</I>&gt;<i>
+</I>&gt;<i> [00m 2(28771) [01;31mBUG: qm_free: bad pointer 0xb6156424 (out of
+</I>&gt;<i> memory block!) - aborting
+</I>&gt;<i>
+</I>&gt;<i> Maybe shm memory should be used here?
+</I>&gt;<i>
+</I>&gt;<i> JF
+</I>&gt;<i>
+</I>&gt;<i> On 5/29/07, Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt; wrote:
+</I>&gt;&gt;<i> Hello Jose,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I tried to replicate the issue, but I couldn't I tried sending a publish
+</I>&gt;&gt;<i> and the AS responding with 503, with the default handling on the AS on
+</I>&gt;&gt;<i> both session continued or terminated and no problems. Could you please
+</I>&gt;&gt;<i> detail a little more your scenario? SIPp scripts to replicate the issue
+</I>&gt;&gt;<i> would be great!
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Also, what revision are you using? Because in r289 at isc.c:275 there is
+</I>&gt;&gt;<i> nothing that could cause a crash, just a return statement.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Jos&#233; Carlos Amorim wrote:
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; Here is some more information about the problem,
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; (gdb) bt
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #0  0x00d0b7a2 in _dl_sysinfo_int80 () from /lib/ld-linux.so.2
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #1  0x0098e7a5 in raise () from /lib/tls/libc.so.6
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #2  0x00990209 in abort () from /lib/tls/libc.so.6
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #3  0x080aa8db in qm_free (qm=0x81126a0, p=0xb6156424, file=0x0,
+</I>&gt;&gt;<i> &gt; func=0x171367 &quot;isc_bootstrap&quot;, line=253) at mem/q_malloc.c:452
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #4  0x0016a7f0 in isc_bootstrap (msg=0xb6156100, mark=0x0) at
+</I>&gt;&gt;<i> isc.c:275
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #5  0x0016a335 in isc_failure (t=0xb6153808, type=2, ps=0x146848) at
+</I>&gt;&gt;<i> &gt; isc.c:179
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #6  0x001291c6 in run_trans_callbacks (type=2, trans=0xb6153808,
+</I>&gt;&gt;<i> &gt; req=0x0, rpl=0x0, code=0) at t_hooks.c:195
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #7  0x0012b8fd in t_reply_matching (p_msg=0x81660b0,
+</I>&gt;&gt;<i> &gt; p_branch=0xbfedd344) at t_lookup.c:898
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #8  0x0012be8b in t_check (p_msg=0x81660b0, param_branch=0xbfedd344)
+</I>&gt;&gt;<i> &gt; at t_lookup.c:988
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #9  0x00138076 in reply_received (p_msg=0x81660b0) at t_reply.c:1556
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #10 0x0806570b in forward_reply (msg=0x81660b0) at forward.c:573
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #11 0x0807d822 in receive_msg (
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;    buf=0x80ff6e0 &quot;SIP/2.0 503 Service unavailable\r\nVia: SIP/2.0/UDP
+</I>&gt;&gt;<i> &gt; 192.168.20.5:6060;branch=z9hG4bKcd4f.1c108876.0\r\nVia: SIP/2.0/UDP
+</I>&gt;&gt;<i> &gt; 192.168.20.5:6060;branch=z9hG4bKcd4f.0c108876.0\r\nVia: SIP/2.0/UDP
+</I>&gt;&gt;<i> &gt; 192.168.21.2:4060;&quot;..., len=683, rcv_info=0xbfedd450) at receive.c:221
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #12 0x080a4ece in udp_rcv_loop () at udp_server.c:495
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #13 0x0806b796 in main_loop () at main.c:1025
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; #14 0x0806c955 in main (argc=0, argv=0x0) at main.c:1614
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; Regards,
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; Jos&#233; Silva
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> ------------------------------------------------------------------------
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; *De:* Jos&#233; Carlos Amorim
+</I>&gt;&gt;<i> &gt; *Enviada:* quinta-feira, 24 de Maio de 2007 18:31
+</I>&gt;&gt;<i> &gt; *Para:* <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;<i> &gt; *Assunto:* FW: S-CSCF crash
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; Hi,
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; I found a problem with SCSCF, every time I try to contact an AS and
+</I>&gt;&gt;<i> &gt; get 5xx message the SCSCF crashes. I tested with the latest version of
+</I>&gt;&gt;<i> &gt; OpenIMSCore and the problem still persists.
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; Is this a known problem? Any idea what the problem is?
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; I send in annex, the log and a sequence of messages that makes the
+</I>&gt;&gt;<i> &gt; SCSCF crash.
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; If the core dump is necessary I will send it on another mail because
+</I>&gt;&gt;<i> &gt; it exceeds email body limit on the list.
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; Regards,
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; Jos&#233; Carlos Silva
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> ------------------------------------------------------------------------
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; _______________________________________________
+</I>&gt;&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -- 
+</I>&gt;&gt;<i> -----------------------------------------
+</I>&gt;&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;&gt;<i> 10589 Berlin,Germany
+</I>&gt;&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;&gt;<i> -----------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000661.html">[OpenIMSCore-CSCF] S-CSCF crash
+</A></li>
+	<LI>Next message: <A HREF="000667.html">[OpenIMSCore-CSCF] S-CSCF crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#662">[ date ]</a>
+              <a href="thread.html#662">[ thread ]</a>
+              <a href="subject.html#662">[ subject ]</a>
+              <a href="author.html#662">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

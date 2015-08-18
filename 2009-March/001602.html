@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] PCSCF Record Route Audit . Feature Request.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PCSCF%20Record%20Route%20Audit%20.%20Feature%20Request.&In-Reply-To=%3C1E2ADD1268DF5342945DCCBF662EB0690F686A%40mail2.spanservices.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001622.html">
+   <LINK REL="Next"  HREF="001620.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] PCSCF Record Route Audit . Feature Request.</H1>
+    <B>Arjun Ramachandran</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PCSCF%20Record%20Route%20Audit%20.%20Feature%20Request.&In-Reply-To=%3C1E2ADD1268DF5342945DCCBF662EB0690F686A%40mail2.spanservices.com%3E"
+       TITLE="[OpenIMSCore-CSCF] PCSCF Record Route Audit . Feature Request.">arjun_r at spanservices.com
+       </A><BR>
+    <I>Mon Mar  2 14:43:52 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001622.html">[OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch
+</A></li>
+        <LI>Next message: <A HREF="001620.html">[OpenIMSCore-CSCF] PCSCF Record Route Audit . Feature Request.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1602">[ date ]</a>
+              <a href="thread.html#1602">[ thread ]</a>
+              <a href="subject.html#1602">[ subject ]</a>
+              <a href="author.html#1602">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+
+Hi All,
+
+I have Implemented the festure request named &quot;P-CSCF auditing of the Record-Route headers&quot;
+
+I Have added 2 functions P_verify_record_routes and P_force_record_routes to security.c .
+Calling them in Term_Intial_reply function of pcscf.cfg .
+Added their prototypes in mod.c.
+
+The two functions would be around 90 lines. Do i need to check in the the code creating a branch or should i do it in some other way ?
+
+Regards,
+Arjun
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001622.html">[OpenIMSCore-CSCF] BUG in 08_cdp_sessions branch
+</A></li>
+	<LI>Next message: <A HREF="001620.html">[OpenIMSCore-CSCF] PCSCF Record Route Audit . Feature Request.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1602">[ date ]</a>
+              <a href="thread.html#1602">[ thread ]</a>
+              <a href="subject.html#1602">[ subject ]</a>
+              <a href="author.html#1602">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

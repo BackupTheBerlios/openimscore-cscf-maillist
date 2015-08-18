@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r468 - Some changes in auth state	machine, big changes in the PCC interface some bugs being solved
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r468%20-%20Some%20changes%20in%20auth%20state%0A%09machine%2C%20big%20changes%20in%20the%20PCC%20interface%20some%20bugs%20being%20solved&In-Reply-To=%3C200710311120.l9VBKbgc024711%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001020.html">
+   <LINK REL="Next"  HREF="001022.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r468 - Some changes in auth state	machine, big changes in the PCC interface some bugs being solved</H1>
+    <B>albertoberlios at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r468%20-%20Some%20changes%20in%20auth%20state%0A%09machine%2C%20big%20changes%20in%20the%20PCC%20interface%20some%20bugs%20being%20solved&In-Reply-To=%3C200710311120.l9VBKbgc024711%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r468 - Some changes in auth state	machine, big changes in the PCC interface some bugs being solved">albertoberlios at users.berlios.de
+       </A><BR>
+    <I>Wed Oct 31 12:20:37 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001020.html">[OpenIMSCore-CSCF] RTP Proxy not overwriting ACK messages
+</A></li>
+        <LI>Next message: <A HREF="001022.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r469 - Gq/Rx interface works with	AAR, STR, ASR.. only RAR missing to have the full interface
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1021">[ date ]</a>
+              <a href="thread.html#1021">[ thread ]</a>
+              <a href="subject.html#1021">[ subject ]</a>
+              <a href="author.html#1021">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: albertoberlios
+Date: 2007-10-31 12:20:36 +0100 (Wed, 31 Oct 2007)
+New Revision: 468 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=468">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=468</A> 
+
+Log:
+
+Some changes in auth state machine, big changes in the PCC interface
+some bugs being solved
+
+
+
+
+Modified:
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.h?rev=468&amp;view=diff&amp;r1=468&amp;r2=467">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.h?rev=468&amp;view=diff&amp;r1=468&amp;r2=467</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_msg.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_msg.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_msg.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/mod.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/mod.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/peermanager.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/peermanager.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/peermanager.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/peerstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/peerstatemachine.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/peerstatemachine.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/receiver.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/receiver.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/receiver.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/session.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/mod.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/mod.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/pcscf/policy_control.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/policy_control.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/policy_control.c?rev=468&amp;view=diff&amp;r1=468&amp;r2=467</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001020.html">[OpenIMSCore-CSCF] RTP Proxy not overwriting ACK messages
+</A></li>
+	<LI>Next message: <A HREF="001022.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r469 - Gq/Rx interface works with	AAR, STR, ASR.. only RAR missing to have the full interface
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1021">[ date ]</a>
+              <a href="thread.html#1021">[ thread ]</a>
+              <a href="subject.html#1021">[ subject ]</a>
+              <a href="author.html#1021">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

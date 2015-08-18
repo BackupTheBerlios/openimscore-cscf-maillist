@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P-CSCF release of calls problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20release%20of%20calls%20problem&In-Reply-To=%3Cf422dca90711051154j569f48c7w766efa4b2619bb74%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001031.html">
+   <LINK REL="Next"  HREF="001033.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P-CSCF release of calls problem</H1>
+    <B>Nuno Ribeiro</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20release%20of%20calls%20problem&In-Reply-To=%3Cf422dca90711051154j569f48c7w766efa4b2619bb74%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] P-CSCF release of calls problem">nribeiro82 at gmail.com
+       </A><BR>
+    <I>Mon Nov  5 20:54:59 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001031.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r479 - Added dialog release on	de-registration for the SUBSCRIBE dialog.
+</A></li>
+        <LI>Next message: <A HREF="001033.html">[OpenIMSCore-CSCF] P-CSCF release of calls problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1032">[ date ]</a>
+              <a href="thread.html#1032">[ thread ]</a>
+              <a href="subject.html#1032">[ subject ]</a>
+              <a href="author.html#1032">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+
+Recently I have updated openimscore to release 460. I'm making some
+tests with P-CSCF related with the release of calls but I'm having
+this problem:
+- The bye message generated for the called user never reaches it...
+I'm getting in wireshark a 408 Request timeout
+
+The other BYE message (the one for the calling user) is received by
+the user agent that replies to it. I have added some print debug
+information and the Callback function for BYE requests is called in
+this case...
+Any ideas about the problem and how to solve it?
+
+Thanks in advance,
+
+-- 
+Nuno Ribeiro
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001031.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r479 - Added dialog release on	de-registration for the SUBSCRIBE dialog.
+</A></li>
+	<LI>Next message: <A HREF="001033.html">[OpenIMSCore-CSCF] P-CSCF release of calls problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1032">[ date ]</a>
+              <a href="thread.html#1032">[ thread ]</a>
+              <a href="subject.html#1032">[ subject ]</a>
+              <a href="author.html#1032">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

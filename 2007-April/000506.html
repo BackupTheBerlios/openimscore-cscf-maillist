@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r246 - add gp rf support
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r246%20-%20add%20gp%20rf%20support&In-Reply-To=%3C200704241159.l3OBxj9q029106%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000529.html">
+   <LINK REL="Next"  HREF="000510.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r246 - add gp rf support</H1>
+    <B>shenny at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r246%20-%20add%20gp%20rf%20support&In-Reply-To=%3C200704241159.l3OBxj9q029106%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r246 - add gp rf support">shenny at users.berlios.de
+       </A><BR>
+    <I>Tue Apr 24 13:59:45 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000529.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Missing	P-Charging-Function-Addresses in 200 OK to REGISTER
+</A></li>
+        <LI>Next message: <A HREF="000510.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r247 - - initial commit for	accounting session support - initial commit for accounting	(client) state machine support in cdp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#506">[ date ]</a>
+              <a href="thread.html#506">[ thread ]</a>
+              <a href="subject.html#506">[ subject ]</a>
+              <a href="author.html#506">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: shenny
+Date: 2007-04-24 13:59:40 +0200 (Tue, 24 Apr 2007)
+New Revision: 246 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=246">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=246</A> 
+
+Log:
+add gp rf support
+
+Added:
+   A	ser_ims/branches/05_cdp_sessions/cfg/TGPPGq.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/cfg/TGPPGq.xml?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/cfg/TGPPGq.xml?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/cfg/pcscf.off.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/cfg/pcscf.off.cfg?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/cfg/pcscf.off.cfg?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/cfg/pcscf.off.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/cfg/pcscf.off.xml?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/cfg/pcscf.off.xml?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/cfg/pcscf.pdf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/cfg/pcscf.pdf.cfg?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/cfg/pcscf.pdf.cfg?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/cfg/pcscf.pdf.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/cfg/pcscf.pdf.xml?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/cfg/pcscf.pdf.xml?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/pcscf/gq.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/gq.c?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/gq.c?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/pcscf/gq.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/gq.h?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/gq.h?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/pcscf/gq_avp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/gq_avp.c?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/gq_avp.c?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/pcscf/gq_avp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/gq_avp.h?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/gq_avp.h?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/pcscf/offline_charging.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/offline_charging.c?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/offline_charging.c?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/pcscf/offline_charging.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/offline_charging.h?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/offline_charging.h?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/pcscf/policy_control.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/policy_control.c?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/policy_control.c?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/pcscf/policy_control.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/policy_control.h?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/policy_control.h?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/pcscf/release_call.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/release_call.c?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/release_call.c?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/pcscf/release_call.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/release_call.h?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/release_call.h?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/pcscf/rf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/rf.c?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/rf.c?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/pcscf/rf.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/rf.h?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/rf.h?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/pcscf/rf_avp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/rf_avp.c?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/rf_avp.c?rev=246&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/pcscf/rf_avp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/rf_avp.h?rev=246&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/rf_avp.h?rev=246&amp;view=markup</A>
+Modified:
+   U	ser_ims/branches/05_cdp_sessions/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/cfg/pcscf.cfg?rev=246&amp;view=diff&amp;r1=246&amp;r2=245">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/cfg/pcscf.cfg?rev=246&amp;view=diff&amp;r1=246&amp;r2=245</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/mediaproxy/mediaproxy.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/mediaproxy/mediaproxy.c?rev=246&amp;view=diff&amp;r1=246&amp;r2=245">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/mediaproxy/mediaproxy.c?rev=246&amp;view=diff&amp;r1=246&amp;r2=245</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/pcscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/dlg_state.c?rev=246&amp;view=diff&amp;r1=246&amp;r2=245">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/dlg_state.c?rev=246&amp;view=diff&amp;r1=246&amp;r2=245</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/pcscf/dlg_state.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/dlg_state.h?rev=246&amp;view=diff&amp;r1=246&amp;r2=245">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/dlg_state.h?rev=246&amp;view=diff&amp;r1=246&amp;r2=245</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/mod.c?rev=246&amp;view=diff&amp;r1=246&amp;r2=245">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/mod.c?rev=246&amp;view=diff&amp;r1=246&amp;r2=245</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/pcscf/sdp_util.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/sdp_util.c?rev=246&amp;view=diff&amp;r1=246&amp;r2=245">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/sdp_util.c?rev=246&amp;view=diff&amp;r1=246&amp;r2=245</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/pcscf/sdp_util.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/sdp_util.h?rev=246&amp;view=diff&amp;r1=246&amp;r2=245">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/pcscf/sdp_util.h?rev=246&amp;view=diff&amp;r1=246&amp;r2=245</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/scscf/sip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/scscf/sip.c?rev=246&amp;view=diff&amp;r1=246&amp;r2=245">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/scscf/sip.c?rev=246&amp;view=diff&amp;r1=246&amp;r2=245</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/scscf/sip.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/scscf/sip.h?rev=246&amp;view=diff&amp;r1=246&amp;r2=245">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/scscf/sip.h?rev=246&amp;view=diff&amp;r1=246&amp;r2=245</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/tm/dlg.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/tm/dlg.c?rev=246&amp;view=diff&amp;r1=246&amp;r2=245">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/tm/dlg.c?rev=246&amp;view=diff&amp;r1=246&amp;r2=245</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/tm/tm.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/tm/tm.c?rev=246&amp;view=diff&amp;r1=246&amp;r2=245">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/tm/tm.c?rev=246&amp;view=diff&amp;r1=246&amp;r2=245</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000529.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Missing	P-Charging-Function-Addresses in 200 OK to REGISTER
+</A></li>
+	<LI>Next message: <A HREF="000510.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r247 - - initial commit for	accounting session support - initial commit for accounting	(client) state machine support in cdp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#506">[ date ]</a>
+              <a href="thread.html#506">[ thread ]</a>
+              <a href="subject.html#506">[ subject ]</a>
+              <a href="author.html#506">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

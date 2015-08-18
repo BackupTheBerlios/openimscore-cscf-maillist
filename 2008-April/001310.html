@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ISC triggering issue with Cancels
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ISC%20triggering%20issue%20with%20Cancels&In-Reply-To=%3C002001c8a862%247946bec0%240200a8c0%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001303.html">
+   <LINK REL="Next"  HREF="001316.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ISC triggering issue with Cancels</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ISC%20triggering%20issue%20with%20Cancels&In-Reply-To=%3C002001c8a862%247946bec0%240200a8c0%40notebook%3E"
+       TITLE="[OpenIMSCore-CSCF] ISC triggering issue with Cancels">franz.edler at inode.at
+       </A><BR>
+    <I>Sun Apr 27 14:30:26 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001303.html">[OpenIMSCore-CSCF] ISC triggering issue with Cancels
+</A></li>
+        <LI>Next message: <A HREF="001316.html">[OpenIMSCore-CSCF] ISC triggering issue with Cancels
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1310">[ date ]</a>
+              <a href="thread.html#1310">[ thread ]</a>
+              <a href="subject.html#1310">[ subject ]</a>
+              <a href="author.html#1310">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Jos&#233;,
+
+&gt;<i> ... With this type of
+</I>&gt;<i> trigger the behaviour is not quite what we expected, because the Cancel
+</I>&gt;<i> request will go to AS1 when it should only go to AS2. 
+</I>
+I think CANCEL is not an initial request, therfore you cannot trigger on it.
+
+&gt;<i> ... We currently don&#146;t know how to solve this issue, or
+</I>&gt;<i> if this is a real issue. To us it makes sense that this type of scenario
+</I>&gt;<i> could happen because we can define these types of triggers. Do you agree
+</I>&gt;<i> with this? What could be a solution for this issue?
+</I>
+To be fair: I did not find a list off allowed SIP methods to trigger upon.
+But from my understanding an initial request is either a dialog initiating
+request or a standalone request. CANCEL is not within the two classes.
+
+Regards
+Franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001303.html">[OpenIMSCore-CSCF] ISC triggering issue with Cancels
+</A></li>
+	<LI>Next message: <A HREF="001316.html">[OpenIMSCore-CSCF] ISC triggering issue with Cancels
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1310">[ date ]</a>
+              <a href="thread.html#1310">[ thread ]</a>
+              <a href="subject.html#1310">[ subject ]</a>
+              <a href="author.html#1310">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

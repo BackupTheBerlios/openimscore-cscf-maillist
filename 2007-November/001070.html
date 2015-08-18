@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ACK%20to%20404%20resulting%20in%20SAR%20unregistered-user&In-Reply-To=%3Cb33002040711280330v2b2d3b14p3dbbc6aec711e6a3%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001069.html">
+   <LINK REL="Next"  HREF="001071.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user</H1>
+    <B>Jo&#227;o Filipe Pl&#225;cido</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ACK%20to%20404%20resulting%20in%20SAR%20unregistered-user&In-Reply-To=%3Cb33002040711280330v2b2d3b14p3dbbc6aec711e6a3%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user">joao-f-placido at ptinovacao.pt
+       </A><BR>
+    <I>Wed Nov 28 12:30:13 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001069.html">[OpenIMSCore-CSCF] Open IMS Client Source code
+</A></li>
+        <LI>Next message: <A HREF="001071.html">[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1070">[ date ]</a>
+              <a href="thread.html#1070">[ thread ]</a>
+              <a href="subject.html#1070">[ subject ]</a>
+              <a href="author.html#1070">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all, Dragos,
+
+We noticed the following situation:
+
+- using two different S-CSCFs
+- call from bob to alice
+- bob is registered in S-CSCF1
+- alice is not registered
+- the terminating S-CSCF (S-CSCF2 selected by I-CSCF according to the
+capabilities sent by the HSS) sends back a 404 Not Found (after
+triggering an AS responsible for unregistered-user services that
+didn't do anything but loose-route)
+- when this 404 reaches originating P-CSCF, it sends an ACK to the
+originating S-CSCF (S-CSCF1)
+- S-CSCF1 is treating this ACK as if it was an INVITE (sending a SAR
+with Server-Assignment-Type==Unregistered-User)
+
+We need to further distinguish ACKs in the routing logic and/or make
+them carry orig indications when appropriate.
+
+We'll try to look further into this, but meanwhile it's recorded here.
+
+JF
+--
+PT Inova&#231;&#227;o
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001069.html">[OpenIMSCore-CSCF] Open IMS Client Source code
+</A></li>
+	<LI>Next message: <A HREF="001071.html">[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1070">[ date ]</a>
+              <a href="thread.html#1070">[ thread ]</a>
+              <a href="subject.html#1070">[ subject ]</a>
+              <a href="author.html#1070">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

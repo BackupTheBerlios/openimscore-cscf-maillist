@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] (no subject)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%28no%20subject%29&In-Reply-To=%3C464CCB07.9080504%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000619.html">
+   <LINK REL="Next"  HREF="000630.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] (no subject)</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%28no%20subject%29&In-Reply-To=%3C464CCB07.9080504%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] (no subject)">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu May 17 23:37:11 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000619.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+        <LI>Next message: <A HREF="000630.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#623">[ date ]</a>
+              <a href="thread.html#623">[ thread ]</a>
+              <a href="subject.html#623">[ subject ]</a>
+              <a href="author.html#623">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Don't worry, I don't get offended that easy ;-).
+
+But here I think that you need to read a little from the 24.229 in the
+chapters related to the I-CSCF procedures.
+
+In a nutshell:
+1. if the user does not have a S-CSCF attached in the hssdb database -
+initial registration
+    - then the HSS will send back a set of mandatory/optional
+capabilities for the user without a S-CSCF name. Or it could send one or
+more S-CSCF names to try out, but FHoSS does not do this. So usually you
+don't get any S-CSCF name
+    - then the I-CSCF takes the S-CSCF name received if any and also
+compiles and adds in that list some other S-CSCF that match the
+capabilities received. It can do this because it has knowledge about the
+network's internal topology - the icscf database (The HSS is just a
+database for keeping the user's data and not this network topology
+information).
+    - so yes, the values in that table are used. We did not put it in
+there for nothing ;-).
+
+2. if the user has a S-CSCF attached - subsequent registration,
+de-registration
+    - then the S-CSCF name and no capabilities are sent
+    - the I-CSCF will compile again a list, with just 1 element, obviously.
+    - you can identity this case if you check the Diameter response code
+in the UAA
+    - but in this case the information from the icscf database won't be
+used (for sure if the S-CSCF answers).
+
+Then the I-CSCF will try based on the list compiled above to reach the
+S-CSCFs in order. If one fails, the next one is tried. If one responds,
+it stops.
+
+Now, it could be the case that you confuse the cases above. For example,
+you registered the user. Then you restart the S-CSCF. In this moment,
+the HSS thinks that the user is registered but the S-CSCF says that it
+is not. So it will respond with the S-CSCF name, although you might
+think of it as an initial registration. Now if you manage to get
+yourself into this situation and you change the S-CSCF, then the user
+will always be redirected to the old, stored, S-CSCF name. So if you do
+topology changes you should be careful that you don't have any leftovers
+with the old names in either the hssdb or icscf database.
+
+
+In the end, I don't want to rule a possible bug either, but please
+provide me a proof and a way to replicate it so that I can debug and fix it.
+
+
+-Dragos
+
+Hideyuki Yamashita wrote:
+&gt;<i> Hi Dragos,
+</I>&gt;<i>  
+</I>&gt;<i> First of all,thanks to your quick reply.
+</I>&gt;<i>  
+</I>&gt;<i> Hmm..I changed value of s_cscf table to dummy(i.e. sip:dummy.com
+</I>&gt;<i> &lt;<A HREF="http://dummy.com/">http://dummy.com/</A>&gt;) and after that,
+</I>&gt;<i> register request from UE failed.(487 response).
+</I>&gt;<i> I  checked DNS signal using wireshark and it seems I-CSCF query
+</I>&gt;<i> dummy.com &lt;<A HREF="http://dummy.com/">http://dummy.com/</A>&gt; and 
+</I>&gt;<i> the result is 'ICMP unreacheable'.
+</I>&gt;<i> From that fact,I still believe that I-CSCF uses value of
+</I>&gt;<i> s_cscf table(accumulated in database).
+</I>&gt;<i> What do you say about that?
+</I>&gt;<i>  
+</I>&gt;<i> And I see that value of S-CSCF Name in impi table is empty when UE's
+</I>&gt;<i> state is unregistered.
+</I>&gt;<i> What do you about that?
+</I>&gt;<i>  
+</I>&gt;<i> My intention is 'no offence to you'.
+</I>&gt;<i> Just I want to know more about implementation of OSIMS.
+</I>&gt;<i>  
+</I>&gt;<i> Thanks for you reply,
+</I>&gt;<i> Hideyuki
+</I>&gt;<i>  
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000619.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+	<LI>Next message: <A HREF="000630.html">[OpenIMSCore-CSCF] (no subject)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#623">[ date ]</a>
+              <a href="thread.html#623">[ thread ]</a>
+              <a href="subject.html#623">[ subject ]</a>
+              <a href="author.html#623">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

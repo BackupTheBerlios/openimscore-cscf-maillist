@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 3rd-Party-REGISTER	requires	P-Access-Network-Infoheader
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%203rd-Party-REGISTER%0A%09requires%09P-Access-Network-Infoheader&In-Reply-To=%3CCE74D45C9564494998E85AE3C4CA3E3501379375%40hb-altair.hb.buc.materna.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000959.html">
+   <LINK REL="Next"  HREF="000970.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 3rd-Party-REGISTER	requires	P-Access-Network-Infoheader</H1>
+    <B>Stefan.Brozinski at materna.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%203rd-Party-REGISTER%0A%09requires%09P-Access-Network-Infoheader&In-Reply-To=%3CCE74D45C9564494998E85AE3C4CA3E3501379375%40hb-altair.hb.buc.materna.com%3E"
+       TITLE="[OpenIMSCore-CSCF] 3rd-Party-REGISTER	requires	P-Access-Network-Infoheader">Stefan.Brozinski at materna.de
+       </A><BR>
+    <I>Wed Sep 26 18:03:39 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000959.html">[OpenIMSCore-CSCF] 3rd-Party-REGISTER requires	P-Access-Network-Info header
+</A></li>
+        <LI>Next message: <A HREF="000970.html">[OpenIMSCore-CSCF] 3rd-Party-REGISTER	requires	P-Access-Network-Infoheader
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#962">[ date ]</a>
+              <a href="thread.html#962">[ thread ]</a>
+              <a href="subject.html#962">[ subject ]</a>
+              <a href="author.html#962">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> My doubts go towards the fact that the
+</I>&gt;<i> P-Access-Network-Info might still be required 
+</I>&gt;<i> to be copied if it exists.
+</I>
+24.229 V7.7.0 says:
+
+------------snip------------
+
+5.4.1.7 Notification of Application Servers about registration status
+
+During registration, the S-CSCF shall include a P-Access-Network-Info
+header and a P-Visited-Network-ID header (as received in the REGISTER
+request from the UE) in the 3rd-party REGISTER sent towards the ASs, if
+the AS is part of the trust domain.
+
+If the AS is not part of the trust domain, the S-CSCF shall not include
+any P-Access-Network-Info header or P-Visited-Network-ID header. The
+S-CSCF shall not include a P-Access-Network-Info header in any responses
+to the REGISTER request.
+
+------------snap------------
+
+So it boils down to the question if the AS is part of the trust domain.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000959.html">[OpenIMSCore-CSCF] 3rd-Party-REGISTER requires	P-Access-Network-Info header
+</A></li>
+	<LI>Next message: <A HREF="000970.html">[OpenIMSCore-CSCF] 3rd-Party-REGISTER	requires	P-Access-Network-Infoheader
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#962">[ date ]</a>
+              <a href="thread.html#962">[ thread ]</a>
+              <a href="subject.html#962">[ subject ]</a>
+              <a href="author.html#962">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

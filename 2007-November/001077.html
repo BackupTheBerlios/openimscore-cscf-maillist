@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] X-Lite call connected but no audio
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20X-Lite%20call%20connected%20but%20no%20audio&In-Reply-To=%3CBAY107-W28ADA23C0FBC9232F86866BA770%40phx.gbl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001082.html">
+   <LINK REL="Next"  HREF="001079.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] X-Lite call connected but no audio</H1>
+    <B>Jingyi Hu</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20X-Lite%20call%20connected%20but%20no%20audio&In-Reply-To=%3CBAY107-W28ADA23C0FBC9232F86866BA770%40phx.gbl%3E"
+       TITLE="[OpenIMSCore-CSCF] X-Lite call connected but no audio">jhu2000 at hotmail.com
+       </A><BR>
+    <I>Wed Nov 28 23:40:31 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001082.html">[OpenIMSCore-CSCF] RTR tests
+</A></li>
+        <LI>Next message: <A HREF="001079.html">[OpenIMSCore-CSCF] psi
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1077">[ date ]</a>
+              <a href="thread.html#1077">[ thread ]</a>
+              <a href="subject.html#1077">[ subject ]</a>
+              <a href="author.html#1077">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+ 
+Hi Dragos and All,
+ 
+Thank you for all the helps. Now I can register, add user and make a call to other registered user. But somehow when I use X-Lite softphone to call other party, I got no audio, seems the RTP audio channels never been established. I can IM to other party. I have included the SIP log in this email. Could you take a look?
+ 
+Thanks.
+ 
+Best regards,
+ 
+Jingyi Hu
+ 
+from client-&gt;open-ims.test
+INVITE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at open-ims.test</A> SIP/2.0Via: SIP/2.0/UDP 10.1.59.70:62858;branch=z9hG4bK-d87543-be16b33da576862b-1--d87543-Max-Forwards: 70Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 10.1.59.70</A>:62858&gt;To: &quot;7025551212&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at open-ims.test</A>&gt;From: &quot;alice&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;;tag=ec10950eCall-ID: YjkxMDFkZTY2YzE2MDMwNGMxOGUzMGQ5NTgxYzNkZWI.CSeq: 1 INVITEAllow: INVITE, ACK, CANCEL, OPTIONS, BYE, REFER, NOTIFY, MESSAGE, SUBSCRIBE, INFOContent-Type: application/sdpUser-Agent: X-Lite release 1011s stamp 41150Content-Length: 179
+v=0o=- 4 2 IN IP4 10.1.59.70s=CounterPath X-Lite 3.0c=IN IP4 10.1.59.70t=0 0m=audio 21938 RTP/AVP 0 101a=fmtp:101 0-15a=rtpmap:101 telephone-event/8000a=sendrecv
+ 
+from open-ims.test
+SIP/2.0 100 trying -- your call is important to usVia: SIP/2.0/UDP 10.1.59.70:62858;branch=z9hG4bK-d87543-be16b33da576862b-1--d87543-;rport=1059;received=10.1.47.254To: &quot;7025551212&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at open-ims.test</A>&gt;From: &quot;alice&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;;tag=ec10950eCall-ID: YjkxMDFkZTY2YzE2MDMwNGMxOGUzMGQ5NTgxYzNkZWI.CSeq: 1 INVITEServer: Sip EXpress router (2.1.0-dev1 OpenIMSCore (x86_64/linux))Content-Length: 0Warning: 392 10.1.41.100:4060 &quot;Noisy feedback tells:  pid=3114 req_src_ip=10.1.47.254 req_src_port=1059 in_uri=sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at open-ims.test</A> out_uri=sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at open-ims.test</A> via_cnt==1&quot;
+ 
+ 
+from open-ims.test
+SIP/2.0 180 RingingVia: SIP/2.0/UDP 10.1.59.70:62858;received=10.1.47.254;rport=1059;received=10.1.47.254;branch=z9hG4bK-d87543-be16b33da576862b-1--d87543-Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mt at pcscf.open-ims.test</A>:4060;lr&gt;Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mt at scscf.open-ims.test</A>:6060;lr&gt;Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at scscf.open-ims.test</A>:6060;lr&gt;Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at 10.1.59.71</A>:7872;rinstance=9ac941ed5f54652a&gt;To: &quot;7025551212&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at open-ims.test</A>&gt;;tag=a243bd30From: &quot;alice&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;;tag=ec10950eCall-ID: YjkxMDFkZTY2YzE2MDMwNGMxOGUzMGQ5NTgxYzNkZWI.CSeq: 1 INVITEUser-Agent: X-Lite release 1011s stamp 41150Content-Length: 0P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at open-ims.test</A>&gt;
+ 
+ 
+from open-ims.test
+SIP/2.0 200 OKVia: SIP/2.0/UDP 10.1.59.70:62858;received=10.1.47.254;rport=1059;received=10.1.47.254;branch=z9hG4bK-d87543-be16b33da576862b-1--d87543-Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mt at pcscf.open-ims.test</A>:4060;lr&gt;Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mt at scscf.open-ims.test</A>:6060;lr&gt;Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at scscf.open-ims.test</A>:6060;lr&gt;Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at 10.1.59.71</A>:7872;rinstance=9ac941ed5f54652a&gt;To: &quot;7025551212&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at open-ims.test</A>&gt;;tag=a243bd30From: &quot;alice&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;;tag=ec10950eCall-ID: YjkxMDFkZTY2YzE2MDMwNGMxOGUzMGQ5NTgxYzNkZWI.CSeq: 1 INVITEAllow: INVITE, ACK, CANCEL, OPTIONS, BYE, REFER, NOTIFY, MESSAGE, SUBSCRIBE, INFOContent-Type: application/sdpUser-Agent: X-Lite release 1011s stamp 41150Content-Length: 179P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at open-ims.test</A>&gt;
+v=0o=- 6 2 IN IP4 10.1.59.71s=CounterPath X-Lite 3.0c=IN IP4 10.1.59.71t=0 0m=audio 29646 RTP/AVP 0 101a=fmtp:101 0-15a=rtpmap:101 telephone-event/8000a=sendrecv
+ 
+from open-ims.test
+SIP/2.0 200 OKVia: SIP/2.0/UDP 10.1.59.70:62858;received=10.1.47.254;rport=1059;received=10.1.47.254;branch=z9hG4bK-d87543-be16b33da576862b-1--d87543-Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mt at pcscf.open-ims.test</A>:4060;lr&gt;Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mt at scscf.open-ims.test</A>:6060;lr&gt;Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at scscf.open-ims.test</A>:6060;lr&gt;Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at 10.1.59.71</A>:7872;rinstance=9ac941ed5f54652a&gt;To: &quot;7025551212&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at open-ims.test</A>&gt;;tag=a243bd30From: &quot;alice&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;;tag=ec10950eCall-ID: YjkxMDFkZTY2YzE2MDMwNGMxOGUzMGQ5NTgxYzNkZWI.CSeq: 1 INVITEAllow: INVITE, ACK, CANCEL, OPTIONS, BYE, REFER, NOTIFY, MESSAGE, SUBSCRIBE, INFOContent-Type: application/sdpUser-Agent: X-Lite release 1011s stamp 41150Content-Length: 179P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at open-ims.test</A>&gt;
+v=0o=- 6 2 IN IP4 10.1.59.71s=CounterPath X-Lite 3.0c=IN IP4 10.1.59.71t=0 0m=audio 29646 RTP/AVP 0 101a=fmtp:101 0-15a=rtpmap:101 telephone-event/8000a=sendrecv
+ 
+from open-ims.test
+SIP/2.0 200 OKVia: SIP/2.0/UDP 10.1.59.70:62858;received=10.1.47.254;rport=1059;received=10.1.47.254;branch=z9hG4bK-d87543-be16b33da576862b-1--d87543-Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mt at pcscf.open-ims.test</A>:4060;lr&gt;Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mt at scscf.open-ims.test</A>:6060;lr&gt;Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at scscf.open-ims.test</A>:6060;lr&gt;Record-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at pcscf.open-ims.test</A>:4060;lr&gt;Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at 10.1.59.71</A>:7872;rinstance=9ac941ed5f54652a&gt;To: &quot;7025551212&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at open-ims.test</A>&gt;;tag=a243bd30From: &quot;alice&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;;tag=ec10950eCall-ID: YjkxMDFkZTY2YzE2MDMwNGMxOGUzMGQ5NTgxYzNkZWI.CSeq: 1 INVITEAllow: INVITE, ACK, CANCEL, OPTIONS, BYE, REFER, NOTIFY, MESSAGE, SUBSCRIBE, INFOContent-Type: application/sdpUser-Agent: X-Lite release 1011s stamp 41150Content-Length: 179P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">7025551212 at open-ims.test</A>&gt;
+v=0o=- 6 2 IN IP4 10.1.59.71s=CounterPath X-Lite 3.0c=IN IP4 10.1.59.71t=0 0m=audio 29646 RTP/AVP 0 101a=fmtp:101 0-15a=rtpmap:101 telephone-event/8000a=sendrecv
+ 
+ 
+ 
+_________________________________________________________________
+Connect and share in new ways with Windows Live.
+<A HREF="http://www.windowslive.com/connect.html?ocid=TXT_TAGLM_Wave2_newways_112007">http://www.windowslive.com/connect.html?ocid=TXT_TAGLM_Wave2_newways_112007</A>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071128/89ae2e24/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071128/89ae2e24/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001082.html">[OpenIMSCore-CSCF] RTR tests
+</A></li>
+	<LI>Next message: <A HREF="001079.html">[OpenIMSCore-CSCF] psi
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1077">[ date ]</a>
+              <a href="thread.html#1077">[ thread ]</a>
+              <a href="subject.html#1077">[ subject ]</a>
+              <a href="author.html#1077">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

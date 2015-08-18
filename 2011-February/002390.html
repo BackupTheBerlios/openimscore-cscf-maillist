@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Not Able to register in IMS client
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Not%20Able%20to%20register%20in%20IMS%20client&In-Reply-To=%3C4D52A870.6060700%40acision.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002389.html">
+   <LINK REL="Next"  HREF="002391.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Not Able to register in IMS client</H1>
+    <B>Daniel Ciprus</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Not%20Able%20to%20register%20in%20IMS%20client&In-Reply-To=%3C4D52A870.6060700%40acision.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Not Able to register in IMS client">daniel.ciprus at acision.com
+       </A><BR>
+    <I>Wed Feb  9 15:45:04 CET 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002389.html">[OpenIMSCore-CSCF] Not Able to register in IMS client
+</A></li>
+        <LI>Next message: <A HREF="002391.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1018 - Split the Diameter code	headers into app/cmd/avp/result codes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2390">[ date ]</a>
+              <a href="thread.html#2390">[ thread ]</a>
+              <a href="subject.html#2390">[ subject ]</a>
+              <a href="author.html#2390">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>In order to get OpenIMS working (proper functionality) YOU HAVE TO set 
+up DNS, items in /etc/hosts are not sufficient enough.
+
+On 02/09/2011 03:14 AM, Lakshmanan wrote:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I am trying to register in IMS client but i am not able to register it. I
+</I>&gt;<i> have captured the trace using wireshark. I am attaching the pcap along
+</I>&gt;<i> with this email.
+</I>&gt;<i>
+</I>&gt;<i> In my /etc/hosts/ i have set my local server ip to open-ims.test.
+</I>&gt;<i>
+</I>&gt;<i> Following is the captured UDP Stream from the trace.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ****************************************************************************
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> REGISTER sip:open-ims.test SIP/2.0
+</I>&gt;<i>
+</I>&gt;<i> To:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;
+</I>&gt;<i>
+</I>&gt;<i> From:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;;tag=F5131F4E_1D26_45BE_B608_81745BD37A6F
+</I>&gt;<i>
+</I>&gt;<i> Via: SIP/2.0/UDP
+</I>&gt;<i> 192.168.1.26:21762;branch=z9hG4bk_50CF19BC_53C2_4207_959A_1BCF0B63013B;rport
+</I>&gt;<i>
+</I>&gt;<i> Call-ID:
+</I>&gt;<i> 4729E22E_3ADE_4C7F_8730_9830AFBB00FC_079f4fb001904720cfafbe52511d4cb7
+</I>&gt;<i>
+</I>&gt;<i> CSeq: 1 REGISTER
+</I>&gt;<i>
+</I>&gt;<i> Contact:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 192.168.1.26</A>:21762&gt;;expires=5000
+</I>&gt;<i>
+</I>&gt;<i> Expires: 5000
+</I>&gt;<i>
+</I>&gt;<i> Max-Forwards: 70
+</I>&gt;<i>
+</I>&gt;<i> Allow: INVITE, ACK, BYE, CANCEL, OPTIONS, MESSAGE, SUBSCRIBE, NOTIFY,
+</I>&gt;<i> PUBLISH, INFO, REFER, UPDATE
+</I>&gt;<i>
+</I>&gt;<i> User-Agent: damaka UA
+</I>&gt;<i>
+</I>&gt;<i> Authorization: Digest
+</I>&gt;<i> username=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&quot;,realm=&quot;open-ims.test&quot;,nonce=&quot;&quot;,uri=&quot;sip:open-ims.test&quot;,response=&quot;&quot;
+</I>&gt;<i>
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> SIP/2.0 478 Unresolvable destination (478/TM)
+</I>&gt;<i>
+</I>&gt;<i> To:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;;tag=1ff4bb65cc2b9ed0e3ad0d6029fc563b-97b3
+</I>&gt;<i>
+</I>&gt;<i> From:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;;tag=F5131F4E_1D26_45BE_B608_81745BD37A6F
+</I>&gt;<i>
+</I>&gt;<i> Via: SIP/2.0/UDP
+</I>&gt;<i> 192.168.1.26:21762;branch=z9hG4bk_50CF19BC_53C2_4207_959A_1BCF0B63013B;rport=21762
+</I>&gt;<i>
+</I>&gt;<i> Call-ID:
+</I>&gt;<i> 4729E22E_3ADE_4C7F_8730_9830AFBB00FC_079f4fb001904720cfafbe52511d4cb7
+</I>&gt;<i>
+</I>&gt;<i> CSeq: 1 REGISTER
+</I>&gt;<i>
+</I>&gt;<i> Server: Sip EXpress router (2.1.0-dev1 OpenIMSCore (i386/linux))
+</I>&gt;<i>
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i>
+</I>&gt;<i> Warning: 392 open-ims.test:4060 &quot;Noisy feedback tells:  pid=22455
+</I>&gt;<i> req_src_ip=192.168.1.26 req_src_port=21762 in_uri=sip:open-ims.test
+</I>&gt;<i> out_uri=sip:open-ims.test via_cnt==1&quot;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> SIP/2.0 500 Error forwarding to Home Domain
+</I>&gt;<i>
+</I>&gt;<i> To:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;;tag=a16ba877e89a437b06025bd5f42f861c.97b3
+</I>&gt;<i>
+</I>&gt;<i> From:&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;;tag=F5131F4E_1D26_45BE_B608_81745BD37A6F
+</I>&gt;<i>
+</I>&gt;<i> Via: SIP/2.0/UDP
+</I>&gt;<i> 192.168.1.26:21762;branch=z9hG4bk_50CF19BC_53C2_4207_959A_1BCF0B63013B;rport=21762
+</I>&gt;<i>
+</I>&gt;<i> Call-ID:
+</I>&gt;<i> 4729E22E_3ADE_4C7F_8730_9830AFBB00FC_079f4fb001904720cfafbe52511d4cb7
+</I>&gt;<i>
+</I>&gt;<i> CSeq: 1 REGISTER
+</I>&gt;<i>
+</I>&gt;<i> Server: Sip EXpress router (2.1.0-dev1 OpenIMSCore (i386/linux))
+</I>&gt;<i>
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i>
+</I>&gt;<i> Warning: 392 open-ims.test:4060 &quot;Noisy feedback tells:  pid=22455
+</I>&gt;<i> req_src_ip=192.168.1.26 req_src_port=21762 in_uri=sip:open-ims.test
+</I>&gt;<i> out_uri=sip:open-ims.test via_cnt==1&quot;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ****************************************************************************
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Find the attachment for wireshark pcap file.
+</I>&gt;<i>
+</I>&gt;<i> Help me in resolving this issue.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+-- 
+*Daniel Ciprus*
+Integration engineer
+------------------------------------------------------
+*<A HREF="http://www.acision.com*">http://www.acision.com*</A>
+4870 Sadler Rd
+Suite 200
+Glen Allen, VA 23060
+USA
+T: +1 804 762 5601
+E: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">daniel.ciprus at acision.com</A>
+
+
+This e-mail and any attachment is for authorised use by the intended recipient(s) only. It may contain proprietary material, confidential information and/or be subject to legal privilege. It should not be copied, disclosed to, retained or used by, any other party. If you are not an intended recipient then please promptly delete this e-mail and any attachment and all copies and inform the sender. Thank you.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110209/0ffb5202/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110209/0ffb5202/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002389.html">[OpenIMSCore-CSCF] Not Able to register in IMS client
+</A></li>
+	<LI>Next message: <A HREF="002391.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1018 - Split the Diameter code	headers into app/cmd/avp/result codes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2390">[ date ]</a>
+              <a href="thread.html#2390">[ thread ]</a>
+              <a href="subject.html#2390">[ subject ]</a>
+              <a href="author.html#2390">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

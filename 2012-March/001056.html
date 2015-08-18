@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> No subject
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2012-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20No%20subject&In-Reply-To=%3Cmailman.7.1331735577.7402.openimscore-cscf%40lists.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="001073.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>No subject</H1>
+    <B></B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20No%20subject&In-Reply-To=%3Cmailman.7.1331735577.7402.openimscore-cscf%40lists.berlios.de%3E"
+       TITLE="No subject">
+       </A><BR>
+    <I>Wed Mar 14 15:32:39 CET 2012</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="001073.html">No subject
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1056">[ date ]</a>
+              <a href="thread.html#1056">[ thread ]</a>
+              <a href="subject.html#1056">[ subject ]</a>
+              <a href="author.html#1056">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>to presence state subscription.
+
+Is there any way to avoid the occurrence of the problem?
+I attach scscf.cfg file I am using.(I quote module loading part)
+
+I am using OSIMS revision 0431.
+ser_ims2007802.r0431.tgz
+FHoSS2007802.r0431.tgz
+
+If you have any help, I am very grateful.
+
+Thanks in advance,
+Thomas
+
+------=_Part_4638_32415832.1195204136588
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+&lt;div&gt;Hi all,&lt;/div&gt;
+&lt;div&gt;&nbsp;&lt;/div&gt;
+&lt;div&gt;I am using Presence Server with OpenIMS.&lt;/div&gt;
+&lt;div&gt;All event related to Event package is routed to&lt;/div&gt;
+&lt;div&gt;the Presence Server using iFC.&lt;/div&gt;
+&lt;div&gt;&nbsp;&lt;/div&gt;
+&lt;div&gt;When an presense state subscription is expired,&lt;/div&gt;
+&lt;div&gt;NOTIFY request is sent from Presence Server to the subscriber.&lt;/div&gt;
+&lt;div&gt;&nbsp;&lt;/div&gt;
+&lt;div&gt;
+&lt;div&gt;Problem occures when Expire&nbsp;value&nbsp;on SUBSCRIBE request is set&nbsp;longer than 180 seconds.&lt;/div&gt;
+&lt;div&gt;S-CSCF does not forward NOTIFY request from Presence Server to the subscriber.&lt;/div&gt;
+&lt;div&gt;S-CSCF returns &#39;403 Forbidden -Dialog not Found on S-CSCF or Terminating user not suitable for unregistered services&#39; against NOTIFY request from Presence Server.&nbsp;&lt;/div&gt;&lt;/div&gt;
+&lt;div&gt;&nbsp;&lt;/div&gt;
+&lt;div&gt;When Expire value on SUBSCRIBE is set shorter than 180 seconds, S-CSCF forwards NOTIFY request from Presence Server to the subscriber normally.&lt;/div&gt;
+&lt;div&gt;&nbsp;&lt;/div&gt;
+&lt;div&gt;From&nbsp;the error message&nbsp;it&nbsp;looks S-CSCF forgot the dialog information related to presence state subscription.&lt;/div&gt;
+&lt;div&gt;&nbsp;&lt;/div&gt;
+&lt;div&gt;Is there any way to avoid the occurrence of the problem?&lt;/div&gt;
+&lt;div&gt;I&nbsp;attach scscf.cfg file I am using.(I quote module loading part)&lt;/div&gt;
+&lt;div&gt;&nbsp;&lt;/div&gt;
+&lt;div&gt;I am using OSIMS revision 0431.&lt;/div&gt;
+&lt;div&gt;ser_ims2007802.r0431.tgz&lt;br&gt;FHoSS2007802.r0431.tgz&lt;/div&gt;
+&lt;div&gt;&nbsp;&lt;/div&gt;
+&lt;div&gt;If you have any help, I am very grateful.&lt;/div&gt;
+&lt;div&gt;&nbsp;&lt;/div&gt;
+&lt;div&gt;Thanks in advance,&lt;/div&gt;
+&lt;div&gt;Thomas&nbsp;&lt;/div&gt;
+
+------=_Part_4638_32415832.1195204136588--
+
+------=_Part_4637_14789509.1195204136588
+Content-Type: text/plain; name=scscf.cfg
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_f92ho2so
+Content-Disposition: attachment; filename=scscf.cfg
+
+Iw0KIyAkSWQ6IHNjc2NmLmNmZyA0MjggMjAwNy0wNy0zMSAyMTo0ODoyMlogdmluZ2FyemFuICQN
+CiMNCiMgU2VydmluZyAtIENTQ0YgY29uZmlndXJhdGlvbiBzY3JpcHQNCiMNCg0KIyAtLS0tLS0t
+LS0tLSBnbG9iYWwgY29uZmlndXJhdGlvbiBwYXJhbWV0ZXJzIC0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLQ0KDQpkZWJ1Zz0zDQpsb2dfc3RkZXJyb3I9eWVzDQptZW1sb2c9NQ0Kc2lwX3dhcm5pbmc9
+eWVzDQoNCmZvcms9eWVzDQpjaGlsZHJlbj00DQoNCg0KbGlzdGVuPTE3Mi4xNi41LjEzDQpwb3J0
+PTUwNjANCmFsaWFzPW9pMnNjc2NmMDAxLm50dC10ZXN0Mi5jb206NTA2MA0KDQpjaGVja192aWE9
+bm8JCSMgKGNtZC4gbGluZTogLXYpDQpkbnM9bm8JCQkjIChjbWQuIGxpbmU6IC1yKQ0KcmV2X2Ru
+cz1ubwkJIyAoY21kLiBsaW5lOiAtUikNCg0KIyAtLS0tLS0tLS0tLS0tLS0tLS0gbW9kdWxlIGxv
+YWRpbmcgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KDQpsb2FkbW9kdWxlICIv
+b3B0L09wZW5JTVNDb3JlL3Nlcl9pbXMvbW9kdWxlcy9zbC9zbC5zbyINCg0KbG9hZG1vZHVsZSAi
+L29wdC9PcGVuSU1TQ29yZS9zZXJfaW1zL21vZHVsZXMvdG0vdG0uc28iDQptb2RwYXJhbSgidG0i
+LCAiZnJfdGltZXIiLCA1MDAwKQ0KDQpsb2FkbW9kdWxlICIvb3B0L09wZW5JTVNDb3JlL3Nlcl9p
+bXMvbW9kdWxlcy9kaWFsb2cvZGlhbG9nLnNvIg0KDQoNCmxvYWRtb2R1bGUgIi9vcHQvT3BlbklN
+U0NvcmUvc2VyX2ltcy9tb2R1bGVzL3JyL3JyLnNvIg0KbG9hZG1vZHVsZSAiL29wdC9PcGVuSU1T
+Q29yZS9zZXJfaW1zL21vZHVsZXMvbWF4ZndkL21heGZ3ZC5zbyINCmxvYWRtb2R1bGUgIi9vcHQv
+T3BlbklNU0NvcmUvc2VyX2ltcy9tb2R1bGVzL3RleHRvcHMvdGV4dG9wcy5zbyINCmxvYWRtb2R1
+bGUgIi9vcHQvT3BlbklNU0NvcmUvc2VyX2ltcy9tb2R1bGVzL2VudW0vZW51bS5zbyINCg0KbG9h
+ZG1vZHVsZSAiL29wdC9PcGVuSU1TQ29yZS9zZXJfaW1zL21vZHVsZXMvc2NzY2Yvc2NzY2Yuc28i
+DQoNCm1vZHBhcmFtKCJzY3NjZiIsIm5hbWUiLCJzaXA6b2kyc2NzY2YwMDEub3Blbi1pbXMudGVz
+dDo1MDYwIikNCg0KI0NvbW1lbnQgdGhlIGZvbGxvd2luZyBsaW5lIHRvIGFsbG93IGZvciByZWFs
+bSByb3V0aW5nIG9uIHRoZSBDeCBpbnRlcmZhY2UNCiNtb2RwYXJhbSgic2NzY2YiLCJmb3JjZWRf
+aHNzX3BlZXIiLCJvaTJoc3MwMDEub3Blbi1pbXMudGVzdCIpDQoNCm1vZHBhcmFtKCJzY3NjZiIs
+ImF1dGhfZGF0YV9oYXNoX3NpemUiLDY0KQ0KbW9kcGFyYW0oInNjc2NmIiwiYXV0aF92ZWN0b3Jf
+dGltZW91dCIsNjApDQptb2RwYXJhbSgic2NzY2YiLCJhdXRoX2RhdGFfdGltZW91dCIsNjApDQpt
+b2RwYXJhbSgic2NzY2YiLCJhdl9yZXF1ZXN0X2F0X29uY2UiLDEpDQptb2RwYXJhbSgic2NzY2Yi
+LCJhdl9yZXF1ZXN0X2F0X3N5bmMiLDEpDQoNCm1vZHBhcmFtKCJzY3NjZiIsInNlcnZlcl9hc3Np
+Z25tZW50X3N0b3JlX2RhdGEiLDApDQoNCiMgb25seSBvbmUgb2YgdXNlcl9kYXRhIHZhbGlkYXRp
+b24gZmlsZSBzaG91bGQgbm9ybWFseSBiZSBkZWNsYXJlZCBoZXJlDQojIGJlY2F1c2UgaWYgYm90
+aCBhcmUgc3BlY2lmaWVkIHRoZSBkYXRhIHdpbGwgYmUgY2hlY2tlZCB0d2ljZQ0KI21vZHBhcmFt
+KCJzY3NjZiIsInVzZXJfZGF0YV9kdGQiLCIvb3B0L09wZW5JTVNDb3JlL3Nlcl9pbXMvbW9kdWxl
+cy9zY3NjZi9DeERhdGFUeXBlLmR0ZCIpDQptb2RwYXJhbSgic2NzY2YiLCJ1c2VyX2RhdGFfeHNk
+IiwiL29wdC9PcGVuSU1TQ29yZS9zZXJfaW1zL21vZHVsZXMvc2NzY2YvQ3hEYXRhVHlwZV9SZWw3
+LnhzZCIpDQoNCm1vZHBhcmFtKCJzY3NjZiIsInJlZ2lzdHJhcl9oYXNoX3NpemUiLDI1NikNCg0K
+bW9kcGFyYW0oInNjc2NmIiwicmVnaXN0cmF0aW9uX2RlZmF1bHRfZXhwaXJlcyIsMzYwMCkNCm1v
+ZHBhcmFtKCJzY3NjZiIsInJlZ2lzdHJhdGlvbl9taW5fZXhwaXJlcyIsMzApDQptb2RwYXJhbSgi
+c2NzY2YiLCJyZWdpc3RyYXRpb25fbWF4X2V4cGlyZXMiLDEwMDAwMDApDQoNCiNtb2RwYXJhbSgi
+c2NzY2YiLCJyZWdpc3RyYXRpb25fZGVmYXVsdF9hbGdvcml0aG0iLCJBS0F2MS1NRDUiKQ0KI21v
+ZHBhcmFtKCJzY3NjZiIsInJlZ2lzdHJhdGlvbl9kZWZhdWx0X2FsZ29yaXRobSIsIkFLQXYyLU1E
+NSIpDQptb2RwYXJhbSgic2NzY2YiLCJyZWdpc3RyYXRpb25fZGVmYXVsdF9hbGdvcml0aG0iLCJN
+RDUiKQ0KDQojIFRoZSBuZXh0IGF1dGhlbnRpY2F0aW9uIG1ldGhvZHMgYXJlIGltcGxlbWVudGVk
+IGhlcmUgYnV0IG5vdCB5ZXQgY29tcGxldGVkIGluIEZIb1NTDQojIHBsZWFzZSBkbyBub3QgY29t
+cGxhaW4gYWJvdXQgYnVncyB3aGVuIHVzaW5nIHdpdGggRkhvU1MsIHlldCENCiNtb2RwYXJhbSgi
+c2NzY2YiLCJyZWdpc3RyYXRpb25fZGVmYXVsdF9hbGdvcml0aG0iLCJDYWJsZUxhYnMtRGlnZXN0
+IikNCiNtb2RwYXJhbSgic2NzY2YiLCJyZWdpc3RyYXRpb25fZGVmYXVsdF9hbGdvcml0aG0iLCJU
+SVNQQU4tSFRUUF9ESUdFU1RfTUQ1IikNCiNtb2RwYXJhbSgic2NzY2YiLCJyZWdpc3RyYXRpb25f
+ZGVmYXVsdF9hbGdvcml0aG0iLCJOQVNTLUJ1bmRsZWQiKQ0KIyBMZXQgdGhlIEhTUyBkZWNpZGUN
+CiNtb2RwYXJhbSgic2NzY2YiLCJyZWdpc3RyYXRpb25fZGVmYXVsdF9hbGdvcml0aG0iLCJIU1Mt
+U2VsZWN0ZWQiKQ0KDQptb2RwYXJhbSgic2NzY2YiLCJyZWdpc3RyYXRpb25fZGlzYWJsZV9lYXJs
+eV9pbXMiLDEpDQoNCm1vZHBhcmFtKCJzY3NjZiIsInN1YnNjcmlwdGlvbl9kZWZhdWx0X2V4cGly
+ZXMiLDM2MDApDQptb2RwYXJhbSgic2NzY2YiLCJzdWJzY3JpcHRpb25fbWluX2V4cGlyZXMiLDMw
+KQ0KbW9kcGFyYW0oInNjc2NmIiwic3Vic2NyaXB0aW9uX21heF9leHBpcmVzIiwxMDAwMDAwKQ0K
+DQptb2RwYXJhbSgic2NzY2YiLCJkaWFsb2dzX2hhc2hfc2l6ZSIsMjU2KQ0KbW9kcGFyYW0oInNj
+c2NmIiwiZGlhbG9nc19leHBpcmF0aW9uX3RpbWUiLDM2MDApDQptb2RwYXJhbSgic2NzY2YiLCJk
+aWFsb2dzX2VuYWJsZV9yZWxlYXNlIiwxKQ0KbW9kcGFyYW0oInNjc2NmIiwibWF4X2RpYWxvZ19j
+b3VudCIsMjAwMDApDQptb2RwYXJhbSgic2NzY2YiLCJtaW5fc2UiLDkwKQ0KDQojIHBlcnNpc3Rl
+bmN5X21vZGUgLSAwIE5vbmUgLyAxIEZpbGVzIC8gMiBEYXRhYmFzZXMNCm1vZHBhcmFtKCJzY3Nj
+ZiIsInBlcnNpc3RlbmN5X21vZGUiLDApDQoNCiNtb2RwYXJhbSgic2NzY2YiLCJwZXJzaXN0ZW5j
+eV9tb2RlIiwxKQ0KI21vZHBhcmFtKCJzY3NjZiIsInBlcnNpc3RlbmN5X2xvY2F0aW9uIiwiL29w
+dC9PcGVuSU1TQ29yZS9wZXJzaXN0ZW5jeSIpDQojbW9kcGFyYW0oInNjc2NmIiwicGVyc2lzdGVu
+Y3lfdGltZXJfYXV0aGRhdGEiLDYwKQ0KI21vZHBhcmFtKCJzY3NjZiIsInBlcnNpc3RlbmN5X3Rp
+bWVyX2RpYWxvZ3MiLDYwKQ0KI21vZHBhcmFtKCJzY3NjZiIsInBlcnNpc3RlbmN5X3RpbWVyX3Jl
+Z2lzdHJhciIsNjApDQoNCmxvYWRtb2R1bGUgIi9vcHQvT3BlbklNU0NvcmUvc2VyX2ltcy9tb2R1
+bGVzL2lzYy9pc2Muc28iDQoNCm1vZHBhcmFtKCJpc2MiLCJteV91cmkiLCJvaTJzY3NjZjAwMS5v
+cGVuLWltcy50ZXN0OjUwNjAiKQ0KbW9kcGFyYW0oImlzYyIsImV4cGlyZXNfZ3JhY2UiLDEyMCkN
+Cg0KDQpsb2FkbW9kdWxlICIvb3B0L09wZW5JTVNDb3JlL3Nlcl9pbXMvbW9kdWxlcy9jZHAvY2Rw
+LnNvIg0KbW9kcGFyYW0oImNkcCIsImNvbmZpZ19maWxlIiwiL29wdC9PcGVuSU1TQ29yZS9zY3Nj
+Zi54bWwiKQ0KDQojIGFkZCB2YWx1ZSB0byA7bHIgcGFyYW0gdG8gbWFrZSBzb21lIGJyb2tlbiBV
+QXMgaGFwcHkNCm1vZHBhcmFtKCJyciIsICJlbmFibGVfZnVsbF9sciIsIDEpDQoNCg==
+------=_Part_4637_14789509.1195204136588--
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="001073.html">No subject
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1056">[ date ]</a>
+              <a href="thread.html#1056">[ thread ]</a>
+              <a href="subject.html#1056">[ subject ]</a>
+              <a href="author.html#1056">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

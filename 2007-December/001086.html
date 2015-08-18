@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Question about isc_mark
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Question%20about%20isc_mark&In-Reply-To=%3C4754AF36.3060100%40tom.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001085.html">
+   <LINK REL="Next"  HREF="001087.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Question about isc_mark</H1>
+    <B>jc.huang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Question%20about%20isc_mark&In-Reply-To=%3C4754AF36.3060100%40tom.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Question about isc_mark">jc.huang at tom.com
+       </A><BR>
+    <I>Tue Dec  4 02:36:54 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001085.html">[OpenIMSCore-CSCF] P-CSCF acc_rf Module question
+</A></li>
+        <LI>Next message: <A HREF="001087.html">[OpenIMSCore-CSCF] Question about isc_mark
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1086">[ date ]</a>
+              <a href="thread.html#1086">[ thread ]</a>
+              <a href="subject.html#1086">[ subject ]</a>
+              <a href="author.html#1086">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi All,
+
+I have a question about isc_mark, the implementation in openims is as
+follows,
+
+sprintf(chr_mark,&quot;%s@%.*s;lr;s=%d;h=%d;d=%d;a=%.*s&quot;,
+ISC_MARK_USERNAME,
+isc_my_uri.len,isc_my_uri.s,
+mark-&gt;skip,
+mark-&gt;handling,
+mark-&gt;direction,
+len,aor_hex
+);
+
+I wonder whether it is standard way, i.e., it is suggested by SIP or
+3GPP documents?
+
+Thanks,
+Jc.huang
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001085.html">[OpenIMSCore-CSCF] P-CSCF acc_rf Module question
+</A></li>
+	<LI>Next message: <A HREF="001087.html">[OpenIMSCore-CSCF] Question about isc_mark
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1086">[ date ]</a>
+              <a href="thread.html#1086">[ thread ]</a>
+              <a href="subject.html#1086">[ subject ]</a>
+              <a href="author.html#1086">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

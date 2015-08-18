@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Help: 403 HSS Roaming not allowed...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Help%3A%20403%20HSS%20Roaming%20not%20allowed...&In-Reply-To=%3Cbae88b310702231417w6e217e73j1a87a2a4c58aaf67%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000244.html">
+   <LINK REL="Next"  HREF="000246.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Help: 403 HSS Roaming not allowed...</H1>
+    <B>john mcclelland</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Help%3A%20403%20HSS%20Roaming%20not%20allowed...&In-Reply-To=%3Cbae88b310702231417w6e217e73j1a87a2a4c58aaf67%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Help: 403 HSS Roaming not allowed...">john at pervasivelabs.com
+       </A><BR>
+    <I>Fri Feb 23 23:17:36 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000244.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r150 - ser_ims/trunk/modules/pcscf
+</A></li>
+        <LI>Next message: <A HREF="000246.html">[OpenIMSCore-CSCF] Help: 403 HSS Roaming not allowed...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#245">[ date ]</a>
+              <a href="thread.html#245">[ thread ]</a>
+              <a href="subject.html#245">[ subject ]</a>
+              <a href="author.html#245">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Does anyone have an idea what would cause this error?  I have verified
+the database information to the best of my ability...  could this be a
+mis-match between the nw_id?
+
+
+14:07:25 INFO      Registration of sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A> engaged...
+14:07:25 DEBUG
+2007-02-23 22:07:25.489 UDP LOCAL-&gt;10.195.3.46:3060
+REGISTER sip:open-ims.test SIP/2.0
+Via: SIP/2.0/UDP
+10.195.3.62;rport;branch=z9hG4bK0ac3033e0000001045df659d00002de000000011
+Content-Length: 0
+Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.195.3.62</A>:5060&gt;
+Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">9EB631B0-B2A3-4375-8D2E-95914A47CB06 at 10.195.3.62</A>
+CSeq: 7 REGISTER
+From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=2778371714053
+Max-Forwards: 70
+To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+User-Agent: SJphone/1.60.289a (SJ Labs)
+
+
+14:07:25 DEBUG
+2007-02-23 22:07:25.785 UDP 10.195.3.46:3060-&gt;LOCAL
+SIP/2.0 403 Forbidden - HSS Roaming not allowed
+Via: SIP/2.0/UDP
+10.195.3.62;rport=5060;branch=z9hG4bK0ac3033e0000001045df659d00002de000000011
+Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">9EB631B0-B2A3-4375-8D2E-95914A47CB06 at 10.195.3.62</A>
+CSeq: 7 REGISTER
+From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=2778371714053
+To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=1623ce797dd6692fb9d55bee565c3ebf-633d
+Server: Sip EXpress router (0.10.99-dev53-tm_fixes (i386/linux))
+Content-Length: 0
+Warning: 392 10.195.3.46:5060 &quot;Noisy feedback tells:  pid=6690
+req_src_ip=10.195.3.46 req_src_port=4060 in_uri=sip:open-ims.test
+out_uri=sip:open-ims.test via_cnt==3&quot;
+
+
+14:07:25 INFO      Registration of sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A> engaged...
+14:07:25 DEBUG
+2007-02-23 22:07:25.785 UDP LOCAL-&gt;10.195.3.46:3060
+REGISTER sip:open-ims.test SIP/2.0
+Via: SIP/2.0/UDP
+10.195.3.62;rport;branch=z9hG4bK0ac3033e0000001045df659d000067b700000013
+Content-Length: 0
+Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.195.3.62</A>:5060&gt;
+Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">9EB631B0-B2A3-4375-8D2E-95914A47CB06 at 10.195.3.62</A>
+CSeq: 8 REGISTER
+From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=2778374687185
+Max-Forwards: 70
+To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+User-Agent: SJphone/1.60.289a (SJ Labs)
+
+
+14:07:26 DEBUG
+2007-02-23 22:07:26.035 UDP 10.195.3.46:3060-&gt;LOCAL
+SIP/2.0 403 Forbidden - HSS Roaming not allowed
+Via: SIP/2.0/UDP
+10.195.3.62;rport=5060;branch=z9hG4bK0ac3033e0000001045df659d000067b700000013
+Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">9EB631B0-B2A3-4375-8D2E-95914A47CB06 at 10.195.3.62</A>
+CSeq: 8 REGISTER
+From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=2778374687185
+To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=1623ce797dd6692fb9d55bee565c3ebf-1100
+Server: Sip EXpress router (0.10.99-dev53-tm_fixes (i386/linux))
+Content-Length: 0
+Warning: 392 10.195.3.46:5060 &quot;Noisy feedback tells:  pid=6689
+req_src_ip=10.195.3.46 req_src_port=4060 in_uri=sip:open-ims.test
+out_uri=sip:open-ims.test via_cnt==3&quot;
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000244.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r150 - ser_ims/trunk/modules/pcscf
+</A></li>
+	<LI>Next message: <A HREF="000246.html">[OpenIMSCore-CSCF] Help: 403 HSS Roaming not allowed...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#245">[ date ]</a>
+              <a href="thread.html#245">[ thread ]</a>
+              <a href="subject.html#245">[ subject ]</a>
+              <a href="author.html#245">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

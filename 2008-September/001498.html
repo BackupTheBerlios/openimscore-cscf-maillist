@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Configure a diferent domain
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Configure%20a%20diferent%20domain&In-Reply-To=%3CC2674109C0E9C54F978B233D4EFE415003F2BDB2%40VNTSERVER06.venturus.local%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001497.html">
+   <LINK REL="Next"  HREF="001499.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Configure a diferent domain</H1>
+    <B>Paulo Sigrist</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Configure%20a%20diferent%20domain&In-Reply-To=%3CC2674109C0E9C54F978B233D4EFE415003F2BDB2%40VNTSERVER06.venturus.local%3E"
+       TITLE="[OpenIMSCore-CSCF] Configure a diferent domain">paulo.sigrist at venturus.org.br
+       </A><BR>
+    <I>Fri Sep 26 21:49:42 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001497.html">[OpenIMSCore-CSCF] Half Call Model ,	re-INVITE  w/wo route header
+</A></li>
+        <LI>Next message: <A HREF="001499.html">[OpenIMSCore-CSCF] Configure a diferent domain
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1498">[ date ]</a>
+              <a href="thread.html#1498">[ thread ]</a>
+              <a href="subject.html#1498">[ subject ]</a>
+              <a href="author.html#1498">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all.
+
+ 
+
+I'm trying to use open-ims-core with a different domain. I configured an
+open-ims-core environment using the open-ims.test domain and tested with
+the OpenIC Client and it worked fine.
+
+ 
+
+Then, I tried to change the domain to another one, to test roaming
+calls. I used the configurator.sh to change my cfg, XML and sh files.
+The new domain is sigrist.com.
+
+ 
+
+My DNS is configured with all hosts (pcscf, icscf, scscf, hss). But the
+environment is not working. The SIP messages that I sent and the
+response  are:
+
+ 
+
+REGISTER sip:sigrist.com SIP/2.0
+
+Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">de6bcd1b813fc269a368fc506ae8e4ad at 172.24.21.77</A>
+
+CSeq: 1 REGISTER
+
+From: &quot;Sigrist&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">paulo.sigrist at sigrist.com</A>&gt;;tag=1000
+
+To: &quot;Sigrist&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">paulo.sigrist at sigrist.com</A>&gt;
+
+Via: SIP/2.0/UDP
+172.24.21.77:5060;branch=z9hG4bK843139ba4010e9f0c0c82c5163e1aaa6
+
+Max-Forwards: 20
+
+Expires: 3600
+
+Authorization: Digest
+username=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vntpasi at sigrist.com</A>&quot;,realm=&quot;sigrist.com&quot;,nonce=&quot;&quot;,response=&quot;&quot;,
+uri=&quot;sip:sigrist.com&quot;
+
+Supported: path
+
+Contact: &lt;sip:172.24.21.77:5060&gt;
+
+P-Preferred-Identity: &quot;Sigrist&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">paulo.sigrist at sigrist.com</A>&gt;
+
+P-Access-Network-Info: 3GPP-UTRAN-TDD; utran-cell-id-3gpp=00000000
+
+Privacy: none
+
+User-Agent: Fraunhofer FOKUS/NGNI Java IMS UserEndpoint FoJIE 0.1
+(jdk1.3)
+
+Allow: INVITE,ACK,CANCEL,BYE,MESSAGE,NOTIFY
+
+Content-Length: 0
+
+ 
+
+ 
+
+SIP/2.0 504 Server Time-Out
+
+Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">de6bcd1b813fc269a368fc506ae8e4ad at 172.24.21.77</A>
+
+CSeq: 1 REGISTER
+
+From: &quot;Sigrist&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">paulo.sigrist at sigrist.com</A>&gt;;tag=1000
+
+To: &quot;Sigrist&quot;
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">paulo.sigrist at sigrist.com</A>&gt;;tag=9d83ed4cd5e94d318d23d370d0eea030-e37
+4
+
+Via: SIP/2.0/UDP
+172.24.21.77:5060;branch=z9hG4bK843139ba4010e9f0c0c82c5163e1aaa6;rport=5
+060
+
+Server: Sip EXpress router (2.1.0-dev1 OpenIMSCore (i386/linux))
+
+Content-Length: 0
+
+Warning: 392 172.24.21.140:4060 &quot;Noisy feedback tells:  pid=12810
+req_src_ip=172.24.21.77 req_src_port=5060 in_uri=sip:sigrist.com
+out_uri=sip:sigrist.com via_cnt==0&quot;
+
+ 
+
+ 
+
+I cannot find in the logs an information about what is going on. Any
+tips??
+
+ 
+
+Thanks in advanced
+
+Paulo Sigrist
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080926/28107328/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080926/28107328/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001497.html">[OpenIMSCore-CSCF] Half Call Model ,	re-INVITE  w/wo route header
+</A></li>
+	<LI>Next message: <A HREF="001499.html">[OpenIMSCore-CSCF] Configure a diferent domain
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1498">[ date ]</a>
+              <a href="thread.html#1498">[ thread ]</a>
+              <a href="subject.html#1498">[ subject ]</a>
+              <a href="author.html#1498">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

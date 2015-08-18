@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r122 - ser_ims/trunk/cfg
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r122%20-%20ser_ims/trunk/cfg&In-Reply-To=%3C200702061803.l16I3faI016870%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000175.html">
+   <LINK REL="Next"  HREF="000179.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r122 - ser_ims/trunk/cfg</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r122%20-%20ser_ims/trunk/cfg&In-Reply-To=%3C200702061803.l16I3faI016870%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r122 - ser_ims/trunk/cfg">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Feb  6 19:03:41 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000175.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r121 -	ser_ims/branches/01_persistency/modules/pcscf
+</A></li>
+        <LI>Next message: <A HREF="000179.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r123 - in	ser_ims/branches/01_persistency: . .settings cfg	modules/pcscf modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#176">[ date ]</a>
+              <a href="thread.html#176">[ thread ]</a>
+              <a href="subject.html#176">[ subject ]</a>
+              <a href="author.html#176">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-06 19:03:26 +0100 (Tue, 06 Feb 2007)
+New Revision: 122
+
+Modified:
+   ser_ims/trunk/cfg/add-imscore-user.sh
+Log:
+Upgraded add-imscore-user.sh script to version 0.2 - by Sven Bornemann
+
+#    0.2 (02/06/07): 
+#     * Changed parameter handling (getopt).
+#     * Allow direct mysql import.
+#     * Remove temporary password file after usage.
+
+
+
+Modified: ser_ims/trunk/cfg/add-imscore-user.sh
+===================================================================
+--- ser_ims/trunk/cfg/add-imscore-user.sh	2007-02-06 17:54:39 UTC (rev 121)
++++ ser_ims/trunk/cfg/add-imscore-user.sh	2007-02-06 18:03:26 UTC (rev 122)
+@@ -3,35 +3,37 @@
+ # $Id$
+ # 
+ # add-imscore-user.sh
+-# Version: 0.1
+-# Released: 02/02/07
++# Version: 0.2
++# Released: 02/06/07
+ # Author: Sven Bornemann -at- materna de
+ #
++# History:
++#   0.2 (02/06/07): 
++#     * Changed parameter handling (getopt).
++#     * Allow direct mysql import.
++#     * Remove temporary password file after usage.
++#   0.1 (02/02/07): 
++#     * Initial version
++#
+ # Script for generating two SQL scripts for creating/deleting IMS Core users 
+ # in the HSS and the SIP2IMS gateway tables.
+ #
++# Usage for add-imscore-user.sh: See Usage() procedure below
++#
+ # Example for creating user 'brooke' with password 'brooke' for realm 
+ # 'open-ims.test':
+ #
+-# # ./add-imscore-user.sh brooke
++# # ./add-imscore-user.sh -u brooke -a
+ # Successfully wrote add-user-brooke.sql
+ # Successfully wrote delete-user-brooke.sql
++# Apply add-user-brooke.sql...
++# Enter password:
++# Successfully applied add-user-brooke.sql
+ # 
+-# Apply scripts with
+-# # mysql -u root -p &lt; add-user-brooke.sql
+-# or 
+-# # mysql -u root -p &lt; delete-user-brooke.sql
++# After applying the add script, you should be able to register with IMS Core 
++# with SIP clients (e.g. as 'brooke') via SIP2IMS. Use delete script or -d 
++# option for removing the user from IMS Core database tables.
+ # 
+-# After applying the add script, you should be able # to register with IMS Core 
+-# with SIP clients (e.g. as 'brooke') via SIP2IMS. Use delete script for removing 
+-# the user from IMS Core database tables.
+-# 
+-# Usage for add-imscore-user.sh:
+-# 
+-# add-imscore-user.sh user [realm password]
+-# Default for realm is 'open-ims.test'
+-# Default for password is value of user
+-# 
+ # Known limits:
+ # * IMS Core installation in /opt/OpenIMSCore required.
+ # * Password is limited to 16 characters.
+@@ -40,27 +42,51 @@
+ Usage()
+ {
+     echo &quot;ERROR: Invalid parameters&quot;
+-    echo &quot;$0 user [realm password]&quot;
+-    echo &quot;Default for realm is 'open-ims.test'&quot;
+-    echo &quot;Default for password is value of user&quot;
++    echo &quot;add-imscore-user.sh -u &lt;user&gt; [-r &lt;realm&gt; -p &lt;password&gt;] [-a|-d]&quot;
++    echo &quot;  -u &lt;user&gt;: The username (e.g. 'brooke')&quot;
++    echo &quot;  -r &lt;realm&gt;: The realm. Default is 'open-ims.test'&quot;
++    echo &quot;  -p &lt;password&gt;: The password. Default is value of -u option&quot;
++    echo &quot;  -a: Automatically apply created add script (script will not be deleted afterwards)&quot;
++    echo &quot;  -d: Automatically apply created delete script (script will be deleted afterwards)&quot;
+     exit -1
+ }
+ 
+-[ -z &quot;$1&quot; ] &amp;&amp; Usage
+-PASSWORD=$3
+-REALM=$2
+-[ -z &quot;$PASSWORD&quot; ] &amp;&amp; PASSWORD=$1
++OPTION_ADD=0
++OPTION_DELETE=0
++SCRIPT=
++EXIT_CODE=0
++DBUSER=root
++
++while getopts u:r:p:o:ad? option;
++do
++    case $option in
++        u) IMSUSER=$OPTARG;;
++        r) REALM=$OPTARG;;
++        p) PASSWORD=$OPTARG;;
++        a) OPTION_ADD=1;;
++        d) OPTION_DELETE=1;;
++    esac
++done
++
++[ -z &quot;$IMSUSER&quot; ] &amp;&amp; Usage
++[ -z &quot;$PASSWORD&quot; ] &amp;&amp; PASSWORD=$IMSUSER
+ [ -z &quot;$REALM&quot; ] &amp;&amp; REALM=open-ims.test
+ 
+-KEY=`/opt/OpenIMSCore/ser_ims/utils/gen_ha1/gen_ha1 $1@$REALM $REALM $PASSWORD`
++# Some checks
++[ $OPTION_ADD -eq 1 ] &amp;&amp; [ $OPTION_DELETE -eq 1 ] &amp;&amp; Usage;
++[ -z &quot;$IMSUSER&quot; ] &amp;&amp; Usage;
+ 
+-CREATE_SCRIPT=&quot;add-user-$1.sql&quot;
+-DELETE_SCRIPT=&quot;delete-user-$1.sql&quot;
+-SED_SCRIPT=&quot;s/&lt;USER&gt;/$1/g&quot;
++KEY=`/opt/OpenIMSCore/ser_ims/utils/gen_ha1/gen_ha1 $IMSUSER@$REALM $REALM $PASSWORD`
+ 
+-echo -n $PASSWORD &gt; password.txt
+-ENCODED_PASSWORD=`hexdump -C &lt; password.txt|cut -b 10-60|sed 's/ //g'|cut -b 1-32`00000000000000000000000000000000
++CREATE_SCRIPT=&quot;add-user-$IMSUSER.sql&quot;
++DELETE_SCRIPT=&quot;delete-user-$IMSUSER.sql&quot;
++SED_SCRIPT=&quot;s/&lt;USER&gt;/$IMSUSER/g&quot;
++PASSWORD_FILE=~temp~password~
++
++echo -n $PASSWORD &gt; $PASSWORD_FILE
++ENCODED_PASSWORD=`hexdump -C &lt; $PASSWORD_FILE|cut -b 10-60|sed 's/ //g'|cut -b 1-32`00000000000000000000000000000000
+ ENCODED_PASSWORD=`echo $ENCODED_PASSWORD|cut -b 1-32`
++rm $PASSWORD_FILE
+ 
+ CREATE_SCRIPT_TEMPLATE=&quot;insert into hssdb.imsu(name) values ('&lt;USER&gt;_imsu');
+ 
+@@ -96,18 +122,18 @@
+ insert into sip2ims.credentials values ('&lt;USER&gt;', '_none', '$REALM', '$PASSWORD',1,'','$KEY',(select imsu_id from hssdb.imsu where hssdb.imsu.name='&lt;USER&gt;_imsu'));&quot;
+ 
+ 
+-DELETE_SCRIPT_TEMPLATE=&quot;delete from hssdb.roam where impi_id = (select impi_id from hssdb.impi where hssdb.impi.impi_string='&lt;USER&gt;@$REALM');
++DELETE_SCRIPT_TEMPLATE=&quot;delete from sip2ims.credentials where auth_username='&lt;USER&gt;';
+ 
++delete from hssdb.roam where impi_id = (select impi_id from hssdb.impi where hssdb.impi.impi_string='&lt;USER&gt;@$REALM');
++
+ delete from hssdb.impu2impi where impi_id = (select impi_id from hssdb.impi where hssdb.impi.impi_string='&lt;USER&gt;@$REALM');
+ 
+ delete from hssdb.impi where imsu_id = (select imsu_id from hssdb.imsu where hssdb.imsu.name='&lt;USER&gt;_imsu');
+ 
+ delete from hssdb.impu where sip_url = 'sip:&lt;USER&gt;@$REALM';
+ 
+-delete from hssdb.imsu where name = '&lt;USER&gt;_imsu';
++delete from hssdb.imsu where name = '&lt;USER&gt;_imsu';&quot;
+ 
+-delete from sip2ims.credentials where uid = (select imsu_id from hssdb.imsu where hssdb.imsu.name='&lt;USER&gt;_imsu');&quot;
+-
+ # Create SQL add script
+ echo &quot;$CREATE_SCRIPT_TEMPLATE&quot; | sed $SED_SCRIPT &gt; $CREATE_SCRIPT 
+ if [ $? -ne 0 ]; then
+@@ -123,3 +149,26 @@
+     exit -1
+ fi
+ echo &quot;Successfully wrote $DELETE_SCRIPT&quot;
++
++# Apply scripts directly?
++if [ $OPTION_ADD -eq 1 ]; then
++    echo Apply $CREATE_SCRIPT as user $DBUSER...
++    mysql -u $DBUSER -p &lt; $CREATE_SCRIPT
++    EXIT_CODE=$?
++    SCRIPT=$CREATE_SCRIPT
++elif [ $OPTION_DELETE -eq 1 ]; then
++    echo Apply $DELETE_SCRIPT as user $DBUSER...
++    mysql -u $DBUSER -p &lt; $DELETE_SCRIPT
++    EXIT_CODE=$?
++    SCRIPT=$DELETE_SCRIPT
++fi
++
++# Evaluate exit code
++if [ ! -z &quot;$SCRIPT&quot; ]; then
++    if [ $EXIT_CODE -ne 0 ]; then
++        echo &quot;ERROR: Failed to apply $SCRIPT&quot;
++    else    
++        echo &quot;Successfully applied $SCRIPT&quot;
++    fi
++fi
++exit $EXIT_CODE
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000175.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r121 -	ser_ims/branches/01_persistency/modules/pcscf
+</A></li>
+	<LI>Next message: <A HREF="000179.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r123 - in	ser_ims/branches/01_persistency: . .settings cfg	modules/pcscf modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#176">[ date ]</a>
+              <a href="thread.html#176">[ thread ]</a>
+              <a href="subject.html#176">[ subject ]</a>
+              <a href="author.html#176">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

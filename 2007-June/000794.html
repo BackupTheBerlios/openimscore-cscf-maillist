@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple ASare invoked by using iFC
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Question%20about%20S-CSCF%20behavior%20when%20multiple%0A%20ASare%20invoked%20by%20using%20iFC&In-Reply-To=%3C468265B8.10702%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000789.html">
+   <LINK REL="Next"  HREF="000782.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple ASare invoked by using iFC</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Question%20about%20S-CSCF%20behavior%20when%20multiple%0A%20ASare%20invoked%20by%20using%20iFC&In-Reply-To=%3C468265B8.10702%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple ASare invoked by using iFC">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Jun 27 15:27:20 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000789.html">[OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple	ASare invoked by using iFC
+</A></li>
+        <LI>Next message: <A HREF="000782.html">[OpenIMSCore-CSCF] OpenIMSCore-CSCF] IMS core and IPv6
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#794">[ date ]</a>
+              <a href="thread.html#794">[ thread ]</a>
+              <a href="subject.html#794">[ subject ]</a>
+              <a href="author.html#794">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Tom,
+
+Q1: Not sure, there were some issues recently on ISC, recommend always
+using the last one ;-)
+
+Q2: AS acting in B2BUA mode... in your case, because of points 2&amp;3, if
+you route the new request properly, it should work. If you make a new
+dialog (B2B) and return the iscmark, it might not work (yet). It is a
+known issue that we need to also store the initial dialog id in the
+iscmark so that we would identify dialogs and save/relate/replace them.
+
+Q3: The Route thing is a SIP RFC requirement. We have chosen it because
+it is quite neutral as your AS only has to support loose-routing as
+specified in RFC3261... If the JSR 116 does not cover for this, it is
+not SIP compliant, IMHO. Take a look at the newest versions of drafts
+and I think that you might find something about this. We have developed
+at FOKUS such an AS platform (SIPSEE) and I know that it works and that
+it takes care of the loose-routing, but I don't know much more about how...
+
+There are other methods of course. This one has the advantage of
+requiring the least state, I think. Less state, less trouble and more
+safety as you have nothing to loose on crashes or care for in time
+(except security ;-), but this is another topic).
+
+No offense taken anyway. We are experimental, so we don't follow all the
+standards. So for example, if you would like to add an alternative
+method, we'll happily accept it. I think that the isc_mark.c/h files are
+quite a good wrapper for however you would like to implement it...
+
+-Dragos
+
+
+Tom Paris wrote:
+&gt;<i> Hi Franz,
+</I>&gt;<i>  
+</I>&gt;<i> Thanks for your quick reply.
+</I>&gt;<i>  
+</I>&gt;<i> I checked trace you attached to email.
+</I>&gt;<i> You are right. Multiple AS work well.
+</I>&gt;<i> And I felt that the scenario is very good stuff(ideal 3GPP sequence!).
+</I>&gt;<i>  
+</I>&gt;<i>  
+</I>&gt;<i> [Quesion1]
+</I>&gt;<i> The release version of OpenIMS I am using is like below.
+</I>&gt;<i>  
+</I>&gt;<i> CSCFs: ser_ims2007512.r0274
+</I>&gt;<i> FHoSS: Files checked out from svn on 12th May
+</I>&gt;<i>  
+</I>&gt;<i> Do you know are there any bugs related to Mutiple AS
+</I>&gt;<i> processing in these days? 
+</I>&gt;<i>  
+</I>&gt;<i> [Question2]
+</I>&gt;<i> I noticed that in my environment one of application deployed in SIP AS
+</I>&gt;<i> behaves like below.
+</I>&gt;<i>  
+</I>&gt;<i> 1.The application behaves as B2BUA.
+</I>&gt;<i> 2.The application ignore the value of Route header.
+</I>&gt;<i> 3.The application sends SIP request which Route header value does not
+</I>&gt;<i> include <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at hogehoge</A> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at hogehoge</A>&gt;...
+</I>&gt;<i>    that is marked by S-CSCF. 
+</I>&gt;<i>  
+</I>&gt;<i> Does this application behavior cause bad effect on the phenomenon(403
+</I>&gt;<i> Forbidden response)?
+</I>&gt;<i>  
+</I>&gt;<i> [Question 3]
+</I>&gt;<i> As far as I know SIP application can be developed easily by using SIP
+</I>&gt;<i> servlet technology. ,
+</I>&gt;<i> However the technology does not assure automatic hand over of Route
+</I>&gt;<i> header value.
+</I>&gt;<i> So currently(i.e. JSR 116 SIP Servlet 1.0), applications developer
+</I>&gt;<i> have to intentionally hand over Route header value from received leg
+</I>&gt;<i> to newly created leg.
+</I>&gt;<i> It is not convinient from application developers view.
+</I>&gt;<i>  
+</I>&gt;<i> And it is highly possible that some application deployed in SIP AS may
+</I>&gt;<i> include bug like above(ignoring Route header value)
+</I>&gt;<i> and violate the rule.
+</I>&gt;<i>  
+</I>&gt;<i> How do you think about thouse things?
+</I>&gt;<i> I have no offence to you or OpenIMS project of cource.
+</I>&gt;<i> I just want to hear about fail safe functionality of IMS network from
+</I>&gt;<i> implementers point of view.
+</I>&gt;<i>  
+</I>&gt;<i> Thanks,
+</I>&gt;<i> Thomas
+</I>&gt;<i>  
+</I>&gt;<i> 2007/6/27, Franz Edler &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at inode.at</A>
+</I>&gt;<i> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at inode.at</A>&gt;&gt;:
+</I>&gt;<i>
+</I>&gt;<i>     Hi Thomas,
+</I>&gt;<i>
+</I>&gt;<i>     &gt; For example in case Alice calls Bob.
+</I>&gt;<i>     &gt; Let's assume that IFC for Alice is set to route AS1,IFC for Bob
+</I>&gt;<i>     is set to
+</I>&gt;<i>     &gt; route AS2.
+</I>&gt;<i>     &gt;
+</I>&gt;<i>     &gt; SIP INVITE request is routed like below.
+</I>&gt;<i>     &gt; (180Ringing,200OK,ACK request is routed properly)
+</I>&gt;<i>     &gt; Alice -&gt;OpenIMS-&gt;AS1-&gt;OpenIMS-&gt;AS2-&gt;OpenIMS-&gt;Bob.
+</I>&gt;<i>     &gt;
+</I>&gt;<i>     &gt; However BYE request from Bob is not routed because S-CSCF
+</I>&gt;<i>     returns '403
+</I>&gt;<i>     &gt; Forbidden'
+</I>&gt;<i>     &gt; when BYE request is transferred from AS2 to AS1 via OpenIMS(S-CSCF).
+</I>&gt;<i>
+</I>&gt;<i>     This is not my experience. Multiple AS work well.
+</I>&gt;<i>     See the attached SIP-scenario and wireshark trace.
+</I>&gt;<i>
+</I>&gt;<i>     Your problem must be somwhere else.
+</I>&gt;<i>
+</I>&gt;<i>     Cheers
+</I>&gt;<i>     Franz
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000789.html">[OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple	ASare invoked by using iFC
+</A></li>
+	<LI>Next message: <A HREF="000782.html">[OpenIMSCore-CSCF] OpenIMSCore-CSCF] IMS core and IPv6
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#794">[ date ]</a>
+              <a href="thread.html#794">[ thread ]</a>
+              <a href="subject.html#794">[ subject ]</a>
+              <a href="author.html#794">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

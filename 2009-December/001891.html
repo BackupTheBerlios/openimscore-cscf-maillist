@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] error message after 200OK in AKA process
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20error%20message%20after%20200OK%20in%20AKA%20process&In-Reply-To=%3C4B2A5866.5060307%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001886.html">
+   <LINK REL="Next"  HREF="001887.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] error message after 200OK in AKA process</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20error%20message%20after%20200OK%20in%20AKA%20process&In-Reply-To=%3C4B2A5866.5060307%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] error message after 200OK in AKA process">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Dec 17 17:12:22 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001886.html">[OpenIMSCore-CSCF] error message after 200OK in AKA process
+</A></li>
+        <LI>Next message: <A HREF="001887.html">[OpenIMSCore-CSCF] p-cscf persistency_mode: for pcscf_dialog
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1891">[ date ]</a>
+              <a href="thread.html#1891">[ thread ]</a>
+              <a href="subject.html#1891">[ subject ]</a>
+              <a href="author.html#1891">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Takeshi,
+
+probably there's nothing wrong in the procedure, just that SIPp might 
+reject the 200 OK, because it was restarted and the Call-ID was not 
+recognized. It might be that this scenarios are quite old and the SIPp 
+behavior has changed in the meantime. Otherwise I don't see errors...
+
+Cheers,
+-Dragos
+
+Takeshi Usui wrote:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> I installed AKA program, and now am testing IPSEC between UE and P-CSCF.
+</I>&gt;<i>
+</I>&gt;<i> Perhaps, AKA process between UE and P-CSCF is completed.
+</I>&gt;<i>
+</I>&gt;<i> After Sipp program received 200OK, 
+</I>&gt;<i> the erorr messages below are generated.
+</I>&gt;<i>
+</I>&gt;<i> What is the problem ?
+</I>&gt;<i>
+</I>&gt;<i> I send you with packet-dump(P-CSCF,UE), some program file.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> sipp: The following events occured:
+</I>&gt;<i> 2009-12-10	20:25:45:875	1260444345.875014: Aborting call on unexpected message for Call-ID '<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-14707 at 192.168.0.10</A>': while expecting '200' response, received 'SIP/2.0 200 OK - SAR succesful and registrar saved
+</I>&gt;<i> Via: SIP/2.0/UDP 192.168.0.10:3062;rport=12345;branch=z9hG4bK-14707-1-0
+</I>&gt;<i> From: &quot;alice&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;;tag=1
+</I>&gt;<i> To: &quot;alice&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;;tag=d9f546b7e92fba80864580d1a4e76d49-7fc5
+</I>&gt;<i> Call-ID: reg///<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-14707 at 192.168.0.10</A>
+</I>&gt;<i> CSeq: 2 REGISTER
+</I>&gt;<i> P-Associated-URI: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt;
+</I>&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 192.168.0.10</A>:3062&gt;;expires=300
+</I>&gt;<i> Path: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+</I>&gt;<i> Service-Route: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+</I>&gt;<i> Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, REFER, SUBSCRIBE, NOTIFY, PUBLISH, MESSAGE, INFO
+</I>&gt;<i> P-Charging-Function-Addresses: ccf=pri_ccf_address
+</I>&gt;<i> Server: Sip EXpress router (2.1.0-dev1 OpenIMSCore (i386/linux))
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i> Warning: 392 192.168.0.2:6060 &quot;Noisy feedback tells:  pid=3294 req_src_ip=192.168.0.1 req_src_port=5060 in_uri=sip:scscf.open-ims.test:6060 out_uri=sip:scscf.open-ims.test:6060 via_cnt==3&quot;
+</I>&gt;<i>
+</I>&gt;<i> ' .
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001886.html">[OpenIMSCore-CSCF] error message after 200OK in AKA process
+</A></li>
+	<LI>Next message: <A HREF="001887.html">[OpenIMSCore-CSCF] p-cscf persistency_mode: for pcscf_dialog
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1891">[ date ]</a>
+              <a href="thread.html#1891">[ thread ]</a>
+              <a href="subject.html#1891">[ subject ]</a>
+              <a href="author.html#1891">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

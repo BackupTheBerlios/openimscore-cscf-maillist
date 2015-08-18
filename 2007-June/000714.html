@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] A principle question on IPsec implementation
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20A%20principle%20question%20on%20IPsec%20implementation&In-Reply-To=%3C46691036.605%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000713.html">
+   <LINK REL="Next"  HREF="000715.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] A principle question on IPsec implementation</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20A%20principle%20question%20on%20IPsec%20implementation&In-Reply-To=%3C46691036.605%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] A principle question on IPsec implementation">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Jun  8 10:15:50 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000713.html">[OpenIMSCore-CSCF] A principle question on IPsec implementation
+</A></li>
+        <LI>Next message: <A HREF="000715.html">[OpenIMSCore-CSCF] A principle question on IPsec implementation
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#714">[ date ]</a>
+              <a href="thread.html#714">[ thread ]</a>
+              <a href="subject.html#714">[ subject ]</a>
+              <a href="author.html#714">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Franz,
+
+The issue with SER is that it's damn hard to control from where the
+messages would go out. Due to it's architecture, you might process your
+message with a different process than the one listening on the right
+ip:port for sending out and switching between processes is nothing
+trivial. There is some good news as there seem to be some recent
+development in SER in this direction, but this will take some time...
+
+Well, getting back to the issue of having just one ip:port for the whole
+thing. The idea is that you always have your rules. That means that any
+traffic coming from negotiated associations towards the P-CSCF will be
+dropped in the kernel if not using the security mechanism agreed on.
+Because the destination is the same, the P-CSCF identifies the client by
+the source ip:port in this case. If the source ip:port are protected
+then non-secure traffic is dropped automatically in the kernel.
+
+For outbound traffic, when sending towards the client, the kernel
+automatically encrypts all the data.
+
+So in the end, my conclusion back when we added this feature was that it
+is sufficient if at least one of the P-CSCF or the UE would use
+different ports. Now this might break that rule form 33.203 that you
+have cited, but in the end the effect is exactly the same and I think
+that the rules is too restrictive related to how the actual
+implementations would work. The text somehow implies that you control
+the IPSec implementation from a higher layer than you do with the Linux
+kernel, but really once you set the rules, you do not get to see any
+more if your message came protected or not because all unprotected ones
+will be discarded silently before reaching your application. Or maybe,
+for high capacity implementation, when a hardware IPSec solution is used
+in front of the P-CSCF, you could for example receive everything
+decrypted, just tagged if it was received with protection or not and
+then make the decision in the application layer if to discard
+unprotected messages on protected ports.
+
+Of course that it would've been better to have individual ports for each
+client, but this might really not be practical because it will introduce
+a limitation on the number of clients. Then having universal
+unprotected, port_c and port_s on the P-CSCF, but the same for all
+clients, would be also be better, but it's quite hard to do that with SER.
+
+When I have implemented it I have built my own UE simulation because
+none were available. Then there was recently some bug discovered so I
+asked Florin Popescu (not Adrian :), Popescu is a common Romanian name)
+to try it with SIPp. This required some changes to SIPp and the patch
+still lays somewhere in my Inbox waiting to be applied. I will try and
+get back to you as soon as I will make it work myself with the full
+scenario to replicate it.
+
+
+-Dragos
+
+Franz Edler wrote:
+&gt;<i> Hi Dragos,
+</I>&gt;<i>
+</I>&gt;<i> I still struggle with the setup of IPsec SAs.
+</I>&gt;<i>  
+</I>&gt;<i>   
+</I>&gt;&gt;<i> You have changed the port-c and port-s and this won't work. Please us
+</I>&gt;&gt;<i> the same port for both and also the listen parameter. It should work.
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> I understand from TS 33.203 that the protected ports have to be different
+</I>&gt;<i> from the unprotected port. Chapter 7.2 says: 
+</I>&gt;<i> &quot;No unprotected messages shall be sent from or received on the ports port_ps
+</I>&gt;<i> and port_pc. From a security point of view, unprotected messages may be
+</I>&gt;<i> received on any port which is different from the ports port_ps and port_pc.&quot;
+</I>&gt;<i>
+</I>&gt;<i> The same rule is also applied to the client: 
+</I>&gt;<i> &quot;No unprotected messages shall be sent from or received on the ports port_us
+</I>&gt;<i> and port_uc. From a security point of view, unprotected messages may be
+</I>&gt;<i> received on any port which is different from the ports port_us and port_uc.&quot;
+</I>&gt;<i>
+</I>&gt;<i> Also IMS-communicator does not strictly follow this rule when I read the
+</I>&gt;<i> following comment in ims-communicator.xml:
+</I>&gt;<i> &quot;if SECURITY_PORT_C empty, port-c parameter is filled with
+</I>&gt;<i> PREFERRED_LOCAL_PORT&quot;
+</I>&gt;<i>
+</I>&gt;<i> The only partially successful setup of IPsec SAs I got when I used for the
+</I>&gt;<i> protected server port the same port as for the unprotected one. Partially
+</I>&gt;<i> successful, because only in this case the 4 IPsec-setup scripts in P-CSCF
+</I>&gt;<i> are executed, but the IPsec SA are not used. In all other cases only
+</I>&gt;<i> &quot;ipsec_P_Inc_Req.sh&quot; is called and the &quot;ERROR: on_reply processing failed&quot;
+</I>&gt;<i> follows.
+</I>&gt;<i>
+</I>&gt;<i> I wonder which parameters have been used to successful setup IPsec SAs
+</I>&gt;<i> between OpenIMSCore and IMS-communicator. I used revision 309 of OpenIMSCore
+</I>&gt;<i> and ims-communicator-windows-release-070605 and maybe that's important: no
+</I>&gt;<i> NAT to avoid further complexity.
+</I>&gt;<i>
+</I>&gt;<i> Cheers
+</I>&gt;<i> Franz
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000713.html">[OpenIMSCore-CSCF] A principle question on IPsec implementation
+</A></li>
+	<LI>Next message: <A HREF="000715.html">[OpenIMSCore-CSCF] A principle question on IPsec implementation
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#714">[ date ]</a>
+              <a href="thread.html#714">[ thread ]</a>
+              <a href="subject.html#714">[ subject ]</a>
+              <a href="author.html#714">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

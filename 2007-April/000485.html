@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r243 - add cdp session support
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r243%20-%20add%20cdp%20session%20support&In-Reply-To=%3C200704200732.l3K7Wlxf003684%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000484.html">
+   <LINK REL="Next"  HREF="000488.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r243 - add cdp session support</H1>
+    <B>shenny at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r243%20-%20add%20cdp%20session%20support&In-Reply-To=%3C200704200732.l3K7Wlxf003684%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r243 - add cdp session support">shenny at users.berlios.de
+       </A><BR>
+    <I>Fri Apr 20 09:32:47 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000484.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r242 - Fixed I-CSCF bug - the	scscf_name if received in the UAA/LIA was not duplicated and	was freed with the message. On heavy load the messages were	forwarded to garbage because that memory location was overwritten.
+</A></li>
+        <LI>Next message: <A HREF="000488.html">[OpenIMSCore-CSCF] Registration Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#485">[ date ]</a>
+              <a href="thread.html#485">[ thread ]</a>
+              <a href="subject.html#485">[ subject ]</a>
+              <a href="author.html#485">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: shenny
+Date: 2007-04-20 09:32:35 +0200 (Fri, 20 Apr 2007)
+New Revision: 243 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=243">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=243</A> 
+
+Log:
+add cdp session support
+
+Added:
+   A	ser_ims/branches/05_cdp_sessions/modules/cdp/acct.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/acct.c?rev=243&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/acct.c?rev=243&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/cdp/acct.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/acct.h?rev=243&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/acct.h?rev=243&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/cdp/auth.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/auth.c?rev=243&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/auth.c?rev=243&amp;view=markup</A>
+   A	ser_ims/branches/05_cdp_sessions/modules/cdp/auth.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/auth.h?rev=243&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/auth.h?rev=243&amp;view=markup</A>
+Modified:
+   U	ser_ims/branches/05_cdp_sessions/modules/cdp/cdp_load.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/cdp_load.c?rev=243&amp;view=diff&amp;r1=243&amp;r2=242">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/cdp_load.c?rev=243&amp;view=diff&amp;r1=243&amp;r2=242</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/cdp/cdp_load.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/cdp_load.h?rev=243&amp;view=diff&amp;r1=243&amp;r2=242">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/cdp_load.h?rev=243&amp;view=diff&amp;r1=243&amp;r2=242</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/cdp/diameter.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/diameter.h?rev=243&amp;view=diff&amp;r1=243&amp;r2=242">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/diameter.h?rev=243&amp;view=diff&amp;r1=243&amp;r2=242</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/cdp/diameter_api.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/diameter_api.h?rev=243&amp;view=diff&amp;r1=243&amp;r2=242">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/diameter_api.h?rev=243&amp;view=diff&amp;r1=243&amp;r2=242</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/cdp/diameter_ims.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/diameter_ims.h?rev=243&amp;view=diff&amp;r1=243&amp;r2=242">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/diameter_ims.h?rev=243&amp;view=diff&amp;r1=243&amp;r2=242</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/cdp/diameter_msg.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/diameter_msg.c?rev=243&amp;view=diff&amp;r1=243&amp;r2=242">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/diameter_msg.c?rev=243&amp;view=diff&amp;r1=243&amp;r2=242</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/cdp/diameter_peer.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/diameter_peer.c?rev=243&amp;view=diff&amp;r1=243&amp;r2=242">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/diameter_peer.c?rev=243&amp;view=diff&amp;r1=243&amp;r2=242</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/cdp/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/mod.c?rev=243&amp;view=diff&amp;r1=243&amp;r2=242">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/mod.c?rev=243&amp;view=diff&amp;r1=243&amp;r2=242</A>
+   U	ser_ims/branches/05_cdp_sessions/modules/cdp/session.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/session.c?rev=243&amp;view=diff&amp;r1=243&amp;r2=242">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/05_cdp_sessions/modules/cdp/session.c?rev=243&amp;view=diff&amp;r1=243&amp;r2=242</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000484.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r242 - Fixed I-CSCF bug - the	scscf_name if received in the UAA/LIA was not duplicated and	was freed with the message. On heavy load the messages were	forwarded to garbage because that memory location was overwritten.
+</A></li>
+	<LI>Next message: <A HREF="000488.html">[OpenIMSCore-CSCF] Registration Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#485">[ date ]</a>
+              <a href="thread.html#485">[ thread ]</a>
+              <a href="subject.html#485">[ subject ]</a>
+              <a href="author.html#485">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

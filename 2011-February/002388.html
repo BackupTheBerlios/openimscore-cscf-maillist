@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Error in registering Open IMS client
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Error%20in%20registering%20Open%20IMS%20client&In-Reply-To=%3C4D500605.9000700%40acision.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002387.html">
+   <LINK REL="Next"  HREF="002389.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Error in registering Open IMS client</H1>
+    <B>Daniel Ciprus</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Error%20in%20registering%20Open%20IMS%20client&In-Reply-To=%3C4D500605.9000700%40acision.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Error in registering Open IMS client">daniel.ciprus at acision.com
+       </A><BR>
+    <I>Mon Feb  7 15:47:33 CET 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002387.html">[OpenIMSCore-CSCF] Error in registering Open IMS client
+</A></li>
+        <LI>Next message: <A HREF="002389.html">[OpenIMSCore-CSCF] Not Able to register in IMS client
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2388">[ date ]</a>
+              <a href="thread.html#2388">[ thread ]</a>
+              <a href="subject.html#2388">[ subject ]</a>
+              <a href="author.html#2388">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>That means your fhoss is not in a good shape then ..
+
+Make sure your version of java is matching requirements for OpenIMS.
+
+On 02/07/2011 09:40 AM, Lakshmanan wrote:
+&gt;<i> i am getting the following when i run the startup.sh file in
+</I>&gt;<i> /opt/OpenIMSCore/FHoSS/deploy
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Building Classpath
+</I>&gt;<i> Classpath is
+</I>&gt;<i> lib/xml-apis.jar:lib/xercesImpl.jar:lib/xerces-2.4.0.jar:lib/xalan-2.4.0.jar:lib/tomcat-util.jar:lib/tomcat-http.jar:lib/tomcat-coyote.jar:lib/struts.jar:lib/servlets-default.jar:lib/servlet-api.jar:lib/naming-resources.jar:lib/naming-factory.jar:lib/mysql-connector-java-3.1.12-bin.jar:lib/mx4j-3.0.1.jar:lib/log4j.jar:lib/junit.jar:lib/junitee.jar:lib/jta.jar:lib/jsp-api.jar:lib/jmx.jar:lib/jdp.jar:lib/jasper-runtime.jar:lib/jasper-compiler-jdt.jar:lib/jasper-compiler.jar:lib/hibernate3.jar:lib/FHoSS.jar:lib/ehcache-1.1.jar:lib/dom4j-1.6.1.jar:lib/commons-validator.jar:lib/commons-modeler.jar:lib/commons-logging.jar:lib/commons-logging-1.0.4.jar:lib/commons-lang.jar:lib/commons-fileupload.jar:lib/commons-el.jar:lib/commons-digester.jar:lib/commons-collections-3.1.jar:lib/commons-beanutils.jar:lib/cglib-2.1.3.jar:lib/catalina-optional.jar:lib/catalina.jar:lib/c3p0-0.9.1.jar:lib/base64.jar:lib/asm.jar:lib/asm-attrs.jar:lib/antlr-2.7.6.jar:/damaka/apps/java/jdk1.5.0_06/lib/tool!
+</I>&gt;<i>   s.jar:/damaka/apps/java/jdk1.5.0_06/lib/dt.jar:log4j.properties:..
+</I>&gt;<i> 2011-02-07 17:23:53,586 INFO  de.fhg.fokus.hss.main.TomcatServer -
+</I>&gt;<i> startTomcat Tomcat-Server is started.
+</I>&gt;<i> 2011-02-07 17:23:54,730 WARN  org.apache.catalina.connector.MapperListener
+</I>&gt;<i> - registerEngine Unknown default host: 192.168.1.56
+</I>&gt;<i> 2011-02-07 17:23:57,804 INFO  de.fhg.fokus.hss.web.servlet.ResponseFilter
+</I>&gt;<i> - init Response Filter Initialisation!
+</I>&gt;<i> 2011-02-07 17:23:58,804 INFO  de.fhg.fokus.hss.main.TomcatServer -
+</I>&gt;<i> startTomcat WebConsole of FHoSS was started !
+</I>&gt;<i> 2011-02-07 17:24:02,143 WARN
+</I>&gt;<i> org.hibernate.impl.SessionFactoryObjectFactory - addInstance
+</I>&gt;<i> InitialContext did not implement EventContext
+</I>&gt;<i> Exception in thread &quot;main&quot; java.lang.UnsupportedClassVersionError: Bad
+</I>&gt;<i> version number in .class file
+</I>&gt;<i>          at java.lang.ClassLoader.defineClass1(Native Method)
+</I>&gt;<i>          at java.lang.ClassLoader.defineClass(ClassLoader.java:620)
+</I>&gt;<i>          at
+</I>&gt;<i> java.security.SecureClassLoader.defineClass(SecureClassLoader.java:124)
+</I>&gt;<i>          at java.net.URLClassLoader.defineClass(URLClassLoader.java:260)
+</I>&gt;<i>          at java.net.URLClassLoader.access$100(URLClassLoader.java:56)
+</I>&gt;<i>          at java.net.URLClassLoader$1.run(URLClassLoader.java:195)
+</I>&gt;<i>          at java.security.AccessController.doPrivileged(Native Method)
+</I>&gt;<i>          at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+</I>&gt;<i>          at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+</I>&gt;<i>          at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:268)
+</I>&gt;<i>          at java.lang.ClassLoader.loadClass(ClassLoader.java:251)
+</I>&gt;<i>          at java.lang.ClassLoader.loadClassInternal(ClassLoader.java:319)
+</I>&gt;<i>          at de.fhg.fokus.hss.diam.DiameterStack.&lt;init&gt;(DiameterStack.java:69)
+</I>&gt;<i>          at de.fhg.fokus.hss.main.HSSContainer.&lt;init&gt;(HSSContainer.java:95)
+</I>&gt;<i>          at de.fhg.fokus.hss.main.HSSContainer.main(HSSContainer.java:110)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+-- 
+*Daniel Ciprus*
+Integration engineer
+------------------------------------------------------
+*<A HREF="http://www.acision.com*">http://www.acision.com*</A>
+4870 Sadler Rd
+Suite 200
+Glen Allen, VA 23060
+USA
+T: +1 804 762 5601
+E: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">daniel.ciprus at acision.com</A>
+
+
+This e-mail and any attachment is for authorised use by the intended recipient(s) only. It may contain proprietary material, confidential information and/or be subject to legal privilege. It should not be copied, disclosed to, retained or used by, any other party. If you are not an intended recipient then please promptly delete this e-mail and any attachment and all copies and inform the sender. Thank you.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110207/631d310a/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110207/631d310a/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002387.html">[OpenIMSCore-CSCF] Error in registering Open IMS client
+</A></li>
+	<LI>Next message: <A HREF="002389.html">[OpenIMSCore-CSCF] Not Able to register in IMS client
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2388">[ date ]</a>
+              <a href="thread.html#2388">[ thread ]</a>
+              <a href="subject.html#2388">[ subject ]</a>
+              <a href="author.html#2388">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

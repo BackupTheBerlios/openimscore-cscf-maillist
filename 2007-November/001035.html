@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] source port and VIA's sent-to port differ &amp;digest [GishPuppy]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20source%20port%20and%20VIA%27s%20sent-to%20port%20differ%0A%20%26digest%20%5BGishPuppy%5D&In-Reply-To=%3C47319D60.8000405%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001034.html">
+   <LINK REL="Next"  HREF="001036.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] source port and VIA's sent-to port differ &amp;digest [GishPuppy]</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20source%20port%20and%20VIA%27s%20sent-to%20port%20differ%0A%20%26digest%20%5BGishPuppy%5D&In-Reply-To=%3C47319D60.8000405%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] source port and VIA's sent-to port differ &amp;digest [GishPuppy]">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Nov  7 12:11:28 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001034.html">[OpenIMSCore-CSCF] source port and VIA's sent-to port differ &amp;	digest [GishPuppy]
+</A></li>
+        <LI>Next message: <A HREF="001036.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r480 - Disable a STUN upstream bug	fix that was removing the last byte of the SIP message.	Reported by Stefan Brozinski.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1035">[ date ]</a>
+              <a href="thread.html#1035">[ thread ]</a>
+              <a href="subject.html#1035">[ subject ]</a>
+              <a href="author.html#1035">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Andreas,
+
+that would be CSCF/SER code :). We use SER, not OpenSER as a base.
+
+Cheers,
+-Dragos
+
+Andreas H&#228;ber wrote:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> FYI: I noticed the same behavior yesterday, actually, with regards to the
+</I>&gt;<i> UDP ports. Fortunately, I could edit the library (NIST SIP Lite) to send
+</I>&gt;<i> from the listening port instead of going into the CSCF/OpenSER-code.
+</I>&gt;<i>
+</I>&gt;<i> Best regards,
+</I>&gt;<i> Andreas
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> -----Original Message-----
+</I>&gt;&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> 
+</I>&gt;&gt;<i> [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>] On Behalf 
+</I>&gt;&gt;<i> Of <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">berliosde.xg3 at gishpuppy.com</A>
+</I>&gt;&gt;<i> Sent: 23. oktober 2007 12:13
+</I>&gt;&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;<i> Subject: [OpenIMSCore-CSCF] source port and VIA's sent-to port 
+</I>&gt;&gt;<i> differ &amp;digest [GishPuppy]
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Hello,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I had 2 questions.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I'm using a SIP client library that sends SIP register request 
+</I>&gt;&gt;<i> over UDP.
+</I>&gt;&gt;<i> It uses a random UDP source port for sending In the SIP 
+</I>&gt;&gt;<i> request the VIA header has a sent-to port number 5060.
+</I>&gt;&gt;<i> According to the RFC 3261, the server should reply to 5060.
+</I>&gt;&gt;<i> But instead I see with wireshark that the p-cscf uses the source port.
+</I>&gt;&gt;<i> It ignores the request's VIA header.
+</I>&gt;&gt;<i> As the SIP client library only listens on 5060, it never gets 
+</I>&gt;&gt;<i> the SIP response from the p-cscf.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Is it allowed behavior (from client as well as server)?
+</I>&gt;&gt;<i> I cannot change the library because it's binary only.
+</I>&gt;&gt;<i> Can somebody give a hint where to change the open IMS source, 
+</I>&gt;&gt;<i> so that it uses the VIA's sent-to port instead to the source UDP port?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I tried to change the AKAv1-MD5 algorithm through the web GUI 
+</I>&gt;&gt;<i> Only the AKAv2-MD5 seems to be supported.
+</I>&gt;&gt;<i> Other digest algorithms are not supported?
+</I>&gt;&gt;<i> Or am I mistaken? 
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Thanks,
+</I>&gt;&gt;<i> fran
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Gishpuppy | To reply to this email, click here: 
+</I>&gt;&gt;<i> <A HREF="http://www.gishpuppy.com/cgi-bin/edit.py?email=berliosde.xg3@gi">http://www.gishpuppy.com/cgi-bin/edit.py?email=berliosde.xg3@gi</A>
+</I>&gt;&gt;<i>     
+</I>&gt;<i> shpuppy.com
+</I>&gt;<i>   
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001034.html">[OpenIMSCore-CSCF] source port and VIA's sent-to port differ &amp;	digest [GishPuppy]
+</A></li>
+	<LI>Next message: <A HREF="001036.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r480 - Disable a STUN upstream bug	fix that was removing the last byte of the SIP message.	Reported by Stefan Brozinski.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1035">[ date ]</a>
+              <a href="thread.html#1035">[ thread ]</a>
+              <a href="subject.html#1035">[ subject ]</a>
+              <a href="author.html#1035">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

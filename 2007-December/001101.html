@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile	is not executed
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20On%20MESSAGE%20unregistered%20user%27s%20service%20profile%0A%09is%20not%20executed&In-Reply-To=%3C42F3BE57026C6E49B09E267EEF639D5602CC5AE5%40ms-dt01thalia.tsn.tno.nl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001100.html">
+   <LINK REL="Next"  HREF="001102.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile	is not executed</H1>
+    <B>Walraven, F.A. (Fabian)</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20On%20MESSAGE%20unregistered%20user%27s%20service%20profile%0A%09is%20not%20executed&In-Reply-To=%3C42F3BE57026C6E49B09E267EEF639D5602CC5AE5%40ms-dt01thalia.tsn.tno.nl%3E"
+       TITLE="[OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile	is not executed">fabian.walraven at tno.nl
+       </A><BR>
+    <I>Tue Dec 11 14:25:57 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001100.html">[OpenIMSCore-CSCF] NASS-Bundle Authentication
+</A></li>
+        <LI>Next message: <A HREF="001102.html">[OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile is not executed
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1101">[ date ]</a>
+              <a href="thread.html#1101">[ thread ]</a>
+              <a href="subject.html#1101">[ subject ]</a>
+              <a href="author.html#1101">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I stumbled upon a problem with the S-CSCF:
+
+When a user sends a MESSAGE to a unregistered user, the terminating
+S-CSCF returns a 404 Not Found instead of routing it to an application
+server (as configured in the service profile of the unregistered user).
+
+I analysed the problem and found the following: It looks like the
+problem is the way the S-CSCF retrieves the unregistered user's service
+profile. The function S_assign_server_unreg() (scscf/registrar.c) calls
+the SAR() function to retrieve the service profile (assignment_type =
+AVP_IMS_SAR_UNREGISTERED_USER). The SAR() calls save_location() to
+update the contact in the registrar, but this fails because the
+save_location function requires a Contact header to be present and a
+MESSAGE does not contain such header. The function isc_check_find()
+(isc/checker.c) queries the registrar and no record is found, therefore
+fails to evaluate the triggers.
+
+A solution is to create an alternative save_location() function that
+stores a contact for assignment_type = AVP_IMS_SAR_UNREGISTERED_USER,
+because Contact headers are irrelevant in these cases.
+
+Attached is a patch file.
+
+Best regards,
+	Fabian
+
+This e-mail and its contents are subject to the DISCLAIMER at <A HREF="http://www.tno.nl/disclaimer/email.html">http://www.tno.nl/disclaimer/email.html</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: unregsave.patch
+Type: application/octet-stream
+Size: 2082 bytes
+Desc: unregsave.patch
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071211/93109c29/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071211/93109c29/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001100.html">[OpenIMSCore-CSCF] NASS-Bundle Authentication
+</A></li>
+	<LI>Next message: <A HREF="001102.html">[OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile is not executed
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1101">[ date ]</a>
+              <a href="thread.html#1101">[ thread ]</a>
+              <a href="subject.html#1101">[ subject ]</a>
+              <a href="author.html#1101">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

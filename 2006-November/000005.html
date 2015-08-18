@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r29 - in ser_ims/trunk: cfg	modules/cdp utils/gen_ha1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r29%20-%20in%20ser_ims/trunk%3A%20cfg%0A%09modules/cdp%20utils/gen_ha1&In-Reply-To=%3C200611271800.kARI02i0032746%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000004.html">
+   <LINK REL="Next"  HREF="000006.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r29 - in ser_ims/trunk: cfg	modules/cdp utils/gen_ha1</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r29%20-%20in%20ser_ims/trunk%3A%20cfg%0A%09modules/cdp%20utils/gen_ha1&In-Reply-To=%3C200611271800.kARI02i0032746%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r29 - in ser_ims/trunk: cfg	modules/cdp utils/gen_ha1">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Mon Nov 27 19:00:02 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000004.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r25 - in ser_ims/trunk: db db/schema mem modules modules/acc_db modules/acc_radius modules/acc_syslog modules/acc_syslog/doc modules/auth modules/auth/doc modules/auth_db modules/auth_db/doc modules/auth_radius modules/auth_radius/doc modules/avp modules/avp/doc modules/avp_db modules/avp_db/doc modules/avp_radius modules/avp_radius/doc modules/avpops modules/avpops/doc modules/cdp modules/cdp/configexample modules/cpl-c modules/cpl-c/doc modules/ctl modules/db_ops modules/dbtext modules/dbtext/dbtex modules/dbtext/dbtex/db modules/dbtext/doc modules/dialog modules/dispatcher modules/dispatcher/doc modules/diversion modules/domain modules/domain/doc modules/enum modules/enum/doc modules/eval modules/exec modules/exec/doc modules/fifo modules/flatstore modules/flatstore/doc modules/gflags modules/gflags/doc modules/icscf modules/isc modules/jabber modules/jabber/doc modules/jabber/doc/web modules/lcr modules/maxfwd modules/maxfwd/doc modules/mediaproxy ! modules/mediaproxy/config modules/msilo modules/msilo/doc modules/mysql modules/mysql/doc modules/nathelper modules/nathelper/doc modules/nathelper/examples modules/options modules/options/doc modules/osp modules/osp/doc modules/osp/etc modules/pa modules/pa/doc modules/pcscf modules/pdt modules/pdt/doc modules/pdt/doc/web modules/permissions modules/permissions/config modules/permissions/doc modules/pike modules/pike/doc modules/postgres modules/presence_b2b modules/presence_b2b/doc modules/print modules/print/doc modules/ratelimit modules/ratelimit/doc modules/registrar modules/registrar/doc modules/rls modules/rls/doc modules/rr modules/rr/doc modules/sanity modules/sanity/doc modules/scscf modules/sip2ims modules/sl modules/sl/doc modules/sms modules/sms/doc modules/speeddial modules/speeddial/doc modules/textops modules/textops/doc modules/timer modules/tls modules/tm modules/tm/doc modules/tm/test modules/uac modules/uac/doc modules/unixsock modules/uri modules/uri/do! c modules/uri_db modules/uri_db/doc modules/uri_radius modules! /uri_rad
+</A></li>
+        <LI>Next message: <A HREF="000006.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r33 - ser_ims/trunk/cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#5">[ date ]</a>
+              <a href="thread.html#5">[ thread ]</a>
+              <a href="subject.html#5">[ subject ]</a>
+              <a href="author.html#5">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2006-11-27 18:59:55 +0100 (Mon, 27 Nov 2006)
+New Revision: 29
+
+Modified:
+   ser_ims/trunk/cfg/sip2ims.cfg
+   ser_ims/trunk/modules/cdp/diameter_ims.h
+   ser_ims/trunk/utils/gen_ha1/
+Log:
+Added Sh constants.
+Tried a fix on SIP2IMS.cfg.
+fixed svn:ignore for utils/gen_ha1.
+
+
+Modified: ser_ims/trunk/cfg/sip2ims.cfg
+===================================================================
+--- ser_ims/trunk/cfg/sip2ims.cfg	2006-11-27 14:51:07 UTC (rev 28)
++++ ser_ims/trunk/cfg/sip2ims.cfg	2006-11-27 17:59:55 UTC (rev 29)
+@@ -117,7 +117,7 @@
+ 
+ route[PCSCF]
+ {
+-	if (method==&quot;INVITE&quot; ||method==&quot;SUBCRIBE&quot;){
++    if (method==&quot;INVITE&quot; ||method==&quot;SUBCRIBE&quot;){
+ 		record_route();
+ 	}
+ 	if (method==&quot;ACK&quot;||method==&quot;BYE&quot;||method==&quot;NOTIFY&quot;){
+@@ -126,9 +126,9 @@
+ 		exit;
+ 	}
+ 	loose_route();
+-	if (uri==myself||method==&quot;REGISTER&quot;) {
+-    	if (!t_relay_to_udp(&quot;127.0.0.1&quot;,&quot;4060&quot;)) {
+-			sl_send_reply(&quot;500&quot;,&quot;Error forwarding to P-CSCF&quot;);
++	if (!search(&quot;.*sip:127.0.0.1:3060.*&quot;)||method==&quot;REGISTER&quot;) {
++		if (!t_relay_to_udp(&quot;127.0.0.1&quot;,&quot;4060&quot;)) {
++		    sl_send_reply(&quot;500&quot;,&quot;Error forwarding to P-CSCF&quot;);
+ 		}
+ 	} else {
+ 	    if (!t_relay()) {
+
+Modified: ser_ims/trunk/modules/cdp/diameter_ims.h
+===================================================================
+--- ser_ims/trunk/modules/cdp/diameter_ims.h	2006-11-27 14:51:07 UTC (rev 28)
++++ ser_ims/trunk/modules/cdp/diameter_ims.h	2006-11-27 17:59:55 UTC (rev 29)
+@@ -189,7 +189,11 @@
+ 	AVP_IMS_Subs_Req_Type								= 705,
+ 	AVP_IMS_Requested_Domain							= 706,
+ 	AVP_IMS_Current_Location							= 707,
+-	AVP_IMS_Identity_Set								= 708
++	AVP_IMS_Identity_Set								= 708,
++	AVP_IMS_Expiry_Time									= 709,
++	AVP_IMS_Send_Data_Indication						= 710,
++	AVP_IMS_DSAI_Tag									= 711
++	
+ /** 800 to 899 reserved for TS29.299											*/
+ };
+ 
+@@ -233,7 +237,10 @@
+ 	AVP_IMS_Data_Reference_Location_Information			= 14,
+ 	AVP_IMS_Data_Reference_User_State					= 15,
+ 	AVP_IMS_Data_Reference_Charging_Information			= 16,
+-	AVP_IMS_Data_Reference_MSISDN						= 17	
++	AVP_IMS_Data_Reference_MSISDN						= 17,	
++	AVP_IMS_Data_Reference_PSI_Activation				= 18,	
++	AVP_IMS_Data_Reference_DSAI							= 19,	
++	AVP_IMS_Data_Reference_Aliases_Repository_Data		= 20	
+ };
+ 
+ /** Subs-Req-Type AVP */
+@@ -258,7 +265,8 @@
+ enum {
+ 	AVP_IMS_Identity_Set_All_Identities					= 0,
+ 	AVP_IMS_Identity_Set_Registered_Identities			= 1,
+-	AVP_IMS_Identity_Set_Implicit_Identities			= 2	
++	AVP_IMS_Identity_Set_Implicit_Identities			= 2,	
++	AVP_IMS_Identity_Set_Alias_Identities				= 3	
+ };
+ 
+ /** Deregistration-Reason AVP */
+
+
+Property changes on: ser_ims/trunk/utils/gen_ha1
+___________________________________________________________________
+Name: svn:ignore
+   - gen_ha1
+
+   + *.d
+gen_ha1
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000004.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r25 - in ser_ims/trunk: db db/schema mem modules modules/acc_db modules/acc_radius modules/acc_syslog modules/acc_syslog/doc modules/auth modules/auth/doc modules/auth_db modules/auth_db/doc modules/auth_radius modules/auth_radius/doc modules/avp modules/avp/doc modules/avp_db modules/avp_db/doc modules/avp_radius modules/avp_radius/doc modules/avpops modules/avpops/doc modules/cdp modules/cdp/configexample modules/cpl-c modules/cpl-c/doc modules/ctl modules/db_ops modules/dbtext modules/dbtext/dbtex modules/dbtext/dbtex/db modules/dbtext/doc modules/dialog modules/dispatcher modules/dispatcher/doc modules/diversion modules/domain modules/domain/doc modules/enum modules/enum/doc modules/eval modules/exec modules/exec/doc modules/fifo modules/flatstore modules/flatstore/doc modules/gflags modules/gflags/doc modules/icscf modules/isc modules/jabber modules/jabber/doc modules/jabber/doc/web modules/lcr modules/maxfwd modules/maxfwd/doc modules/mediaproxy ! modules/mediaproxy/config modules/msilo modules/msilo/doc modules/mysql modules/mysql/doc modules/nathelper modules/nathelper/doc modules/nathelper/examples modules/options modules/options/doc modules/osp modules/osp/doc modules/osp/etc modules/pa modules/pa/doc modules/pcscf modules/pdt modules/pdt/doc modules/pdt/doc/web modules/permissions modules/permissions/config modules/permissions/doc modules/pike modules/pike/doc modules/postgres modules/presence_b2b modules/presence_b2b/doc modules/print modules/print/doc modules/ratelimit modules/ratelimit/doc modules/registrar modules/registrar/doc modules/rls modules/rls/doc modules/rr modules/rr/doc modules/sanity modules/sanity/doc modules/scscf modules/sip2ims modules/sl modules/sl/doc modules/sms modules/sms/doc modules/speeddial modules/speeddial/doc modules/textops modules/textops/doc modules/timer modules/tls modules/tm modules/tm/doc modules/tm/test modules/uac modules/uac/doc modules/unixsock modules/uri modules/uri/do! c modules/uri_db modules/uri_db/doc modules/uri_radius modules! /uri_rad
+</A></li>
+	<LI>Next message: <A HREF="000006.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r33 - ser_ims/trunk/cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#5">[ date ]</a>
+              <a href="thread.html#5">[ thread ]</a>
+              <a href="subject.html#5">[ subject ]</a>
+              <a href="author.html#5">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

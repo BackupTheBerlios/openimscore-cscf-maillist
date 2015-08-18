@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r857 - using unsigned int for the	port numbers, removed an unnecessary STR_PKG_DUP from the function	PCC_create_media_subcomponent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r857%20-%20using%20unsigned%20int%20for%20the%0A%09port%20numbers%2C%20removed%20an%20unnecessary%20STR_PKG_DUP%20from%20the%20function%0A%09PCC_create_media_subcomponent&In-Reply-To=%3C201002040818.o148IGAQ003748%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002048.html">
+   <LINK REL="Next"  HREF="002050.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r857 - using unsigned int for the	port numbers, removed an unnecessary STR_PKG_DUP from the function	PCC_create_media_subcomponent</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r857%20-%20using%20unsigned%20int%20for%20the%0A%09port%20numbers%2C%20removed%20an%20unnecessary%20STR_PKG_DUP%20from%20the%20function%0A%09PCC_create_media_subcomponent&In-Reply-To=%3C201002040818.o148IGAQ003748%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r857 - using unsigned int for the	port numbers, removed an unnecessary STR_PKG_DUP from the function	PCC_create_media_subcomponent">aon at users.berlios.de
+       </A><BR>
+    <I>Thu Feb  4 09:18:16 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002048.html">[OpenIMSCore-CSCF] Problem with pcscf.sh and scscf.sh plz help in	this..
+</A></li>
+        <LI>Next message: <A HREF="002050.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r858 - modified the user part of	the uri used to create the Path header that the P-CSCF adds	at registration time,	so that it is the same as the user part of the record route on the	terminating leg, the problem was that after a call was created,	if the called party was sending a request it was considered as	Orig_subsequent as the two strings did not match
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2049">[ date ]</a>
+              <a href="thread.html#2049">[ thread ]</a>
+              <a href="subject.html#2049">[ subject ]</a>
+              <a href="author.html#2049">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2010-02-04 09:18:15 +0100 (Thu, 04 Feb 2010)
+New Revision: 857 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=857">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=857</A> 
+
+Log:
+using unsigned int for the port numbers, removed an unnecessary STR_PKG_DUP from the function PCC_create_media_subcomponent
+
+
+Modified:
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c?rev=857&amp;view=diff&amp;r1=857&amp;r2=856">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c?rev=857&amp;view=diff&amp;r1=857&amp;r2=856</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.h?rev=857&amp;view=diff&amp;r1=857&amp;r2=856">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.h?rev=857&amp;view=diff&amp;r1=857&amp;r2=856</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002048.html">[OpenIMSCore-CSCF] Problem with pcscf.sh and scscf.sh plz help in	this..
+</A></li>
+	<LI>Next message: <A HREF="002050.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r858 - modified the user part of	the uri used to create the Path header that the P-CSCF adds	at registration time,	so that it is the same as the user part of the record route on the	terminating leg, the problem was that after a call was created,	if the called party was sending a request it was considered as	Orig_subsequent as the two strings did not match
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2049">[ date ]</a>
+              <a href="thread.html#2049">[ thread ]</a>
+              <a href="subject.html#2049">[ subject ]</a>
+              <a href="author.html#2049">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

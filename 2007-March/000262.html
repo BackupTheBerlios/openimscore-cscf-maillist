@@ -1,0 +1,2982 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r161 - in ser_ims/trunk: .	.settings cfg lib/cds lib/presence lib/xcap mem modules/isc	modules/pcscf modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r161%20-%20in%20ser_ims/trunk%3A%20.%0A%09.settings%20cfg%20lib/cds%20lib/presence%20lib/xcap%20mem%20modules/isc%0A%09modules/pcscf%20modules/scscf&In-Reply-To=%3C200703011406.l21E6Ntk012658%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000261.html">
+   <LINK REL="Next"  HREF="000263.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r161 - in ser_ims/trunk: .	.settings cfg lib/cds lib/presence lib/xcap mem modules/isc	modules/pcscf modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r161%20-%20in%20ser_ims/trunk%3A%20.%0A%09.settings%20cfg%20lib/cds%20lib/presence%20lib/xcap%20mem%20modules/isc%0A%09modules/pcscf%20modules/scscf&In-Reply-To=%3C200703011406.l21E6Ntk012658%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r161 - in ser_ims/trunk: .	.settings cfg lib/cds lib/presence lib/xcap mem modules/isc	modules/pcscf modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Thu Mar  1 15:06:23 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000261.html">[OpenIMSCore-CSCF] Sipp tests
+</A></li>
+        <LI>Next message: <A HREF="000263.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r162 - ser_ims/branches
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#262">[ date ]</a>
+              <a href="thread.html#262">[ thread ]</a>
+              <a href="subject.html#262">[ subject ]</a>
+              <a href="author.html#262">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-03-01 15:06:01 +0100 (Thu, 01 Mar 2007)
+New Revision: 161
+
+Added:
+   ser_ims/trunk/cfg/my_scscf.sql
+   ser_ims/trunk/cfg/pg_scscf.sql
+   ser_ims/trunk/modules/pcscf/bin.c
+   ser_ims/trunk/modules/pcscf/bin.h
+   ser_ims/trunk/modules/pcscf/bin_pcscf.c
+   ser_ims/trunk/modules/pcscf/bin_pcscf.h
+   ser_ims/trunk/modules/pcscf/p_persistency.c
+   ser_ims/trunk/modules/pcscf/p_persistency.h
+   ser_ims/trunk/modules/scscf/bin.c
+   ser_ims/trunk/modules/scscf/bin.h
+   ser_ims/trunk/modules/scscf/bin_scscf.c
+   ser_ims/trunk/modules/scscf/bin_scscf.h
+   ser_ims/trunk/modules/scscf/s_persistency.c
+   ser_ims/trunk/modules/scscf/s_persistency.h
+Modified:
+   ser_ims/trunk/.cdtproject
+   ser_ims/trunk/.settings/org.eclipse.cdt.core.prefs
+   ser_ims/trunk/.settings/org.eclipse.ltk.core.refactoring.prefs
+   ser_ims/trunk/Makefile
+   ser_ims/trunk/cfg/pcscf.cfg
+   ser_ims/trunk/cfg/pcscf.sh
+   ser_ims/trunk/cfg/scscf.cfg
+   ser_ims/trunk/cfg/scscf.sh
+   ser_ims/trunk/lib/cds/
+   ser_ims/trunk/lib/presence/
+   ser_ims/trunk/lib/xcap/
+   ser_ims/trunk/mem/f_malloc.c
+   ser_ims/trunk/mem/q_malloc.c
+   ser_ims/trunk/mem/vq_malloc.c
+   ser_ims/trunk/modules/isc/checker.c
+   ser_ims/trunk/modules/isc/checker.h
+   ser_ims/trunk/modules/isc/mark.h
+   ser_ims/trunk/modules/pcscf/Makefile
+   ser_ims/trunk/modules/pcscf/dlg_state.c
+   ser_ims/trunk/modules/pcscf/dlg_state.h
+   ser_ims/trunk/modules/pcscf/mod.c
+   ser_ims/trunk/modules/pcscf/nat_helper.c
+   ser_ims/trunk/modules/pcscf/registrar_storage.c
+   ser_ims/trunk/modules/pcscf/registrar_storage.h
+   ser_ims/trunk/modules/pcscf/registrar_subscribe.c
+   ser_ims/trunk/modules/pcscf/registrar_subscribe.h
+   ser_ims/trunk/modules/pcscf/sdp_util.c
+   ser_ims/trunk/modules/scscf/Makefile
+   ser_ims/trunk/modules/scscf/dlg_state.c
+   ser_ims/trunk/modules/scscf/ifc_datastruct.h
+   ser_ims/trunk/modules/scscf/mod.c
+   ser_ims/trunk/modules/scscf/mod.h
+   ser_ims/trunk/modules/scscf/registrar_notify.c
+   ser_ims/trunk/modules/scscf/registrar_parser.c
+   ser_ims/trunk/modules/scscf/registrar_storage.h
+   ser_ims/trunk/modules/scscf/registration.c
+   ser_ims/trunk/modules/scscf/registration.h
+   ser_ims/trunk/modules/scscf/sip.c
+Log:
+Merged the 01_persistency branch r103:159.
+
+
+Modified: ser_ims/trunk/.cdtproject
+===================================================================
+--- ser_ims/trunk/.cdtproject	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/.cdtproject	2007-03-01 14:06:01 UTC (rev 161)
+@@ -59,133 +59,133 @@
+ &lt;buildTargets&gt;
+ &lt;target name=&quot;pcscf&quot; path=&quot;modules/pcscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;pcscf clean&quot; path=&quot;modules/pcscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;all&quot; path=&quot;modules/cdp&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;clean&quot; path=&quot;modules/cdp&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;isc&quot; path=&quot;modules/isc&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;isc clean&quot; path=&quot;modules/isc&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;sh&quot; path=&quot;modules/sh&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;sh clean&quot; path=&quot;modules/sh&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;all&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;distclean&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;distclean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;clean&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;modules&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;modules&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;icscf&quot; path=&quot;modules/icscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;icscf clean&quot; path=&quot;modules/icscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;doxygen&quot; path=&quot;doxygen&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;doxygen&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;doxygen.config&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;false&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;sip2ims&quot; path=&quot;modules/sip2ims&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;sip2ims clean&quot; path=&quot;modules/sip2ims&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;scscf&quot; path=&quot;modules/scscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;scscf clean&quot; path=&quot;modules/scscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+
+
+Property changes on: ser_ims/trunk/.cdtproject
+___________________________________________________________________
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+Modified: ser_ims/trunk/.settings/org.eclipse.cdt.core.prefs
+===================================================================
+--- ser_ims/trunk/.settings/org.eclipse.cdt.core.prefs	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/.settings/org.eclipse.cdt.core.prefs	2007-03-01 14:06:01 UTC (rev 161)
+@@ -1,3 +1,3 @@
+-#Wed Nov 22 14:45:59 CET 2006
++#Mon Jan 29 09:03:54 CET 2007
+ eclipse.preferences.version=1
+ indexerId=org.eclipse.cdt.core.nullindexer
+
+
+Property changes on: ser_ims/trunk/.settings/org.eclipse.cdt.core.prefs
+___________________________________________________________________
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+
+Property changes on: ser_ims/trunk/.settings/org.eclipse.ltk.core.refactoring.prefs
+___________________________________________________________________
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+Modified: ser_ims/trunk/Makefile
+===================================================================
+--- ser_ims/trunk/Makefile	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/Makefile	2007-03-01 14:06:01 UTC (rev 161)
+@@ -60,7 +60,7 @@
+ 							jabber \
+ 							cpl-c \
+ 							auth_radius group_radius uri_radius avp_radius \
+-							acc_radius dialog pa rls presence_b2b xcap xmlrpc\
++							acc_radius pa rls presence_b2b xcap xmlrpc\
+ 							osp tls \
+ 							unixsock eval
+ # always exclude the CVS dir
+
+Copied: ser_ims/trunk/cfg/my_scscf.sql (from rev 159, ser_ims/branches/01_persistency/cfg/my_scscf.sql)
+
+Modified: ser_ims/trunk/cfg/pcscf.cfg
+===================================================================
+--- ser_ims/trunk/cfg/pcscf.cfg	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/cfg/pcscf.cfg	2007-03-01 14:06:01 UTC (rev 161)
+@@ -28,6 +28,7 @@
+ 
+ loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/sl/sl.so&quot;
+ loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/tm/tm.so&quot;
++loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/dialog/dialog.so&quot;
+ loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/rr/rr.so&quot;
+ loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/maxfwd/maxfwd.so&quot;
+ loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/textops/textops.so&quot;
+@@ -39,6 +40,8 @@
+ modparam(&quot;pcscf&quot;,&quot;registrar_hash_size&quot;,256)
+ modparam(&quot;pcscf&quot;,&quot;reginfo_dtd&quot;,&quot;/opt/OpenIMSCore/ser_ims/modules/pcscf/reginfo.dtd&quot;)
+ 
++modparam(&quot;pcscf&quot;,&quot;subscriptions_hash_size&quot;,256)
++
+ modparam(&quot;pcscf&quot;,&quot;dialogs_hash_size&quot;,256)
+ 
+ modparam(&quot;pcscf&quot;,&quot;dialogs_expiration_time&quot;,3600)
+@@ -74,7 +77,15 @@
+ modparam(&quot;pcscf&quot;,&quot;orig_ioi&quot;,&quot;open-ims.test&quot;)
+ modparam(&quot;pcscf&quot;,&quot;term_ioi&quot;,&quot;open-ims.test&quot;)
+ 
++# persistency_mode - 0 None / 1 Files / 2 Databases
++modparam(&quot;pcscf&quot;,&quot;persistency_mode&quot;,0)
+ 
++#modparam(&quot;pcscf&quot;,&quot;persistency_mode&quot;,1)
++#modparam(&quot;pcscf&quot;,&quot;persistency_location&quot;,&quot;/opt/OpenIMSCore/persistency&quot;)
++#modparam(&quot;pcscf&quot;,&quot;persistency_timer_dialogs&quot;,60)
++#modparam(&quot;pcscf&quot;,&quot;persistency_timer_registrar&quot;,60)
++#modparam(&quot;pcscf&quot;,&quot;persistency_timer_subscriptions&quot;,60)
++
+ # -- rr params --
+ # add value to ;lr param to make some broken UAs happy
+ modparam(&quot;rr&quot;, &quot;enable_full_lr&quot;, 1)
+
+Modified: ser_ims/trunk/cfg/pcscf.sh
+===================================================================
+--- ser_ims/trunk/cfg/pcscf.sh	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/cfg/pcscf.sh	2007-03-01 14:06:01 UTC (rev 161)
+@@ -4,4 +4,4 @@
+ setkey -F
+ setkey -FP
+ 
+-/opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/pcscf.cfg -D -D
++LD_LIBRARY_PATH=&quot;/usr/local/lib/ser&quot; /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/pcscf.cfg -D -D
+
+Copied: ser_ims/trunk/cfg/pg_scscf.sql (from rev 159, ser_ims/branches/01_persistency/cfg/pg_scscf.sql)
+
+Modified: ser_ims/trunk/cfg/scscf.cfg
+===================================================================
+--- ser_ims/trunk/cfg/scscf.cfg	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/cfg/scscf.cfg	2007-03-01 14:06:01 UTC (rev 161)
+@@ -12,7 +12,7 @@
+ sip_warning=yes
+ 
+ fork=yes
+-children=1
++children=4
+ 
+ 
+ listen=127.0.0.1
+@@ -30,6 +30,9 @@
+ loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/tm/tm.so&quot;
+ modparam(&quot;tm&quot;, &quot;fr_timer&quot;, 5000)
+ 
++loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/dialog/dialog.so&quot;
++
++
+ loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/rr/rr.so&quot;
+ loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/maxfwd/maxfwd.so&quot;
+ loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/textops/textops.so&quot;
+@@ -67,7 +70,15 @@
+ 
+ modparam(&quot;scscf&quot;,&quot;dialogs_expiration_time&quot;,3600)
+ 
++# persistency_mode - 0 None / 1 Files / 2 Databases
++modparam(&quot;scscf&quot;,&quot;persistency_mode&quot;,0)
+ 
++#modparam(&quot;scscf&quot;,&quot;persistency_mode&quot;,1)
++#modparam(&quot;scscf&quot;,&quot;persistency_location&quot;,&quot;/opt/OpenIMSCore/persistency&quot;)
++#modparam(&quot;scscf&quot;,&quot;persistency_timer_authdata&quot;,60)
++#modparam(&quot;scscf&quot;,&quot;persistency_timer_dialogs&quot;,60)
++#modparam(&quot;scscf&quot;,&quot;persistency_timer_registrar&quot;,60)
++
+ loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/isc/isc.so&quot;
+ 
+ modparam(&quot;isc&quot;,&quot;my_uri&quot;,&quot;scscf.open-ims.test:6060&quot;)
+@@ -80,6 +91,8 @@
+ # add value to ;lr param to make some broken UAs happy
+ modparam(&quot;rr&quot;, &quot;enable_full_lr&quot;, 1)
+ 
++
++
+ # -------------------------  request routing logic -------------------
+ 
+ # main routing logic
+
+Modified: ser_ims/trunk/cfg/scscf.sh
+===================================================================
+--- ser_ims/trunk/cfg/scscf.sh	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/cfg/scscf.sh	2007-03-01 14:06:01 UTC (rev 161)
+@@ -1,6 +1,8 @@
+ #!/bin/bash
+ 
++
++
+ killser scscf
+-/opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
++LD_LIBRARY_PATH=/usr/local/lib/ser /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+ 
+ ipcs -s
+\ No newline at end of file
+
+
+Property changes on: ser_ims/trunk/lib/cds
+___________________________________________________________________
+Name: svn:ignore
+   + *.d
+*.so
+
+
+
+Property changes on: ser_ims/trunk/lib/presence
+___________________________________________________________________
+Name: svn:ignore
+   + *.d
+*.so
+
+
+
+Property changes on: ser_ims/trunk/lib/xcap
+___________________________________________________________________
+Name: svn:ignore
+   + *.d
+*.so
+
+
+Modified: ser_ims/trunk/mem/f_malloc.c
+===================================================================
+--- ser_ims/trunk/mem/f_malloc.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/mem/f_malloc.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -643,8 +643,7 @@
+ 	void fm_sums(struct fm_block* qm)
+ 	{
+ 		struct fm_frag* f;
+-		int i;
+-		int memlog=L_ERR;
++		int i;		
+ 		mem_counter *root=0,*x;
+ 		lock_get(process_lock);
+ 		if (process_no!=0)
+
+Modified: ser_ims/trunk/mem/q_malloc.c
+===================================================================
+--- ser_ims/trunk/mem/q_malloc.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/mem/q_malloc.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -756,8 +756,7 @@
+ 	void qm_sums(struct qm_block* qm)
+ 	{
+ 		struct qm_frag* f;
+-		int i;
+-		int memlog=L_ERR;
++		int i;		
+ 		mem_counter *root=0,*x;
+ 		lock_get(process_lock);
+ 		if (process_no!=0)
+
+Modified: ser_ims/trunk/mem/vq_malloc.c
+===================================================================
+--- ser_ims/trunk/mem/vq_malloc.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/mem/vq_malloc.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -515,7 +515,6 @@
+ 	{
+ 		struct vqm_frag* f;
+ 		int i;
+-		int memlog=L_ERR;
+ 		mem_counter *root=0,*x;
+ 		lock_get(process_lock);
+ 		if (process_no!=0)
+
+Modified: ser_ims/trunk/modules/isc/checker.c
+===================================================================
+--- ser_ims/trunk/modules/isc/checker.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/isc/checker.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -192,7 +192,7 @@
+  *	@param registration_type - if the message is initial/re/de registration
+  *	@returns - 1 on success, 0 on failure
+  */
+-static int isc_check_spt(ims_spt *spt,struct sip_msg *msg,int direction,int registration_type)
++static int isc_check_spt(ims_spt *spt,struct sip_msg *msg,char direction,char registration_type)
+ {
+ 	int r=FALSE;
+ 	switch(spt-&gt;type){
+@@ -257,8 +257,8 @@
+  *	@param registration_type - if the message is initial/re/de registration
+  *	@returns - 1 on success, 0 on failure
+  */
+-static int isc_check_filter_criteria(ims_filter_criteria *fc,struct sip_msg *msg,int direction,
+-		int registration_type)
++static int isc_check_filter_criteria(ims_filter_criteria *fc,struct sip_msg *msg,char direction,
++		char registration_type)
+ {
+ 	int i,partial,total,inside,outside,group;
+ 	ims_trigger_point *t;
+@@ -376,9 +376,10 @@
+  * @param msg - the SIP initial request to check on 
+  * @return - TRUE if found, FALSE if none found, end of search space 
+  */
+-isc_match* isc_checker_find(str uri,int direction,int skip,struct sip_msg *msg)
++isc_match* isc_checker_find(str uri,char direction,int skip,struct sip_msg *msg)
+ {
+-	int registered,expires,registration_type;
++	int registered,expires;
++	char registration_type;
+ 	str domain={0,0};
+ 	int i,j,k,cnt,si,sj,next;
+ 	r_public *p;
+
+Modified: ser_ims/trunk/modules/isc/checker.h
+===================================================================
+--- ser_ims/trunk/modules/isc/checker.h	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/isc/checker.h	2007-03-01 14:06:01 UTC (rev 161)
+@@ -68,7 +68,7 @@
+ /** ISC match structure */
+ typedef struct {
+ 	str server_name;		/**&lt; SIP URI of the AS to forward to */
+-	int default_handling;	/**&lt; handling to apply on failure to contact the AS */
++	char default_handling;	/**&lt; handling to apply on failure to contact the AS */
+ 	str service_info;		/**&lt; additional service information */
+ 	int index;				/**&lt; index of the matching IFC */
+ } isc_match;
+@@ -76,7 +76,7 @@
+ 
+ void isc_free_match(isc_match *m);
+ 
+-isc_match* isc_checker_find(str uri,int direction,int skip,struct sip_msg *msg);
++isc_match* isc_checker_find(str uri,char direction,int skip,struct sip_msg *msg);
+ 
+ 
+ 
+
+Modified: ser_ims/trunk/modules/isc/mark.h
+===================================================================
+--- ser_ims/trunk/modules/isc/mark.h	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/isc/mark.h	2007-03-01 14:06:01 UTC (rev 161)
+@@ -78,8 +78,8 @@
+ /** ISC marking structure */
+ typedef struct _isc_mark{
+ 	int skip;		/**&lt; how many IFCs to skip */
+-	int handling;	/**&lt; handling to apply on failure to contact the AS */
+-	int direction;	/**&lt; session case: orig,term,term unreg */
++	char handling;	/**&lt; handling to apply on failure to contact the AS */
++	char direction;	/**&lt; session case: orig,term,term unreg */
+ } isc_mark;
+ 
+ 
+
+Modified: ser_ims/trunk/modules/pcscf/Makefile
+===================================================================
+--- ser_ims/trunk/modules/pcscf/Makefile	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/pcscf/Makefile	2007-03-01 14:06:01 UTC (rev 161)
+@@ -11,5 +11,5 @@
+ 
+ include ../../Makefile.modules
+ 
+-DEFS += -I/usr/include/libxml2
+-LIBS += -lxml2
++DEFS += -I/usr/include/libxml2 -I../../lib -DSER -I../..
++LIBS += -lxml2 -L../../lib/cds -l_ser_cds
+
+Copied: ser_ims/trunk/modules/pcscf/bin.c (from rev 159, ser_ims/branches/01_persistency/modules/pcscf/bin.c)
+
+Copied: ser_ims/trunk/modules/pcscf/bin.h (from rev 159, ser_ims/branches/01_persistency/modules/pcscf/bin.h)
+
+Copied: ser_ims/trunk/modules/pcscf/bin_pcscf.c (from rev 159, ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.c)
+
+Copied: ser_ims/trunk/modules/pcscf/bin_pcscf.h (from rev 159, ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.h)
+
+Modified: ser_ims/trunk/modules/pcscf/dlg_state.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/dlg_state.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/pcscf/dlg_state.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -683,11 +683,11 @@
+ 					if (req &amp;&amp; req-&gt;first_line.u.request.method.len==6 &amp;&amp;
+ 						strncasecmp(req-&gt;first_line.u.request.method.s,&quot;NOTIFY&quot;,6)==0){
+ 						expires = cscf_get_subscription_state(req);
+-						if (expires==-2){						
++						if (expires==0){						
+ 							d-&gt;state = DLG_STATE_TERMINATED;
+ 							d_unlock(d-&gt;hash);				
+ 							return P_drop_dialog(msg,str1,str2);
+-						}else if (expires&gt;=0){
++						}else if (expires&gt;0){
+ 							d-&gt;expires = expires;
+ 						}
+ 					}
+
+Modified: ser_ims/trunk/modules/pcscf/dlg_state.h
+===================================================================
+--- ser_ims/trunk/modules/pcscf/dlg_state.h	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/pcscf/dlg_state.h	2007-03-01 14:06:01 UTC (rev 161)
+@@ -88,11 +88,11 @@
+ //	enum p_dialog_direction direction;
+ 	
+ 	str host;					/**&lt; host of the UE						*/
+-	int port;					/**&lt; port of the UE						*/
+-	int transport;				/**&lt; transport for the UE				*/
++	unsigned short port;					/**&lt; port of the UE						*/
++	char transport;				/**&lt; transport for the UE				*/
+ 	
+ 	str *routes;
+-	int routes_cnt;
++	unsigned short routes_cnt;
+ 	
+ 	enum p_dialog_method method;
+ 	str method_str;
+
+Modified: ser_ims/trunk/modules/pcscf/mod.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/mod.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/pcscf/mod.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -71,6 +71,7 @@
+ #include &quot;../../timer.h&quot;
+ #include &quot;../../locking.h&quot;
+ #include &quot;../tm/tm_load.h&quot;
++#include &quot;../dialog/dlg_mod.h&quot;
+ 
+ //#include &quot;db.h&quot;
+ #include &quot;registration.h&quot;
+@@ -81,6 +82,7 @@
+ #include &quot;security.h&quot;
+ #include &quot;dlg_state.h&quot;
+ #include &quot;sdp_util.h&quot;
++#include &quot;p_persistency.h&quot;
+ 
+ 
+ MODULE_VERSION
+@@ -119,6 +121,8 @@
+ char *pcscf_reginfo_dtd=&quot;/opt/OpenIMSCore/ser_ims/pcscf/modules/pcscf/reginfo.dtd&quot;;/**&lt; DTD to check the reginfo/xml in the NOTIFY to reg */
+ int pcscf_subscribe_retries = 1;			/**&lt; times to retry subscribe to reg on failure 	*/
+ 
++int subscriptions_hash_size=1024;			/**&lt; the size of the hash table for subscriptions	*/
++
+ int pcscf_dialogs_hash_size=1024;			/**&lt; the size of the hash table for dialogs			*/
+ int pcscf_dialogs_expiration_time=3600;		/**&lt; expiration time for a dialog					*/
+ 
+@@ -161,6 +165,17 @@
+ str pcscf_sip2ims_via_host;					/**&lt; fixed Via host of the SIP2IMS gateway - this is a hack \todo Remove this when the SIP2IMS is fully B2B */
+ int pcscf_sip2ims_via_port;					/**&lt; fixed Via port of the SIP2IMS gateway - this is a hack \todo Remove this when the SIP2IMS is fully B2B */
+ 
++
++persistency_mode_t pcscf_persistency_mode=NO_PERSISTENCY;			/**&lt; the type of persistency				*/
++char* pcscf_persistency_location=&quot;/opt/OpenIMSCore/persistency&quot;;	/**&lt; where to dump the persistency data 	*/
++int pcscf_persistency_timer_dialogs=60;								/**&lt; interval to snapshot dialogs data		*/ 
++int pcscf_persistency_timer_registrar=60;							/**&lt; interval to snapshot registrar data	*/ 
++int pcscf_persistency_timer_subscriptions=60;						/**&lt; interval to snapshot subscriptions data*/ 
++
++
++int * shutdown_singleton;				/**&lt; Shutdown singleton 								*/
++
++
+ /** 
+  * Exported functions.
+  * - P_add_path() - Add the Path header to the message
+@@ -266,6 +281,7 @@
+  * &lt;p&gt;  
+  * - registrar_hash_size - size of the registrar hash table
+  * - reginfo_dtd - DTD file for checking the reginfo/xml in the NOTIFY to reg event
++ * - subscriptions_hash_size - size of the subscriptions hash table
+  * &lt;p&gt;
+  * - dialogs_hash_size - size of the dialog hash table
+  * - dialogs_expiration_time - time-out for dialog expiration
+@@ -299,12 +315,19 @@
+  * - icid_gen_addr - ICID Gen Addr. in the P-Charging-Vector header
+  * - orig_ioi - Originating IOI in the P-Charging-Vector header
+  * - term_ioi - Terminating IOI in the P-Charging-Vector header
++ * &lt;p&gt;
++ * - persistency_mode - how to do persistency - 0 none; 1 with files; 2 with db	
++ * - persistency_location - where to dump/load the persistency data to/from
++ * - persistency_timer_dialogs - interval to make dialogs data snapshots at
++ * - persistency_timer_registrar - interval to make registrar snapshots at
++ * - persistency_timer_subscriptions - interval to make subscriptions snapshots at
+  */	
+ static param_export_t pcscf_params[]={ 
+ 	{&quot;name&quot;, STR_PARAM, &amp;pcscf_name},
+ 
+ 	{&quot;registrar_hash_size&quot;,		INT_PARAM, &amp;registrar_hash_size},
+ 	{&quot;reginfo_dtd&quot;, 			STR_PARAM, &amp;pcscf_reginfo_dtd},
++	{&quot;subscriptions_hash_size&quot;,	INT_PARAM, &amp;subscriptions_hash_size},
+ 
+ 	{&quot;dialogs_hash_size&quot;,		INT_PARAM, &amp;pcscf_dialogs_hash_size},
+ 	{&quot;dialogs_expiration_time&quot;,	INT_PARAM, &amp;pcscf_dialogs_expiration_time},
+@@ -340,6 +363,12 @@
+ 	{&quot;icid_gen_addr&quot;,			STR_PARAM,		&amp;cscf_icid_gen_addr},
+ 	{&quot;orig_ioi&quot;,				STR_PARAM,		&amp;cscf_orig_ioi},
+ 	{&quot;term_ioi&quot;,				STR_PARAM,		&amp;cscf_term_ioi},
++
++	{&quot;persistency_mode&quot;,	 			INT_PARAM, &amp;pcscf_persistency_mode},	
++	{&quot;persistency_location&quot;, 			STR_PARAM, &amp;pcscf_persistency_location},
++	{&quot;persistency_timer_dialogs&quot;,		INT_PARAM, &amp;pcscf_persistency_timer_dialogs},
++	{&quot;persistency_timer_registrar&quot;,		INT_PARAM, &amp;pcscf_persistency_timer_registrar},
++	{&quot;persistency_timer_subscriptions&quot;,	INT_PARAM, &amp;pcscf_persistency_timer_subscriptions},
+ 	
+ 	{0,0,0} 
+ };
+@@ -364,6 +393,7 @@
+ 										/**&lt; link to the stateless reply function in sl module */
+ 
+ struct tm_binds tmb;            		/**&lt; Structure with pointers to tm funcs 		*/
++dlg_func_t dialogb;							/**&lt; Structure with pointers to dialog funcs			*/
+ 
+ extern r_hash_slot *registrar;			/**&lt; the contacts */
+ 
+@@ -505,7 +535,13 @@
+ static int mod_init(void)
+ {
+ 	load_tm_f load_tm;
++	bind_dlg_mod_f load_dlg;
++			
+ 	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:mod_init: Initialization of module\n&quot;);
++	shutdown_singleton=shm_malloc(sizeof(int));
++	*shutdown_singleton=0;
++	
++	
+ 	/* fix the parameters */
+ 	if (!fix_parameters()) goto error;
+ 	
+@@ -528,24 +564,46 @@
+ 	}
+ 	if (load_tm(&amp;tmb) == -1)
+ 		goto error;
++
++	/* bind to the dialog module */
++	load_dlg = (bind_dlg_mod_f)find_export(&quot;bind_dlg_mod&quot;, -1, 0);
++	if (!load_dlg) {
++		LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:mod_init:  Can not import bind_dlg_mod. This module requires dialog module\n&quot;);
++		return -1;
++	}
++	if (load_dlg(&amp;dialogb) != 0) {
++		return -1;
++	}
+ 	
+ 	/* init the registrar storage */
+ 	if (!r_storage_init(registrar_hash_size)) goto error;
++	if (pcscf_persistency_mode!=NO_PERSISTENCY){
++		load_snapshot_registrar();
++		if (register_timer(persistency_timer_registrar,0,pcscf_persistency_timer_registrar)&lt;0) goto error;
++	}
+ 
+ 	/* register the registrar timer */
+ 	if (register_timer(registrar_timer,registrar,10)&lt;0) goto error;
+ 	
+ 	/* init the registrar subscriptions */
+ 	if (!r_subscription_init()) goto error;
++	if (pcscf_persistency_mode!=NO_PERSISTENCY){
++		load_snapshot_subscriptions();
++		if (register_timer(persistency_timer_subscriptions,0,pcscf_persistency_timer_subscriptions)&lt;0) goto error;
++	}
+ 
+ 	/* register the subscription timer */
+-	if (register_timer(subscription_timer,registrar,5)&lt;0) goto error;
++	if (register_timer(subscription_timer,registrar,10)&lt;0) goto error;
+ 	
+ 	/* init the dialog storage */
+ 	if (!p_dialogs_init(pcscf_dialogs_hash_size)){
+ 		LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:mod_init: Error initializing the Hash Table for stored dialogs\n&quot;);
+ 		goto error;
+ 	}		
++	if (pcscf_persistency_mode!=NO_PERSISTENCY){
++		load_snapshot_dialogs();
++		if (register_timer(persistency_timer_dialogs,0,pcscf_persistency_timer_dialogs)&lt;0) goto error;
++	}
+ 
+ 	/* register the dialog timer */
+ 	if (register_timer(dialog_timer,p_dialogs,60)&lt;0) goto error;
+@@ -563,6 +621,8 @@
+ 	return -1;
+ }
+ 
++extern gen_lock_t* process_lock;		/* lock on the process table */
++
+ /**
+  * Initializes the module in child.
+  */
+@@ -590,11 +650,27 @@
+  */
+ static void mod_destroy(void)
+ {
+-	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:mod_destroy: child exit\n&quot;);	
+-	parser_destroy();
+-	r_subscription_destroy();
+-	r_storage_destroy();
+-	p_dialogs_destroy();
++	int do_destroy=0;
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:mod_destroy: child exit\n&quot;);
++	lock_get(process_lock);
++		if((*shutdown_singleton)==0){
++			*shutdown_singleton=1;
++			do_destroy=1;
++		}
++	lock_release(process_lock);
++	if (do_destroy){
++		if (pcscf_persistency_mode!=NO_PERSISTENCY){		
++			/* First let's snapshot everything */
++			make_snapshot_dialogs();
++			make_snapshot_registrar();
++			make_snapshot_subscriptions();
++		}
++		/* Then nuke it all */		
++		parser_destroy();
++		r_subscription_destroy();
++		r_storage_destroy();
++		p_dialogs_destroy();
++	}
+ }
+ 
+ 
+
+Modified: ser_ims/trunk/modules/pcscf/nat_helper.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/nat_helper.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/pcscf/nat_helper.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -376,20 +376,20 @@
+ 	return 0;
+ }
+ 
+-/**
+- * Checks if the contact in the message is a 1918 address
+- * @param msg - the SIP message
+- * @returns 1 if it is, 0 if not, -1 on not found
+- */
+-static int contact_1918(struct sip_msg * msg) {
+-	struct sip_uri uri;
+-	contact_t * c;
+-	
+-	if(get_contact_uri(msg, &amp;uri, &amp;c) == -1)
+-		return -1;
+-	
+-	return (is1918addr(&amp;(uri.host)) == 1)?1:0; 
+-}
++///**
++// * Checks if the contact in the message is a 1918 address
++// * @param msg - the SIP message
++// * @returns 1 if it is, 0 if not, -1 on not found
++// */
++//static int contact_1918(struct sip_msg * msg) {
++//	struct sip_uri uri;
++//	contact_t * c;
++//	
++//	if(get_contact_uri(msg, &amp;uri, &amp;c) == -1)
++//		return -1;
++//	
++//	return (is1918addr(&amp;(uri.host)) == 1)?1:0; 
++//}
+ 
+ /**
+  * Checks if the first Via in the message is a 1918 address
+
+Copied: ser_ims/trunk/modules/pcscf/p_persistency.c (from rev 159, ser_ims/branches/01_persistency/modules/pcscf/p_persistency.c)
+
+Copied: ser_ims/trunk/modules/pcscf/p_persistency.h (from rev 159, ser_ims/branches/01_persistency/modules/pcscf/p_persistency.h)
+
+Modified: ser_ims/trunk/modules/pcscf/registrar_storage.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/registrar_storage.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/pcscf/registrar_storage.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -113,7 +113,7 @@
+  * @param hash_size - size of the hash, to % with
+  * @returns the hash for the contact
+  */
+-static inline unsigned int get_contact_hash(str aor,int port,int transport,int hash_size)
++inline unsigned int get_contact_hash(str aor,int port,int transport,int hash_size)
+ {
+ #define h_inc h+=v^(v&gt;&gt;3)
+    char* p;
+
+Modified: ser_ims/trunk/modules/pcscf/registrar_storage.h
+===================================================================
+--- ser_ims/trunk/modules/pcscf/registrar_storage.h	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/pcscf/registrar_storage.h	2007-03-01 14:06:01 UTC (rev 161)
+@@ -64,17 +64,10 @@
+ 	unsigned short nat_port;	/**&lt; port of the pin hole in the NAT 	*/
+ }r_nat_dest;
+ 
+-/** Registrar Slot Structure */
+-typedef struct {
+-	void *head;					/**&lt; first contact in the slot			*/
+-	void *tail;					/**&lt; last contact in the slot			*/
+-	gen_lock_t *lock;			/**&lt; slot lock 							*/
+-} r_hash_slot;
+-
+ /** Registrar Public Identity Structure */
+ typedef struct _r_public {
+ 	str aor;					/**&lt; the public identity 				*/
+-	int is_default;				/**&lt; if this is the default id			*/			
++	char is_default;			/**&lt; if this is the default id			*/			
+ 	
+ 	struct _r_public *next;		/**&lt; next public identity for this contact */
+ 	struct _r_public *prev; 	/**&lt; previous public identity for this contact */
+@@ -94,8 +87,8 @@
+ 	int spi_us;					/**&lt; SPI Server to use					*/	
+ 	int spi_pc;					/**&lt; SPI Client to use					*/
+ 	int spi_ps;					/**&lt; SPI Server to use					*/
+-	int port_uc;				/**&lt; Port UE Client						*/
+-	int port_us;				/**&lt; Port UE Server						*/
++	unsigned short port_uc;				/**&lt; Port UE Client						*/
++	unsigned short port_us;				/**&lt; Port UE Server						*/
+ 	
+ 	str ealg;					/**&lt; Cypher Algorithm - ESP				*/
+ 	str ck;						/**&lt; Cypher Key							*/
+@@ -108,8 +101,8 @@
+ 	unsigned int hash;			/**&lt; the hash value 					*/
+ 	
+ 	str host;					/**&lt; host of the UE						*/
+-	int port;					/**&lt; port of the UE						*/
+-	int transport;				/**&lt; transport for the UE				*/
++	unsigned short port;					/**&lt; port of the UE						*/
++	char transport;				/**&lt; transport for the UE				*/
+ 	
+ 	r_ipsec *ipsec;				/**&lt; IPSec SA information, if any		*/
+ 	
+@@ -118,8 +111,8 @@
+ 	enum Reg_States reg_state;	/**&lt; registration state					*/
+ 	time_t expires;				/**&lt; time of expiration					*/
+ 	
++	unsigned short service_route_cnt;		/**&lt; size of the above vector			*/
+ 	str *service_route;			/**&lt; service route entries				*/
+-	int service_route_cnt;		/**&lt; size of the above vector			*/
+ 
+ 	r_nat_dest * pinhole;		/**&lt; address of the receive				*/ 
+ 	
+@@ -130,6 +123,12 @@
+ 	struct _r_contact *prev;	/**&lt; previous contact in this hash slot	*/
+ } r_contact;
+ 
++/** Registrar Slot Structure */
++typedef struct {
++	r_contact *head;					/**&lt; first contact in the slot			*/
++	r_contact *tail;					/**&lt; last contact in the slot			*/
++	gen_lock_t *lock;			/**&lt; slot lock 							*/
++} r_hash_slot;
+ 
+ 
+ void r_act_time();
+@@ -143,6 +142,8 @@
+ inline void r_lock(unsigned int hash);
+ inline void r_unlock(unsigned int hash);
+ 
++unsigned int get_contact_hash(str aor,int port,int transport,int hash_size);
++
+ r_public* new_r_public(str aor, int is_default);
+ r_public* get_r_public(r_contact *c, str aor);
+ r_public* add_r_public(r_contact *c,str aor,int is_default);
+
+Modified: ser_ims/trunk/modules/pcscf/registrar_subscribe.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/registrar_subscribe.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/pcscf/registrar_subscribe.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -66,9 +66,11 @@
+ #include &quot;../../parser/parse_uri.h&quot;
+ #include &quot;../../locking.h&quot;
+ #include &quot;../tm/tm_load.h&quot;
++#include &quot;../dialog/dlg_mod.h&quot;
+ #include &quot;sip.h&quot;
+ 
+ extern struct tm_binds tmb;   		/**&lt; Structure with pointers to tm funcs 		*/
++extern dlg_func_t dialogb;			/**&lt; Structure with pointers to dialog funcs			*/
+ 
+ extern str pcscf_name_str;			/**&lt; fixed SIP URI of this P-CSCF 				*/
+ extern str pcscf_path_str;			/**&lt; fixed Path URI  							*/
+@@ -80,20 +82,74 @@
+ 
+ extern int pcscf_subscribe_retries;	/**&lt; times to retry subscribe to reg on failure */
+ 
+-r_subscription_list *subscription_list=0;/**&lt; list of subscriptions					*/
++r_subscription_hash_slot *subscriptions=0;/**&lt; list of subscriptions					*/
++extern int subscriptions_hash_size;	/**&lt; the size of the hash table for subscriptions	*/
+ 
++
+ /**
++ * Computes the hash for a contact.
++ * @param aor - the string of the contact
++ * @param port - the port of the contact
++ * @param transport - transport for the contact - ignored for now
++ * @param hash_size - size of the hash, to % with
++ * @returns the hash for the contact
++ */
++inline unsigned int get_subscription_hash(str uri)
++{
++#define h_inc h+=v^(v&gt;&gt;3)
++   char* p;
++   register unsigned v;
++   register unsigned h;
++   h=0;
++   for (p=uri.s; p&lt;=(uri.s+uri.len-4); p+=4){
++       v=(*p&lt;&lt;24)+(p[1]&lt;&lt;16)+(p[2]&lt;&lt;8)+p[3];
++       h_inc;
++   }
++   v=0;
++   for (;p&lt;(uri.s+uri.len); p++) {
++       v&lt;&lt;=8;
++       v+=*p;
++   }
++   h_inc;
++   h=((h)+(h&gt;&gt;11))+((h&gt;&gt;13)+(h&gt;&gt;23));
++   return (h)%subscriptions_hash_size;
++#undef h_inc 
++}
++
++/**
++ * Lock a subscription hash slot.
++ * @param hash - index to lock
++ */
++inline void subs_lock(unsigned int hash)
++{
++//	LOG(L_CRIT,&quot;GET %d\n&quot;,hash);
++	lock_get(subscriptions[hash].lock);
++//	LOG(L_CRIT,&quot;GOT %d\n&quot;,hash);
++}
++/**
++ * UnLock a subscriptions hash slot.
++ * @param hash - index to unlock
++ */
++inline void subs_unlock(unsigned int hash)
++{
++//	LOG(L_CRIT,&quot;REL %d\n&quot;,hash);	
++	lock_release(subscriptions[hash].lock);
++}
++/**
+  * Initialize the subscription list.
+  * @returns 1 if ok, 0 on error
+  */
+ int r_subscription_init()
+ {
+-	subscription_list = shm_malloc(sizeof(r_subscription_list));
+-	if (!subscription_list) return 0;
+-	memset(subscription_list,0,sizeof(r_subscription_list));
+-	subscription_list-&gt;lock = lock_alloc();
+-	if (!subscription_list-&gt;lock) return 0;
+-	subscription_list-&gt;lock = lock_init(subscription_list-&gt;lock);
++	int i;
++	subscriptions = shm_malloc(sizeof(r_subscription_hash_slot)*subscriptions_hash_size);
++	if (!subscriptions) return 0;
++	memset(subscriptions,0,sizeof(r_subscription_hash_slot)*subscriptions_hash_size);
++	for(i=0;i&lt;subscriptions_hash_size;i++){
++		subscriptions[i].lock = lock_alloc();
++		if (!subscriptions[i].lock) return 0;
++		subscriptions[i].lock = lock_init(subscriptions[i].lock);
++	}
+ 	return 1;
+ }
+ 
+@@ -102,18 +158,21 @@
+  */
+ void r_subscription_destroy()
+ {
++	int i;
+ 	r_subscription *s,*ns;
+-	lock_get(subscription_list-&gt;lock);
+-	s = subscription_list-&gt;head;
+-	while(s){
+-		ns = s-&gt;next;
+-		//TODO send out unSUBSCRIBE
+-		free_r_subscription(s);
+-		s = ns;
+-	}
+-	lock_destroy(subscription_list-&gt;lock);
+-	lock_dealloc(subscription_list-&gt;lock);	
+-	shm_free(subscription_list);
++	for(i=0;i&lt;subscriptions_hash_size;i++){
++		subs_lock(i);
++		s = subscriptions[i].head;
++		while(s){
++			ns = s-&gt;next;
++			//TODO send out unSUBSCRIBE
++			free_r_subscription(s);
++			s = ns;
++		}
++		lock_destroy(subscriptions[i].lock);
++		lock_dealloc(subscriptions[i].lock);
++	}	
++	shm_free(subscriptions);
+ }
+ 
+ 
+@@ -183,18 +242,22 @@
+ int r_subscribe(str uri,int duration)
+ {
+ 	r_subscription *s;
+-	str asserted_id={0,0};
+-	asserted_id.s = pcscf_path_str.s;
+-	asserted_id.len = pcscf_path_str.len;
+ 	/* first we try to update. if not found, add it */
+-	if (!is_r_subscription(uri)){			
+-		s = new_r_subscription(uri,pcscf_name_str,duration,asserted_id);
++	s = get_r_subscription(uri);	
++	if (s){
++		s-&gt;duration = duration;
++		s-&gt;attempts_left=pcscf_subscribe_retries;
++		subs_unlock(s-&gt;hash);
++	}else{			
++		s = new_r_subscription(uri,duration);
+ 		if (!s){
+ 			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:r_subscribe: Error creating new subscription\n&quot;);
+ 			return 0;
+ 		}
+ 		add_r_subscription(s);
++		s-&gt;attempts_left=pcscf_subscribe_retries;
+ 	}
++		
+ 	return 1;
+ }
+ 
+@@ -228,8 +291,8 @@
+ 	h.len += expires_s.len + 12 + expires_e.len;
+ 
+ 	h.len += contact_s.len + pcscf_name_str.len + contact_e.len;
+-	if (s-&gt;asserted_identity.len) h.len += p_asserted_identity_s.len + 
+-		p_asserted_identity_e.len + s-&gt;asserted_identity.len;
++	if (pcscf_path_str.len) h.len += p_asserted_identity_s.len + 
++		p_asserted_identity_e.len + pcscf_path_str.len;
+ 
+ 	h.s = pkg_malloc(h.len);
+ 	if (!h.s){
+@@ -253,20 +316,30 @@
+ 	STR_APPEND(h,pcscf_name_str);
+ 	STR_APPEND(h,contact_e);
+ 	
+-	if (s-&gt;asserted_identity.len) {
++	if (pcscf_path_str.len) {
+ 		STR_APPEND(h,p_asserted_identity_s);
+-		STR_APPEND(h,s-&gt;asserted_identity);
++		STR_APPEND(h,pcscf_path_str);
+ 		STR_APPEND(h,p_asserted_identity_e);
+ 	}
+ 	
+-	if (tmb.t_request(&amp;method, &amp;(s-&gt;req_uri), &amp;(s-&gt;req_uri), &amp;(s-&gt;from), &amp;h, 0, 0,
+-		 r_subscribe_response, &amp;(s-&gt;req_uri))&lt;0)
+-	{
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:r_send_subscribe: Error sending in transaction\n&quot;);
+-		goto error;
++	if (!s-&gt;dialog){
++		/* this is the first request in the dialog */
++		if (tmb.new_dlg_uac(0,0,1,&amp;pcscf_name_str,&amp;s-&gt;req_uri,&amp;s-&gt;dialog)&lt;0){
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:r_send_subscribe: Error creating a dialog for SUBSCRIBE\n&quot;);
++			goto error;
++		}
++		if (dialogb.request_outside(&amp;method, &amp;h, 0, s-&gt;dialog, r_subscribe_response,  &amp;(s-&gt;req_uri)) &lt; 0){
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:r_send_subscribe: Error sending initial request in a SUBSCRIBE dialog\n&quot;);
++			goto error;
++		}		
++	}else{
++		/* this is a subsequent subscribe */
++		if (dialogb.request_inside(&amp;method, &amp;h, 0, s-&gt;dialog, r_subscribe_response,  &amp;(s-&gt;req_uri)) &lt; 0){
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:r_send_subscribe: Error sending subsequent request in a SUBSCRIBE dialog\n&quot;);
++			goto error;
++		}				
+ 	}
+ 
+-
+ 	if (h.s) pkg_free(h.s);
+ 	return 1;
+ 
+@@ -282,24 +355,31 @@
+ {
+ 	str req_uri;
+ 	int expires;
++	r_subscription *s=0;
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_subscribe_response: code %d\n&quot;,ps-&gt;code);
+ 	if (!ps-&gt;rpl) {
+ 		LOG(L_ERR,&quot;INF:&quot;M_NAME&quot;:r_subscribe_response: No reply\n&quot;);
+ 		return;	
+ 	}
++	req_uri = *((str*) *(ps-&gt;param));		
++	s = get_r_subscription(req_uri);
++	if (!s){
++		LOG(L_ERR,&quot;INF:&quot;M_NAME&quot;:r_subscribe_response: received a SUBSCRIBE response but no subscription for &lt;%.*s&gt;\n&quot;,
++			req_uri.len,req_uri.s);
++		return;
++	}
+ 	if (ps-&gt;code&gt;=200 &amp;&amp; ps-&gt;code&lt;300){
+-		if (ps-&gt;rpl)
+-			expires = cscf_get_expires_hdr(ps-&gt;rpl);
+-		else 
+-			return;	
+-		req_uri = *((str*) *(ps-&gt;param));
+-		update_r_subscription(req_uri,expires);
++		expires = cscf_get_expires_hdr(ps-&gt;rpl);
++		update_r_subscription(s,expires);
++		tmb.dlg_response_uac(s-&gt;dialog, ps-&gt;rpl, IS_TARGET_REFRESH);
+ 	}else
+-	if (ps-&gt;code==404){
+-		update_r_subscription(req_uri,-1);			
+-	}else{
+-		LOG(L_INFO,&quot;INF:&quot;M_NAME&quot;:r_subscribe_response: code %d\n&quot;,ps-&gt;code);				
+-	}	
++		if (ps-&gt;code==404){
++			update_r_subscription(s,0);			
++			//tmb.dlg_response_uac(s-&gt;dialog, ps-&gt;rpl, IS_TARGET_REFRESH);
++		}else{
++			LOG(L_INFO,&quot;INF:&quot;M_NAME&quot;:r_subscribe_response: SUBSCRIRE response code %d ignored\n&quot;,ps-&gt;code);				
++		}	
++	if (s) subs_unlock(s-&gt;hash);		
+ }
+ 
+ /**
+@@ -310,47 +390,52 @@
+ void subscription_timer(unsigned int ticks, void* param)
+ {
+ 	r_subscription *s,*ns;
+-	lock_get(subscription_list-&gt;lock);
+-	s = subscription_list-&gt;head;
+-	r_act_time();
+-	while(s){
+-		ns = s-&gt;next;
+-		/* send initial subscribe */
+-		if (s-&gt;expires == 0){
+-			if (s-&gt;attempts&gt;=pcscf_subscribe_retries){
++	int i;
++	for(i=0;i&lt;subscriptions_hash_size;i++){
++		subs_lock(i);
++		s = subscriptions[i].head;
++		r_act_time();
++		while(s){
++			ns = s-&gt;next;			
++			if (s-&gt;attempts_left &gt; 0 ){
++				/* attempt to send a subscribe */
++				if (!r_send_subscribe(s,s-&gt;duration)){
++					LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:subscription_timer: Error on SUBSCRIBE (%d times)... droping\n&quot;,
++						pcscf_subscribe_retries);
++					del_r_subscription_nolock(s);
++				}else{
++					s-&gt;attempts_left--;
++				}
++			}else if (s-&gt;attempts_left==0) {
++				/* we failed to many times, drop the subscription */
+ 				LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:subscription_timer: Error on SUBSCRIBE for %d times... aborting\n&quot;,pcscf_subscribe_retries);
+-				del_r_subscription_nolock(s);			
+-			}else
+-			if (!r_send_subscribe(s,s-&gt;duration)){
+-				LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:subscription_timer: Error on initial SUBSCRIBE... droping\n&quot;);
+-				del_r_subscription_nolock(s);
++				del_r_subscription_nolock(s);										
+ 			}else{
+-				s-&gt;attempts ++;
++				/* we are subscribed already */
++				/* if expired, drop it */
++				if (s-&gt;expires&lt;time_now) 
++					del_r_subscription_nolock(s);
++				/* if not expired, check for renewal */
++//		Commented as the S-CSCF should adjust the subscription time accordingly				
++//				if ((s-&gt;duration&lt;1200 &amp;&amp; s-&gt;expires-time_now&lt;s-&gt;duration/2)||
++//					(s-&gt;duration&gt;=1200 &amp;&amp; s-&gt;expires-time_now&lt;600))
++//				{
++//					/* if we need a resubscribe, we mark it as such and try to subscribe again */					
++//					s-&gt;attempts_left = pcscf_subscribe_retries;
++//					ns = s;
++//				}
+ 			}
+-		}else
+-		if ((s-&gt;duration&lt;1200 &amp;&amp; s-&gt;expires-time_now&lt;s-&gt;duration/2)||
+-			(s-&gt;duration&gt;=1200 &amp;&amp; s-&gt;expires-time_now&lt;600))
+-		{
+-			if (s-&gt;attempts&gt;=3){
+-				LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:subscription_timer: Error on SUBSCRIBE for 3 times... aborting\n&quot;);
+-				del_r_subscription_nolock(s);			
+-			}else
+-			if (!r_send_subscribe(s,s-&gt;duration)){
+-				LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:subscription_timer: Error on initial SUBSCRIBE... droping\n&quot;);
+-				del_r_subscription_nolock(s);
+-			}else{
+-				del_r_subscription_nolock(s);			
+-				s-&gt;attempts++;
+-			}
+-		}
+-
+-		s = ns;
+-	}	
+-	lock_release(subscription_list-&gt;lock);
++			s = ns;
++		}	
++		subs_unlock(i);
++	}
++	print_subs(L_INFO);
+ }
+ 
+ 
+ 
++
++
+ /**
+  * Creates a subscription based on the given parameters.
+  * @param req_uri - the AOR of the user to subcribe to
+@@ -359,7 +444,7 @@
+  * @param asserted_identity - P-Asserted-Identity-Header to use
+  * @returns the r_notification or NULL on error
+  */
+-r_subscription* new_r_subscription(str req_uri,str from,int duration,str asserted_identity)
++r_subscription* new_r_subscription(str req_uri,int duration)
+ {
+ 	r_subscription *s=0;
+ 	
+@@ -373,22 +458,13 @@
+ 	
+ 	STR_SHM_DUP(s-&gt;req_uri,req_uri,&quot;new_r_subscription&quot;);
+ 	if (!s-&gt;req_uri.s) goto error;
+-	
+-	STR_SHM_DUP(s-&gt;from,from,&quot;new_r_subscription&quot;);
+-	if (!s-&gt;from.s) goto error;
+-	
++		
+ 	s-&gt;duration = duration;
+ 	s-&gt;expires = 0;
+ 	
+-	STR_SHM_DUP(s-&gt;asserted_identity,asserted_identity,&quot;new_r_subscription&quot;);
+-	if (!s-&gt;asserted_identity.s) goto error;
+-	
+-	
+ 	return s;
+ error:
+ 	if (s-&gt;req_uri.s) shm_free(s-&gt;req_uri.s);
+-	if (s-&gt;from.s) shm_free(s-&gt;from.s);
+-	if (s-&gt;asserted_identity.s) shm_free(s-&gt;asserted_identity.s);
+ 	if (s) shm_free(s);	
+ 	return 0;
+ }
+@@ -400,16 +476,14 @@
+ void add_r_subscription(r_subscription *s)
+ {
+ 	if (!s) return;
+-	lock_get(subscription_list-&gt;lock);
+-	s-&gt;next = 0;
+-	s-&gt;prev = subscription_list-&gt;tail;
+-	if (subscription_list-&gt;tail) {
+-		subscription_list-&gt;tail-&gt;next = s;
+-		subscription_list-&gt;tail = s;
+-	}
+-	else subscription_list-&gt;tail = s;
+-	if (!subscription_list-&gt;head) subscription_list-&gt;head = s;		
+-	lock_release(subscription_list-&gt;lock);
++	s-&gt;hash = get_subscription_hash(s-&gt;req_uri);
++	subs_lock(s-&gt;hash);
++		s-&gt;next = 0;
++		s-&gt;prev = subscriptions[s-&gt;hash].tail;
++		if (subscriptions[s-&gt;hash].tail) subscriptions[s-&gt;hash].tail-&gt;next = s;			
++		subscriptions[s-&gt;hash].tail = s;
++		if (!subscriptions[s-&gt;hash].head) subscriptions[s-&gt;hash].head = s;		
++	subs_unlock(s-&gt;hash);
+ }
+ 
+ /**
+@@ -419,54 +493,62 @@
+  * @param expires - new expiration time
+  * @returns 1 if found, 0 if not
+  */
+-int update_r_subscription(str aor,int expires)
++int update_r_subscription(r_subscription *s,int expires)
+ {
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:update_r_subscription: refreshing subscription for &lt;%.*s&gt; [%d]\n&quot;,
++		s-&gt;req_uri.len,s-&gt;req_uri.s,expires);
++	s-&gt;attempts_left = -1;
++	if (expires == 0) del_r_subscription_nolock(s);
++	else s-&gt;expires = expires+time_now;;
++	subs_unlock(s-&gt;hash);	
++	return 1;
++}
++
++/**
++ * Returns a subscription if it exists
++ * \note - this returns with a lock on the subscriptions[s-&gt;hash] if found. Don't forget to unlock when done!!!
++ * @param aor - AOR to look for
++ * @returns 1 if found, 0 if not
++ */
++r_subscription* get_r_subscription(str aor)
++{
+ 	r_subscription *s;
+-	lock_get(subscription_list-&gt;lock);
+-	s = subscription_list-&gt;head;
+-	r_act_time();
+-	while(s){
+-		if (s-&gt;req_uri.len == aor.len &amp;&amp;
+-			strncasecmp(s-&gt;req_uri.s,aor.s,aor.len)==0)
+-		{
+-			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:update_r_subscription: refreshing subscription for &lt;%.*s&gt; [%d]\n&quot;,
+-				aor.len,aor.s,expires);
+-			s-&gt;attempts = 0;
+-			if (expires == 0){
+-				del_r_subscription_nolock(s);
+-			}else{
+-				s-&gt;expires = expires+time_now;;
++	unsigned int hash = get_subscription_hash(aor);
++	subs_lock(hash);
++		s = subscriptions[hash].head;
++		while(s){
++			if (s-&gt;req_uri.len == aor.len &amp;&amp;
++				strncasecmp(s-&gt;req_uri.s,aor.s,aor.len)==0)
++			{
++				return s;
+ 			}
+-			lock_release(subscription_list-&gt;lock);	
+-			return 1;
++			s = s-&gt;next;
+ 		}
+-		s = s-&gt;next;
+-	}
+-	lock_release(subscription_list-&gt;lock);	
++	subs_unlock(hash);	
+ 	return 0;
+ }
+ 
+ /**
+  * Finds out if a subscription exists
+- * \todo Maybe we should use a hash here to index it as this is called for every notification
+  * @param aor - AOR to look for
+  * @returns 1 if found, 0 if not
+  */
+ int is_r_subscription(str aor)
+ {
+ 	r_subscription *s;
+-	lock_get(subscription_list-&gt;lock);
+-	s = subscription_list-&gt;head;
+-	while(s){
+-		if (s-&gt;req_uri.len == aor.len &amp;&amp;
+-			strncasecmp(s-&gt;req_uri.s,aor.s,aor.len)==0)
+-		{
+-			lock_release(subscription_list-&gt;lock);	
+-			return 1;
++	unsigned int hash = get_subscription_hash(aor);
++	subs_lock(hash);
++		s = subscriptions[hash].head;
++		while(s){
++			if (s-&gt;req_uri.len == aor.len &amp;&amp;
++				strncasecmp(s-&gt;req_uri.s,aor.s,aor.len)==0)
++			{
++				subs_unlock(hash);	
++				return 1;
++			}
++			s = s-&gt;next;
+ 		}
+-		s = s-&gt;next;
+-	}
+-	lock_release(subscription_list-&gt;lock);	
++	subs_unlock(hash);	
+ 	return 0;
+ }
+ 
+@@ -477,12 +559,12 @@
+ void del_r_subscription(r_subscription *s)
+ {
+ 	if (!s) return;
+-	lock_get(subscription_list-&gt;lock);
+-	if (subscription_list-&gt;head == s) subscription_list-&gt;head = s-&gt;next;
+-	else s-&gt;prev-&gt;next = s-&gt;next;
+-	if (subscription_list-&gt;tail == s) subscription_list-&gt;tail = s-&gt;prev;
+-	else s-&gt;next-&gt;prev = s-&gt;prev;
+-	lock_release(subscription_list-&gt;lock);
++	subs_lock(s-&gt;hash);
++		if (subscriptions[s-&gt;hash].head == s) subscriptions[s-&gt;hash].head = s-&gt;next;
++		else s-&gt;prev-&gt;next = s-&gt;next;
++		if (subscriptions[s-&gt;hash].tail == s) subscriptions[s-&gt;hash].tail = s-&gt;prev;
++		else s-&gt;next-&gt;prev = s-&gt;prev;
++	subs_unlock(s-&gt;hash);
+ 	free_r_subscription(s);
+ }
+ 
+@@ -494,9 +576,9 @@
+ void del_r_subscription_nolock(r_subscription *s)
+ {
+ 	if (!s) return;
+-	if (subscription_list-&gt;head == s) subscription_list-&gt;head = s-&gt;next;
++	if (subscriptions[s-&gt;hash].head == s) subscriptions[s-&gt;hash].head = s-&gt;next;
+ 	else s-&gt;prev-&gt;next = s-&gt;next;
+-	if (subscription_list-&gt;tail == s) subscription_list-&gt;tail = s-&gt;prev;
++	if (subscriptions[s-&gt;hash].tail == s) subscriptions[s-&gt;hash].tail = s-&gt;prev;
+ 	else s-&gt;next-&gt;prev = s-&gt;prev;
+ 	free_r_subscription(s);
+ }
+@@ -509,12 +591,29 @@
+ {
+ 	if (s){
+ 		if (s-&gt;req_uri.s) shm_free(s-&gt;req_uri.s);
+-		if (s-&gt;from.s) shm_free(s-&gt;from.s);
+-		if (s-&gt;asserted_identity.s) shm_free(s-&gt;asserted_identity.s);
++		if (s-&gt;dialog) tmb.free_dlg(s-&gt;dialog);
+ 		shm_free(s);
+ 	}
+ }
+ 
++void print_subs(int log_level)
++{
++	r_subscription *s;
++	int i;
++	LOG(log_level,ANSI_GREEN&quot;INF:&quot;M_NAME&quot;:----------  Subscription list begin ---------\n&quot;);
++	for(i=0;i&lt;subscriptions_hash_size;i++){
++		subs_lock(i);
++		s = subscriptions[i].head;
++		r_act_time();
++		while(s){
++			LOG(log_level,ANSI_GREEN&quot;INF:&quot;M_NAME&quot;:[%4u]\tP: &lt;&quot;ANSI_BLUE&quot;%.*s&quot;ANSI_GREEN&quot;&gt; D:[&quot;ANSI_CYAN&quot;%5d&quot;ANSI_GREEN&quot;] E:[&quot;ANSI_MAGENTA&quot;%5d&quot;ANSI_GREEN&quot;] Att:[%2d]\n&quot;,
++				s-&gt;hash,s-&gt;req_uri.len,s-&gt;req_uri.s,s-&gt;duration,(int)(s-&gt;expires-time_now),s-&gt;attempts_left);
++			s = s-&gt;next;			
++		}
++		subs_unlock(i);
++	}
++	LOG(log_level,ANSI_GREEN&quot;INF:&quot;M_NAME&quot;:----------  Subscription list end -----------\n&quot;);	
++}
+ 
+ 
+ 
+@@ -523,7 +622,6 @@
+ 
+ 
+ 
+-
+ char *pcscf_reginfo_dtd;/**&lt; DTD to check the reginfo/xml in the NOTIFY to reg */
+ 
+ static xmlDtdPtr	dtd=0;	/**&lt; DTD file */
+@@ -782,6 +880,7 @@
+ 	struct sip_uri puri;
+ 	enum Reg_States reg_state;
+ 	int expires2;
++	r_subscription *s=0;
+ 	
+ 	r_notification_print(n);	
+ 	if (!n) return 0;
+@@ -823,8 +922,11 @@
+ next:				
+ 			rc = rc-&gt;next;	
+ 		}
+-		
+-		update_r_subscription(r-&gt;aor,expires);
++		s = get_r_subscription(r-&gt;aor);
++		if (s){
++			update_r_subscription(s,expires);
++			subs_unlock(s-&gt;hash);
++		}
+ 		r = r-&gt;next;
+ 	}
+ 
+@@ -841,14 +943,14 @@
+ 	r_regcontact *c;
+ 	
+ 	if (!n) return;
+-	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_notification_process: State %d\n&quot;,n-&gt;state);
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_notification_print: State %d\n&quot;,n-&gt;state);
+ 	r = n-&gt;registration;
+ 	while(r){
+-		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_notification_process: \tR [%d] ID&lt;%.*s&gt; AOR&lt;%.*s&gt;\n&quot;,r-&gt;state,
++		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_notification_print: \tR [%d] ID&lt;%.*s&gt; AOR&lt;%.*s&gt;\n&quot;,r-&gt;state,
+ 			r-&gt;id.len,r-&gt;id.s,r-&gt;aor.len,r-&gt;aor.s);
+ 		c = r-&gt;contact;
+ 		while(c){
+-			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_notification_process: \t\tC [%d]&gt;[%d] ID&lt;%.*s&gt; URI&lt;%.*s&gt;\n&quot;,c-&gt;state,
++			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_notification_print: \t\tC [%d]&gt;[%d] ID&lt;%.*s&gt; URI&lt;%.*s&gt;\n&quot;,c-&gt;state,
+ 				c-&gt;event,c-&gt;id.len,c-&gt;id.s,c-&gt;uri.len,c-&gt;uri.s);
+ 			c = c-&gt;next;
+ 		}
+
+Modified: ser_ims/trunk/modules/pcscf/registrar_subscribe.h
+===================================================================
+--- ser_ims/trunk/modules/pcscf/registrar_subscribe.h	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/pcscf/registrar_subscribe.h	2007-03-01 14:06:01 UTC (rev 161)
+@@ -90,12 +90,13 @@
+ 
+ /** reg Subscription Structure */
+ typedef struct _r_subscription {
+-	str req_uri;		/**&lt; public id of the user, same thing for To: 	*/
+-	str from;			/**&lt; own uri									*/
+-	int duration;		/**&lt; duration of subscription					*/
+-	int expires;		/**&lt; time of expiration							*/
+-	int attempts;		/**&lt; number of unsuccesful attempts to subscribe*/
+-	str asserted_identity; /**&lt; uri inserted into path					*/ 
++	unsigned int hash;
++	str req_uri;			/**&lt; public id of the user, same thing for To: 	*/
++	int duration;			/**&lt; duration of subscription					*/
++	time_t expires;			/**&lt; time of expiration							*/
++	char attempts_left;		/**&lt; number of unsuccesful attempts to subscribe*/
++
++	dlg_t *dialog; 
+ 		
+ 	struct _r_subscription *next, *prev;
+ } r_subscription;
+@@ -105,10 +106,11 @@
+ 	gen_lock_t *lock;		/**&lt; lock fo subscription list operations 	*/
+ 	r_subscription *head;	/**&lt; first subscription in the list			*/
+ 	r_subscription *tail;	/**&lt; last subscription in the list			*/ 
+-} r_subscription_list;
++} r_subscription_hash_slot;
+ 
+-
+- 
++void subs_lock(unsigned int hash);
++void subs_unlock(unsigned int hash);
++unsigned int get_subscription_hash(str uri);
+ int r_subscription_init();
+ void r_subscription_destroy();
+ 
+@@ -126,13 +128,15 @@
+ 
+ void subscription_timer(unsigned int ticks, void* param);
+ 
+-r_subscription* new_r_subscription(str req_uri,str from,int duration,str asserted_identity);
++r_subscription* new_r_subscription(str req_uri,int duration);
+ void add_r_subscription(r_subscription *s);
+-int update_r_subscription(str aor,int expires);
++int update_r_subscription(r_subscription *s,int expires);
++r_subscription* get_r_subscription(str aor);
+ int is_r_subscription(str aor);
+ void del_r_subscription(r_subscription *s);
+ void del_r_subscription_nolock(r_subscription *s);
+ void free_r_subscription(r_subscription *s);
++void print_subs(int log_level);
+ 
+ /** reg Contact structure */
+ typedef struct _r_regcontact {
+
+Modified: ser_ims/trunk/modules/pcscf/sdp_util.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/sdp_util.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/pcscf/sdp_util.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -312,25 +312,25 @@
+ 
+ 
+ 
+-static int sdp_1918(struct sip_msg* msg)
+-{
+-	str body, ip;
+-	int pf;
++//static int sdp_1918(struct sip_msg* msg)
++//{
++//	str body, ip;
++//	int pf;
++//
++//	if (extract_body(msg, &amp;body) == -1) {
++//		LOG(L_ERR,&quot;ERROR: sdp_1918: cannot extract body from msg!\n&quot;);
++//		return 0;
++//	}
++//	if (extract_mediaip(&amp;body, &amp;ip, &amp;pf) == -1) {
++//		LOG(L_ERR, &quot;ERROR: sdp_1918: can't extract media IP from the SDP\n&quot;);
++//		return 0;
++//	}
++//	if (pf != AF_INET || isnulladdr(&amp;ip, pf))
++//		return 0;
++//
++//	return (is1918addr(&amp;ip) == 1) ? 1 : 0;
++//}
+ 
+-	if (extract_body(msg, &amp;body) == -1) {
+-		LOG(L_ERR,&quot;ERROR: sdp_1918: cannot extract body from msg!\n&quot;);
+-		return 0;
+-	}
+-	if (extract_mediaip(&amp;body, &amp;ip, &amp;pf) == -1) {
+-		LOG(L_ERR, &quot;ERROR: sdp_1918: can't extract media IP from the SDP\n&quot;);
+-		return 0;
+-	}
+-	if (pf != AF_INET || isnulladdr(&amp;ip, pf))
+-		return 0;
+-
+-	return (is1918addr(&amp;ip) == 1) ? 1 : 0;
+-}
+-
+ static int alter_mediaip(struct sip_msg *msg, str *body, str *oldip, int oldpf,
+   			str *newip, int newpf, int preserve)
+ {
+
+Modified: ser_ims/trunk/modules/scscf/Makefile
+===================================================================
+--- ser_ims/trunk/modules/scscf/Makefile	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/scscf/Makefile	2007-03-01 14:06:01 UTC (rev 161)
+@@ -12,8 +12,8 @@
+ NAME=scscf.so
+ 
+ 
+-DEFS += -I/usr/include/libxml2
+-LIBS += -lxml2
++DEFS += -I/usr/include/libxml2 -I../../lib -DSER -I../..
++LIBS += -lxml2 -L../../lib/cds -l_ser_cds
+ 
+ include ../../Makefile.modules
+ 
+
+Copied: ser_ims/trunk/modules/scscf/bin.c (from rev 159, ser_ims/branches/01_persistency/modules/scscf/bin.c)
+
+Copied: ser_ims/trunk/modules/scscf/bin.h (from rev 159, ser_ims/branches/01_persistency/modules/scscf/bin.h)
+
+Copied: ser_ims/trunk/modules/scscf/bin_scscf.c (from rev 159, ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c)
+
+Copied: ser_ims/trunk/modules/scscf/bin_scscf.h (from rev 159, ser_ims/branches/01_persistency/modules/scscf/bin_scscf.h)
+
+Modified: ser_ims/trunk/modules/scscf/dlg_state.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/dlg_state.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/scscf/dlg_state.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -697,12 +697,12 @@
+ 					if (req &amp;&amp; req-&gt;first_line.u.request.method.len==6 &amp;&amp;
+ 						strncasecmp(req-&gt;first_line.u.request.method.s,&quot;NOTIFY&quot;,6)==0){
+ 						expires = cscf_get_subscription_state(req);
+-						if (expires==-2){						
++						if (expires==0){						
+ 							d-&gt;state = DLG_STATE_TERMINATED;
+ 							d_unlock(d-&gt;hash);				
+ 							return S_drop_dialog(msg,str1,str2);
+ 						}
+-					}else if (expires&gt;=0){
++					}else if (expires&gt;0){
+ 						d-&gt;expires = expires;
+ 					}
+ 					break;
+
+Modified: ser_ims/trunk/modules/scscf/ifc_datastruct.h
+===================================================================
+--- ser_ims/trunk/modules/scscf/ifc_datastruct.h	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/scscf/ifc_datastruct.h	2007-03-01 14:06:01 UTC (rev 161)
+@@ -66,7 +66,7 @@
+ {
+ 	str header;				/**&lt; name of the header to match	*/
+ 	str content;			/**&lt; regex to match             	*/
+-	int type;				/**&lt; if known header, precalculated	*/
++	short type;				/**&lt; if known header, precalculated	*/
+ } ims_sip_header;
+ 
+ 
+@@ -107,18 +107,18 @@
+ /** Service Point Trigger Structure */
+ typedef struct _ims_spt
+ {
+-	int condition_negated;				/**&lt; if to negate entire condition	*/
++	char condition_negated;				/**&lt; if to negate entire condition	*/
+ 	int group;			 			  	/**&lt; group to which it belongs		*/
+-	int type;							/**&lt; type of condition				*/
++	char type;							/**&lt; type of condition				*/
+ 	union
+ 	{
+ 		str request_uri;				/**&lt; Request URI regex				*/
+ 		str method;						/**&lt; the SIP method should be this	*/
+ 		ims_sip_header sip_header;		/**&lt; match of a certain SIP header	*/
+-		int session_case;				/**&lt; session direction and case		*/
++		char session_case;				/**&lt; session direction and case		*/
+ 		ims_session_desc session_desc;	/**&lt; session description match 		*/
+ 	};									/**&lt; union for SPT 					*/
+-	int registration_type;				/**&lt; set of registration types		*/
++	char registration_type;				/**&lt; set of registration types		*/
+ } ims_spt;
+ 
+ /** Conjunctive Normal Format */
+@@ -129,9 +129,9 @@
+ /** Trigger Point Structure */
+ typedef struct _ims_trigger_point
+ {
+-	int condition_type_cnf;	/**&lt; if it's CNF or DNF     		*/
++	char condition_type_cnf;	/**&lt; if it's CNF or DNF     		*/
+ 	ims_spt *spt;			/**&lt; service point triggers 1..n 		*/
+-	int spt_cnt;			/**&lt; number of service point triggers 	*/
++	unsigned short spt_cnt;			/**&lt; number of service point triggers 	*/
+ } ims_trigger_point;
+ 
+ /** No default handling */
+@@ -145,14 +145,14 @@
+ typedef struct _ims_application_server
+ {
+ 	str server_name;			/**&lt; SIP URL of the app server                      */
+-	int default_handling;		/**&lt; enum SESSION_CONTINUED SESSION_TERMINATED 0..1 */
++	char default_handling;		/**&lt; enum SESSION_CONTINUED SESSION_TERMINATED 0..1 */
+ 	str service_info;			/**&lt; optional info to be sent to AS 0..1            */
+ } ims_application_server;
+ 
+ /** Public Identity Structure */
+ typedef struct {
++	char barring;				/**&lt; Barring state									*/
+ 	str public_identity;		/**&lt; Public Identity string							*/
+-	int barring;				/**&lt; Barring state									*/
+ } ims_public_identity;
+ 
+ /** Initial Filter Criteria Structure */
+@@ -161,10 +161,10 @@
+ 	int priority;								/**&lt; checking priority, lower means more important */
+ 	ims_trigger_point *trigger_point;			/**&lt; definition of trigger 0..1 */
+ 	ims_application_server application_server;	/**&lt; target of the trigger   */
+-	int *profile_part_indicator;				/**&lt; profile part indicator 0..1 */	
++	char *profile_part_indicator;				/**&lt; profile part indicator 0..1 */	
+ } ims_filter_criteria;
+ 
+-/** CoreNetowkr Service Authorization */
++/** CoreNetwork Service Authorization */
+ typedef struct _ims_cn_service_auth
+ {
+ 	int subscribed_media_profile_id;	/* must be &gt;=0 */
+@@ -173,22 +173,22 @@
+ /** Service Profile Structure */
+ typedef struct {
+ 	ims_public_identity *public_identities;	/**&lt; array of public identities		*/
+-	int public_identities_cnt;				/**&lt; number of public identities	*/
++	unsigned short public_identities_cnt;				/**&lt; number of public identities	*/
+ 
+ 	ims_filter_criteria *filter_criteria;	/**&lt; vector of filter criteria 0..n */
+-	int filter_criteria_cnt;				/**&lt; size of the vector above		*/
++	unsigned short filter_criteria_cnt;				/**&lt; size of the vector above		*/
+ 
+ 	ims_cn_service_auth *cn_service_auth;	/**&lt; core net. services auth. 0..1	*/
+ 
+ 	int *shared_ifc_set;					/**&lt; shared ifc set ids 0..n 		*/
+-	int shared_ifc_set_cnt;					/**&lt; size of above vector 			*/	
++	unsigned short shared_ifc_set_cnt;					/**&lt; size of above vector 			*/	
+ } ims_service_profile;
+ 
+ /** User Subscription Structure */ 
+ typedef struct {	
+ 	str private_identity;					/**&lt; private identity 				*/
+ 	ims_service_profile *service_profiles;	/**&lt; array of service profiles		*/
+-	int service_profiles_cnt;				/**&lt; size of the array above		*/
++	unsigned short service_profiles_cnt;				/**&lt; size of the array above		*/
+ 		
+ 	int ref_count;							/**&lt; referenced count 				*/
+ 	gen_lock_t *lock;						/**&lt; lock for operations on it 		*/
+
+Modified: ser_ims/trunk/modules/scscf/mod.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/mod.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/scscf/mod.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -58,11 +58,13 @@
+ 
+ #include &quot;mod.h&quot;
+ 
++#include &quot;../../db/db.h&quot;
+ #include &quot;../../sr_module.h&quot;
+ #include &quot;../../timer.h&quot;
+ #include &quot;../../locking.h&quot;
+ #include &quot;../tm/tm_load.h&quot;
+ #include &quot;../cdp/cdp_load.h&quot;
++#include &quot;../dialog/dlg_mod.h&quot;
+ 
+ #include &quot;registration.h&quot;
+ #include &quot;registrar.h&quot;
+@@ -72,6 +74,7 @@
+ #include &quot;cx.h&quot;
+ #include &quot;scscf_load.h&quot;
+ #include &quot;dlg_state.h&quot;
++#include &quot;s_persistency.h&quot;
+ 
+ MODULE_VERSION
+ 
+@@ -83,12 +86,12 @@
+ /* parameters storage */
+ char* scscf_name=&quot;sip:scscf.open-ims.test:6060&quot;;	/**&lt; name of the S-CSCF */
+ 
+-char* scscf_aaa_peer=&quot;hss.open-ims.test&quot;;/**&lt; FQDN of the Diameter Peer (HSS) 			*/
++char* scscf_aaa_peer=&quot;hss.open-ims.test&quot;;/**&lt; FQDN of the Diameter Peer (HSS) */
+ 
+ char *scscf_user_data_dtd=0; 			/* Path to &quot;CxDataType.dtd&quot; 	 							*/
+ char *scscf_user_data_xsd=0; 			/* Path to &quot;CxDataType_Rel6.xsd&quot; or &quot;CxDataType_Rel7.xsd&quot;	*/
+ 
+-int auth_data_hash_size=1024;			/**&lt; the size of the hash table 				*/
++int auth_data_hash_size=1024;			/**&lt; the size of the hash table 							*/
+ int auth_vector_timeout=60;				/**&lt; timeout for a sent auth vector to expire in sec 		*/
+ int auth_data_timeout=60;				/**&lt; timeout for a hash entry to expire when empty in sec 	*/
+ int av_request_at_once=1;				/**&lt; how many auth vectors to request in a MAR 				*/
+@@ -100,8 +103,8 @@
+ int registration_default_expires=3600;	/**&lt; the default value for expires if none found*/
+ int registration_min_expires=10;		/**&lt; minimum registration expiration time 		*/
+ int registration_max_expires=1000000;	/**&lt; maximum registration expiration time 		*/
+-char* registration_default_algorithm=&quot;AKAv1-MD5&quot;;	/**&lt; default algorithm for registration (if none present)	*/
+-str registration_default_algorithm_s={0,0};	/**&lt; fixed default algorithm for registration (if none present)	*/
++char* registration_default_algorithm=&quot;AKAv1-MD5&quot;;	/**&lt; default algorithm for registration (if none present)*/
++str registration_default_algorithm_s={0,0};	/**&lt; fixed default algorithm for registration (if none present)	 */
+ 
+ int subscription_default_expires=3600;	/**&lt; the default value for expires if none found*/
+ int subscription_min_expires=10;		/**&lt; minimum subscription expiration time 		*/
+@@ -113,19 +116,35 @@
+ int scscf_dialogs_hash_size=256;		/**&lt; size of the dialog hash table 				*/
+ int scscf_dialogs_expiration_time=3600;	/**&lt; default expiration time for dialogs		*/
+ 
++persistency_mode_t scscf_persistency_mode=NO_PERSISTENCY;			/**&lt; the type of persistency				*/
++char* scscf_persistency_location=&quot;/opt/OpenIMSCore/persistency&quot;;	/**&lt; where to dump the persistency data 	*/
++int scscf_persistency_timer_authdata=60;							/**&lt; interval to snapshot authorization data*/ 
++int scscf_persistency_timer_dialogs=60;								/**&lt; interval to snapshot dialogs data		*/ 
++int scscf_persistency_timer_registrar=60;							/**&lt; interval to snapshot registrar data	*/ 
++char* scscf_db_url=&quot;<A HREF="postgres://mario:mario@localhost/scscfdb">postgres://mario:mario@localhost/scscfdb</A>&quot;;
++int* auth_snapshot_version=0;	/**&lt; the version of the next auth snapshot on the db*/
++int* auth_step_version=0;	/**&lt; the step version within the current auth snapshot version*/
++int* dialogs_snapshot_version=0; /**&lt; the version of the next dialogs snapshot on the db*/
++int* dialogs_step_version=0; /**&lt; the step version within the current dialogs snapshot version*/
++int* registrar_snapshot_version=0; /**&lt; the version of the next registrar snapshot on the db*/
++int* registrar_step_version=0; /**&lt; the step version within the current registrar snapshot version*/
++
++gen_lock_t* db_lock; /**&lt; lock for db access*/
++
+ /* fixed parameter storage */
+-str scscf_name_str;						/**&lt; fixed name of the S-CSCF 					*/
+-str scscf_record_route_mo;				/**&lt; the record route header for Mobile Originating */
+-str scscf_record_route_mt;				/**&lt; the record route header for Mobile Terminating */
+-str scscf_record_route_mo_uri;			/**&lt; just the record route uri for Mobile Originating */
+-str scscf_record_route_mt_uri;			/**&lt; just the record route uri for Mobile Terminating */
+-str scscf_service_route;				/**&lt; the service route header					*/
+-str scscf_service_route_uri;			/**&lt; just the service route uri 				*/
+-str scscf_registration_min_expires;		/**&lt; fixed minimum registration expiration time */
+-str scscf_subscription_min_expires;		/**&lt; fixed minimum subscription expiration time */
+-str scscf_aaa_peer_str;					/**&lt; fixed FQDN of the Diameter Peer (HSS) 		*/
++str scscf_name_str;						/**&lt; fixed name of the S-CSCF 							*/
++str scscf_record_route_mo;				/**&lt; the record route header for Mobile Originating 	*/
++str scscf_record_route_mt;				/**&lt; the record route header for Mobile Terminating 	*/
++str scscf_record_route_mo_uri;			/**&lt; just the record route uri for Mobile Originating 	*/
++str scscf_record_route_mt_uri;			/**&lt; just the record route uri for Mobile Terminating 	*/
++str scscf_service_route;				/**&lt; the service route header							*/
++str scscf_service_route_uri;			/**&lt; just the service route uri 						*/
++str scscf_registration_min_expires;		/**&lt; fixed minimum registration expiration time 		*/
++str scscf_subscription_min_expires;		/**&lt; fixed minimum subscription expiration time 		*/
++str scscf_aaa_peer_str;					/**&lt; fixed FQDN of the Diameter Peer (HSS) 				*/
+ 
+-int * callback_singleton;				/**&lt; Cx callback singleton 						*/
++int * callback_singleton;				/**&lt; Cx callback singleton 								*/
++int * shutdown_singleton;				/**&lt; Shutdown singleton 								*/
+ 
+ /** 
+  * Exported functions.
+@@ -241,7 +260,13 @@
+  * - append-branches - if to fork the requests on multiple contacts
+  * &lt;p&gt;
+  * - dialogs_hash_size - size of the dialogs hash table 
+- * - dialogs_expiration_time - default dialogs expiration time 
++ * - dialogs_expiration_time - default dialogs expiration time
++ * &lt;p&gt;
++ * - persistency_mode - how to do persistency - 0 none; 1 with files; 2 with db	
++ * - persistency_location - where to dump/load the persistency data to/from
++ * - persistency_timer_authdata - interval to make authorization data snapshots at
++ * - persistency_timer_dialogs - interval to make dialogs data snapshots at
++ * - persistency_timer_registrar - interval to make registrar snapshots at
+  */	
+ static param_export_t scscf_params[]={ 
+ 	{&quot;name&quot;, 							STR_PARAM, &amp;scscf_name},
+@@ -274,6 +299,12 @@
+ 	{&quot;dialogs_hash_size&quot;, 				INT_PARAM, &amp;scscf_dialogs_hash_size},
+ 	{&quot;dialogs_expiration_time&quot;, 		INT_PARAM, &amp;scscf_dialogs_expiration_time},
+ 	
++	{&quot;persistency_mode&quot;,	 			INT_PARAM, &amp;scscf_persistency_mode},	
++	{&quot;persistency_location&quot;, 			STR_PARAM, &amp;scscf_persistency_location},
++	{&quot;persistency_timer_authdata&quot;,		INT_PARAM, &amp;scscf_persistency_timer_authdata},
++	{&quot;persistency_timer_dialogs&quot;,		INT_PARAM, &amp;scscf_persistency_timer_dialogs},
++	{&quot;persistency_timer_registrar&quot;,		INT_PARAM, &amp;scscf_persistency_timer_registrar},
++	{&quot;scscf_db_url&quot;,					STR_PARAM, &amp;scscf_db_url},
+ 	{0,0,0} 
+ };
+ 
+@@ -298,13 +329,17 @@
+ 
+ struct tm_binds tmb;							/**&lt; Structure with pointers to tm funcs 				*/
+ struct cdp_binds cdpb;							/**&lt; Structure with pointers to cdp funcs				*/
++dlg_func_t dialogb;								/**&lt; Structure with pointers to dialog funcs			*/
+ 
+-extern auth_data *Auth_data;					/**&lt; authentication vectors hast table 					*/
++extern auth_hash_slot_t *auth_data;				/**&lt; authentication vectors hast table 					*/
+ extern r_hash_slot *registrar;					/**&lt; the S-CSCF registrar								*/
+ extern r_notification_list *notification_list; 	/**&lt; list of notifications for reg to be sent			*/
+ 
+ extern s_dialog_hash_slot *s_dialogs;			/**&lt; the dialogs hash table								*/
+ 
++/** database */
++db_con_t* scscf_db = NULL; /**&lt; Database connection handle */
++db_func_t scscf_dbf;	/**&lt; Structure with pointers to db functions */
+ 
+ static str s_service_route = {&quot;Service-Route: &lt;&quot;,16};
+ static str s_orig = {&quot;sip:orig@&quot;,9};
+@@ -412,6 +447,14 @@
+ 	return 1;
+ }
+ 
++db_con_t* create_scscf_db_connection()
++{
++	if (scscf_persistency_mode!=WITH_DATABASE_BULK &amp;&amp; scscf_persistency_mode!=WITH_DATABASE_CACHE) return NULL;
++	if (!scscf_dbf.init) return NULL;
++
++	return scscf_dbf.init(scscf_db_url);
++}
++
+ /**
+  * Initializes the module.
+  */
+@@ -419,8 +462,13 @@
+ {
+ 	load_tm_f load_tm;
+ 	load_cdp_f load_cdp;
++	bind_dlg_mod_f load_dlg;
++	
+ 	callback_singleton=shm_malloc(sizeof(int));
+ 	*callback_singleton=0;
++	shutdown_singleton=shm_malloc(sizeof(int));
++	*shutdown_singleton=0;
++	
+ 		
+ 	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:mod_init: Initialization of module\n&quot;);
+ 	/* fix the parameters */
+@@ -442,7 +490,83 @@
+ 	
+ //	/* bind to the db module */
+ //	if ( cscf_db_bind( scscf_db_url ) &lt; 0 ) goto error;
++
++	if(scscf_persistency_mode==WITH_DATABASE_BULK || scscf_persistency_mode==WITH_DATABASE_CACHE){
++		if (!scscf_db_url) {
++			LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:mod_init: no db_url specified but DB has to be used &quot;
++				&quot;(scscf_persistency_mode=%d\n&quot;, scscf_persistency_mode);
++			return -1;
++		}
++		if (bind_dbmod(scscf_db_url, &amp;scscf_dbf) &lt; 0) { /* Find database module */
++			LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:mod_init: Can't bind database module via url %s\n&quot;, scscf_db_url);
++			return -1;
++		}
++
++		if (!DB_CAPABILITY(scscf_dbf, DB_CAP_ALL)) {
++			LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:mod_init: Database module does not implement all functions needed by the module\n&quot;);
++			return -1;
++		}
++		
++		scscf_db = create_scscf_db_connection();
++		if (!scscf_db) {
++			LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;: mod_init: Error while connecting database\n&quot;);
++			return -1;
++		}
++		
++		/* db lock */
++		db_lock = (gen_lock_t*)lock_alloc();
++		if(!db_lock){
++	    	LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;: mod_init: No memory left\n&quot;);
++			return -1;
++		}
++		lock_init(db_lock);
+ 	
++		/* snapshot and step versions */
++	
++		auth_snapshot_version=(int*)shm_malloc(sizeof(int));
++		if(!auth_snapshot_version){
++			LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:mod_init: auth_snapshot_version, no memory left\n&quot;);
++			return -1;
++		}
++		*auth_snapshot_version=0;
++	
++		auth_step_version=(int*)shm_malloc(sizeof(int));
++		if(!auth_step_version){
++			LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:mod_init: auth_step_version, no memory left\n&quot;);
++			return -1;
++		}
++		*auth_step_version=0;
++	
++		dialogs_snapshot_version=(int*)shm_malloc(sizeof(int));
++		if(!dialogs_snapshot_version){
++			LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:mod_init: dialogs_snapshot_version, no memory left\n&quot;);
++			return -1;
++		}
++		*dialogs_snapshot_version=0;
++	
++		dialogs_step_version=(int*)shm_malloc(sizeof(int));
++		if(!dialogs_step_version){
++			LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:mod_init: dialogs_step_version, no memory left\n&quot;);
++			return -1;
++		}
++		*dialogs_step_version=0;
++	
++		registrar_snapshot_version=(int*)shm_malloc(sizeof(int));
++		if(!registrar_snapshot_version){
++			LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:mod_init: registrar_snapshot_version, no memory left\n&quot;);
++			return -1;
++		}
++		*registrar_snapshot_version=0;
++	
++		registrar_step_version=(int*)shm_malloc(sizeof(int));
++		if(!registrar_step_version){
++			LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:mod_init: registrar_step_version, no memory left\n&quot;);
++			return -1;
++		}
++		*registrar_step_version=0;
++		
++	}
++	
+ 	/* bind to the tm module */
+ 	if (!(load_tm = (load_tm_f)find_export(&quot;load_tm&quot;,NO_SCRIPT,0))) {
+ 		LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:mod_init: Can not import load_tm. This module requires tm module\n&quot;);
+@@ -457,16 +581,35 @@
+ 	}
+ 	if (load_cdp(&amp;cdpb) == -1)
+ 		goto error;
++
++	/* bind to the dialog module */
++	load_dlg = (bind_dlg_mod_f)find_export(&quot;bind_dlg_mod&quot;, -1, 0);
++	if (!load_dlg) {
++		LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:mod_init:  Can not import bind_dlg_mod. This module requires dialog module\n&quot;);
++		return -1;
++	}
++	if (load_dlg(&amp;dialogb) != 0) {
++		return -1;
++	}
+ 	
+ 	
+ 	/* Init the authorization data storage */
+-	if (!auth_data_init(auth_data_hash_size)) goto error;
++	if (!auth_data_init(auth_data_hash_size)) goto error;	
++	if (scscf_persistency_mode!=NO_PERSISTENCY){
++		load_snapshot_authdata();
++		if (register_timer(persistency_timer_authdata,0,scscf_persistency_timer_authdata)&lt;0) goto error;
++	}
++	
+ 
+ 	/* register the authentication vectors timer */
+-	if (register_timer(reg_await_timer,Auth_data,5)&lt;0) goto error;
++	if (register_timer(reg_await_timer,auth_data,10)&lt;0) goto error;
+ 	
+ 	/* init the registrar storage */
+ 	if (!r_storage_init(registrar_hash_size)) goto error;
++	if (scscf_persistency_mode!=NO_PERSISTENCY){
++		load_snapshot_registrar();
++		if (register_timer(persistency_timer_registrar,0,scscf_persistency_timer_registrar)&lt;0) goto error;
++	}
+ 
+ 	/* register the registrar timer */
+ 	if (register_timer(registrar_timer,registrar,10)&lt;0) goto error;
+@@ -482,6 +625,10 @@
+ 		LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:mod_init: Error initializing the Hash Table for stored dialogs\n&quot;);
+ 		goto error;
+ 	}		
++	if (scscf_persistency_mode!=NO_PERSISTENCY){
++		load_snapshot_dialogs();
++		if (register_timer(persistency_timer_dialogs,0,scscf_persistency_timer_dialogs)&lt;0) goto error;
++	}
+ 
+ 	/* register the dialog timer */
+ 	if (register_timer(dialog_timer,s_dialogs,60)&lt;0) goto error;
+@@ -499,6 +646,12 @@
+ 
+ extern gen_lock_t* process_lock;		/* lock on the process table */
+ 
++
++void close_scscf_db_connection(db_con_t* db)
++{
++	if (db &amp;&amp; scscf_dbf.close) scscf_dbf.close(db);
++}
++
+ /**
+  * Initializes the module in child.
+  */
+@@ -515,12 +668,22 @@
+ //		scscf_db_nds_table,
+ //		scscf_db_scscf_table,
+ //		scscf_db_capabilities_table);
++	
++	/*if (scscf_persistency_mode==WITH_DATABASE_BULK || scscf_persistency_mode==WITH_DATABASE_CACHE) { 
++		scscf_db = create_scscf_db_connection();
++		if (!scscf_db) {
++			LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:mod_child_init(%d): &quot;
++					&quot;Error while connecting database\n&quot;, rank);
++			return -1;
++		}
++	}*/
++	
+ 	/* init the diameter callback - must be done just once */
+ 	lock_get(process_lock);
+-	if((*callback_singleton)==0){
+-		*callback_singleton=1;
+-		cdpb.AAAAddRequestHandler(CxRequestHandler,NULL);
+-	}
++		if((*callback_singleton)==0){
++			*callback_singleton=1;
++			cdpb.AAAAddRequestHandler(CxRequestHandler,NULL);
++		}
+ 	lock_release(process_lock);
+ 	/* Init the user data parser */
+ 	if (!parser_init(scscf_user_data_dtd,scscf_user_data_xsd)) return -1;
+@@ -533,13 +696,35 @@
+  */
+ static void mod_destroy(void)
+ {
++	int do_destroy=0;
+ 	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:mod_destroy: child exit\n&quot;);
+-	auth_data_destroy();
+-	parser_destroy();
+-	r_notify_destroy();	
+-	r_storage_destroy();
+-	s_dialogs_destroy();	
+-	pkg_free(scscf_service_route.s);
++	lock_get(process_lock);
++		if((*shutdown_singleton)==0){
++			*shutdown_singleton=1;
++			do_destroy=1;
++		}
++	lock_release(process_lock);
++	if (do_destroy){
++		if (scscf_persistency_mode!=NO_PERSISTENCY){
++			/* First let's snapshot everything */
++			make_snapshot_authdata();
++			make_snapshot_dialogs();
++			make_snapshot_registrar();
++		}
++		/* Then nuke it all */
++		auth_data_destroy();
++		parser_destroy();
++		r_notify_destroy();	
++		r_storage_destroy();
++		s_dialogs_destroy();	
++		pkg_free(scscf_service_route.s);
++	}
++	
++	if ( (scscf_persistency_mode==WITH_DATABASE_BULK || scscf_persistency_mode==WITH_DATABASE_CACHE) &amp;&amp; scscf_db) {
++		DBG(&quot;INFO:&quot;M_NAME&quot;: ... closing db connection\n&quot;);
++		close_scscf_db_connection(scscf_db);
++	}
++	scscf_db = NULL;
+ }
+ 
+ 
+
+Modified: ser_ims/trunk/modules/scscf/mod.h
+===================================================================
+--- ser_ims/trunk/modules/scscf/mod.h	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/scscf/mod.h	2007-03-01 14:06:01 UTC (rev 161)
+@@ -124,6 +124,8 @@
+ #define S_CSCF_MOD_H
+ 
+ #include &quot;../../sr_module.h&quot;
++#include &quot;../../mem/shm_mem.h&quot;
++#include &quot;../../mem/mem.h&quot;
+ 
+ #define M_NAME &quot;S-CSCF&quot;
+ 
+@@ -143,7 +145,7 @@
+ {\
+ 	(dest).s = shm_malloc((src).len);\
+ 	if (!(dest).s){\
+-		LOG(L_ERR,&quot;ERRL:&quot;M_NAME&quot;:&quot;txt&quot;: Error allocating %d bytes\n&quot;,(src).len);\
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:&quot;txt&quot;: Error allocating %d bytes\n&quot;,(src).len);\
+ 	}\
+ 	(dest).len = (src).len;\
+ 	memcpy((dest).s,(src).s,(src).len);\
+
+Modified: ser_ims/trunk/modules/scscf/registrar_notify.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar_notify.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/scscf/registrar_notify.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -534,8 +534,8 @@
+ 	c = p-&gt;head;
+ 	while(c){
+ 		if (r_valid_contact(c)){
+-			if (c-&gt;expires-time_now&gt;expires)
+-				expires = c-&gt;expires-time_now;
++			if (c-&gt;expires-time_now+30&gt;expires)
++				expires = c-&gt;expires-time_now+30;
+ 			cnt++;
+ 		}
+ 		c = c-&gt;next;
+
+Modified: ser_ims/trunk/modules/scscf/registrar_parser.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar_parser.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/scscf/registrar_parser.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -201,7 +201,7 @@
+  * @param x - input value
+  * @returns int value
+  */
+-static inline int ifc_tBool2int(xmlChar *x)
++static inline char ifc_tBool2char(xmlChar *x)
+ {
+ 	int r=0;	
+ 	while(x[r]){
+@@ -223,9 +223,9 @@
+  * @param x - input value
+  * @returns int value
+  */
+-static inline int ifc_tDefaultHandling2int(xmlChar *x)
++static inline char ifc_tDefaultHandling2char(xmlChar *x)
+ {
+-	int r;	
++	char r;	
+ 	r = strtol(x, (char **)NULL, 10);
+ 	if (errno==EINVAL){
+ 		while(x[0]){
+@@ -235,7 +235,7 @@
+ 		}
+ 		return 0;
+ 	} 
+-	else return r; 
++	else return (char)r; 
+ }
+ 
+ /**
+@@ -246,7 +246,7 @@
+  * @param x - input value
+  * @returns int value
+  */
+-static inline int ifc_tDirectionOfRequest2int(xmlChar *x)
++static inline char ifc_tDirectionOfRequest2char(xmlChar *x)
+ {
+ 	int r;	
+ 	r = strtol(x, (char **)NULL, 10);
+@@ -259,7 +259,7 @@
+ 		}
+ 		return 0;
+ 	} 
+-	else return r; 
++	else return (char)r; 
+ }
+ 
+ /**
+@@ -270,7 +270,7 @@
+  * @param x - input value
+  * @returns int value
+  */
+-static inline int ifc_tProfilePartIndicator2int(xmlChar *x)
++static inline char ifc_tProfilePartIndicator2char(xmlChar *x)
+ {
+ 	int r;	
+ 	if (x==0||x[0]==0) return -1;
+@@ -283,7 +283,7 @@
+ 		}
+ 		return 0;
+ 	} 
+-	else return r; 
++	else return (char)r; 
+ }
+ 
+ 
+@@ -311,7 +311,7 @@
+ 					break;
+ 				case 'B': case 'b':
+ 					x = xmlNodeListGetString(doc,child-&gt;xmlChildrenNode,1);
+-					pi-&gt;barring = ifc_tBool2int(x);
++					pi-&gt;barring = ifc_tBool2char(x);
+ 					xmlFree(x);
+ 					break;				
+ 			}
+@@ -346,7 +346,7 @@
+ 					c[len]=0;
+ 					space_trim_dup(&amp;(sh-&gt;header),x);
+ 					parse_hname2(c,c+(len&lt;4?4:len),&amp;hf);
+-					sh-&gt;type=hf.type;
++					sh-&gt;type=(short)hf.type;
+ 					//LOG(L_CRIT,&quot;[%.*s(%d)]\n&quot;,sh-&gt;header.len,sh-&gt;header.s,sh-&gt;type);
+ 					xmlFree(x);
+ 					break;
+@@ -398,7 +398,7 @@
+  * @param spt_cnt - structure to fill with the spt count
+  * @returns 1 on success, 0 on failure
+  */
+-static int parse_spt(xmlDocPtr doc,xmlNodePtr node,ims_spt *spt_to,int *spt_cnt)
++static int parse_spt(xmlDocPtr doc,xmlNodePtr node,ims_spt *spt_to,unsigned short *spt_cnt)
+ {
+ 	xmlNodePtr child,saved=0;
+ 	xmlChar *x;
+@@ -418,7 +418,7 @@
+ 			switch (child-&gt;name[0]) {
+ 				case 'C':case 'c': //ConditionNegated
+ 					x = xmlNodeListGetString(doc, child-&gt;xmlChildrenNode, 1);
+-					spt-&gt;condition_negated=ifc_tBool2int(x);
++					spt-&gt;condition_negated=ifc_tBool2char(x);
+ 					xmlFree(x);
+ 					break;
+ 				case 'G':case 'g': //Group
+@@ -468,7 +468,7 @@
+ 						case 'C':case 'c'://Session Case
+ 							spt-&gt;type=IFC_SESSION_CASE;
+ 							x = xmlNodeListGetString(doc, child-&gt;xmlChildrenNode, 1);
+-							spt-&gt;session_case=ifc_tDirectionOfRequest2int(x);
++							spt-&gt;session_case=ifc_tDirectionOfRequest2char(x);
+ 							xmlFree(x);
+ 							break;
+ 						case 'D':case 'd'://Session Description
+@@ -545,7 +545,8 @@
+ {
+ 	xmlNodePtr child,child2;
+ 	xmlChar *x;
+-	int spt_cnt=0,i,j;
++	unsigned short spt_cnt=0;
++	int i,j;
+ 	ims_spt spttemp;
+ 	tp-&gt;condition_type_cnf=IFC_DNF;//0
+ 	tp-&gt;spt=NULL;
+@@ -556,7 +557,7 @@
+ 			switch (child-&gt;name[0]) {
+ 				case 'C':case 'c': //ConditionTypeCNF
+ 					x = xmlNodeListGetString(doc, child-&gt;xmlChildrenNode, 1);
+-					tp-&gt;condition_type_cnf=ifc_tBool2int(x);
++					tp-&gt;condition_type_cnf=ifc_tBool2char(x);
+ 					xmlFree(x);
+ 					break;
+ 				case 'S':case 's': //SPT - Service Point Trigger
+@@ -638,7 +639,7 @@
+ 				}
+ 				case 'D':case 'd': //DefaultHandling
+ 					x = xmlNodeListGetString(doc, child-&gt;xmlChildrenNode, 1);
+-					as-&gt;default_handling=ifc_tDefaultHandling2int(x);
++					as-&gt;default_handling=ifc_tDefaultHandling2char(x);
+ 					xmlFree(x);
+ 					break;
+ 			}
+@@ -658,7 +659,7 @@
+ {
+ 	xmlNodePtr child;
+ 	xmlChar *x;
+-	int k;
++	char k;
+ 	fc-&gt;priority=0;
+ 	fc-&gt;trigger_point=NULL;
+ 	fc-&gt;profile_part_indicator=NULL;
+@@ -688,9 +689,9 @@
+ 					break;
+ 				case 'F':case 'f':	//ProfilePartIndicator
+ 					x = xmlNodeListGetString(doc, child-&gt;xmlChildrenNode, 1);
+-					k = ifc_tProfilePartIndicator2int(x);
++					k = ifc_tProfilePartIndicator2char(x);
+ 					if (k&lt;0) break;
+-					fc-&gt;profile_part_indicator=shm_malloc(sizeof(int));
++					fc-&gt;profile_part_indicator=(char*)shm_malloc(sizeof(char));
+ 					if (!fc-&gt;profile_part_indicator){
+ 						LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:parse_filter_criteria: Out of memory allocating %d bytes\n&quot;,sizeof(ims_trigger_point));
+ 						break;
+@@ -740,7 +741,8 @@
+ {
+ 	xmlNodePtr child;
+ 	xmlChar *x;
+-	int pi_cnt=0,ifc_cnt=0,sh_cnt=0,i,j;;
++	unsigned short pi_cnt=0,ifc_cnt=0,sh_cnt=0;
++	int i,j;
+ 	ims_filter_criteria fctemp;
+ 	
+ 	for(child=root-&gt;children;child;child=child-&gt;next)
+@@ -827,7 +829,7 @@
+ 	xmlNodePtr child;
+ 	xmlChar *x;
+ 	ims_subscription *s;
+-	int sp_cnt=0;
++	unsigned short sp_cnt=0;
+ 	
+ 	if (!root) return 0;
+ 	while(root-&gt;type!=XML_ELEMENT_NODE || strcasecmp(root-&gt;name,&quot;IMSSubscription&quot;)!=0){
+
+Modified: ser_ims/trunk/modules/scscf/registrar_storage.h
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar_storage.h	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/scscf/registrar_storage.h	2007-03-01 14:06:01 UTC (rev 161)
+@@ -68,12 +68,6 @@
+ 
+ /* REGISTRAR Structures */
+ 
+-/** S-CSCF registrar hash slot */
+-typedef struct {
+-	void *head;					/**&lt; first slot in the table			*/
+-	void *tail;					/**&lt; last slot in the table				*/
+-	gen_lock_t *lock;			/**&lt; slot lock 							*/	
+-} r_hash_slot;
+ 
+ /** Events for subscriptions */
+ enum {
+@@ -84,9 +78,9 @@
+ /** registrar subscriber structure */
+ typedef struct _r_subscriber {
+ 	str subscriber;				/**&lt; The subscribers contact 			*/
+-	int event;
++	char event;
+ 
+-	int expires;				/**&lt; Time of expiration		 			*/
++	time_t expires;				/**&lt; Time of expiration		 			*/
+ 	dlg_t *dialog;				/**&lt; tm dialog to send notify out		*/
+ 	
+ 	int version;				/**&lt; Last version sent to this subs.	*/
+@@ -126,6 +120,16 @@
+ 	struct _r_public *next,*prev; /**&lt; collision hash neighbours		*/
+ } r_public;
+ 
++
++/** S-CSCF registrar hash slot */
++typedef struct {
++	r_public *head;					/**&lt; first slot in the table			*/
++	r_public *tail;					/**&lt; last slot in the table				*/
++	gen_lock_t *lock;			/**&lt; slot lock 							*/	
++} r_hash_slot;
++
++
++
+ /** funtion to find a public identity in a registrar */
+ typedef r_public* (*get_r_public_f)(str aor);
+ /** function to unlock a registrar slot */
+
+Modified: ser_ims/trunk/modules/scscf/registration.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registration.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/scscf/registration.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -65,6 +65,7 @@
+ #include &quot;registrar.h&quot;
+ #include &quot;sip_messages.h&quot; 
+ #include &quot;rfc2617.h&quot;
++#include &quot;s_persistency.h&quot;
+ 
+ extern struct tm_binds tmb;						/**&lt; Structure with pointers to tm funcs 		*/
+ extern struct cdp_binds cdpb;					/**&lt; Structure with pointers to cdp funcs 		*/
+@@ -288,6 +289,7 @@
+ int S_is_authorized(struct sip_msg *msg,char *str1,char *str2 )
+ {
+ 	int ret=CSCF_RETURN_FALSE;
++	unsigned int aud_hash=0;
+ 	str realm;
+ 	str private_identity,public_identity;
+ 	str nonce,response16;
+@@ -332,9 +334,9 @@
+ 	}
+ 	uri = cscf_get_digest_uri(msg,realm);
+ 	
+-	av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_SENT,&amp;nonce);
++	av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_SENT,&amp;nonce,&amp;aud_hash);
+ 	if (!av)
+-	    av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_USELESS,&amp;nonce);
++	    av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_USELESS,&amp;nonce,&amp;aud_hash);
+ 	
+ 	if (!av) {
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_is_authorized: no matching auth vector found - maybe timer expired\n&quot;);		
+@@ -369,7 +371,7 @@
+ 	}		
+ 	
+ 		
+-
++	auth_data_unlock(aud_hash);
+ 	return ret;	
+ error:
+ 	ret = CSCF_RETURN_ERROR;		
+@@ -386,6 +388,7 @@
+ int S_challenge(struct sip_msg *msg,char *str1,char *str2 )
+ {
+ 	int ret=CSCF_RETURN_FALSE;
++	unsigned int aud_hash;
+ 	str realm,private_identity,public_identity,auts={0,0},nonce={0,0};
+ 	auth_vector *av=0;
+ 	str algo={0,0};
+@@ -436,24 +439,25 @@
+ 			S_REGISTER_reply(msg,403,MSG_403_NO_NONCE);
+ 			goto abort;
+ 		}
+-		av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_SENT,&amp;nonce);
++		av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_SENT,&amp;nonce,&amp;aud_hash);
+ 		if (!av)
+-	    	av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_USELESS,&amp;nonce);
++	    	av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_USELESS,&amp;nonce,&amp;aud_hash);
+ 					
+ 		if (!av){
+ 			LOG(L_ERR,&quot;DBG:&quot;M_NAME&quot;:S_challenge: Nonce not regonized as sent, no sync!\n&quot;);			
+ 			auts.len = 0; auts.s=0;
+ 		}else{
+ 			av-&gt;status = AUTH_VECTOR_USELESS;
++			auth_data_unlock(aud_hash);
++			av =0;
+ 		}
+-		av =0;
+ 		/* if synchronization - force MAR - if MAR ok, old avs will be droped*/
+ 		S_MAR(msg,public_identity,private_identity,av_request_at_sync,
+ 				algo,nonce,auts,scscf_name_str,realm);
+ 	}
+ 	
+ 	/* loop because some other process might steal the auth_vector that we just retrieved */
+-	while(!(av=get_auth_vector(private_identity,public_identity,AUTH_VECTOR_UNUSED,0))){
++	while(!(av=get_auth_vector(private_identity,public_identity,AUTH_VECTOR_UNUSED,0,&amp;aud_hash))){
+ 		if (!S_MAR(msg,public_identity,private_identity,av_request_at_once,
+ 				algo,nonce,auts,scscf_name_str,realm)) break;
+ 		/* do sync just once */
+@@ -467,10 +471,12 @@
+ 
+ 	if (!pack_challenge(msg,realm,av)){
+ 		S_REGISTER_reply(msg,500,MSG_500_PACK_AV);
++		auth_data_unlock(aud_hash);
+ 		goto error;
+ 	}
+ 	start_reg_await_timer(av);
+ 	//S_REGISTER_reply(msg,401,MSG_401_CHALLENGE);
++	auth_data_unlock(aud_hash);
+ 	return ret;
+ error:
+ 	ret = CSCF_RETURN_ERROR;	
+@@ -696,30 +702,50 @@
+  * Storage of authentication vectors
+  */
+  
+-auth_data *Auth_data;			/**&lt; Authentication vector hash table */
++auth_hash_slot_t *auth_data;			/**&lt; Authentication vector hash table */
++extern int auth_data_hash_size;						/**&lt; authentication vector hash table size */
+ 
+ /**
++ * Locks the required slot of the auth_data.
++ * @param hash - the index of the slot
++ */
++inline void auth_data_lock(unsigned int hash)
++{
++//	LOG(L_CRIT,&quot;GET %d\n&quot;,hash);
++	lock_get(auth_data[(hash)].lock);
++//	LOG(L_CRIT,&quot;GOT %d\n&quot;,hash);	
++}
++
++/**
++ * UnLocks the required slot of the auth_data
++ * @param hash - the index of the slot
++ */
++inline void auth_data_unlock(unsigned int hash)
++{
++	lock_release(auth_data[(hash)].lock);
++//	LOG(L_CRIT,&quot;RELEASED %d\n&quot;,hash);	
++}
++
++
++/**
+  * Initializes the Authorization Data structures.
+  * @param size - size of the hash table
+  * @returns 1 on success or 0 on error
+  */
+ int auth_data_init(int size)
+ {
+-	Auth_data = shm_malloc(sizeof(auth_data));
+-	if (!Auth_data){
++	int i;
++	auth_data = shm_malloc(sizeof(auth_hash_slot_t)*size);
++	if (!auth_data) {
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:auth_data_init: error allocating mem\n&quot;);
+ 		return 0;
+ 	}
+-	Auth_data-&gt;table = shm_malloc(sizeof(hash_slot_t)*size);
+-	if (!Auth_data-&gt;table) {
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:auth_data_init: error allocating mem\n&quot;);
+-		return 0;
++	memset(auth_data,0,sizeof(auth_hash_slot_t)*size);
++	auth_data_hash_size = size;
++	for(i=0;i&lt;size;i++){
++		auth_data[i].lock = lock_alloc();
++		lock_init(auth_data[i].lock);
+ 	}
+-	memset(Auth_data-&gt;table,0,sizeof(hash_slot_t)*size);
+-	Auth_data-&gt;size = size;
+-	Auth_data-&gt;lock = lock_alloc();
+-	lock_init(Auth_data-&gt;lock);
+-	
+ 	return 1;
+ }
+ 
+@@ -729,20 +755,18 @@
+ {
+ 	int i;
+ 	auth_userdata *aud,*next;
+-	if (Auth_data) {
+-		lock_destroy(Auth_data-&gt;lock);
+-		lock_dealloc(Auth_data-&gt;lock);
+-		for(i=0;i&lt;Auth_data-&gt;size;i++){
+-			aud = Auth_data-&gt;table[i].head;
+-			while(aud){
+-				next = aud-&gt;next;
+-				free_auth_userdata(aud);
+-				aud = next;
+-			}
+-		}
+-		if (Auth_data-&gt;table) shm_free(Auth_data-&gt;table);
+-		shm_free(Auth_data);
++	for(i=0;i&lt;auth_data_hash_size;i++){
++		auth_data_lock(i);
++		lock_destroy(auth_data[i].lock);
++		lock_dealloc(auth_data[i].lock);
++		aud = auth_data[i].head;
++		while(aud){
++			next = aud-&gt;next;
++			free_auth_userdata(aud);
++			aud = next;
++		}		
+ 	}
++	if (auth_data) shm_free(auth_data);
+ }
+ 
+ /**
+@@ -937,7 +961,7 @@
+  * @param public_identity - the public identity
+  * @returns the hash % Auth_data-&gt;size
+  */
+-static inline unsigned int get_hash(str private_identity,str public_identity)
++inline unsigned int get_hash_auth(str private_identity,str public_identity)
+ {
+ #define h_inc h+=v^(v&gt;&gt;3)
+    char* p;
+@@ -966,13 +990,13 @@
+    }
+ 
+    h=((h)+(h&gt;&gt;11))+((h&gt;&gt;13)+(h&gt;&gt;23));
+-   return (h)%Auth_data-&gt;size;
++   return (h)%auth_data_hash_size;
+ #undef h_inc 
+ }
+ 
+ /**
+  * Retrieve the auth_userdata for a user.
+- * \note You must have the lock on the hash table when you call this!!!
++ * \note you will return with lock on the hash slot, so release it!
+  * @param private_identity - the private identity
+  * @param public_identity - the public identity
+  * @returns the auth_userdata* found or newly created on success, NULL on error
+@@ -981,12 +1005,12 @@
+ {
+ 	
+ 	unsigned int hash=0;
+-	hash_slot_t *slot;
+ 	auth_userdata *aud=0;
+ 	
+-	hash = get_hash(private_identity,public_identity);
+-	slot = Auth_data-&gt;table + hash;
+-	aud = slot-&gt;head;
++	
++	hash = get_hash_auth(private_identity,public_identity);
++	auth_data_lock(hash);
++	aud = auth_data[hash].head;
+ 	while(aud){
+ 		if (aud-&gt;private_identity.len == private_identity.len &amp;&amp;
+ 			aud-&gt;public_identity.len == public_identity.len &amp;&amp;
+@@ -999,15 +1023,18 @@
+ 	}
+ 	/* if we get here, there is no auth_userdata for this user */
+ 	aud = new_auth_userdata(private_identity,public_identity);
+-	if (!aud) return 0;
++	if (!aud) {
++		auth_data_unlock(hash);
++		return 0;
++	}
+ 	
+-	aud-&gt;prev = slot-&gt;tail;
++	aud-&gt;prev = auth_data[hash].tail;
+ 	aud-&gt;next = 0;
+ 	aud-&gt;hash = hash;
+ 	
+-	if (!slot-&gt;head) slot-&gt;head = aud;
+-	if (slot-&gt;tail) ((auth_userdata *) (slot-&gt;tail))-&gt;next = aud;
+-	slot-&gt;tail = aud;
++	if (!auth_data[hash].head) auth_data[hash].head = aud;
++	if (auth_data[hash].tail) auth_data[hash].tail-&gt;next = aud;
++	auth_data[hash].tail = aud;
+ 	
+ 	return aud;
+ }
+@@ -1035,7 +1062,6 @@
+ int add_auth_vector(str private_identity,str public_identity,auth_vector *av)
+ {
+ 	auth_userdata *aud;
+-	lock_get(Auth_data-&gt;lock);
+ 	aud = get_auth_userdata(private_identity,public_identity);
+ 	if (!aud) goto error;
+ 
+@@ -1046,26 +1072,26 @@
+ 	if (aud-&gt;tail) aud-&gt;tail-&gt;next = av;
+ 	aud-&gt;tail = av;
+ 	
+-	lock_release(Auth_data-&gt;lock);
++	auth_data_unlock(aud-&gt;hash);
+ 	return 1;
+ error:
+-	lock_release(Auth_data-&gt;lock);
+ 	return 0;
+ }
+ 
+ /**
+  * Retrieve an authentication vector.
++ * \note returns with a lock, so unlock it when done
+  * @param private_identity - the private identity
+  * @param public_identity - the public identity
+  * @param status - the status of the authentication vector
+  * @param nonce - the nonce in the auth vector
++ * @param hash - the hash to unlock when done
+  * @returns the auth_vector* if found or NULL if not
+  */
+-auth_vector* get_auth_vector(str private_identity,str public_identity,int status,str *nonce)
++auth_vector* get_auth_vector(str private_identity,str public_identity,int status,str *nonce,unsigned int *hash)
+ {
+ 	auth_userdata *aud;
+ 	auth_vector *av;
+-	lock_get(Auth_data-&gt;lock);
+ 	aud = get_auth_userdata(private_identity,public_identity);
+ 	if (!aud) goto error;
+ 
+@@ -1085,14 +1111,14 @@
+ 				default:	
+ 					break;					
+ 			}			
+-			lock_release(Auth_data-&gt;lock);
++			*hash = aud-&gt;hash;
+ 			return av;
+ 		}
+ 		av = av-&gt;next;
+ 	}
+ 	
+ error:
+-	lock_release(Auth_data-&gt;lock);
++	if (aud) auth_data_unlock(aud-&gt;hash);
+ 	return 0;
+ }
+ 
+@@ -1106,7 +1132,6 @@
+ {
+ 	auth_userdata *aud;
+ 	auth_vector *av;
+-	lock_get(Auth_data-&gt;lock);
+ 	aud = get_auth_userdata(private_identity,public_identity);
+ 	if (!aud) goto error;
+ 
+@@ -1115,10 +1140,10 @@
+ 		av-&gt;status = AUTH_VECTOR_USELESS;
+ 		av = av-&gt;next;
+ 	}
+-	lock_release(Auth_data-&gt;lock);
++	auth_data_unlock(aud-&gt;hash);
+ 	return 1;
+ error:	
+-	lock_release(Auth_data-&gt;lock);
++	if (aud) auth_data_unlock(aud-&gt;hash);
+ 	return 0;
+ }
+ 
+@@ -1142,16 +1167,14 @@
+ {
+ 	auth_userdata *aud,*aud_next;
+ 	auth_vector *av,*av_next;
+-	hash_slot_t *slot;
+-	auth_data *ad;
++	auth_hash_slot_t *ad;
+ 	int i;
+-	ad = (auth_data*) param;
++	ad = (auth_hash_slot_t*) param;
+ 	
+-	lock_get(ad-&gt;lock);
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:reg_await_timer: Looking for expired/useless at %d\n&quot;,ticks);
+-	for(i=0;i&lt;ad-&gt;size;i++){
+-		slot = ad-&gt;table +i;
+-		aud = slot-&gt;head;
++	for(i=0;i&lt;auth_data_hash_size;i++){
++		auth_data_lock(i);
++		aud = auth_data[i].head;
+ 		while(aud){
+ 			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:reg_await_timer: . Slot %4d &lt;%.*s&gt;\n&quot;,
+ 				aud-&gt;hash,aud-&gt;private_identity.len,aud-&gt;private_identity.s);
+@@ -1159,7 +1182,7 @@
+ 			av = aud-&gt;head;
+ 			while(av){
+ 				LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:reg_await_timer: .. AV %4d - %d Exp %3d  %p\n&quot;,
+-					av-&gt;item_number,av-&gt;status,av-&gt;expires,av);
++					av-&gt;item_number,av-&gt;status,(int)av-&gt;expires,av);
+ 				av_next = av-&gt;next;
+ 				if ((av-&gt;status == AUTH_VECTOR_USELESS || 
+ 					av-&gt;status == AUTH_VECTOR_SENT) &amp;&amp; av-&gt;expires&lt;ticks)
+@@ -1183,9 +1206,9 @@
+ 				if (aud-&gt;expires&lt;ticks){
+ 					LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:reg_await_timer: ... dropping aud \n&quot;);
+ 					if (aud-&gt;prev) aud-&gt;prev-&gt;next = aud-&gt;next;
+-					else slot-&gt;head = aud-&gt;next;
++					else auth_data[i].head = aud-&gt;next;
+ 					if (aud-&gt;next) aud-&gt;next-&gt;prev = aud-&gt;prev;
+-					else slot-&gt;tail = aud-&gt;prev;
++					else auth_data[i].tail = aud-&gt;prev;
+ 					free_auth_userdata(aud);	
+ 				}
+ 			}
+@@ -1193,8 +1216,7 @@
+ 				
+ 			aud = aud_next;
+ 		}
++		auth_data_unlock(i);
+ 	}
+-	 
+-	lock_release(Auth_data-&gt;lock);	
+ }
+ 
+
+Modified: ser_ims/trunk/modules/scscf/registration.h
+===================================================================
+--- ser_ims/trunk/modules/scscf/registration.h	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/scscf/registration.h	2007-03-01 14:06:01 UTC (rev 161)
+@@ -90,7 +90,7 @@
+ 	str authorization; 	/**&lt; expected response				*/
+ 	str ck;				/**&lt; Cypher Key						*/
+ 	str ik;				/**&lt; Integrity Key					*/
+-	unsigned int expires;/**&lt; expires in (after it is sent)	*/
++	time_t expires;/**&lt; expires in (after it is sent)	*/
+ 	
+ 	enum auth_vector_status status;/**&lt; current status		*/
+ 	struct _auth_vector *next;/**&lt; next av in the list		*/
+@@ -101,32 +101,25 @@
+ 
+ /** Set of auth_vectors used by a private id */
+ typedef struct _auth_userdata{
++	unsigned int hash;		/**&lt; hash of the auth data		*/
+ 	str private_identity;	/**&lt; authorization username		*/
+ 	str public_identity;	/**&lt; public identity linked to	*/
+-	unsigned int hash;		/**&lt; hash of the auth data		*/
+-	unsigned int expires;	/**&lt; expires in					*/
++	time_t expires;	/**&lt; expires in					*/
+ 	
+ 	auth_vector *head;		/**&lt; first auth vector in list	*/
+ 	auth_vector *tail;		/**&lt; last auth vector in list	*/
++	
+ 	struct _auth_userdata *next;/**&lt; next element in list	*/
+ 	struct _auth_userdata *prev;/**&lt; previous element in list*/
+ } auth_userdata;
+ 
+ /** Authorization user data hash slot */
+ typedef struct {
+-	void *head;				/**&lt; first in the slot			*/ 
+-	void *tail;				/**&lt; last in the slot			*/
+-} hash_slot_t;
++	auth_userdata *head;				/**&lt; first in the slot			*/ 
++	auth_userdata *tail;				/**&lt; last in the slot			*/
++	gen_lock_t *lock;			/**&lt; slot lock 							*/	
++} auth_hash_slot_t;
+ 
+-/** User data hash table 
+- * \todo move lock in auth_userdata to improve performance of registration
+- */
+-typedef struct _auth_data{
+-	hash_slot_t *table;		/**&lt; hash table 				*/
+-	int size;				/**&lt; size of the hash table		*/
+-	
+-	gen_lock_t *lock;		/**&lt; lock for operations		*/
+-} auth_data;
+ 
+ 
+ 
+@@ -141,6 +134,9 @@
+ /*
+  * Storage of authentication vectors
+  */
++
++inline void auth_data_lock(unsigned int hash);
++inline void auth_data_unlock(unsigned int hash);
+  
+ int auth_data_init(int size);
+ 
+@@ -153,8 +149,10 @@
+ auth_userdata *new_auth_userdata(str private_identity,str public_identity);
+ void free_auth_userdata(auth_userdata *aud);					
+ 
++inline unsigned int get_hash_auth(str private_identity,str public_identity);
++
+ int add_auth_vector(str private_identity,str public_identity,auth_vector *av);
+-auth_vector* get_auth_vector(str private_identity,str public_identity,int status,str *nonce);
++auth_vector* get_auth_vector(str private_identity,str public_identity,int status,str *nonce,unsigned int *hash);
+ 
+ int drop_auth_userdata(str private_identity,str public_identity);
+ 
+
+Copied: ser_ims/trunk/modules/scscf/s_persistency.c (from rev 159, ser_ims/branches/01_persistency/modules/scscf/s_persistency.c)
+
+Copied: ser_ims/trunk/modules/scscf/s_persistency.h (from rev 159, ser_ims/branches/01_persistency/modules/scscf/s_persistency.h)
+
+Modified: ser_ims/trunk/modules/scscf/sip.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/sip.c	2007-03-01 14:04:49 UTC (rev 160)
++++ ser_ims/trunk/modules/scscf/sip.c	2007-03-01 14:06:01 UTC (rev 161)
+@@ -1286,7 +1286,7 @@
+ 			}				
+ 			
+ 			if (state.len&gt;=s_terminated.len &amp;&amp; strncasecmp(state.s,s_terminated.s,s_terminated.len)==0)
+-				return -2;
++				return 0;
+ 			else if (state.len&gt;=s_active.len &amp;&amp; strncasecmp(state.s,s_active.s,s_active.len)==0){
+ 				i=0;
+ 				while(i&lt;state.len-s_expires.len &amp;&amp; strncasecmp(state.s+i,s_expires.s,s_expires.len)!=0)
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000261.html">[OpenIMSCore-CSCF] Sipp tests
+</A></li>
+	<LI>Next message: <A HREF="000263.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r162 - ser_ims/branches
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#262">[ date ]</a>
+              <a href="thread.html#262">[ thread ]</a>
+              <a href="subject.html#262">[ subject ]</a>
+              <a href="author.html#262">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

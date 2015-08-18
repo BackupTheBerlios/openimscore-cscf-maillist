@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Call Session Control Functions feature]	Additional parameters for Authorization headers	&quot;integrity-protected&quot; parameter
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20feature%5D%0A%09Additional%20parameters%20for%20Authorization%20headers%0A%09%22integrity-protected%22%20parameter&In-Reply-To=%3Ctype%3Dproject%26nid%3D118%26host%3D%40www.openimscore.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001137.html">
+   <LINK REL="Next"  HREF="001118.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Call Session Control Functions feature]	Additional parameters for Authorization headers	&quot;integrity-protected&quot; parameter</H1>
+    <B>krankes-kind</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20feature%5D%0A%09Additional%20parameters%20for%20Authorization%20headers%0A%09%22integrity-protected%22%20parameter&In-Reply-To=%3Ctype%3Dproject%26nid%3D118%26host%3D%40www.openimscore.org%3E"
+       TITLE="[OpenIMSCore-CSCF] [Call Session Control Functions feature]	Additional parameters for Authorization headers	&quot;integrity-protected&quot; parameter">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Jan  4 10:34:05 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001137.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+        <LI>Next message: <A HREF="001118.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r513 - Solved well-known CANCEL	issue in P_release_call_onreply(),	still the reply is retransmitted. Solved a memory leak in Rx	interface
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1116">[ date ]</a>
+              <a href="thread.html#1116">[ thread ]</a>
+              <a href="subject.html#1116">[ subject ]</a>
+              <a href="author.html#1116">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Issue status update for 
+<A HREF="http://www.openimscore.org/node/118">http://www.openimscore.org/node/118</A>
+Post a follow up: 
+<A HREF="http://www.openimscore.org/project/comments/add/118">http://www.openimscore.org/project/comments/add/118</A>
+
+ Project:      Call Session Control Functions
+ Version:      &lt;none&gt;
+ Component:    Code
+ Category:     feature requests
+ Priority:     minor
+ Assigned to:  
+ Reported by:  krankes-kind
+ Updated by:   krankes-kind
+ Status:       active
+
+In TS 24.229 (clause 7.2A.2.3) there are several new values defined for
+&quot;integrity-protected&quot; parameter:
+
+
+auth-param = &quot;integrity-protected&quot; EQUAL (&quot;yes&quot; / &quot;no&quot; / &quot;tls-pending&quot;
+/ &quot;tls-yes&quot; / &quot;ip-assoc-pending&quot; / &quot;ip-assoc-yes&quot;)
+
+
+The values in the &quot;integrity-protected&quot; field are defined as follows:
+*&quot;yes&quot;: *indicates that a REGISTER request received in the P-CSCF is
+protected using an IPsec security association and IMS AKA is used as
+authentication scheme.
+*&quot;no&quot;: *indicates that a REGISTER request received in the P-CSCF is not
+protected using an IPsec security association and IMS AKA is used as
+authentication scheme, i.e. this is an initial REGISTER request with the
+Authorization header not containing a challenge response.
+*&quot;tls-yes&quot;: *indicates that a REGISTER request is received in the
+P-CSCF protected over a TLS connection and the Session ID, IP address
+and port for the TLS connection are already bound to a private user
+identity. The S-CSCF will decide whether or not to challenge such a
+REGISTER request based on its policy. This is used in case of SIP digest
+with TLS.
+*&quot;tls-pending&quot;: *indicates that a REGISTER request is received in the
+P-CSCF protected over a TLS connection and the Session ID, IP address
+and port for the TLS connection are not yet bound to a private user
+identity. The S-CSCF shall challenge such a REGISTER request if it does
+not contain an Authorization header with a challenge response or if the
+verification of the challenge response fails. This is used in case of
+SIP digest with TLS.
+*&quot;ip-assoc-yes&quot;: *indicates that a REGISTER request received in the
+P-CSCF does map to an existing IP association in case SIP digest is used
+without TLS.
+*&quot;ip-assoc-pending&quot;: *indicates that a REGISTER request received in the
+P-CSCF does not map to an existing IP association, and does contain a
+challenge response in case SIP digest is used without TLS.
+
+
+*NOTE 1: *In case of SIP digest is used with TLS, but the REGISTER
+request was not received over TLS, the P-CSCF does not include an
+&quot;integrity-protected&quot; field in the auth-param to indicate that an
+initial REGISTER request was received not over an existing TLS session.
+The S-CSCF will always challenge such a REGISTER request.
+*NOTE 2: *In case of SIP digest is used without TLS, but the REGISTER
+request was not received over TLS, the P-CSCF does not include an
+&quot;integrity-protected&quot; field in the auth-param to indicate that the
+REGISTER request does not map to an existing IP association, and does
+not contain a challenge response. The S-CSCF will always challenge such
+a REGISTER request.
+*NOTE 3: *The value &quot;yes&quot; is also used when an initial REGISTER request
+contains an Authorization header with a challenge response as in this
+case the IPsec association is already in use, and its use by the UE
+implicitly authenticates the UE. This is a difference to TLS case where
+the use of TLS alone does not yet implicitly authenticates the UE. Hence
+in the TLS case, for an initial REGISTER request containing an
+Authorization header with a challenge response the value &quot;tls-pending&quot;
+and not &quot;tls-yes&quot; is used.
+
+
+
+
+krankes-kind
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001137.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+	<LI>Next message: <A HREF="001118.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r513 - Solved well-known CANCEL	issue in P_release_call_onreply(),	still the reply is retransmitted. Solved a memory leak in Rx	interface
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1116">[ date ]</a>
+              <a href="thread.html#1116">[ thread ]</a>
+              <a href="subject.html#1116">[ subject ]</a>
+              <a href="author.html#1116">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

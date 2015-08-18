@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] About diameter API
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20diameter%20API&In-Reply-To=%3C4B470CCD.5090908%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001926.html">
+   <LINK REL="Next"  HREF="001937.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] About diameter API</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20diameter%20API&In-Reply-To=%3C4B470CCD.5090908%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] About diameter API">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Jan  8 11:45:33 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001926.html">[OpenIMSCore-CSCF] About diameter API
+</A></li>
+        <LI>Next message: <A HREF="001937.html">[OpenIMSCore-CSCF] About diameter API
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1927">[ date ]</a>
+              <a href="thread.html#1927">[ thread ]</a>
+              <a href="subject.html#1927">[ subject ]</a>
+              <a href="author.html#1927">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Min,
+
+well... it would be nice for some things, but for others like 
+optimizations its not so great.
+
+The thing is though that doing API changes now would be quite 
+complicated, so we could probably only do this if we duplicate the cdp 
+module into a new one for alignment while keeping the old one for 
+compatibility with existing and too time consuming to migrate functionality.
+
+Unfortunately this draft came after we started our Diameter stacks. On 
+the good side though there are a LOT of identifiers which are identical 
+to what we have. I won't say that the draft would be inspired by our 
+stacks, as the main author is the maintainer of the Open Diameter stack, 
+but I guess sometime in the past there was a common vision on this - I 
+for one wrote the first parts of the cdp module by reusing some small 
+parts of DISC (a Diameter implementation done at FOKUS by the original 
+SER developers, but which was so old that Diameter itself was a draft at 
+that time).
+
+Then for the data structures, it would be good to align a bit the names, 
+but otherwise many things are different - like the draft says that 
+strings are null-terminated, which well, I don't see the point of 
+imposing this restriction other than to make it easier for using the 
+char*. One thing that would do good to cdp would be to move from data 
+types like int to uint32_t or int32_t, which are more clear on what they 
+contain.
+
+But then the API goes on and defines functions which kind of impose the 
+internal functionality of the stack - like the callbacks or the data 
+type in the AVP (which is not sent over the network, but must be set 
+from a static table). Some are good, but others I would argue that are 
+not necessarily optimum.
+
+And well, this unfortunately is not like a JSR let's say - you can't go 
+later and just replace a stack. For one, the data structures are still 
+abstract in the draft, so there would be different representations.
+
+To conclude, I am for it, but don't see it as having a very high priority.
+
+Cheers,
+-Dragos
+
+
+
+Min Wang wrote:
+&gt;<i> HI
+</I>&gt;<i>
+</I>&gt;<i> There is IETF Draft diameter API
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://tools.ietf.org/html/draft-ietf-dime-diameter-api-08">http://tools.ietf.org/html/draft-ietf-dime-diameter-api-08</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Should we try to conform it in the cdp module as closer as possible in
+</I>&gt;<i> the future changes?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Kind Regards
+</I>&gt;<i>  
+</I>&gt;<i> Min Wang
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001926.html">[OpenIMSCore-CSCF] About diameter API
+</A></li>
+	<LI>Next message: <A HREF="001937.html">[OpenIMSCore-CSCF] About diameter API
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1927">[ date ]</a>
+              <a href="thread.html#1927">[ thread ]</a>
+              <a href="subject.html#1927">[ subject ]</a>
+              <a href="author.html#1927">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

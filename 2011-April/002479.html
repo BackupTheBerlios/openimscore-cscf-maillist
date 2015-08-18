@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] About my &quot;carstenbock/ims&quot; branch on the	sip-router.org GIT repository
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20my%20%22carstenbock/ims%22%20branch%20on%20the%0A%09sip-router.org%20GIT%20repository&In-Reply-To=%3CBANLkTinFqnGjahRDWJBxqz%3DSb9F7TGodRQ%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002476.html">
+   <LINK REL="Next"  HREF="002480.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] About my &quot;carstenbock/ims&quot; branch on the	sip-router.org GIT repository</H1>
+    <B>Carsten Bock</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20my%20%22carstenbock/ims%22%20branch%20on%20the%0A%09sip-router.org%20GIT%20repository&In-Reply-To=%3CBANLkTinFqnGjahRDWJBxqz%3DSb9F7TGodRQ%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] About my &quot;carstenbock/ims&quot; branch on the	sip-router.org GIT repository">carsten at ng-voice.com
+       </A><BR>
+    <I>Tue Apr  5 12:30:13 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002476.html">[OpenIMSCore-CSCF] regarding performance of openimscore...
+</A></li>
+        <LI>Next message: <A HREF="002480.html">[OpenIMSCore-CSCF] About my &quot;carstenbock/ims&quot; branch on the sip-router.org GIT repository
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2479">[ date ]</a>
+              <a href="thread.html#2479">[ thread ]</a>
+              <a href="subject.html#2479">[ subject ]</a>
+              <a href="author.html#2479">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi everyone,
+
+i just wanted to notice, that i am actually working on re-integrating
+the OpenIMS-core into the sip-router.org/Kamailio project.
+It is not a fork of the official OpenIMSCore project, but more a merge
+of the OpenIMScore Project into the Kamailio/sip-router.org project.
+
+As a first step, i've made all the CSCF modules compile and work with
+a current Kamailio source. In order to do this, only minor adaptions
+were required.
+
+As a second step, i am working on a better integration into the
+existing structures of the Kamailio project; i want to achieve the
+following things:
+- replace integrated dialog awareness of the CSCF modules with
+Kamailio's dialog module
+- replcae integrated registrar of the CSCF modules with Kamailio's
+registrar module
+- replace integrated nathelper support with the sip-router.org
+nathelper/rtpproxy moduels
+- replcae integrated RFC 3680 support with Kamailio's
+Presence/Presence-User-Agent modules
+- add documentation in accordance with the other sip-router.org modules
+
+I've already changed quite a few things in the Kamailio core, in order
+to achieve this: K's dialog module is now able to store additional
+data to a dialog (works great), K's usrloc/registrar module is able to
+store additional information to an contact (still buggy) and i have
+already added support for RFC 3680 to Kamailio's presence/pua
+infrastructure (when you register, the system will &quot;PUBLISH&quot; the
+registration state; another system may already &quot;SUBSCRIBE&quot; to the
+status and &quot;NOTIFY&quot; requests are already parsed (but not stored yet)).
+So it is going on. I have also already modified some of the config to
+use generic append_hf() and remove_hf() functions instead of custom
+implemented functions...
+
+The progress is slow but steady since i work on it apart from my
+regular work. I try to publish any new developments on this on my
+blog/homepage (www.ng-voice.com), where you may also find some more
+information about the installation and the components of the project
+(i provide a repository of the last step for easy installation).
+
+I started implementing an own HSS some time ago (openhss.org), but the
+development on this currently stopped. First, i do not have enough
+time to work on both the Kamailio integration, regular work and the
+HSS; second the main developer on the HSS (Brian) just resigned due to
+health reasons.
+
+Some of you may have noticed, that i am working for Telefonica in
+Germany as a regular work. I am working on the Class 4/5
+infrastructure at Telefonica and we have already implemented an
+Ericsson IMS core. However, i wanted to mention, that neither
+Telefonica nor O2 is behind this project. The only support i get from
+Telefonica is, that i get a monthly salary and that i may use some
+time to work on the OpenIMS-project during normal office-hours (as
+time allows).
+If i do things, i do it by heart and not half-hearted... that probably
+explains a lot of the effort spent on the project.
+
+Kind regards,
+Carsten
+
+-- 
+Carsten Bock
+<A HREF="http://www.ng-voice.com">http://www.ng-voice.com</A>
+mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">carsten at ng-voice.com</A>
+
+Schomburgstr. 80
+22767 Hamburg
+Germany
+
+Mobile +49 179 2021244
+Office +49 40 34927219
+Fax +49 40 34927220
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002476.html">[OpenIMSCore-CSCF] regarding performance of openimscore...
+</A></li>
+	<LI>Next message: <A HREF="002480.html">[OpenIMSCore-CSCF] About my &quot;carstenbock/ims&quot; branch on the sip-router.org GIT repository
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2479">[ date ]</a>
+              <a href="thread.html#2479">[ thread ]</a>
+              <a href="subject.html#2479">[ subject ]</a>
+              <a href="author.html#2479">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

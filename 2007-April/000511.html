@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Question]Value of Max-Forwards header after	P-CSCF processing
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DValue%20of%20Max-Forwards%20header%20after%0A%09P-CSCF%20processing&In-Reply-To=%3C200704250239.l3P2djE8009055%40imj.m.ecl.ntt.co.jp%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000510.html">
+   <LINK REL="Next"  HREF="000517.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header after	P-CSCF processing</H1>
+    <B>Hideyuki Yamashita</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DValue%20of%20Max-Forwards%20header%20after%0A%09P-CSCF%20processing&In-Reply-To=%3C200704250239.l3P2djE8009055%40imj.m.ecl.ntt.co.jp%3E"
+       TITLE="[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header after	P-CSCF processing">yamashita.hideyuki at lab.ntt.co.jp
+       </A><BR>
+    <I>Wed Apr 25 04:45:01 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000510.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r247 - - initial commit for	accounting session support - initial commit for accounting	(client) state machine support in cdp
+</A></li>
+        <LI>Next message: <A HREF="000517.html">[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header after P-CSCF processing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#511">[ date ]</a>
+              <a href="thread.html#511">[ thread ]</a>
+              <a href="subject.html#511">[ subject ]</a>
+              <a href="author.html#511">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I have attached wireshark capture file.
+The relationship between ip address and IMS entity is like below.
+
+172.16.3.155 -&gt; SIP Terminal(Not IMS compliant)
+172.16.5.11  -&gt; P-CSCF
+172.16.5.12  -&gt; I-CSCF
+
+I am very glad if somebody respond to my question.
+
+Thanks in advance,
+Hideyuki
+
+&gt;<i> Hi,
+</I>&gt;<i> 
+</I>&gt;<i> I have question about value of Max-Forwards after P-CSCF 
+</I>&gt;<i> processed a SIP request.
+</I>&gt;<i> 
+</I>&gt;<i> [Question]
+</I>&gt;<i> After P-CSCF processed a SIP request(REGISTER,initial INVITE)
+</I>&gt;<i> the value of Max-Forwards header changes from 64 to 16.
+</I>&gt;<i> I think the value should be 63.
+</I>&gt;<i> 
+</I>&gt;<i> Is there any known bug when decrement Max-Forwards header?
+</I>&gt;<i> (I captured loop-back interface of P-CSCF machine but no sign of 
+</I>&gt;<i> loop detected.)
+</I>&gt;<i> 
+</I>&gt;<i> [OpenIMSCore Release I use]
+</I>&gt;<i> CSCFs:ser_ims2007327.r0202
+</I>&gt;<i> HSS  :FHoSS2007329.r0204
+</I>&gt;<i> 
+</I>&gt;<i> Best Regards,
+</I>&gt;<i> Hideyuki
+</I>
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: Max-forwards-decremented.cap
+Type: application/octet-stream
+Size: 1534 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070425/73f6595c/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070425/73f6595c/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000510.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r247 - - initial commit for	accounting session support - initial commit for accounting	(client) state machine support in cdp
+</A></li>
+	<LI>Next message: <A HREF="000517.html">[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header after P-CSCF processing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#511">[ date ]</a>
+              <a href="thread.html#511">[ thread ]</a>
+              <a href="subject.html#511">[ subject ]</a>
+              <a href="author.html#511">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

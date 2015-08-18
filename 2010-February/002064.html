@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r866 - removed parameter	pcscf_qos_side modified PCC_AAR and PCC_STR to properly	retrieve dialog,	now it should work for re-invites and update requests not using &quot;ip6&quot;,	only &quot;ip&quot; to describe the pcc flows
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r866%20-%20removed%20parameter%0A%09pcscf_qos_side%20modified%20PCC_AAR%20and%20PCC_STR%20to%20properly%0A%09retrieve%20dialog%2C%0A%09now%20it%20should%20work%20for%20re-invites%20and%20update%20requests%20not%20using%20%22ip6%22%2C%0A%09only%20%22ip%22%20to%20describe%20the%20pcc%20flows&In-Reply-To=%3C201002051507.o15F7rmx024617%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002100.html">
+   <LINK REL="Next"  HREF="002065.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r866 - removed parameter	pcscf_qos_side modified PCC_AAR and PCC_STR to properly	retrieve dialog,	now it should work for re-invites and update requests not using &quot;ip6&quot;,	only &quot;ip&quot; to describe the pcc flows</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r866%20-%20removed%20parameter%0A%09pcscf_qos_side%20modified%20PCC_AAR%20and%20PCC_STR%20to%20properly%0A%09retrieve%20dialog%2C%0A%09now%20it%20should%20work%20for%20re-invites%20and%20update%20requests%20not%20using%20%22ip6%22%2C%0A%09only%20%22ip%22%20to%20describe%20the%20pcc%20flows&In-Reply-To=%3C201002051507.o15F7rmx024617%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r866 - removed parameter	pcscf_qos_side modified PCC_AAR and PCC_STR to properly	retrieve dialog,	now it should work for re-invites and update requests not using &quot;ip6&quot;,	only &quot;ip&quot; to describe the pcc flows">aon at users.berlios.de
+       </A><BR>
+    <I>Fri Feb  5 16:07:53 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002100.html">[OpenIMSCore-CSCF] 2. Re: About pcc P_Rx(register)
+</A></li>
+        <LI>Next message: <A HREF="002065.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r867 - modified the script for	PCSCF that it checks if the current Term_initial_reply can be	used for an AAR request,	using P_generates_aar. The content body should also be checked if it	includes sdp,	not just check if the content length is not zero...the future will	bring this kind of fixes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2064">[ date ]</a>
+              <a href="thread.html#2064">[ thread ]</a>
+              <a href="subject.html#2064">[ subject ]</a>
+              <a href="author.html#2064">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2010-02-05 16:07:50 +0100 (Fri, 05 Feb 2010)
+New Revision: 866 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=866">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=866</A> 
+
+Log:
+removed parameter pcscf_qos_side
+modified PCC_AAR and PCC_STR to properly retrieve dialog, now it should work for re-invites and update requests
+not using &quot;ip6&quot;, only &quot;ip&quot; to describe the pcc flows  
+
+
+Modified:
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/mod.c?rev=866&amp;view=diff&amp;r1=866&amp;r2=865">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/mod.c?rev=866&amp;view=diff&amp;r1=866&amp;r2=865</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c?rev=866&amp;view=diff&amp;r1=866&amp;r2=865">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c?rev=866&amp;view=diff&amp;r1=866&amp;r2=865</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c?rev=866&amp;view=diff&amp;r1=866&amp;r2=865">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c?rev=866&amp;view=diff&amp;r1=866&amp;r2=865</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/policy_control.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/policy_control.c?rev=866&amp;view=diff&amp;r1=866&amp;r2=865">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/policy_control.c?rev=866&amp;view=diff&amp;r1=866&amp;r2=865</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002100.html">[OpenIMSCore-CSCF] 2. Re: About pcc P_Rx(register)
+</A></li>
+	<LI>Next message: <A HREF="002065.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r867 - modified the script for	PCSCF that it checks if the current Term_initial_reply can be	used for an AAR request,	using P_generates_aar. The content body should also be checked if it	includes sdp,	not just check if the content length is not zero...the future will	bring this kind of fixes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2064">[ date ]</a>
+              <a href="thread.html#2064">[ thread ]</a>
+              <a href="subject.html#2064">[ subject ]</a>
+              <a href="author.html#2064">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Dialogs Management
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Dialogs%20Management&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C025A2BB3%40INOAVREX05.ptin.corpPT.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000607.html">
+   <LINK REL="Next"  HREF="000601.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Dialogs Management</H1>
+    <B>Jos&#233; Carlos Amorim</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Dialogs%20Management&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C025A2BB3%40INOAVREX05.ptin.corpPT.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Dialogs Management">jose-c-amorim at ptinovacao.pt
+       </A><BR>
+    <I>Tue May 15 11:51:55 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000607.html">[OpenIMSCore-CSCF] Dialogs Management
+</A></li>
+        <LI>Next message: <A HREF="000601.html">[OpenIMSCore-CSCF] [I-CSCF]When Callee rejects a call from other	domain I-CSCF returns 600 response
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#610">[ date ]</a>
+              <a href="thread.html#610">[ thread ]</a>
+              <a href="subject.html#610">[ subject ]</a>
+              <a href="author.html#610">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+
+Sorry I don't have a patch. I'm glad to read that there is a patch already for RFC 4028 this was something that was on my TODO list. 
+About appending the tags at the end of the call-id to correctly identify the dialog I guess that would be enough.
+
+Jos&#233; Carlos Silva
+
+-----Mensagem original-----
+De: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+Enviada: segunda-feira, 14 de Maio de 2007 20:22
+Para: Jos&#233; Carlos Amorim
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Assunto: Re: [OpenIMSCore-CSCF] Dialogs Management
+
+Hello Jose,
+
+Yes, you are right. I also observed some bugs that might be related to
+this. However, none bothered me that much so far.
+
+So we should also have the local and the remote tags as identification.
+Then I wonder if this would be just this simple and won't break anything
+else... Recently there was some activity in this area related to B2B
+dialog termination on expiration. Also I am reviewing now a patch for
+RFC4028. If you already have a patch, would be great if you could send
+it to me so that I could review them all at once. Is it enough if we
+just append these tags at the end?
+
+-Dragos
+
+Jos&#233; Carlos Amorim wrote:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I think I found a something on the code that can create incorrect
+</I>&gt;<i> behaviours.
+</I>&gt;<i>
+</I>&gt;<i> I noticed that when you save the dialogs you consider the dialog
+</I>&gt;<i> identification the call-id, but this could be a problem if a B2B AS
+</I>&gt;<i> creates different dialogs with the same call-id.
+</I>&gt;<i>
+</I>&gt;<i> I think that the identification of the dialog should be done using the
+</I>&gt;<i> concatenation of call-id and the tags from the TO and FROM headers, do
+</I>&gt;<i> you agree?
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000607.html">[OpenIMSCore-CSCF] Dialogs Management
+</A></li>
+	<LI>Next message: <A HREF="000601.html">[OpenIMSCore-CSCF] [I-CSCF]When Callee rejects a call from other	domain I-CSCF returns 600 response
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#610">[ date ]</a>
+              <a href="thread.html#610">[ thread ]</a>
+              <a href="subject.html#610">[ subject ]</a>
+              <a href="author.html#610">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Call Session Control Functions feature] 3rd	Party Reg. should include the Service-Info
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20feature%5D%203rd%0A%09Party%20Reg.%20should%20include%20the%20Service-Info&In-Reply-To=%3Ctype%3Dproject%26nid%3D113%26cid%3D46%26host%3D%40www.openimscore.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001046.html">
+   <LINK REL="Next"  HREF="001045.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Call Session Control Functions feature] 3rd	Party Reg. should include the Service-Info</H1>
+    <B>vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20feature%5D%203rd%0A%09Party%20Reg.%20should%20include%20the%20Service-Info&In-Reply-To=%3Ctype%3Dproject%26nid%3D113%26cid%3D46%26host%3D%40www.openimscore.org%3E"
+       TITLE="[OpenIMSCore-CSCF] [Call Session Control Functions feature] 3rd	Party Reg. should include the Service-Info">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Nov  8 20:52:54 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001046.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] 3rd Party	Reg. needs to also copy the P-Access-Network-Info header
+</A></li>
+        <LI>Next message: <A HREF="001045.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r489 - Enhanced the 3rd party reg:	- Added Service-Info in the body	http://www.openimscore.org/node/113 - Added	P-Access-Network-Info http://www.openimscore.org/node/111 -	removed useless data copies
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1047">[ date ]</a>
+              <a href="thread.html#1047">[ thread ]</a>
+              <a href="subject.html#1047">[ subject ]</a>
+              <a href="author.html#1047">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Issue status update for 
+<A HREF="http://www.openimscore.org/node/113">http://www.openimscore.org/node/113</A>
+Post a follow up: 
+<A HREF="http://www.openimscore.org/project/comments/add/113">http://www.openimscore.org/project/comments/add/113</A>
+
+ Project:      Call Session Control Functions
+ Version:      &lt;none&gt;
+ Component:    Code
+ Category:     feature requests
+ Priority:     normal
+ Assigned to:  
+ Reported by:  vingarzan
+ Updated by:   vingarzan
+-Status:       active
++Status:       fixed
+
+Done since r489
+
+
+
+
+vingarzan
+
+
+
+Previous comments:
+------------------------------------------------------------------------
+
+Thu, 04 Oct 2007 11:19:09 +0000 : vingarzan
+
+----------begin 24.229----------
+
+
+5.4.1.7 Notification of Application Servers about registration status
+
+
+If the registration procedure described in subclauses 5.4.1.2, 5.4.1.4
+or 5.4.1.5 (as appropriate) was successful, the SCSCF shall send a
+third-party REGISTER request to each AS with the following information:
+
+
+[...]
+
+
+g) for initial registration and user-initiated reregistration
+(subclause
+5.4.1.2), a message body, if there is Filter Criteria indicating the
+need to include HSS provided data for the REGISTER event (e.g. HSS may
+provide AS specific data to be included in the third-party REGISTER).
+
+
+If there is a service information XML element provided in the HSS
+Filter
+Criteria for an AS (see 3GPP TS 29.228 [14]), then the S-CSCF shall
+include it in the message body of the REGISTER request within the
+ XML element as described in subclause 7.6.
+
+
+For the messages including the IM CN subsystem XML body, the S-CSCF
+shall set the value of the Content-
+Type header to include the MIME type specified in subclause 7.6;
+
+
+-----------end 24.229-----------
+
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001046.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] 3rd Party	Reg. needs to also copy the P-Access-Network-Info header
+</A></li>
+	<LI>Next message: <A HREF="001045.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r489 - Enhanced the 3rd party reg:	- Added Service-Info in the body	http://www.openimscore.org/node/113 - Added	P-Access-Network-Info http://www.openimscore.org/node/111 -	removed useless data copies
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1047">[ date ]</a>
+              <a href="thread.html#1047">[ thread ]</a>
+              <a href="subject.html#1047">[ subject ]</a>
+              <a href="author.html#1047">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

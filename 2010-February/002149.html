@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Ipfileter rule (Min Wang)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Ipfileter%20rule%20%28Min%20Wang%29&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BD436%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002145.html">
+   <LINK REL="Next"  HREF="002146.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Ipfileter rule (Min Wang)</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Ipfileter%20rule%20%28Min%20Wang%29&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BD436%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Ipfileter rule (Min Wang)">wang at basis-audionet.com
+       </A><BR>
+    <I>Mon Feb 15 16:46:24 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002145.html">[OpenIMSCore-CSCF] Ipfileter rule (Min Wang)
+</A></li>
+        <LI>Next message: <A HREF="002146.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r896 - separated the function	PCC_create_add_media_subcomp_dialog so that the extracting of	the ports is done separately, preparing for the rtp proxy scenario
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2149">[ date ]</a>
+              <a href="thread.html#2149">[ thread ]</a>
+              <a href="subject.html#2149">[ subject ]</a>
+              <a href="author.html#2149">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Ancuta:
+
+Thanks.
+
+&gt;<i> 
+</I>&gt;<i> In the past the ports of the flows were ignored and now they are also
+</I>&gt;<i> set/sent in the ipfilerrule. This is the big change :d.
+</I>&gt;<i> 
+</I>&gt;<i> The old version was working with the UCT PCRF because there were no
+</I>&gt;<i> ports set/sent.
+</I>&gt;<i> So, there are 2 options:
+</I>&gt;<i> a)use the PCSCF with the ports disabled, and you will have the
+</I>backwards
+&gt;<i> compatibility
+</I>&gt;<i> or
+</I>
+Disabling the ports does not work with UCT. There must have something
+changed.  
+
+
+&gt;<i> b)use the functionality with the ports enabled and modify yourself the
+</I>&gt;<i> UCT PCRF or ask them nicely to do this (if they still have interest in
+</I>&gt;<i> this).
+</I>
+Since it is better to have port enabled, I will post to UCT mailing list
+to see if they will change etc. 
+
+
+Kind regards.
+
+Min Wang
+ 
+
+
+&gt;<i> I have tested the configuration with and without ports and the pcscf
+</I>&gt;<i> does not crash. But as I am using another pcrf I am not able to test
+</I>the
+&gt;<i> backwards compatibility. Could you test it please. It would be
+</I>important
+&gt;<i> to know.
+</I>&gt;<i> 
+</I>&gt;<i> Best regards,
+</I>&gt;<i> Ancuta
+</I>&gt;<i> 
+</I>&gt;<i> On Fri, 2010-02-12 at 20:36 +0100,
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A> wrote:
+</I>&gt;<i> &gt; Re: Ipfileter rule (Min Wang)
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002145.html">[OpenIMSCore-CSCF] Ipfileter rule (Min Wang)
+</A></li>
+	<LI>Next message: <A HREF="002146.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r896 - separated the function	PCC_create_add_media_subcomp_dialog so that the extracting of	the ports is done separately, preparing for the rtp proxy scenario
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2149">[ date ]</a>
+              <a href="thread.html#2149">[ thread ]</a>
+              <a href="subject.html#2149">[ subject ]</a>
+              <a href="author.html#2149">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

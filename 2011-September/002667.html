@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r1156 - Client_Rf: further steps:	increment adn decrement of the reference count to an Rf	session, terminating an Rf session
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1156%20-%20Client_Rf%3A%20further%20steps%3A%0A%09increment%20adn%20decrement%20of%20the%20reference%20count%20to%20an%20Rf%0A%09session%2C%20terminating%20an%20Rf%20session&In-Reply-To=%3C20110920085059.838EC480816%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002666.html">
+   <LINK REL="Next"  HREF="002668.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r1156 - Client_Rf: further steps:	increment adn decrement of the reference count to an Rf	session, terminating an Rf session</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1156%20-%20Client_Rf%3A%20further%20steps%3A%0A%09increment%20adn%20decrement%20of%20the%20reference%20count%20to%20an%20Rf%0A%09session%2C%20terminating%20an%20Rf%20session&In-Reply-To=%3C20110920085059.838EC480816%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r1156 - Client_Rf: further steps:	increment adn decrement of the reference count to an Rf	session, terminating an Rf session">aon at users.berlios.de
+       </A><BR>
+    <I>Tue Sep 20 10:50:59 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002666.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1155 - fixed a compilation problem
+</A></li>
+        <LI>Next message: <A HREF="002668.html">[OpenIMSCore-CSCF] Let's Grow Together-Free Signup
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2667">[ date ]</a>
+              <a href="thread.html#2667">[ thread ]</a>
+              <a href="subject.html#2667">[ subject ]</a>
+              <a href="author.html#2667">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2011-09-20 10:50:58 +0200 (Tue, 20 Sep 2011)
+New Revision: 1156 <A HREF="http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1156">http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1156</A> 
+
+Log:
+Client_Rf: further steps: increment adn decrement of the reference count to an Rf session, terminating an Rf session
+
+
+Modified:
+   U	ser_ims/trunk/modules/Client_Rf/mod_export.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/mod_export.h?op=diff&amp;rev=1156&amp;peg=1156">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/mod_export.h?op=diff&amp;rev=1156&amp;peg=1156</A>
+   U	ser_ims/trunk/modules/Client_Rf/mod_wharf.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/mod_wharf.c?op=diff&amp;rev=1156&amp;peg=1156">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/mod_wharf.c?op=diff&amp;rev=1156&amp;peg=1156</A>
+   U	ser_ims/trunk/modules/Client_Rf/rf_session.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/rf_session.c?op=diff&amp;rev=1156&amp;peg=1156">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/rf_session.c?op=diff&amp;rev=1156&amp;peg=1156</A>
+   U	ser_ims/trunk/modules/Client_Rf/rf_session.h
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/rf_session.h?op=diff&amp;rev=1156&amp;peg=1156">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/rf_session.h?op=diff&amp;rev=1156&amp;peg=1156</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002666.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1155 - fixed a compilation problem
+</A></li>
+	<LI>Next message: <A HREF="002668.html">[OpenIMSCore-CSCF] Let's Grow Together-Free Signup
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2667">[ date ]</a>
+              <a href="thread.html#2667">[ thread ]</a>
+              <a href="subject.html#2667">[ subject ]</a>
+              <a href="author.html#2667">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ISC%20Interface%20%3A%20IMS%20%2B%20Mobicents&In-Reply-To=%3Ca82607e30806240343o3e58adacx2c548d16db47cc9c%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001397.html">
+   <LINK REL="Next"  HREF="001399.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents</H1>
+    <B>Jose</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ISC%20Interface%20%3A%20IMS%20%2B%20Mobicents&In-Reply-To=%3Ca82607e30806240343o3e58adacx2c548d16db47cc9c%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents">pochete at gmail.com
+       </A><BR>
+    <I>Tue Jun 24 12:43:04 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001397.html">[OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents
+</A></li>
+        <LI>Next message: <A HREF="001399.html">[OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1398">[ date ]</a>
+              <a href="thread.html#1398">[ thread ]</a>
+              <a href="subject.html#1398">[ subject ]</a>
+              <a href="author.html#1398">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Raphael,
+
+Your AS is not receiving the same INVITE twice: first one is in the
+origination leg, the second one is in the terminating leg. S-CSCF
+marks the Record-Route signalling it: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mo at scscf.open-ims.test</A> vs
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mt at scscf.open-ims.test.</A>
+
+If you would like to be involved just in one of the legs (originating
+or terminating), setup the iFC accordingly.
+
+Jose
+
+On Tue, Jun 24, 2008 at 12:05 PM, Raphael Alazard &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ralazard at gmail.com</A>&gt; wrote:
+&gt;<i> Finally, I guess the change of the trigger isn't the good solution, indeed
+</I>&gt;<i> the following responses continue to be forward to AS. My problem is really
+</I>&gt;<i> similar to one handled a few months ago on Proper flow between IMS and AS.
+</I>&gt;<i> I want that the AS receives the first Invite and then sends it to IMS. After
+</I>&gt;<i> that I need the AS to be exclude of the following responses/requests in the
+</I>&gt;<i> dialog.
+</I>&gt;<i> The AS modifies the INVITE request received : drops its adress from the
+</I>&gt;<i> Route Header, doesn't add its address in the Record Route Header. But IMS
+</I>&gt;<i> continues to forward all the messages of the conversation to the AS.
+</I>&gt;<i> I'd like to find a way to stop this behavior.
+</I>&gt;<i> I joined a pcap trace of a typical communication.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001397.html">[OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents
+</A></li>
+	<LI>Next message: <A HREF="001399.html">[OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1398">[ date ]</a>
+              <a href="thread.html#1398">[ thread ]</a>
+              <a href="subject.html#1398">[ subject ]</a>
+              <a href="author.html#1398">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

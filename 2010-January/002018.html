@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] peer state machine : Wait_Conn_Ack_Elect
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20peer%20state%20machine%20%3A%20Wait_Conn_Ack_Elect&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BCE01%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002017.html">
+   <LINK REL="Next"  HREF="002019.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] peer state machine : Wait_Conn_Ack_Elect</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20peer%20state%20machine%20%3A%20Wait_Conn_Ack_Elect&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BCE01%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] peer state machine : Wait_Conn_Ack_Elect">wang at basis-audionet.com
+       </A><BR>
+    <I>Fri Jan 29 20:03:04 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002017.html">[OpenIMSCore-CSCF] Query regarding FOHSS database
+</A></li>
+        <LI>Next message: <A HREF="002019.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r837 - added an unlock operation,	when a AAASession is added, otherwise the lock was still acquired
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2018">[ date ]</a>
+              <a href="thread.html#2018">[ thread ]</a>
+              <a href="subject.html#2018">[ subject ]</a>
+              <a href="author.html#2018">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi
+
+The cdp peer state machine (sm_process)  does not handle
+Wait_Conn_Ack_Elect
+
+My test machine happened to be in the state:
+
+--- Peer List: ---
+ 70771 Jan 29 11:59:15 im1 /usr/sbin/ser[24469]: ^[[01;32m
+S[^[[01;33mWait_Conn_Ack_Elect^[[01;32m] ^[[01;34mpcrf.xxx
+l.net:4868^[[01;32m D[^[[01;31m ^[[01;32m]
+
+
+According to RFC is should:
+
+   Wait-Conn-Ack/   I-Rcv-Conn-Ack   I-Snd-CER,Elect  Wait-Returns
+   Elect            I-Rcv-Conn-Nack  R-Snd-CEA        R-Open
+                    R-Peer-Disc      R-Disc           Wait-Conn-Ack
+                    R-Conn-CER       R-Reject         Wait-Conn-Ack/
+                                                      Elect
+                    Timeout          Error            Closed
+
+
+Please let me know if you guys will implement it, otherwise I will do
+it.
+
+
+             
+
+Kind Regards
+ 
+Min Wang
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002017.html">[OpenIMSCore-CSCF] Query regarding FOHSS database
+</A></li>
+	<LI>Next message: <A HREF="002019.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r837 - added an unlock operation,	when a AAASession is added, otherwise the lock was still acquired
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2018">[ date ]</a>
+              <a href="thread.html#2018">[ thread ]</a>
+              <a href="subject.html#2018">[ subject ]</a>
+              <a href="author.html#2018">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Trigger failure
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Trigger%20failure&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C025A2B9E%40INOAVREX05.ptin.corpPT.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000554.html">
+   <LINK REL="Next"  HREF="000556.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Trigger failure</H1>
+    <B>Jos&#233; Carlos Amorim</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Trigger%20failure&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C025A2B9E%40INOAVREX05.ptin.corpPT.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Trigger failure">jose-c-amorim at ptinovacao.pt
+       </A><BR>
+    <I>Thu May  3 19:39:01 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000554.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r260 - Fixed registration without	Security header
+</A></li>
+        <LI>Next message: <A HREF="000556.html">[OpenIMSCore-CSCF] Trigger failure
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#555">[ date ]</a>
+              <a href="thread.html#555">[ thread ]</a>
+              <a href="subject.html#555">[ subject ]</a>
+              <a href="author.html#555">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I was doing some tests with OpenIMSCore and our AS's, and encountered what seems to be a bug when checking the triggers.
+
+The user profile is listed below, extracted from the log.
+
+ 
+
+User profile:
+
+;30mINF:S-CSCF:IMSSubscription:
+
+ESC[00m 2(714) ESC[01;30mINF:S-CSCF:    Private Identity: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">fabiobatista at ptinovacao.pt</A>&gt;
+
+ESC[00m 2(714) ESC[01;30mINF:S-CSCF:    Service Profile:
+
+ESC[00m 2(714) ESC[01;30mINF:S-CSCF:            Public Identity: Barring [0] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">fabiobatista at ptinovacao.pt</A>&gt;
+
+ESC[00m 2(714) ESC[01;30mINF:S-CSCF:            Filter Criteria: Priority [0]ProfilePartInd [-1]
+
+ESC[00m 2(714) ESC[01;30mINF:S-CSCF:                    Trigger Point: CNF [ ] (_&amp;_)|(_&amp;_)
+
+ESC[00m 2(714) ESC[01;30mINF:S-CSCF:                            SPT: Grp[0] NOT[ ] RegType[0]
+
+ESC[00m 2(714) ESC[01;30mINF:S-CSCF:                                     SessionCase [1]
+
+ESC[00m 2(714) ESC[01;30mINF:S-CSCF:                            SPT: Grp[0] NOT[ ] RegType[0]
+
+ESC[00m 2(714) ESC[01;30mINF:S-CSCF:                                     Method == &lt;INVITE&gt;
+
+ESC[00m 2(714) ESC[01;30mINF:S-CSCF:                            SPT: Grp[0] NOT[X] RegType[0]
+
+ESC[00m 2(714) ESC[01;30mINF:S-CSCF:                                     Hdr(Contact(7)) == &lt;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ptin_app_server at 192.168.20.2</A>:5070&gt;
+
+&gt;<i> 
+</I>
+ESC[00m 2(714) ESC[01;30mINF:S-CSCF:                            SPT: Grp[1] NOT[ ] RegType[0]
+
+ESC[00m 2(714) ESC[01;30mINF:S-CSCF:                                     Method == &lt;REGISTER&gt;
+
+ESC[00m 2(714) ESC[01;30mINF:S-CSCF:                    AS: &lt;sip:192.168.20.2:5070&gt; Handling [0] SrvInfo: &lt;&gt;
+
+ 
+
+Below is also listed a part of the log where the trigger is matched, when it should not match, since the request is a mobile terminating Invite with a contact containing &quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ptin_app_server at 192.168.20.2</A>:5070&gt;&quot;. 
+
+I took a look at the code and found out that ifc_checker_trigger function prints &quot;Total compromised, aborting...&quot; and returns the flag &quot;outside&quot; (which has the value true), this will lead to Matching the IFC when it should not match. 
+
+Can anybody confirm this is a bug?
+
+ 
+
+Mobile terminating call:
+
+ESC[00m 2(714) ESC[01;32mINFO:ISC:ISC_match_filter(term): Checking triggers
+
+ESC[00m 2(714) ESC[01;32mINFO:ISC:isc_mark_get_from_msg: Trying to get the mark from the message
+
+ESC[00m 2(714) ESC[01;30mparse_headers: flags=ffffffffffffffff
+
+ESC[00m 2(714) ESC[01;32mINFO:ISC:ISC_match_filter(term): Starting triggering
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 31) called from sip.c: cscf_get_public_identity_from_requri(280)
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 32) returns address 0x816232c frag. 0x8162314 (size=32) on 1 -th hit
+
+ESC[00m 2(714) ESC[01;30mDBG:ISC:cscf_get_public_identity_from_requri: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">fabiobatista at ptinovacao.pt</A>&gt;
+
+ESC[00m 2(714) ESC[01;32mINFO:ISC:ISC_match_filter(term): Orig User &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">fabiobatista at ptinovacao.pt</A>&gt; [1]
+
+ESC[00m 2(714) ESC[01;32mINFO:ISC:isc_checker_find: starting search
+
+ESC[00m 2(714) ESC[01;30mDEBUG:ISC:ifc_checker_trigger: Starting expression check:
+
+ESC[00m 2(714) ESC[01;30mDEBUG:ISC:ifc_check_spt:             SPT type 4 -&gt; Session Case  == 1 ?
+
+ESC[00m 2(714) ESC[01;30mDEBUG:ISC:ifc_check_spt:               Found session_case 1
+
+ESC[00m 2(714) ESC[01;30mDEBUG:ISC:ifc_check_spt:             SPT type 2 -&gt; Method == INVITE ?
+
+ESC[00m 2(714) ESC[01;30mDEBUG:ISC:ifc_check_spt:               Found method INVITE
+
+ESC[00m 2(714) ESC[01;30mDEBUG:ISC:ifc_check_spt:             SPT type 3 -&gt; Header[Contact]  %= &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ptin_app_server at 192.168.20.2</A>:5070&gt;
+
+ ?
+
+ESC[00m 2(714) ESC[01;30mparse_headers: flags=ffffffffffffffff
+
+ESC[00m 2(714) ESC[01;30mDEBUG:ISC:ifc_check_headers:            Looking for Header[Contact(7)] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ptin_app_server at 192.168.20.2</A>:5070&gt;
+
+ 
+
+ESC[00m 2(714) ESC[01;30mDEBUG:ISC:ifc_check_headers:            Found Header[Contact(7)] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ptin_app_server at 192.168.20.2</A>:5070&gt;
+
+ESC[00m 2(714) ESC[01;30mDEBUG:ISC:ifc_checker_trigger: Total compromised, aborting...
+
+ESC[00m 2(714) ESC[01;32mINFO:ISC:isc_checker_find: MATCH -&gt; sip:192.168.20.2:5070 () handling 0
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 24) called from checker.c: isc_new_match(325)
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 24) returns address 0x81626e4 frag. 0x81626cc (size=24) on 1 -th hit
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 21) called from checker.c: isc_new_match(332)
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 24) returns address 0x81628cc frag. 0x81628b4 (size=32) on 1 -th hit
+
+ESC[00m 2(714) ESC[01;30mDEBUG:ISC:isc_forward(): marking for AS &lt;sip:192.168.20.2:5070&gt;
+
+ESC[00m 2(714) ESC[01;30mparse_headers: flags=ffffffffffffffff
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 32) called from data_lump.c: anchor_lump(341)
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 32) returns address 0x8161dc4 frag. 0x8161dac (size=32) on 1 -th hit
+
+ESC[00m 2(714) ESC[01;30mDEBUG:ISC:ifc_mark_drop_route: Start ---------
+
+ESC[00m 2(714) ESC[01;30mDEBUG:ISC:ifc_mark_drop_route: ---------- End
+
+ESC[00m 2(714) ESC[01;30mparse_headers: flags=ffffffffffffffff
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 93) called from mark.c: isc_mark_write_route(288)
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 96) returns address 0x816264c frag. 0x8162634 (size=104) on 1 -th hit
+
+ESC[00m 2(714) ESC[01;30mDEBUG:ISC:isc_mark_write_route: &lt;Route: &lt;sip:192.168.20.2:5070;lr&gt;, &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.ptinovacao.pt</A>:6060;lr;s=1;h=0
+
+;d=1&gt;
+
+&gt;<i> 
+</I>
+ESC[00m 2(714) qm_malloc(0x81126a0, 32) called from data_lump.c: anchor_lump(341)
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 32) returns address 0x8161c80 frag. 0x8161c68 (size=32) on 1 -th hit
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 32) called from data_lump.c: insert_new_lump_before(140)
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 32) returns address 0x8161eb8 frag. 0x8161ea0 (size=32) on 1 -th hit
+
+ESC[00m 2(714) ESC[01;32mINFO:ISC:isc_mark_set: NEW mark &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.ptinovacao.pt</A>:6060;lr;s=1;h=0;d=1&gt;
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 21) called from isc.c: isc_forward(92)
+
+ESC[00m 2(714) qm_malloc(0x81126a0, 24) returns address 0x8161d74 frag. 0x8161d5c (size=32) on 1 -th hit
+
+ESC[00m 2(714) ESC[01;30mDEBUG: t_newtran: msg id=9 , global msg id=9 , T on entrance=(nil)
+
+ESC[00m 2(714) ESC[01;30mparse_headers: flags=ffffffffffffffff
+
+ESC[00m 2(714) ESC[01;30mparse_headers: flags=78
+
+ESC[00m 2(714) ESC[01;30mt_lookup_request: start searching: hash=31000, isACK=0
+
+ 
+
+Regards,
+
+Jos&#233; Carlos Silva
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070503/7371be07/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070503/7371be07/attachment.html</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: trigger_failure.pcap
+Type: application/octet-stream
+Size: 2005 bytes
+Desc: trigger_failure.pcap
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070503/7371be07/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070503/7371be07/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000554.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r260 - Fixed registration without	Security header
+</A></li>
+	<LI>Next message: <A HREF="000556.html">[OpenIMSCore-CSCF] Trigger failure
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#555">[ date ]</a>
+              <a href="thread.html#555">[ thread ]</a>
+              <a href="subject.html#555">[ subject ]</a>
+              <a href="author.html#555">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

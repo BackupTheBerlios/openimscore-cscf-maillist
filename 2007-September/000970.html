@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 3rd-Party-REGISTER	requires	P-Access-Network-Infoheader
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%203rd-Party-REGISTER%0A%09requires%09P-Access-Network-Infoheader&In-Reply-To=%3C46FBAC46.2000709%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000962.html">
+   <LINK REL="Next"  HREF="000957.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 3rd-Party-REGISTER	requires	P-Access-Network-Infoheader</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%203rd-Party-REGISTER%0A%09requires%09P-Access-Network-Infoheader&In-Reply-To=%3C46FBAC46.2000709%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] 3rd-Party-REGISTER	requires	P-Access-Network-Infoheader">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Sep 27 15:12:38 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000962.html">[OpenIMSCore-CSCF] 3rd-Party-REGISTER	requires	P-Access-Network-Infoheader
+</A></li>
+        <LI>Next message: <A HREF="000957.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r449 - Fixed CSCF_RETURN_BREAK on	P/S_save_dialog() when the dialog exists. This affects the AS	incoming dialogs in B2B mode.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#970">[ date ]</a>
+              <a href="thread.html#970">[ thread ]</a>
+              <a href="subject.html#970">[ subject ]</a>
+              <a href="author.html#970">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Yup, so the fix worked but was not complete. It seems that also the
+other header still needs to be copied, if present.
+
+Extra it would be that we need a way to control this operation from the
+script. The identification of the AS trusted/untrusted case is for now
+left to the user to do and as such this control needs to be offered in
+the script.
+
+I can't fix it right away, so here is a bug-report to follow the issue:
+<A HREF="http://www.openimscore.org/node/111">http://www.openimscore.org/node/111</A>
+
+-Dragos
+
+
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Stefan.Brozinski at materna.de</A> wrote:
+&gt;&gt;<i> My doubts go towards the fact that the
+</I>&gt;&gt;<i> P-Access-Network-Info might still be required 
+</I>&gt;&gt;<i> to be copied if it exists.
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> 24.229 V7.7.0 says:
+</I>&gt;<i>
+</I>&gt;<i> ------------snip------------
+</I>&gt;<i>
+</I>&gt;<i> 5.4.1.7 Notification of Application Servers about registration status
+</I>&gt;<i>
+</I>&gt;<i> During registration, the S-CSCF shall include a P-Access-Network-Info
+</I>&gt;<i> header and a P-Visited-Network-ID header (as received in the REGISTER
+</I>&gt;<i> request from the UE) in the 3rd-party REGISTER sent towards the ASs, if
+</I>&gt;<i> the AS is part of the trust domain.
+</I>&gt;<i>
+</I>&gt;<i> If the AS is not part of the trust domain, the S-CSCF shall not include
+</I>&gt;<i> any P-Access-Network-Info header or P-Visited-Network-ID header. The
+</I>&gt;<i> S-CSCF shall not include a P-Access-Network-Info header in any responses
+</I>&gt;<i> to the REGISTER request.
+</I>&gt;<i>
+</I>&gt;<i> ------------snap------------
+</I>&gt;<i>
+</I>&gt;<i> So it boils down to the question if the AS is part of the trust domain.
+</I>&gt;<i>
+</I>&gt;<i> &gt;From section 4.4 of the same document, it looks to me that in most cases
+</I>&gt;<i> the AS is indeed part of the trust domain.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> We could also approach the question from another angle: Section 5.4.1.7
+</I>&gt;<i> says that 'P-Access-Network-Info' should be copied when
+</I>&gt;<i> 'P-Visited-Network-ID' is copied. Just use the same condition.
+</I>&gt;<i>
+</I>&gt;<i> Best regards
+</I>&gt;<i> Stefan
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> -----Original Message-----
+</I>&gt;&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>] 
+</I>&gt;&gt;<i> Sent: Wednesday, September 26, 2007 5:48 PM
+</I>&gt;&gt;<i> To: Brozinski, Stefan
+</I>&gt;&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at bat.berlios.de</A>
+</I>&gt;&gt;<i> Subject: Re: [OpenIMSCore-CSCF] 3rd-Party-REGISTER requires 
+</I>&gt;&gt;<i> P-Access-Network-Infoheader
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Hello Stefan,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> The original author of the 3rd party reg code has given me a patch.
+</I>&gt;&gt;<i> Because I was not sure if it was correct, I have delayed it until now.
+</I>&gt;&gt;<i> So it is committed in r450. This patch uses the P-Visited-Network-ID
+</I>&gt;&gt;<i> header instead of the P-Access-Network-Info. My doubts go towards the
+</I>&gt;&gt;<i> fact that the P-Access-Network-Info might still be required 
+</I>&gt;&gt;<i> to be copied
+</I>&gt;&gt;<i> if it exists. Anybody can bring some light into this issue? (I know, I
+</I>&gt;&gt;<i> should read the specs...)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Stefan.Brozinski at materna.de</A> wrote:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Hi everybody,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> after updating to OpenImsCore r448, the S-CSCF stopped creating
+</I>&gt;&gt;&gt;<i> 3rd-party REGISTERS for the AS when a client registers.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> This happens because the code in 
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> 'ser_ims/modules/isc/third_party_reg.c'
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> (function 'new_r_third_party_reg') requires a P-Access-Network-Info
+</I>&gt;&gt;&gt;<i> header: &quot;if (!r-&gt;pani.s) goto error&quot;.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> In my test environment the PC-based client does not create 
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> this header.
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> As far as I understand 3GPP 24.229 V7.7.0, a client should 
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> populate this
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> header only if the access technology is known -- so this header is
+</I>&gt;&gt;&gt;<i> optional.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Is this a bug in the S-CSCF? Or is every IMS client 
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> *required* to create
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> this header and I misunderstood the specification?
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Regards
+</I>&gt;&gt;&gt;<i> Stefan
+</I>&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> -- 
+</I>&gt;&gt;<i> -----------------------------------------
+</I>&gt;&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;&gt;<i> 10589 Berlin,Germany
+</I>&gt;&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;&gt;<i> -----------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000962.html">[OpenIMSCore-CSCF] 3rd-Party-REGISTER	requires	P-Access-Network-Infoheader
+</A></li>
+	<LI>Next message: <A HREF="000957.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r449 - Fixed CSCF_RETURN_BREAK on	P/S_save_dialog() when the dialog exists. This affects the AS	incoming dialogs in B2B mode.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#970">[ date ]</a>
+              <a href="thread.html#970">[ thread ]</a>
+              <a href="subject.html#970">[ subject ]</a>
+              <a href="author.html#970">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

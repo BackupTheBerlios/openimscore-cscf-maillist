@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Modified%20Invite%20coming%20back%20from%20TAS%20not%0A%20recognized%20as%20different%20%28Call%20Forwarding%20on%20Busy%29&In-Reply-To=%3C48C3D58A.4030205%40alcatel-lucent.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001491.html">
+   <LINK REL="Next"  HREF="001492.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)</H1>
+    <B>Dick Gooris</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Modified%20Invite%20coming%20back%20from%20TAS%20not%0A%20recognized%20as%20different%20%28Call%20Forwarding%20on%20Busy%29&In-Reply-To=%3C48C3D58A.4030205%40alcatel-lucent.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)">gooris at alcatel-lucent.com
+       </A><BR>
+    <I>Sun Sep  7 15:22:18 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001491.html">[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)
+</A></li>
+        <LI>Next message: <A HREF="001492.html">[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1488">[ date ]</a>
+              <a href="thread.html#1488">[ thread ]</a>
+              <a href="subject.html#1488">[ subject ]</a>
+              <a href="author.html#1488">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Dragos,
+
+The IP fragmentation can be avoided (with wireshark) using the setting :
+
+      preferences--&gt;protocols--&gt;ip--&gt;reassemble fragmented ip datagrams 
+to *OFF*
+
+You will see the very last Invite as a non fragmented SIP message.
+
+I again did the trace, see the attachment for the capture and the scscf 
+log both in one .zip file called trace2.zip
+
+To refresh the scenario (after all the summer holidays) :
+
+A number 2694 calls 2696, where 2696 is not registered. We have a Tas 
+function in order to forward the call to 2695 in the condition that 2696 
+is not registered.
+
+Using the Wireshark trace, this is what happens, where 10.0.0.10 is the 
+p/i/s-scscf, and 10.0.0.9 is the AS which is also known as the xtas.
+
+frame 87  : initial Invite : 2694 calls 2696,
+frame 95  : the Invite is send to the AS for origination for 
+session-case=orig
+frame 98  : the AS did some modification to the Invite and Via adds xtasorig
+
+frame 265 : the invite again goes to the AS with session-case=termunreg
+frame 270 : the AS did some modification to the Invite and Via adds 
+xtastermunreg
+
+frame 272 : the target number 2696 is not registered, and a 404 is send 
+back to the AS
+frame 273 : the 404 is being Ack'ed and the AS is now triggered due to 
+this 404 to initiate
+            a new Invite based of the Invite we used to reach 2696 in 
+the last scenario (as in frame 270)
+            but with another request uri.
+       
+frame 274 : the AS sends an Invite towards 2695 where we only changed 
+the Request Uri in
+            the first header.
+
+A this point we reached line 3915 of the scscf.log file with debug 
+option enabled.  At this line we have the  message 'Trans already in 
+processing' and the call scenario stops here.
+
+At this point everything stops here since the scscf does not treat the 
+new Invite as being different because the new request uri was not 
+checked to determine differences with any other Invite in the callstate. 
+So we do not see any more messages.
+
+So at this point I let the scenario running for a while and about 37 
+seconds later I invoked a Hangup for the origination 2694. The logfile 
+and the capture both show this event.
+
+Let me know you need extra data.
+
+Kind regards,
+
+     - Dick Gooris
+    
+
+
+
+Dragos Vingarzan wrote:
+&gt;<i> Hi Dick,
+</I>&gt;<i>
+</I>&gt;<i> I think that there's a misunderstanding in the middle.
+</I>&gt;<i>
+</I>&gt;<i> The feature that Enrique was talking about is another feature than what
+</I>&gt;<i> seems to be your issue. The original Request-URI is saved inside the ISC
+</I>&gt;<i> mark and can be retrieved and checked. This is useful in cases when in
+</I>&gt;<i> terminating side triggering the target of the INVITE has been changed
+</I>&gt;<i> and triggering must be applied for the new terminating user.
+</I>&gt;<i>
+</I>&gt;<i> I was trying to understand your trace and to identify why the new invite
+</I>&gt;<i> was skipped as a retransmission, but there are some problems with IP
+</I>&gt;<i> fragmentation plus the fact that it ends quite abruptly. Could you maybe
+</I>&gt;<i> recapture it? What happens after package 74?
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080907/747647f6/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080907/747647f6/attachment.html</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: trace2.zip
+Type: application/x-zip-compressed
+Size: 87538 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080907/747647f6/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080907/747647f6/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001491.html">[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)
+</A></li>
+	<LI>Next message: <A HREF="001492.html">[OpenIMSCore-CSCF] Modified Invite coming back from TAS not recognized as different (Call Forwarding on Busy)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1488">[ date ]</a>
+              <a href="thread.html#1488">[ thread ]</a>
+              <a href="subject.html#1488">[ subject ]</a>
+              <a href="author.html#1488">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

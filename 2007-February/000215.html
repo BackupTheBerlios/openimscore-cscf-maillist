@@ -1,0 +1,390 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r138 - ser_ims/trunk/modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r138%20-%20ser_ims/trunk/modules/scscf&In-Reply-To=%3C200702131859.l1DIxWNP017717%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000214.html">
+   <LINK REL="Next"  HREF="000216.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r138 - ser_ims/trunk/modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r138%20-%20ser_ims/trunk/modules/scscf&In-Reply-To=%3C200702131859.l1DIxWNP017717%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r138 - ser_ims/trunk/modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Feb 13 19:59:32 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000214.html">[OpenIMSCore-CSCF] SVN-ser_ims r135
+</A></li>
+        <LI>Next message: <A HREF="000216.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r139 - ser_ims/trunk/modules/cdp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#215">[ date ]</a>
+              <a href="thread.html#215">[ thread ]</a>
+              <a href="subject.html#215">[ subject ]</a>
+              <a href="author.html#215">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-13 19:59:18 +0100 (Tue, 13 Feb 2007)
+New Revision: 138
+
+Modified:
+   ser_ims/trunk/modules/scscf/registrar.c
+   ser_ims/trunk/modules/scscf/sip.c
+   ser_ims/trunk/modules/scscf/sip.h
+Log:
+Fixed tel-uri related bug - not being able to make a call to a tel uri which represents a public identity
+	- introduced cscf_get_terminating_identity which accepts also tel uri in Request-URIs.
+
+
+Modified: ser_ims/trunk/modules/scscf/registrar.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar.c	2007-02-13 18:15:59 UTC (rev 137)
++++ ser_ims/trunk/modules/scscf/registrar.c	2007-02-13 18:59:18 UTC (rev 138)
+@@ -961,7 +961,6 @@
+ {
+ 	int ret=CSCF_RETURN_FALSE,i;
+ 	str uri,dst={0,0};
+-	struct sip_uri puri;	
+ 	r_public *p=0;
+ 	r_contact *c=0;
+ 
+@@ -973,35 +972,16 @@
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_lookup: This message is not a request\n&quot;);
+ 		goto error;
+ 	}		
+-
+-	if (msg-&gt;new_uri.s) uri = msg-&gt;new_uri;
+-	else uri = msg-&gt;first_line.u.request.uri;
+ 	
+-	if (parse_uri(uri.s, uri.len, &amp;puri) &lt; 0) {
+-		LOG(L_INFO,&quot;INF:&quot;M_NAME&quot;:S_lookup: Error parsing uri &lt;%.*s&gt;\n&quot;,
+-			uri.len,uri.s);
+-		goto error;
+-	}
+-	uri.len = lookup_sip.len+puri.user.len+1+puri.host.len;
+-	uri.s = pkg_malloc(uri.len);
+-	if (!uri.s){
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_lookup: Error allocating %d bytes\n&quot;,uri.len);
++	if (!cscf_get_terminating_identity(msg,&amp;uri)){
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_lookup: Error extracting terminating uri!!!\n&quot;);
+ 		return CSCF_RETURN_ERROR;
+ 	}
+-	uri.len=0;
+-	memcpy(uri.s,lookup_sip.s,lookup_sip.len);
+-	uri.len+=lookup_sip.len;
+-	memcpy(uri.s+uri.len,puri.user.s,puri.user.len);
+-	uri.len+=puri.user.len;
+-	uri.s[uri.len++]='@';
+-	memcpy(uri.s+uri.len,puri.host.s,puri.host.len);
+-	uri.len+=puri.host.len;
+ 	
+-	
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_lookup: Looking for &lt;%.*s&gt;\n&quot;,uri.len,uri.s);
+ 	
+ 	p = get_r_public(uri);
+-	pkg_free(uri.s);
++//	pkg_free(uri.s);
+ 	if (!p) return CSCF_RETURN_FALSE;
+ 	if (p-&gt;reg_state!=IMS_USER_REGISTERED){
+ 		r_unlock(p-&gt;hash);
+@@ -1185,7 +1165,6 @@
+ int S_term_registered(struct sip_msg *msg,char *str1,char *str2)
+ {
+ 	int ret=CSCF_RETURN_FALSE;
+-	struct sip_uri puri;
+ 	str uri={0,0};	
+ 
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_registered: Looking if registered\n&quot;);
+@@ -1197,31 +1176,11 @@
+ 		goto error;
+ 	}		
+ 
+-	
+-	if (msg-&gt;new_uri.s) uri = msg-&gt;new_uri;
+-	else uri = msg-&gt;first_line.u.request.uri;
+-	
+-	if (parse_uri(uri.s, uri.len, &amp;puri) &lt; 0) {
+-		LOG(L_INFO,&quot;INF:&quot;M_NAME&quot;:S_term_registered: Error parsing uri &lt;%.*s&gt;\n&quot;,
+-			uri.len,uri.s);
+-		goto error;
+-	}
+-	uri.len = lookup_sip.len+puri.user.len+1+puri.host.len;
+-	uri.s = pkg_malloc(uri.len);
+-	if (!uri.s){
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_registered: Error allocating %d bytes\n&quot;,uri.len);
++	if (!cscf_get_terminating_identity(msg,&amp;uri)){
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_registered: Error extracting terminating uri!!!\n&quot;);
+ 		return CSCF_RETURN_ERROR;
+-	}
+-	uri.len=0;
+-	memcpy(uri.s,lookup_sip.s,lookup_sip.len);
+-	uri.len+=lookup_sip.len;
+-	memcpy(uri.s+uri.len,puri.user.s,puri.user.len);
+-	uri.len+=puri.user.len;
+-	uri.s[uri.len++]='@';
+-	memcpy(uri.s+uri.len,puri.host.s,puri.host.len);
+-	uri.len+=puri.host.len;
++	}	
+ 	
+-	
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_registered: Looking for &lt;%.*s&gt;\n&quot;,uri.len,uri.s);
+ 	
+ 	if (r_is_registered_id(uri)) 
+@@ -1229,10 +1188,8 @@
+ 	else 
+ 		ret = CSCF_RETURN_FALSE;
+ 			
+-	if (uri.s) pkg_free(uri.s);
+ 	return ret;
+ error:
+-	if (uri.s) pkg_free(uri.s);
+ 	ret=CSCF_RETURN_ERROR;
+ 	return ret;	
+ }
+@@ -1248,7 +1205,6 @@
+ int S_term_not_registered(struct sip_msg *msg,char *str1,char *str2)
+ {
+ 	int ret=CSCF_RETURN_FALSE;
+-	struct sip_uri puri;
+ 	str uri={0,0};	
+ 
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_not_registered: Looking if registered\n&quot;);
+@@ -1259,32 +1215,12 @@
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_not_registered: This message is not a request\n&quot;);
+ 		goto error;
+ 	}		
+-
+ 	
+-	if (msg-&gt;new_uri.s) uri = msg-&gt;new_uri;
+-	else uri = msg-&gt;first_line.u.request.uri;
+-	
+-	if (parse_uri(uri.s, uri.len, &amp;puri) &lt; 0) {
+-		LOG(L_INFO,&quot;INF:&quot;M_NAME&quot;:S_term_not_registered: Error parsing uri &lt;%.*s&gt;\n&quot;,
+-			uri.len,uri.s);
+-		goto error;
+-	}
+-	uri.len = lookup_sip.len+puri.user.len+1+puri.host.len;
+-	uri.s = pkg_malloc(uri.len);
+-	if (!uri.s){
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_not_registered: Error allocating %d bytes\n&quot;,uri.len);
++	if (!cscf_get_terminating_identity(msg,&amp;uri)){
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_not_registered: Error extracting terminating uri!!!\n&quot;);
+ 		return CSCF_RETURN_ERROR;
+-	}
+-	uri.len=0;
+-	memcpy(uri.s,lookup_sip.s,lookup_sip.len);
+-	uri.len+=lookup_sip.len;
+-	memcpy(uri.s+uri.len,puri.user.s,puri.user.len);
+-	uri.len+=puri.user.len;
+-	uri.s[uri.len++]='@';
+-	memcpy(uri.s+uri.len,puri.host.s,puri.host.len);
+-	uri.len+=puri.host.len;
++	}	
+ 	
+-	
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_not_registered: Looking for &lt;%.*s&gt;\n&quot;,uri.len,uri.s);
+ 	
+ 	if (r_is_not_registered_id(uri)) 
+@@ -1292,10 +1228,8 @@
+ 	else 
+ 		ret = CSCF_RETURN_FALSE;
+ 			
+-	if (uri.s) pkg_free(uri.s);	
+ 	return ret;
+ error:
+-	if (uri.s) pkg_free(uri.s);
+ 	ret=CSCF_RETURN_ERROR;
+ 	return ret;	
+ }
+@@ -1310,7 +1244,6 @@
+ int S_term_unregistered(struct sip_msg *msg,char *str1,char *str2)
+ {
+ 	int ret=CSCF_RETURN_FALSE;
+-	struct sip_uri puri;
+ 	str uri={0,0};	
+ 
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_unregistered: Looking if registered\n&quot;);
+@@ -1323,30 +1256,11 @@
+ 	}		
+ 
+ 	
+-	if (msg-&gt;new_uri.s) uri = msg-&gt;new_uri;
+-	else uri = msg-&gt;first_line.u.request.uri;
+-	
+-	if (parse_uri(uri.s, uri.len, &amp;puri) &lt; 0) {
+-		LOG(L_INFO,&quot;INF:&quot;M_NAME&quot;:S_term_unregistered: Error parsing uri &lt;%.*s&gt;\n&quot;,
+-			uri.len,uri.s);
+-		goto error;
+-	}
+-	uri.len = lookup_sip.len+puri.user.len+1+puri.host.len;
+-	uri.s = pkg_malloc(uri.len);
+-	if (!uri.s){
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_unregistered: Error allocating %d bytes\n&quot;,uri.len);
++	if (!cscf_get_terminating_identity(msg,&amp;uri)){
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_unregistered: Error extracting terminating uri!!!\n&quot;);
+ 		return CSCF_RETURN_ERROR;
+ 	}
+-	uri.len=0;
+-	memcpy(uri.s,lookup_sip.s,lookup_sip.len);
+-	uri.len+=lookup_sip.len;
+-	memcpy(uri.s+uri.len,puri.user.s,puri.user.len);
+-	uri.len+=puri.user.len;
+-	uri.s[uri.len++]='@';
+-	memcpy(uri.s+uri.len,puri.host.s,puri.host.len);
+-	uri.len+=puri.host.len;
+ 	
+-	
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_unregistered: Looking for &lt;%.*s&gt;\n&quot;,uri.len,uri.s);
+ 	
+ 	if (r_is_unregistered_id(uri)) 
+@@ -1354,10 +1268,8 @@
+ 	else 
+ 		ret = CSCF_RETURN_FALSE;
+ 			
+-	if (uri.s) pkg_free(uri.s);	
+ 	return ret;
+ error:
+-	if (uri.s) pkg_free(uri.s);
+ 	ret=CSCF_RETURN_ERROR;
+ 	return ret;	
+ }
+@@ -1640,42 +1552,23 @@
+ int S_terminating_barred(struct sip_msg *msg,char *str1,char *str2)
+ {
+ 	int ret=CSCF_RETURN_FALSE;
+-	struct sip_uri puri;	
+ 	str uri;	
+ 
+-	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_originating_barred: Looking if barred\n&quot;);
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_terminating_barred: Looking if barred\n&quot;);
+ //	print_r(L_INFO);
+ 	/* First check the parameters */
+ 	if (msg-&gt;first_line.type!=SIP_REQUEST)
+ 	{
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_originating_barred: This message is not a request\n&quot;);
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_terminating_barred: This message is not a request\n&quot;);
+ 		goto error;
+ 	}		
+ 
+-	if (msg-&gt;new_uri.s) uri = msg-&gt;new_uri;
+-	else uri = msg-&gt;first_line.u.request.uri;
+-	
+-	if (parse_uri(uri.s, uri.len, &amp;puri) &lt; 0) {
+-		LOG(L_INFO,&quot;INF:&quot;M_NAME&quot;:S_is_not_registered: Error parsing uri &lt;%.*s&gt;\n&quot;,
+-			uri.len,uri.s);
+-		goto error;
+-	}
+-	uri.len = lookup_sip.len+puri.user.len+1+puri.host.len;
+-	uri.s = pkg_malloc(uri.len);
+-	if (!uri.s){
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_is_not_registered: Error allocating %d bytes\n&quot;,uri.len);
++	if (!cscf_get_terminating_identity(msg,&amp;uri)){
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_terminating_barred: Error extracting terminating uri!!!\n&quot;);
+ 		return CSCF_RETURN_ERROR;
+ 	}
+-	uri.len=0;
+-	memcpy(uri.s,lookup_sip.s,lookup_sip.len);
+-	uri.len+=lookup_sip.len;
+-	memcpy(uri.s+uri.len,puri.user.s,puri.user.len);
+-	uri.len+=puri.user.len;
+-	uri.s[uri.len++]='@';
+-	memcpy(uri.s+uri.len,puri.host.s,puri.host.len);
+-	uri.len+=puri.host.len;
+ 	
+-	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_originating_barred: Looking for &lt;%.*s&gt;\n&quot;,uri.len,uri.s);
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_terminating_barred: Looking for &lt;%.*s&gt;\n&quot;,uri.len,uri.s);
+ 	
+ 	if (S_is_barred(uri)) 
+ 		ret = CSCF_RETURN_TRUE;
+
+Modified: ser_ims/trunk/modules/scscf/sip.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/sip.c	2007-02-13 18:15:59 UTC (rev 137)
++++ ser_ims/trunk/modules/scscf/sip.c	2007-02-13 18:59:18 UTC (rev 138)
+@@ -2217,3 +2217,37 @@
+ 	return 1;
+ }
+ 
++/**
++ * Returns the terminating contact.
++ * @param msg sip message
++ * @param msg - the SIP message to look into
++ * @param host - the host string to be filled with the result
++ * @param port - the port number to be filled with the result 
++ * @param transport - the transport type to be filled with the result
++ * @returns 1 on success
++ */
++int cscf_get_terminating_identity(struct sip_msg *msg,str *uri)
++{
++	struct sip_msg *req;	
++	int i;
++	req = msg;	
++	if (!req){
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:cscf_get_terminating_identity: NULL message!!!\n&quot;);
++		return 0;
++	}
++ 	if (req-&gt;first_line.type!=SIP_REQUEST){
++ 		req = cscf_get_request_from_reply(req);
++ 	}
++	
++	if (msg-&gt;new_uri.s) *uri = msg-&gt;new_uri;
++	else *uri = msg-&gt;first_line.u.request.uri;
++		
++	for(i=0;i&lt;uri-&gt;len;i++)
++		if (uri-&gt;s[i]==';' || uri-&gt;s[i]=='?') {
++			uri-&gt;len = i;
++			break;
++		}
++	
++	LOG(L_INFO,&quot;DBG:&quot;M_NAME&quot;:cscf_get_terminating_identity: &lt;%.*s&gt; \n&quot;,uri-&gt;len,uri-&gt;s);	
++	return 1;
++}
+
+Modified: ser_ims/trunk/modules/scscf/sip.h
+===================================================================
+--- ser_ims/trunk/modules/scscf/sip.h	2007-02-13 18:15:59 UTC (rev 137)
++++ ser_ims/trunk/modules/scscf/sip.h	2007-02-13 18:59:18 UTC (rev 138)
+@@ -161,5 +161,6 @@
+ int cscf_get_originating_contact(struct sip_msg *msg,str *host,int *port,int *transport,str pcscf_sip2ims_via_host,int pcscf_sip2ims_via_port);
+ int cscf_get_terminating_contact(struct sip_msg *msg,str *host,int *port,int *transport);
+ 
++int cscf_get_terminating_identity(struct sip_msg *msg,str *uri);
+ 
+ #endif /* PIS_CSCF_SIP_H */
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000214.html">[OpenIMSCore-CSCF] SVN-ser_ims r135
+</A></li>
+	<LI>Next message: <A HREF="000216.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r139 - ser_ims/trunk/modules/cdp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#215">[ date ]</a>
+              <a href="thread.html#215">[ thread ]</a>
+              <a href="subject.html#215">[ subject ]</a>
+              <a href="author.html#215">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

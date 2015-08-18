@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r208 - Applied Florin Popescu's	patch for: - fixing the regexp parameter on	S_check_visited_network_id - avoids regcomp on every function call.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r208%20-%20Applied%20Florin%20Popescu%27s%0A%09patch%20for%3A%20-%20fixing%20the%20regexp%20parameter%20on%0A%09S_check_visited_network_id%20-%20avoids%20regcomp%20on%20every%20function%20call.&In-Reply-To=%3C200703301409.l2UE9KWU000468%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000373.html">
+   <LINK REL="Next"  HREF="000375.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r208 - Applied Florin Popescu's	patch for: - fixing the regexp parameter on	S_check_visited_network_id - avoids regcomp on every function call.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r208%20-%20Applied%20Florin%20Popescu%27s%0A%09patch%20for%3A%20-%20fixing%20the%20regexp%20parameter%20on%0A%09S_check_visited_network_id%20-%20avoids%20regcomp%20on%20every%20function%20call.&In-Reply-To=%3C200703301409.l2UE9KWU000468%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r208 - Applied Florin Popescu's	patch for: - fixing the regexp parameter on	S_check_visited_network_id - avoids regcomp on every function call.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Fri Mar 30 16:09:20 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000373.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r207 - remove redundant note about	urls
+</A></li>
+        <LI>Next message: <A HREF="000375.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r209 - support for external load	sources, unified str_map fns, other minor stuff
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#374">[ date ]</a>
+              <a href="thread.html#374">[ thread ]</a>
+              <a href="subject.html#374">[ subject ]</a>
+              <a href="author.html#374">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-03-30 16:09:17 +0200 (Fri, 30 Mar 2007)
+New Revision: 208 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=208">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=208</A> 
+
+Log:
+Applied Florin Popescu's patch for:
+- fixing the regexp parameter on S_check_visited_network_id - avoids regcomp on every function call.
+
+
+Modified:
+   U	ser_ims/trunk/modules/scscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=208&amp;view=diff&amp;r1=208&amp;r2=207">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=208&amp;view=diff&amp;r1=208&amp;r2=207</A>
+   U	ser_ims/trunk/modules/scscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registration.c?rev=208&amp;view=diff&amp;r1=208&amp;r2=207">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registration.c?rev=208&amp;view=diff&amp;r1=208&amp;r2=207</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000373.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r207 - remove redundant note about	urls
+</A></li>
+	<LI>Next message: <A HREF="000375.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r209 - support for external load	sources, unified str_map fns, other minor stuff
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#374">[ date ]</a>
+              <a href="thread.html#374">[ thread ]</a>
+              <a href="subject.html#374">[ subject ]</a>
+              <a href="author.html#374">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

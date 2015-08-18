@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Error in registering Open IMS client
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Error%20in%20registering%20Open%20IMS%20client&In-Reply-To=%3C5ec01813b7be84f5a1648291561ec5bf.squirrel%40damaka.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002386.html">
+   <LINK REL="Next"  HREF="002388.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Error in registering Open IMS client</H1>
+    <B>Lakshmanan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Error%20in%20registering%20Open%20IMS%20client&In-Reply-To=%3C5ec01813b7be84f5a1648291561ec5bf.squirrel%40damaka.net%3E"
+       TITLE="[OpenIMSCore-CSCF] Error in registering Open IMS client">lakshmanan at damaka.net
+       </A><BR>
+    <I>Mon Feb  7 08:09:46 CET 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002386.html">[OpenIMSCore-CSCF] Support of AKAv1-MD5
+</A></li>
+        <LI>Next message: <A HREF="002388.html">[OpenIMSCore-CSCF] Error in registering Open IMS client
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2387">[ date ]</a>
+              <a href="thread.html#2387">[ thread ]</a>
+              <a href="subject.html#2387">[ subject ]</a>
+              <a href="author.html#2387">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi All,
+
+
+Hi all,
+
+I have installed Open IMS COre in my system and i have an IMS client. When
+i try to login, the wire shark trace shows the following error.
+
+
+
+****************************************************************************
+REGISTER sip:192.168.1.37 SIP/2.0
+
+To:  &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">lakshmanan at 192.168.1.37</A>&gt;
+
+From:  &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">lakshmanan at 192.168.1.37</A>&gt;;tag=C199D284_B196_4732_9021_CD66D4CAA667
+
+Via: SIP/2.0/UDP
+192.168.1.26:18264;branch=z9hG4bk_5318C7F0_702A_4BC7_BE3F_8F11A3A8C016;rport
+
+Call-ID:
+1500B33E_4BAF_479E_8268_5A643143D5FD_079f4fb001904720cfafbe52511d4cb7
+
+CSeq: 28 REGISTER
+
+Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">lakshmanan at 192.168.1.26</A>:18264&gt;;expires=5000
+
+Expires: 5000
+
+Max-Forwards: 70
+
+Allow: INVITE, ACK, BYE, CANCEL, OPTIONS, MESSAGE, SUBSCRIBE, NOTIFY,
+PUBLISH, INFO, REFER, UPDATE
+
+User-Agent: damaka UA
+
+Authorization: Digest
+username=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">lakshmanan at 192.168.1.37</A>&quot;,realm=&quot;192.168.1.37&quot;,nonce=&quot;&quot;,uri=&quot;sip:192.168.1.37&quot;,response=&quot;&quot;
+
+Content-Length: 0
+
+
+
+SIP/2.0 480 Temporarily Unavailable - Diameter Cx interface failed
+
+To:  &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">lakshmanan at 192.168.1.37</A>&gt;;tag=5fdebea3a0fb5351ab552f16d7063cc2-59e3
+
+From:  &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">lakshmanan at 192.168.1.37</A>&gt;;tag=C199D284_B196_4732_9021_CD66D4CAA667
+
+Via: SIP/2.0/UDP
+192.168.1.26:18264;branch=z9hG4bk_5318C7F0_702A_4BC7_BE3F_8F11A3A8C016;rport=18264
+
+Call-ID:
+1500B33E_4BAF_479E_8268_5A643143D5FD_079f4fb001904720cfafbe52511d4cb7
+
+CSeq: 28 REGISTER
+
+Server: Sip EXpress router (2.1.0-dev1 OpenIMSCore (i386/linux))
+
+Content-Length: 0
+
+Warning: 392 192.168.1.37:5060 &quot;Noisy feedback tells:  pid=905
+req_src_ip=192.168.1.37 req_src_port=4060 in_uri=sip:192.168.1.37
+out_uri=sip:192.168.1.37 via_cnt==2&quot;
+
+
+****************************************************************************
+
+-- 
+Regards,
+Lakshmanan.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002386.html">[OpenIMSCore-CSCF] Support of AKAv1-MD5
+</A></li>
+	<LI>Next message: <A HREF="002388.html">[OpenIMSCore-CSCF] Error in registering Open IMS client
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2387">[ date ]</a>
+              <a href="thread.html#2387">[ thread ]</a>
+              <a href="subject.html#2387">[ subject ]</a>
+              <a href="author.html#2387">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

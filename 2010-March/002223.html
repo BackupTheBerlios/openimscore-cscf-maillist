@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] LE-CSCF query to LRF [OPTIONS]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20LE-CSCF%20query%20to%20LRF%20%5BOPTIONS%5D&In-Reply-To=%3C1268654523.12760.72.camel%40localhost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002220.html">
+   <LINK REL="Next"  HREF="002224.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] LE-CSCF query to LRF [OPTIONS]</H1>
+    <B>Andreea Ancuta Onofrei</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20LE-CSCF%20query%20to%20LRF%20%5BOPTIONS%5D&In-Reply-To=%3C1268654523.12760.72.camel%40localhost%3E"
+       TITLE="[OpenIMSCore-CSCF] LE-CSCF query to LRF [OPTIONS]">andreea.ancuta.onofrei at fokus.fraunhofer.de
+       </A><BR>
+    <I>Mon Mar 15 13:02:03 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002220.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r929 - cdp: PCC: fixed a checking	for error
+</A></li>
+        <LI>Next message: <A HREF="002224.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r930 - Fixed	cdp_avp_add_Framed_IPv6_Prefix() - was not aligning the IP	address in the AVP properly.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2223">[ date ]</a>
+              <a href="thread.html#2223">[ thread ]</a>
+              <a href="subject.html#2223">[ subject ]</a>
+              <a href="author.html#2223">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Dear Melbourne,
+
+The LRF is capable of parsing geodetic information also.
+In fact, we tested the interface with the LOCSIP from Telefonica using
+geodetic location.
+As you can see the function for processing the notify can exit with
+error flag from multiple reasons when the request is badly formed.
+(LRF_process_notification:
+<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip.c?revision=751&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip.c?revision=751&amp;view=markup</A>)
+
+For example:
+-from/to/callid headers are not what the subscribe/notify mechanism
+expects.
+- the subscription state is not found in the notify
+- no application+xml body is found
+- the location information from the application+xml body is not
+according to the supported formats (geodetic as in RFC 5491, and the
+civic one as in RFC 5139)
+
+So, please share (ONLY) the messages related to locsip using wireshark:
+subscribe, subscribe reply, notify.
+
+I will then be able to tell you what went wrong.
+
+Best regards,
+Ancuta
+
+PS: Please send the next messages on <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>,
+not directly to my e-mail address, as this will increase your chances of
+having a reply on time.
+
+On Fri, 2010-03-12 at 18:48 -0500, Melbourne Barton wrote:
+&gt;<i> By the way, we are testing a LOCSIP server that only provides lat-long 
+</I>&gt;<i> instead of civic address.
+</I>&gt;<i> So, the LRF is responding with a 400 - No available location.
+</I>&gt;<i> 
+</I>&gt;<i> Is there a parameter to set in the LRF to choose between lat-long or 
+</I>&gt;<i> civic address, or use either
+</I>&gt;<i> one that LOCSIP provides?
+</I>&gt;<i> 
+</I>&gt;<i> Thanks,
+</I>&gt;<i> 
+</I>&gt;<i> Melbourne
+</I>&gt;<i> 
+</I>&gt;<i> On 3/11/2010 12:23 PM, Melbourne Barton wrote:
+</I>&gt;<i> &gt; Thanks - Melbourne
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; On 3/11/2010 4:26 AM, Andreea Ancuta Onofrei wrote:
+</I>&gt;<i> &gt;&gt; Hello Merlbourne,
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; I will fix this in the next few days by adding a parameter, as I
+</I>&gt;<i> &gt;&gt; described before. I will let you know when this is ready to test :).
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Best regards,
+</I>&gt;<i> &gt;&gt; Ancuta
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; On Mon, 2010-03-08 at 17:18 -0500, Melbourne Barton wrote:
+</I>&gt;<i> &gt;&gt;&gt; the E-CSCF is querying the LRF for location of user bob, the
+</I>&gt;<i> &gt;&gt;&gt; request line shows the actual IP address and port number (e.g.,
+</I>&gt;<i> &gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 192.168.2.10</A>:2174), rather than the SIP URI and port number. As a
+</I>&gt;<i> &gt;&gt;&gt; result, the LRF queries the LOCSIP server with the actual
+</I>&gt;<i> &gt;&gt;&gt; IP address, which the LOCSIP server cannot resolve because it expects
+</I>&gt;<i> &gt;&gt;&gt; an
+</I>&gt;<i> &gt;&gt;&gt; URI rather than the IP address.
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Is this the normal behavior of the E-CSCF and LRF?
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Thanks,
+</I>&gt;<i> &gt;
+</I>&gt;<i> 
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002220.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r929 - cdp: PCC: fixed a checking	for error
+</A></li>
+	<LI>Next message: <A HREF="002224.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r930 - Fixed	cdp_avp_add_Framed_IPv6_Prefix() - was not aligning the IP	address in the AVP properly.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2223">[ date ]</a>
+              <a href="thread.html#2223">[ thread ]</a>
+              <a href="subject.html#2223">[ subject ]</a>
+              <a href="author.html#2223">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

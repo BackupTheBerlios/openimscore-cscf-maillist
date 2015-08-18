@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] pid_list need to be initiliazed 0
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20pid_list%20need%20to%20be%20initiliazed%200&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A021800A3%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001921.html">
+   <LINK REL="Next"  HREF="001929.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] pid_list need to be initiliazed 0</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20pid_list%20need%20to%20be%20initiliazed%200&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A021800A3%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] pid_list need to be initiliazed 0">wang at basis-audionet.com
+       </A><BR>
+    <I>Thu Jan  7 19:30:12 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001921.html">[OpenIMSCore-CSCF] pid_list need to be initiliazed 0
+</A></li>
+        <LI>Next message: <A HREF="001929.html">[OpenIMSCore-CSCF] pid_list need to be initiliazed 0
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1924">[ date ]</a>
+              <a href="thread.html#1924">[ thread ]</a>
+              <a href="subject.html#1924">[ subject ]</a>
+              <a href="author.html#1924">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos:
+
+Thanks.
+
+&gt;<i> the first and easier part of the migration was done by making the
+</I>&gt;<i> modules work also with sip-router. The modules in our trunk should be
+</I>&gt;<i> usable now even there.
+</I>&gt;<i> 
+</I>&gt;<i> The second and harder part is the big move to the sip-router
+</I>repository.
+&gt;<i> Here we just need to copy our modules, as the rest of the core changes
+</I>&gt;<i> has been mostly ironed already.
+</I>&gt;<i> 
+</I>&gt;<i> Unfortunately just changing repositories is not as easy at it sounds.
+</I>&gt;<i> Where would the IMS core be placed there (main trunk, experimental
+</I>&gt;<i> branches, etc)? 
+</I>
+First of all, in order to migration to sip-router, is it enough to just
+copy  the p-cscf etc modules or is there any big changes for the
+core-module?
+
+IMS core = ser-core +  ( imscore-modules: p-cscf/cdp modules etc ) 
+
+Right?
+
+&gt;<i> How (and most importantly who can find the time) can
+</I>&gt;<i> maintenance be done, such that we will continuously make sure that the
+</I>&gt;<i> rest of the changes in sip-router - and there are quite many now -
+</I>would
+&gt;<i> not break the Open IMS Core functionality? 
+</I>&gt;<i>
+</I>If    IMS core = ser-core +  ( imscore-modules: p-cscf/cdp modules etc )
+Is right, then only changes is in imscore-modules. But I guess major
+functions call are the same, right?
+
+
+We have already an automatic
+&gt;<i> import of our svn repository in the git there, which also follows all
+</I>&gt;<i> our svn changes. But would it be possible to also push this
+</I>&gt;<i> automatically to a branch that would merge both changes from Open IMS
+</I>&gt;<i> Core modules and the sip-router main branch?
+</I>  
+    It depends on how to do it, it is possible. Git is good at merge.
+But still need human to check.
+
+
+&gt;<i> Then once we move it there,
+</I>&gt;<i> we'll need to still maintain for at least a short period backwards
+</I>&gt;<i> compatibility, so maybe a push-back in our repository would be
+</I>helpful.
+
+
+&gt;<i> Mostly this is a question of time, which unfortunately I for one can
+</I>not
+&gt;<i> commit now. If anyone would want to help here I will give him my full
+</I>&gt;<i> support. We have already discussed with the sip-router developers and
+</I>&gt;<i> they are very open and helpful into accepting us in their repository.
+</I>
+
+Yah I read your posts there. Sip-router seems a good/friendly community.
+I can help on it if I find time. 
+
+I guess first of all we have to make openimscore a little bit stable.
+
+
+
+&gt;<i> 
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> Min Wang wrote:
+</I>&gt;<i> &gt; Hi Dragos
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; All the modules should be also usable under sip-router now. I
+</I>usually
+&gt;<i> &gt;&gt; create a new modules_osims or something and copy there the
+</I>following
+&gt;<i> &gt;&gt; modules, which still have changes on our side:
+</I>&gt;<i> &gt;&gt; cdp  ecscf  enum  icscf  isc  lrf  pcscf  scscf  tls
+</I>&gt;<i> &gt;&gt; Then just put the new directory into Makefile.dirs and you're set.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Thanks a lot. I will try.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; Hopefully we should be able soon to move there,
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; What are the blocking issues to move to sip-router? Could it be that
+</I>&gt;<i> &gt; simple to just copy the module to there as you describe above?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; but I am not really sure
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; how the repository would look such that both patches from
+</I>sip-router
+&gt;<i> &gt;&gt; main trunk and OpenIMSCore would be merged automatically somehow.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I am not sure what you mean exactly. If migrated OK, OpenIMScore
+</I>will be
+&gt;<i> &gt; part of the sip-router's modules, right?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I guess after moving to sip-router, then openimscore could get more
+</I>&gt;<i> &gt; exposure, and more people could be involved, and bug-fix could be
+</I>&gt;<i> &gt; faster.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Kind Regards
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Min Wang
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; Anyway, in case of any trouble there, just let me know.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Cheers,
+</I>&gt;<i> &gt;&gt; -Dragos
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Min Wang wrote:
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Hi
+</I>&gt;<i> &gt;&gt;&gt;    Another small patch for modules/cdp/diameter_peer.c
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; The pid_list need to be initialized to 0  ( it cause crashes in
+</I>some
+&gt;<i> &gt;&gt;&gt; cases)
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; index 459885f..0834619 100644 (file)
+</I>&gt;<i> &gt;&gt;&gt; --- a/modules/cdp/diameter_peer.c
+</I>&gt;<i> &gt;&gt;&gt; +++ b/modules/cdp/diameter_peer.c
+</I>&gt;<i> &gt;&gt;&gt; @@ -209,6 +209,8 @@ int diameter_peer_init_real()
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;         /* init the pid list */
+</I>&gt;<i> &gt;&gt;&gt;         pid_list = shm_malloc(sizeof(pid_list_head_t));
+</I>&gt;<i> &gt;&gt;&gt; +       pid_list-&gt;head = 0;
+</I>&gt;<i> &gt;&gt;&gt; +       pid_list-&gt;tail = 0;
+</I>&gt;<i> &gt;&gt;&gt;         pid_list_lock = lock_alloc();
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; BTW, any plan to migrate to use git?
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Also what is the status of Migration of Open IMS Core to
+</I>sip-router?
+&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Kind Regards
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Min Wang
+</I>&gt;<i> &gt;&gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; --
+</I>&gt;<i> &gt;&gt; -----------------------------------------
+</I>&gt;<i> &gt;&gt; Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> &gt;&gt; Fraunhofer FOKUS/NGNI
+</I>&gt;<i> &gt;&gt; Kaiserin-Augusta-Allee 31
+</I>&gt;<i> &gt;&gt; 10589 Berlin,Germany
+</I>&gt;<i> &gt;&gt; Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> &gt;&gt; Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> &gt;&gt; Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> &gt;&gt; We could change the world if God would give us the source code...
+</I>&gt;<i> &gt;&gt; -----------------------------------------------------------------
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001921.html">[OpenIMSCore-CSCF] pid_list need to be initiliazed 0
+</A></li>
+	<LI>Next message: <A HREF="001929.html">[OpenIMSCore-CSCF] pid_list need to be initiliazed 0
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1924">[ date ]</a>
+              <a href="thread.html#1924">[ thread ]</a>
+              <a href="subject.html#1924">[ subject ]</a>
+              <a href="author.html#1924">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

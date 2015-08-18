@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Debian Package
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Debian%20Package&In-Reply-To=%3C2e66ff2b0810230205t723ef001s2418c38ce01a267d%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001519.html">
+   <LINK REL="Next"  HREF="001521.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Debian Package</H1>
+    <B>Arnaud MORIN</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Debian%20Package&In-Reply-To=%3C2e66ff2b0810230205t723ef001s2418c38ce01a267d%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Debian Package">arnaud.morin at gmail.com
+       </A><BR>
+    <I>Thu Oct 23 11:05:48 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001519.html">[OpenIMSCore-CSCF] Debian Package
+</A></li>
+        <LI>Next message: <A HREF="001521.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r596 - Fixed P_NAT_relay() bug	related to sending replies over UDP to TCP incoming requests.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1520">[ date ]</a>
+              <a href="thread.html#1520">[ thread ]</a>
+              <a href="subject.html#1520">[ subject ]</a>
+              <a href="author.html#1520">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I am currently working on the debian package for the OpenIMSCore project.
+I follow the howto for debian (from
+<A HREF="http://lists.berlios.de/pipermail/openimscore-users/2008-July/005840.html">http://lists.berlios.de/pipermail/openimscore-users/2008-July/005840.html</A> )
+
+# Prearation
+1. sudo apt-get install dpkg-dev
+2. cd /usr/local/src
+# Checkout ser_ims
+3. svn co <A HREF="http://svn.berlios.de/svnroot/repos/openimscore/ser_ims/trunk">http://svn.berlios.de/svnroot/repos/openimscore/ser_ims/trunk</A> ser_ims
+4. cd ser_ims
+5. make deb
+6. cd ..
+# Install default ser packages
+7. sudo dpkg -i ser_0.9.4-0.2-svn573_i386.deb
+ser-mysql-module_0.9.4-0.2-svn573_i386.deb
+ser-presence-module_0.9.4-0.2-svn573_i386.deb
+ser-xmlrpc-module_0.9.4-0.2-svn573_i386.deb
+# Remove ser service
+8. /etc/init.d/ser stop
+9. update-rc.d ser remove
+# Install Open IMS core pcscf, icscf, scscf
+10. dpkg -i ser-scscf_0.9.4-0.2-svn573_i386.deb
+ser-pcscf_0.9.4-0.2-svn573_i386.deb ser-icscf_0.9.4-0.2-svn573_i386.deb
+ser-cscf_0.9.4-0.2-svn573_i386.deb
+
+At point 5, the make deb command result is good but I do not have any .deb
+package in the parent directory.
+Is there a new way to make the package ?
+
+Best regards,
+Arnaud Morin.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20081023/e3d6d0aa/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20081023/e3d6d0aa/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001519.html">[OpenIMSCore-CSCF] Debian Package
+</A></li>
+	<LI>Next message: <A HREF="001521.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r596 - Fixed P_NAT_relay() bug	related to sending replies over UDP to TCP incoming requests.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1520">[ date ]</a>
+              <a href="thread.html#1520">[ thread ]</a>
+              <a href="subject.html#1520">[ subject ]</a>
+              <a href="author.html#1520">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

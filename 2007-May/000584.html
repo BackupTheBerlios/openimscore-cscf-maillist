@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Question]Request Timeout of INVITE message has	detected by P-CSCF and S-CSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DRequest%20Timeout%20of%20INVITE%20message%20has%0A%09detected%20by%20P-CSCF%20and%20S-CSCF&In-Reply-To=%3C200705100253.l4A2r80N006950%40imj.m.ecl.ntt.co.jp%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000582.html">
+   <LINK REL="Next"  HREF="000589.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Question]Request Timeout of INVITE message has	detected by P-CSCF and S-CSCF</H1>
+    <B>Hideyuki Yamashita</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DRequest%20Timeout%20of%20INVITE%20message%20has%0A%09detected%20by%20P-CSCF%20and%20S-CSCF&In-Reply-To=%3C200705100253.l4A2r80N006950%40imj.m.ecl.ntt.co.jp%3E"
+       TITLE="[OpenIMSCore-CSCF] [Question]Request Timeout of INVITE message has	detected by P-CSCF and S-CSCF">yamashita.hideyuki at lab.ntt.co.jp
+       </A><BR>
+    <I>Thu May 10 04:58:22 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000582.html">[OpenIMSCore-CSCF] Reg TLS support in latest SVN checkout of OpenIMScore
+</A></li>
+        <LI>Next message: <A HREF="000589.html">[OpenIMSCore-CSCF] [Question]Request Timeout of INVITE message	hasdetected by P-CSCF and S-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#584">[ date ]</a>
+              <a href="thread.html#584">[ thread ]</a>
+              <a href="subject.html#584">[ subject ]</a>
+              <a href="author.html#584">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I have tested under Proxy time-out situation.
+Please see details in attatched cap file.
+(provisional response is omitted from cap file)
+
+[Procedure I did]
+1.Issue INVITE from SIP Terminal1
+2.SIP Terminal2 does not answer to INVITE
+3.P-CSCF send 408 Request Timeout.
+4.P-CSCF send CANCEL to S-CSCF
+5.S-CSCF response &quot;403 Forbidden - Dialog not found on S-CSCF 
+or Terminating user not suitable for unregistered services&quot;
+6.S-CSCF send 408 Request Timeout to P-CSCF
+7.S-CSCF send CANCEL to SIP Proxy of SIP Terminal2
+
+[My Question]
+Why S-CSCF response &quot;403 Forbidden - Dialog not found on S-CSCF 
+or Terminating user not suitable for unregistered services&quot; to 
+P-CSCF?
+
+Is it known bug?
+
+[IP Address]
+172.16.3.155:SIP Terminal
+172.16.5.11:P-CSCF
+172.16.5.13:S-CSCF
+172.25.3.85:SIP Proxy(Not OpenIMS.SIP Terminal2 is registered to 
+this proxy)
+
+
+[OpenIMSCore Release I use]
+CSCFs:ser_ims2007327.r0202
+HSS  :FHoSS2007329.r0204
+
+Best Regards,
+Hideyuki
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: Proxy-Timeout-Detected-on-both-PCSCF-and-SCSCF.cap
+Type: application/octet-stream
+Size: 8013 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070510/f8eeb046/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070510/f8eeb046/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000582.html">[OpenIMSCore-CSCF] Reg TLS support in latest SVN checkout of OpenIMScore
+</A></li>
+	<LI>Next message: <A HREF="000589.html">[OpenIMSCore-CSCF] [Question]Request Timeout of INVITE message	hasdetected by P-CSCF and S-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#584">[ date ]</a>
+              <a href="thread.html#584">[ thread ]</a>
+              <a href="subject.html#584">[ subject ]</a>
+              <a href="author.html#584">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

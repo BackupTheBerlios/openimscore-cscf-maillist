@@ -1,0 +1,1021 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Unable to reach AS on another machine
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Unable%20to%20reach%20AS%20on%20another%20machine&In-Reply-To=%3C45D2CF15.6000203%40wipro.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000204.html">
+   <LINK REL="Next"  HREF="000184.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Unable to reach AS on another machine</H1>
+    <B>Rajaram Tripathy</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Unable%20to%20reach%20AS%20on%20another%20machine&In-Reply-To=%3C45D2CF15.6000203%40wipro.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Unable to reach AS on another machine">rajaram.tripathy at wipro.com
+       </A><BR>
+    <I>Wed Feb 14 09:57:57 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000204.html">[OpenIMSCore-CSCF] Unable to reach AS on another machine
+</A></li>
+        <LI>Next message: <A HREF="000184.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r124 - ser_ims/trunk/cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#226">[ date ]</a>
+              <a href="thread.html#226">[ thread ]</a>
+              <a href="subject.html#226">[ subject ]</a>
+              <a href="author.html#226">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi Dragos,
+
+We finally got it working, the problem was that our firewall was 
+blocking the ports (506*).
+We fixed it by running system-config-securitylevel and adding the ports 
+in the allowed list.
+
+Thanks for pointing us in the right direction!
+
+Regards,
+Rajaram
+
+Dragos Vingarzan wrote:
+&gt;<i> &gt;From what I see, the AS responds after more than 10 seconds since it
+</I>&gt;<i> received the PUBLISH request. The S-CSCF decides that the AS is down
+</I>&gt;<i> after 10 seconds and it continue message processing. So the 200 OK can't
+</I>&gt;<i> be delivered anymore.
+</I>&gt;<i>
+</I>&gt;<i> Also, from your trace I can't really see the messages as Wireshark tells
+</I>&gt;<i> me &quot;Packet size limited during capture&quot;.
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> Rajaram Tripathy wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi,
+</I>&gt;&gt;<i>    We tried running sipp client and openIMS in one
+</I>&gt;&gt;<i> machine(10.117.11.44) and another sipp client as AS in another
+</I>&gt;&gt;<i> machine(10.117.11.21).  The AS now able to receive PUBLISH and send
+</I>&gt;&gt;<i> 200 OK, but 200 OK is not reaching the originating sipp client.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> We are attaching the ethereal trace  and message logs.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Thanks in advance.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Rajaram/Arun
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Dragos Vingarzan wrote:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> To me it seems like there is a failure from the AS to respond. Could you
+</I>&gt;&gt;&gt;<i> attach a network trace?
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> -Dragos
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Rajaram Tripathy wrote:
+</I>&gt;&gt;&gt;<i>  
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;&gt;&gt;<i> Hello,
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> I have tested OpenIMS using SipP on the same machine, and was
+</I>&gt;&gt;&gt;&gt;<i> successfully able to trigger the AS through the filter criteria.
+</I>&gt;&gt;&gt;&gt;<i> After putting the Application on other machine, I'm facing problems
+</I>&gt;&gt;&gt;&gt;<i> in reaching it. The changes I made were:
+</I>&gt;&gt;&gt;&gt;<i> 1) Replace all instances of 127.0.0.1 and localhost to IP_ADDRESS in
+</I>&gt;&gt;&gt;&gt;<i> *.cfg, *.xml, 3 files in FHoSS/deploy, and all the .sql files
+</I>&gt;&gt;&gt;&gt;<i> 2) Replace instances of 127.0.0.1 in open-ims.dnszone to IP_ADDRESS
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>  From the S-CSCF log (pasted below), the IFC seems to be found (the
+</I>&gt;&gt;&gt;&gt;<i> Application is on 10.117.11.21), but it gives an error saying
+</I>&gt;&gt;&gt;&gt;<i> 'Transaction xxxx xxxxxx exists'. Any ideas what I'm doing wrong
+</I>&gt;&gt;&gt;&gt;<i> here? Any help would be greatly appreciated.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Regards,
+</I>&gt;&gt;&gt;&gt;<i> Rajaram
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> ---------------s-cscf log follows----------------
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>  2(7032) INF:S-CSCF:----------  Registrar Contents end ----------
+</I>&gt;&gt;&gt;&gt;<i>  2(7032) INFO:ISC:isc_failure: reached with s=1;h=0;d=0
+</I>&gt;&gt;&gt;&gt;<i>  2(7032) DBG:ISC:isc_bootstrap(): marking for bootstrap
+</I>&gt;&gt;&gt;&gt;<i>  2(7032) INFO:ISC:isc_mark_set: NEW mark
+</I>&gt;&gt;&gt;&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0;d=0&gt;
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from
+</I>&gt;&gt;&gt;&gt;<i> the message
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:isc_mark_get_from_msg: Found
+</I>&gt;&gt;&gt;&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0
+</I>&gt;&gt;&gt;&gt;<i> ;d=0&gt;
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:ISC_from_AS(orig): Message returned s=1;h=0;d=0
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) &gt;&gt;       Orig
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:ISC_match_filter(orig): Checking triggers
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from
+</I>&gt;&gt;&gt;&gt;<i> the message
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:isc_mark_get_from_msg: Found
+</I>&gt;&gt;&gt;&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0
+</I>&gt;&gt;&gt;&gt;<i> ;d=0&gt;
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:ISC_match_filter(orig): Message returned s=1;h=0;d=0
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:ISC_match_filter(orig): Orig User
+</I>&gt;&gt;&gt;&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt; [1]
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:isc_checker_find: resuming search from 1
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from
+</I>&gt;&gt;&gt;&gt;<i> the message
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) &gt;&gt;       Term
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:ISC_match_filter(term): Checking triggers
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from
+</I>&gt;&gt;&gt;&gt;<i> the message
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:ISC_match_filter(term): Starting triggering
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:ISC_match_filter(term): Orig User
+</I>&gt;&gt;&gt;&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt; [1]
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:isc_checker_find: starting search
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:isc_checker_find: MATCH -&gt; sip:10.117.11.21:5060
+</I>&gt;&gt;&gt;&gt;<i> () handling 0
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INFO:ISC:isc_mark_set: NEW mark
+</I>&gt;&gt;&gt;&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">iscmark at scscf.open-ims.test</A>:6060;lr;s=1;h=0;d=1&gt;
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) INF:ISC:cscf_get_transaction: Transaction 5948 934629675
+</I>&gt;&gt;&gt;&gt;<i> exists.Retransmission?
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) Trans already in processing... skip
+</I>&gt;&gt;&gt;&gt;<i>  1(7031) Trans already in processing... skip
+</I>&gt;&gt;&gt;&gt;<i> 11(7041) --- Peer List: ---
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> The information contained in this electronic message and any
+</I>&gt;&gt;&gt;&gt;<i> attachments to this message are intended for the exclusive use of
+</I>&gt;&gt;&gt;&gt;<i> the addressee(s) and may contain proprietary, confidential or
+</I>&gt;&gt;&gt;&gt;<i> privileged information. If you are not the intended recipient, you
+</I>&gt;&gt;&gt;&gt;<i> should not disseminate, distribute or copy this e-mail. Please
+</I>&gt;&gt;&gt;&gt;<i> notify the sender immediately and destroy all copies of this message
+</I>&gt;&gt;&gt;&gt;<i> and any attachments.
+</I>&gt;&gt;&gt;&gt;<i> WARNING: Computer viruses can be transmitted via email. The
+</I>&gt;&gt;&gt;&gt;<i> recipient should check this email and any attachments for the
+</I>&gt;&gt;&gt;&gt;<i> presence of viruses. The company accepts no liability for any damage
+</I>&gt;&gt;&gt;&gt;<i> caused by any virus transmitted by this email.
+</I>&gt;&gt;&gt;&gt;<i>  
+</I>&gt;&gt;&gt;&gt;<i> www.wipro.com
+</I>&gt;&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>       
+</I>&gt;&gt;&gt;&gt;<i>         
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> ------------------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:21:53
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:21:58
+</I>&gt;&gt;<i> UDP message received [999] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.21</A>:5061 SIP/2.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bK6745.90cd40e3.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;rport=6060;branch=z9hG4bK6745.adc125d7.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bK6745.9dc125d7.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bK6745.8dc125d7.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bK6745.7dc125d7.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bK6745.70cd40e3.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;rport=5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> Max-Forwards:  9
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9678 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Event: presence
+</I>&gt;&gt;<i> Expires: 3600
+</I>&gt;&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061&gt;
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Charging-Vector: icid-value=&quot;abcd45cb38f500000054&quot;; icid-gen-addr=&quot;10.117.11.44&quot;; orig-ioi=&quot;open-ims.test&quot;
+</I>&gt;&gt;<i> P-Called-Party-ID: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:21:58
+</I>&gt;&gt;<i> UDP message sent:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> SIP/2.0 200 OK
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bK6745.90cd40e3.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;rport=6060;branch=z9hG4bK6745.adc125d7.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bK6745.9dc125d7.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bK6745.8dc125d7.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bK6745.7dc125d7.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bK6745.70cd40e3.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;rport=5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=1
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9678 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Contact: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">as at 10.117.11.21</A>:5061;transport=UDP
+</I>&gt;&gt;<i> Expires: 2000
+</I>&gt;&gt;<i> SIP-ETag: 234
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:22:03
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:22:13
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:22:23
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:22:33
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:22:43
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:22:53
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:23:03
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:23:13
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:23:23
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:23:33
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:23:43
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:23:53
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:24:03
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:24:13
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:24:23
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:24:33
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:24:43
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:24:53
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:25:03
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:25:13
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:25:23
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:25:33
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i> ------------------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:17
+</I>&gt;&gt;<i> UDP message sent:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060 SIP/2.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> Max-Forwards: 15
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9697 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Event: presence
+</I>&gt;&gt;<i> Expires: 3600
+</I>&gt;&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061&gt;
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:27
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:27
+</I>&gt;&gt;<i> UDP message received [535] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> SIP/2.0 408 Request Timeout
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;rport=5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=af1700ff7114d8449fceb11e27dd14f7-7192
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9697 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Server: Sip EXpress router (0.10.99-dev53-tm_fixes (i386/linux))
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i> Warning: 392 10.117.11.44:6060 &quot;Noisy feedback tells:  pid=9101 req_src_ip=10.117.11.44 req_src_port=4060 in_uri=sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060 out_uri=sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060 via_cnt==0&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:27
+</I>&gt;&gt;<i> UDP message received [999] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061 SIP/2.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.dc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;rport=6060;branch=z9hG4bKe6c9.88754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.78754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.68754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.58754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.cc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;rport=5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> Max-Forwards:  9
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9697 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Event: presence
+</I>&gt;&gt;<i> Expires: 3600
+</I>&gt;&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061&gt;
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Charging-Vector: icid-value=&quot;abcd45cb3a8900000055&quot;; icid-gen-addr=&quot;10.117.11.44&quot;; orig-ioi=&quot;open-ims.test&quot;
+</I>&gt;&gt;<i> P-Called-Party-ID: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:28
+</I>&gt;&gt;<i> UDP message received [999] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061 SIP/2.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.dc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;rport=6060;branch=z9hG4bKe6c9.88754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.78754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.68754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.58754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.cc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;rport=5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> Max-Forwards:  9
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9697 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Event: presence
+</I>&gt;&gt;<i> Expires: 3600
+</I>&gt;&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061&gt;
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Charging-Vector: icid-value=&quot;abcd45cb3a8900000055&quot;; icid-gen-addr=&quot;10.117.11.44&quot;; orig-ioi=&quot;open-ims.test&quot;
+</I>&gt;&gt;<i> P-Called-Party-ID: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:29
+</I>&gt;&gt;<i> UDP message received [999] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061 SIP/2.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.dc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;rport=6060;branch=z9hG4bKe6c9.88754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.78754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.68754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.58754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.cc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;rport=5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> Max-Forwards:  9
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9697 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Event: presence
+</I>&gt;&gt;<i> Expires: 3600
+</I>&gt;&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061&gt;
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Charging-Vector: icid-value=&quot;abcd45cb3a8900000055&quot;; icid-gen-addr=&quot;10.117.11.44&quot;; orig-ioi=&quot;open-ims.test&quot;
+</I>&gt;&gt;<i> P-Called-Party-ID: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:31
+</I>&gt;&gt;<i> UDP message received [999] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061 SIP/2.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.dc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;rport=6060;branch=z9hG4bKe6c9.88754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.78754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.68754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.58754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.cc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;rport=5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> Max-Forwards:  9
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9697 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Event: presence
+</I>&gt;&gt;<i> Expires: 3600
+</I>&gt;&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061&gt;
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Charging-Vector: icid-value=&quot;abcd45cb3a8900000055&quot;; icid-gen-addr=&quot;10.117.11.44&quot;; orig-ioi=&quot;open-ims.test&quot;
+</I>&gt;&gt;<i> P-Called-Party-ID: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:35
+</I>&gt;&gt;<i> UDP message received [999] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061 SIP/2.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.dc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;rport=6060;branch=z9hG4bKe6c9.88754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.78754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.68754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.58754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.cc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;rport=5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> Max-Forwards:  9
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9697 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Event: presence
+</I>&gt;&gt;<i> Expires: 3600
+</I>&gt;&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061&gt;
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Charging-Vector: icid-value=&quot;abcd45cb3a8900000055&quot;; icid-gen-addr=&quot;10.117.11.44&quot;; orig-ioi=&quot;open-ims.test&quot;
+</I>&gt;&gt;<i> P-Called-Party-ID: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:37
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:39
+</I>&gt;&gt;<i> UDP message received [999] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061 SIP/2.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.dc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;rport=6060;branch=z9hG4bKe6c9.88754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.78754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.68754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.58754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.cc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;rport=5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> Max-Forwards:  9
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9697 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Event: presence
+</I>&gt;&gt;<i> Expires: 3600
+</I>&gt;&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061&gt;
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Charging-Vector: icid-value=&quot;abcd45cb3a8900000055&quot;; icid-gen-addr=&quot;10.117.11.44&quot;; orig-ioi=&quot;open-ims.test&quot;
+</I>&gt;&gt;<i> P-Called-Party-ID: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:43
+</I>&gt;&gt;<i> UDP message received [999] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061 SIP/2.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.dc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;rport=6060;branch=z9hG4bKe6c9.88754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.78754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.68754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.58754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.cc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;rport=5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> Max-Forwards:  9
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9697 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Event: presence
+</I>&gt;&gt;<i> Expires: 3600
+</I>&gt;&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061&gt;
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Charging-Vector: icid-value=&quot;abcd45cb3a8900000055&quot;; icid-gen-addr=&quot;10.117.11.44&quot;; orig-ioi=&quot;open-ims.test&quot;
+</I>&gt;&gt;<i> P-Called-Party-ID: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:47
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:47
+</I>&gt;&gt;<i> UDP message received [999] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061 SIP/2.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.dc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;rport=6060;branch=z9hG4bKe6c9.88754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.78754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.68754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.58754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.cc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;rport=5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> Max-Forwards:  9
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9697 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Event: presence
+</I>&gt;&gt;<i> Expires: 3600
+</I>&gt;&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061&gt;
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Charging-Vector: icid-value=&quot;abcd45cb3a8900000055&quot;; icid-gen-addr=&quot;10.117.11.44&quot;; orig-ioi=&quot;open-ims.test&quot;
+</I>&gt;&gt;<i> P-Called-Party-ID: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:51
+</I>&gt;&gt;<i> UDP message received [999] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061 SIP/2.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.dc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;rport=6060;branch=z9hG4bKe6c9.88754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.78754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.68754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.58754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.cc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;rport=5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> Max-Forwards:  9
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9697 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Event: presence
+</I>&gt;&gt;<i> Expires: 3600
+</I>&gt;&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061&gt;
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Charging-Vector: icid-value=&quot;abcd45cb3a8900000055&quot;; icid-gen-addr=&quot;10.117.11.44&quot;; orig-ioi=&quot;open-ims.test&quot;
+</I>&gt;&gt;<i> P-Called-Party-ID: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:55
+</I>&gt;&gt;<i> UDP message received [999] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061 SIP/2.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.dc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;rport=6060;branch=z9hG4bKe6c9.88754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.78754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.68754651.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:6060;branch=z9hG4bKe6c9.58754651.1
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:4060;branch=z9hG4bKe6c9.cc9837f5.0
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;rport=5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> Max-Forwards:  9
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9697 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Event: presence
+</I>&gt;&gt;<i> Expires: 3600
+</I>&gt;&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061&gt;
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i> P-Asserted-Identity: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;
+</I>&gt;&gt;<i> P-Charging-Vector: icid-value=&quot;abcd45cb3a8900000055&quot;; icid-gen-addr=&quot;10.117.11.44&quot;; orig-ioi=&quot;open-ims.test&quot;
+</I>&gt;&gt;<i> P-Called-Party-ID: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:57
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:28:57
+</I>&gt;&gt;<i> UDP message received [533] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> SIP/2.0 408 Request Timeout
+</I>&gt;&gt;<i> Via: SIP/2.0/UDP 10.117.11.44:5061;rport=5061;branch=z9hG4bK-1-0
+</I>&gt;&gt;<i> From: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>:4060&gt;;tag=1
+</I>&gt;&gt;<i> To: Bob &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=3509588c6432ebf3a19d0f58d617811d-89f0
+</I>&gt;&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9697 at 127.0.0.1</A>
+</I>&gt;&gt;<i> CSeq: 1 PUBLISH
+</I>&gt;&gt;<i> Server: Sip EXpress router (0.10.99-dev53-tm_fixes (i386/linux))
+</I>&gt;&gt;<i> Content-Length: 0
+</I>&gt;&gt;<i> Warning: 392 10.117.11.44:4060 &quot;Noisy feedback tells:  pid=9086 req_src_ip=10.117.11.44 req_src_port=6060 in_uri=sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061 out_uri=sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.117.11.44</A>:5061 via_cnt==0&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:29:07
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:29:17
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:29:27
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:29:37
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:29:47
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:29:57
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:30:07
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:30:17
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:30:27
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:30:37
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:30:47
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:30:57
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:31:07
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:31:17
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:31:27
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:31:37
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:31:47
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:31:57
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:32:07
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:32:17
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:32:27
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:32:37
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:32:47
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:32:57
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:33:07
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:33:17
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:33:27
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:33:37
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:33:47
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:33:57
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:34:07
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:34:17
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:34:27
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:34:37
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:34:47
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:34:57
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:35:07
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:35:17
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:35:27
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:35:37
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:35:47
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:35:57
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:36:07
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:36:17
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:36:27
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:36:37
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:36:47
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:36:57
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:37:07
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:37:17
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:37:27
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:37:37
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:37:47
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:37:57
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:38:07
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:38:17
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:38:27
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:38:37
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:38:47
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:38:57
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:39:07
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:39:17
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:39:27
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ----------------------------------------------- 2007-02-08 20:39:37
+</I>&gt;&gt;<i> UDP message received [2] bytes :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+
+The information contained in this electronic message and any attachments to this message are intended for the exclusive use of the addressee(s) and may contain proprietary, confidential or privileged information. If you are not the intended recipient, you should not disseminate, distribute or copy this e-mail. Please notify the sender immediately and destroy all copies of this message and any attachments. 
+
+WARNING: Computer viruses can be transmitted via email. The recipient should check this email and any attachments for the presence of viruses. The company accepts no liability for any damage caused by any virus transmitted by this email.
+ 
+www.wipro.com
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000204.html">[OpenIMSCore-CSCF] Unable to reach AS on another machine
+</A></li>
+	<LI>Next message: <A HREF="000184.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r124 - ser_ims/trunk/cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#226">[ date ]</a>
+              <a href="thread.html#226">[ thread ]</a>
+              <a href="subject.html#226">[ subject ]</a>
+              <a href="author.html#226">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

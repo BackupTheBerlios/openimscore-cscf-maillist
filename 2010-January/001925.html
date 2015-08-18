@@ -1,0 +1,545 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] p-cscf: cscf_get_first_route	needtoreparsethe route header
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%3A%20cscf_get_first_route%0A%09needtoreparsethe%20route%20header&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A021800A4%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001922.html">
+   <LINK REL="Next"  HREF="001928.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] p-cscf: cscf_get_first_route	needtoreparsethe route header</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%3A%20cscf_get_first_route%0A%09needtoreparsethe%20route%20header&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A021800A4%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] p-cscf: cscf_get_first_route	needtoreparsethe route header">wang at basis-audionet.com
+       </A><BR>
+    <I>Thu Jan  7 19:40:35 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001922.html">[OpenIMSCore-CSCF] p-cscf: cscf_get_first_route needtoreparsethe route header
+</A></li>
+        <LI>Next message: <A HREF="001928.html">[OpenIMSCore-CSCF] p-cscf: cscf_get_first_route needtoreparsethe route header
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1925">[ date ]</a>
+              <a href="thread.html#1925">[ thread ]</a>
+              <a href="subject.html#1925">[ subject ]</a>
+              <a href="author.html#1925">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos
+  
+&gt;<i> What about parsing it each time, using the parser functions and
+</I>freeing
+&gt;<i> the result each time? It is a bit resource-wasteful, but it would
+</I>&gt;<i> probably work.
+</I>   
+    The ser performance comes from lazy parser. If we do it this way for
+every msg regardless a pkg/shm msg, then I guess it will hit the
+performance.
+
+    We only need to do parse/and free it when the msg is from shm.
+Since all-headers are already parsed, so only several places really need
+to pkg_free.
+
+     I already have something in my local branch. But need more
+extensive testing. Or maybe I could push to trunk, so more people could
+test it out?
+
+
+Kind regards
+
+Min Wang
+
+
+&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> Min Wang wrote:
+</I>&gt;<i> &gt; Hi
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; sr-dev gave some partial clarification on this issue, see:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I><A HREF="http://lists.sip-router.org/pipermail/sr-dev/2009-December/005314.html">http://lists.sip-router.org/pipermail/sr-dev/2009-December/005314.html</A>
+&gt;<i> &gt;
+</I>&gt;<i> &gt; It seems no easy way to parsed the already-shmed sip msg.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Fortunelty all headers are parsed before creating the transaction,
+</I>so we
+&gt;<i> &gt; only need to parse the content of a header.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Obviously we need to disguish if the msg is a already-shmed one or
+</I>not.
+&gt;<i> &gt;
+</I>&gt;<i> &gt; Thus the function like cscf_get_first_route may need to be
+</I>re-defined
+&gt;<i> &gt; like:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; str cscf_get_first_route(struct sip_msg *msg,struct hdr_field **hr,
+</I>&gt;<i> &gt; boolean shmed)
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; so inside function we can pkg_free after parsing if it is a shmed
+</I>sip
+&gt;<i> &gt; msg.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Or there maybe other ways???
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; BTW, happy new year to you all!
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Kind Regards
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Min Wang
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; -----Original Message-----
+</I>&gt;<i> &gt;&gt; From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; [mailto:openimscore-cscf-
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bounces at lists.berlios.de</A>] On Behalf Of Min Wang
+</I>&gt;<i> &gt;&gt; Sent: Friday, December 18, 2009 4:01 PM
+</I>&gt;<i> &gt;&gt; To: Dragos Vingarzan
+</I>&gt;<i> &gt;&gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt; Subject: Re: [OpenIMSCore-CSCF] p-cscf: cscf_get_first_route
+</I>&gt;<i> &gt;&gt; needtoreparsethe route header
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Hi Dragos:
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; While I am thinking of fixing this issue, It seems there are other
+</I>&gt;<i> &gt;&gt; places doing something similar:
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;     msg = cscf_get_request_from_reply(req);
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; then:  parse_xxx
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; e.g:
+</I>&gt;<i> &gt;&gt; cscf_get_terminating_identity_gr(struct sip_msg *msg,str *gr)
+</I>&gt;<i> &gt;&gt; parse_uri(uri.s, uri.len, &amp;puri)
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; It seems in general it will have memory leak: the parsed result is
+</I>&gt;<i> &gt;&gt; pkg_alloced and stored the tm structure,  then it never get freed
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; until
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; tm is destoried ( but even in this case tm may call shm_free
+</I>instead
+&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; of
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; pkg_free???? )
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; So we need take a broad view on it, the general issue is: can tm
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; stored
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; msg be parsed and how to do it correctly???
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Maybe sip-router mailing is a better place to ask?
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Kind Regards
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Min Wang
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; -----Original Message-----
+</I>&gt;<i> &gt;&gt;&gt; From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; [mailto:openimscore-cscf-
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bounces at lists.berlios.de</A>] On Behalf Of Min Wang
+</I>&gt;<i> &gt;&gt;&gt; Sent: Friday, December 18, 2009 3:24 PM
+</I>&gt;<i> &gt;&gt;&gt; To: Dragos Vingarzan
+</I>&gt;<i> &gt;&gt;&gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt; Subject: Re: [OpenIMSCore-CSCF] p-cscf: cscf_get_first_route need
+</I>&gt;<i> &gt;&gt;&gt; toreparsethe route header
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Hi Dragos
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Sorry, I guess that patch does not fix the issue.
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Checked the sip_msg_cloner again, it seems copy only
+</I>&gt;<i> &gt;&gt;&gt; via/from/to/cseq/auth headers and parsed headers to the shm.
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; I am trying to see what else we can do.
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Kind Regards
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Min Wang
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; -----Original Message-----
+</I>&gt;<i> &gt;&gt;&gt;&gt; From: Dragos Vingarzan
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Sent: Friday, December 18, 2009 8:49 AM
+</I>&gt;<i> &gt;&gt;&gt;&gt; To: Min Wang
+</I>&gt;<i> &gt;&gt;&gt;&gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt; Subject: Re: [OpenIMSCore-CSCF] p-cscf: cscf_get_first_route need
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; to
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; reparsethe route header
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Fixed in r788
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Cheers,
+</I>&gt;<i> &gt;&gt;&gt;&gt; -Dragos
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; Min Wang wrote:
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Hi Dragos:
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; (1) make sure parsing rr header before sip_msg_cloner is
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; called,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt; then
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; everything is ok
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; It seems this patch is ok to fix the issue without introducing
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; memory
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; leak.
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Inside P_save_dialog call cscf_get_first_route.
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; modules/pcscf$ svn diff dlg_state.c
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Index: dlg_state.c
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; ===================================================================
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; --- dlg_state.c (revision 786)
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; +++ dlg_state.c (working copy)
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; @@ -902,6 +902,9 @@
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;         cscf_get_to_uri(msg,&amp;x);
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;         ruri.len = snprintf(buf2,256,&quot;&lt;%.*s&gt;&quot;,x.len,x.s);
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;         ruri.s = buf2;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; +
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; +       // parse rr before t_relay
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; +       cscf_get_first_route(msg,0);
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;         tmb.new_dlg_uac(&amp;call_id,
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;                                         &amp;tag,
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Kind Regards
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Min Wang
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; -----Original Message-----
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; [mailto:openimscore-cscf-
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bounces at lists.berlios.de</A>] On Behalf Of Min Wang
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Sent: Thursday, December 17, 2009 12:17 PM
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; To: Dragos Vingarzan
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Subject: Re: [OpenIMSCore-CSCF] p-cscf: cscf_get_first_route
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; need
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt; to
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; reparsethe route header
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Hi Dragos
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; before I commit your patch, could you please just check if
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; this
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; won't
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; cause a memory leak? Shouldn't there also be a free on the
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; h-&gt;parsed
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; if
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; it is !=0, before resetting it?
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Yes, you are right.
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; But I am not sure what is the right way.
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; It seems no good place to pkg_free it as its real intention is
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; to
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; operate on the shared-memoried tm.
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; I can think of two possible solutions:
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; (1) make sure parsing rr header before sip_msg_cloner is
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; called,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt; then
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; everything is ok
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; (2) parse rr then copied it to tm's shared_memory
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Or any other way??
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Kind Regards
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; Min Wang
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; Cheers,
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; -Dragos
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; Min Wang wrote:
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Hi
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;     The p-cscf ( with cdp enabled) crashed when there are 183
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; and
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; 200
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; reply.
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;     cscf_get_first_route seems need to reparse the route
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; header
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;  since parse_rr uses pkg_malloc.
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;      The following are details:
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; On p-cscf the reply route :
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; onreply_route[Orig_Initial_reply]
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; {
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; ....
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;         if ((t_check_status(&quot;183&quot;)||t_check_status(&quot;200&quot;)) &amp;&amp;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; P_generates_aar(&quot;0&quot;)) {
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;                 if (!P_AAR(&quot;0&quot;)) {
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;                         P_release_call_onreply(&quot;orig&quot;);
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;                 } else {
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;                         if (!P_security_relay())
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; P_NAT_relay();
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;                 }
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; ....
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; }
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;    A sip client may reply with 183/200 which cause
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; cscf_get_mobile_side ( in p-cscf)  being called multiple
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt; times
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; in
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; difference
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; processes.
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;    cscf_get_mobile_side -&gt; cscf_get_request_from_reply use tm
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; to
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; get the request, which was cloned into shared memory (parsed
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; headers are not cloned, see sip_msg_cloner).
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;     Thus cscf_get_mobile_side -&gt; cscf_get_first_route -&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; parse_rr
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; should reparse route headers in those different processes
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; as it use pkg_malloc to store the parsed result.
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;      Please see the following patch.
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;      Or you may have a better idea how to handle it.
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; modules/scscf/sip.c |    3 +++
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;  1 files changed, 3 insertions(+), 0 deletions(-)
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; diff --git a/modules/scscf/sip.c b/modules/scscf/sip.c
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; index 022148a..a43f174 100644
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; --- a/modules/scscf/sip.c
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; +++ b/modules/scscf/sip.c
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; @@ -959,6 +959,9 @@ str cscf_get_first_route(struct sip_msg
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; *msg,struct
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; hdr_field **hr)
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;                 return route;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;         }
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;         if (hr) *hr = h;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; +
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; +       // force to reparse since parse_rr use pkg_malloc
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; +       h-&gt;parsed = 0;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;         if (parse_rr(h)&lt;0){
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;                 LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:cscf_get_first_route:
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt; Error
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; parsing as Route header\n&quot;);
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;                 return route;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; --
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Kind Regards
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Min Wang
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; --
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; -----------------------------------------
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; Fraunhofer FOKUS/NGNI
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; Kaiserin-Augusta-Allee 31
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; 10589 Berlin,Germany
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; We could change the world if God would give us the source
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; code...
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; -----------------------------------------------------------------
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;&gt; --
+</I>&gt;<i> &gt;&gt;&gt;&gt; -----------------------------------------
+</I>&gt;<i> &gt;&gt;&gt;&gt; Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> &gt;&gt;&gt;&gt; Fraunhofer FOKUS/NGNI
+</I>&gt;<i> &gt;&gt;&gt;&gt; Kaiserin-Augusta-Allee 31
+</I>&gt;<i> &gt;&gt;&gt;&gt; 10589 Berlin,Germany
+</I>&gt;<i> &gt;&gt;&gt;&gt; Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> &gt;&gt;&gt;&gt; Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> &gt;&gt;&gt;&gt; Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> &gt;&gt;&gt;&gt; We could change the world if God would give us the source code...
+</I>&gt;<i> &gt;&gt;&gt;&gt; -----------------------------------------------------------------
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001922.html">[OpenIMSCore-CSCF] p-cscf: cscf_get_first_route needtoreparsethe route header
+</A></li>
+	<LI>Next message: <A HREF="001928.html">[OpenIMSCore-CSCF] p-cscf: cscf_get_first_route needtoreparsethe route header
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1925">[ date ]</a>
+              <a href="thread.html#1925">[ thread ]</a>
+              <a href="subject.html#1925">[ subject ]</a>
+              <a href="author.html#1925">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

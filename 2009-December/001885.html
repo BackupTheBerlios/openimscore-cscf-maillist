@@ -1,0 +1,346 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] p-cscf crash if PRCF not running,	hang in del_session
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%20crash%20if%20PRCF%20not%20running%2C%0A%09hang%20in%20del_session&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A0217F7D3%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001884.html">
+   <LINK REL="Next"  HREF="001890.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] p-cscf crash if PRCF not running,	hang in del_session</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20p-cscf%20crash%20if%20PRCF%20not%20running%2C%0A%09hang%20in%20del_session&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A0217F7D3%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] p-cscf crash if PRCF not running,	hang in del_session">wang at basis-audionet.com
+       </A><BR>
+    <I>Wed Dec  9 19:45:04 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001884.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r785 - fixed a little problem	related to the IP of the s-cscf on the scscf running script
+</A></li>
+        <LI>Next message: <A HREF="001890.html">[OpenIMSCore-CSCF] p-cscf crash if PRCF not running, hang in del_session
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1885">[ date ]</a>
+              <a href="thread.html#1885">[ thread ]</a>
+              <a href="subject.html#1885">[ subject ]</a>
+              <a href="author.html#1885">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi 
+
+   The p-cscf (with cdp.so loaded) will crash if PRCF is not running.
+
+
+(1)    The following are the details:
+
+UE1 -&gt; p-cscf  --.....-&gt; UE2
+
+     If there is no PRCF, the PCC_AAR will go to error1:
+
+PCC_AAR error1 code:
+        if (auth) {
+                hash=auth-&gt;hash;
+                cdpb.sessions_lock(hash);
+                cdpb.AAADropAuthSession(auth);
+                cdpb.sessions_unlock(hash);
+        }
+
+     PCC_AAR may be be called in different process. ( e.g. UE1 calls
+UE2, UE2 reply with 200 OK, as there is no PRCF the p-cscf will wait for
+timeout, but UE2 may send 200 OK again? )
+
+     The issue are:
+   
+Proc1 get the lock and is deleting the session 
+while Proc2 wait for the lock.
+
+Proc1 after delete release the lock, 
+Proc2 get the lock, try to delete the same thing again, thus crash the
+p-cscf. 
+
+The lock seems only protect the manipulating the sessions , but not
+protecting freeing the session itself ( allocted from shared memory).
+
+
+The following debug code verified the above scenarios
+
+PCC_AAR error1 debug code:
+
+if (auth) {
+                LOG(L_ERR,&quot;PCC_AAR(): auth !!\n&quot;);
+                hash=auth-&gt;hash;
+                LOG(L_ERR,&quot;PCC_AAR(): hash is %d  , auth is %x !!\n&quot;,
+hash, auth);
+
+                // clear the dlg first, then drop the auth
+                if(dlg){
+                        d_lock(dlg-&gt;hash);
+                        dlg-&gt;pcc_session = 0;
+                        d_unlock(dlg-&gt;hash);
+                        LOG(L_ERR,&quot;PCC_AAR():  clear dlg-&gt;pcc_session to
+be zero !!\n&quot;);
+                }
+
+                cdpb.sessions_lock(hash);
+                LOG(L_ERR,&quot;PCC_AAR(): after session loc, auth is %x
+!!\n&quot;, auth);
+
+                cdpb.AAADropAuthSession(auth);
+                LOG(L_ERR,&quot;PCC_AAR(): after session
+cdpb.AAADropAuthSession, hash is %d !!\n&quot;, hash);
+                cdpb.sessions_unlock(hash);
+                LOG(L_ERR,&quot;PCC_AAR(): after session cdpb.sessions_unlock
+!!\n&quot;);
+        }
+
+
+Proc2:
+Dec  8 16:04:36 im1 /usr/sbin/ser[23855]:
+ERROR:AAASendRecvMessageToPeer(): Peer not connected to
+pcrf.centercall.net
+Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: DBG:AAAFreeMessage: Freeing
+message (0xb5a52a00) 265
+Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: PCC_AAR(): freeing generic
+Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: PCC_AAR(): error1 !!
+Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: PCC_AAR(): auth !!
+Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: PCC_AAR(): hash is 55  , auth
+is b5a62e20 !!
+Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: PCC_AAR():  clear
+dlg-&gt;pcc_session to be zero !!
+Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: PCC_AAR(): after session loc,
+auth is b5a62e20 !!
+Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: DBG:del_session
+Dec  8 16:04:36 im1 /usr/sbin/ser[23855]: DBG:del_session, x-&gt;hash is
+55, x is: b5a62e20
+
+
+Proc1:
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]:
+ERROR:AAASendRecvMessageToPeer(): Peer not connected to
+pcrf.centercall.net
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:AAAFreeMessage: Freeing
+message (0xb5a57604) 265
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR(): freeing generic
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR(): error1 !!
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR(): auth !!
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR(): hash is 55  , auth
+is b5a62e20 !!
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR():  clear
+dlg-&gt;pcc_session to be zero !!
+
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR(): after session loc,
+auth is b5a62e20 !!
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:del_session
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:del_session, x-&gt;hash is
+55, x is: b5a62e20
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:del_session, 111
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:del_session, 333
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:del_session, 555
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:free_session(): begin !
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:free_session(): inside if
+!
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:free_session(): before
+shm_free(x) !
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:free_session(): after
+shm_free(x) !
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:free_session(): end !
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: DBG:del_session, 666
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR(): after session
+cdpb.AAADropAuthSession, hash is 55 !!
+Dec  8 16:04:36 im1 /usr/sbin/ser[23856]: PCC_AAR(): after session
+cdpb.sessions_unlock !!
+
+
+(2) Here are the patches. 
+    Moved the lock into del_session itself, seems could make code
+cleaner and more readable. 
+    dlg-&gt;pcc_session = 0; seems need to be reset to 0 if session is
+deleted.
+
+
+  
+Please review, or maybe you have better idea how to fix the issue.  
+
+
+////////////////////////////////////////////////////////////
+//patches
+////////////////////////////////////////////////////////////
+diff --git a/modules/cdp/session.c b/modules/cdp/session.c
+index 95787a7..c31bf66 100644
+--- a/modules/cdp/session.c
++++ b/modules/cdp/session.c
+@@ -78,8 +78,12 @@ unsigned int *session_id2;           /**&lt; counter for
+second part of the session id */
+  */
+ inline void sessions_lock(unsigned int hash)
+ {
+-
+-       lock_get(sessions[hash].lock);
++       if ( hash &gt;=0 &amp;&amp; hash &lt; sessions_hash_size ){
++               lock_get(sessions[hash].lock);
++       }
++       else {
++               LOG(L_ERR,&quot;ERROR:sessions_lock: hash :%d out of range of
+sessions_hash_size: %d !\n&quot;, hash, sessions_hash_size);
++       }
+ }
+
+ /**
+@@ -88,7 +92,12 @@ inline void sessions_lock(unsigned int hash)
+ inline void sessions_unlock(unsigned int hash)
+ {
+
+-       lock_release(sessions[hash].lock);
++       if ( hash &gt;=0 &amp;&amp; hash &lt; sessions_hash_size ){
++               lock_release(sessions[hash].lock);
++       }
++       else {
++               LOG(L_ERR,&quot;ERROR:sessions_unlock: hash :%d out of range
+of sessions_hash_size: %d !\n&quot;, hash, sessions_hash_size);
++       }
+ }
+
+
+@@ -302,18 +311,55 @@ cdp_session_t* get_session(str id)
+ }
+
+ /**
++ * check if a session exist in the hash table.
++ * @param x - the session to check
++ */
++static int exist_session(cdp_session_t *x)
++{
++        cdp_session_t *p;
++
++        if (!x) return 0;
++
++        for(p=sessions[x-&gt;hash].head; p; p=p-&gt;next)
++        {
++                if ( p == x ) return 1;
++        }
++
++        return 0;
++}
++
++
++/**
+  * Removes and frees a session.
+  * @param x - the session to remove;
+  */
+ void del_session(cdp_session_t *x)
+ {
++        unsigned int hash;
++
+        if (!x) return;
+-       if (sessions[x-&gt;hash].head == x) sessions[x-&gt;hash].head =
+x-&gt;next;
+-       else x-&gt;prev-&gt;next = x-&gt;next;
+-       if (sessions[x-&gt;hash].tail == x) sessions[x-&gt;hash].tail =
+x-&gt;prev;
+-       else x-&gt;next-&gt;prev = x-&gt;prev;
++
++        hash = x-&gt;hash;
++        if (hash &lt; 0 || hash &gt;= sessions_hash_size) {
++                LOG(L_ERR,&quot;ERROR:del_session: x-&gt;hash :%d out of range
+of sessions_hash_size: %d !\n&quot;,hash, sessions_hash_size);
++                return;
++        }
++
++       sessions_lock(hash);
++
++       if (exist_session(x)) {
++
++               if (sessions[x-&gt;hash].head == x) sessions[x-&gt;hash].head
+= x-&gt;next;
++               else x-&gt;prev-&gt;next = x-&gt;next;
++               if (sessions[x-&gt;hash].tail == x) sessions[x-&gt;hash].tail
+= x-&gt;prev;
++               else x-&gt;next-&gt;prev = x-&gt;prev;
++
++               free_session(x);
++       }
++
++       sessions_unlock(hash);
+
+-       free_session(x);
++
+ }
+
+
+
+---
+ modules/pcscf/pcc.c |   15 +++++++++++----
+ 1 files changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/modules/pcscf/pcc.c b/modules/pcscf/pcc.c
+index a922301..34122d6 100644
+--- a/modules/pcscf/pcc.c
++++ b/modules/pcscf/pcc.c
+@@ -417,11 +417,18 @@ error:
+        if (aar) cdpb.AAAFreeMessage(&amp;aar);
+ error1:
+        if (auth) {
+-               hash=auth-&gt;hash;
+-               cdpb.sessions_lock(hash);
++               //hash=auth-&gt;hash;
++               //cdpb.sessions_lock(hash);
++               // clear the dlg first, then drop the auth
++                if(dlg){
++                        d_lock(dlg-&gt;hash);
++                        dlg-&gt;pcc_session = 0;
++                        d_unlock(dlg-&gt;hash);
++                        LOG(L_ERR,&quot;PCC_AAR():  clear dlg-&gt;pcc_session
+to be zero !!\n&quot;);
++                }
+                cdpb.AAADropAuthSession(auth);
+-               cdpb.sessions_unlock(hash);
+-               }
++               //cdpb.sessions_unlock(hash);
++       }
+        if (generic)
+        {
+                if (generic-&gt;callid.s) shm_free(generic-&gt;callid.s);
+--
+
+
+
+
+
+
+Kind Regards
+ 
+Min Wang
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001884.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r785 - fixed a little problem	related to the IP of the s-cscf on the scscf running script
+</A></li>
+	<LI>Next message: <A HREF="001890.html">[OpenIMSCore-CSCF] p-cscf crash if PRCF not running, hang in del_session
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1885">[ date ]</a>
+              <a href="thread.html#1885">[ thread ]</a>
+              <a href="subject.html#1885">[ subject ]</a>
+              <a href="author.html#1885">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

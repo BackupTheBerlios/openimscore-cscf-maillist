@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] OpenIMSCore doesn't prompt for	authentication when private and public identities are different
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenIMSCore%20doesn%27t%20prompt%20for%0A%09authentication%20when%20private%20and%20public%20identities%20are%20different&In-Reply-To=%3C240FA2EF3CA24C6A9DEA944C3D0E1FD3%40FranzEdlerPC%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002270.html">
+   <LINK REL="Next"  HREF="002272.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] OpenIMSCore doesn't prompt for	authentication when private and public identities are different</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenIMSCore%20doesn%27t%20prompt%20for%0A%09authentication%20when%20private%20and%20public%20identities%20are%20different&In-Reply-To=%3C240FA2EF3CA24C6A9DEA944C3D0E1FD3%40FranzEdlerPC%3E"
+       TITLE="[OpenIMSCore-CSCF] OpenIMSCore doesn't prompt for	authentication when private and public identities are different">franz.edler at technikum-wien.at
+       </A><BR>
+    <I>Sun Jun 20 19:21:36 CEST 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002270.html">[OpenIMSCore-CSCF] OpenIMSCore doesn't prompt for authentication when private and public identities are different
+</A></li>
+        <LI>Next message: <A HREF="002272.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r954 - cdp_avp: added one missing	AVP for S6a
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2271">[ date ]</a>
+              <a href="thread.html#2271">[ thread ]</a>
+              <a href="subject.html#2271">[ subject ]</a>
+              <a href="author.html#2271">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Alain,
+
+&gt;<i> ... but as far as I understood, the
+</I>&gt;<i> authorization dialog should behave the same way as the one between web
+</I>&gt;<i> browsers and web servers, where the client only sends the info if
+</I>&gt;<i> requested by server.
+</I>
+Not with IMS.
+An Authorization header field is required in the first unprotected REGISTER
+request (see 3GPP TS 24.229 &#167;5.1.1.2.2, &#167;5.1.1.2.3, &#167;5.1.1.2.4 etc...).
+
+BR
+-franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002270.html">[OpenIMSCore-CSCF] OpenIMSCore doesn't prompt for authentication when private and public identities are different
+</A></li>
+	<LI>Next message: <A HREF="002272.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r954 - cdp_avp: added one missing	AVP for S6a
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2271">[ date ]</a>
+              <a href="thread.html#2271">[ thread ]</a>
+              <a href="subject.html#2271">[ subject ]</a>
+              <a href="author.html#2271">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

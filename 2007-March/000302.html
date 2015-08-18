@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Fwd: [OpenIMSCore-Users] [Feature #3138] TLS support on the Gm interface
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Fwd%3A%20%5BOpenIMSCore-Users%5D%20%5BFeature%20%233138%5D%20TLS%0A%20support%20on%20the%20Gm%20interface&In-Reply-To=%3C45F58F72.3000405%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000299.html">
+   <LINK REL="Next"  HREF="000303.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Fwd: [OpenIMSCore-Users] [Feature #3138] TLS support on the Gm interface</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Fwd%3A%20%5BOpenIMSCore-Users%5D%20%5BFeature%20%233138%5D%20TLS%0A%20support%20on%20the%20Gm%20interface&In-Reply-To=%3C45F58F72.3000405%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Fwd: [OpenIMSCore-Users] [Feature #3138] TLS support on the Gm interface">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Mon Mar 12 18:35:46 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000299.html">[OpenIMSCore-CSCF] Fwd: [OpenIMSCore-Users] [Feature #3138] TLS	support on the Gm interface
+</A></li>
+        <LI>Next message: <A HREF="000303.html">[OpenIMSCore-CSCF] Problem with Service-Route header field when	roaming
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#302">[ date ]</a>
+              <a href="thread.html#302">[ thread ]</a>
+              <a href="subject.html#302">[ subject ]</a>
+              <a href="author.html#302">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Should work, but yes, there is no support for using the keying material
+from the AKA and for doing it dynamically at registration.
+
+-Dragos
+JF wrote:
+&gt;<i> Isn't this already supported using SER's tls module (except for AKA keys)?
+</I>&gt;<i> Using a TLS-enabled client with the P-CSCF should work, right?
+</I>&gt;<i>
+</I>&gt;<i> Jo&#227;o Filipe Pl&#225;cido
+</I>&gt;<i> --
+</I>&gt;<i> PT Inova&#231;&#227;o
+</I>&gt;<i>
+</I>&gt;<i> ---------- Forwarded message ----------
+</I>&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">admin at berlios.de</A> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">admin at berlios.de</A>&gt;
+</I>&gt;<i> Date: Feb 9, 2007 12:43 PM
+</I>&gt;<i> Subject: [OpenIMSCore-Users] [Feature #3138] TLS support on the Gm interface
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">admin at berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Feature Request #3138, was updated on 2007-Feb-09 13:43
+</I>&gt;<i> You can respond by visiting:
+</I>&gt;<i> <A HREF="http://developer.berlios.de/feature/?func=detailfeature&amp;feature_id=3138&amp;group_id=7589">http://developer.berlios.de/feature/?func=detailfeature&amp;feature_id=3138&amp;group_id=7589</A>
+</I>&gt;<i>
+</I>&gt;<i> Category: CSCF
+</I>&gt;<i> Status: Open
+</I>&gt;<i> Priority: 5
+</I>&gt;<i> Summary: TLS support on the Gm interface
+</I>&gt;<i>
+</I>&gt;<i> By: vingarzan
+</I>&gt;<i> Date: 2007-Feb-09 13:43
+</I>&gt;<i>
+</I>&gt;<i> Message:
+</I>&gt;<i> Logged In: YES
+</I>&gt;<i> user_id=32971
+</I>&gt;<i> Browser: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1)
+</I>&gt;<i> Gecko/20061208 BonEcho/2.0
+</I>&gt;<i>
+</I>&gt;<i> Currently, the only encryption/security mechanism used
+</I>&gt;<i> on the Gm interface (P-CSCF-UE) is the 3GPP recommended
+</I>&gt;<i> IPSec. However, this is not spread too much in the
+</I>&gt;<i> clients, which usually implement just TLS. This feature
+</I>&gt;<i> is set at enabling TLS on the P-CSCF and investigating
+</I>&gt;<i> if it would be possible to use the keying material
+</I>&gt;<i> provided by AKA.
+</I>&gt;<i>
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i> You can respond by visiting:
+</I>&gt;<i> <A HREF="http://developer.berlios.de/feature/?func=detailfeature&amp;feature_id=3138&amp;group_id=7589">http://developer.berlios.de/feature/?func=detailfeature&amp;feature_id=3138&amp;group_id=7589</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-Users mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-Users at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-users">https://lists.berlios.de/mailman/listinfo/openimscore-users</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000299.html">[OpenIMSCore-CSCF] Fwd: [OpenIMSCore-Users] [Feature #3138] TLS	support on the Gm interface
+</A></li>
+	<LI>Next message: <A HREF="000303.html">[OpenIMSCore-CSCF] Problem with Service-Route header field when	roaming
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#302">[ date ]</a>
+              <a href="thread.html#302">[ thread ]</a>
+              <a href="subject.html#302">[ subject ]</a>
+              <a href="author.html#302">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

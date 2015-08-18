@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r833 - Added AAAMakeSession -	useful when reloading a cdp_session_t from some persistent storage.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r833%20-%20Added%20AAAMakeSession%20-%0A%09useful%20when%20reloading%20a%20cdp_session_t%20from%20some%20persistent%20storage.&In-Reply-To=%3C201001282042.o0SKgcgR000804%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002010.html">
+   <LINK REL="Next"  HREF="002014.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r833 - Added AAAMakeSession -	useful when reloading a cdp_session_t from some persistent storage.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r833%20-%20Added%20AAAMakeSession%20-%0A%09useful%20when%20reloading%20a%20cdp_session_t%20from%20some%20persistent%20storage.&In-Reply-To=%3C201001282042.o0SKgcgR000804%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r833 - Added AAAMakeSession -	useful when reloading a cdp_session_t from some persistent storage.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Thu Jan 28 21:42:38 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002010.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r832 - Dropped the Diameter	sessions on Cx and e2 interfaces immediately after message	creation. Diameter sessions must not be left locked while	sending messages. In the case of Cx and e2,	the sessions are stateless.
+</A></li>
+        <LI>Next message: <A HREF="002014.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r834 - added the parameter	&quot;pcc_dest_realm&quot; in the pcscf module for the destination	realm, to be used in PCC
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2013">[ date ]</a>
+              <a href="thread.html#2013">[ thread ]</a>
+              <a href="subject.html#2013">[ subject ]</a>
+              <a href="author.html#2013">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2010-01-28 21:42:29 +0100 (Thu, 28 Jan 2010)
+New Revision: 833 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=833">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=833</A> 
+
+Log:
+Added AAAMakeSession - useful when reloading a cdp_session_t from some persistent storage.
+
+Modified:
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/cdp_load.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/cdp_load.c?rev=833&amp;view=diff&amp;r1=833&amp;r2=832">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/cdp_load.c?rev=833&amp;view=diff&amp;r1=833&amp;r2=832</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/cdp_load.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/cdp_load.h?rev=833&amp;view=diff&amp;r1=833&amp;r2=832">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/cdp_load.h?rev=833&amp;view=diff&amp;r1=833&amp;r2=832</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/mod_wharf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/mod_wharf.c?rev=833&amp;view=diff&amp;r1=833&amp;r2=832">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/mod_wharf.c?rev=833&amp;view=diff&amp;r1=833&amp;r2=832</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/session.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/session.c?rev=833&amp;view=diff&amp;r1=833&amp;r2=832">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/session.c?rev=833&amp;view=diff&amp;r1=833&amp;r2=832</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/session.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/session.h?rev=833&amp;view=diff&amp;r1=833&amp;r2=832">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/session.h?rev=833&amp;view=diff&amp;r1=833&amp;r2=832</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002010.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r832 - Dropped the Diameter	sessions on Cx and e2 interfaces immediately after message	creation. Diameter sessions must not be left locked while	sending messages. In the case of Cx and e2,	the sessions are stateless.
+</A></li>
+	<LI>Next message: <A HREF="002014.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r834 - added the parameter	&quot;pcc_dest_realm&quot; in the pcscf module for the destination	realm, to be used in PCC
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2013">[ date ]</a>
+              <a href="thread.html#2013">[ thread ]</a>
+              <a href="subject.html#2013">[ subject ]</a>
+              <a href="author.html#2013">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

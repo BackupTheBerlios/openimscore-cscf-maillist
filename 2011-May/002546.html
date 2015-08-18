@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r1105 - client_rf: fixed a memory	leak, extracting orig_ioi as well from the SIP message
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1105%20-%20client_rf%3A%20fixed%20a%20memory%0A%09leak%2C%20extracting%20orig_ioi%20as%20well%20from%20the%20SIP%20message&In-Reply-To=%3C20110516081440.A2B5D480BDF%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002545.html">
+   <LINK REL="Next"  HREF="002547.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r1105 - client_rf: fixed a memory	leak, extracting orig_ioi as well from the SIP message</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r1105%20-%20client_rf%3A%20fixed%20a%20memory%0A%09leak%2C%20extracting%20orig_ioi%20as%20well%20from%20the%20SIP%20message&In-Reply-To=%3C20110516081440.A2B5D480BDF%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r1105 - client_rf: fixed a memory	leak, extracting orig_ioi as well from the SIP message">aon at users.berlios.de
+       </A><BR>
+    <I>Mon May 16 10:14:40 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002545.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1104 - cdp rollback: not adding	the Auth-App-Id when creating a new message as this was added	without a vendor id.
+</A></li>
+        <LI>Next message: <A HREF="002547.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1106 - Client_Rf: some cleanup	and extracting the term-ioi as well from the	P-Charging-Vector header
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2546">[ date ]</a>
+              <a href="thread.html#2546">[ thread ]</a>
+              <a href="subject.html#2546">[ subject ]</a>
+              <a href="author.html#2546">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2011-05-16 10:14:40 +0200 (Mon, 16 May 2011)
+New Revision: 1105 <A HREF="http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1105">http://svn.berlios.de/wsvn/openimscore/?op=revision&amp;rev=1105</A> 
+
+Log:
+client_rf: fixed a memory leak, extracting orig_ioi as well from the SIP message
+
+
+Modified:
+   U	ser_ims/trunk/modules/Client_Rf/Rf_data.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/Rf_data.c?op=diff&amp;rev=1105&amp;peg=1105">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/Rf_data.c?op=diff&amp;rev=1105&amp;peg=1105</A>
+   U	ser_ims/trunk/modules/Client_Rf/acr.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/acr.c?op=diff&amp;rev=1105&amp;peg=1105">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/acr.c?op=diff&amp;rev=1105&amp;peg=1105</A>
+   U	ser_ims/trunk/modules/Client_Rf/sip.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/sip.c?op=diff&amp;rev=1105&amp;peg=1105">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/Client_Rf/sip.c?op=diff&amp;rev=1105&amp;peg=1105</A>
+   U	ser_ims/trunk/modules/pcscf/pcc.c
+		<A HREF="http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/pcc.c?op=diff&amp;rev=1105&amp;peg=1105">http://svn.berlios.de/wsvn/openimscore/ser_ims/trunk/modules/pcscf/pcc.c?op=diff&amp;rev=1105&amp;peg=1105</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002545.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1104 - cdp rollback: not adding	the Auth-App-Id when creating a new message as this was added	without a vendor id.
+</A></li>
+	<LI>Next message: <A HREF="002547.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1106 - Client_Rf: some cleanup	and extracting the term-ioi as well from the	P-Charging-Vector header
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2546">[ date ]</a>
+              <a href="thread.html#2546">[ thread ]</a>
+              <a href="subject.html#2546">[ subject ]</a>
+              <a href="author.html#2546">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

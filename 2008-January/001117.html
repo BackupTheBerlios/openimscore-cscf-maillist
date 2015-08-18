@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Proper%20flow%20between%20OpenIMS%20and%20AS&In-Reply-To=%3C004401c84ec8%24faa2d420%240200a8c0%40fenotebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001115.html">
+   <LINK REL="Next"  HREF="001121.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Proper%20flow%20between%20OpenIMS%20and%20AS&In-Reply-To=%3C004401c84ec8%24faa2d420%240200a8c0%40fenotebook%3E"
+       TITLE="[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS">franz.edler at inode.at
+       </A><BR>
+    <I>Fri Jan  4 12:57:28 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001115.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+        <LI>Next message: <A HREF="001121.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1117">[ date ]</a>
+              <a href="thread.html#1117">[ thread ]</a>
+              <a href="subject.html#1117">[ subject ]</a>
+              <a href="author.html#1117">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> If I understand this, the AS must send the original message exactly as it
+</I>&gt;<i> was received,
+</I>&gt;<i> with the difference that the Route Header must only contain the second
+</I>&gt;<i> address that was in the request' s
+</I>&gt;<i> Route Header (SCSCF Address). 
+</I>
+Yes. This also results from basic SIP routing behaviour. If a server
+receives a request it has to look into the Route header and according to RFC
+3261 &#167;16.4: ... If the first value in the Route header field indicates this
+proxy, the proxy MUST remove that value from the request.
+
+&gt;<i> In this case, the request will travel
+</I>&gt;<i> towards SCSCF and the next hop will
+</I>&gt;<i> be handled by it as it would if a simple client (and not an AS) had sent
+</I>&gt;<i> this request? I assume no other header
+</I>&gt;<i> should be touched for this task?
+</I>
+This depends on the behaviour of the AS. It might act as a proxy or as a
+B2BUA or as an originating UA. This requires to act on various headers
+accordingly.
+ 
+&gt;<i> Is this the way that all the next requests/responses for this call will
+</I>&gt;<i> not be forwarded to AS (and leave
+</I>&gt;<i> all routing from this point on to OpenIMS) ?
+</I>
+If the AS acts as a proxy and it does not set Record-Route it will not see
+any further request/response of the dialog. If the AS acts as a B2BUA it
+will.
+
+Regards
+Franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001115.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+	<LI>Next message: <A HREF="001121.html">[OpenIMSCore-CSCF] Proper flow between OpenIMS and AS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1117">[ date ]</a>
+              <a href="thread.html#1117">[ thread ]</a>
+              <a href="subject.html#1117">[ subject ]</a>
+              <a href="author.html#1117">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

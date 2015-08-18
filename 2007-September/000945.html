@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r444 - Worked a little on the	CDiameterPeer Auth Sessions,	added policy and charging control stubs in the P-CSCF.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r444%20-%20Worked%20a%20little%20on%20the%0A%09CDiameterPeer%20Auth%20Sessions%2C%0A%09added%20policy%20and%20charging%20control%20stubs%20in%20the%20P-CSCF.&In-Reply-To=%3C200709031319.l83DJPZk024776%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000946.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r444 - Worked a little on the	CDiameterPeer Auth Sessions,	added policy and charging control stubs in the P-CSCF.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r444%20-%20Worked%20a%20little%20on%20the%0A%09CDiameterPeer%20Auth%20Sessions%2C%0A%09added%20policy%20and%20charging%20control%20stubs%20in%20the%20P-CSCF.&In-Reply-To=%3C200709031319.l83DJPZk024776%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r444 - Worked a little on the	CDiameterPeer Auth Sessions,	added policy and charging control stubs in the P-CSCF.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Mon Sep  3 15:19:25 CEST 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000946.html">[OpenIMSCore-CSCF] OpenIMSCore &amp; VOIP Phones
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#945">[ date ]</a>
+              <a href="thread.html#945">[ thread ]</a>
+              <a href="subject.html#945">[ subject ]</a>
+              <a href="author.html#945">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-09-03 15:19:23 +0200 (Mon, 03 Sep 2007)
+New Revision: 444 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=444">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=444</A> 
+
+Log:
+Worked a little on the CDiameterPeer Auth Sessions, added policy and charging control stubs in the P-CSCF.
+
+
+Added:
+   A	ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc.c?rev=444&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc.c?rev=444&amp;view=markup</A>
+   A	ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc.h?rev=444&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc.h?rev=444&amp;view=markup</A>
+   A	ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.c?rev=444&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.c?rev=444&amp;view=markup</A>
+   A	ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.h?rev=444&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/pcc_avp.h?rev=444&amp;view=markup</A>
+   A	ser_ims/branches/08_cdp_sessions/modules/pcscf/policy_control.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/policy_control.c?rev=444&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/policy_control.c?rev=444&amp;view=markup</A>
+   A	ser_ims/branches/08_cdp_sessions/modules/pcscf/policy_control.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/policy_control.h?rev=444&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/policy_control.h?rev=444&amp;view=markup</A>
+Modified:
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.c?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.c?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/authstatemachine.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.c?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.c?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/cdp_load.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/diameter.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_api.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_api.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_api.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_ims.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_ims.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_ims.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_msg.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_msg.c?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/diameter_msg.c?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/peerstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/peerstatemachine.c?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/peerstatemachine.c?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/session.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.c?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.c?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/cdp/session.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/cdp/session.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/pcscf/dlg_state.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/dlg_state.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/dlg_state.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/mod.c?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/mod.c?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/pcscf/sdp_util.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/sdp_util.c?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/sdp_util.c?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+   U	ser_ims/branches/08_cdp_sessions/modules/pcscf/sdp_util.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/sdp_util.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/08_cdp_sessions/modules/pcscf/sdp_util.h?rev=444&amp;view=diff&amp;r1=444&amp;r2=443</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000946.html">[OpenIMSCore-CSCF] OpenIMSCore &amp; VOIP Phones
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#945">[ date ]</a>
+              <a href="thread.html#945">[ thread ]</a>
+              <a href="subject.html#945">[ subject ]</a>
+              <a href="author.html#945">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] REGISTER over ipsec
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20REGISTER%20over%20ipsec&In-Reply-To=%3C398872.23651.qm%40web113615.mail.gq1.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="002570.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] REGISTER over ipsec</H1>
+    <B>Mohsen Emami-Nouri</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20REGISTER%20over%20ipsec&In-Reply-To=%3C398872.23651.qm%40web113615.mail.gq1.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] REGISTER over ipsec">memamin at yahoo.com
+       </A><BR>
+    <I>Thu Jun  2 04:37:40 CEST 2011</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="002570.html">[OpenIMSCore-CSCF] REGISTER over ipsec
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2566">[ date ]</a>
+              <a href="thread.html#2566">[ thread ]</a>
+              <a href="subject.html#2566">[ subject ]</a>
+              <a href="author.html#2566">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi dear openImsCore people,
+I am not 100% sure, but it looks like there are some issues with registering over ipsec; in fact I have spent sometime to look at the traces of P-CSCF ; and it looks that P-CSCF never updates the reg_state of the contact when the registratio is done over ipsec. The registration goes successful, so my UE receives 200OK and HSS shows that the UE is indeed registered; however the P-CSCF believes that it is not and rejects the SUBSCRIBE coming over the same security association. P-CSCF indeed subscribe with S-CSCF and does receive the notification about the registration state, but in the code it looks that in the registrar_subscribe.c , it only tries to call update_r_contact and it can not find it , so the contact reg_state stays PENDING all the time. I am wondering why P-CSCF does not also call the update_r_contact_sec as this seems to be responsible for secure registration state update. The update_r_contact_sec does get invoked by save_contact_security
+ function in the security.c , but save_contact_security function sets the reg_state only to PENDING.
+your help is greatly appreciated.
+best regards,
+~Mohsen
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="002570.html">[OpenIMSCore-CSCF] REGISTER over ipsec
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2566">[ date ]</a>
+              <a href="thread.html#2566">[ thread ]</a>
+              <a href="subject.html#2566">[ subject ]</a>
+              <a href="author.html#2566">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

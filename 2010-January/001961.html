@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r808 - a small	fixfor	pcc_get_destination_realm
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r808%20-%20a%20small%0A%09fixfor%09pcc_get_destination_realm&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A0218028B%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001959.html">
+   <LINK REL="Next"  HREF="001964.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r808 - a small	fixfor	pcc_get_destination_realm</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r808%20-%20a%20small%0A%09fixfor%09pcc_get_destination_realm&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A0218028B%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r808 - a small	fixfor	pcc_get_destination_realm">wang at basis-audionet.com
+       </A><BR>
+    <I>Wed Jan 13 22:36:15 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001959.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r808 - a small fix	for	pcc_get_destination_realm
+</A></li>
+        <LI>Next message: <A HREF="001964.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r808 - a small	fixfor	pcc_get_destination_realm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1961">[ date ]</a>
+              <a href="thread.html#1961">[ thread ]</a>
+              <a href="subject.html#1961">[ subject ]</a>
+              <a href="author.html#1961">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi:
+
+The PCC code is unclear to me:
+
+            /* Add Destination-Realm AVP */
+        str realm = pcc_get_destination_realm(forced_qos_peer);
+	  if (realm.len&amp;&amp;!PCC_add_destination_realm(aar, realm)) goto
+error;
+
+ what if forced_qos_peer is empty,  what will be the dest-realm then?
+ 
+..... later it:
+
+   if (forced_qos_peer.len)
+                aaa =
+cdpb.AAASendRecvMessageToPeer(aar,&amp;forced_qos_peer);
+        else
+                aaa = cdpb.AAASendRecvMessage(aar);
+
+
+without forced_qos_peer , it should also be able to send Diameter msg?
+but 
+where it is sending to?
+
+Also in the pcscs.xml, there is 
+     &lt;Peer FQDN=&quot;pcrf.my.realm&quot; Realm=&quot;my.realm&quot; port=&quot;4868&quot;/&gt;
+
+Also config script there is: forced_qos_peer=&quot;pcrf.my.realm&quot;
+So seems there is realm information in the xml file???
+
+(<A HREF="http://tools.ietf.org/html/draft-ietf-dime-nai-routing-04">http://tools.ietf.org/html/draft-ietf-dime-nai-routing-04</A>)
+As described in RFC 3588 Section 6.1, a Diameter peer
+   originating a request message MAY retrieve the realm information from
+   the User-Name AVP and use that realm to populate the Destination-
+   Realm AVP.  In that case, the User-Name AVP is in form of a NAI
+   including the realm part.
+
+
+Now with all these information, Anyway how/where to get the
+Destination-Realm?
+
+
+
+Kind Regards
+ 
+Min Wang
+
+&gt;<i> -----Original Message-----
+</I>&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+</I>[mailto:openimscore-cscf-
+&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bounces at lists.berlios.de</A>] On Behalf Of Dragos Vingarzan
+</I>&gt;<i> Sent: Wednesday, January 13, 2010 10:52 AM
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mwang at users.berlios.de</A>
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] [SVN-ser_ims] r808 - a small fixfor
+</I>&gt;<i> pcc_get_destination_realm
+</I>&gt;<i> 
+</I>&gt;<i> BTW: I find this function anyway quite offending ;-). I mean finding
+</I>the
+&gt;<i> destination realm should be something better thought than looking for
+</I>&gt;<i> the first dot in the FQDN of the PCRF and giving the rest... I think
+</I>&gt;<i> that it should either be a configuration parameter of the pcscf module
+</I>&gt;<i> or provided as a parameter to P_AAR()... Ideas?
+</I>&gt;<i> 
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mwang at users.berlios.de</A> wrote:
+</I>&gt;<i> &gt; Author: mwang
+</I>&gt;<i> &gt; Date: 2010-01-13 16:32:05 +0100 (Wed, 13 Jan 2010)
+</I>&gt;<i> &gt; New Revision: 808
+</I>&gt;<i> <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=808">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=808</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Log:
+</I>&gt;<i> &gt;   a small fix for pcc_get_destination_realm
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Modified:
+</I>&gt;<i> &gt;    U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I><A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+&gt;<i> xing/modules/pcscf/pcc.c?rev=808&amp;view=diff&amp;r1=808&amp;r2=807
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i> 
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001959.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r808 - a small fix	for	pcc_get_destination_realm
+</A></li>
+	<LI>Next message: <A HREF="001964.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r808 - a small	fixfor	pcc_get_destination_realm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1961">[ date ]</a>
+              <a href="thread.html#1961">[ thread ]</a>
+              <a href="subject.html#1961">[ subject ]</a>
+              <a href="author.html#1961">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

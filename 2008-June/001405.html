@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 08_cdp_sessions branch realm problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%2008_cdp_sessions%20branch%20realm%20problem&In-Reply-To=%3C486355EA.1090309%40crg.ee.uct.ac.za%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001403.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 08_cdp_sessions branch realm problem</H1>
+    <B>Richard Good</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%2008_cdp_sessions%20branch%20realm%20problem&In-Reply-To=%3C486355EA.1090309%40crg.ee.uct.ac.za%3E"
+       TITLE="[OpenIMSCore-CSCF] 08_cdp_sessions branch realm problem">rgood at crg.ee.uct.ac.za
+       </A><BR>
+    <I>Thu Jun 26 10:40:10 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001403.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r570 - Fixed authentication issues	related to the introduction of qop=&quot;auth&quot; - the nc,	cnonce and qop were not included when calculating the hash. Added	support for qop=&quot;auth-int&quot;.
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1405">[ date ]</a>
+              <a href="thread.html#1405">[ thread ]</a>
+              <a href="subject.html#1405">[ subject ]</a>
+              <a href="author.html#1405">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+When using the 08_cdp_sessions branch with 2 domains I've found that the 
+orig_realm and terminating realm AVPs in the AAR messages created by the 
+P-CSCF in each realm are not  correct.
+
+I have 2 clients running in 2 different domains (e.g. dom1, dom2).  When 
+I setup a session across domains from dom1 to dom2 - the AAR messages 
+created by the P-CSCF's in each domain should list dom1 as the 
+originating realm and dom2 as the terminating realm.  Instead the P-CSCF 
+puts the domain of the forced QoS peer (The PCRF) as both originating 
+and terminating realms (i.e. P-CSCF in dom1 has dom1 as terminating and 
+originating realm, while P-CSCF has dom2 as terminating and originating 
+realm).
+
+Regards,
+Richard.
+
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001403.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r570 - Fixed authentication issues	related to the introduction of qop=&quot;auth&quot; - the nc,	cnonce and qop were not included when calculating the hash. Added	support for qop=&quot;auth-int&quot;.
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1405">[ date ]</a>
+              <a href="thread.html#1405">[ thread ]</a>
+              <a href="subject.html#1405">[ subject ]</a>
+              <a href="author.html#1405">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

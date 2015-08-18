@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] During REGISTRATION: 500 Server Internal error -	Server Assignment failed.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20During%20REGISTRATION%3A%20500%20Server%20Internal%20error%20-%0A%09Server%20Assignment%20failed.&In-Reply-To=%3C0B161234D9EAC142ACCFE7C49AA97BA504EE6E01%40us-rich-m01.global.tektronix.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001318.html">
+   <LINK REL="Next"  HREF="001322.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] During REGISTRATION: 500 Server Internal error -	Server Assignment failed.</H1>
+    <B>jimmy.lloyd at tektronix.com</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20During%20REGISTRATION%3A%20500%20Server%20Internal%20error%20-%0A%09Server%20Assignment%20failed.&In-Reply-To=%3C0B161234D9EAC142ACCFE7C49AA97BA504EE6E01%40us-rich-m01.global.tektronix.net%3E"
+       TITLE="[OpenIMSCore-CSCF] During REGISTRATION: 500 Server Internal error -	Server Assignment failed.">jimmy.lloyd at tektronix.com
+       </A><BR>
+    <I>Tue Apr 29 22:58:53 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001318.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r555 - Added	09_contact_preferences branch for work on S-CSCF contact q	parameter and more.
+</A></li>
+        <LI>Next message: <A HREF="001322.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r556 - Differentiation on sides
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1320">[ date ]</a>
+              <a href="thread.html#1320">[ thread ]</a>
+              <a href="subject.html#1320">[ subject ]</a>
+              <a href="author.html#1320">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+ 
+1) When we try to register, the registration fails at S-CSCF which
+returns 500 Server Assignment failed after the UA responds to the
+challenge. PL. see attached wireshark to see the sip and diameter
+messages. Do we have incorrect/missing content in the messages?
+
+2) While debugging the problem, we found that the get_r_public( )
+function in register_storage.c fails as the registrar data structure is
+empty. Can you provide guidance on who populates the registrar and when?
+
+
+ 
+
+Any help in resolving these problems is greatly appreciated.
+
+ 
+Jimmy Lloyd   CCNA, N+, MCP
+Tektronix Texas, LLC
+1500 North Greenville Ave.
+Richardson, Texas 75081
+Office 469-330-3687
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jimmy.lloyd at tek.com</A>
+ 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080429/c9f91136/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080429/c9f91136/attachment.html</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: lab-registration-fail.pcap
+Type: application/octet-stream
+Size: 190625 bytes
+Desc: lab-registration-fail.pcap
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080429/c9f91136/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080429/c9f91136/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001318.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r555 - Added	09_contact_preferences branch for work on S-CSCF contact q	parameter and more.
+</A></li>
+	<LI>Next message: <A HREF="001322.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r556 - Differentiation on sides
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1320">[ date ]</a>
+              <a href="thread.html#1320">[ thread ]</a>
+              <a href="subject.html#1320">[ subject ]</a>
+              <a href="author.html#1320">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

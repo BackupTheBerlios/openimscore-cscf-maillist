@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] LRF processing of NOTIFY - 481 Subscription does	not exist
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20LRF%20processing%20of%20NOTIFY%20-%20481%20Subscription%20does%0A%09not%20exist&In-Reply-To=%3C563593148DD9A040B93397F642B3C12557B04B407C%40rrc-dte-exmb1.dte.telcordia.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002237.html">
+   <LINK REL="Next"  HREF="002239.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] LRF processing of NOTIFY - 481 Subscription does	not exist</H1>
+    <B>Varma, Vijay K</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20LRF%20processing%20of%20NOTIFY%20-%20481%20Subscription%20does%0A%09not%20exist&In-Reply-To=%3C563593148DD9A040B93397F642B3C12557B04B407C%40rrc-dte-exmb1.dte.telcordia.com%3E"
+       TITLE="[OpenIMSCore-CSCF] LRF processing of NOTIFY - 481 Subscription does	not exist">vvarma at telcordia.com
+       </A><BR>
+    <I>Tue Apr  6 23:54:17 CEST 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002237.html">[OpenIMSCore-CSCF] Call failed : Request Timeout
+</A></li>
+        <LI>Next message: <A HREF="002239.html">[OpenIMSCore-CSCF] LRF processing of NOTIFY - 481 Subscription does	not exist
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2238">[ date ]</a>
+              <a href="thread.html#2238">[ thread ]</a>
+              <a href="subject.html#2238">[ subject ]</a>
+              <a href="author.html#2238">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+When SIPp script is used to make an emergency call without providing location info in INVITE, the call succeeds with LOCSIP server providing the Location Information and LRF getting the PSAP address.  However, when we replace the SIPp script with an X-Lite client making the emergency call, the call fails with the LRF returning to E-CSCF a &quot; SIP/2.0 481 Subscription doea not exist&quot; message.  The NOTIFY sent by the LOCSIP sever looks identical (except that Alice's port number got changed from what was in Subscribe to 3061) to the case when SIPp was used.   The wireshark capture of Subscribe/Notify of the failure case is attached.
+
+Does LOCSIP server always put 3061 as the port number is the NOTIFY?  Does LRF expect any specific information tied to SIPp scripts?  Why does the call fail? Thanks,
+
+Vijay
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20100406/27ff4557/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20100406/27ff4557/attachment.html</A>&gt;
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: Alice_emergency_failure.txt
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20100406/27ff4557/attachment.txt">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20100406/27ff4557/attachment.txt</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002237.html">[OpenIMSCore-CSCF] Call failed : Request Timeout
+</A></li>
+	<LI>Next message: <A HREF="002239.html">[OpenIMSCore-CSCF] LRF processing of NOTIFY - 481 Subscription does	not exist
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2238">[ date ]</a>
+              <a href="thread.html#2238">[ thread ]</a>
+              <a href="subject.html#2238">[ subject ]</a>
+              <a href="author.html#2238">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

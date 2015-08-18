@@ -1,0 +1,813 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Chuy&#7875;n ti&#7871;p: First run with HSS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%3D%3Futf-8%3Fb%3FQ2h1eeG7g24gdGnhur9wOiBGaXJzdCBydW4g%3F%3D%0A%09%3D%3Futf-8%3Fq%3Fwith_HSS%3F%3D&In-Reply-To=%3C100399.10604.qm%40web51503.mail.re2.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001744.html">
+   <LINK REL="Next"  HREF="001742.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Chuy&#7875;n ti&#7871;p: First run with HSS</H1>
+    <B>hk hk</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%3D%3Futf-8%3Fb%3FQ2h1eeG7g24gdGnhur9wOiBGaXJzdCBydW4g%3F%3D%0A%09%3D%3Futf-8%3Fq%3Fwith_HSS%3F%3D&In-Reply-To=%3C100399.10604.qm%40web51503.mail.re2.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Chuy&#7875;n ti&#7871;p: First run with HSS">hk_rongthieng at yahoo.com
+       </A><BR>
+    <I>Sat Jul 18 13:22:20 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001744.html">[OpenIMSCore-CSCF] First run with HSS
+</A></li>
+        <LI>Next message: <A HREF="001742.html">[OpenIMSCore-CSCF] Chuy&#7875;n ti&#7871;p: First run with HSS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1741">[ date ]</a>
+              <a href="thread.html#1741">[ thread ]</a>
+              <a href="subject.html#1741">[ subject ]</a>
+              <a href="author.html#1741">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+Finally, I have installed all the components of OpenIMSCore. But when I started HSS by typing 
+<A HREF="http://localhost:8080">http://localhost:8080</A> there's a error: HTTP status 500:type Exception report
+I included log files in order:
+<A HREF="http://localhost:8080/hss.web.console">http://localhost:8080/hss.web.console</A>
+./startup.sh
+./pcscf.sh
+./icscf.sh
+./scsf.sh
+Thank you,
+Quang Anh
+
+######################################
+<A HREF="http://localhost:8080/hss.web.console#">http://localhost:8080/hss.web.console#</A>
+<A HREF="http://127.0.0.1:8080/hss.web.console#">http://127.0.0.1:8080/hss.web.console#</A>
+######################################
+HTTP Status 500 -
+
+type Exception report
+
+message
+
+description The server encountered an internal error () that prevented it from fulfilling this request.
+
+exception
+
+org.apache.jasper.JasperException: Unable to compile class for JSP
+&#160;&#160;&#160; org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:565)
+&#160;&#160;&#160; org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:293)
+&#160;&#160;&#160; org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:291)
+&#160;&#160;&#160; org.apache.jasper.servlet.JspServlet.service(JspServlet.java:241)
+&#160;&#160;&#160; javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+
+root cause
+
+java.io.FileNotFoundException: /opt/OpenIMSCore/FHoSS/deploy/work/null/127.0.0.1/hss.web.console/org/apache/jsp/index_jsp.java (No such file or directory)
+&#160;&#160;&#160; java.io.FileOutputStream.open(Native Method)
+&#160;&#160;&#160; java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:179)
+&#160;&#160;&#160; java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:70)
+&#160;&#160;&#160; org.apache.jasper.compiler.Compiler.generateJava(Compiler.java:131)
+&#160;&#160;&#160; org.apache.jasper.compiler.Compiler.compile(Compiler.java:286)
+&#160;&#160;&#160; org.apache.jasper.compiler.Compiler.compile(Compiler.java:267)
+&#160;&#160;&#160; org.apache.jasper.compiler.Compiler.compile(Compiler.java:255)
+&#160;&#160;&#160; org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:556)
+&#160;&#160;&#160; org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:293)
+&#160;&#160;&#160; org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:291)
+&#160;&#160;&#160; org.apache.jasper.servlet.JspServlet.service(JspServlet.java:241)
+&#160;&#160;&#160; javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+
+note The full stack trace of the root cause is available in the Apache Tomcat/5.5.9 logs.
+Apache Tomcat/5.5.9
+
+
+############################################
+######FHoSS/deploy/.startup.sh###########
+############################################
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">superman at ubuntu</A>:/opt/OpenIMSCore$ FHoSS/deploy/./startup.sh
+Building Classpath
+Classpath is lib/*.jar::log4j.properties:..
+Exception in thread &quot;main&quot; java.lang.NoClassDefFoundError: de/fhg/fokus/hss/main/HSSContainer
+Caused by: java.lang.ClassNotFoundException: de.fhg.fokus.hss.main.HSSContainer
+&#160;&#160;&#160; at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+&#160;&#160;&#160; at java.security.AccessController.doPrivileged(Native Method)
+&#160;&#160;&#160; at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+&#160;&#160;&#160; at java.lang.ClassLoader.loadClass(ClassLoader.java:307)
+&#160;&#160;&#160; at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301)
+&#160;&#160;&#160; at java.lang.ClassLoader.loadClass(ClassLoader.java:252)
+&#160;&#160;&#160; at java.lang.ClassLoader.loadClassInternal(ClassLoader.java:320)
+Could not find the main class: de.fhg.fokus.hss.main.HSSContainer.&#160; Program will exit.
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">superman at ubuntu</A>:/opt/OpenIMSCore$ export JAVA_HOME=&quot;/usr/lib/jvm/java-6-sun-1.6.0.10/&quot;
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">superman at ubuntu</A>:/opt/OpenIMSCore$ cd FHoSS/deploy
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">superman at ubuntu</A>:/opt/OpenIMSCore/FHoSS/deploy$ export JAVA_HOME=&quot;/usr/lib/jvm/java-6-sun-1.6.0.10/&quot;
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">superman at ubuntu</A>:/opt/OpenIMSCore/FHoSS/deploy$ ./startup
+bash: ./startup: No such file or directory
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">superman at ubuntu</A>:/opt/OpenIMSCore/FHoSS/deploy$ ./startup.sh
+Building Classpath
+Classpath is
+ lib/xml-apis.jar:lib/xercesImpl.jar:lib/xerces-2.4.0.jar:lib/xalan-2.4.0.jar:lib/tomcat-util.jar:lib/tomcat-http.jar:lib/tomcat-coyote.jar:lib/struts.jar:lib/servlets-default.jar:lib/servlet-api.jar:lib/naming-resources.jar:lib/naming-factory.jar:lib/mysql-connector-java-3.1.12-bin.jar:lib/mx4j-3.0.1.jar:lib/log4j.jar:lib/junit.jar:lib/junitee.jar:lib/jta.jar:lib/jsp-api.jar:lib/jmx.jar:lib/jdp.jar:lib/jasper-runtime.jar:lib/jasper-compiler-jdt.jar:lib/jasper-compiler.jar:lib/hibernate3.jar:lib/FHoSS.jar:lib/ehcache-1.1.jar:lib/dom4j-1.6.1.jar:lib/commons-validator.jar:lib/commons-modeler.jar:lib/commons-logging.jar:lib/commons-logging-1.0.4.jar:lib/commons-lang.jar:lib/commons-fileupload.jar:lib/commons-el.jar:lib/commons-digester.jar:lib/commons-collections-3.1.jar:lib/commons-beanutils.jar:lib/cglib-2.1.3.jar:lib/catalina-optional.jar:lib/catalina.jar:lib/c3p0-0.9.1.jar:lib/base64.jar:lib/asm.jar:lib/asm-attrs.jar:lib/antlr-2.7.6.jar::log4j.properti
+es:..
+log4j:ERROR setFile(null,true) call failed.
+java.io.FileNotFoundException: logs/hss.server.log (Permission denied)
+&#160;&#160;&#160; at java.io.FileOutputStream.openAppend(Native Method)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:177)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:102)
+&#160;&#160;&#160; at org.apache.log4j.FileAppender.setFile(FileAppender.java:272)
+&#160;&#160;&#160; at org.apache.log4j.FileAppender.activateOptions(FileAppender.java:151)
+&#160;&#160;&#160; at org.apache.log4j.config.PropertySetter.activate(PropertySetter.java:247)
+&#160;&#160;&#160; at org.apache.log4j.config.PropertySetter.setProperties(PropertySetter.java:123)
+&#160;&#160;&#160; at org.apache.log4j.config.PropertySetter.setProperties(PropertySetter.java:87)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.parseAppender(PropertyConfigurator.java:645)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.parseCategory(PropertyConfigurator.java:603)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.configureRootCategory(PropertyConfigurator.java:500)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.doConfigure(PropertyConfigurator.java:406)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.doConfigure(PropertyConfigurator.java:432)
+&#160;&#160;&#160; at org.apache.log4j.helpers.OptionConverter.selectAndConfigure(OptionConverter.java:460)
+&#160;&#160;&#160; at org.apache.log4j.LogManager.&lt;clinit&gt;(LogManager.java:113)
+&#160;&#160;&#160; at org.apache.log4j.Logger.getLogger(Logger.java:94)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.HSSContainer.&lt;clinit&gt;(HSSContainer.java:61)
+log4j:ERROR setFile(null,true) call failed.
+java.io.FileNotFoundException: logs/hss.activities.log (Permission denied)
+&#160;&#160;&#160; at java.io.FileOutputStream.openAppend(Native Method)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:177)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:102)
+&#160;&#160;&#160; at org.apache.log4j.FileAppender.setFile(FileAppender.java:272)
+&#160;&#160;&#160; at org.apache.log4j.FileAppender.activateOptions(FileAppender.java:151)
+&#160;&#160;&#160; at org.apache.log4j.DailyRollingFileAppender.activateOptions(DailyRollingFileAppender.java:206)
+&#160;&#160;&#160; at org.apache.log4j.config.PropertySetter.activate(PropertySetter.java:247)
+&#160;&#160;&#160; at org.apache.log4j.config.PropertySetter.setProperties(PropertySetter.java:123)
+&#160;&#160;&#160; at org.apache.log4j.config.PropertySetter.setProperties(PropertySetter.java:87)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.parseAppender(PropertyConfigurator.java:645)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.parseCategory(PropertyConfigurator.java:603)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.configureRootCategory(PropertyConfigurator.java:500)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.doConfigure(PropertyConfigurator.java:406)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.doConfigure(PropertyConfigurator.java:432)
+&#160;&#160;&#160; at org.apache.log4j.helpers.OptionConverter.selectAndConfigure(OptionConverter.java:460)
+&#160;&#160;&#160; at org.apache.log4j.LogManager.&lt;clinit&gt;(LogManager.java:113)
+&#160;&#160;&#160; at org.apache.log4j.Logger.getLogger(Logger.java:94)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.HSSContainer.&lt;clinit&gt;(HSSContainer.java:61)
+log4j:ERROR Either File or DatePattern options are not set for appender [LOGFILE2].
+2009-07-17 20:47:04,445 INFO&#160; de.fhg.fokus.hss.main.TomcatServer - startTomcat Tomcat-Server is started.
+2009-07-17 20:47:06,939 WARN&#160; org.apache.catalina.connector.MapperListener - registerEngine Unknown default host: 127.0.0.1
+java.io.FileNotFoundException: /opt/OpenIMSCore/FHoSS/deploy/work/null/127.0.0.1/_/tldCache.ser (No such file or directory)
+&#160;&#160;&#160; at java.io.FileOutputStream.open(Native Method)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:179)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:131)
+&#160;&#160;&#160; at org.apache.catalina.startup.TldConfig.execute(TldConfig.java:315)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardContext.processTlds(StandardContext.java:4193)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardContext.start(StandardContext.java:4049)
+&#160;&#160;&#160; at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:759)
+&#160;&#160;&#160; at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:739)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:524)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.TomcatServer.startTomcat(TomcatServer.java:136)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.HSSContainer.&lt;init&gt;(HSSContainer.java:74)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.HSSContainer.main(HSSContainer.java:110)
+2009-07-17 20:47:08,656 FATAL org.apache.jasper.EmbeddedServletOptions - &lt;init&gt; The scratchDir you specified: /opt/OpenIMSCore/FHoSS/deploy/work/null/127.0.0.1/_ is unusable.
+java.io.FileNotFoundException: /opt/OpenIMSCore/FHoSS/deploy/work/null/127.0.0.1/manager/tldCache.ser (No such file or directory)
+&#160;&#160;&#160; at java.io.FileOutputStream.open(Native Method)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:179)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:131)
+&#160;&#160;&#160; at org.apache.catalina.startup.TldConfig.execute(TldConfig.java:315)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardContext.processTlds(StandardContext.java:4193)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardContext.start(StandardContext.java:4049)
+&#160;&#160;&#160; at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:759)
+&#160;&#160;&#160; at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:739)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:524)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.TomcatServer.startTomcat(TomcatServer.java:140)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.HSSContainer.&lt;init&gt;(HSSContainer.java:74)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.HSSContainer.main(HSSContainer.java:110)
+2009-07-17 20:47:09,231 FATAL org.apache.jasper.EmbeddedServletOptions - &lt;init&gt; The scratchDir you specified: /opt/OpenIMSCore/FHoSS/deploy/work/null/127.0.0.1/manager is unusable.
+java.io.FileNotFoundException: /opt/OpenIMSCore/FHoSS/deploy/work/null/127.0.0.1/hss.web.console/tldCache.ser (No such file or directory)
+&#160;&#160;&#160; at java.io.FileOutputStream.open(Native Method)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:179)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:131)
+&#160;&#160;&#160; at org.apache.catalina.startup.TldConfig.execute(TldConfig.java:315)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardContext.processTlds(StandardContext.java:4193)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardContext.start(StandardContext.java:4049)
+&#160;&#160;&#160; at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:759)
+&#160;&#160;&#160; at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:739)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:524)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.TomcatServer.startTomcat(TomcatServer.java:144)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.HSSContainer.&lt;init&gt;(HSSContainer.java:74)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.HSSContainer.main(HSSContainer.java:110)
+2009-07-17 20:47:10,180 INFO&#160; de.fhg.fokus.hss.web.servlet.ResponseFilter - init Response Filter Initialisation!
+log4j:ERROR setFile(null,true) call failed.
+java.io.FileNotFoundException: logs/hss.server.log (Permission denied)
+&#160;&#160;&#160; at java.io.FileOutputStream.openAppend(Native Method)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:177)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:102)
+&#160;&#160;&#160; at org.apache.log4j.FileAppender.setFile(FileAppender.java:272)
+&#160;&#160;&#160; at org.apache.log4j.FileAppender.activateOptions(FileAppender.java:151)
+&#160;&#160;&#160; at org.apache.log4j.config.PropertySetter.activate(PropertySetter.java:247)
+&#160;&#160;&#160; at org.apache.log4j.config.PropertySetter.setProperties(PropertySetter.java:123)
+&#160;&#160;&#160; at org.apache.log4j.config.PropertySetter.setProperties(PropertySetter.java:87)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.parseAppender(PropertyConfigurator.java:645)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.parseCategory(PropertyConfigurator.java:603)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.configureRootCategory(PropertyConfigurator.java:500)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.doConfigure(PropertyConfigurator.java:406)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.configure(PropertyConfigurator.java:340)
+&#160;&#160;&#160; at de.fhg.fokus.hss.Log4jInit.init(Log4jInit.java:72)
+&#160;&#160;&#160; at javax.servlet.GenericServlet.init(GenericServlet.java:211)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1091)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:925)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:3857)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardContext.start(StandardContext.java:4118)
+&#160;&#160;&#160; at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:759)
+&#160;&#160;&#160; at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:739)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:524)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.TomcatServer.startTomcat(TomcatServer.java:144)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.HSSContainer.&lt;init&gt;(HSSContainer.java:74)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.HSSContainer.main(HSSContainer.java:110)
+log4j:ERROR setFile(null,true) call failed.
+java.io.FileNotFoundException: logs/hss.activities.log (Permission denied)
+&#160;&#160;&#160; at java.io.FileOutputStream.openAppend(Native Method)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:177)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:102)
+&#160;&#160;&#160; at org.apache.log4j.FileAppender.setFile(FileAppender.java:272)
+&#160;&#160;&#160; at org.apache.log4j.FileAppender.activateOptions(FileAppender.java:151)
+&#160;&#160;&#160; at org.apache.log4j.DailyRollingFileAppender.activateOptions(DailyRollingFileAppender.java:206)
+&#160;&#160;&#160; at org.apache.log4j.config.PropertySetter.activate(PropertySetter.java:247)
+&#160;&#160;&#160; at org.apache.log4j.config.PropertySetter.setProperties(PropertySetter.java:123)
+&#160;&#160;&#160; at org.apache.log4j.config.PropertySetter.setProperties(PropertySetter.java:87)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.parseAppender(PropertyConfigurator.java:645)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.parseCategory(PropertyConfigurator.java:603)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.configureRootCategory(PropertyConfigurator.java:500)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.doConfigure(PropertyConfigurator.java:406)
+&#160;&#160;&#160; at org.apache.log4j.PropertyConfigurator.configure(PropertyConfigurator.java:340)
+&#160;&#160;&#160; at de.fhg.fokus.hss.Log4jInit.init(Log4jInit.java:72)
+&#160;&#160;&#160; at javax.servlet.GenericServlet.init(GenericServlet.java:211)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1091)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:925)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:3857)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardContext.start(StandardContext.java:4118)
+&#160;&#160;&#160; at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:759)
+&#160;&#160;&#160; at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:739)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:524)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.TomcatServer.startTomcat(TomcatServer.java:144)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.HSSContainer.&lt;init&gt;(HSSContainer.java:74)
+&#160;&#160;&#160; at de.fhg.fokus.hss.main.HSSContainer.main(HSSContainer.java:110)
+log4j:ERROR Either File or DatePattern options are not set for appender [LOGFILE2].
+2009-07-17 20:47:11,606 FATAL org.apache.jasper.EmbeddedServletOptions - &lt;init&gt; The scratchDir you specified: /opt/OpenIMSCore/FHoSS/deploy/work/null/127.0.0.1/hss.web.console is unusable.
+2009-07-17 20:47:11,618 INFO&#160; de.fhg.fokus.hss.main.TomcatServer - startTomcat WebConsole of FHoSS was started !
+2009-07-17 20:47:18,154 WARN&#160; org.hibernate.impl.SessionFactoryObjectFactory - addInstance InitialContext did not implement EventContext
+2009-07-17 20:47:18,293 INFO&#160; de.fhg.fokus.diameter.DiameterPeer.DiameterPeer - &lt;init&gt; FQDN: hss.ims.hut.vn
+2009-07-17 20:47:18,293 INFO&#160; de.fhg.fokus.diameter.DiameterPeer.DiameterPeer - &lt;init&gt; Realm: ims.hut.vn
+2009-07-17 20:47:18,294 INFO&#160; de.fhg.fokus.diameter.DiameterPeer.DiameterPeer - &lt;init&gt; Vendor_ID : 10415
+2009-07-17 20:47:18,294 INFO&#160; de.fhg.fokus.diameter.DiameterPeer.DiameterPeer - &lt;init&gt; Product Name: JavaDiameterPeer
+2009-07-17 20:47:18,294 INFO&#160; de.fhg.fokus.diameter.DiameterPeer.DiameterPeer - &lt;init&gt; AcceptUnknwonPeers: true
+2009-07-17 20:47:18,294 INFO&#160; de.fhg.fokus.diameter.DiameterPeer.DiameterPeer - &lt;init&gt; DropUnknownOnDisconnect: true
+2009-07-17 20:47:18,450 INFO&#160; de.fhg.fokus.hss.main.HSSContainer - waitForExit 
+Type &quot;exit&quot; to stop FHoSS!
+java.io.FileNotFoundException: /opt/OpenIMSCore/FHoSS/deploy/work/null/127.0.0.1/hss.web.console/org/apache/jsp/index_jsp.java (No such file or directory)
+&#160;&#160;&#160; at java.io.FileOutputStream.open(Native Method)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:179)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:70)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.generateJava(Compiler.java:131)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.compile(Compiler.java:286)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.compile(Compiler.java:267)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.compile(Compiler.java:255)
+&#160;&#160;&#160; at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:556)
+&#160;&#160;&#160; at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:293)
+&#160;&#160;&#160; at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:291)
+&#160;&#160;&#160; at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:241)
+&#160;&#160;&#160; at javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+&#160;&#160;&#160; at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:252)
+&#160;&#160;&#160; at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:173)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:213)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:178)
+&#160;&#160;&#160; at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:126)
+&#160;&#160;&#160; at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:105)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:107)
+&#160;&#160;&#160; at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:148)
+&#160;&#160;&#160; at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:856)
+&#160;&#160;&#160; at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.processConnection(Http11Protocol.java:744)
+&#160;&#160;&#160; at org.apache.tomcat.util.net.PoolTcpEndpoint.processSocket(PoolTcpEndpoint.java:527)
+&#160;&#160;&#160; at org.apache.tomcat.util.net.LeaderFollowerWorkerThread.runIt(LeaderFollowerWorkerThread.java:80)
+&#160;&#160;&#160; at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:684)
+&#160;&#160;&#160; at java.lang.Thread.run(Thread.java:619)
+2009-07-17 20:47:49,265 ERROR org.apache.catalina.core.ContainerBase.[null].[127.0.0.1].[/hss.web.console].[jsp] - invoke Servlet.service() for servlet jsp threw exception
+java.io.FileNotFoundException: /opt/OpenIMSCore/FHoSS/deploy/work/null/127.0.0.1/hss.web.console/org/apache/jsp/index_jsp.java (No such file or directory)
+&#160;&#160;&#160; at java.io.FileOutputStream.open(Native Method)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:179)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:70)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.generateJava(Compiler.java:131)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.compile(Compiler.java:286)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.compile(Compiler.java:267)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.compile(Compiler.java:255)
+&#160;&#160;&#160; at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:556)
+&#160;&#160;&#160; at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:293)
+&#160;&#160;&#160; at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:291)
+&#160;&#160;&#160; at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:241)
+&#160;&#160;&#160; at javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+&#160;&#160;&#160; at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:252)
+&#160;&#160;&#160; at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:173)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:213)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:178)
+&#160;&#160;&#160; at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:126)
+&#160;&#160;&#160; at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:105)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:107)
+&#160;&#160;&#160; at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:148)
+&#160;&#160;&#160; at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:856)
+&#160;&#160;&#160; at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.processConnection(Http11Protocol.java:744)
+&#160;&#160;&#160; at org.apache.tomcat.util.net.PoolTcpEndpoint.processSocket(PoolTcpEndpoint.java:527)
+&#160;&#160;&#160; at org.apache.tomcat.util.net.LeaderFollowerWorkerThread.runIt(LeaderFollowerWorkerThread.java:80)
+&#160;&#160;&#160; at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:684)
+&#160;&#160;&#160; at java.lang.Thread.run(Thread.java:619)
+java.io.FileNotFoundException: /opt/OpenIMSCore/FHoSS/deploy/work/null/127.0.0.1/hss.web.console/org/apache/jsp/index_jsp.java (No such file or directory)
+&#160;&#160;&#160; at java.io.FileOutputStream.open(Native Method)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:179)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:70)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.generateJava(Compiler.java:131)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.compile(Compiler.java:286)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.compile(Compiler.java:267)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.compile(Compiler.java:255)
+&#160;&#160;&#160; at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:556)
+&#160;&#160;&#160; at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:293)
+&#160;&#160;&#160; at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:291)
+&#160;&#160;&#160; at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:241)
+&#160;&#160;&#160; at javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+&#160;&#160;&#160; at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:252)
+&#160;&#160;&#160; at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:173)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:213)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:178)
+&#160;&#160;&#160; at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:126)
+&#160;&#160;&#160; at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:105)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:107)
+&#160;&#160;&#160; at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:148)
+&#160;&#160;&#160; at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:856)
+&#160;&#160;&#160; at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.processConnection(Http11Protocol.java:744)
+&#160;&#160;&#160; at org.apache.tomcat.util.net.PoolTcpEndpoint.processSocket(PoolTcpEndpoint.java:527)
+&#160;&#160;&#160; at org.apache.tomcat.util.net.LeaderFollowerWorkerThread.runIt(LeaderFollowerWorkerThread.java:80)
+&#160;&#160;&#160; at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:684)
+&#160;&#160;&#160; at java.lang.Thread.run(Thread.java:619)
+2009-07-17 20:55:30,944 ERROR org.apache.catalina.core.ContainerBase.[null].[127.0.0.1].[/hss.web.console].[jsp] - invoke Servlet.service() for servlet jsp threw exception
+java.io.FileNotFoundException: /opt/OpenIMSCore/FHoSS/deploy/work/null/127.0.0.1/hss.web.console/org/apache/jsp/index_jsp.java (No such file or directory)
+&#160;&#160;&#160; at java.io.FileOutputStream.open(Native Method)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:179)
+&#160;&#160;&#160; at java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:70)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.generateJava(Compiler.java:131)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.compile(Compiler.java:286)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.compile(Compiler.java:267)
+&#160;&#160;&#160; at org.apache.jasper.compiler.Compiler.compile(Compiler.java:255)
+&#160;&#160;&#160; at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:556)
+&#160;&#160;&#160; at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:293)
+&#160;&#160;&#160; at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:291)
+&#160;&#160;&#160; at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:241)
+&#160;&#160;&#160; at javax.servlet.http.HttpServlet.service(HttpServlet.java:802)
+&#160;&#160;&#160; at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:252)
+&#160;&#160;&#160; at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:173)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:213)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:178)
+&#160;&#160;&#160; at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:126)
+&#160;&#160;&#160; at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:105)
+&#160;&#160;&#160; at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:107)
+&#160;&#160;&#160; at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:148)
+&#160;&#160;&#160; at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:856)
+&#160;&#160;&#160; at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.processConnection(Http11Protocol.java:744)
+&#160;&#160;&#160; at org.apache.tomcat.util.net.PoolTcpEndpoint.processSocket(PoolTcpEndpoint.java:527)
+&#160;&#160;&#160; at org.apache.tomcat.util.net.LeaderFollowerWorkerThread.runIt(LeaderFollowerWorkerThread.java:80)
+&#160;&#160;&#160; at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:684)
+&#160;&#160;&#160; at java.lang.Thread.run(Thread.java:619)
+java.lang.Exception: Read failed
+&#160;&#160;&#160; at de.fhg.fokus.diameter.DiameterPeer.transport.Communicator.run(Communicator.java:187)
+java.lang.Exception: Read failed
+&#160;&#160;&#160; at de.fhg.fokus.diameter.DiameterPeer.transport.Communicator.run(Communicator.java:187)
+
+
+
+
+
+
+########################################
+##############pcscf.sh##################
+########################################
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">superman at ubuntu</A>:/opt/OpenIMSCore$ ./pcscf.sh
+./pcscf.sh: line 4: setkey: command not found
+./pcscf.sh: line 5: setkey: command not found
+Listening on 
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; udp: 127.0.0.1 [127.0.0.1]:4060
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; tcp: 127.0.0.1 [127.0.0.1]:4060
+Aliases: 
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; tcp: localhost:4060
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; udp: localhost:4060
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; *: pcscf.ims.hut.vn:4060
+
+&#160;0(7361) init_tcp: using epoll_lt as the io watch method (auto detected)
+&#160;0(7361) Maxfwd module- initializing
+&#160;0(7361) INFO:P-CSCF:mod_init: Initialization of module
+&#160;0(7361) INFO: udp_init: SO_RCVBUF is initially 112640
+&#160;0(7361) INFO: udp_init: SO_RCVBUF is finally 262142
+&#160;1(7362) INFO:P-CSCF:mod_init: Initialization of module in child [1] 
+&#160;2(7363) INFO:P-CSCF:mod_init: Initialization of module in child [2] 
+&#160;4(7365)&#160; 3(7364) INFO:P-CSCF:mod_init: Initialization of module in child [4] 
+&#160;5(7366) INFO:P-CSCF:mod_init: Initialization of module in child [-1] 
+INFO:P-CSCF:mod_init: Initialization of module in child [3] 
+&#160;6(7367) INFO:P-CSCF:mod_init: Initialization of module in child [-1] 
+&#160;0(7361) INFO:P-CSCF:mod_init: Initialization of module in child [0] 
+&#160;7(7368) INFO:P-CSCF:mod_init: Initialization of module in child [5] 
+&#160;8(7369)&#160; 9(7370) INFO:P-CSCF:mod_init: Initialization of module in child [7] 
+10(7371) INFO:P-CSCF:mod_init: Initialization of module in child [8] 
+11(7372) INFO:P-CSCF:mod_init: Initialization of module in child [-4] 
+INFO:P-CSCF:mod_init: Initialization of module in child [6] 
+&#160;5(7366) INF:P-CSCF:----------&#160; Registrar Contents begin --------
+&#160;5(7366) INF:P-CSCF:----------&#160; Registrar Contents end ----------
+&#160;5(7366) INF:P-CSCF:----------&#160; Subscription list begin ---------
+&#160;5(7366) INF:P-CSCF:----------&#160; Subscription list end -----------
+&#160;5(7366) INF:P-CSCF:----------&#160; Registrar Contents begin --------
+&#160;5(7366) INF:P-CSCF:----------&#160; Registrar Contents end ----------
+&#160;5(7366) INF:P-CSCF:----------&#160; Subscription list begin ---------
+&#160;5(7366) INF:P-CSCF:----------&#160; Subscription list end -----------
+&#160;5(7366) INF:P-CSCF:----------&#160; Registrar Contents begin --------
+############################################
+###############icscf.sh#####################
+############################################
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">superman at ubuntu</A>:/opt/OpenIMSCore$ ./icscf.sh
+&#160;7397 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00 /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7398 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7399 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7400 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7401 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7402 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7403 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:01&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7404 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7405 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7406 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7407 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7408 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7409 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7410 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7411 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7412 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7413 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+&#160;7414 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+Listening on 
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; udp: 127.0.0.1 [127.0.0.1]:5060
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; tcp: 127.0.0.1 [127.0.0.1]:5060
+Aliases: 
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; tcp: localhost:5060
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; udp: localhost:5060
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; *: ims.hut.vn:*
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; *: icscf.ims.hut.vn:*
+
+&#160;0(8091) init_tcp: using epoll_lt as the io watch method (auto detected)
+&#160;0(8091) Maxfwd module- initializing
+&#160;0(8091) INFO:I-CSCF:mod_init: Initialization of module
+&#160;0(8091) INF:I-CSCF:icscf_db_get_nds: Loaded 1 trusted domains
+&#160;0(8091) INF:I-CSCF:icscf_db_get_capabilities: Loaded 2 capabilities for 1 S-CSCFs (0 invalid entries in db)
+&#160;0(8091) Twofish encryption ready
+&#160;0(8091) INFO:cdp:cdp_init(): CDiameterPeer initializing
+&#160;0(8091) Diameter Peer Config:
+&#160;0(8091) &#160;&#160;&#160; FQDN&#160;&#160;&#160; : icscf.ims.hut.vn
+&#160;0(8091) &#160;&#160;&#160; Realm&#160;&#160; : ims.hut.vn
+&#160;0(8091) &#160;&#160;&#160; VendorID: 10415
+&#160;0(8091) &#160;&#160;&#160; ProdName: CDiameterPeer
+&#160;0(8091) &#160;&#160;&#160; AcceptUn: [X]
+&#160;0(8091) &#160;&#160;&#160; DropUnkn: [X]
+&#160;0(8091) &#160;&#160;&#160; Tc&#160;&#160;&#160;&#160;&#160; : 30
+&#160;0(8091) &#160;&#160;&#160; Workers : 4
+&#160;0(8091) &#160;&#160;&#160; QueueLen: 8
+&#160;0(8091) &#160;&#160;&#160; Peers : 1
+&#160;0(8091) &#160;&#160;&#160; &#160;&#160;&#160; FQDN:&#160; hss.ims.hut.vn &#160;&#160;&#160; &#160;Realm: ims.hut.vn &#160;&#160;&#160; &#160;Port: 3868
+&#160;0(8091) &#160;&#160;&#160; Acceptors : 1
+&#160;0(8091) &#160;&#160;&#160; &#160;&#160;&#160; Port:&#160; 3869 &#160;&#160;&#160; &#160;Bind: 127.0.0.1 
+&#160;0(8091) &#160;&#160;&#160; Applications : 3
+&#160;0(8091) &#160;&#160;&#160; &#160;&#160;&#160; Auth ID:&#160; 16777216 &#160;&#160;&#160; &#160;Vendor: 10415 
+&#160;0(8091) &#160;&#160;&#160; &#160;&#160;&#160; Auth ID:&#160; 16777216 &#160;&#160;&#160; &#160;Vendor: 4491 
+&#160;0(8091) &#160;&#160;&#160; &#160;&#160;&#160; Auth ID:&#160; 16777216 &#160;&#160;&#160; &#160;Vendor: 13019 
+&#160;0(8091) &#160;&#160;&#160; Routing Table : 
+&#160;0(8091) &#160;&#160;&#160; &#160;&#160;&#160; DefaultRoute: [&#160; 10] hss.ims.hut.vn
+&#160;0(8091) INFO: udp_init: SO_RCVBUF is initially 112640
+&#160;0(8091) INFO: udp_init: SO_RCVBUF is finally 262142
+&#160;1(8092) INFO:I-CSCF:mod_init: Initialization of module in child [1]&#160; 
+&#160;2(8093) INFO:I-CSCF:mod_init: Initialization of module in child [2]&#160; 
+&#160;3(8094) INFO:I-CSCF:mod_init: Initialization of module in child [3]&#160; 
+&#160;4(8095) INFO:I-CSCF:mod_init: Initialization of module in child [4]&#160; 
+&#160;5(8096) INFO:I-CSCF:mod_init: Initialization of module in child [-1]&#160; 
+&#160;6(8097) INFO:I-CSCF:mod_init: Initialization of module in child [-1]&#160; 
+&#160;0(8091) INFO:I-CSCF:mod_init: Initialization of module in child [0] main 
+&#160;0(8091) INFO:cdp:cdp_child_init(): CDiameterPeer starting ...
+&#160;7(8098) INFO:I-CSCF:mod_init: Initialization of module in child [1000]&#160; 
+&#160;7(8098) INFO:Acceptor process starting up...
+&#160;7(8098) INFO:create_socket(): Trying to open/bind/listen on 127.0.0.1 port 3869
+&#160;7(8098) INFO:create_socket(): Successful socket open/bind/listen on 127.0.0.1 port 3869
+&#160;7(8098) INFO:... Acceptor opened sockets. Entering accept loop ...
+&#160;8(8099) INFO:I-CSCF:mod_init: Initialization of module in child [1001]&#160; 
+&#160;8(8099) INFO:[0] Worker process started...
+&#160;9(8100) INFO:I-CSCF:mod_init: Initialization of module in child [1002]&#160; 
+&#160;9(8100) INFO:[1] Worker process started...
+10(8101) INFO:I-CSCF:mod_init: Initialization of module in child [1003]&#160; 
+10(8101) INFO:[2] Worker process started...
+11(8102) INFO:I-CSCF:mod_init: Initialization of module in child [1004]&#160; 
+11(8102) INFO:[3] Worker process started...
+12(8103) INFO:I-CSCF:mod_init: Initialization of module in child [1001]&#160; 
+12(8103) INFO:Timer process starting up...
+&#160;0(8091) INFO:cdp:cdp_child_init(): ... CDiameterPeer started
+13(8104) INFO:I-CSCF:mod_init: Initialization of module in child [5]&#160; 
+14(8105) INFO:I-CSCF:mod_init: Initialization of module in child [6]&#160; 
+15(8106) INFO:I-CSCF:mod_init: Initialization of module in child [7]&#160; 
+16(8107) INFO:I-CSCF:mod_init: Initialization of module in child [8]&#160; 
+17(8108) INFO:I-CSCF:mod_init: Initialization of module in child [-4]&#160; 
+12(8103) DBG:peer_timer(): Peer hss.ims.hut.vn &#160;&#160;&#160; State 0 
+12(8103) DBG:sm_process(): Peer hss.ims.hut.vn &#160;&#160;&#160; State Closed &#160;&#160;&#160; Event Start
+12(8103) DBG:I_Snd_Conn_Req(): Peer hss.ims.hut.vn 
+12(8103) INFO:peer_connect(): Trying to connect to 127.0.0.1 port 3868
+12(8103) INFO:peer_connect(): Peer hss.ims.hut.vn:3868 connected
+18(8111) INFO:I-CSCF:mod_init: Initialization of module in child [3868]&#160; 
+18(8111) INFO:receiver_process(): [18] Receiver process starting up...
+12(8103) INFO:peer_connect(): Receiver process forked [8111]
+12(8103) DBG:sm_process(): Peer hss.ims.hut.vn &#160;&#160;&#160; State Wait_Conn_Ack &#160;&#160;&#160; Event I_Rcv_Conn_Ack
+12(8103) --- Peer List: ---
+12(8103)&#160; S[Wait_I_CEA] hss.ims.hut.vn:3868 D[ ]
+12(8103) ------------------
+18(8111) DBG:sm_process(): Peer hss.ims.hut.vn &#160;&#160;&#160; State Wait_I_CEA &#160;&#160;&#160; Event I_Rcv_CEA
+18(8111) --- Peer List: ---
+18(8111)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+18(8111) &#160;&#160;&#160; &#160;[16777216,10415]
+18(8111) &#160;&#160;&#160; &#160;[16777216,4491]
+18(8111) &#160;&#160;&#160; &#160;[16777216,13019]
+18(8111) &#160;&#160;&#160; &#160;[16777217,10415]
+18(8111) &#160;&#160;&#160; &#160;[16777221,10415]
+18(8111) ------------------
+12(8103) --- Peer List: ---
+12(8103)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+12(8103) &#160;&#160;&#160; &#160;[16777216,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777216,4491]
+12(8103) &#160;&#160;&#160; &#160;[16777216,13019]
+12(8103) &#160;&#160;&#160; &#160;[16777217,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777221,10415]
+12(8103) ------------------
+12(8103) --- Peer List: ---
+12(8103)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+12(8103) &#160;&#160;&#160; &#160;[16777216,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777216,4491]
+12(8103) &#160;&#160;&#160; &#160;[16777216,13019]
+12(8103) &#160;&#160;&#160; &#160;[16777217,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777221,10415]
+12(8103) ------------------
+12(8103) --- Peer List: ---
+12(8103)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+12(8103) &#160;&#160;&#160; &#160;[16777216,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777216,4491]
+12(8103) &#160;&#160;&#160; &#160;[16777216,13019]
+12(8103) &#160;&#160;&#160; &#160;[16777217,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777221,10415]
+12(8103) ------------------
+12(8103) --- Peer List: ---
+12(8103)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+12(8103) &#160;&#160;&#160; &#160;[16777216,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777216,4491]
+12(8103) &#160;&#160;&#160; &#160;[16777216,13019]
+12(8103) &#160;&#160;&#160; &#160;[16777217,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777221,10415]
+12(8103) ------------------
+12(8103) --- Peer List: ---
+12(8103)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+12(8103) &#160;&#160;&#160; &#160;[16777216,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777216,4491]
+12(8103) &#160;&#160;&#160; &#160;[16777216,13019]
+12(8103) &#160;&#160;&#160; &#160;[16777217,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777221,10415]
+12(8103) ------------------
+12(8103) --- Peer List: ---
+12(8103)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+12(8103) &#160;&#160;&#160; &#160;[16777216,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777216,4491]
+12(8103) &#160;&#160;&#160; &#160;[16777216,13019]
+12(8103) &#160;&#160;&#160; &#160;[16777217,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777221,10415]
+12(8103) ------------------
+12(8103) --- Peer List: ---
+12(8103)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+12(8103) &#160;&#160;&#160; &#160;[16777216,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777216,4491]
+12(8103) &#160;&#160;&#160; &#160;[16777216,13019]
+12(8103) &#160;&#160;&#160; &#160;[16777217,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777221,10415]
+12(8103) ------------------
+12(8103) --- Peer List: ---
+12(8103)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+12(8103) &#160;&#160;&#160; &#160;[16777216,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777216,4491]
+12(8103) &#160;&#160;&#160; &#160;[16777216,13019]
+12(8103) &#160;&#160;&#160; &#160;[16777217,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777221,10415]
+12(8103) ------------------
+12(8103) --- Peer List: ---
+12(8103)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+12(8103) &#160;&#160;&#160; &#160;[16777216,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777216,4491]
+12(8103) &#160;&#160;&#160; &#160;[16777216,13019]
+12(8103) &#160;&#160;&#160; &#160;[16777217,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777221,10415]
+12(8103) ------------------
+12(8103) DBG:peer_timer(): Peer hss.ims.hut.vn &#160;&#160;&#160; State 6 
+12(8103) --- Peer List: ---
+12(8103)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+12(8103) &#160;&#160;&#160; &#160;[16777216,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777216,4491]
+12(8103) &#160;&#160;&#160; &#160;[16777216,13019]
+12(8103) &#160;&#160;&#160; &#160;[16777217,10415]
+12(8103) &#160;&#160;&#160; &#160;[16777221,10415]
+12(8103) ------------------
+18(8111) DBG:sm_process(): Peer hss.ims.hut.vn &#160;&#160;&#160; State I_Open &#160;&#160;&#160; Event I_Rcv_DWA
+
+
+############################################
+###############scscf.sh#####################
+############################################
+OpenIMSCore$ ./scscf.sh
+&#160;7438 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00 /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7439 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7440 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7441 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7442 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7443 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7444 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:01&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7445 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7446 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7447 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7448 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7449 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7450 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7451 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7452 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7453 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7454 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+&#160;7455 ?&#160;&#160;&#160;&#160;&#160;&#160;&#160; S&#160;&#160;&#160;&#160;&#160; 0:00&#160; \_ /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/scscf.cfg -D -D
+Listening on 
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; udp: 127.0.0.1 [127.0.0.1]:6060
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; tcp: 127.0.0.1 [127.0.0.1]:6060
+Aliases: 
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; tcp: localhost:6060
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; udp: localhost:6060
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; *: scscf.ims.hut.vn:6060
+
+&#160;0(8029) init_tcp: using epoll_lt as the io watch method (auto detected)
+&#160;0(8029) Maxfwd module- initializing
+&#160;0(8029) INFO:S-CSCF:mod_init: Initialization of module
+&#160;0(8029) INFO:ISC: - init
+&#160;0(8029) INFO:cdp:cdp_init(): CDiameterPeer initializing
+&#160;0(8029) Diameter Peer Config:
+&#160;0(8029) &#160;&#160;&#160; FQDN&#160;&#160;&#160; : scscf.ims.hut.vn
+&#160;0(8029) &#160;&#160;&#160; Realm&#160;&#160; : ims.hut.vn
+&#160;0(8029) &#160;&#160;&#160; VendorID: 10415
+&#160;0(8029) &#160;&#160;&#160; ProdName: CDiameterPeer
+&#160;0(8029) &#160;&#160;&#160; AcceptUn: [X]
+&#160;0(8029) &#160;&#160;&#160; DropUnkn: [X]
+&#160;0(8029) &#160;&#160;&#160; Tc&#160;&#160;&#160;&#160;&#160; : 30
+&#160;0(8029) &#160;&#160;&#160; Workers : 4
+&#160;0(8029) &#160;&#160;&#160; QueueLen: 8
+&#160;0(8029) &#160;&#160;&#160; Peers : 1
+&#160;0(8029) &#160;&#160;&#160; &#160;&#160;&#160; FQDN:&#160; hss.ims.hut.vn &#160;&#160;&#160; &#160;Realm: ims.hut.vn &#160;&#160;&#160; &#160;Port: 3868
+&#160;0(8029) &#160;&#160;&#160; Acceptors : 1
+&#160;0(8029) &#160;&#160;&#160; &#160;&#160;&#160; Port:&#160; 3870 &#160;&#160;&#160; &#160;Bind: 127.0.0.1 
+&#160;0(8029) &#160;&#160;&#160; Applications : 3
+&#160;0(8029) &#160;&#160;&#160; &#160;&#160;&#160; Auth ID:&#160; 16777216 &#160;&#160;&#160; &#160;Vendor: 10415 
+&#160;0(8029) &#160;&#160;&#160; &#160;&#160;&#160; Auth ID:&#160; 16777216 &#160;&#160;&#160; &#160;Vendor: 4491 
+&#160;0(8029) &#160;&#160;&#160; &#160;&#160;&#160; Auth ID:&#160; 16777216 &#160;&#160;&#160; &#160;Vendor: 13019 
+&#160;0(8029) &#160;&#160;&#160; Routing Table : 
+&#160;0(8029) &#160;&#160;&#160; &#160;&#160;&#160; DefaultRoute: [&#160; 10] hss.ims.hut.vn
+&#160;0(8029) INFO: udp_init: SO_RCVBUF is initially 112640
+&#160;0(8029) INFO: udp_init: SO_RCVBUF is finally 262142
+&#160;1(8030) INFO:S-CSCF:mod_child_init: Initialization of module in child [1] 
+&#160;2(8031) INFO:S-CSCF:mod_child_init: Initialization of module in child [2] 
+&#160;4(8033)&#160; 5(8034) INFO:S-CSCF:mod_child_init: Initialization of module in child [-1] 
+&#160;3(8032) INFO:S-CSCF:mod_child_init: Initialization of module in child [3] 
+INFO:S-CSCF:mod_child_init: Initialization of module in child [4] 
+&#160;6(8035) INFO:S-CSCF:mod_child_init: Initialization of module in child [-1] 
+&#160;0(8029) INFO:S-CSCF:mod_child_init: Initialization of module in child [0] 
+&#160;0(8029) INFO:ISC: - child init [0]
+&#160;0(8029) INFO:cdp:cdp_child_init(): CDiameterPeer starting ...
+&#160;7(8036) INFO:S-CSCF:mod_child_init: Initialization of module in child [1000] 
+&#160;1(8030) INFO:ISC: - child init [1]
+&#160;4(8033) INFO:ISC: - child init [4]
+&#160;6(8035) INFO:ISC: - child init [-1]
+&#160;5(8034) INFO:ISC: - child init [-1]
+&#160;3(8032) INFO:ISC: - child init [3]
+&#160;8(8037) INFO:S-CSCF:mod_child_init: Initialization of module in child [1001] 
+&#160;2(8031) INFO:ISC: - child init [2]
+10(8039) INFO:S-CSCF:mod_child_init: Initialization of module in child [1003] 
+11(8040) INFO:S-CSCF:mod_child_init: Initialization of module in child [1004] 
+&#160;0(8029) INFO:cdp:cdp_child_init(): ... CDiameterPeer started
+12(8041) INFO:S-CSCF:mod_child_init: Initialization of module in child [1001] 
+&#160;9(8038) INFO:S-CSCF:mod_child_init: Initialization of module in child [1002] 
+13(8042) INFO:S-CSCF:mod_child_init: Initialization of module in child [5] 
+&#160;9(8038) INFO:ISC: - child init [1002]
+&#160;9(8038) INFO:[1] Worker process started...
+14(8043) INFO:S-CSCF:mod_child_init: Initialization of module in child [6] 
+15(8044) INFO:S-CSCF:mod_child_init: Initialization of module in child [7] 
+17(8046) INFO:S-CSCF:mod_child_init: Initialization of module in child [-4] 
+17(8046) INFO:ISC: - child init [-4]
+15(8044) INFO:ISC: - child init [7]
+14(8043) INFO:ISC: - child init [6]
+&#160;7(8036) INFO:ISC: - child init [1000]
+&#160;7(8036) INFO:Acceptor process starting up...
+&#160;7(8036) INFO:create_socket(): Trying to open/bind/listen on 127.0.0.1 port 3870
+&#160;7(8036) INFO:create_socket(): Successful socket open/bind/listen on 127.0.0.1 port 3870
+&#160;7(8036) INFO:... Acceptor opened sockets. Entering accept loop ...
+10(8039) INFO:ISC: - child init [1003]
+10(8039) INFO:[2] Worker process started...
+13(8042) INFO:ISC: - child init [5]
+12(8041) INFO:ISC: - child init [1001]
+12(8041) INFO:Timer process starting up...
+&#160;8(8037) INFO:ISC: - child init [1001]
+&#160;8(8037) INFO:[0] Worker process started...
+11(8040) INFO:ISC: - child init [1004]
+11(8040) INFO:[3] Worker process started...
+16(8045) INFO:S-CSCF:mod_child_init: Initialization of module in child [8] 
+16(8045) INFO:ISC: - child init [8]
+12(8041) DBG:peer_timer(): Peer hss.ims.hut.vn &#160;&#160;&#160; State 0 
+12(8041) DBG:sm_process(): Peer hss.ims.hut.vn &#160;&#160;&#160; State Closed &#160;&#160;&#160; Event Start
+12(8041) DBG:I_Snd_Conn_Req(): Peer hss.ims.hut.vn 
+12(8041) INFO:peer_connect(): Trying to connect to 127.0.0.1 port 3868
+12(8041) INFO:peer_connect(): Peer hss.ims.hut.vn:3868 connected
+18(8065) INFO:S-CSCF:mod_child_init: Initialization of module in child [3868] 
+12(8041) INFO:peer_connect(): Receiver process forked [8065]
+12(8041) DBG:sm_process(): Peer hss.ims.hut.vn &#160;&#160;&#160; State Wait_Conn_Ack &#160;&#160;&#160; Event I_Rcv_Conn_Ack
+18(8065) INFO:ISC: - child init [3868]
+18(8065) INFO:receiver_process(): [17] Receiver process starting up...
+12(8041) --- Peer List: ---
+12(8041)&#160; S[Wait_I_CEA] hss.ims.hut.vn:3868 D[ ]
+12(8041) ------------------
+18(8065) DBG:sm_process(): Peer hss.ims.hut.vn &#160;&#160;&#160; State Wait_I_CEA &#160;&#160;&#160; Event I_Rcv_CEA
+18(8065) --- Peer List: ---
+18(8065)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+18(8065) &#160;&#160;&#160; &#160;[16777216,10415]
+18(8065) &#160;&#160;&#160; &#160;[16777216,4491]
+18(8065) &#160;&#160;&#160; &#160;[16777216,13019]
+18(8065) &#160;&#160;&#160; &#160;[16777217,10415]
+18(8065) &#160;&#160;&#160; &#160;[16777221,10415]
+18(8065) ------------------
+12(8041) --- Peer List: ---
+12(8041)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+12(8041) &#160;&#160;&#160; &#160;[16777216,10415]
+12(8041) &#160;&#160;&#160; &#160;[16777216,4491]
+12(8041) &#160;&#160;&#160; &#160;[16777216,13019]
+12(8041) &#160;&#160;&#160; &#160;[16777217,10415]
+12(8041) &#160;&#160;&#160; &#160;[16777221,10415]
+12(8041) ------------------
+12(8041) --- Peer List: ---
+12(8041)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+12(8041) &#160;&#160;&#160; &#160;[16777216,10415]
+12(8041) &#160;&#160;&#160; &#160;[16777216,4491]
+12(8041) &#160;&#160;&#160; &#160;[16777216,13019]
+12(8041) &#160;&#160;&#160; &#160;[16777217,10415]
+12(8041) &#160;&#160;&#160; &#160;[16777221,10415]
+12(8041) ------------------
+&#160;5(8034) INF:S-CSCF:----------&#160; Registrar Contents begin --------
+&#160;5(8034) INF:S-CSCF:----------&#160; Registrar Contents end ----------
+12(8041) --- Peer List: ---
+12(8041)&#160; S[I_Open] hss.ims.hut.vn:3868 D[ ]
+12(8041) &#160;&#160;&#160; &#160;[16777216,10415]
+12(8041) &#160;&#160;&#160; &#160;[16777216,4491]
+12(8041) &#160;&#160;&#160; &#160;[16777216,13019]
+12(8041) &#160;&#160;&#160; &#160;[16777217,10415]
+12(8041) &#160;&#160;&#160; &#160;[16777221,10415]
+12(8041) ------------------
+
+
+
+
+
+
+      C&#7843;m gi&#225;c an to&#224;n h&#417;n khi online. N&#226;ng c&#7845;p l&#234;n Internet Explorer 8 m&#7899;i, an to&#224;n h&#417;n,t&#7889;i &#432;u h&#243;a cho Yahoo!. Ho&#224;n to&#224;n mi&#7877;n ph&#237;. T&#7843;i IE8 t&#7841;i &#273;&#226;y! 
+<A HREF="http://downloads.yahoo.com/vn/internetexplorer/">http://downloads.yahoo.com/vn/internetexplorer/</A>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090718/5ae28896/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090718/5ae28896/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001744.html">[OpenIMSCore-CSCF] First run with HSS
+</A></li>
+	<LI>Next message: <A HREF="001742.html">[OpenIMSCore-CSCF] Chuy&#7875;n ti&#7871;p: First run with HSS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1741">[ date ]</a>
+              <a href="thread.html#1741">[ thread ]</a>
+              <a href="subject.html#1741">[ subject ]</a>
+              <a href="author.html#1741">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

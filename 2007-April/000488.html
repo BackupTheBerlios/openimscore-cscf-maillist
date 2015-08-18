@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Registration Problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Registration%20Problem&In-Reply-To=%3C003b01c78338%2486637260%240f40000a%40blr.velankani.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000485.html">
+   <LINK REL="Next"  HREF="000497.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Registration Problem</H1>
+    <B>Rishin Chakraborty</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Registration%20Problem&In-Reply-To=%3C003b01c78338%2486637260%240f40000a%40blr.velankani.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Registration Problem">rchakraborty at velankani.com
+       </A><BR>
+    <I>Fri Apr 20 12:41:59 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000485.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r243 - add cdp session support
+</A></li>
+        <LI>Next message: <A HREF="000497.html">[OpenIMSCore-CSCF] Registration Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#488">[ date ]</a>
+              <a href="thread.html#488">[ thread ]</a>
+              <a href="subject.html#488">[ subject ]</a>
+              <a href="author.html#488">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+ 
+
+I am facing problem while trying to REGISTER a Cisco 7960 phone with FOKUS
+IMS.
+
+ 
+
+The ethereal trace shows that while sending back 401 - User Unauthorized for
+the initial
+
+REGISTER message, OSIMS sends the response message on the port which had
+come as
+
+Source Port of UDP header in the REGISTER message and *not* on what is
+provided with 
+
+the Contact header. However, the Cisco phone listens on 5060, which it had
+provided with the
+
+Contact header and misses the 401 response. As a result, Cisco phone keeps
+on retransmitting
+
+the REGISTER.
+
+ 
+
+I tried to verify this behavior with X-Lite. The ethereal trace for X-Lite
+shows that OSIMS is 
+
+sending back 401 - User Unauthorized response to the Source Port of UDP
+header which 
+
+incidentally is the same one as provided with the Contact header. So,
+Registration is working 
+
+fine in the case of X-Lite.
+
+ 
+
+Therefore, it appears to be a problem with FOKUS IMS.
+
+ 
+
+Both the ethereal traces are attached. Could someone confirm my doubt?
+
+ 
+
+Thanks,
+
+Rishin
+
+ 
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070420/b0529823/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070420/b0529823/attachment.html</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: xlite-Register.pcap
+Type: application/octet-stream
+Size: 3373 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070420/b0529823/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070420/b0529823/attachment.obj</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: csco-7960-Register.pcap
+Type: application/octet-stream
+Size: 1301 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070420/b0529823/attachment-0001.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070420/b0529823/attachment-0001.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000485.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r243 - add cdp session support
+</A></li>
+	<LI>Next message: <A HREF="000497.html">[OpenIMSCore-CSCF] Registration Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#488">[ date ]</a>
+              <a href="thread.html#488">[ thread ]</a>
+              <a href="subject.html#488">[ subject ]</a>
+              <a href="author.html#488">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

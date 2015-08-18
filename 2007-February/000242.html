@@ -1,0 +1,360 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] while ./icscf.sh and ./sip2ims.sh ERRORS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20while%20./icscf.sh%20and%20./sip2ims.sh%20ERRORS&In-Reply-To=%3C45DEE63F.3040700%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000237.html">
+   <LINK REL="Next"  HREF="000238.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] while ./icscf.sh and ./sip2ims.sh ERRORS</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20while%20./icscf.sh%20and%20./sip2ims.sh%20ERRORS&In-Reply-To=%3C45DEE63F.3040700%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] while ./icscf.sh and ./sip2ims.sh ERRORS">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Feb 23 14:03:59 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000237.html">[OpenIMSCore-CSCF] while ./icscf.sh and ./sip2ims.sh ERRORS
+</A></li>
+        <LI>Next message: <A HREF="000238.html">[OpenIMSCore-CSCF] Unpredictable behaviour on REGISTER and SUBSCRIBE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#242">[ date ]</a>
+              <a href="thread.html#242">[ thread ]</a>
+              <a href="subject.html#242">[ subject ]</a>
+              <a href="author.html#242">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>It looks like your mysql client libraries are different from your
+server. This error was usual when using a libmysqlclient from 3.x.x with
+a 4.x.x MySQL server.
+
+-Dragos
+
+manikindhi jeelan wrote:
+&gt;<i> hai
+</I>&gt;<i>  i am getting following as i installed mysql this is
+</I>&gt;<i> the version Mysql-5.0.27.tar.gz and after that i run
+</I>&gt;<i> DNS server than ./sip2ims.sh in redhatlinux9 operating
+</I>&gt;<i> system ....
+</I>&gt;<i>
+</I>&gt;<i> [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at Jeelan</A> root]# [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at Jeelan</A> root]# ./sip2ims.sh
+</I>&gt;<i> Listening on
+</I>&gt;<i>              udp: 127.0.0.1 [127.0.0.1]:3060
+</I>&gt;<i>              tcp: 127.0.0.1 [127.0.0.1]:3060
+</I>&gt;<i> Aliases:
+</I>&gt;<i>              tcp: localhost:3060
+</I>&gt;<i>              tcp: localhost.localdomain:3060
+</I>&gt;<i>              udp: localhost:3060
+</I>&gt;<i>              udp: localhost.localdomain:3060
+</I>&gt;<i>              *: sip2ims.open-ims.test:*
+</I>&gt;<i>
+</I>&gt;<i>  0(4266) init_tcp: using sigio_rt as the io watch
+</I>&gt;<i> method (auto detected)
+</I>&gt;<i>  0(4266) Maxfwd module- initializing
+</I>&gt;<i>  0(4266) INFO:SIP2IMS:mod_init: Initialization of
+</I>&gt;<i> module
+</I>&gt;<i>  0(4266) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i>  0(4266) ERROR: authdb_mod.c:228: Unable to open
+</I>&gt;<i> database connection
+</I>&gt;<i>  0(4266) ERROR: fix_expr : fix_actions error
+</I>&gt;<i> ERROR: error -1 while trying to fix configuration
+</I>&gt;<i>  0(4266) Process Table:
+</I>&gt;<i>  0(4266)  0. (4266) &gt; main
+</I>&gt;<i>  0(4266) INFO:SIP2IMS:mod_destroy: child exit
+</I>&gt;<i> [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at Jeelan</A> root]#
+</I>&gt;<i>
+</I>&gt;<i> and the same thing with the ICSCF
+</I>&gt;<i>
+</I>&gt;<i> [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at Jeelan</A> root]# ./icscf.sh
+</I>&gt;<i> ./icscf.sh: line 3: killser: command not found
+</I>&gt;<i> Listening on
+</I>&gt;<i>              udp: 127.0.0.1 [127.0.0.1]:5060
+</I>&gt;<i>              tcp: 127.0.0.1 [127.0.0.1]:5060
+</I>&gt;<i> Aliases:
+</I>&gt;<i>              tcp: localhost:5060
+</I>&gt;<i>              tcp: localhost.localdomain:5060
+</I>&gt;<i>              udp: localhost:5060
+</I>&gt;<i>              udp: localhost.localdomain:5060
+</I>&gt;<i>              *: open-ims.test:*
+</I>&gt;<i>              *: icscf.open-ims.test:*
+</I>&gt;<i>
+</I>&gt;<i>  0(4291) init_tcp: using sigio_rt as the io watch
+</I>&gt;<i> method (auto detected)
+</I>&gt;<i>  0(4291) Maxfwd module- initializing
+</I>&gt;<i>  0(4291) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module
+</I>&gt;<i>  0(4291) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i>  0(4291) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i>  0(4291) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i>  0(4291) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i>  0(4291) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i>  0(4291) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i>  0(4291) Twofish encryption ready
+</I>&gt;<i>  0(4291) INFO:cdp:cdp_init(): CDiameterPeer
+</I>&gt;<i> initializing
+</I>&gt;<i>  0(4291) Diameter Peer Config:
+</I>&gt;<i>  0(4291)        FQDN    : icscf.open-ims.test
+</I>&gt;<i>  0(4291)        Realm   : open-ims.test
+</I>&gt;<i>  0(4291)        VendorID: 10415
+</I>&gt;<i>  0(4291)        ProdName: CDiameterPeer
+</I>&gt;<i>  0(4291)        AcceptUn: [X]
+</I>&gt;<i>  0(4291)        DropUnkn: [X]
+</I>&gt;<i>  0(4291)        Tc      : 30
+</I>&gt;<i>  0(4291)        Workers : 4
+</I>&gt;<i>  0(4291)        QueueLen: 8
+</I>&gt;<i>  0(4291)        Peers : 1
+</I>&gt;<i>  0(4291)                FQDN:  hss.open-ims.test      
+</I>&gt;<i>   Realm: open-ims.test    Port: 3868
+</I>&gt;<i>  0(4291)        Acceptors : 1
+</I>&gt;<i>  0(4291)                Port:  3869      Bind:
+</I>&gt;<i> 127.0.0.1
+</I>&gt;<i>  0(4291)        Applications : 3
+</I>&gt;<i>  0(4291)                Auth ID:  16777216      
+</I>&gt;<i> Vendor: 10415
+</I>&gt;<i>  0(4291)                Auth ID:  16777216      
+</I>&gt;<i> Vendor: 0
+</I>&gt;<i>  0(4291)                Acct ID:  16777216      
+</I>&gt;<i> Vendor: 0
+</I>&gt;<i>  0(4291) INFO: udp_init: SO_RCVBUF is initially 65535
+</I>&gt;<i>  0(4291) INFO: udp_init: SO_RCVBUF is finally 131070
+</I>&gt;<i>  0(4291) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [0] attendant
+</I>&gt;<i>  0(4291) INFO:cdp:cdp_child_init(): CDiameterPeer
+</I>&gt;<i> starting ...
+</I>&gt;<i>  0(4291) INFO:cdp:cdp_child_init(): ... CDiameterPeer
+</I>&gt;<i> started
+</I>&gt;<i>  1(4295) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [1] udp
+</I>&gt;<i>  1(4295) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i>  1(4295) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i>  2(4296) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [2] udp
+</I>&gt;<i>  2(4296) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i>  2(4296) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i>  3(4297) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [3] udp
+</I>&gt;<i>  4(4298) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [4] udp
+</I>&gt;<i>  4(4298) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i>  4(4298) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i>  5(4299) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [-1] slow timer
+</I>&gt;<i>  5(4299) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i>  5(4299) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i>  6(4300) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [-1] timer
+</I>&gt;<i>  6(4300) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i>  6(4300) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i>  7(4301) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [5] tcp receiver child=0
+</I>&gt;<i>  7(4301) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i>  7(4301) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i>  8(4302) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [6] tcp receiver child=1
+</I>&gt;<i>  8(4302) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i>  8(4302) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i>  9(4303) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [7] tcp receiver child=2
+</I>&gt;<i>  9(4303) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i>  9(4303) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i> 10(4304) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [8] tcp receiver child=3
+</I>&gt;<i> 10(4304) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i> 10(4304) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i> 11(4305) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [-4] tcp main process
+</I>&gt;<i> 12(4306) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [1000] cdp_acceptor
+</I>&gt;<i> 12(4306) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i> 12(4306) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i> 12(4306) INFO:Acceptor process starting up...
+</I>&gt;<i> 12(4306) INFO:create_sockets: IPv4 Listening on
+</I>&gt;<i> 127.0.0.1:3869
+</I>&gt;<i> 12(4306) INFO:... Acceptor opened sockets. Entering
+</I>&gt;<i> accept loop ...
+</I>&gt;<i> 13(4307) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [1001] cdp_worker
+</I>&gt;<i> 13(4307) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i> 13(4307) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i> 13(4307) INFO:[0] Worker process started...
+</I>&gt;<i> 14(4308) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [1002] cdp_worker
+</I>&gt;<i> 14(4308) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i> 14(4308) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i> 14(4308) INFO:[1] Worker process started...
+</I>&gt;<i> 15(4309) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [1003] cdp_worker
+</I>&gt;<i> 15(4309) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i> 15(4309) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i> 15(4309) INFO:[2] Worker process started...
+</I>&gt;<i> 16(4310) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [1004] cdp_worker
+</I>&gt;<i> 16(4310) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i> 17(4311) INFO:I-CSCF:mod_init: Initialization of
+</I>&gt;<i> module in child [1001] cdp_timer
+</I>&gt;<i> 17(4311) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i> 17(4311) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i> 17(4311) INFO:Timer process starting up...
+</I>&gt;<i>  3(4297) new_connection: Client does not support
+</I>&gt;<i> authentication protocol requested by server; consider
+</I>&gt;<i> upgrading MySQL client
+</I>&gt;<i>  3(4297) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i> 16(4310) ERR:I-CSCF:icscf_db_init: cannot initialize
+</I>&gt;<i> database connection
+</I>&gt;<i> 16(4310) INFO:[3] Worker process started...
+</I>&gt;<i> 17(4311) DBG:peer_timer(): Peer hss.open-ims.test     
+</I>&gt;<i>  State 0
+</I>&gt;<i> 17(4311) DBG:sm_process(): Peer hss.open-ims.test     
+</I>&gt;<i>  State Closed    Event Start
+</I>&gt;<i> 17(4311) DBG:I_Snd_Conn_Req(): Peer hss.open-ims.test
+</I>&gt;<i> 17(4311) WARNING:peer_connect(): Error opening
+</I>&gt;<i> connection to hss.open-ims.test:3868 &gt;Operation not
+</I>&gt;<i> permitted
+</I>&gt;<i> 17(4311) DBG:sm_process(): Peer hss.open-ims.test     
+</I>&gt;<i>  State Wait_Conn_Ack     Event I_Rcv_Conn_NAck
+</I>&gt;<i> 17(4311) --- Peer List: ---
+</I>&gt;<i> 17(4311)  S[Closed] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(4311) ------------------
+</I>&gt;<i> 17(4311) --- Peer List: ---
+</I>&gt;<i> 17(4311)  S[Closed] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(4311) ------------------
+</I>&gt;<i> 17(4311) --- Peer List: ---
+</I>&gt;<i> 17(4311)  S[Closed] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(4311) ------------------
+</I>&gt;<i> 17(4311) --- Peer List: ---
+</I>&gt;<i> 17(4311)  S[Closed] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(4311) ------------------
+</I>&gt;<i> 17(4311) --- Peer List: ---
+</I>&gt;<i> 17(4311)  S[Closed] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(4311) ------------------
+</I>&gt;<i> 17(4311) --- Peer List: ---
+</I>&gt;<i> 17(4311)  S[Closed] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(4311) ------------------
+</I>&gt;<i> 17(4311) --- Peer List: ---
+</I>&gt;<i> 17(4311)  S[Closed] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(4311) ------------------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> so please dont't it's mysql error ....
+</I>&gt;<i> provide me solution for these errors.....
+</I>&gt;<i>
+</I>&gt;<i>                                           Thaking you
+</I>&gt;<i>                                          Jeelan.M 
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 		
+</I>&gt;<i> __________________________________________________________
+</I>&gt;<i> Yahoo! India Answers: Share what you know. Learn something new
+</I>&gt;<i> <A HREF="http://in.answers.yahoo.com/">http://in.answers.yahoo.com/</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000237.html">[OpenIMSCore-CSCF] while ./icscf.sh and ./sip2ims.sh ERRORS
+</A></li>
+	<LI>Next message: <A HREF="000238.html">[OpenIMSCore-CSCF] Unpredictable behaviour on REGISTER and SUBSCRIBE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#242">[ date ]</a>
+              <a href="thread.html#242">[ thread ]</a>
+              <a href="subject.html#242">[ subject ]</a>
+              <a href="author.html#242">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

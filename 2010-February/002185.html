@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r910 - Changed CDP from using SYSV	semaphores to unname posix semaphores. Hopefully this way we	won't run out of semaphores on crashes.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r910%20-%20Changed%20CDP%20from%20using%20SYSV%0A%09semaphores%20to%20unname%20posix%20semaphores.%20Hopefully%20this%20way%20we%0A%09won%27t%20run%20out%20of%20semaphores%20on%20crashes.&In-Reply-To=%3C201002201808.o1KI8YvS003088%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002184.html">
+   <LINK REL="Next"  HREF="002186.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r910 - Changed CDP from using SYSV	semaphores to unname posix semaphores. Hopefully this way we	won't run out of semaphores on crashes.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r910%20-%20Changed%20CDP%20from%20using%20SYSV%0A%09semaphores%20to%20unname%20posix%20semaphores.%20Hopefully%20this%20way%20we%0A%09won%27t%20run%20out%20of%20semaphores%20on%20crashes.&In-Reply-To=%3C201002201808.o1KI8YvS003088%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r910 - Changed CDP from using SYSV	semaphores to unname posix semaphores. Hopefully this way we	won't run out of semaphores on crashes.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Sat Feb 20 19:08:34 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002184.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r909 - Reduced some logging in cdp
+</A></li>
+        <LI>Next message: <A HREF="002186.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r911 - Converted the cdp SendRecv	functions to use POSIX semaphores instead of locks -&gt; should	consume less CPU,	hopefully without too much impact on the latency of message	processing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2185">[ date ]</a>
+              <a href="thread.html#2185">[ thread ]</a>
+              <a href="subject.html#2185">[ subject ]</a>
+              <a href="author.html#2185">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2010-02-20 19:08:18 +0100 (Sat, 20 Feb 2010)
+New Revision: 910 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=910">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=910</A> 
+
+Log:
+Changed CDP from using SYSV semaphores to unname posix semaphores. Hopefully this way we won't run out of semaphores on crashes.
+
+
+Added:
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp/sem.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/sem.h?rev=910&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/sem.h?rev=910&amp;view=markup</A>
+Modified:
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/utils.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/utils.h?rev=910&amp;view=diff&amp;r1=910&amp;r2=909">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/utils.h?rev=910&amp;view=diff&amp;r1=910&amp;r2=909</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/worker.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/worker.c?rev=910&amp;view=diff&amp;r1=910&amp;r2=909">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/worker.c?rev=910&amp;view=diff&amp;r1=910&amp;r2=909</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/worker.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/worker.h?rev=910&amp;view=diff&amp;r1=910&amp;r2=909">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/worker.h?rev=910&amp;view=diff&amp;r1=910&amp;r2=909</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002184.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r909 - Reduced some logging in cdp
+</A></li>
+	<LI>Next message: <A HREF="002186.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r911 - Converted the cdp SendRecv	functions to use POSIX semaphores instead of locks -&gt; should	consume less CPU,	hopefully without too much impact on the latency of message	processing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2185">[ date ]</a>
+              <a href="thread.html#2185">[ thread ]</a>
+              <a href="subject.html#2185">[ subject ]</a>
+              <a href="author.html#2185">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

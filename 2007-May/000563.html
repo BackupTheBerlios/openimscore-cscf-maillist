@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ICSCF not starting
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ICSCF%20not%20starting&In-Reply-To=%3C200705080756.l487uLoD023324%40imj.m.ecl.ntt.co.jp%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000562.html">
+   <LINK REL="Next"  HREF="000564.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ICSCF not starting</H1>
+    <B>Hideyuki Yamashita</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ICSCF%20not%20starting&In-Reply-To=%3C200705080756.l487uLoD023324%40imj.m.ecl.ntt.co.jp%3E"
+       TITLE="[OpenIMSCore-CSCF] ICSCF not starting">yamashita.hideyuki at lab.ntt.co.jp
+       </A><BR>
+    <I>Tue May  8 10:01:37 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000562.html">[OpenIMSCore-CSCF] ICSCF not starting
+</A></li>
+        <LI>Next message: <A HREF="000564.html">[OpenIMSCore-CSCF] ICSCF not starting
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#563">[ date ]</a>
+              <a href="thread.html#563">[ thread ]</a>
+              <a href="subject.html#563">[ subject ]</a>
+              <a href="author.html#563">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I have encountered same problem in fedora core5.
+
+You should better check /opt/OpenIMSCore/ser_ims/modules/mysql/
+
+If compilation is accomplished normaly, mysql.so is created in 
+that directory.
+
+When compiling OpenIMSCore, it uses mysql.h as include file.
+So if mysql.so does not exist in that directory you should check 
+that mysql.h is installed in your machine.
+(Or check mysql.h is visible from compiler.)
+
+Best Regards,
+Hideyuki
+
+&gt;<i> 
+</I>&gt;<i> Hi,
+</I>&gt;<i> 
+</I>&gt;<i>   I am getting the following error in fedora core 6. while starting icscf
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> /icscf.sh: line 3: killser: command not found
+</I>&gt;<i>  0(25565) ERROR: load_module: could not open module &lt;/usr/lib/mysql.so&gt;: libcrypto.so.0: cannot open shared object file: No such file or directory
+</I>&gt;<i>  0(25565) parse error (31,13-14): failed to load module
+</I>&gt;<i> ERROR: bad config file (1 errors)
+</I>&gt;<i>  0(25565) INFO:cdp:cdp_exit(): CDiameterPeer stoping ...
+</I>&gt;<i> ./icscf.sh: line 4: 25565 Segmentation fault      /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+</I>&gt;<i> 
+</I>&gt;<i> i have got libcrypto.so.0.9.8b in /lib/libcrypto.so.0.9.8b
+</I>&gt;<i> 
+</I>&gt;<i> I have worked in Fc4 it was perfectly fine
+</I>&gt;<i> 
+</I>&gt;<i> I dont know what problem is there . have i missed something..
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> -----------------------------------------------
+</I>&gt;<i> Thanks &amp; Regards,
+</I>&gt;<i> 
+</I>&gt;<i> Karthik.K.N (111891)
+</I>&gt;<i> Project Engineer(Project Engineering solutions -COE)
+</I>&gt;<i> Wipro Technologies
+</I>&gt;<i> Madivala II
+</I>&gt;<i> Ph no-08041371000 Ext -5133
+</I>&gt;<i> Cell no:9880982028
+</I>&gt;<i> Bangalore
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> -
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> The information contained in this electronic message and any attachments to this message are intended for the exclusive use of the addressee(s) and may contain proprietary, confidential or privileged information. If you are not the intended recipient, you should not disseminate, distribute or copy this e-mail. Please notify the sender immediately and destroy all copies of this message and any attachments. 
+</I>&gt;<i> 
+</I>&gt;<i> WARNING: Computer viruses can be transmitted via email. The recipient should check this email and any attachments for the presence of viruses. The company accepts no liability for any damage caused by any virus transmitted by this email.
+</I>&gt;<i>  
+</I>&gt;<i> www.wipro.com
+</I>
+
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000562.html">[OpenIMSCore-CSCF] ICSCF not starting
+</A></li>
+	<LI>Next message: <A HREF="000564.html">[OpenIMSCore-CSCF] ICSCF not starting
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#563">[ date ]</a>
+              <a href="thread.html#563">[ thread ]</a>
+              <a href="subject.html#563">[ subject ]</a>
+              <a href="author.html#563">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF]  Compile error of ser_ims
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%20Compile%20error%20of%20ser_ims&In-Reply-To=%3CBAY118-W147C2B7D24EC5F3C0545A486DD0%40phx.gbl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000014.html">
+   <LINK REL="Next"  HREF="000016.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF]  Compile error of ser_ims</H1>
+    <B>Jamal Basrire</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%20Compile%20error%20of%20ser_ims&In-Reply-To=%3CBAY118-W147C2B7D24EC5F3C0545A486DD0%40phx.gbl%3E"
+       TITLE="[OpenIMSCore-CSCF]  Compile error of ser_ims">j_basrire at hotmail.com
+       </A><BR>
+    <I>Wed Dec  6 10:38:23 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000014.html">[OpenIMSCore-CSCF] Interfacing MRF
+</A></li>
+        <LI>Next message: <A HREF="000016.html">[OpenIMSCore-CSCF] Compile error of ser_ims
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi all,
+ 
+I experencied some troubles to compile ser_ims. Indeed, while compiling /opt/OpenIMSCore/ser_ims/modules/pcscf I encountered the following errors :
+ 
+-----
+../../Makefile.modules:26: &quot;you should run make from the main ser directory&quot;
+In file included from dlg_state.c:61:
+sip.h:1: error: expected &#8216;=&#8217;, &#8216;,&#8217;, &#8216;;&#8217;, &#8216;asm&#8217; or &#8216;__attribute__&#8217; before &#8216;.&#8217; token
+dlg_state.c: In function &#8216;get_p_dialog_hash&#8217;:
+dlg_state.c:105: error: &#8216;p_dialogs_hash_size&#8217; undeclared (first use in this function)
+dlg_state.c:105: error: (Each undeclared identifier is reported only once
+dlg_state.c:105: error: for each function it appears in.)
+dlg_state.c: In function &#8216;p_dialogs_init&#8217;:
+dlg_state.c:118: error: &#8216;p_dialogs_hash_size&#8217; undeclared (first use in this function)
+dlg_state.c: In function &#8216;p_dialogs_destroy&#8217;:
+dlg_state.c:144: error: &#8216;p_dialogs_hash_size&#8217; undeclared (first use in this function)
+dlg_state.c: In function &#8216;print_p_dialogs&#8217;:
+dlg_state.c:360: error: &#8216;p_dialogs_hash_size&#8217; undeclared (first use in this function)
+dlg_state.c: In function &#8216;find_dialog_contact&#8217;:
+dlg_state.c:396: warning: implicit declaration of function &#8216;cscf_get_originating_contact&#8217;
+dlg_state.c:403: warning: implicit declaration of function &#8216;cscf_get_terminating_contact&#8217;
+dlg_state.c: In function &#8216;P_is_in_dialog&#8217;:
+dlg_state.c:433: warning: implicit declaration of function &#8216;cscf_get_call_id&#8217;
+dlg_state.c:433: error: incompatible types in assignment
+dlg_state.c: In function &#8216;P_save_dialog&#8217;:
+dlg_state.c:490: error: incompatible types in assignment
+dlg_state.c:506: warning: implicit declaration of function &#8216;cscf_get_cseq&#8217;
+dlg_state.c: In function &#8216;save_dialog_routes&#8217;:
+dlg_state.c:528: error: &#8216;rr_t&#8217; undeclared (first use in this function)
+dlg_state.c:528: error: &#8216;rr&#8217; undeclared (first use in this function)
+dlg_state.c:528: error: &#8216;ri&#8217; undeclared (first use in this function)
+dlg_state.c:528: warning: left-hand operand of comma expression has no effect
+dlg_state.c:528: warning: statement with no effect
+dlg_state.c:537: warning: implicit declaration of function &#8216;cscf_get_next_record_route&#8217;
+dlg_state.c:537: warning: assignment makes pointer from integer without a cast
+dlg_state.c:537: warning: assignment makes pointer from integer without a cast
+dlg_state.c:538: error: expected expression before &#8216;)&#8217; token
+dlg_state.c:553: warning: assignment makes pointer from integer without a cast
+dlg_state.c:553: warning: assignment makes pointer from integer without a cast
+dlg_state.c:554: error: expected expression before &#8216;)&#8217; token
+dlg_state.c:563: warning: assignment makes pointer from integer without a cast
+dlg_state.c:563: warning: assignment makes pointer from integer without a cast
+dlg_state.c:564: error: expected expression before &#8216;)&#8217; token
+dlg_state.c: In function &#8216;P_update_dialog&#8217;:
+dlg_state.c:605: error: incompatible types in assignment
+dlg_state.c:614: warning: implicit declaration of function &#8216;cscf_get_request_from_reply&#8217;
+dlg_state.c:614: warning: assignment makes pointer from integer without a cast
+dlg_state.c:660: warning: assignment makes pointer from integer without a cast
+dlg_state.c:684: warning: implicit declaration of function &#8216;cscf_get_subscription_state&#8217;
+dlg_state.c: In function &#8216;P_drop_dialog&#8217;:
+dlg_state.c:730: error: incompatible types in assignment
+dlg_state.c:741: warning: assignment makes pointer from integer without a cast
+dlg_state.c: In function &#8216;P_drop_all_dialogs&#8217;:
+dlg_state.c:779: error: &#8216;p_dialogs_hash_size&#8217; undeclared (first use in this function)
+dlg_state.c: In function &#8216;P_follows_dialog_routes&#8217;:
+dlg_state.c:810: error: &#8216;rr_t&#8217; undeclared (first use in this function)
+dlg_state.c:810: error: &#8216;r&#8217; undeclared (first use in this function)
+dlg_state.c:820: error: incompatible types in assignment
+dlg_state.c:840: warning: implicit declaration of function &#8216;cscf_get_next_route&#8217;
+dlg_state.c:840: warning: assignment makes pointer from integer without a cast
+dlg_state.c:846: error: expected expression before &#8216;)&#8217; token
+dlg_state.c:851: warning: assignment makes pointer from integer without a cast
+dlg_state.c:853: error: expected expression before &#8216;)&#8217; token
+dlg_state.c: In function &#8216;P_enforce_dialog_routes&#8217;:
+dlg_state.c:908: error: incompatible types in assignment
+dlg_state.c:961: warning: implicit declaration of function &#8216;cscf_add_header_first&#8217;
+dlg_state.c:962: warning: implicit declaration of function &#8216;cscf_del_all_headers&#8217;
+dlg_state.c: In function &#8216;dialog_timer&#8217;:
+dlg_state.c:1075: error: &#8216;p_dialogs_hash_size&#8217; undeclared (first use in this function)
+make: *** [dlg_state.o] Erreur 1
+-----
+ 
+Consequently, pcscf.so is not generated and pcscf.sh is not runnable. Can somebody help me ?
+ 
+Thank you all.
+ 
+ 
+Regards,
+Jamal.
+
+_________________________________________________________________
+Essayez Live.com, votre nouvelle page d'accueil ! Personnalisez-la en quelques clics pour retrouver tout ce qui vous int&#233;resse au m&#234;me endroit.
+<A HREF="http://www.live.com/getstarted">http://www.live.com/getstarted</A>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000014.html">[OpenIMSCore-CSCF] Interfacing MRF
+</A></li>
+	<LI>Next message: <A HREF="000016.html">[OpenIMSCore-CSCF] Compile error of ser_ims
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

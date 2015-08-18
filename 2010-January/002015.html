@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r835 - cdp: - Added peer state	machine calls on responses sent from request handlers - Added	session callbacks after the calls to the state machine -	Removed the session callbacks from the session timer -	useless if they are called from above - Added event for	session modified - so that the session callback could be used	to trigger a session save
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r835%20-%20cdp%3A%20-%20Added%20peer%20state%0A%09machine%20calls%20on%20responses%20sent%20from%20request%20handlers%20-%20Added%0A%09session%20callbacks%20after%20the%20calls%20to%20the%20state%20machine%20-%0A%09Removed%20the%20session%20callbacks%20from%20the%20session%20timer%20-%0A%09useless%20if%20they%20are%20called%20from%20above%20-%20Added%20event%20for%0A%09session%20modified%20-%20so%20that%20the%20session%20callback%20could%20be%20used%0A%09to%20trigger%20a%20session%20save&In-Reply-To=%3C201001291420.o0TEKF3B019965%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002014.html">
+   <LINK REL="Next"  HREF="002016.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r835 - cdp: - Added peer state	machine calls on responses sent from request handlers - Added	session callbacks after the calls to the state machine -	Removed the session callbacks from the session timer -	useless if they are called from above - Added event for	session modified - so that the session callback could be used	to trigger a session save</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r835%20-%20cdp%3A%20-%20Added%20peer%20state%0A%09machine%20calls%20on%20responses%20sent%20from%20request%20handlers%20-%20Added%0A%09session%20callbacks%20after%20the%20calls%20to%20the%20state%20machine%20-%0A%09Removed%20the%20session%20callbacks%20from%20the%20session%20timer%20-%0A%09useless%20if%20they%20are%20called%20from%20above%20-%20Added%20event%20for%0A%09session%20modified%20-%20so%20that%20the%20session%20callback%20could%20be%20used%0A%09to%20trigger%20a%20session%20save&In-Reply-To=%3C201001291420.o0TEKF3B019965%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r835 - cdp: - Added peer state	machine calls on responses sent from request handlers - Added	session callbacks after the calls to the state machine -	Removed the session callbacks from the session timer -	useless if they are called from above - Added event for	session modified - so that the session callback could be used	to trigger a session save">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Fri Jan 29 15:20:15 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002014.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r834 - added the parameter	&quot;pcc_dest_realm&quot; in the pcscf module for the destination	realm, to be used in PCC
+</A></li>
+        <LI>Next message: <A HREF="002016.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r836 - added AAAMakeSession to the	exported functions, fixed a not found export bug :)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2015">[ date ]</a>
+              <a href="thread.html#2015">[ thread ]</a>
+              <a href="subject.html#2015">[ subject ]</a>
+              <a href="author.html#2015">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2010-01-29 15:20:10 +0100 (Fri, 29 Jan 2010)
+New Revision: 835 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=835">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=835</A> 
+
+Log:
+cdp:
+- Added peer state machine calls on responses sent from request handlers
+- Added session callbacks after the calls to the state machine 
+- Removed the session callbacks from the session timer - useless if they are called from above
+- Added event for session modified - so that the session callback could be used to trigger a session save
+
+Modified:
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/api_process.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/api_process.c?rev=835&amp;view=diff&amp;r1=835&amp;r2=834">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/api_process.c?rev=835&amp;view=diff&amp;r1=835&amp;r2=834</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/authstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/authstatemachine.c?rev=835&amp;view=diff&amp;r1=835&amp;r2=834">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/authstatemachine.c?rev=835&amp;view=diff&amp;r1=835&amp;r2=834</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/session.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/session.c?rev=835&amp;view=diff&amp;r1=835&amp;r2=834">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/session.c?rev=835&amp;view=diff&amp;r1=835&amp;r2=834</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/session.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/session.h?rev=835&amp;view=diff&amp;r1=835&amp;r2=834">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/session.h?rev=835&amp;view=diff&amp;r1=835&amp;r2=834</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002014.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r834 - added the parameter	&quot;pcc_dest_realm&quot; in the pcscf module for the destination	realm, to be used in PCC
+</A></li>
+	<LI>Next message: <A HREF="002016.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r836 - added AAAMakeSession to the	exported functions, fixed a not found export bug :)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2015">[ date ]</a>
+              <a href="thread.html#2015">[ thread ]</a>
+              <a href="subject.html#2015">[ subject ]</a>
+              <a href="author.html#2015">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

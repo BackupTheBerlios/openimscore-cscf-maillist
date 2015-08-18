@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] does Open IMS supports IPSec??
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20does%20Open%20IMS%20supports%20IPSec%3F%3F&In-Reply-To=%3C200705171012.46849.phani.kancharla%40oneconvergence.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000613.html">
+   <LINK REL="Next"  HREF="000655.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] does Open IMS supports IPSec??</H1>
+    <B>Phani Kumar</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20does%20Open%20IMS%20supports%20IPSec%3F%3F&In-Reply-To=%3C200705171012.46849.phani.kancharla%40oneconvergence.com%3E"
+       TITLE="[OpenIMSCore-CSCF] does Open IMS supports IPSec??">phani.kancharla at oneconvergence.com
+       </A><BR>
+    <I>Thu May 17 06:42:46 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000613.html">[OpenIMSCore-CSCF] does Open IMS supports IPSec??
+</A></li>
+        <LI>Next message: <A HREF="000655.html">[OpenIMSCore-CSCF] does Open IMS supports IPSec??
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#614">[ date ]</a>
+              <a href="thread.html#614">[ thread ]</a>
+              <a href="subject.html#614">[ subject ]</a>
+              <a href="author.html#614">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Yeah, I understood that OpenIMS is flexible such that it acts based on the client requests.
+I think it would be good to add few things to my previous mail, I had the security-client header in my sipp REGISTER request.
+In fact I received security-server header in 401 from the OpenIMS, but I couldn't see any SAs at OpenIMS side.
+I am adding the sipp scenario for your kind perusal.
+
+The other thing is I have tested the same using reSIProcate SIP stack 
+(of course, I added the required authorization and security-client headers) and ended with the same result.
+
+FYI...
+using reSIProcate I am able to register (using IMS-AKA method) with and without the security-client header
+but not getting the security-server header.
+
+-Phani Kumar
+
+On Tuesday 15 May 2007 18:39, Dragos Vingarzan wrote:
+&gt;<i> Still I fail to see the use of those SAs even if you could set them up
+</I>&gt;<i> with just half of the information (other than having a way of doing a
+</I>&gt;<i> DoS attack on the P-CSCF ;-) ). The 3GPP specs ask that the only
+</I>&gt;<i> acceptable unencrypted messages would be the REGISTER requests.
+</I>&gt;<i> 
+</I>&gt;<i> If you want them created, please provide a Security-Client header in the
+</I>&gt;<i> REGISTER message! If not, the OpenIMSCore would suppose that you do not
+</I>&gt;<i> support any security technology.
+</I>&gt;<i> 
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> Phani Kumar wrote:
+</I>&gt;<i> &gt; Thanks Dragos,
+</I>&gt;<i> &gt;         What you said could be true, but OpenIMS should create SAs and listen on the p-cssf server port for the secured messages I feel.
+</I>&gt;<i> &gt; During the registration process I could found no SAs at OpenIMS (FYI: I used &quot;setkey&quot; to dump the SAs). 
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Regards
+</I>&gt;<i> &gt; -Phani Kumar
+</I>&gt;<i> &gt; On Friday 11 May 2007 17:05, Dragos Vingarzan wrote:
+</I>&gt;<i> &gt;   
+</I>&gt;<i> &gt;&gt; Hello Phani,
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; But it doesn't make any sense to have just half of the SAs... Then you
+</I>&gt;<i> &gt;&gt; won't be able to talk to the P-CSCF at all as it would wait for
+</I>&gt;<i> &gt;&gt; encrypted messages and SIPp will not encrypt them, or the P-CSCF will
+</I>&gt;<i> &gt;&gt; send them encrypted and SIPp won't be able to decrypt them...
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; The behavior of the P-CSCF is dynamic based on the presence/absence of
+</I>&gt;<i> &gt;&gt; the Security-Client headers.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; -Dragos
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Phani Kumar wrote:
+</I>&gt;<i> &gt;&gt;     
+</I>&gt;<i> &gt;&gt;&gt; Hi all,
+</I>&gt;<i> &gt;&gt;&gt; 	I have tested openIMS with sipp client, which claims that it supports IMS-AKA registration and I was able to register.
+</I>&gt;<i> &gt;&gt;&gt; According to the 3GPP standards, the registration process should happen on the ports that are specified in the security
+</I>&gt;<i> &gt;&gt;&gt; client and server headers which should also use the IPSec for protecting the further messages. 
+</I>&gt;<i> &gt;&gt;&gt; 	
+</I>&gt;<i> &gt;&gt;&gt; 	Eventhough I was successful in registration, I couldn't find any security associations in both the systems. I can 
+</I>&gt;<i> &gt;&gt;&gt; observe that sipp doesn't support the IPSec SAs and all. But I couldn't find any reason for OpenIMS not creating the SAs. 
+</I>&gt;<i> &gt;&gt;&gt; Now can anyone please let me know whether OpenIMS is really supporting IPSec or not.
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt; Regards,
+</I>&gt;<i> &gt;&gt;&gt; -Phani Kumar
+</I>&gt;<i> &gt;&gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;&gt;&gt;
+</I>&gt;<i> &gt;&gt;&gt;   
+</I>&gt;<i> &gt;&gt;&gt;       
+</I>&gt;<i> &gt;&gt;     
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;   
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: bob_oc.xml
+Type: text/xml
+Size: 1991 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070517/51dc4880/attachment.xml">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070517/51dc4880/attachment.xml</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000613.html">[OpenIMSCore-CSCF] does Open IMS supports IPSec??
+</A></li>
+	<LI>Next message: <A HREF="000655.html">[OpenIMSCore-CSCF] does Open IMS supports IPSec??
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#614">[ date ]</a>
+              <a href="thread.html#614">[ thread ]</a>
+              <a href="subject.html#614">[ subject ]</a>
+              <a href="author.html#614">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

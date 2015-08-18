@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] TelURI
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20TelURI&In-Reply-To=%3Cb33002040707090251t41a6145tc3b499ff981e999c%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000846.html">
+   <LINK REL="Next"  HREF="000844.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] TelURI</H1>
+    <B>JF</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20TelURI&In-Reply-To=%3Cb33002040707090251t41a6145tc3b499ff981e999c%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] TelURI">jfkavaka at gmail.com
+       </A><BR>
+    <I>Mon Jul  9 11:51:56 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000846.html">[OpenIMSCore-CSCF] Send B2B BYE on INVITE dialog expiration
+</A></li>
+        <LI>Next message: <A HREF="000844.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r388 - Added Content-Length to BYE	on session expiration on S-CSCF.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#843">[ date ]</a>
+              <a href="thread.html#843">[ thread ]</a>
+              <a href="subject.html#843">[ subject ]</a>
+              <a href="author.html#843">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>It's probably getting forwarded with the PSTN.
+If you want to associate that tel URI with one of your IMS users you have to:
+- register that tel URI implicitly with the destination SIP public id
+(configure the HSS)
+- set up ENUM, configure mapping between this tel URI and the SIP public id
+
+Jo&#227;o Filipe Pl&#225;cido
+--
+PT Inova&#231;&#227;o
+
+On 7/9/07, Nayak &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">knayak.santosh at gmail.com</A>&gt; wrote:
+&gt;<i> But when i send the invite from originating side to termionating side after
+</I>&gt;<i> successful registration,  it retansmitted and no INVITE forwarded to the
+</I>&gt;<i> terminating  side PCSCF through OpenIMSCore SCSCF. Can u suggest me what can
+</I>&gt;<i> i do?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> On 7/7/07, JF &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jfkavaka at gmail.com</A>&gt; wrote:
+</I>&gt;<i> &gt; Hi Nayak,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Yes, we are using tel URIs without too much problems.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; JF
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; On 7/7/07, Nayak &lt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">knayak.santosh at gmail.com</A>&gt; wrote:
+</I>&gt;<i> &gt; &gt; Can we sends the tel URI in INVITE header after succesful registration.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Regds
+</I>&gt;<i> &gt; &gt; Santu
+</I>&gt;<i> &gt; &gt; _______________________________________________
+</I>&gt;<i> &gt; &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000846.html">[OpenIMSCore-CSCF] Send B2B BYE on INVITE dialog expiration
+</A></li>
+	<LI>Next message: <A HREF="000844.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r388 - Added Content-Length to BYE	on session expiration on S-CSCF.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#843">[ date ]</a>
+              <a href="thread.html#843">[ thread ]</a>
+              <a href="subject.html#843">[ subject ]</a>
+              <a href="author.html#843">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

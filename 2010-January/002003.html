@@ -1,0 +1,281 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r821%20-%20Further%20fixes%20on%20cdp&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BCCD1%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002000.html">
+   <LINK REL="Next"  HREF="001999.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r821%20-%20Further%20fixes%20on%20cdp&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BCCD1%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp">wang at basis-audionet.com
+       </A><BR>
+    <I>Wed Jan 27 16:18:04 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002000.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp
+</A></li>
+        <LI>Next message: <A HREF="001999.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp	(s-cscf crashed !)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2003">[ date ]</a>
+              <a href="thread.html#2003">[ thread ]</a>
+              <a href="subject.html#2003">[ subject ]</a>
+              <a href="author.html#2003">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos
+
+Thanks a lot for the information! That is quite useful.
+
+&gt;<i> 
+</I>&gt;<i> sorry for the temporary inconsistency, but I wanted to check a bit
+</I>more
+&gt;<i> that the new changes in cdp worked before committing.
+</I>&gt;<i> 
+</I>&gt;<i> Well, I am working on this: www.openepc.net . Mostly I am cleaning up
+</I>an
+&gt;<i> implementation of PCRF, PCEF and BBERF, so the Rx, Gx and Gxx
+</I>&gt;<i> interfaces. These I have built on a separate platform than SER (no
+</I>need
+&gt;<i> for SIP there, but Mobile IP, DHCP, etc), called Wharf (in case you
+</I>were
+&gt;<i> wondering what is with those defines), but I am using exactly the same
+</I>&gt;<i> cdp module.
+</I>
+What does wharf stand for?
+
+Is it possible to make cdp as lib?  so that not only cscfs, but other
+applications can also do the lib api call, and link to the lib. 
+
+I mean to make the cdp to be a Diameter API stack.
+
+One example is: 
+
+<A HREF="http://www.codealias.info/blog/wide_diameter_c_api_online">http://www.codealias.info/blog/wide_diameter_c_api_online</A>
+
+which is preliminary ( does not support base auth/acct state machine,
+Rx,Gx etc)
+
+Of course doing these needs a lot of work? But it seems worthwhile to
+try for the long-term benefits??
+
+
+&gt;<i> 
+</I>&gt;<i> In short the goal is to get the cdp to handle auth sessions properly.
+</I>&gt;<i> 
+</I>&gt;<i> Now in long...
+</I>&gt;<i> 
+</I>&gt;<i> And as I am trying to build a good base for it, I was looking at
+</I>fixing
+&gt;<i> the Diameter Authentication State Machine in the cdp module. This was
+</I>&gt;<i> unfortunately only wrote as a stub a long time ago. Then the P-CSCF
+</I>&gt;<i> support for Gq, Gq' and later Rx was built. But the state machine was
+</I>&gt;<i> never properly tested or given more thought, like the fact that it
+</I>could
+&gt;<i> be needed to save/restore the state of the sessions. So a lot of bugs
+</I>&gt;<i> were (and probably still are) in there. Like for example that
+</I>no-matter
+&gt;<i> if the auth session was a client or server side one, the timer called
+</I>&gt;<i> always on session expiration was going through the client state
+</I>machine,
+&gt;<i> so the server was trying to send STRs.
+</I>
+Oh, I thought it was tested. :( 
+Certainly we can check with RFC carefully to see if it is implemented
+correctly.
+ 
+
+
+&gt;<i> Then I have added some proper, I hope, handling of the session and
+</I>&gt;<i> lifetime timers. Now we should not have hanged sessions anymore.
+</I>&gt;<i> Previously someone was just bothered by their expiration and instead
+</I>of
+&gt;<i> updating this from the application requirements, they were just
+</I>&gt;<i> increased all the time so they won't expire. This means that the pcc
+</I>in
+&gt;<i> the P-CSCF still needs some work to use the session timers from the
+</I>&gt;<i> dialogs.
+</I>&gt;<i> 
+</I>&gt;<i> Then I have replaced the implicit session creation when receiving the
+</I>&gt;<i> AAR on the server side with explicit ones. This allows for setting the
+</I>&gt;<i> auth session callback right from the beginning and means that one can
+</I>&gt;<i> choose when to start a session and when not (the exact message that
+</I>&gt;<i> starts a session is not actually defined in the Diameter RFC, but
+</I>&gt;<i> depends on the application, anyway).
+</I>
+That is great.
+
+&gt;<i> 
+</I>&gt;<i> While I was at it, I did some other replacements which were bothering
+</I>me
+&gt;<i> for a long time. I have moved some headers around because for some
+</I>&gt;<i> reason I previously thought that having a lot of the definitions in
+</I>&gt;<i> diameter_api.h would be good. This just made searching for the
+</I>functions
+&gt;<i> a bitch, so I have now hopefully now put each in the source-code parts
+</I>&gt;<i> that they are related to. Although I changed a lot of files, this was
+</I>&gt;<i> really just some moving stuff around to make it a bit cleaner. But
+</I>&gt;<i> functionally not really that much.
+</I>&gt;<i> 
+</I>&gt;<i> One that really bugs me in cdp but is not that easy to replicate is
+</I>that
+&gt;<i> when it runs out of semaphores... it seems to go in some sort of error
+</I>&gt;<i> loop from where it does not recover but constantly trying to
+</I>reconnect.
+&gt;<i> I have seen it a couple of times, but could not properly trace its
+</I>&gt;<i> origins. This came however just lately, after I have changed the
+</I>dynamic
+&gt;<i> process forking model to a static one - 1 receiver/configured peer + 1
+</I>&gt;<i> for all other unknown ones, so I must've missed something in
+</I>receiver.c.
+
+
+I do not know what exactly the error you are referring to. I guess you
+know how to increase/check the semaphore limit/usage by using ipcs -l,
+ipcs -u.
+
+Also I reported the error before:
+
+FIFO open for read failed &gt; Too many open files.
+
+It seems the receiver just try to add a service_peer once it receive
+connection no matter what, should there be some kind of protocol
+checking before adding the service_peer? What if hacking/bogus
+connection?
+
+
+Kind regards
+
+Min Wang
+
+
+&gt;<i> 
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> Min Wang wrote:
+</I>&gt;<i> &gt; Hi Dragos
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Just did a quick test, it compiles OK.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; It seems you are in the middle of doing quite a lot changes on CDP
+</I>&gt;<i> &gt; module.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; It would be nice if you can let us know:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; What is the goal/object of future cdp changes?
+</I>&gt;<i> &gt; any big picture or any design architecture doc on the CDP module?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Thus that people in this community can help to improve/test/comment
+</I>on
+&gt;<i> &gt; it.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Kind Regards
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Min Wang
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; -----Original Message-----
+</I>&gt;<i> &gt;&gt; From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; [mailto:openimscore-cscf-
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bounces at lists.berlios.de</A>] On Behalf Of <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>
+</I>&gt;<i> &gt;&gt; Sent: Friday, January 22, 2010 2:35 PM
+</I>&gt;<i> &gt;&gt; To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt; Subject: [OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on
+</I>cdp
+&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Author: vingarzan
+</I>&gt;<i> &gt;&gt; Date: 2010-01-22 20:34:58 +0100 (Fri, 22 Jan 2010)
+</I>&gt;<i> &gt;&gt; New Revision: 821
+</I>&gt;<i> &gt;&gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=821">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=821</A>
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Log:
+</I>&gt;<i> &gt;&gt; Further fixes on cdp
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Modified:
+</I>&gt;<i> &gt;&gt;    U	ser_ims/branches/13_pcc_fixing/modules/cdp/mod.c
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; xing/modules/cdp/mod.c?rev=821&amp;view=diff&amp;r1=821&amp;r2=820
+</I>&gt;<i> &gt;&gt;    U
+</I>ser_ims/branches/13_pcc_fixing/modules/cdp/peerstatemachine.c
+&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; xing/modules/cdp/peerstatemachine.c?rev=821&amp;view=diff&amp;r1=821&amp;r2=820
+</I>&gt;<i> &gt;&gt;    U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;&gt; xing/modules/pcscf/pcc.c?rev=821&amp;view=diff&amp;r1=821&amp;r2=820
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i> 
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002000.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp
+</A></li>
+	<LI>Next message: <A HREF="001999.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r821 - Further fixes on cdp	(s-cscf crashed !)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2003">[ date ]</a>
+              <a href="thread.html#2003">[ thread ]</a>
+              <a href="subject.html#2003">[ subject ]</a>
+              <a href="author.html#2003">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

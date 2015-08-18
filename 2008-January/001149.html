@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Disable DNS resolving of	hostname on P-CSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Disable%20DNS%20resolving%20of%09hostname%20on%20P-CSCF&In-Reply-To=%3C20080121161222.gaqmn7mvrnx4cwgs%40webmail.FH-Telekom-Leipzig.DE%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001147.html">
+   <LINK REL="Next"  HREF="001155.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Disable DNS resolving of	hostname on P-CSCF</H1>
+    <B>Nick.Burmester</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Disable%20DNS%20resolving%20of%09hostname%20on%20P-CSCF&In-Reply-To=%3C20080121161222.gaqmn7mvrnx4cwgs%40webmail.FH-Telekom-Leipzig.DE%3E"
+       TITLE="[OpenIMSCore-CSCF] Disable DNS resolving of	hostname on P-CSCF">Nick.Burmester at hft-leipzig.de
+       </A><BR>
+    <I>Mon Jan 21 16:12:22 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001147.html">[OpenIMSCore-CSCF] Patch: Expire Header Evaluation
+</A></li>
+        <LI>Next message: <A HREF="001155.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] ISC	interface not distinguishing between AS generated 5xx and	downstream ones
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1149">[ date ]</a>
+              <a href="thread.html#1149">[ thread ]</a>
+              <a href="subject.html#1149">[ subject ]</a>
+              <a href="author.html#1149">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos
+
+Thx for your detailed answer.
+
+
+I think we &quot;talk&quot; at cross :-),  in the most facts you write before i fully
+agree.
+
+First I want to introduce myself and the work we doing here.
+I am a student (computer science - telecommunication   7. semester) at the
+University of Applied Sciences for Telecommunication in Leipzig.
+At the moment I working on this IMS/IBCF project beside my normal subjects.
+
+And yes the University is under leadership of the &quot;Deutsche Telekom AG&quot;, but our
+goal here in the NGN laboratory is not to find a ready to sell solution which
+can used by the Telekom. More imported is to work with the IMS concept and its 
+components, to find useful example Applications and bring it in the network.
+To create Scenarios and proof them or simple extend functions of the SER.
+This subject area is very new at our university and was established in spring
+2007.
+So I hope that you understand that we are not make research for the &quot;Deutsche
+Telekom AG&quot;, but we have a look, on how some ideas perhaps can implemented in
+the market in a few years.
+
+
+To my concept that I want to implement in the OpenIMS.
+
+We are trying to implement experimentally something like a peering interface to
+the IMS network.
+
+Its not to control the numbering plan, but in future the telcos need something
+like a networkborder and well defined exchange interfaces which there need to 
+peer with other telcos.
+
+So this is were I working at.
+we want build a connection to the OpenIMS network of our partner university in
+Bratislava over such an interface.
+
+So here i will explain my &quot;roaming&quot; concept more detailed.
+
+We have two OpenIMS network  open-ims.test(Leipzig) for our network and a second
+in Bratislava call it open-ims.sk.
+
+If now a user from Bratislava[open-ims.sk] is attached to our network
+[open-ims.test] everything will be the same as in Bratislava the only thing
+which will change is the name of the entry point Proxy-CSCF.
+
+So the client will send a Register to our P-CSCF and our P-CSCF should send this
+register to our I-CSCF but now there should be the change.
+
+The I-CSCF notice that this Register can not processed by our S-CSCF because we
+dont know the network and so our S-CSCF don't has the User-Profile.
+
+So the the I-CSCF should look in a database if there is an entry for the network
+ [open-ims.sk] and a IBCF.
+It is the same process like to discover a S-CSCF.
+
+for example in the database is an entry open-ims.sk --&gt; ibcf1.open-ims.test
+so the I-CSCF will send the Register to the ibcf1.open-ims.test which is
+connected over a gateway to ibcfxy.open-ims.sk.
+The Gateway will secure the connections between the IBCFs (VPN, IPSec etc.)
+the IBCF will filtering informations that the other network doesn't need.
+for example the Via headers to hide the inner network topologies.
+Or adding additional Informations (AAA etc. )
+
+If there is no entry in the database the I-CSCF should send a DNS query to all
+known IBCFs. if the resolve has success the I-CSCF will write an entry for the 
+ network and IBCF in the database.
+
+
+(I hope that this outlines will displayed right)
+
+UE---&gt;P-CSCF--&gt;I-CSCF---&gt;IBCF--&gt;Gateway&lt;-----&gt;Gateway---&gt;IBCF---&gt;I-CSCF--&gt;S-CSCF
+
+
+ibcf1.open-ims.test ---&gt;open-ims.sk
+ibcf2.open-ims.test ---&gt;open-ims.fr
+.
+.
+.
+
+Perhaps there could be another peering scenario with a peering network where all
+IMS networks are connected and a central DNS register. But at the moment we
+trying only to connect only one network over each IBCF.
+
+
+(I hope that this outlines will displayed right)
+
+
+               (open-ims.fr)
+UE---&gt;P-CSCF--&gt;I-CSCF---&gt;IBCF--&gt;Gateway&lt;-------
+                                              |
+                                              |
+                                              V
+UE---&gt;P-CSCF--&gt;I-CSCF---&gt;IBCF--&gt;Gateway&lt;---&gt;(DNS)&lt;---&gt;Gateway---&gt;IBCF---&gt;I-CSCF--&gt;S-CSCF
+               (open-ims.test)                                  (open-ims.sk)
+
+
+
+
+I hope that you now understand why I want disable the the DNS resolving in the
+P-CSCF (and only in the P-CSCF).
+
+At the moment my changes at the I-CSCF dont working because packets from
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A> dont pass the P-CSCF:  because the network cant resolve by DNS.
+
+I manipulated the DNS Server so that the Domain open-ims.sk will resolved to
+pass the P-CSCF, but this was only a test to see what is happen on the changed
+I-CSCF.
+For future it would be easier for me to deactivate the DNS resolving on P-CSCF.
+
+
+
+with best regards
+Nick Burmester
+
+sorry for my bad english :-)
+
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001147.html">[OpenIMSCore-CSCF] Patch: Expire Header Evaluation
+</A></li>
+	<LI>Next message: <A HREF="001155.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] ISC	interface not distinguishing between AS generated 5xx and	downstream ones
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1149">[ date ]</a>
+              <a href="thread.html#1149">[ thread ]</a>
+              <a href="subject.html#1149">[ subject ]</a>
+              <a href="author.html#1149">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

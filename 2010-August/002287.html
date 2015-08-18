@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r966 - virtual queue:	restructuring, one more commit will follow
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r966%20-%20virtual%20queue%3A%0A%09restructuring%2C%20one%20more%20commit%20will%20follow&In-Reply-To=%3C20100804080355.821BD480E75%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="002288.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r966 - virtual queue:	restructuring, one more commit will follow</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r966%20-%20virtual%20queue%3A%0A%09restructuring%2C%20one%20more%20commit%20will%20follow&In-Reply-To=%3C20100804080355.821BD480E75%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r966 - virtual queue:	restructuring, one more commit will follow">aon at users.berlios.de
+       </A><BR>
+    <I>Wed Aug  4 10:03:55 CEST 2010</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="002288.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r967 - vq: changed the	svn:keywords properties, added a new mod.h
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2287">[ date ]</a>
+              <a href="thread.html#2287">[ thread ]</a>
+              <a href="subject.html#2287">[ subject ]</a>
+              <a href="author.html#2287">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2010-08-04 10:03:55 +0200 (Wed, 04 Aug 2010)
+New Revision: 966 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=966">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=966</A> 
+
+Log:
+virtual queue: restructuring, one more commit will follow
+
+
+Added:
+   A	ser_ims/branches/12_em_services/modules/vq/exported_func.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/exported_func.c?rev=966&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/exported_func.c?rev=966&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/vq/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/mod.c?rev=966&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/mod.c?rev=966&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/vq/queue.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/queue.c?rev=966&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/queue.c?rev=966&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/vq/queue.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/queue.h?rev=966&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/queue.h?rev=966&amp;view=markup</A>
+   A	ser_ims/branches/12_em_services/modules/vq/scheduler.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/scheduler.c?rev=966&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/scheduler.c?rev=966&amp;view=markup</A>
+Removed:
+   D	ser_ims/branches/12_em_services/modules/vq/mod.h
+   D	ser_ims/branches/12_em_services/modules/vq/vq_mod.c
+   D	ser_ims/branches/12_em_services/modules/vq/vq_mod.h
+Modified:
+   U	ser_ims/branches/12_em_services/modules/vq/vq_logging.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_logging.c?rev=966&amp;view=diff&amp;r1=966&amp;r2=965">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_logging.c?rev=966&amp;view=diff&amp;r1=966&amp;r2=965</A>
+   U	ser_ims/branches/12_em_services/modules/vq/vq_logging.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_logging.h?rev=966&amp;view=diff&amp;r1=966&amp;r2=965">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_logging.h?rev=966&amp;view=diff&amp;r1=966&amp;r2=965</A>
+   U	ser_ims/branches/12_em_services/modules/vq/vq_queueid.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_queueid.c?rev=966&amp;view=diff&amp;r1=966&amp;r2=965">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_queueid.c?rev=966&amp;view=diff&amp;r1=966&amp;r2=965</A>
+   U	ser_ims/branches/12_em_services/modules/vq/vq_queueid.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_queueid.h?rev=966&amp;view=diff&amp;r1=966&amp;r2=965">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_queueid.h?rev=966&amp;view=diff&amp;r1=966&amp;r2=965</A>
+   U	ser_ims/branches/12_em_services/modules/vq/vq_stats.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_stats.c?rev=966&amp;view=diff&amp;r1=966&amp;r2=965">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_stats.c?rev=966&amp;view=diff&amp;r1=966&amp;r2=965</A>
+   U	ser_ims/branches/12_em_services/modules/vq/vq_stats.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_stats.h?rev=966&amp;view=diff&amp;r1=966&amp;r2=965">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_stats.h?rev=966&amp;view=diff&amp;r1=966&amp;r2=965</A>
+   U	ser_ims/branches/12_em_services/modules/vq/vq_time.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_time.c?rev=966&amp;view=diff&amp;r1=966&amp;r2=965">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_time.c?rev=966&amp;view=diff&amp;r1=966&amp;r2=965</A>
+   U	ser_ims/branches/12_em_services/modules/vq/vq_time.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_time.h?rev=966&amp;view=diff&amp;r1=966&amp;r2=965">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/vq/vq_time.h?rev=966&amp;view=diff&amp;r1=966&amp;r2=965</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="002288.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r967 - vq: changed the	svn:keywords properties, added a new mod.h
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2287">[ date ]</a>
+              <a href="thread.html#2287">[ thread ]</a>
+              <a href="subject.html#2287">[ subject ]</a>
+              <a href="author.html#2287">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] MD5 problem (using X-lite)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20MD5%20problem%20%28using%20X-lite%29&In-Reply-To=%3C519809F7CC681F4687A800692341D77507D6E7E4%40HATMSG010.TMOUSERSUK.AD.T-MOBILE.CO.UK%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000330.html">
+   <LINK REL="Next"  HREF="000332.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] MD5 problem (using X-lite)</H1>
+    <B>Leigh Hackett</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20MD5%20problem%20%28using%20X-lite%29&In-Reply-To=%3C519809F7CC681F4687A800692341D77507D6E7E4%40HATMSG010.TMOUSERSUK.AD.T-MOBILE.CO.UK%3E"
+       TITLE="[OpenIMSCore-CSCF] MD5 problem (using X-lite)">Leigh.Hackett at t-mobile.co.uk
+       </A><BR>
+    <I>Thu Mar 15 17:21:04 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000330.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r198 - Comment for unimplemented	methods.
+</A></li>
+        <LI>Next message: <A HREF="000332.html">[OpenIMSCore-CSCF] MD5 problem (using X-lite)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#331">[ date ]</a>
+              <a href="thread.html#331">[ thread ]</a>
+              <a href="subject.html#331">[ subject ]</a>
+              <a href="author.html#331">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Thanks for your help Dragos and Phuong Anh.
+
+Actually I had not configured MD5 on the HSS as well.
+
+I have now registered alice and bob users and conducted a call.
+
+When I hang up the originator whilst waiting for an answer the
+destination continues to ring... but I have some SIP/Diameter traces so
+I will try to figure that out.
+
+Best regards
+Leigh
+
+
+-----Original Message-----
+From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+Sent: 14 March 2007 21:30
+To: Leigh Hackett
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] MD5 problem (using X-lite)
+
+Hi Leigh,
+
+Could you please send a network trace containing the SIP and Diameter
+traffic? Even if there is no Authorization header, the message will get
+to the S-CSCF - if everything is configured well. Otherwise it won't be
+possible to register with plain SIP or Early-IMS clients....
+
+
+-Dragos
+
+
+Leigh Hackett wrote:
+&gt;<i>
+</I>&gt;<i> Hi all,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I am using X-Lite 3.0 to talk to the Open IMS Core.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> As I understand, MD5 works by the client sending a register first
+</I>&gt;<i> without an Authorization header
+</I>&gt;<i>
+</I>&gt;<i> Then the server replies 401 Unauthorized first, followed by the client
+</I>&gt;<i> sending the SIP REGISTER with the MD5 Authorization header
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> The PCSCF forwards registration requests to the SCSCF, but first it
+</I>&gt;<i> checks if there is an Authorization header, and if not then it fails.
+</I>&gt;<i> The SCSCF can be configured to prefer MD5 only, but the REGISTER never
+</I>&gt;<i> gets to the SCSCF.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> The PCSCF repeats this error:
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> 1(16523) ERR:P-CSCF:cscf_get_authorization: Message does not contain
+</I>&gt;<i> Authorization header.
+</I>&gt;<i>
+</I>&gt;<i>  1(16523) INF:P-CSCF:P_add_integrity_protected: No authorization
+</I>&gt;<i> header found.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> How is this supposed to work?
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> P.S, not sure if it is related, I am not using IpSec
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Thanks and best regards
+</I>&gt;<i>
+</I>&gt;<i> Leigh
+</I>&gt;<i>
+</I>&gt;<i> NOTICE AND DISCLAIMER:
+</I>&gt;<i>
+</I>&gt;<i> This email (including attachments) is confidential. If you have
+</I>&gt;<i> received this email in error please notify the sender immediately and
+</I>&gt;<i> delete this email from your system without copying or disseminating it
+</I>&gt;<i> or placing any reliance upon its contents. We cannot accept liability
+</I>&gt;<i> for any breaches of confidence arising through use of email. Any
+</I>&gt;<i> opinions expressed in this email (including attachments) are those of
+</I>&gt;<i> the author and do not necessarily reflect our opinions. We will not
+</I>&gt;<i> accept responsibility for any commitments made by our employees
+</I>&gt;<i> outside the scope of our business. We do not warrant the accuracy or
+</I>&gt;<i> completeness of such information.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>------------------------------------------------------------------------
+&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+T-Mobile (UK) Limited
+Company Registered Number: 02382161
+Registered Office Address: Hatfield Business Park, Hatfield, Hertfordshire, AL10 9BW
+Registered in England and Wales
+ 
+NOTICE AND DISCLAIMER
+ 
+This email (including attachments) is confidential. If you are not the intended recipient, notify the sender immediately, delete this email from your system and do not disclose or use for any purpose.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000330.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r198 - Comment for unimplemented	methods.
+</A></li>
+	<LI>Next message: <A HREF="000332.html">[OpenIMSCore-CSCF] MD5 problem (using X-lite)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#331">[ date ]</a>
+              <a href="thread.html#331">[ thread ]</a>
+              <a href="subject.html#331">[ subject ]</a>
+              <a href="author.html#331">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

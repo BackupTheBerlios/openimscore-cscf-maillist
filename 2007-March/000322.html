@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Client Configuration
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Client%20Configuration&In-Reply-To=%3C45F868B8.7060103%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000320.html">
+   <LINK REL="Next"  HREF="000321.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Client Configuration</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Client%20Configuration&In-Reply-To=%3C45F868B8.7060103%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Client Configuration">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Mar 14 22:27:20 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000320.html">[OpenIMSCore-CSCF] Client Configuration
+</A></li>
+        <LI>Next message: <A HREF="000321.html">[OpenIMSCore-CSCF] MD5 problem (using X-lite)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#322">[ date ]</a>
+              <a href="thread.html#322">[ thread ]</a>
+              <a href="subject.html#322">[ subject ]</a>
+              <a href="author.html#322">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi there,
+
+I think that you sent the REGISTER by mistake to the I-CSCF. Could you
+please send a trace?
+
+Why are you still using the old one? Even if you would discover a bug,
+we will not fix it there but only in the newest version.
+
+Did you follow the Installation Guide instructions regarding SIP client
+configuration? <A HREF="http://www.openimscore.org/docs/install.html#step7">http://www.openimscore.org/docs/install.html#step7</A>
+
+-Dragos
+
+
+Java Addict wrote:
+&gt;<i> Hi All,
+</I>&gt;<i>
+</I>&gt;<i> I am using old Open IMS Core release with SIP2IMS gateway. I have
+</I>&gt;<i> tried SJPhone and XLite with different options for Realm, Outbound
+</I>&gt;<i> Proxy, SIP Proxy but I couldn't make a connection.
+</I>&gt;<i>
+</I>&gt;<i> All I could get was these messages in ICSCF log ...
+</I>&gt;<i>
+</I>&gt;<i> 17(3191) --- Peer List: ---
+</I>&gt;<i> 17(3191)  S[Closed] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(3191) ------------------
+</I>&gt;<i> 17(3191) --- Peer List: ---
+</I>&gt;<i> 17(3191)  S[Closed] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(3191) ------------------
+</I>&gt;<i> 17(3191) DBG:peer_timer(): Peer hss.open-ims.test       State 0
+</I>&gt;<i> 17(3191) DBG:sm_process(): Peer hss.open-ims.test       State
+</I>&gt;<i> Closed    Event Start
+</I>&gt;<i> 17(3191) DBG:I_Snd_Conn_Req(): Peer hss.open-ims.test
+</I>&gt;<i> 17(3191) INFO:peer_connect(): Peer hss.open-ims.test:3868 connected
+</I>&gt;<i> 17(3191) INFO:peer_connect(): Receiver process forked [4676]
+</I>&gt;<i> 17(3191) DBG:sm_process(): Peer hss.open-ims.test       State
+</I>&gt;<i> Wait_Conn_Ack     Event I_Rcv_Conn_Ack
+</I>&gt;<i> 19(4676) INFO:I-CSCF:mod_init: Initialization of module in child
+</I>&gt;<i> [3868] receiver I
+</I>&gt;<i> 17(3191) --- Peer List: ---
+</I>&gt;<i> 17(3191)  S[Wait_I_CEA] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(3191) ------------------
+</I>&gt;<i> 19(4676) INFO:receiver_process(): [78] Receiver process starting up...
+</I>&gt;<i> 19(4676) DBG:sm_process(): Peer hss.open-ims.test       State
+</I>&gt;<i> Wait_I_CEA        Event I_Peer_Disc
+</I>&gt;<i> 19(4676) INFO:receive_loop():[78] Client closed connection or error... BYE
+</I>&gt;<i> 19(4676) INFO:receiver_process(): [78]... Receiver process cleaning-up.
+</I>&gt;<i> 19(4676) INFO:receiver_process(): [78]... Receiver process finished.
+</I>&gt;<i> 18(4663) INFO:receive_loop():[91] Client closed connection or error... BYE
+</I>&gt;<i> 18(4663) INFO:receiver_process(): [91]... Receiver process cleaning-up.
+</I>&gt;<i> 18(4663) INFO:receiver_process(): [91]... Receiver process finished.
+</I>&gt;<i> 12(3186) INFO:accept_connection(): new tcp connection accepted!
+</I>&gt;<i> 12(3186) INFO:accept_connection(): Receiver process forked [4680]
+</I>&gt;<i> 18(4680) INFO:I-CSCF:mod_init: Initialization of module in child [19]
+</I>&gt;<i> receiver R
+</I>&gt;<i> 18(4680) INFO:receiver_process(): [94] Receiver process starting up...
+</I>&gt;<i> 18(4680) DBG:sm_process(): Peer hss.open-ims.test       State
+</I>&gt;<i> Closed    Event R_Conn_CER
+</I>&gt;<i> 17(3191) --- Peer List: ---
+</I>&gt;<i> 17(3191)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(3191) ------------------
+</I>&gt;<i> 17(3191) --- Peer List: ---
+</I>&gt;<i> 17(3191)  S[R_Open] hss.open-ims.test:3868 D[ ]   
+</I>&gt;<i>
+</I>&gt;<i> and at times with XLite
+</I>&gt;<i>
+</I>&gt;<i> 17(3191)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(3191) ------------------
+</I>&gt;<i> 17(3191) --- Peer List: ---
+</I>&gt;<i> 17(3191)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(3191) ------------------
+</I>&gt;<i>  2(3176) ERR:I-CSCF:cscf_get_private_identity: Message does not
+</I>&gt;<i> contain Authorization header.
+</I>&gt;<i>  2(3176) INF:I-CSCF:cscf_get_private_identity: Falling back to
+</I>&gt;<i> private_id=stripped(public_id)
+</I>&gt;<i> -&gt; Message did not contain a valid Authorization Header!!! This
+</I>&gt;<i> fallback is deprecated!
+</I>&gt;<i>  2(3176) ERR:I-CSCF:I_UAR: Visited Network Identity not found,
+</I>&gt;<i> responding with 400
+</I>&gt;<i> 17(3191) --- Peer List: ---
+</I>&gt;<i> 17(3191)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(3191) ------------------
+</I>&gt;<i> 17(3191) --- Peer List: ---
+</I>&gt;<i> 17(3191)  S[R_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 17(3191)
+</I>&gt;<i> ------------------                                                                                  
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Any Comments/Suggestions?
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i>
+</I>&gt;<i> Ali
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i> Expecting? Get great news right away with email Auto-Check.
+</I>&gt;<i> &lt;<A HREF="http://us.rd.yahoo.com/evt=49982/*http://advision.webevents.yahoo.com/mailbeta/newmail_tools.html">http://us.rd.yahoo.com/evt=49982/*http://advision.webevents.yahoo.com/mailbeta/newmail_tools.html</A>&gt;
+</I>&gt;<i> Try the Yahoo! Mail Beta.
+</I>&gt;<i> &lt;<A HREF="http://us.rd.yahoo.com/evt=49982/*http://advision.webevents.yahoo.com/mailbeta/newmail_tools.html">http://us.rd.yahoo.com/evt=49982/*http://advision.webevents.yahoo.com/mailbeta/newmail_tools.html</A>&gt;
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000320.html">[OpenIMSCore-CSCF] Client Configuration
+</A></li>
+	<LI>Next message: <A HREF="000321.html">[OpenIMSCore-CSCF] MD5 problem (using X-lite)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#322">[ date ]</a>
+              <a href="thread.html#322">[ thread ]</a>
+              <a href="subject.html#322">[ subject ]</a>
+              <a href="author.html#322">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Wrong route header sent by S-CSCF in incoming	INVITE
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2013-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Wrong%20route%20header%20sent%20by%20S-CSCF%20in%20incoming%0A%09INVITE&In-Reply-To=%3CCABDKAyb0uTN1Cz%3D7R5%3Dr0oVLhR0OFBD-V3QhMKjghVacZXy%3D4Q%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Wrong route header sent by S-CSCF in incoming	INVITE</H1>
+    <B>Achint Aggarwal</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Wrong%20route%20header%20sent%20by%20S-CSCF%20in%20incoming%0A%09INVITE&In-Reply-To=%3CCABDKAyb0uTN1Cz%3D7R5%3Dr0oVLhR0OFBD-V3QhMKjghVacZXy%3D4Q%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Wrong route header sent by S-CSCF in incoming	INVITE">achint.aggarwal at globallogic.com
+       </A><BR>
+    <I>Tue Sep 17 06:28:53 CEST 2013</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2752">[ date ]</a>
+              <a href="thread.html#2752">[ thread ]</a>
+              <a href="subject.html#2752">[ subject ]</a>
+              <a href="author.html#2752">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I am running a forking scenario through 3 boghe clients.
+
+I registered a UE (ue2) with IMS-Core from two different devices(boghe2,
+boghe3) through my proxy which is acting as a p-cscf.
+In both the registrations separate path headers(path1 in first registration
+and path2 in second registration) are sent in outgoing REGISTER messages
+from p-cscf to IMS-CORE.Registrations are successful.
+
+Now another registered boghe client (ue1) sends the calls to ue2 which
+passes through p-cscf enroute to s-cscf(IMS Core).
+
+It is observed that the both the INVITE's coming back from s-cscf to p-cscf
+contain the same route header(constructed by s-cscf using the path headers
+sent in the registration) which confuses the p-cscf about the destination
+UE(boghe2 or boghe3) and thus call is routed to first registered instance
+of ue2(boghe2) instead of getting forked to both the registered instances
+of ue2 from boghe2 &amp; boghe3.
+
+
+s-cscf should have sent two different route headers corresponding to two
+different path headers used in registration so that during the call p-cscf
+would have made a decision to fork the call.
+
+Is there something wrong in the IMS-core which is provoking the s-cscf to
+send the same route header even though it allowed successful registrations
+using two different path headers??
+
+Regards
+Achint
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20130917/94b30200/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20130917/94b30200/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2752">[ date ]</a>
+              <a href="thread.html#2752">[ thread ]</a>
+              <a href="subject.html#2752">[ subject ]</a>
+              <a href="author.html#2752">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

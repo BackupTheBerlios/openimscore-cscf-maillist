@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r377 - Fixed CDiameterPeer to	close connection immediately on negative CEA. Extended the	realm routing to also check for supported application ids	while choosing where to route the message. Fixed the	i/scscf.xml configurations. Removed forced_hss_peer from scscf.cfg.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r377%20-%20Fixed%20CDiameterPeer%20to%0A%09close%20connection%20immediately%20on%20negative%20CEA.%20Extended%20the%0A%09realm%20routing%20to%20also%20check%20for%20supported%20application%20ids%0A%09while%20choosing%20where%20to%20route%20the%20message.%20Fixed%20the%0A%09i/scscf.xml%20configurations.%20Removed%20forced_hss_peer%20from%20scscf.cfg.&In-Reply-To=%3C200707051551.l65FpRBX026151%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000827.html">
+   <LINK REL="Next"  HREF="000829.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r377 - Fixed CDiameterPeer to	close connection immediately on negative CEA. Extended the	realm routing to also check for supported application ids	while choosing where to route the message. Fixed the	i/scscf.xml configurations. Removed forced_hss_peer from scscf.cfg.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r377%20-%20Fixed%20CDiameterPeer%20to%0A%09close%20connection%20immediately%20on%20negative%20CEA.%20Extended%20the%0A%09realm%20routing%20to%20also%20check%20for%20supported%20application%20ids%0A%09while%20choosing%20where%20to%20route%20the%20message.%20Fixed%20the%0A%09i/scscf.xml%20configurations.%20Removed%20forced_hss_peer%20from%20scscf.cfg.&In-Reply-To=%3C200707051551.l65FpRBX026151%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r377 - Fixed CDiameterPeer to	close connection immediately on negative CEA. Extended the	realm routing to also check for supported application ids	while choosing where to route the message. Fixed the	i/scscf.xml configurations. Removed forced_hss_peer from scscf.cfg.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Thu Jul  5 17:51:27 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000827.html">[OpenIMSCore-CSCF] Message too big for Publish message
+</A></li>
+        <LI>Next message: <A HREF="000829.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r378 - Change the reg NOTIFY	contact to the notification's URI from the S-CSCF URI for	more compatibility.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#828">[ date ]</a>
+              <a href="thread.html#828">[ thread ]</a>
+              <a href="subject.html#828">[ subject ]</a>
+              <a href="author.html#828">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-07-05 17:51:24 +0200 (Thu, 05 Jul 2007)
+New Revision: 377 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=377">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=377</A> 
+
+Log:
+Fixed CDiameterPeer to close connection immediately on negative CEA.
+Extended the realm routing to also check for supported application ids while choosing where to route the message.
+Fixed the i/scscf.xml configurations.
+Removed forced_hss_peer from scscf.cfg.
+
+
+
+Modified:
+   U	ser_ims/trunk/cfg/icscf.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/icscf.xml?rev=377&amp;view=diff&amp;r1=377&amp;r2=376">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/icscf.xml?rev=377&amp;view=diff&amp;r1=377&amp;r2=376</A>
+   U	ser_ims/trunk/cfg/scscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=377&amp;view=diff&amp;r1=377&amp;r2=376">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=377&amp;view=diff&amp;r1=377&amp;r2=376</A>
+   U	ser_ims/trunk/cfg/scscf.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.xml?rev=377&amp;view=diff&amp;r1=377&amp;r2=376">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.xml?rev=377&amp;view=diff&amp;r1=377&amp;r2=376</A>
+   U	ser_ims/trunk/modules/cdp/config.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/config.h?rev=377&amp;view=diff&amp;r1=377&amp;r2=376">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/config.h?rev=377&amp;view=diff&amp;r1=377&amp;r2=376</A>
+   U	ser_ims/trunk/modules/cdp/peer.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peer.h?rev=377&amp;view=diff&amp;r1=377&amp;r2=376">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peer.h?rev=377&amp;view=diff&amp;r1=377&amp;r2=376</A>
+   U	ser_ims/trunk/modules/cdp/peermanager.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peermanager.c?rev=377&amp;view=diff&amp;r1=377&amp;r2=376">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peermanager.c?rev=377&amp;view=diff&amp;r1=377&amp;r2=376</A>
+   U	ser_ims/trunk/modules/cdp/peerstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peerstatemachine.c?rev=377&amp;view=diff&amp;r1=377&amp;r2=376">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peerstatemachine.c?rev=377&amp;view=diff&amp;r1=377&amp;r2=376</A>
+   U	ser_ims/trunk/modules/cdp/routing.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/routing.c?rev=377&amp;view=diff&amp;r1=377&amp;r2=376">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/routing.c?rev=377&amp;view=diff&amp;r1=377&amp;r2=376</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000827.html">[OpenIMSCore-CSCF] Message too big for Publish message
+</A></li>
+	<LI>Next message: <A HREF="000829.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r378 - Change the reg NOTIFY	contact to the notification's URI from the S-CSCF URI for	more compatibility.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#828">[ date ]</a>
+              <a href="thread.html#828">[ thread ]</a>
+              <a href="subject.html#828">[ subject ]</a>
+              <a href="author.html#828">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

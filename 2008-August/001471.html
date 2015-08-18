@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Mobicents%20SIP%20WAKE%20UP&In-Reply-To=%3CFA38678AE388452F8D30AC4A416B6A13%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001470.html">
+   <LINK REL="Next"  HREF="001467.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Mobicents SIP WAKE UP</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Mobicents%20SIP%20WAKE%20UP&In-Reply-To=%3CFA38678AE388452F8D30AC4A416B6A13%40notebook%3E"
+       TITLE="[OpenIMSCore-CSCF] Mobicents SIP WAKE UP">franz.edler at inode.at
+       </A><BR>
+    <I>Sun Aug 31 06:49:46 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001470.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+        <LI>Next message: <A HREF="001467.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1471">[ date ]</a>
+              <a href="thread.html#1471">[ thread ]</a>
+              <a href="subject.html#1471">[ subject ]</a>
+              <a href="author.html#1471">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Khaldon,
+ 
+&gt;<i> I know how to create an IFC on register request but i do not have a clue
+</I>&gt;<i> how to do 2 registrations in on sequence. Could you describe the steps to
+</I>&gt;<i> perform to make it work?
+</I>
+This happens automatically. After successful registration in IMS the S-SCSCF
+forwards the REGISTER request to the application server which you have
+provisioned in your IFc. The REGISTER request does not contain any
+authorisation data anymore because it has been authorised by a trusted
+element already (S-CSCF).
+I think this is exactly what Mobicents needs.
+
+&gt;<i> Could you please explain me:
+</I>&gt;<i> -why i should do like that? (a simple IFC on MESSAGE requests in not
+</I>&gt;<i> enough?)
+</I>&gt;<i> -what is PSI? what does it stand for?
+</I>&gt;<i> -Could you please describe how to set it up on OpenIMS?
+</I>
+The IMS only routes requests to known users of its own domain (registered
+users) or forwards requests to other domains (based on DNS). Mobicents
+itself does not register at IMS as a user (it has no registered Public User
+Identity). If you want the IMS successfully route requests to Mobicents
+without having a user identity assigned to Mobicents than you have to assign
+a PSI (Public Service Identity) to Mobicents.
+
+There are different ways to provision a PSI in an IMS (different routing
+options defined in TS 23.228). Below there is a description of the options
+supported by OpenIMSCore from a previous e-mail in the mailing list.
+
+----------------------- How to provision PSIs ----------------------------
+
+Distinct PSI and Wildcarded PSI are supported
+
+Provisioning an PSI in the HSS is not easy, so you&#180;ll need to play around a
+bit.
+
+if you want I-CSCF routing is a bit easier and there wont be any S-CSCF
+involved, this procedure is defined by 3GPP for trusted AS that don&#180;t need 
+to go through the S-CSCF
+
+I-CSCF routing
+-------------------------
+
+- put the address of your AS as a preferred-SCSCF (and set priority to 1 at
+least)
+- create an IMSU for your AS and asign the preferred-SCSCF to it
+- create IMPI and IMPU  and attach the whole thing  IMSU-IMPI-IMPU
+
+UE--{SIP INVITE}----&gt;I-CSCF----{Diameter LIR}---&gt;HSS--{-Diameter
+LIA}---&gt;I-CSCF----{SIP INVITE}--&gt;AS
+
+
+S-CSCF routing
+--------------------------
+
+- create Application Server with your settings for the AS that hosts the PSI
+- create iFC with no Trigger point (that means matchs everything) and
+profile part indicator Any or Unregistered
+- attach iFC to AS
+- Create a service profile and attach iFC created
+
+- create an IMSU and asign a normal preferred-SCSCF to it (but asign one! if
+not it wont work)
+- create an IMPI
+- create an IMPU choosing Distinct or Wildcard and write the wildcard in the
+appropriate format 
+    (sip:your*wildcarded?expre??<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ion at open-ims.test</A>), 
+    it would be logical to click in the can Register thing and don't let
+this IMPU to register and of course you have to click the 
+    PSI Activation to activate it and select the created service profile for
+that PSI
+- attach IMPU to IMPI and IMPI to IMSU
+
+UE--{SIP INVITE}----&gt;I-CSCF----{Diameter LIR}---&gt;HSS---{Diameter 
+LIA}---&gt;I-CSCF----{SIP INVITE}--&gt;S-CSCF---{Diameter 
+SAR}--&gt;HSS---&gt;{Diameter SAA}--&gt;S-CSCF---{SIP INVITE}--&gt;AS
+
+***************************************************************
+Wildcarded PSI issues
+
+- I didnt use the standardised format for PSI definition (TS23003?) but an
+easier one
+    you define  sip:*<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">games at open-ims.test</A>  and it would match
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">sportgames at open-ims.test</A> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">sims2.games at open-ims.test</A> ...            
+    you define sip:channel.?<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">.tv at open-ims.test</A> and it matches
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">channel.1.tv at open-ims.test</A>  <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">channel.e.tv at open-ims.test</A>  ..
+
+    do not forget the sip: in the HSS interface !
+
+- Support for Wildcard PSI makes S-CSCF a bit inefficent because when it
+receives a request for an user, it searchs in the user database and 
+  afterwards if no match it trys to match with all wildcards to activate
+this support you have to put a parameter in S-CSCF config 
+     file modparam(&quot;scscf&quot;,&quot;support_wildcardPSI&quot;,1)
+
+  Distinct PSI work always
+
+
+My suggestion is to have a network with two S-CSCF one with the parameter
+enabled and this is selected as preferred for all the PSI 
+things and the other one for the normal users (much quicker!)
+
+We might make some changes in the FHoSS web to give some hints on doing
+this, but i guess dedicating one hour to play with the different 
+possibilities you are an expert in PSI provisioning
+
+----------------------------------------------------------------------------
+
+Good luck
+-franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001470.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+	<LI>Next message: <A HREF="001467.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1471">[ date ]</a>
+              <a href="thread.html#1471">[ thread ]</a>
+              <a href="subject.html#1471">[ subject ]</a>
+              <a href="author.html#1471">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Compatibility between Xlite and Uctims client
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Compatibility%20between%20Xlite%20and%20Uctims%20client&In-Reply-To=%3C4607D3C5.2090400%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000360.html">
+   <LINK REL="Next"  HREF="000361.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Compatibility between Xlite and Uctims client</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Compatibility%20between%20Xlite%20and%20Uctims%20client&In-Reply-To=%3C4607D3C5.2090400%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Compatibility between Xlite and Uctims client">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Mon Mar 26 16:08:05 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000360.html">[OpenIMSCore-CSCF] Compatibility between Xlite and Uctims client
+</A></li>
+        <LI>Next message: <A HREF="000361.html">[OpenIMSCore-CSCF] 400 Bad Request - Not following	indicatedService-Routes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#362">[ date ]</a>
+              <a href="thread.html#362">[ thread ]</a>
+              <a href="subject.html#362">[ subject ]</a>
+              <a href="author.html#362">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>If you can modify one of the client to indicate an algorithm=AKAv1-MD5
+or algorithm=MD5 then you can set the default scscf value to the other
+one's algorithm.
+
+Another option is to wait for the new HSS, which has support for
+selecting a default algorithm per user.
+
+-Dragos
+Dillip Behera wrote:
+&gt;<i> Hi ,
+</I>&gt;<i>
+</I>&gt;<i> When I am using UCT client on both ends, i am successful in
+</I>&gt;<i> registering user as well as making call.
+</I>&gt;<i>
+</I>&gt;<i> But when I am using xlite at one end and UCT client at other I am
+</I>&gt;<i> facing problem with xlite getting registered.
+</I>&gt;<i> It is giving error &quot;Registration error: 403- Forbidden HSS returned no
+</I>&gt;<i> authentication vector&quot;
+</I>&gt;<i>
+</I>&gt;<i> On analysis, I found that xlite and UCT client use different
+</I>&gt;<i> encryption algorithms. xlite uses &quot;MD5&quot; whereas UCT uses
+</I>&gt;<i> &quot;AKAv1-MD5&quot;. In scscf.cfg their is a clause for setting up
+</I>&gt;<i> &quot;registration_default_algorithm&quot; in which modparams can be
+</I>&gt;<i> set to either &quot;AKAv1-MD5&quot;, &quot;AKAv2-MD5&quot; or &quot;MD5&quot;.
+</I>&gt;<i>
+</I>&gt;<i> So if I want to use xlite and UCT client, what should i need to do to
+</I>&gt;<i> make them talk to each other?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> If any one faced such problem please  let me know.
+</I>&gt;<i>
+</I>&gt;<i> Regard's
+</I>&gt;<i>    Dillip
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i> Looking for earth-friendly autos?
+</I>&gt;<i> Browse Top Cars by &quot;Green Rating&quot;
+</I>&gt;<i> &lt;<A HREF="http://autos.yahoo.com/green_center/;_ylc=X3oDMTE4MGw4Z2hlBF9TAzk3MTA3MDc2BHNlYwNtYWlsdGFncwRzbGsDZ3JlZW5jZW50ZXI-">http://autos.yahoo.com/green_center/;_ylc=X3oDMTE4MGw4Z2hlBF9TAzk3MTA3MDc2BHNlYwNtYWlsdGFncwRzbGsDZ3JlZW5jZW50ZXI-</A>&gt;
+</I>&gt;<i> at Yahoo! Autos' Green Center.
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000360.html">[OpenIMSCore-CSCF] Compatibility between Xlite and Uctims client
+</A></li>
+	<LI>Next message: <A HREF="000361.html">[OpenIMSCore-CSCF] 400 Bad Request - Not following	indicatedService-Routes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#362">[ date ]</a>
+              <a href="thread.html#362">[ thread ]</a>
+              <a href="subject.html#362">[ subject ]</a>
+              <a href="author.html#362">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 400 Bad Request
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20400%20Bad%20Request&In-Reply-To=%3C4B2B8897.8070004%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001898.html">
+   <LINK REL="Next"  HREF="001900.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 400 Bad Request</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20400%20Bad%20Request&In-Reply-To=%3C4B2B8897.8070004%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] 400 Bad Request">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Dec 18 14:50:15 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001898.html">[OpenIMSCore-CSCF] 400 Bad Request
+</A></li>
+        <LI>Next message: <A HREF="001900.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r787 - Fixed bug observed by Min	Wang - pid_list not initialized to 0 on startup.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1904">[ date ]</a>
+              <a href="thread.html#1904">[ thread ]</a>
+              <a href="subject.html#1904">[ subject ]</a>
+              <a href="author.html#1904">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Well, as that client does not support he Service-Route, there's no other 
+option but to let the P-CSCF enforce it.
+
+Cheers,
+-Dragos
+
+Mart&#237;nez Garc&#237;a, Rebeca wrote:
+&gt;<i>
+</I>&gt;<i> Hi all,
+</I>&gt;<i>
+</I>&gt;<i> I am facing and odd problem related with Eyebeam and OpenIMSCore.
+</I>&gt;<i> I have a scenario based on 4 servers which compose the OpenIMSCore and 
+</I>&gt;<i> then 3 clients (two of them are IMS and one SIP (Eyebeam)).
+</I>&gt;<i> I have tested the configuration many times and it works correctly. The 
+</I>&gt;<i> three clients register without any problem and the IMS clients can 
+</I>&gt;<i> call each other.
+</I>&gt;<i> However, Eyebeam is not capable of call any of them (it can receive 
+</I>&gt;<i> calls but not make them).
+</I>&gt;<i>
+</I>&gt;<i> Everytime I tried to make a call from the Eyebeam to any of the other 
+</I>&gt;<i> clients, the P-CSCF answers the Eyebeam with 400 Bad Request.
+</I>&gt;<i>
+</I>&gt;<i> I have found this solution but before trying it (because that means to 
+</I>&gt;<i> make changes in pcscf.cfg) I want your opinion.
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://lists.berlios.de/pipermail/openimscore-users/2008-March/005067.html">http://lists.berlios.de/pipermail/openimscore-users/2008-March/005067.html</A>
+</I>&gt;<i>
+</I>&gt;<i> Also I have attached you a trace done in the P-CSCF.
+</I>&gt;<i>
+</I>&gt;<i> Thanks in advance,
+</I>&gt;<i> Rebeca Martinez
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001898.html">[OpenIMSCore-CSCF] 400 Bad Request
+</A></li>
+	<LI>Next message: <A HREF="001900.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r787 - Fixed bug observed by Min	Wang - pid_list not initialized to 0 on startup.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1904">[ date ]</a>
+              <a href="thread.html#1904">[ thread ]</a>
+              <a href="subject.html#1904">[ subject ]</a>
+              <a href="author.html#1904">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

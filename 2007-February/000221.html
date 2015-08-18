@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r142 - ser_ims/trunk/modules/cdp
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r142%20-%20ser_ims/trunk/modules/cdp&In-Reply-To=%3C200702141732.l1EHW52f016283%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000220.html">
+   <LINK REL="Next"  HREF="000222.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r142 - ser_ims/trunk/modules/cdp</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r142%20-%20ser_ims/trunk/modules/cdp&In-Reply-To=%3C200702141732.l1EHW52f016283%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r142 - ser_ims/trunk/modules/cdp">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Feb 14 18:32:05 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000220.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r141 - ser_ims/trunk/modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000222.html">[OpenIMSCore-CSCF] SIP 403 Message Help
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#221">[ date ]</a>
+              <a href="thread.html#221">[ thread ]</a>
+              <a href="subject.html#221">[ subject ]</a>
+              <a href="author.html#221">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-14 18:31:57 +0100 (Wed, 14 Feb 2007)
+New Revision: 142
+
+Modified:
+   ser_ims/trunk/modules/cdp/peermanager.c
+Log:
+Fixed peer-disconnect-causing-freeze-of-peer_timer() bug in the CDiameterPeer
+
+
+Modified: ser_ims/trunk/modules/cdp/peermanager.c
+===================================================================
+--- ser_ims/trunk/modules/cdp/peermanager.c	2007-02-14 17:15:03 UTC (rev 141)
++++ ser_ims/trunk/modules/cdp/peermanager.c	2007-02-14 17:31:57 UTC (rev 142)
+@@ -177,7 +177,6 @@
+ {
+ 	peer *i;
+ 	if (!p) return;
+-	lock_get(peer_list_lock);
+ 	i = peer_list-&gt;head;
+ 	while(i&amp;&amp;i!=p) i = i-&gt;next;
+ 	if (i){
+@@ -186,7 +185,6 @@
+ 		if (i-&gt;next) i-&gt;next-&gt;prev = i-&gt;prev;
+ 		else peer_list-&gt;tail = i-&gt;prev;
+ 	}
+-	lock_release(peer_list_lock);
+ }
+ 
+ /**
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000220.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r141 - ser_ims/trunk/modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000222.html">[OpenIMSCore-CSCF] SIP 403 Message Help
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#221">[ date ]</a>
+              <a href="thread.html#221">[ thread ]</a>
+              <a href="subject.html#221">[ subject ]</a>
+              <a href="author.html#221">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

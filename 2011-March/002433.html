@@ -1,0 +1,474 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] regarding error in icscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20regarding%20error%20in%20icscf&In-Reply-To=%3CAANLkTinQ8qt9j1XSbRfWt1TcpXzmjuYd1GSMi%2BYoNaJc%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002432.html">
+   <LINK REL="Next"  HREF="002434.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] regarding error in icscf</H1>
+    <B>viswavardhanreddy karna</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20regarding%20error%20in%20icscf&In-Reply-To=%3CAANLkTinQ8qt9j1XSbRfWt1TcpXzmjuYd1GSMi%2BYoNaJc%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] regarding error in icscf">viswavardhanreddy at gmail.com
+       </A><BR>
+    <I>Mon Mar 14 21:36:13 CET 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002432.html">[OpenIMSCore-CSCF] Problem regarding icscf...
+</A></li>
+        <LI>Next message: <A HREF="002434.html">[OpenIMSCore-CSCF] Regarding registration with out challenging the	server
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2433">[ date ]</a>
+              <a href="thread.html#2433">[ thread ]</a>
+              <a href="subject.html#2433">[ subject ]</a>
+              <a href="author.html#2433">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+         i am doing some experiments on openimscore for registeration
+process. as of my study course..... I am trying since 2 days but i could not
+found any information on this i have read papers, openims entirely but
+unable to solve the issue...
+
+i started running pcscf.sh at 4060, icscf.sh at 5060 and scscf.sh at 6060
+every thing is working fine. and even hss also works fine
+
+when i started running register xml file from sipp
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot; ?&gt;
+&lt;!DOCTYPE scenario SYSTEM &quot;sipp.dtd&quot;&gt;
+
+&lt;scenario name=&quot;registration&quot;&gt;
+
+&lt;send retrans=&quot;500&quot;&gt;
+&lt;![CDATA[
+REGISTER sip:open-ims.test SIP/2.0
+Via: SIP/2.0/udp 192.168.1.100:4060;branch=[branch]
+Max-Forwards: 20
+From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vissu at open-ims.test</A>&gt;;tag=[call_number]
+To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vissu at open-ims.test</A>&gt;
+P-Access-Network-Info: 3GPP-UTRAN-TDD;utran-cell-id-3gpp=C359A3913B20E
+Call-ID: reg///[call_id]
+CSeq: 1 REGISTER
+Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vissu at 192.168.1.100</A>:4060&gt;
+Expires: 300
+Content-Length: 0
+User-Agent: Sipp v1.1, version 20061124
+Authorization: Digest username=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vissu at open-ims.test</A>&quot;, realm=&quot;open-ims.test&quot;
+Supported: path
+]]&gt;
+&lt;/send&gt;
+
+&lt;recv response=&quot;401&quot; auth=&quot;true&quot; rtd=&quot;true&quot;&gt;
+&lt;action&gt;
+&lt;ereg regexp=&quot;.*&quot; search_in=&quot;hdr&quot; header=&quot;Service-Route&quot; assign_to=&quot;1&quot; /&gt;
+&lt;/action&gt;
+&lt;/recv&gt;
+
+&lt;send retrans=&quot;500&quot;&gt;
+&lt;![CDATA[
+REGISTER sip:open-ims.test SIP/2.0
+Via: SIP/2.0/udp 192.168.1.100:4060;branch=[branch]
+Route: [$1]
+Max-Forwards: 20
+From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vissu at open-ims.test</A>&gt;;tag=[call_number]
+To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vissu at open-ims.test</A>&gt;
+P-Access-Network-Info: 3GPP-UTRAN-TDD;utran-cell-id-3gpp=C359A3913B20E
+Call-ID: reg///[call_id]
+CSeq: 2 REGISTER
+Contact: &lt;sip:vissu@[local_ip]:[local_port]&gt;
+Expires: 300
+Content-Length: 0
+User-Agent: Sipp v1.1, version 20061124
+[authentication username=vissu password=vissu]
+Supported: path
+]]&gt;
+&lt;/send&gt;
+
+&lt;recv response=&quot;200&quot;&gt;
+&lt;/recv&gt;
+
+&lt;ResponseTimeRepartition value=&quot;10, 20&quot;/&gt;
+&lt;CallLengthRepartition value=&quot;10&quot;/&gt;
+
+&lt;/scenario&gt;
+
+
+and when i run the wire shark i got 2 errors like:
+
+   SIP    Status: 400 Bad Request - P-Visited-Network-ID header missing
+(0 bindings)
+
+    SIP    Status: 406 Initial Request Method not allowed at the I-CSCF
+
+and in the pcscf
+
+
+Listening on
+             udp: 192.168.1.100 [192.168.1.100]:4060
+             tcp: 192.168.1.100 [192.168.1.100]:4060
+Aliases:
+             tcp: chaithu-laptop:4060
+             udp: chaithu-laptop:4060
+             *: pcscf.open-ims.test:4060
+
+ 0(6335) init_tcp: using epoll_lt as the io watch method (auto detected)
+ 0(6335) Maxfwd module- initializing
+ 0(6335) INFO:P-CSCF:mod_init: Initialization of module
+ 0(6335) INFOP-CSCF:mod_init: E-CSCF uri is sip:ecscf.open-ims.test:7060
+ 0(6335) INFOP-CSCFmod_init:E-CSCF uri is sip:ecscf.open-ims.test:7060
+ 0(6335) INFO: udp_init: SO_RCVBUF is initially 112640
+ 0(6335) INFO: udp_init: SO_RCVBUF is finally 262142
+ 0(6335) INFO:P-CSCF:mod_init: Initialization of module in child [0]
+ 7(6342) INFO:P-CSCF:mod_init: Initialization of module in child [5]
+ 6(6341) INFO:P-CSCF:mod_init: Initialization of module in child [-1]
+ 8(6343) INFO:P-CSCF:mod_init: Initialization of module in child [6]
+ 5(6340) INFO:P-CSCF:mod_init: Initialization of module in child [-1]
+ 9(6344) INFO:P-CSCF:mod_init: Initialization of module in child [7]
+10(6345) INFO:P-CSCF:mod_init: Initialization of module in child [8]
+ 3(6338) INFO:P-CSCF:mod_init: Initialization of module in child [3]
+ 2(6337) INFO:P-CSCF:mod_init: Initialization of module in child [2]
+ 4(6339) INFO:P-CSCF:mod_init: Initialization of module in child [4]
+ 1(6336) INFO:P-CSCF:mod_init: Initialization of module in child [1]
+11(6346) INFO:P-CSCF:mod_init: Initialization of module in child [-4]
+ 5(6340) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(6340) INF:P-CSCF:----------  Registrar Contents end ----------
+ 5(6340) INF:P-CSCF:----------  Subscription list begin ---------
+ 5(6340) INF:P-CSCF:----------  Subscription list end -----------
+ 5(6340) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(6340) INF:P-CSCF:----------  Registrar Contents end ----------
+ 5(6340) INF:P-CSCF:----------  Subscription list begin ---------
+ 5(6340) INF:P-CSCF:----------  Subscription list end -----------
+
+in icscf:
+
+Listening on
+             udp: 192.168.1.100 [192.168.1.100]:5060
+             tcp: 192.168.1.100 [192.168.1.100]:5060
+Aliases:
+             tcp: chaithu-laptop:5060
+             udp: chaithu-laptop:5060
+             *: open-ims.test:*
+             *: icscf.open-ims.test:*
+
+ 0(6353) init_tcp: using epoll_lt as the io watch method (auto detected)
+ 0(6353) Maxfwd module- initializing
+ 0(6353) INFO:I-CSCF:mod_init: Initialization of module
+ 0(6353) INF:I-CSCF:icscf_db_get_nds: Loaded 1 trusted domains
+ 0(6353) INF:I-CSCF:icscf_db_get_capabilities: Loaded 2 capabilities for 1
+S-CSCFs (0 invalid entries in db)
+ 0(6353) Twofish encryption ready
+ 0(6353) INFO:cdp:cdp_init(): CDiameterPeer initializing
+ 0(6353) Diameter Peer Config:
+ 0(6353)     FQDN    : icscf.open-ims.test
+ 0(6353)     Realm   : open-ims.test
+ 0(6353)     VendorID: 10415
+ 0(6353)     ProdName: CDiameterPeer
+ 0(6353)     AcceptUn: [X]
+ 0(6353)     DropUnkn: [X]
+ 0(6353)     Tc      : 30
+ 0(6353)     Workers : 4
+ 0(6353)     QueueLen: 8
+ 0(6353)     TranTime: 5
+ 0(6353)     SessHash: 128
+ 0(6353)     DefAuthT: 60
+ 0(6353)     MaxAuthT: 300
+ 0(6353)     Peers   : 1
+ 0(6353)         FQDN:  hss.open-ims.test      Realm: open-ims.test
+ Port: 3868
+ 0(6353)     Acceptors : 1
+ 0(6353)         Port:  3869      Bind: 192.168.1.100
+ 0(6353)     Applications : 3
+ 0(6353)         Auth ID:  16777216      Vendor: 10415
+ 0(6353)         Auth ID:  16777216      Vendor: 4491
+ 0(6353)         Auth ID:  16777216      Vendor: 13019
+ 0(6353)     Routing Table :
+ 0(6353)         DefaultRoute: [  10] hss.open-ims.test
+ 0(6353) INFO: udp_init: SO_RCVBUF is initially 112640
+ 0(6353) INFO: udp_init: SO_RCVBUF is finally 262142
+ 1(6354) INFO:I-CSCF:mod_init: Initialization of module in child [1]
+receiver child=0 sock=192.168.1.100:5060
+ 3(6356) INFO:I-CSCF:mod_init: Initialization of module in child [3]
+receiver child=2 sock=192.168.1.100:5060
+ 0(6353) INFO:I-CSCF:mod_init: Initialization of module in child [0] main
+ 4(6357)  0(6353) INFO:cdp:cdp_child_init(): CDiameterPeer starting ...
+INFO:I-CSCF:mod_init: Initialization of module in child [4] receiver child=3
+sock=192.168.1.100:5060
+ 6(6359) INFO:I-CSCF:mod_init: Initialization of module in child [-1] timer
+ 7(6360) INFO:I-CSCF:mod_init: Initialization of module in child [1001]
+cdp_worker
+ 7(6360) INFO:[0] Worker process started...
+ 8(6361) INFO:I-CSCF:mod_init: Initialization of module in child [1002]
+cdp_worker
+ 8(6361) INFO:[1] Worker process started...
+ 9(6362) INFO:I-CSCF:mod_init: Initialization of module in child [1003]
+cdp_worker
+ 9(6362) INFO:[2] Worker process started...
+10(6363) INFO:I-CSCF:mod_init: Initialization of module in child [1004]
+cdp_worker
+10(6363) INFO:[3] Worker process started...
+11(6364) INFO:I-CSCF:mod_init: Initialization of module in child [1002]
+cdp_receiver_peer_unkown
+11(6364) INFO:receiver_process(): [] Receiver process doing init on new
+process...
+11(6364) INFO:receiver_process(): [] Receiver process starting up...
+11(6364) --- Receiver [cdp receiver peer unknown] Serviced Peers: ---
+11(6364) --------------------------------------------------------
+ 0(6353) INFO:cdp:cdp_child_init(): ... CDiameterPeer started
+12(6365) INFO:I-CSCF:mod_init: Initialization of module in child [1000]
+cdp_receiver_peer
+12(6365) INFO:receiver_process(): [hss.open-ims.test] Receiver process doing
+init on new process...
+12(6365) INFO:add_serviced_peer(): Adding serviced_peer_t to receiver for
+peer [hss.open-ims.test]
+12(6365) INFO:receiver_process(): [hss.open-ims.test] Receiver process
+starting up...
+12(6365) --- Receiver [cdp_receiver_peer=hss.open-ims.test] Serviced Peers:
+---
+12(6365)  Peer: [hss.open-ims.test]  TCP Socket: [-1] Recv.State: [0]
+12(6365) --------------------------------------------------------
+13(6366) INFO:I-CSCF:mod_init: Initialization of module in child [1000]
+cdp_acceptor
+13(6366) INFO:Acceptor process starting up...
+13(6366) INFO:create_socket(): Trying to open/bind/listen on 192.168.1.100
+port 3869
+13(6366) INFO:create_socket(): Successful socket open/bind/listen on
+192.168.1.100 port 3869
+13(6366) INFO:... Acceptor opened sockets. Entering accept loop ...
+ 5(6358) INFO:I-CSCF:mod_init: Initialization of module in child [-1] slow
+timer
+14(6367) INFO:I-CSCF:mod_init: Initialization of module in child [1001]
+cdp_timer
+14(6367) INFO:Timer process starting up...
+18(6371) INFO:I-CSCF:mod_init: Initialization of module in child [8] tcp
+receiver child=3
+ 2(6355) INFO:I-CSCF:mod_init: Initialization of module in child [2]
+receiver child=1 sock=192.168.1.100:5060
+15(6368) INFO:I-CSCF:mod_init: Initialization of module in child [5] tcp
+receiver child=0
+16(6369) INFO:I-CSCF:mod_init: Initialization of module in child [6] tcp
+receiver child=1
+17(6370) INFO:I-CSCF:mod_init: Initialization of module in child [7] tcp
+receiver child=2
+19(6372) INFO:I-CSCF:mod_init: Initialization of module in child [-4] tcp
+main process
+14(6367) DBG:peer_timer(): Peer hss.open-ims.test     State 0
+14(6367) DBG:I_Snd_Conn_Req(): Peer hss.open-ims.test
+14(6367) INFO:peer_connect(): Trying to connect to 192.168.1.100 port 3868
+14(6367) WARNING:peer_connect(): Error opening connection to to
+192.168.1.100 port 3868 &gt;Connection refused
+14(6367) --- Peer List: ---
+14(6367)  S[Closed] hss.open-ims.test:3868 D[ ]
+14(6367) ------------------
+14(6367) --- Peer List: ---
+14(6367)  S[Closed] hss.open-ims.test:3868 D[ ]
+14(6367) ------------------
+13(6366) INFO:accept_connection(): new tcp connection accepted!
+11(6364) INFO:add_serviced_peer(): Adding serviced_peer_t to receiver for
+peer []
+11(6364) INFO:drop_serviced_peer(): Dropping serviced_peer_t from receiver
+for peer [hss.open-ims.test]
+11(6364) --- Peer List: ---
+11(6364)  S[R_Open] hss.open-ims.test:3868 D[ ]
+11(6364)      [16777216,10415]
+11(6364)      [16777216,4491]
+11(6364)      [16777216,13019]
+11(6364)      [16777217,10415]
+11(6364)      [16777221,10415]
+11(6364) ------------------
+14(6367) --- Peer List: ---
+14(6367)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(6367)      [16777216,10415]
+14(6367)      [16777216,4491]
+14(6367)      [16777216,13019]
+14(6367)      [16777217,10415]
+14(6367)      [16777221,10415]
+14(6367) ------------------
+14(6367) --- Peer List: ---
+14(6367)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(6367)      [16777216,10415]
+14(6367)      [16777216,4491]
+14(6367)      [16777216,13019]
+14(6367)      [16777217,10415]
+14(6367)      [16777221,10415]
+14(6367) ------------------
+14(6367) --- Peer List: ---
+14(6367)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(6367)      [16777216,10415]
+14(6367)      [16777216,4491]
+14(6367)      [16777216,13019]
+14(6367)      [16777217,10415]
+14(6367)      [16777221,10415]
+14(6367) ------------------
+14(6367) --- Peer List: ---
+14(6367)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(6367)      [16777216,10415]
+14(6367)      [16777216,4491]
+14(6367)      [16777216,13019]
+14(6367)      [16777217,10415]
+14(6367)      [16777221,10415]
+14(6367) ------------------
+14(6367) --- Peer List: ---
+14(6367)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(6367)      [16777216,10415]
+14(6367)      [16777216,4491]
+14(6367)      [16777216,13019]
+14(6367)      [16777217,10415]
+14(6367)      [16777221,10415]
+14(6367) ------------------
+14(6367) --- Peer List: ---
+14(6367)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(6367)      [16777216,10415]
+14(6367)      [16777216,4491]
+14(6367)      [16777216,13019]
+14(6367)      [16777217,10415]
+14(6367)      [16777221,10415]
+14(6367) ------------------
+14(6367) --- Peer List: ---
+14(6367)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(6367)      [16777216,10415]
+14(6367)      [16777216,4491]
+14(6367)      [16777216,13019]
+14(6367)      [16777217,10415]
+14(6367)      [16777221,10415]
+14(6367) ------------------
+14(6367) --- Peer List: ---
+14(6367)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(6367)      [16777216,10415]
+14(6367)      [16777216,4491]
+14(6367)      [16777216,13019]
+14(6367)      [16777217,10415]
+14(6367)      [16777221,10415]
+14(6367) ------------------
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 4(6357) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+14(6367) --- Peer List: ---
+14(6367)  S[R_Open] hss.open-ims.test:3868 D[ ]
+14(6367)      [16777216,10415]
+14(6367)      [16777216,4491]
+14(6367)      [16777216,13019]
+14(6367)      [16777217,10415]
+14(6367)      [16777221,10415]
+14(6367) ------------------
+ 4(6357) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 4(6357) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 4(6357) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 4(6357) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 4(6357) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 4(6357) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 4(6357) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 4(6357) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 4(6357) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 4(6357) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 4(6357) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 4(6357) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 4(6357) ERR:I-CSCF:I_UAR: Visited Network Identity not found, responding
+with 400
+ 1(6354) ERR:I-CSCF:I_UAR: Visited Network Identity not found,
+
+
+i got the above error....
+
+and in scscf it was fine every thing goes good and when coming to hss there
+was no errors and in fhosss web console there are predefined users like bob
+and alice... i did not change anything and i started running register xml
+file from sipp from other computer it will pass through the switch and goes
+to the openimscore server.....
+
+
+do i need to change in FHoSS WEBCONSOLE any private users or public users so
+as to register.... if so any one help me by giving the tips how to change
+the matter in webconsole and how to make bob and alice to get registered???
+
+
+When i runned sipp i got the follwing error as
+    SIP    Status: 406 Initial Request Method not allowed at the I-CSCF
+
+
+
+
+
+please help me iam a bit struck in my studies....
+
+
+
+
+Best regards,
+viswavardhan
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110314/61662496/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110314/61662496/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002432.html">[OpenIMSCore-CSCF] Problem regarding icscf...
+</A></li>
+	<LI>Next message: <A HREF="002434.html">[OpenIMSCore-CSCF] Regarding registration with out challenging the	server
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2433">[ date ]</a>
+              <a href="thread.html#2433">[ thread ]</a>
+              <a href="subject.html#2433">[ subject ]</a>
+              <a href="author.html#2433">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

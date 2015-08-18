@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [OpenIMSCore-Users] Open IMS Core IPv6	supported clients
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BOpenIMSCore-Users%5D%20Open%20IMS%20Core%20IPv6%0A%09supported%20clients&In-Reply-To=%3C000d01cbfc30%24d7d98e20%24878caa60%24%40technikum-wien.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002508.html">
+   <LINK REL="Next"  HREF="002498.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [OpenIMSCore-Users] Open IMS Core IPv6	supported clients</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BOpenIMSCore-Users%5D%20Open%20IMS%20Core%20IPv6%0A%09supported%20clients&In-Reply-To=%3C000d01cbfc30%24d7d98e20%24878caa60%24%40technikum-wien.at%3E"
+       TITLE="[OpenIMSCore-CSCF] [OpenIMSCore-Users] Open IMS Core IPv6	supported clients">franz.edler at technikum-wien.at
+       </A><BR>
+    <I>Sat Apr 16 14:21:39 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002508.html">[OpenIMSCore-CSCF] INVITE going through different chanell
+</A></li>
+        <LI>Next message: <A HREF="002498.html">[OpenIMSCore-CSCF] [OpenIMSCore-Users] Open IMS Core IPv6	supported clients
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2496">[ date ]</a>
+              <a href="thread.html#2496">[ thread ]</a>
+              <a href="subject.html#2496">[ subject ]</a>
+              <a href="author.html#2496">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Gino,
+
+&gt;<i> I have exactly the same problem, and the problem is Monster.
+</I>&gt;<i> To be more precise, in the SIP message header, Contact field is the
+</I>problem.
+
+I think the problem is at P-CSCF. It does not correctly extract and store
+the Contact address during registration.
+Look at the periodical printout of 
+
+5(3245) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(3245) INF:P-CSCF:[ 142] C: &lt;0://3ffe:200&gt; Exp:[3591] R:[ 1] SOS:[ ]
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 3ffe</A>:200&gt;
+ 5(3245) INF:P-CSCF:         SR: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf.open-ims.test</A>:6060;lr&gt;
+ 5(3245) INF:P-CSCF:          P: D[X] &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt; 
+ 5(3245) INF:P-CSCF:----------  Registrar Contents end ----------
+
+The parameter &quot; C: &lt;0://3ffe:200&gt;&quot; should in my opinion contain the full
+Contact address including the port number like
+&lt;1://[3ffe:200:58:1:0:0:0:2]:5060&gt; But it is somehow truncated.
+Therefore when the P-CSCF receives a standalone request (PUBLISH) it
+compares the Contact address  against the registered ones, and this check
+fails. 
+This can be verified by the debug output of the attached log-file
+	DBG:P-	CSCF:P_is_registered: Looking for
+&lt;1://[3ffe:200:58:1:0:0:0:2]:5060&gt;
+
+The Contact address is stored after successful registration by function
+P_save_location() in module registrar.c  of pcscf.
+The check for registered Contact addresses is done by function
+P_is_registered() in module registration.c  of pcscf..
+
+If my assumption is true we should identifiy the function the extracts and
+stores the contact-address. I assume some problems at handling IPv6
+addresses there.
+
+BR
+Franz
+
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002508.html">[OpenIMSCore-CSCF] INVITE going through different chanell
+</A></li>
+	<LI>Next message: <A HREF="002498.html">[OpenIMSCore-CSCF] [OpenIMSCore-Users] Open IMS Core IPv6	supported clients
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2496">[ date ]</a>
+              <a href="thread.html#2496">[ thread ]</a>
+              <a href="subject.html#2496">[ subject ]</a>
+              <a href="author.html#2496">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

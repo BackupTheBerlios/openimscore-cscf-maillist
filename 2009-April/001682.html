@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r653 - E-CSCF: modified the	find_dialog_aor to get the From uri from the INVITE when the	P-Asserted-Identity header is not present (e.g. anonymous	call) P-CSCF: added anonym_em_call_support parameter to	configure rejecting/accepting of the anonymous calls P-CSCF:	added the P_accept_anonym_em_call exported function to check	if P-CSCF accepts or not anonymous calls P-CSCF: modified the	P_assert_identity to accept a parameter: &quot;emerg&quot; or &quot;non-emerg&quot;,	depending on what kind of registration is considered P-CSCF: updated	the running script
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r653%20-%20E-CSCF%3A%20modified%20the%0A%09find_dialog_aor%20to%20get%20the%20From%20uri%20from%20the%20INVITE%20when%20the%0A%09P-Asserted-Identity%20header%20is%20not%20present%20%28e.g.%20anonymous%0A%09call%29%20P-CSCF%3A%20added%20anonym_em_call_support%20parameter%20to%0A%09configure%20rejecting/accepting%20of%20the%20anonymous%20calls%20P-CSCF%3A%0A%09added%20the%20P_accept_anonym_em_call%20exported%20function%20to%20check%0A%09if%20P-CSCF%20accepts%20or%20not%20anonymous%20calls%20P-CSCF%3A%20modified%20the%0A%09P_assert_identity%20to%20accept%20a%20parameter%3A%20%22emerg%22%20or%20%22non-emerg%22%2C%0A%09depending%20on%20what%20kind%20of%20registration%20is%20considered%20P-CSCF%3A%20updated%0A%09the%20running%20script&In-Reply-To=%3C200904211644.n3LGish4026369%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001681.html">
+   <LINK REL="Next"  HREF="001684.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r653 - E-CSCF: modified the	find_dialog_aor to get the From uri from the INVITE when the	P-Asserted-Identity header is not present (e.g. anonymous	call) P-CSCF: added anonym_em_call_support parameter to	configure rejecting/accepting of the anonymous calls P-CSCF:	added the P_accept_anonym_em_call exported function to check	if P-CSCF accepts or not anonymous calls P-CSCF: modified the	P_assert_identity to accept a parameter: &quot;emerg&quot; or &quot;non-emerg&quot;,	depending on what kind of registration is considered P-CSCF: updated	the running script</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r653%20-%20E-CSCF%3A%20modified%20the%0A%09find_dialog_aor%20to%20get%20the%20From%20uri%20from%20the%20INVITE%20when%20the%0A%09P-Asserted-Identity%20header%20is%20not%20present%20%28e.g.%20anonymous%0A%09call%29%20P-CSCF%3A%20added%20anonym_em_call_support%20parameter%20to%0A%09configure%20rejecting/accepting%20of%20the%20anonymous%20calls%20P-CSCF%3A%0A%09added%20the%20P_accept_anonym_em_call%20exported%20function%20to%20check%0A%09if%20P-CSCF%20accepts%20or%20not%20anonymous%20calls%20P-CSCF%3A%20modified%20the%0A%09P_assert_identity%20to%20accept%20a%20parameter%3A%20%22emerg%22%20or%20%22non-emerg%22%2C%0A%09depending%20on%20what%20kind%20of%20registration%20is%20considered%20P-CSCF%3A%20updated%0A%09the%20running%20script&In-Reply-To=%3C200904211644.n3LGish4026369%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r653 - E-CSCF: modified the	find_dialog_aor to get the From uri from the INVITE when the	P-Asserted-Identity header is not present (e.g. anonymous	call) P-CSCF: added anonym_em_call_support parameter to	configure rejecting/accepting of the anonymous calls P-CSCF:	added the P_accept_anonym_em_call exported function to check	if P-CSCF accepts or not anonymous calls P-CSCF: modified the	P_assert_identity to accept a parameter: &quot;emerg&quot; or &quot;non-emerg&quot;,	depending on what kind of registration is considered P-CSCF: updated	the running script">aon at users.berlios.de
+       </A><BR>
+    <I>Tue Apr 21 18:44:54 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001681.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r652 - Applied Pandurangan R S	patch for supporting 3GPP SIP Digest as defined 3GPP TS	29.228 v8.5.0 in the S-CSCF
+</A></li>
+        <LI>Next message: <A HREF="001684.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r654 - added del_nonshm_lumps in	sip.c E-CSCF: fixed a bug: when the INVITE is forwarded to	the PSAP, some lumps are added,	but they are in pkg and when an error response was generated (e.g.	408 Request Timeout) or received,	the function run_failure_handlers was considering the add_rm lump and	trying to free it,	because the flags of the memory chunck had invalid value (memory	thread specific accessed from another thread),	causing an error. Now the pkg lumps are deleted after relaying the	request.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1682">[ date ]</a>
+              <a href="thread.html#1682">[ thread ]</a>
+              <a href="subject.html#1682">[ subject ]</a>
+              <a href="author.html#1682">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2009-04-21 18:44:47 +0200 (Tue, 21 Apr 2009)
+New Revision: 653 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=653">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=653</A> 
+
+Log:
+E-CSCF: modified the find_dialog_aor to get the From uri from the INVITE when the P-Asserted-Identity header is not present (e.g. anonymous call)
+P-CSCF: added anonym_em_call_support parameter to configure rejecting/accepting of the anonymous calls
+P-CSCF: added the P_accept_anonym_em_call exported function to check if P-CSCF accepts or not anonymous calls
+P-CSCF: modified the P_assert_identity to accept a parameter: &quot;emerg&quot; or &quot;non-emerg&quot;, depending on what kind of registration is considered
+P-CSCF: updated the running script
+
+
+Modified:
+   U	ser_ims/branches/12_em_services/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/cfg/pcscf.cfg?rev=653&amp;view=diff&amp;r1=653&amp;r2=652">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/cfg/pcscf.cfg?rev=653&amp;view=diff&amp;r1=653&amp;r2=652</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c?rev=653&amp;view=diff&amp;r1=653&amp;r2=652">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c?rev=653&amp;view=diff&amp;r1=653&amp;r2=652</A>
+   U	ser_ims/branches/12_em_services/modules/pcscf/emerg.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/emerg.c?rev=653&amp;view=diff&amp;r1=653&amp;r2=652">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/emerg.c?rev=653&amp;view=diff&amp;r1=653&amp;r2=652</A>
+   U	ser_ims/branches/12_em_services/modules/pcscf/emerg.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/emerg.h?rev=653&amp;view=diff&amp;r1=653&amp;r2=652">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/emerg.h?rev=653&amp;view=diff&amp;r1=653&amp;r2=652</A>
+   U	ser_ims/branches/12_em_services/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/mod.c?rev=653&amp;view=diff&amp;r1=653&amp;r2=652">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/mod.c?rev=653&amp;view=diff&amp;r1=653&amp;r2=652</A>
+   U	ser_ims/branches/12_em_services/modules/pcscf/registrar.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/registrar.c?rev=653&amp;view=diff&amp;r1=653&amp;r2=652">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/registrar.c?rev=653&amp;view=diff&amp;r1=653&amp;r2=652</A>
+   U	ser_ims/branches/12_em_services/modules/pcscf/registrar.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/registrar.h?rev=653&amp;view=diff&amp;r1=653&amp;r2=652">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/registrar.h?rev=653&amp;view=diff&amp;r1=653&amp;r2=652</A>
+   U	ser_ims/branches/12_em_services/modules/pcscf/registration.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/registration.c?rev=653&amp;view=diff&amp;r1=653&amp;r2=652">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/registration.c?rev=653&amp;view=diff&amp;r1=653&amp;r2=652</A>
+   U	ser_ims/branches/12_em_services/modules/pcscf/registration.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/registration.h?rev=653&amp;view=diff&amp;r1=653&amp;r2=652">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/pcscf/registration.h?rev=653&amp;view=diff&amp;r1=653&amp;r2=652</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001681.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r652 - Applied Pandurangan R S	patch for supporting 3GPP SIP Digest as defined 3GPP TS	29.228 v8.5.0 in the S-CSCF
+</A></li>
+	<LI>Next message: <A HREF="001684.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r654 - added del_nonshm_lumps in	sip.c E-CSCF: fixed a bug: when the INVITE is forwarded to	the PSAP, some lumps are added,	but they are in pkg and when an error response was generated (e.g.	408 Request Timeout) or received,	the function run_failure_handlers was considering the add_rm lump and	trying to free it,	because the flags of the memory chunck had invalid value (memory	thread specific accessed from another thread),	causing an error. Now the pkg lumps are deleted after relaying the	request.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1682">[ date ]</a>
+              <a href="thread.html#1682">[ thread ]</a>
+              <a href="subject.html#1682">[ subject ]</a>
+              <a href="author.html#1682">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

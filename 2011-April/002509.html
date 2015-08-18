@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Trusted entity
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Trusted%20entity&In-Reply-To=%3C4DB8625E.3090606%40acision.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002504.html">
+   <LINK REL="Next"  HREF="002510.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Trusted entity</H1>
+    <B>Daniel Ciprus</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Trusted%20entity&In-Reply-To=%3C4DB8625E.3090606%40acision.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Trusted entity">daniel.ciprus at acision.com
+       </A><BR>
+    <I>Wed Apr 27 20:37:18 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002504.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1080 - Removed	Destination-Host/Realm from the Diameter CE/DW/DP answers
+</A></li>
+        <LI>Next message: <A HREF="002510.html">[OpenIMSCore-CSCF] Trusted entity
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2509">[ date ]</a>
+              <a href="thread.html#2509">[ thread ]</a>
+              <a href="subject.html#2509">[ subject ]</a>
+              <a href="author.html#2509">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+
+Is there any way to define trusted entity for OpenIMS ? What we did is 
+that we modified code and added configurable to scscf.cfg so based on 
+URI OpenIMS is able to recognize trusted entity within the network.
+
+typical scenario :
+
+subs A (invite) -&gt; IMS -&gt; AS(application server) -&gt; IMS -&gt; subs B
+
+In case AS is not defined in OpenIMS as a trusted entity INVITE going 
+out from AS won't be processed by IMS since AS is not authenticated.
+
+thank you.
+
+-- 
+*Daniel Ciprus*
+Integration engineer
+------------------------------------------------------
+*<A HREF="http://www.acision.com*">http://www.acision.com*</A>
+4870 Sadler Rd
+Suite 200
+Glen Allen, VA 23060
+USA
+T: +1 804 762 5601
+E: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">daniel.ciprus at acision.com</A>
+
+
+This e-mail and any attachment is for authorised use by the intended recipient(s) only. It may contain proprietary material, confidential information and/or be subject to legal privilege. It should not be copied, disclosed to, retained or used by, any other party. If you are not an intended recipient then please promptly delete this e-mail and any attachment and all copies and inform the sender. Thank you.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110427/ae311780/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110427/ae311780/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002504.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1080 - Removed	Destination-Host/Realm from the Diameter CE/DW/DP answers
+</A></li>
+	<LI>Next message: <A HREF="002510.html">[OpenIMSCore-CSCF] Trusted entity
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2509">[ date ]</a>
+              <a href="thread.html#2509">[ thread ]</a>
+              <a href="subject.html#2509">[ subject ]</a>
+              <a href="author.html#2509">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

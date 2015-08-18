@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r116 -	ser_ims/branches/01_persistency/modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r116%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200702061313.l16DDxA3006050%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000182.html">
+   <LINK REL="Next"  HREF="000172.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r116 -	ser_ims/branches/01_persistency/modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r116%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200702061313.l16DDxA3006050%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r116 -	ser_ims/branches/01_persistency/modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Feb  6 14:13:59 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000182.html">[OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3
+</A></li>
+        <LI>Next message: <A HREF="000172.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r117 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#171">[ date ]</a>
+              <a href="thread.html#171">[ thread ]</a>
+              <a href="subject.html#171">[ subject ]</a>
+              <a href="author.html#171">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-06 14:13:57 +0100 (Tue, 06 Feb 2007)
+New Revision: 116
+
+Modified:
+   ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+   ser_ims/branches/01_persistency/modules/scscf/registration.c
+   ser_ims/branches/01_persistency/modules/scscf/registration.h
+Log:
+Remove hash encoding/decoding. This is recomputed each time because of possible configuration changes in the hash sizes between restarts.
+
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-02-02 18:06:01 UTC (rev 115)
++++ ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-02-06 13:13:57 UTC (rev 116)
+@@ -860,7 +860,7 @@
+ 	
+ 	if (!bin_encode_str(x,&amp;(u-&gt;private_identity))) goto error;
+ 	if (!bin_encode_str(x,&amp;(u-&gt;public_identity))) goto error;
+-	if (!bin_encode_int4(x,u-&gt;hash)) goto error;
++//	if (!bin_encode_int4(x,u-&gt;hash)) goto error;
+ 	if (!bin_encode_int4(x,u-&gt;expires)) goto error;
+ 	
+ 	for(v=u-&gt;head;v;v=v-&gt;next)
+@@ -898,7 +898,8 @@
+ 	
+ 	if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(u-&gt;private_identity),&amp;s)) goto error;
+ 	if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(u-&gt;public_identity),&amp;s)) goto error;
+-	if (!bin_decode_int4(x,	&amp;(u-&gt;hash))) goto error;
++	u-&gt;hash = get_hash_auth(u-&gt;private_identity,u-&gt;public_identity);	
++//	if (!bin_decode_int4(x,	&amp;(u-&gt;hash))) goto error;
+ 	if (!bin_decode_int4(x,	&amp;(u-&gt;expires))) goto error;
+ 	
+ 	if (!bin_decode_int2(x,	&amp;k)) goto error;
+@@ -950,7 +951,7 @@
+  */
+ int bin_encode_s_dialog(bin_data *x,s_dialog *d)
+ {
+-	if (!bin_encode_int4(x,d-&gt;hash)) goto error;	
++//	if (!bin_encode_int4(x,d-&gt;hash)) goto error;	
+ 	if (!bin_encode_str(x,&amp;(d-&gt;call_id))) goto error;
+ 	if (!bin_encode_int1(x,d-&gt;direction)) goto error;
+ 	
+@@ -991,7 +992,7 @@
+ 	}
+ 	memset(d,0,len);
+ 
+-	if (!bin_decode_int4(x,	&amp;(d-&gt;hash))) goto error;		
++//	if (!bin_decode_int4(x,	&amp;(d-&gt;hash))) goto error;		
+ 	if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(d-&gt;call_id),&amp;s)) goto error;
+ 
+ 	if (!bin_decode_int1(x,	&amp;k)) goto error;
+@@ -1014,6 +1015,8 @@
+ 	if (!bin_decode_int4(x,	&amp;k)) goto error;
+ 	d-&gt;expires = k;
+ 	
++	d-&gt;hash = get_s_dialog_hash(d-&gt;call_id);		
++	
+ 	return d;
+ error:
+ 	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_s_dialog: Error while decoding (at %d (%04x)).\n&quot;,x-&gt;max,x-&gt;max);
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/registration.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/registration.c	2007-02-02 18:06:01 UTC (rev 115)
++++ ser_ims/branches/01_persistency/modules/scscf/registration.c	2007-02-06 13:13:57 UTC (rev 116)
+@@ -961,7 +961,7 @@
+  * @param public_identity - the public identity
+  * @returns the hash % Auth_data-&gt;size
+  */
+-static inline unsigned int get_hash(str private_identity,str public_identity)
++inline unsigned int get_hash_auth(str private_identity,str public_identity)
+ {
+ #define h_inc h+=v^(v&gt;&gt;3)
+    char* p;
+@@ -1008,7 +1008,7 @@
+ 	auth_userdata *aud=0;
+ 	
+ 	
+-	hash = get_hash(private_identity,public_identity);
++	hash = get_hash_auth(private_identity,public_identity);
+ 	auth_data_lock(hash);
+ 	aud = auth_data[hash].head;
+ 	while(aud){
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/registration.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/registration.h	2007-02-02 18:06:01 UTC (rev 115)
++++ ser_ims/branches/01_persistency/modules/scscf/registration.h	2007-02-06 13:13:57 UTC (rev 116)
+@@ -149,6 +149,8 @@
+ auth_userdata *new_auth_userdata(str private_identity,str public_identity);
+ void free_auth_userdata(auth_userdata *aud);					
+ 
++inline unsigned int get_hash_auth(str private_identity,str public_identity);
++
+ int add_auth_vector(str private_identity,str public_identity,auth_vector *av);
+ auth_vector* get_auth_vector(str private_identity,str public_identity,int status,str *nonce,unsigned int *hash);
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000182.html">[OpenIMSCore-CSCF] bug reporting for the snapshot at 2/3
+</A></li>
+	<LI>Next message: <A HREF="000172.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r117 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#171">[ date ]</a>
+              <a href="thread.html#171">[ thread ]</a>
+              <a href="subject.html#171">[ subject ]</a>
+              <a href="author.html#171">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

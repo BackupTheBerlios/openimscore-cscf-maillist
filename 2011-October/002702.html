@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Register is looping in pcscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Register%20is%20looping%20in%20pcscf&In-Reply-To=%3CCAAJ5KhHPX%2BBQz0iD3PKZ7ureM6n5vh1mD9oOD7nkyk8zU7aMGA%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002699.html">
+   <LINK REL="Next"  HREF="002703.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Register is looping in pcscf</H1>
+    <B>Lakshman Bana</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Register%20is%20looping%20in%20pcscf&In-Reply-To=%3CCAAJ5KhHPX%2BBQz0iD3PKZ7ureM6n5vh1mD9oOD7nkyk8zU7aMGA%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Register is looping in pcscf">lakshman.bana at gmail.com
+       </A><BR>
+    <I>Thu Oct 13 06:19:04 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002699.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1164 - pcscf: added the	Media-Component-Number AVP in case of AAR for registration
+</A></li>
+        <LI>Next message: <A HREF="002703.html">[OpenIMSCore-CSCF] IMS Simulation and Vertical Handover between	P-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2702">[ date ]</a>
+              <a href="thread.html#2702">[ thread ]</a>
+              <a href="subject.html#2702">[ subject ]</a>
+              <a href="author.html#2702">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+I have loaded application on my android device and able to send the
+request to pcscf on port 4060.
+
+Since the device is running on different host address I updated
+pcscf/scscf/icscf/hss config files with actual ip address instead of
+127.0.0.1.
+
+When SIP REGISTER is received at PCSCF I do not see it going to ICSCF
+or SCSCF function. Instead the REGISTER message is sending it to
+itself(port 4060). Via header is getting populated with PCSCF info.
+
+Anyone know where else I need to look at to fix this problem.
+BTW: nslookup on [spi]cscf.open-ims.test resolves to 192.168.1.3 and
+also open-ims.test.
+
+Thanks in advance.
+lb
+
+On Sun, Oct 9, 2011 at 3:35 PM, Franz Edler
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at technikum-wien.at</A>&gt; wrote:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;&gt;<i> I think I can start looking into GIBA. It looks like I don't need any
+</I>&gt;<i> external
+</I>&gt;&gt;<i> elements to complete the auth. I can just use OpenImsCore to get this
+</I>&gt;&gt;<i> working.
+</I>&gt;<i>
+</I>&gt;<i> You even do not need GIBA if you just want to use a simple authentication
+</I>&gt;<i> method.
+</I>&gt;<i> Why do you not use Digest-MD5?
+</I>&gt;<i>
+</I>&gt;<i> Franz
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002699.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1164 - pcscf: added the	Media-Component-Number AVP in case of AAR for registration
+</A></li>
+	<LI>Next message: <A HREF="002703.html">[OpenIMSCore-CSCF] IMS Simulation and Vertical Handover between	P-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2702">[ date ]</a>
+              <a href="thread.html#2702">[ thread ]</a>
+              <a href="subject.html#2702">[ subject ]</a>
+              <a href="author.html#2702">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

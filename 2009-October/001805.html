@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 36, Issue 2
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenIMSCore-CSCF%20Digest%2C%20Vol%2036%2C%20Issue%202&In-Reply-To=%3C804B13F8F3D94A4AB18B9B01ACB68FA101CF63AF%40EXCHSRV.fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001804.html">
+   <LINK REL="Next"  HREF="001806.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 36, Issue 2</H1>
+    <B>Onofrei, Andreea Ancuta</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenIMSCore-CSCF%20Digest%2C%20Vol%2036%2C%20Issue%202&In-Reply-To=%3C804B13F8F3D94A4AB18B9B01ACB68FA101CF63AF%40EXCHSRV.fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 36, Issue 2">Andreea.Ancuta.Onofrei at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Oct  1 20:31:58 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001804.html">[OpenIMSCore-CSCF] PCSCF rejects CANCEL with 403 Forbidden -You	must register first with a S-CSCF when ECSCF and LRF is configured
+</A></li>
+        <LI>Next message: <A HREF="001806.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r739 - E-CSCF: replaced the SIP	URI from the OPTIONS req to the LRF with the contact address	from the INVITE req P-CSCF: modified the emergency tel-URN	configuration file for P-CSCF,	to match 911 to &quot;urn:service:sos.police&quot; TM: fixed a bug in the	function t_enter_ctx, global_msg_id was not set
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1805">[ date ]</a>
+              <a href="thread.html#1805">[ thread ]</a>
+              <a href="subject.html#1805">[ subject ]</a>
+              <a href="author.html#1805">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Sathya,
+ 
+What I have advised you to do is to do an svn update on the ser_ims folder, that will update the cfg/pcscf.cfg file.
+Then you have to copy the new version of the pcscf.cfg to /opt/OpenIMSCore and run the P-CSCF again.
+ 
+As another advise it would be great just to tell us what svn version of the project you are using, so that we can have a look at a file/module, not attach it to the e-mail.
+To find the svn version, use the command svn info.
+ 
+There is more to OpenIMSCore than the openimscore.org site. Have a look at <A HREF="http://svn.berlios.de/viewcvs/openimscore/.">http://svn.berlios.de/viewcvs/openimscore/.</A>
+ 
+If you were wondering what was the bug, go to <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/cfg/pcscf.cfg?r1=720&amp;r2=735">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/cfg/pcscf.cfg?r1=720&amp;r2=735</A> .
+ 
+Best regards,
+Ancuta
+
+________________________________
+
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> on behalf of <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A>
+Sent: Thu 10/1/2009 5:43 PM
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: OpenIMSCore-CSCF Digest, Vol 36, Issue 2
+
+
+
+Send OpenIMSCore-CSCF mailing list submissions to
+        <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+
+To subscribe or unsubscribe via the World Wide Web, visit
+        <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+or, via email, send a message with subject or body 'help' to
+        <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A>
+
+You can reach the person managing the list at
+        <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-owner at lists.berlios.de</A>
+
+When replying, please edit your Subject line so it is more specific
+than &quot;Re: Contents of OpenIMSCore-CSCF digest...&quot;
+
+
+Today's Topics:
+
+   1. Re: OpenIMSCore-CSCF Digest, Vol 36, Issue 1, PCSCF rejects
+      CANCEL with 403 Forbidden - You must register first with a S-CSCF
+      when ECSCF and LRF is configured (Andreea Ancuta Onofrei)
+   2. PCSCF rejects CANCEL with 403 Forbidden -You      must register
+      first with a S-CSCF when ECSCF and LRF is configured
+      (Sathiyamoorthy natarajan)
+   3. PCSCF rejects CANCEL with 403 Forbidden -You      must register
+      first with a S-CSCF when ECSCF and LRF is configured
+      (Sathiyamoorthy natarajan)
+
+
+----------------------------------------------------------------------
+
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: winmail.dat
+Type: application/ms-tnef
+Size: 5885 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20091001/72914b0d/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20091001/72914b0d/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001804.html">[OpenIMSCore-CSCF] PCSCF rejects CANCEL with 403 Forbidden -You	must register first with a S-CSCF when ECSCF and LRF is configured
+</A></li>
+	<LI>Next message: <A HREF="001806.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r739 - E-CSCF: replaced the SIP	URI from the OPTIONS req to the LRF with the contact address	from the INVITE req P-CSCF: modified the emergency tel-URN	configuration file for P-CSCF,	to match 911 to &quot;urn:service:sos.police&quot; TM: fixed a bug in the	function t_enter_ctx, global_msg_id was not set
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1805">[ date ]</a>
+              <a href="thread.html#1805">[ thread ]</a>
+              <a href="subject.html#1805">[ subject ]</a>
+              <a href="author.html#1805">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

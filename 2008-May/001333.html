@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Call Session Control Functions bug] CANCEL for	forking rejected by P-CSCF with 403
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20bug%5D%20CANCEL%20for%0A%09forking%20rejected%20by%20P-CSCF%20with%20403&In-Reply-To=%3Ctype%3Dproject%26nid%3D131%26host%3D%40www.openimscore.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001330.html">
+   <LINK REL="Next"  HREF="001337.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Call Session Control Functions bug] CANCEL for	forking rejected by P-CSCF with 403</H1>
+    <B>vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BCall%20Session%20Control%20Functions%20bug%5D%20CANCEL%20for%0A%09forking%20rejected%20by%20P-CSCF%20with%20403&In-Reply-To=%3Ctype%3Dproject%26nid%3D131%26host%3D%40www.openimscore.org%3E"
+       TITLE="[OpenIMSCore-CSCF] [Call Session Control Functions bug] CANCEL for	forking rejected by P-CSCF with 403">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue May  6 13:59:31 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001330.html">[OpenIMSCore-CSCF] early-IMS Problem
+</A></li>
+        <LI>Next message: <A HREF="001337.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r558 - Applied Mats Cullberg patch	for using network byte order in hop-by-hop and end-to-end ids.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1333">[ date ]</a>
+              <a href="thread.html#1333">[ thread ]</a>
+              <a href="subject.html#1333">[ subject ]</a>
+              <a href="author.html#1333">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Issue status update for 
+<A HREF="http://www.openimscore.org/node/131">http://www.openimscore.org/node/131</A>
+Post a follow up: 
+<A HREF="http://www.openimscore.org/project/comments/add/131">http://www.openimscore.org/project/comments/add/131</A>
+
+ Project:      Call Session Control Functions
+ Version:      &lt;none&gt;
+ Component:    Code
+ Category:     bug reports
+ Priority:     normal
+ Assigned to:  
+ Reported by:  vingarzan
+ Updated by:   vingarzan
+ Status:       active
+
+As reported here:
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-users">https://lists.berlios.de/mailman/listinfo/openimscore-users</A>
+
+
+And Franz reasoning:
+The reason for the rejection of CANCEL by the P-CSCF is the missing
+Route
+header field (Route: ) in the CANCEL
+request. Without this Route header field the P-CSCF tries to process
+the
+request as an originating request. 
+
+
+The logic for the CANCEL processing in case of canceling a pending
+request
+because of forking in the S-CSCF is missing in pcscf.cfg. I will try to
+think about an adaptation of pcscf.cfg for this case. Maybe Dragos has
+another proposal. But I think that's the reason.
+
+
+
+
+vingarzan
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001330.html">[OpenIMSCore-CSCF] early-IMS Problem
+</A></li>
+	<LI>Next message: <A HREF="001337.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r558 - Applied Mats Cullberg patch	for using network byte order in hop-by-hop and end-to-end ids.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1333">[ date ]</a>
+              <a href="thread.html#1333">[ thread ]</a>
+              <a href="subject.html#1333">[ subject ]</a>
+              <a href="author.html#1333">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

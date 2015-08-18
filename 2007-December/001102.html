@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile is not executed
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20On%20MESSAGE%20unregistered%20user%27s%20service%0A%20profile%20is%20not%20executed&In-Reply-To=%3C475E9C5C.1030403%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001101.html">
+   <LINK REL="Next"  HREF="001103.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile is not executed</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20On%20MESSAGE%20unregistered%20user%27s%20service%0A%20profile%20is%20not%20executed&In-Reply-To=%3C475E9C5C.1030403%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile is not executed">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Dec 11 15:19:08 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001101.html">[OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile	is not executed
+</A></li>
+        <LI>Next message: <A HREF="001103.html">[OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile is not executed
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1102">[ date ]</a>
+              <a href="thread.html#1102">[ thread ]</a>
+              <a href="subject.html#1102">[ subject ]</a>
+              <a href="author.html#1102">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Fabian,
+
+hmmm... I remember this feature as working. Anyway, there are some
+places in the code, like in update_contacts() that are written also for
+the AVP_IMS_SAR_UNREGISTERED_USER case.
+
+Thanks for the patch! but I am attaching a counter one as the stuff was
+already there, but not used. Please see the attachment. What do you think?
+
+Cheers,
+-Dragos
+
+Walraven, F.A. (Fabian) wrote:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> I stumbled upon a problem with the S-CSCF:
+</I>&gt;<i>
+</I>&gt;<i> When a user sends a MESSAGE to a unregistered user, the terminating
+</I>&gt;<i> S-CSCF returns a 404 Not Found instead of routing it to an application
+</I>&gt;<i> server (as configured in the service profile of the unregistered user).
+</I>&gt;<i>
+</I>&gt;<i> I analysed the problem and found the following: It looks like the
+</I>&gt;<i> problem is the way the S-CSCF retrieves the unregistered user's service
+</I>&gt;<i> profile. The function S_assign_server_unreg() (scscf/registrar.c) calls
+</I>&gt;<i> the SAR() function to retrieve the service profile (assignment_type =
+</I>&gt;<i> AVP_IMS_SAR_UNREGISTERED_USER). The SAR() calls save_location() to
+</I>&gt;<i> update the contact in the registrar, but this fails because the
+</I>&gt;<i> save_location function requires a Contact header to be present and a
+</I>&gt;<i> MESSAGE does not contain such header. The function isc_check_find()
+</I>&gt;<i> (isc/checker.c) queries the registrar and no record is found, therefore
+</I>&gt;<i> fails to evaluate the triggers.
+</I>&gt;<i>
+</I>&gt;<i> A solution is to create an alternative save_location() function that
+</I>&gt;<i> stores a contact for assignment_type = AVP_IMS_SAR_UNREGISTERED_USER,
+</I>&gt;<i> because Contact headers are irrelevant in these cases.
+</I>&gt;<i>
+</I>&gt;<i> Attached is a patch file.
+</I>&gt;<i>
+</I>&gt;<i> Best regards,
+</I>&gt;<i> 	Fabian
+</I>&gt;<i>
+</I>&gt;<i> This e-mail and its contents are subject to the DISCLAIMER at <A HREF="http://www.tno.nl/disclaimer/email.html">http://www.tno.nl/disclaimer/email.html</A>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: scscf_unreg_user.diff
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071211/d2a091ad/attachment.ksh">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071211/d2a091ad/attachment.ksh</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001101.html">[OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile	is not executed
+</A></li>
+	<LI>Next message: <A HREF="001103.html">[OpenIMSCore-CSCF] On MESSAGE unregistered user's service profile is not executed
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1102">[ date ]</a>
+              <a href="thread.html#1102">[ thread ]</a>
+              <a href="subject.html#1102">[ subject ]</a>
+              <a href="author.html#1102">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

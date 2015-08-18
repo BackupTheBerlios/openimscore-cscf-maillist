@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 2 Service-Route headers in case of THIG and	roaming
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%202%20Service-Route%20headers%20in%20case%20of%20THIG%20and%0A%09roaming&In-Reply-To=%3C000b01c731e5%24ee2f7d70%240200a8c0%40notebookFE%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000109.html">
+   <LINK REL="Next"  HREF="000112.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 2 Service-Route headers in case of THIG and	roaming</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%202%20Service-Route%20headers%20in%20case%20of%20THIG%20and%0A%09roaming&In-Reply-To=%3C000b01c731e5%24ee2f7d70%240200a8c0%40notebookFE%3E"
+       TITLE="[OpenIMSCore-CSCF] 2 Service-Route headers in case of THIG and	roaming">franz.edler at inode.at
+       </A><BR>
+    <I>Sat Jan  6 23:56:36 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000109.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r83 - ser_ims/trunk/modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000112.html">[OpenIMSCore-CSCF] 2 Service-Route headers in case of THIG	androaming
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#111">[ date ]</a>
+              <a href="thread.html#111">[ thread ]</a>
+              <a href="subject.html#111">[ subject ]</a>
+              <a href="author.html#111">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I just tested I-CSCF-THIG and discovered the following issue:
+
+In case of roaming and an I-CSCF-THIG is involved two Service-Route header
+fields are created by the S-CSCF (one for &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at scscf</A>&quot; and an additional for
+&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">thig at icscf</A>&quot;). 
+
+I think this is a bug. One Service-Route should be sufficient.
+As can further be seen only one Service-Route is enforced by the P-CSCF.
+
+I have enclosed the tcpdump-files and SIP-scenario traces for both networks
+(net1.test and net2.test).
+The traces cover the following steps:
+- registration of sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at net2.test</A> in net1
+- registration of sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at net1.test</A> in net2
+- sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at net1.test</A> invites sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at net2.test</A>
+
+cheers
+-franz
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: osims8029.zip
+Type: application/x-zip-compressed
+Size: 34284 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070106/05776202/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070106/05776202/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000109.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r83 - ser_ims/trunk/modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000112.html">[OpenIMSCore-CSCF] 2 Service-Route headers in case of THIG	androaming
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#111">[ date ]</a>
+              <a href="thread.html#111">[ thread ]</a>
+              <a href="subject.html#111">[ subject ]</a>
+              <a href="author.html#111">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

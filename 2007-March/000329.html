@@ -1,0 +1,365 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P-Visited-Network-ID header missing
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-Visited-Network-ID%20header%20missing&In-Reply-To=%3C089781E831473740B23334AE52636CD3D2EE41%40SINBNGEX001.TechMahindra.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000326.html">
+   <LINK REL="Next"  HREF="000330.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P-Visited-Network-ID header missing</H1>
+    <B>Nagaraj K</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-Visited-Network-ID%20header%20missing&In-Reply-To=%3C089781E831473740B23334AE52636CD3D2EE41%40SINBNGEX001.TechMahindra.com%3E"
+       TITLE="[OpenIMSCore-CSCF] P-Visited-Network-ID header missing">knraj at TechMahindra.com
+       </A><BR>
+    <I>Thu Mar 15 13:46:53 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000326.html">[OpenIMSCore-CSCF] FHoSS Compilation problem!!
+</A></li>
+        <LI>Next message: <A HREF="000330.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r198 - Comment for unimplemented	methods.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#329">[ date ]</a>
+              <a href="thread.html#329">[ thread ]</a>
+              <a href="subject.html#329">[ subject ]</a>
+              <a href="author.html#329">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+
+Thanks Miguel.
+
+I have removed sip: in the
+
+ &lt;OUTBOUND_PROXY value=&quot;sip:pcscf.open-ims.test:4060/UDP&quot;/&gt; parameter.
+
+Then I got the following response.
+
+SIP/2.0 403 Forbidden - HSS returned no authentication vectors
+
+Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">99db38d75d12561d1cf59c721a0a48c2 at 10.20.2.189</A>
+
+CSeq: 1 REGISTER
+
+From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=23438274
+
+To: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=d7837ce6bbd631122d10546eb75bb4cf-bde4
+
+Via: SIP/2.0/UDP
+10.20.2.189:5062;rport=5062;branch=z9hG4bKa2c443c780f8b3cea1de87cee7a7fb
+22
+
+Path: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term at pcscf.open-ims.test</A>:4060;lr&gt;
+
+Server: Sip EXpress router (2.1.0-dev1-OpenIMSCore (i386/linux))
+
+Warning: 392 127.0.0.1:6060 &quot;Noisy feedback tells:  pid=1439
+req_src_ip=127.0.0.1 req_src_port=5060
+in_uri=sip:scscf.open-ims.test:6060 out_uri=sip:scscf.open-ims.test:6060
+via_cnt==3&quot;
+
+Content-Length: 0
+
+I thing it resolved the issue P-Visited-Network-ID header missing.
+
+If then how to solve the Forbidden - HSS returned no authentication
+vectors message.
+
+Regards,
+
+Naga
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+________________________________
+
+From: Miguel Freitas [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">a23875 at gmail.com</A>] 
+Sent: Thursday, March 15, 2007 5:59 PM
+To: Nagaraj K
+Subject: Re: [OpenIMSCore-CSCF] P-Visited-Network-ID header missing
+
+ 
+
+Yes, it appears to be correct (if the DNS lookup resolves the
+pcscf.open-ims.test name to the correct address).
+Can you provide a network trace from the Register attempt, as Dragos
+asked, and send it also to the berlios list? 
+
+Thank you,
+Miguel Freitas
+
+On 3/15/07, Nagaraj K &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">knraj at techmahindra.com</A>&gt; wrote:
+
+Hi,
+
+&lt;javax&gt;
+
+    &lt;sip&gt;
+
+                &lt;IP_ADDRESS value=&quot;10.20.2.189&quot;/&gt;
+
+        &lt;STACK_NAME value=&quot;sip-communicator&quot;/&gt;
+
+        &lt;ROUTER_PATH
+value=&quot;net.java.sip.communicator.sip.SipCommRouter&quot;/&gt;
+
+        &lt;!-- important: sip outbound proxy format is
+&lt;address&gt;:&lt;port&gt;/&lt;transport&gt; --&gt;
+
+                &lt;OUTBOUND_PROXY
+value=&quot;sip:pcscf.open-ims.test:4060/UDP&quot;/&gt;
+
+	        &lt;RETRANSMISSON_FILTER value=&quot;&quot;/&gt;
+
+	        &lt;EXTENSION_METHODS value=&quot;&quot;/&gt;
+
+	        &lt;RETRANSMISSION_FILTER value=&quot;true&quot;/&gt;
+
+	    &lt;/sip&gt;
+
+	&lt;/javax&gt;
+
+	Am I correct?
+
+	If im right, I have done it before I post the first message.
+
+	Then what else went wrong?
+
+	 
+
+	Regards,
+
+	Naga
+
+	 
+
+	
+________________________________
+
+
+	From: Miguel Freitas [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">a23875 at gmail.com</A>] 
+	Sent: Thursday, March 15, 2007 4:12 PM
+	To: Nagaraj K
+	Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+	Subject: Re: [OpenIMSCore-CSCF] P-Visited-Network-ID header
+missing
+
+	 
+
+	
+	In IMS-Communicator, you can set up the outbound proxy in the
+property &lt;java.sip.OUTBOUND_PROXY&gt; (ims-communicator.xml file)
+	The format is &quot;address:port/transport&quot;
+	
+	Miguel Freitas
+
+	On 3/14/07, Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt;
+wrote:
+
+	Could you please send a network trace?
+	
+	I am suspecting that you are not using the P-CSCF as an outbound
+	proxy... am I right?
+	
+	-Dragos
+	
+	Nagaraj K wrote:
+	&gt;
+	&gt; Hello all,
+	&gt;
+	&gt; I have installed all the IMS components. All components
+connected 
+	&gt; successfully.
+	&gt;
+	&gt; But when I try to test with ims client(ims-communicator) the
+following
+	&gt; error message comes
+	&gt;
+	&gt;
+	&gt;
+	&gt; SIP/2.0 400 Bad Request - P-Visited-Network-ID header missing 
+	&gt;
+	&gt; Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">716d30786cc99ed898557f4a26ae0618 at 10.20.2.189</A>
+	&gt;
+	&gt; CSeq: 1 REGISTER
+	&gt;
+	&gt; From: &quot;bob&quot; &lt; sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>
+&lt;mailto:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt; &gt;;tag=23438274
+	&gt;
+	&gt; To: &quot;bob&quot;
+	&gt;
+&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;;tag=a6a1c5f60faecf035a1ae5b6e96e979a-e8b2
+	&gt;
+	&gt; Via: SIP/2.0/UDP 
+	&gt;
+10.20.2.189:5062;branch=z9hG4bK32b5139b1ebf84a5d68feea665a8861e
+	&gt;
+	&gt; Server: Sip EXpress router (2.1.0-dev1-OpenIMSCore
+(i386/linux))
+	&gt;
+	&gt; Warning: 392 127.0.0.1:5060 &quot;Noisy feedback tells:  pid=29392
+	&gt; req_src_ip=10.20.2.189 req_src_port=5060
+in_uri=sip:open-ims.test
+	&gt; out_uri=sip:open-ims.test via_cnt==2&quot;
+	&gt;
+	&gt; Content-Length: 0
+	&gt;
+	&gt;
+	&gt;
+	&gt; Pls provide me assistance..
+	&gt;
+	&gt;
+	&gt;
+	&gt; Regards,
+	&gt;
+	&gt; Naga
+	&gt;
+	&gt;
+========================================================================
+==================================================== 
+	&gt;
+	&gt; Tech Mahindra, formerly Mahindra-British Telecom.
+	&gt;
+	&gt; Disclaimer:
+	&gt;
+	&gt; This message and the information contained herein is
+proprietary and
+	&gt; confidential and subject to the Tech Mahindra policy
+statement, you 
+	&gt; may review at <A HREF="http://www.techmahindra.com/Disclaimer.html">http://www.techmahindra.com/Disclaimer.html</A>
+externally
+	&gt; and <A HREF="http://tim.techmahindra.com/Disclaimer.html">http://tim.techmahindra.com/Disclaimer.html</A> internally
+within Tech
+	&gt; Mahindra.
+	&gt;
+	&gt;
+========================================================================
+====================================================
+	&gt;
+	&gt;
+------------------------------------------------------------------------
+
+	&gt;
+	&gt; _______________________________________________
+	&gt; OpenIMSCore-CSCF mailing list
+	&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+	&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+	&gt;
+	
+	
+	--
+	-----------------------------------------
+	Dipl. Eng. Dragos Vingarzan
+	FOKUS/NGNI
+	Kaiserin-Augusta-Allee 31
+	10589 Berlin,Germany 
+	Phone +49 (0)30 - 3463 - 7385
+	Mobile +49 (0)163 - 159 - 5221
+	eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+	Web www.fokus.fraunhofer.de 
+	We could change the world if God would give us the source
+code...
+	
+-----------------------------------------------------------------
+	
+	_______________________________________________
+	OpenIMSCore-CSCF mailing list 
+	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A> 
+
+	
+	
+	
+	-- 
+	- - - -                                     - - - -
+	- Telecommunications Institute   -
+	- Instituto de Telecomunicacoes  -
+	- Aveiro, Portugal                         - 
+	- www.it.pt                                    -
+	- - - -                                     - - - - 
+
+========================================================================
+====================================================
+
+Tech Mahindra, formerly Mahindra-British Telecom.
+
+Disclaimer:
+
+This message and the information contained herein is proprietary and
+confidential and subject to the Tech Mahindra policy statement, you may
+review at <A HREF="http://www.techmahindra.com/Disclaimer.html">http://www.techmahindra.com/Disclaimer.html</A> externally and
+<A HREF="http://tim.techmahindra.com/Disclaimer.html">http://tim.techmahindra.com/Disclaimer.html</A> internally within Tech
+Mahindra.
+
+========================================================================
+====================================================
+
+
+
+
+-- 
+- - - -                                     - - - -
+- Telecommunications Institute   -
+- Instituto de Telecomunicacoes  -
+- Aveiro, Portugal                         -
+- www.it.pt                                    -
+- - - -                                     - - - - 
+
+
+
+============================================================================================================================
+
+Tech Mahindra, formerly Mahindra-British Telecom.
+ 
+Disclaimer:
+
+This message and the information contained herein is proprietary and confidential and subject to the Tech Mahindra policy statement, you may review at &lt;a href=&quot;<A HREF="http://www.techmahindra.com/Disclaimer.html">http://www.techmahindra.com/Disclaimer.html</A>&quot;&gt;<A HREF="http://www.techmahindra.com/Disclaimer.html&lt;/a">http://www.techmahindra.com/Disclaimer.html&lt;/a</A>&gt; externally and &lt;a href=&quot;<A HREF="http://tim.techmahindra.com/Disclaimer.html">http://tim.techmahindra.com/Disclaimer.html</A>&quot;&gt;<A HREF="http://tim.techmahindra.com/Disclaimer.html&lt;/a">http://tim.techmahindra.com/Disclaimer.html&lt;/a</A>&gt; internally within Tech Mahindra.
+
+============================================================================================================================
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070315/747a1742/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070315/747a1742/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000326.html">[OpenIMSCore-CSCF] FHoSS Compilation problem!!
+</A></li>
+	<LI>Next message: <A HREF="000330.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r198 - Comment for unimplemented	methods.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#329">[ date ]</a>
+              <a href="thread.html#329">[ thread ]</a>
+              <a href="subject.html#329">[ subject ]</a>
+              <a href="author.html#329">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

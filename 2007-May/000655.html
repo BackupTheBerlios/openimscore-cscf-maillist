@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] does Open IMS supports IPSec??
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20does%20Open%20IMS%20supports%20IPSec%3F%3F&In-Reply-To=%3C465C081C.3060701%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000614.html">
+   <LINK REL="Next"  HREF="000656.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] does Open IMS supports IPSec??</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20does%20Open%20IMS%20supports%20IPSec%3F%3F&In-Reply-To=%3C465C081C.3060701%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] does Open IMS supports IPSec??">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue May 29 13:01:48 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000614.html">[OpenIMSCore-CSCF] does Open IMS supports IPSec??
+</A></li>
+        <LI>Next message: <A HREF="000656.html">[OpenIMSCore-CSCF] does Open IMS supports IPSec??
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#655">[ date ]</a>
+              <a href="thread.html#655">[ thread ]</a>
+              <a href="subject.html#655">[ subject ]</a>
+              <a href="author.html#655">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Phani,
+
+I tried your script but it SIPp exits with a Segmentation Fault. I will
+try and search for my scripts and give you a trace. From your scenario I
+can tell you that it has some issues, like SIPp not listening on all
+those ports that you use in the Security-Client header. Also the spi
+values do not seem to be dynamic.
+
+-Dragos
+
+
+Phani Kumar wrote:
+&gt;<i> Yeah, I understood that OpenIMS is flexible such that it acts based on the client requests.
+</I>&gt;<i> I think it would be good to add few things to my previous mail, I had the security-client header in my sipp REGISTER request.
+</I>&gt;<i> In fact I received security-server header in 401 from the OpenIMS, but I couldn't see any SAs at OpenIMS side.
+</I>&gt;<i> I am adding the sipp scenario for your kind perusal.
+</I>&gt;<i>
+</I>&gt;<i> The other thing is I have tested the same using reSIProcate SIP stack 
+</I>&gt;<i> (of course, I added the required authorization and security-client headers) and ended with the same result.
+</I>&gt;<i>
+</I>&gt;<i> FYI...
+</I>&gt;<i> using reSIProcate I am able to register (using IMS-AKA method) with and without the security-client header
+</I>&gt;<i> but not getting the security-server header.
+</I>&gt;<i>
+</I>&gt;<i> -Phani Kumar
+</I>&gt;<i>
+</I>&gt;<i> On Tuesday 15 May 2007 18:39, Dragos Vingarzan wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Still I fail to see the use of those SAs even if you could set them up
+</I>&gt;&gt;<i> with just half of the information (other than having a way of doing a
+</I>&gt;&gt;<i> DoS attack on the P-CSCF ;-) ). The 3GPP specs ask that the only
+</I>&gt;&gt;<i> acceptable unencrypted messages would be the REGISTER requests.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> If you want them created, please provide a Security-Client header in the
+</I>&gt;&gt;<i> REGISTER message! If not, the OpenIMSCore would suppose that you do not
+</I>&gt;&gt;<i> support any security technology.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Phani Kumar wrote:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Thanks Dragos,
+</I>&gt;&gt;&gt;<i>         What you said could be true, but OpenIMS should create SAs and listen on the p-cssf server port for the secured messages I feel.
+</I>&gt;&gt;&gt;<i> During the registration process I could found no SAs at OpenIMS (FYI: I used &quot;setkey&quot; to dump the SAs). 
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Regards
+</I>&gt;&gt;&gt;<i> -Phani Kumar
+</I>&gt;&gt;&gt;<i> On Friday 11 May 2007 17:05, Dragos Vingarzan wrote:
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;&gt;&gt;<i> Hello Phani,
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> But it doesn't make any sense to have just half of the SAs... Then you
+</I>&gt;&gt;&gt;&gt;<i> won't be able to talk to the P-CSCF at all as it would wait for
+</I>&gt;&gt;&gt;&gt;<i> encrypted messages and SIPp will not encrypt them, or the P-CSCF will
+</I>&gt;&gt;&gt;&gt;<i> send them encrypted and SIPp won't be able to decrypt them...
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> The behavior of the P-CSCF is dynamic based on the presence/absence of
+</I>&gt;&gt;&gt;&gt;<i> the Security-Client headers.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> -Dragos
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Phani Kumar wrote:
+</I>&gt;&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;&gt;<i>         
+</I>&gt;&gt;&gt;&gt;&gt;<i> Hi all,
+</I>&gt;&gt;&gt;&gt;&gt;<i> 	I have tested openIMS with sipp client, which claims that it supports IMS-AKA registration and I was able to register.
+</I>&gt;&gt;&gt;&gt;&gt;<i> According to the 3GPP standards, the registration process should happen on the ports that are specified in the security
+</I>&gt;&gt;&gt;&gt;&gt;<i> client and server headers which should also use the IPSec for protecting the further messages. 
+</I>&gt;&gt;&gt;&gt;&gt;<i> 	
+</I>&gt;&gt;&gt;&gt;&gt;<i> 	Eventhough I was successful in registration, I couldn't find any security associations in both the systems. I can 
+</I>&gt;&gt;&gt;&gt;&gt;<i> observe that sipp doesn't support the IPSec SAs and all. But I couldn't find any reason for OpenIMS not creating the SAs. 
+</I>&gt;&gt;&gt;&gt;&gt;<i> Now can anyone please let me know whether OpenIMS is really supporting IPSec or not.
+</I>&gt;&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;&gt;<i> Regards,
+</I>&gt;&gt;&gt;&gt;&gt;<i> -Phani Kumar
+</I>&gt;&gt;&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;&gt;&gt;<i>       
+</I>&gt;&gt;&gt;&gt;&gt;<i>           
+</I>&gt;&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;&gt;<i>         
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i>     
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000614.html">[OpenIMSCore-CSCF] does Open IMS supports IPSec??
+</A></li>
+	<LI>Next message: <A HREF="000656.html">[OpenIMSCore-CSCF] does Open IMS supports IPSec??
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#655">[ date ]</a>
+              <a href="thread.html#655">[ thread ]</a>
+              <a href="subject.html#655">[ subject ]</a>
+              <a href="author.html#655">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

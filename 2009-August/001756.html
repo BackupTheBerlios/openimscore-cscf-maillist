@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r698 - Merged the	10_persistency_big branch into trunk: - implemented	incremental dump/retrieval of persistence data to/from files	- reorganized and split the functionality - also changes to	allow db operations in sip-router have been kept from the trunk
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r698%20-%20Merged%20the%0A%0910_persistency_big%20branch%20into%20trunk%3A%20-%20implemented%0A%09incremental%20dump/retrieval%20of%20persistence%20data%20to/from%20files%0A%09-%20reorganized%20and%20split%20the%20functionality%20-%20also%20changes%20to%0A%09allow%20db%20operations%20in%20sip-router%20have%20been%20kept%20from%20the%20trunk&In-Reply-To=%3C200908031305.n73D5J4S016381%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="001757.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r698 - Merged the	10_persistency_big branch into trunk: - implemented	incremental dump/retrieval of persistence data to/from files	- reorganized and split the functionality - also changes to	allow db operations in sip-router have been kept from the trunk</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r698%20-%20Merged%20the%0A%0910_persistency_big%20branch%20into%20trunk%3A%20-%20implemented%0A%09incremental%20dump/retrieval%20of%20persistence%20data%20to/from%20files%0A%09-%20reorganized%20and%20split%20the%20functionality%20-%20also%20changes%20to%0A%09allow%20db%20operations%20in%20sip-router%20have%20been%20kept%20from%20the%20trunk&In-Reply-To=%3C200908031305.n73D5J4S016381%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r698 - Merged the	10_persistency_big branch into trunk: - implemented	incremental dump/retrieval of persistence data to/from files	- reorganized and split the functionality - also changes to	allow db operations in sip-router have been kept from the trunk">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Mon Aug  3 15:05:19 CEST 2009</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="001757.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r699 - Deleted the	10_persistency_big as patched into the trunk at r698
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1756">[ date ]</a>
+              <a href="thread.html#1756">[ thread ]</a>
+              <a href="subject.html#1756">[ subject ]</a>
+              <a href="author.html#1756">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2009-08-03 15:05:06 +0200 (Mon, 03 Aug 2009)
+New Revision: 698 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=698">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=698</A> 
+
+Log:
+Merged the 10_persistency_big branch into trunk:
+- implemented incremental dump/retrieval of persistence data to/from files
+- reorganized and split the functionality
+- also changes to allow db operations in sip-router have been kept from the trunk
+
+Added:
+   A	ser_ims/trunk/modules/pcscf/bin_db_pcscf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_db_pcscf.c?rev=698&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_db_pcscf.c?rev=698&amp;view=markup</A>
+   A	ser_ims/trunk/modules/pcscf/bin_db_pcscf.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_db_pcscf.h?rev=698&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_db_pcscf.h?rev=698&amp;view=markup</A>
+   A	ser_ims/trunk/modules/pcscf/bin_file.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_file.c?rev=698&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_file.c?rev=698&amp;view=markup</A>
+   A	ser_ims/trunk/modules/pcscf/bin_file.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_file.h?rev=698&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_file.h?rev=698&amp;view=markup</A>
+   A	ser_ims/trunk/modules/scscf/bin_db_scscf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_db_scscf.c?rev=698&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_db_scscf.c?rev=698&amp;view=markup</A>
+   A	ser_ims/trunk/modules/scscf/bin_db_scscf.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_db_scscf.h?rev=698&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_db_scscf.h?rev=698&amp;view=markup</A>
+   A	ser_ims/trunk/modules/scscf/bin_file.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_file.c?rev=698&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_file.c?rev=698&amp;view=markup</A>
+   A	ser_ims/trunk/modules/scscf/bin_file.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_file.h?rev=698&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_file.h?rev=698&amp;view=markup</A>
+Modified:
+   U	ser_ims/trunk/modules/pcscf/bin_pcscf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_pcscf.c?rev=698&amp;view=diff&amp;r1=698&amp;r2=697">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_pcscf.c?rev=698&amp;view=diff&amp;r1=698&amp;r2=697</A>
+   U	ser_ims/trunk/modules/pcscf/bin_pcscf.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_pcscf.h?rev=698&amp;view=diff&amp;r1=698&amp;r2=697">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_pcscf.h?rev=698&amp;view=diff&amp;r1=698&amp;r2=697</A>
+   U	ser_ims/trunk/modules/pcscf/p_persistency.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/p_persistency.c?rev=698&amp;view=diff&amp;r1=698&amp;r2=697">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/p_persistency.c?rev=698&amp;view=diff&amp;r1=698&amp;r2=697</A>
+   U	ser_ims/trunk/modules/pcscf/p_persistency.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/p_persistency.h?rev=698&amp;view=diff&amp;r1=698&amp;r2=697">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/p_persistency.h?rev=698&amp;view=diff&amp;r1=698&amp;r2=697</A>
+   U	ser_ims/trunk/modules/scscf/bin.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin.c?rev=698&amp;view=diff&amp;r1=698&amp;r2=697">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin.c?rev=698&amp;view=diff&amp;r1=698&amp;r2=697</A>
+   U	ser_ims/trunk/modules/scscf/bin.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin.h?rev=698&amp;view=diff&amp;r1=698&amp;r2=697">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin.h?rev=698&amp;view=diff&amp;r1=698&amp;r2=697</A>
+   U	ser_ims/trunk/modules/scscf/s_persistency.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/s_persistency.c?rev=698&amp;view=diff&amp;r1=698&amp;r2=697">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/s_persistency.c?rev=698&amp;view=diff&amp;r1=698&amp;r2=697</A>
+   U	ser_ims/trunk/modules/scscf/s_persistency.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/s_persistency.h?rev=698&amp;view=diff&amp;r1=698&amp;r2=697">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/s_persistency.h?rev=698&amp;view=diff&amp;r1=698&amp;r2=697</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="001757.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r699 - Deleted the	10_persistency_big as patched into the trunk at r698
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1756">[ date ]</a>
+              <a href="thread.html#1756">[ thread ]</a>
+              <a href="subject.html#1756">[ subject ]</a>
+              <a href="author.html#1756">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

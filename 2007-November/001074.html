@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ACK%20to%20404%20resulting%20in%20SAR%20unregistered-user&In-Reply-To=%3C474DE8C0.5080902%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001080.html">
+   <LINK REL="Next"  HREF="001072.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ACK%20to%20404%20resulting%20in%20SAR%20unregistered-user&In-Reply-To=%3C474DE8C0.5080902%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Nov 28 23:16:32 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001080.html">[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+</A></li>
+        <LI>Next message: <A HREF="001072.html">[OpenIMSCore-CSCF] RTR tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1074">[ date ]</a>
+              <a href="thread.html#1074">[ thread ]</a>
+              <a href="subject.html#1074">[ subject ]</a>
+              <a href="author.html#1074">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Could you please send me a trace? Normally ACKs have Routes when the
+response was 200 so that they can be identified... but not for &gt;=300...
+in which case the tm module should handle them hop-by-hop...
+
+-Dragos
+
+Jo&#227;o Filipe Pl&#225;cido wrote:
+&gt;<i> Hi all, Dragos,
+</I>&gt;<i>
+</I>&gt;<i> We noticed the following situation:
+</I>&gt;<i>
+</I>&gt;<i> - using two different S-CSCFs
+</I>&gt;<i> - call from bob to alice
+</I>&gt;<i> - bob is registered in S-CSCF1
+</I>&gt;<i> - alice is not registered
+</I>&gt;<i> - the terminating S-CSCF (S-CSCF2 selected by I-CSCF according to the
+</I>&gt;<i> capabilities sent by the HSS) sends back a 404 Not Found (after
+</I>&gt;<i> triggering an AS responsible for unregistered-user services that
+</I>&gt;<i> didn't do anything but loose-route)
+</I>&gt;<i> - when this 404 reaches originating P-CSCF, it sends an ACK to the
+</I>&gt;<i> originating S-CSCF (S-CSCF1)
+</I>&gt;<i> - S-CSCF1 is treating this ACK as if it was an INVITE (sending a SAR
+</I>&gt;<i> with Server-Assignment-Type==Unregistered-User)
+</I>&gt;<i>
+</I>&gt;<i> We need to further distinguish ACKs in the routing logic and/or make
+</I>&gt;<i> them carry orig indications when appropriate.
+</I>&gt;<i>
+</I>&gt;<i> We'll try to look further into this, but meanwhile it's recorded here.
+</I>&gt;<i>
+</I>&gt;<i> JF
+</I>&gt;<i> --
+</I>&gt;<i> PT Inova&#231;&#227;o
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001080.html">[OpenIMSCore-CSCF] ACK to 404 resulting in SAR unregistered-user
+</A></li>
+	<LI>Next message: <A HREF="001072.html">[OpenIMSCore-CSCF] RTR tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1074">[ date ]</a>
+              <a href="thread.html#1074">[ thread ]</a>
+              <a href="subject.html#1074">[ subject ]</a>
+              <a href="author.html#1074">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

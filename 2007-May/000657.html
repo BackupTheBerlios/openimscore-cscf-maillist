@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Problems with PUBLISH and SUBSCRIBE methods
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Problems%20with%20PUBLISH%20and%20SUBSCRIBE%20methods&In-Reply-To=%3C465C1024.7050308%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000650.html">
+   <LINK REL="Next"  HREF="000659.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Problems with PUBLISH and SUBSCRIBE methods</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Problems%20with%20PUBLISH%20and%20SUBSCRIBE%20methods&In-Reply-To=%3C465C1024.7050308%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Problems with PUBLISH and SUBSCRIBE methods">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue May 29 13:36:04 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000650.html">[OpenIMSCore-CSCF] Problems with PUBLISH and SUBSCRIBE methods
+</A></li>
+        <LI>Next message: <A HREF="000659.html">[OpenIMSCore-CSCF] Problems with PUBLISH and SUBSCRIBE methods
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#657">[ date ]</a>
+              <a href="thread.html#657">[ thread ]</a>
+              <a href="subject.html#657">[ subject ]</a>
+              <a href="author.html#657">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Franz,
+
+Actually the messages were correct. The Request-URI/Routes are OK. The
+issue might be that the messages were not recognized as part of the
+already established SUBSCRIBE dialogs. For subsequent messages the CSCF
+should just route based on the Route headers and if none left on
+Request-URI.
+
+
+-Dragos
+
+Franz Edler wrote:
+&gt;<i> Hi Richard,
+</I>&gt;<i>
+</I>&gt;<i> in the first case 
+</I>&gt;<i>  
+</I>&gt;<i>   
+</I>&gt;&gt;<i> SIP/2.0 403 Forbidden - Dialog not found on S-CSCF or Terminating user not
+</I>&gt;&gt;<i> suitable for unregistered services
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> You should change the domain name in the RURI of the NOTIFY request to
+</I>&gt;<i> &quot;open-ims.test&quot; instead of &quot;10.128.1.191:5061&quot;, because it is the task of
+</I>&gt;<i> the S-CSCF to find the correct terminating route to the UE.
+</I>&gt;<i> (You can check the relevant code in scscf.cfg to see why the error is
+</I>&gt;<i> generated).
+</I>&gt;<i>
+</I>&gt;<i> and in the second case
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> ... the P-CSCF replies with:
+</I>&gt;&gt;<i> SIP/2.0 403 Forbidden - Not Registered! You must register first with a S-
+</I>&gt;&gt;<i> CSCF
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> you again try to find the point in pcscf.cfg, where the problem occurs.
+</I>&gt;<i> There are 3 statements in pcscf.cfg generating the reponse &quot;403 Forbidden -
+</I>&gt;<i> Not Registered! You must register first with a S-CSCF&quot;. 
+</I>&gt;<i> Use some debug statements &quot;log(...)&quot; to find the point in code where the
+</I>&gt;<i> problem occurs or generally increase the debug level.
+</I>&gt;<i>
+</I>&gt;<i> If you include the pcscf-log it should perhaps become obvious why the second
+</I>&gt;<i> NOTIFY is not forwarded by P-CSCF.
+</I>&gt;<i>
+</I>&gt;<i> Cheers
+</I>&gt;<i> FRanz
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000650.html">[OpenIMSCore-CSCF] Problems with PUBLISH and SUBSCRIBE methods
+</A></li>
+	<LI>Next message: <A HREF="000659.html">[OpenIMSCore-CSCF] Problems with PUBLISH and SUBSCRIBE methods
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#657">[ date ]</a>
+              <a href="thread.html#657">[ thread ]</a>
+              <a href="subject.html#657">[ subject ]</a>
+              <a href="author.html#657">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,491 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Error opening connection to to 211.69.198.221	port 3868 &gt;Connection refused
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Error%20opening%20connection%20to%20to%20211.69.198.221%0A%09port%203868%20%3EConnection%20refused&In-Reply-To=%3CCANELGZTRtAeSLweVyAE5z09ZTJ9S7BLD4XzgXozf--_cwUq9Qg%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002662.html">
+   <LINK REL="Next"  HREF="002664.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Error opening connection to to 211.69.198.221	port 3868 &gt;Connection refused</H1>
+    <B>&#37041;&#39134;</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Error%20opening%20connection%20to%20to%20211.69.198.221%0A%09port%203868%20%3EConnection%20refused&In-Reply-To=%3CCANELGZTRtAeSLweVyAE5z09ZTJ9S7BLD4XzgXozf--_cwUq9Qg%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Error opening connection to to 211.69.198.221	port 3868 &gt;Connection refused">qiufei230 at gmail.com
+       </A><BR>
+    <I>Tue Sep 13 10:23:11 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002662.html">[OpenIMSCore-CSCF] problems during run scscf
+</A></li>
+        <LI>Next message: <A HREF="002664.html">[OpenIMSCore-CSCF] Error opening connection to to	211.69.198.221	port 3868 &gt;Connection refused
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2663">[ date ]</a>
+              <a href="thread.html#2663">[ thread ]</a>
+              <a href="subject.html#2663">[ subject ]</a>
+              <a href="author.html#2663">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>*Hello!
+Thanks very much for last reply. Now I can run pcscf , icscf and scscf in a
+machine corretly. But still encounted some problem ,please look at the
+console's result:**
+
+the output of running pcscf(with no problem):
+*
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at datanode3</A> cfg]# ./pcscf.sh
+Listening on
+             udp: 211.69.198.67 [211.69.198.67]:4060
+             tcp: 211.69.198.67 [211.69.198.67]:4060
+Aliases:
+             tcp: datanode3:4060
+             udp: datanode3:4060
+             *: pcscf.open-ims.test:4060
+
+ 0(20998) init_tcp: using epoll_lt as the io watch method (auto detected)
+ 0(20998) Maxfwd module- initializing
+ 0(20998) INFO:P-CSCF:mod_init: Initialization of module
+ 0(20998) INFO: udp_init: SO_RCVBUF is initially 110592
+ 0(20998) INFO: udp_init: SO_RCVBUF is finally 262142
+ 1(20999) INFO:P-CSCF:mod_init: Initialization of module in child [1]
+ 2(21000) INFO:P-CSCF:mod_init: Initialization of module in child [2]
+ 3(21001) INFO:P-CSCF:mod_init: Initialization of module in child [3]
+ 4(21002) INFO:P-CSCF:mod_init: Initialization of module in child [4]
+ 5(21003) INFO:P-CSCF:mod_init: Initialization of module in child [-1]
+ 6(21004) INFO:P-CSCF:mod_init: Initialization of module in child [-1]
+ 0(20998) INFO:P-CSCF:mod_init: Initialization of module in child [0]
+ 7(21005) INFO:P-CSCF:mod_init: Initialization of module in child [5]
+ 8(21006) INFO:P-CSCF:mod_init: Initialization of module in child [6]
+ 9(21007) INFO:P-CSCF:mod_init: Initialization of module in child [7]
+10(21008) INFO:P-CSCF:mod_init: Initialization of module in child [8]
+11(21009) INFO:P-CSCF:mod_init: Initialization of module in child [-4]
+ 5(21003) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(21003) INF:P-CSCF:----------  Registrar Contents end ----------
+ 5(21003) INF:P-CSCF:----------  Subscription list begin ---------
+ 5(21003) INF:P-CSCF:----------  Subscription list end -----------
+ 5(21003) INF:P-CSCF:----------  Registrar Contents begin --------
+ 5(21003) INF:P-CSCF:----------  Registrar Contents end ----------
+ 5(21003) INF:P-CSCF:----------  Subscription list begin ---------
+ 5(21003) INF:P-CSCF:----------  Subscription list end -----------
+*
+the output of running icscf(with no problem):*
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at datanode3</A> cfg]# ./icscf.sh
+Listening on
+             udp: 211.69.198.67 [211.69.198.67]:5060
+             tcp: 211.69.198.67 [211.69.198.67]:5060
+Aliases:
+             tcp: datanode3:5060
+             udp: datanode3:5060
+             *: open-ims.test:*
+             *: icscf.open-ims.test:*
+
+ 0(20962) init_tcp: using epoll_lt as the io watch method (auto detected)
+ 0(20962) Maxfwd module- initializing
+ 0(20962) INFO:I-CSCF:mod_init: Initialization of module
+ 0(20962) INF:I-CSCF:icscf_db_get_nds: Loaded 1 trusted domains
+ 0(20962) INF:I-CSCF:icscf_db_get_capabilities: Loaded 2 capabilities for 1
+S-CSCFs (0 invalid entries in db)
+ 0(20962) Twofish encryption ready
+ 0(20962) INFO:cdp:cdp_init(): CDiameterPeer initializing
+ 0(20962) Diameter Peer Config:
+ 0(20962)       FQDN    : icscf.open-ims.test
+ 0(20962)       Realm   : open-ims.test
+ 0(20962)       VendorID: 10415
+ 0(20962)       ProdName: CDiameterPeer
+ 0(20962)       AcceptUn: [X]
+ 0(20962)       DropUnkn: [X]
+ 0(20962)       Tc      : 30
+ 0(20962)       Workers : 4
+ 0(20962)       QueueLen: 8
+ 0(20962)       Peers : 1
+ 0(20962)               FQDN:  hss.open-ims.test         Realm:
+open-ims.test    Port: 3868
+ 0(20962)       Acceptors : 1
+ 0(20962)               Port:  3869      Bind: 211.69.198.67
+ 0(20962)       Applications : 3
+ 0(20962)               Auth ID:  16777216       Vendor: 10415
+ 0(20962)               Auth ID:  16777216       Vendor: 4491
+ 0(20962)               Auth ID:  16777216       Vendor: 13019
+ 0(20962)       Routing Table :
+ 0(20962)               DefaultRoute: [  10] hss.open-ims.test
+ 0(20962) INFO: udp_init: SO_RCVBUF is initially 110592
+ 0(20962) INFO: udp_init: SO_RCVBUF is finally 262142
+ 1(20964) INFO:I-CSCF:mod_init: Initialization of module in child [1]
+ 2(20965) INFO:I-CSCF:mod_init: Initialization of module in child [2]
+ 3(20966) INFO:I-CSCF:mod_init: Initialization of module in child [3]
+ 4(20967) INFO:I-CSCF:mod_init: Initialization of module in child [4]
+receiver child=3 sock=211.69.198.67:5060
+ 5(20968) INFO:I-CSCF:mod_init: Initialization of module in child [-1]
+ 6(20969) INFO:I-CSCF:mod_init: Initialization of module in child [-1]
+ 0(20962) INFO:I-CSCF:mod_init: Initialization of module in child [0] main
+ 0(20962) INFO:cdp:cdp_child_init(): CDiameterPeer starting ...
+ 7(20970) INFO:I-CSCF:mod_init: Initialization of module in child [1000]
+ 7(20970) INFO:Acceptor process starting up...
+ 7(20970) INFO:create_socket(): Trying to open/bind/listen on 211.69.198.67
+port 3869
+ 7(20970) INFO:create_socket(): Successful socket open/bind/listen on
+211.69.198.67 port 3869
+ 7(20970) INFO:... Acceptor opened sockets. Entering accept loop ...
+ 8(20971) INFO:I-CSCF:mod_init: Initialization of module in child [1001]
+ 8(20971) INFO:[0] Worker process started...
+ 9(20972) INFO:I-CSCF:mod_init: Initialization of module in child [1002]
+ 9(20972) INFO:[1] Worker process started...
+10(20973) INFO:I-CSCF:mod_init: Initialization of module in child [1003]
+10(20973) INFO:[2] Worker process started...
+11(20974) INFO:I-CSCF:mod_init: Initialization of module in child [1004]
+cdp_worker
+11(20974) INFO:[3] Worker process started...
+12(20975) INFO:I-CSCF:mod_init: Initialization of module in child [1001]
+ 0(20962) INFO:cdp:cdp_child_init(): ... CDiameterPeer started
+12(20975) INFO:Timer process starting up...
+13(20976) INFO:I-CSCF:mod_init: Initialization of module in child [5]
+14(20977) INFO:I-CSCF:mod_init: Initialization of module in child [6]
+15(20978) INFO:I-CSCF:mod_init: Initialization of module in child [7] tcp
+receiver child=2
+16(20979) INFO:I-CSCF:mod_init: Initialization of module in child [8] tcp
+receiver child=3
+17(20980) INFO:I-CSCF:mod_init: Initialization of module in child [-4] tcp
+main process
+12(20975) DBG:peer_timer(): Peer hss.open-ims.test      State 0
+12(20975) DBG:sm_process(): Peer hss.open-ims.test      State Closed
+Event Start
+12(20975) DBG:I_Snd_Conn_Req(): Peer hss.open-ims.test
+12(20975) INFO:peer_connect(): Trying to connect to 211.69.198.221 port 3868
+12(20975) WARNING:peer_connect(): Error opening connection to to
+211.69.198.221 port 3868 &gt;Connection refused
+12(20975) DBG:sm_process(): Peer hss.open-ims.test      State
+Wait_Conn_Ack     Event I_Rcv_Conn_NAck
+12(20975) --- Peer List: ---
+12(20975)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(20975) ------------------
+12(20975) --- Peer List: ---
+12(20975)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(20975) ------------------
+12(20975) --- Peer List: ---
+12(20975)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(20975) ------------------
+12(20975) --- Peer List: ---
+12(20975)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(20975) ------------------
+12(20975) --- Peer List: ---
+12(20975)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(20975) ------------------
+12(20975) --- Peer List: ---
+12(20975)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(20975) ------------------
+12(20975) --- Peer List: ---
+12(20975)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(20975) ------------------
+12(20975) --- Peer List: ---
+12(20975)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(20975) ------------------
+ 7(20970) INFO:accept_connection(): new tcp connection accepted!
+18(20981) INFO:I-CSCF:mod_init: Initialization of module in child [13]
+18(20981) INFO:receiver_process(): [15] Receiver process starting up...
+18(20981) DBG:sm_process(): Peer hss.open-ims.test      State Closed
+Event R_Conn_CER
+18(20981) --- Peer List: ---
+18(20981)  S[R_Open] hss.open-ims.test:3868 D[ ]
+18(20981)        [16777216,10415]
+18(20981)        [16777216,4491]
+18(20981)        [16777216,13019]
+18(20981)        [16777217,10415]
+18(20981)        [16777221,10415]
+18(20981) ------------------
+ 7(20970) INFO:accept_connection(): Receiver process forked [20981]
+12(20975) --- Peer List: ---
+12(20975)  S[R_Open] hss.open-ims.test:3868 D[ ]
+12(20975)        [16777216,10415]
+12(20975)        [16777216,4491]
+12(20975)        [16777216,13019]
+12(20975)        [16777217,10415]
+12(20975)        [16777221,10415]
+12(20975) ------------------
+12(20975) --- Peer List: ---
+12(20975)  S[R_Open] hss.open-ims.test:3868 D[ ]
+12(20975)        [16777216,10415]
+12(20975)        [16777216,4491]
+12(20975)        [16777216,13019]
+12(20975)        [16777217,10415]
+12(20975)        [16777221,10415]
+12(20975) ------------------
+12(20975) --- Peer List: ---
+12(20975)  S[R_Open] hss.open-ims.test:3868 D[ ]
+12(20975)        [16777216,10415]
+12(20975)        [16777216,4491]
+12(20975)        [16777216,13019]
+12(20975)        [16777217,10415]
+12(20975)        [16777221,10415]
+12(20975) ------------------
+
+
+
+*the output of running scscf(with problem which is maked by red color):*
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at datanode3</A> cfg]# ./scscf.sh
+Listening on
+             udp: 211.69.198.67 [211.69.198.67]:6060
+             tcp: 211.69.198.67 [211.69.198.67]:6060
+Aliases:
+             tcp: datanode3:6060
+             udp: datanode3:6060
+             *: scscf.open-ims.test:6060
+
+ 0(21023) init_tcp: using epoll_lt as the io watch method (auto detected)
+ 0(21023) Maxfwd module- initializing
+ 0(21023) INFO:S-CSCF:mod_init: Initialization of module
+ 0(21023) INFO:ISC: - init
+ 0(21023) INFO:cdp:cdp_init(): CDiameterPeer initializing
+ 0(21023) Diameter Peer Config:
+ 0(21023)       FQDN    : scscf.open-ims.test
+ 0(21023)       Realm   : open-ims.test
+ 0(21023)       VendorID: 10415
+ 0(21023)       ProdName: CDiameterPeer
+ 0(21023)       AcceptUn: [X]
+ 0(21023)       DropUnkn: [X]
+ 0(21023)       Tc      : 30
+ 0(21023)       Workers : 4
+ 0(21023)       QueueLen: 8
+ 0(21023)       Peers : 1
+ 0(21023)               FQDN:  hss.open-ims.test         Realm:
+open-ims.test    Port: 3868
+ 0(21023)       Acceptors : 1
+ 0(21023)               Port:  3870      Bind: 127.0.0.1
+ 0(21023)       Applications : 3
+ 0(21023)               Auth ID:  16777216       Vendor: 10415
+ 0(21023)               Auth ID:  16777216       Vendor: 4491
+ 0(21023)               Auth ID:  16777216       Vendor: 13019
+ 0(21023)       Routing Table :
+ 0(21023)               DefaultRoute: [  10] hss.open-ims.test
+ 0(21023) INFO: udp_init: SO_RCVBUF is initially 110592
+ 0(21023) INFO: udp_init: SO_RCVBUF is finally 262142
+ 1(21024) INFO:S-CSCF:mod_child_init: Initialization of module in child [1]
+ 2(21025) INFO:S-CSCF:mod_child_init: Initialization of module in child [2]
+ 3(21026) INFO:S-CSCF:mod_child_init: Initialization of module in child [3]
+ 4(21027) INFO:S-CSCF:mod_child_init: Initialization of module in child [4]
+ 5(21028) INFO:S-CSCF:mod_child_init: Initialization of module in child [-1]
+
+ 3(21026) INFO:ISC: - child init [3]
+ 6(21029) INFO:S-CSCF:mod_child_init: Initialization of module in child [-1]
+
+ 0(21023) INFO:S-CSCF:mod_child_init: Initialization of module in child [0]
+ 0(21023)  2(21025)  1(21024)  4(21027) INFO:ISC: - child init [4]
+INFO:ISC: - child init [0]
+ 0(21023) INFO:cdp:cdp_child_init(): CDiameterPeer starting ...
+INFO:ISC: - child init [2]
+INFO:ISC: - child init [1]
+ 5(21028) INFO:ISC: - child init [-1]
+ 7(21030) INFO:S-CSCF:mod_child_init: Initialization of module in child
+[1000]
+ 8(21031) INFO:S-CSCF:mod_child_init: Initialization of module in child
+[1001]
+ 6(21029)  9(21032) INFO:S-CSCF:mod_child_init: Initialization of module in
+child [1002]
+ 7(21030) INFO:ISC: - child init [1000]
+ 7(21030) INFO:Acceptor process starting up...
+ 7(21030) INFO:create_socket(): Trying to open/bind/listen on 127.0.0.1 port
+3870
+ 7(21030) INFO:create_socket(): Successful socket open/bind/listen on
+127.0.0.1 port 3870
+ 7(21030) INFO:... Acceptor opened sockets. Entering accept loop ...
+ 9(21032) INFO:ISC: - child init [1002]
+ 9(21032) INFO:[1] Worker process started...
+10(21033) INFO:S-CSCF:mod_child_init: Initialization of module in child
+[1003]
+11(21034) 12(21035) INFO:S-CSCF:mod_child_init: Initialization of module in
+child [1001]
+ 8(21031) INFO:ISC: - child init [1001]
+ 8(21031) INFO:[0] Worker process started...
+ 0(21023) INFO:ISC: - child init [-1]
+INFO:cdp:cdp_child_init(): ... CDiameterPeer started
+INFO:S-CSCF:mod_child_init: Initialization of module in child [1004]
+13(21036) INFO:S-CSCF:mod_child_init: Initialization of module in child [5]
+10(21033) INFO:ISC: - child init [1003]
+10(21033) INFO:[2] Worker process started...
+15(21038) INFO:S-CSCF:mod_child_init: Initialization of module in child [7]
+11(21034) INFO:ISC: - child init [1004]
+11(21034) INFO:[3] Worker process started...
+16(21039) INFO:S-CSCF:mod_child_init: Initialization of module in child [8]
+17(21040) INFO:S-CSCF:mod_child_init: Initialization of module in child [-4]
+
+17(21040) INFO:ISC: - child init [-4]
+12(21035) INFO:ISC: - child init [1001]
+12(21035) INFO:Timer process starting up...
+14(21037) INFO:S-CSCF:mod_child_init: Initialization of module in child [6]
+16(21039) INFO:ISC: - child init [8]
+13(21036) INFO:ISC: - child init [5]
+15(21038) INFO:ISC: - child init [7]
+14(21037) INFO:ISC: - child init [6]
+12(21035) DBG:peer_timer(): Peer hss.open-ims.test      State 0
+12(21035) DBG:sm_process(): Peer hss.open-ims.test      State Closed
+Event Start
+12(21035) DBG:I_Snd_Conn_Req(): Peer hss.open-ims.test
+*12(21035) INFO:peer_connect(): Trying to connect to 211.69.198.221 port
+3868
+12(21035) WARNING:peer_connect(): Error opening connection to to
+211.69.198.221 port 3868 &gt;Connection refused
+12(21035) DBG:sm_process(): Peer hss.open-ims.test      State
+Wait_Conn_Ack     Event I_Rcv_Conn_NAck*
+*12(21035) --- Peer List: ---
+12(21035)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(21035) ------------------*
+12(21035) --- Peer List: ---
+12(21035)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(21035) ------------------
+12(21035) --- Peer List: ---
+12(21035)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(21035) ------------------
+ 5(21028) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(21028) INF:S-CSCF:----------  Registrar Contents end ----------
+12(21035) --- Peer List: ---
+12(21035)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(21035) ------------------
+12(21035) --- Peer List: ---
+12(21035)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(21035) ------------------
+12(21035) --- Peer List: ---
+12(21035)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(21035) ------------------
+ 5(21028) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(21028) INF:S-CSCF:----------  Registrar Contents end ----------
+12(21035) --- Peer List: ---
+12(21035)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(21035) ------------------
+12(21035) --- Peer List: ---
+12(21035)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(21035) ------------------
+12(21035) --- Peer List: ---
+12(21035)  S[Closed] hss.open-ims.test:3868 D[ ]
+12(21035) ------------------
+ 5(21028) INF:S-CSCF:----------  Registrar Contents begin --------
+ 5(21028) INF:S-CSCF:----------  Registrar Contents end ----------
+12(21035) --- Peer List: ---
+12(21035)  S[Closed] hss.open-ims.test:3868 D[ ]
+*
+
+the content of script of scscf.xml:*
+
+&lt;DiameterPeer
+    FQDN=&quot;scscf.open-ims.test&quot;
+    Realm=&quot;open-ims.test&quot;
+    Vendor_Id=&quot;10415&quot;
+    Product_Name=&quot;CDiameterPeer&quot;
+    AcceptUnknownPeers=&quot;1&quot;
+    DropUnknownOnDisconnect=&quot;1&quot;
+    Tc=&quot;30&quot;
+    Workers=&quot;4&quot;
+    QueueLength=&quot;8&quot;
+&gt;<i>
+</I>    &lt;Peer FQDN=&quot;hss.open-ims.test&quot; Realm=&quot;open-ims.test&quot; port=&quot;3868&quot;/&gt;
+
+    &lt;Acceptor port=&quot;3870&quot; bind=&quot;211.69.198.67&quot;/&gt;
+
+        &lt;Auth id=&quot;16777216&quot; vendor=&quot;10415&quot;/&gt;&lt;!-- 3GPP Cx --&gt;
+        &lt;Auth id=&quot;16777216&quot; vendor=&quot;4491&quot;/&gt;&lt;!-- CableLabs Cx --&gt;
+        &lt;Auth id=&quot;16777216&quot; vendor=&quot;13019&quot;/&gt;&lt;!-- ETSI/TISPAN Cx --&gt;
+
+    &lt;DefaultRoute FQDN=&quot;hss.open-ims.test&quot; metric=&quot;10&quot;/&gt;
+
+
+*the content of icscf.xml:*
+
+&lt;DiameterPeer
+    FQDN=&quot;icscf.open-ims.test&quot;
+    Realm=&quot;open-ims.test&quot;
+    Vendor_Id=&quot;10415&quot;
+    Product_Name=&quot;CDiameterPeer&quot;
+    AcceptUnknownPeers=&quot;1&quot;
+    DropUnknownOnDisconnect=&quot;1&quot;
+    Tc=&quot;30&quot;
+    Workers=&quot;4&quot;
+    QueueLength=&quot;8&quot;
+&gt;<i>
+</I>    &lt;Peer FQDN=&quot;hss.open-ims.test&quot; Realm=&quot;open-ims.test&quot; port=&quot;3868&quot;/&gt;
+
+    &lt;Acceptor port=&quot;3869&quot; bind=&quot;211.69.198.67&quot;/&gt;
+
+    &lt;Auth id=&quot;16777216&quot; vendor=&quot;10415&quot;/&gt;&lt;!-- 3GPP Cx --&gt;
+    &lt;Auth id=&quot;16777216&quot; vendor=&quot;4491&quot;/&gt;&lt;!-- CableLabs Cx --&gt;
+    &lt;Auth id=&quot;16777216&quot; vendor=&quot;13019&quot;/&gt;&lt;!-- ETSI/TISPAN Cx --&gt;
+
+    &lt;DefaultRoute FQDN=&quot;hss.open-ims.test&quot; metric=&quot;10&quot;/&gt;
+
+
+*the content of DiameterPeerHSS.xml:*
+
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  2 &lt;!-- HSS Server config --&gt;
+  3 &lt;DiameterPeer
+  4         FQDN=&quot;hss.open-ims.test&quot;
+  5         Realm=&quot;open-ims.test&quot;
+  6         Vendor_Id=&quot;10415&quot;
+  7         Product_Name=&quot;JavaDiameterPeer&quot;
+  8         AcceptUnknownPeers=&quot;1&quot;
+  9         DropUnknownOnDisconnect=&quot;1&quot;
+ 10         Tc=&quot;30&quot;
+ 11         Workers=&quot;4&quot;
+ 12         QueueLength=&quot;32&quot;
+ 13 &gt;
+ 14         &lt;Peer FQDN=&quot;icscf.open-ims.test&quot; Realm=&quot;open-ims.test&quot;
+port=&quot;3869&quot; /&gt;
+ 15         &lt;Peer FQDN=&quot;scscf.open-ims.test&quot; Realm=&quot;open-ims.test&quot;
+port=&quot;3870&quot; /&gt;
+ 16
+ 17         &lt;Acceptor port=&quot;3868&quot; bind=&quot;211.69.198.221&quot; /&gt;
+ 18
+ 19         &lt;Auth id=&quot;16777216&quot; vendor=&quot;10415&quot;/&gt;&lt;!-- 3GPP Cx --&gt;
+ 20         &lt;Auth id=&quot;16777216&quot; vendor=&quot;4491&quot;/&gt;&lt;!-- CableLabs Cx --&gt;
+ 21         &lt;Auth id=&quot;16777216&quot; vendor=&quot;13019&quot;/&gt;&lt;!-- ETSI/TISPAN Cx --&gt;
+ 22         &lt;Auth id=&quot;16777217&quot; vendor=&quot;10415&quot;/&gt;&lt;!-- 3GPP Sh --&gt;
+ 23         &lt;Auth id=&quot;16777221&quot; vendor=&quot;10415&quot;/&gt;
+ 24
+ 25 &lt;/DiameterPeer&gt;
+*
+Now i run hss in machine which IP is &quot;211.69.198.221&quot; and the three cscf
+servers run in one machine &quot;211.69.198.67&quot;. The DNS configuration is right
+,because I can ping scscf.open-ims.test correctly. The contents of icscf.xml
+and scscf.xml are nearly the same, and icscf can connect hss's port 3868
+without problem while scscf connect the same port with problem of refused.
+In DiameterPeerHSS.xml I have set the listen and connect port correctly. I
+am very  confused now why icscf can connect port but scscf's connection is
+refused while they are running on one machine!
+
+Sincerely hope for you reply!*
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110913/346a0e98/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110913/346a0e98/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002662.html">[OpenIMSCore-CSCF] problems during run scscf
+</A></li>
+	<LI>Next message: <A HREF="002664.html">[OpenIMSCore-CSCF] Error opening connection to to	211.69.198.221	port 3868 &gt;Connection refused
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2663">[ date ]</a>
+              <a href="thread.html#2663">[ thread ]</a>
+              <a href="subject.html#2663">[ subject ]</a>
+              <a href="author.html#2663">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20pcscf.xml%2C%20and%20Send_STR&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BD38D%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002126.html">
+   <LINK REL="Next"  HREF="002151.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20pcscf.xml%2C%20and%20Send_STR&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BD38D%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR">wang at basis-audionet.com
+       </A><BR>
+    <I>Fri Feb 12 17:05:54 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002126.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+        <LI>Next message: <A HREF="002151.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2134">[ date ]</a>
+              <a href="thread.html#2134">[ thread ]</a>
+              <a href="subject.html#2134">[ subject ]</a>
+              <a href="author.html#2134">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos
+
+Thanks.
+
+It make sense to add port in.
+
+&gt;<i> 
+</I>&gt;<i> I am not really sure if the issue with the UCT PCRF is actually the
+</I>&gt;<i> ports, but in any case, we'll put in some configuration flags to keep
+</I>it
+&gt;<i> also backwards compatible and not break functionality.
+</I>
+Yah, we should do that.
+
+If I get time, I could put some previous version to see the difference.
+
+
+
+
+
+Kind Regards
+ 
+Min Wang
+
+&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>]
+</I>&gt;<i> Sent: Thursday, February 11, 2010 5:07 PM
+</I>&gt;<i> To: Min Wang
+</I>&gt;<i> Cc: Onofrei, Andreea Ancuta; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</I>&gt;<i> 
+</I>&gt;<i> Hi Min,
+</I>&gt;<i> 
+</I>&gt;<i> the details are mostly in 29.214 for Rx and examples are to be found
+</I>in
+&gt;<i> 29.213. But as always, you can trust a TS to give you hundreds of
+</I>pages
+&gt;<i> of text and then leave you at the end without a conclusion. Well, the
+</I>&gt;<i> open model of IETF is definitely better at least at making things
+</I>clear...
+&gt;<i> 
+</I>&gt;<i> I looked explicitly for the ports and could not find some definitive
+</I>&gt;<i> mentions for registration.
+</I>&gt;<i> 
+</I>&gt;<i> Basically at registration the P-CSCF can subscribe through Rx to the
+</I>&gt;<i> signaling path status and to the IP-CAN changes, so that it can act
+</I>&gt;<i> accordingly on events like loss of bearer.
+</I>&gt;<i> 
+</I>&gt;<i> Then, logically, I think that it makes sense to explicitly specify
+</I>flows
+&gt;<i> for signaling, in the same operation, so that QoS reservation and/or
+</I>&gt;<i> gate opening can happen. Not including the ports here seems then a bit
+</I>&gt;<i> senseless as one can't differentiate the sinaling. In EPC there's such
+</I>a
+&gt;<i> default bearer allocated per subscriber on attachment, targeted at any
+</I>&gt;<i> signaling. But this is just in the case of EPC and also even there it
+</I>&gt;<i> seems a bit too general. It would be better if one can (if needed)
+</I>&gt;<i> differentiate and provide better signaling conditions to IMS
+</I>&gt;<i> authenticated users, so this is why I insist of adding flows on
+</I>&gt;<i> registration for the SIP signaling. Functionally, they should be very
+</I>&gt;<i> similar to what happens on the calls and the PCC components don't need
+</I>&gt;<i> to handle it differently.
+</I>&gt;<i> 
+</I>&gt;<i> I am not really sure if the issue with the UCT PCRF is actually the
+</I>&gt;<i> ports, but in any case, we'll put in some configuration flags to keep
+</I>it
+&gt;<i> also backwards compatible and not break functionality.
+</I>&gt;<i> 
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> Min Wang wrote:
+</I>&gt;<i> &gt; Hi Ancuta
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Also please tell me what is the document ( TS number etc ) for the
+</I>&gt;<i> &gt; register AAR so that we give UCT enough information.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Kind Regards
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Min Wang
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>--------------------------------------------------------------------
+&gt;<i> ----
+</I>&gt;<i> &gt;     *From:* Onofrei, Andreea Ancuta
+</I>&gt;<i> &gt;     [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Andreea.Ancuta.Onofrei at fokus.fraunhofer.de</A>]
+</I>&gt;<i> &gt;     *Sent:* Thursday, February 11, 2010 1:48 PM
+</I>&gt;<i> &gt;     *To:* Min Wang
+</I>&gt;<i> &gt;     *Cc:* <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt;     *Subject:* RE: [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;     Hello Min,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;     Please try with/without ports and for registrations too.
+</I>&gt;<i> &gt;     You can send an e-mail to the UCT mailing list if the pcrf is
+</I>&gt;<i> &gt;     still crashing and ask them if they want to consider ports for
+</I>&gt;<i> &gt;     registrations as well. The introducing of ports is the only
+</I>&gt;<i> &gt;     modification. In the past no port was set, thus the pcrf would
+</I>&gt;<i> &gt;     consider all the ports.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;     Best regards,
+</I>&gt;<i> &gt;     Ancuta
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>--------------------------------------------------------------------
+&gt;<i> ----
+</I>&gt;<i> &gt;     *From:* Min Wang [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">wang at basis-audionet.com</A>]
+</I>&gt;<i> &gt;     *Sent:* Thu 2/11/2010 7:11 PM
+</I>&gt;<i> &gt;     *To:* Onofrei, Andreea Ancuta
+</I>&gt;<i> &gt;     *Cc:* <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt;     *Subject:* RE: [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;     Hi Ancuta
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;     Thanks. Now it is not crashing
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;     Could you tell us what kind of changes have you made for the AAR
+</I>&gt;<i> flow
+</I>&gt;<i> &gt;     description?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;     You said you  added port,  anything elese?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;     So that we can post an informational msg to UCT mailing list.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;     Or you can post yourself if you like to do that.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;     Kind Regards
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;     Min Wang
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>------------------------------------------------------------------------
+&gt;<i> &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002126.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+	<LI>Next message: <A HREF="002151.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2134">[ date ]</a>
+              <a href="thread.html#2134">[ thread ]</a>
+              <a href="subject.html#2134">[ subject ]</a>
+              <a href="author.html#2134">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

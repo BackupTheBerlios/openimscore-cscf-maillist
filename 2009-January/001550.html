@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] private user identity in IMS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20private%20user%20identity%20in%20IMS&In-Reply-To=%3C4981AB0A.707%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001548.html">
+   <LINK REL="Next"  HREF="001551.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] private user identity in IMS</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20private%20user%20identity%20in%20IMS&In-Reply-To=%3C4981AB0A.707%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] private user identity in IMS">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Jan 29 14:11:38 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001548.html">[OpenIMSCore-CSCF] private user identity in IMS
+</A></li>
+        <LI>Next message: <A HREF="001551.html">[OpenIMSCore-CSCF] FW: 400 bad request-Not following indicated	service routes-after domain name changes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1550">[ date ]</a>
+              <a href="thread.html#1550">[ thread ]</a>
+              <a href="subject.html#1550">[ subject ]</a>
+              <a href="author.html#1550">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Choi,
+
+1. yes, but you might get into race conditions when registration happens
+in parallel, with the authentication vectors downloaded by the S-CSCF
+from the HSS. In theory it should be OK, but in practice it might not.
+According to the standards, I would avoid this.
+
+2. In any case, a private identity MUST be configured in the IMS core.
+The way that we deal with this is that we are actually provisioning a
+private identity equal to the public one without the &quot;sip:&quot; scheme. With
+most of the current SIP clients you can manage to then provision them
+somehow so that this would work properly.
+
+3. The private identity identifies an authentication endpoint. The
+public identity identifies the user serviced by an UE and the contact
+the location of a n UE. But just saying &quot;UE&quot; is too vague to link it to
+anything.
+
+Cheers,
+-Dragos
+
+&#52572;&#54788;&#44397; wrote:
+&gt;<i>
+</I>&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i> I have some questions about private user identity in IMS.
+</I>&gt;<i>
+</I>&gt;<i> 1.If the IMS subscriber have several terminals, can all terminals have
+</I>&gt;<i> same private user identity?
+</I>&gt;<i>
+</I>&gt;<i> 2.If all terminals MUST a different private user identity, how can IMS
+</I>&gt;<i> environment support non-IMS terminals that doesn&#8217;t have private user
+</I>&gt;<i> identity (or ISIM application)?
+</I>&gt;<i>
+</I>&gt;<i> (I think that the temporary private user identities for the non-IMS
+</I>&gt;<i> terminals that a subscriber have are same.
+</I>&gt;<i>
+</I>&gt;<i> All temporary private identities for a subscriber will be same value
+</I>&gt;<i> such as &#8220;{IMSI}@{MNC}.{MCC}.imsi.3gppnetwork.org)&#8221;
+</I>&gt;<i>
+</I>&gt;<i> 3.Can I think that a private user identity identifies a UE?
+</I>&gt;<i>
+</I>&gt;<i> Thanks in advance.
+</I>&gt;<i>
+</I>&gt;<i> Choi.
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001548.html">[OpenIMSCore-CSCF] private user identity in IMS
+</A></li>
+	<LI>Next message: <A HREF="001551.html">[OpenIMSCore-CSCF] FW: 400 bad request-Not following indicated	service routes-after domain name changes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1550">[ date ]</a>
+              <a href="thread.html#1550">[ thread ]</a>
+              <a href="subject.html#1550">[ subject ]</a>
+              <a href="author.html#1550">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

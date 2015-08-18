@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] help-registration of client fails
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20help-registration%20of%20client%20fails&In-Reply-To=%3C482AB4B5.6060403%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001345.html">
+   <LINK REL="Next"  HREF="001347.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] help-registration of client fails</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20help-registration%20of%20client%20fails&In-Reply-To=%3C482AB4B5.6060403%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] help-registration of client fails">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed May 14 11:45:25 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001345.html">[OpenIMSCore-CSCF] help-registration of client fails
+</A></li>
+        <LI>Next message: <A HREF="001347.html">[OpenIMSCore-CSCF] help-registration of client fails
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1346">[ date ]</a>
+              <a href="thread.html#1346">[ thread ]</a>
+              <a href="subject.html#1346">[ subject ]</a>
+              <a href="author.html#1346">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Please make sure that the Diameter peers were connected during the 
+registration (in the he R_Open or I_Open states). Then look for 
+exception being thrown _during registration_ in the HSS. If still in 
+trouble, as Franz asked before, please send a network trace so that we 
+could see what is actually happening. Without it, we can't help you further.
+
+Cheers,
+-Dragos
+
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">std03096 at di.uoa.gr</A> wrote:
+&gt;<i> Below are the contents of files icscf.xml, scscf.xml, pcscf.xml and finally
+</I>&gt;<i> FHoSS/deploy/DiameterPeer.xml
+</I>&gt;<i>
+</I>&gt;<i> &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+</I>&gt;<i> &lt;DiameterPeer
+</I>&gt;<i>         FQDN=&quot;icscf.open-ims.test&quot;
+</I>&gt;<i>         Realm=&quot;open-ims.test&quot;
+</I>&gt;<i>         Vendor_Id=&quot;10415&quot;
+</I>&gt;<i>         Product_Name=&quot;CDiameterPeer&quot;
+</I>&gt;<i>         AcceptUnknownPeers=&quot;1&quot;
+</I>&gt;<i>         DropUnknownOnDisconnect=&quot;1&quot;
+</I>&gt;<i>         Tc=&quot;30&quot;
+</I>&gt;<i>         Workers=&quot;4&quot;
+</I>&gt;<i>         QueueLength=&quot;8&quot;
+</I>&gt;<i>   
+</I>&gt;<i>         &lt;Peer FQDN=&quot;hss.open-ims.test&quot; Realm=&quot;open-ims.test&quot; port=&quot;3868&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i>         &lt;Acceptor port=&quot;3869&quot; bind=&quot;127.0.0.1&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i>         &lt;Auth id=&quot;16777216&quot; vendor=&quot;10415&quot;/&gt;&lt;!-- 3GPP Cx --&gt;
+</I>&gt;<i>         &lt;Auth id=&quot;16777216&quot; vendor=&quot;4491&quot;/&gt;&lt;!-- CableLabs Cx --&gt;
+</I>&gt;<i>         &lt;Auth id=&quot;16777216&quot; vendor=&quot;13019&quot;/&gt;&lt;!-- ETSI/TISPAN Cx --&gt;
+</I>&gt;<i>
+</I>&gt;<i>         &lt;DefaultRoute FQDN=&quot;hss.open-ims.test&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i> &lt;!-- Realm Routing configuration - Uncomment and Edit!
+</I>&gt;<i>
+</I>&gt;<i>         &lt;Realm name=&quot;open-ims.test&quot;&gt;
+</I>&gt;<i>                 &lt;Route FQDN=&quot;hss1.open-ims.test&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i>                 &lt;Route FQDN=&quot;hss2.open-ims.test&quot; metric=&quot;20&quot;/&gt;
+</I>&gt;<i>         &lt;/Realm&gt;
+</I>&gt;<i>         &lt;Realm name=&quot;another.open-ims.test&quot;&gt;
+</I>&gt;<i>                 &lt;Route FQDN=&quot;hss3.open-ims.test&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i>                 &lt;Route FQDN=&quot;hss2.open-ims.test&quot; metric=&quot;20&quot;/&gt;
+</I>&gt;<i>         &lt;/Realm&gt;
+</I>&gt;<i>         &lt;DefaultRoute FQDN=&quot;hss.open-ims.test&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i>         &lt;DefaultRoute FQDN=&quot;hss4.open-ims.test&quot; metric=&quot;20&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i> --&gt;
+</I>&gt;<i>
+</I>&gt;<i> &lt;/DiameterPeer&gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+</I>&gt;<i> &lt;DiameterPeer
+</I>&gt;<i>         FQDN=&quot;scscf.open-ims.test&quot;
+</I>&gt;<i>         Realm=&quot;open-ims.test&quot;
+</I>&gt;<i>         Vendor_Id=&quot;10415&quot;
+</I>&gt;<i>         Product_Name=&quot;CDiameterPeer&quot;
+</I>&gt;<i>         AcceptUnknownPeers=&quot;1&quot;
+</I>&gt;<i>         DropUnknownOnDisconnect=&quot;1&quot;
+</I>&gt;<i>         Tc=&quot;30&quot;
+</I>&gt;<i>         Workers=&quot;4&quot;
+</I>&gt;<i>         QueueLength=&quot;8&quot;
+</I>&gt;<i>   
+</I>&gt;<i>         &lt;Peer FQDN=&quot;hss.open-ims.test&quot; Realm=&quot;open-ims.test&quot; port=&quot;3868&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i>         &lt;Acceptor port=&quot;3870&quot; bind=&quot;127.0.0.1&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i>         &lt;Auth id=&quot;16777216&quot; vendor=&quot;10415&quot;/&gt;&lt;!-- 3GPP Cx --&gt;
+</I>&gt;<i>         &lt;Auth id=&quot;16777216&quot; vendor=&quot;4491&quot;/&gt;&lt;!-- CableLabs Cx --&gt;
+</I>&gt;<i>         &lt;Auth id=&quot;16777216&quot; vendor=&quot;13019&quot;/&gt;&lt;!-- ETSI/TISPAN Cx --&gt;
+</I>&gt;<i>
+</I>&gt;<i>         &lt;DefaultRoute FQDN=&quot;hss.pinelopi-desktop&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i> &lt;!-- Realm Routing configuration - Uncomment and Edit!
+</I>&gt;<i>
+</I>&gt;<i>         &lt;Realm name=&quot;open-ims.test&quot;&gt;
+</I>&gt;<i>                 &lt;Route FQDN=&quot;hss1.open-ims.test&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i>                 &lt;Route FQDN=&quot;hss2.open-ims.test&quot; metric=&quot;20&quot;/&gt;
+</I>&gt;<i>         &lt;/Realm&gt;
+</I>&gt;<i>         &lt;Realm name=&quot;another.open-ims.test&quot;&gt;
+</I>&gt;<i>                 &lt;Route FQDN=&quot;hss3.open-ims.test&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i>                 &lt;Route FQDN=&quot;hss2.open-ims.test&quot; metric=&quot;20&quot;/&gt;
+</I>&gt;<i>         &lt;/Realm&gt;
+</I>&gt;<i>         &lt;DefaultRoute FQDN=&quot;hss.open-ims.test&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i>         &lt;DefaultRoute FQDN=&quot;hss4.open-ims.test&quot; metric=&quot;20&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i> --&gt;
+</I>&gt;<i>
+</I>&gt;<i> &lt;/DiameterPeer&gt;
+</I>&gt;<i>
+</I>&gt;<i>                                                                                     
+</I>&gt;<i>
+</I>&gt;<i> &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+</I>&gt;<i> &lt;DiameterPeer
+</I>&gt;<i>         FQDN=&quot;pcscf.open-ims.test&quot;
+</I>&gt;<i>         Realm=&quot;open-ims.test&quot;
+</I>&gt;<i>         Vendor_Id=&quot;10415&quot;
+</I>&gt;<i>         Product_Name=&quot;CDiameterPeer&quot;
+</I>&gt;<i>         AcceptUnknownPeers=&quot;1&quot;
+</I>&gt;<i>         DropUnknownOnDisconnect=&quot;1&quot;
+</I>&gt;<i>         Tc=&quot;30&quot;
+</I>&gt;<i>         Workers=&quot;4&quot;
+</I>&gt;<i>         QueueLength=&quot;8&quot;
+</I>&gt;<i>   
+</I>&gt;<i>         &lt;Peer FQDN=&quot;clf.open-ims.test&quot; Realm=&quot;open-ims.test&quot; port=&quot;3868&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i>         &lt;Acceptor port=&quot;3867&quot; bind=&quot;127.0.0.1&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i>         &lt;Auth id=&quot;16777231&quot; vendor=&quot;13019&quot;/&gt;&lt;!-- ETSI e2 --&gt;
+</I>&gt;<i>
+</I>&gt;<i>         &lt;DefaultRoute FQDN=&quot;clf.open-ims.test&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i> &lt;!-- Realm Routing configuration - Uncomment and Edit!
+</I>&gt;<i>
+</I>&gt;<i>         &lt;Realm name=&quot;open-ims.test&quot;&gt;
+</I>&gt;<i>                 &lt;Route FQDN=&quot;clf1.open-ims.test&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i>                 &lt;Route FQDN=&quot;clf2.open-ims.test&quot; metric=&quot;20&quot;/&gt;
+</I>&gt;<i>         &lt;/Realm&gt;
+</I>&gt;<i>         &lt;Realm name=&quot;another.open-ims.test&quot;&gt;
+</I>&gt;<i>                 &lt;Route FQDN=&quot;clf3.open-ims.test&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i>                 &lt;Route FQDN=&quot;clf2.open-ims.test&quot; metric=&quot;20&quot;/&gt;
+</I>&gt;<i>         &lt;/Realm&gt;
+</I>&gt;<i>         &lt;DefaultRoute FQDN=&quot;clf.open-ims.test&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i>         &lt;DefaultRoute FQDN=&quot;clf4.open-ims.test&quot; metric=&quot;20&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i> --&gt;
+</I>&gt;<i>
+</I>&gt;<i> &lt;/DiameterPeer&gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+</I>&gt;<i> &lt;!-- HSS Server config --&gt;
+</I>&gt;<i> &lt;DiameterPeer
+</I>&gt;<i>         FQDN=&quot;hss.open-ims.test&quot;
+</I>&gt;<i>         Realm=&quot;open-ims.test&quot;
+</I>&gt;<i>         Vendor_Id=&quot;10415&quot;
+</I>&gt;<i>         Product_Name=&quot;JavaDiameterPeer&quot;
+</I>&gt;<i>         AcceptUnknownPeers=&quot;1&quot;
+</I>&gt;<i>         DropUnknownOnDisconnect=&quot;1&quot;
+</I>&gt;<i>         Tc=&quot;30&quot;
+</I>&gt;<i>         Workers=&quot;4&quot;
+</I>&gt;<i>         QueueLength=&quot;32&quot;
+</I>&gt;<i>   
+</I>&gt;<i>         &lt;Peer FQDN=&quot;icscf.open-ims.test&quot; Realm=&quot;open-ims.test&quot; port=&quot;3869&quot; /&gt;
+</I>&gt;<i>         &lt;Peer FQDN=&quot;scscf.open-ims.test&quot; Realm=&quot;open-ims.test&quot; port=&quot;3870&quot; /&gt;
+</I>&gt;<i>
+</I>&gt;<i>         &lt;Acceptor port=&quot;3868&quot; bind=&quot;127.0.0.1&quot; /&gt;
+</I>&gt;<i>
+</I>&gt;<i>         &lt;Auth id=&quot;16777216&quot; vendor=&quot;10415&quot;/&gt;&lt;!-- 3GPP Cx --&gt;
+</I>&gt;<i>         &lt;Auth id=&quot;16777216&quot; vendor=&quot;4491&quot;/&gt;&lt;!-- CableLabs Cx --&gt;
+</I>&gt;<i>         &lt;Auth id=&quot;16777216&quot; vendor=&quot;13019&quot;/&gt;&lt;!-- ETSI/TISPAN Cx --&gt;
+</I>&gt;<i>         &lt;Auth id=&quot;16777217&quot; vendor=&quot;10415&quot;/&gt;&lt;!-- 3GPP Sh --&gt;
+</I>&gt;<i>         &lt;Auth id=&quot;16777221&quot; vendor=&quot;10415&quot;/&gt;
+</I>&gt;<i>
+</I>&gt;<i> &lt;/DiameterPeer&gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001345.html">[OpenIMSCore-CSCF] help-registration of client fails
+</A></li>
+	<LI>Next message: <A HREF="001347.html">[OpenIMSCore-CSCF] help-registration of client fails
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1346">[ date ]</a>
+              <a href="thread.html#1346">[ thread ]</a>
+              <a href="subject.html#1346">[ subject ]</a>
+              <a href="author.html#1346">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

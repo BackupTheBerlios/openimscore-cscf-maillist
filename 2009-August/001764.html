@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r707 - Added Diameter realm	routing extra checks in cdp: - if there is a	Auth-Application-Id AVP in the root of the message,	then use that instead of the one inside a	Vendor-Specific-Application-Id AVP - same for the	Acct-Application-Id AVP - a Vendor-Id AVP is also searched	then in the root of the message.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r707%20-%20Added%20Diameter%20realm%0A%09routing%20extra%20checks%20in%20cdp%3A%20-%20if%20there%20is%20a%0A%09Auth-Application-Id%20AVP%20in%20the%20root%20of%20the%20message%2C%0A%09then%20use%20that%20instead%20of%20the%20one%20inside%20a%0A%09Vendor-Specific-Application-Id%20AVP%20-%20same%20for%20the%0A%09Acct-Application-Id%20AVP%20-%20a%20Vendor-Id%20AVP%20is%20also%20searched%0A%09then%20in%20the%20root%20of%20the%20message.&In-Reply-To=%3C200908051035.n75AZpgg005394%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001763.html">
+   <LINK REL="Next"  HREF="001765.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r707 - Added Diameter realm	routing extra checks in cdp: - if there is a	Auth-Application-Id AVP in the root of the message,	then use that instead of the one inside a	Vendor-Specific-Application-Id AVP - same for the	Acct-Application-Id AVP - a Vendor-Id AVP is also searched	then in the root of the message.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r707%20-%20Added%20Diameter%20realm%0A%09routing%20extra%20checks%20in%20cdp%3A%20-%20if%20there%20is%20a%0A%09Auth-Application-Id%20AVP%20in%20the%20root%20of%20the%20message%2C%0A%09then%20use%20that%20instead%20of%20the%20one%20inside%20a%0A%09Vendor-Specific-Application-Id%20AVP%20-%20same%20for%20the%0A%09Acct-Application-Id%20AVP%20-%20a%20Vendor-Id%20AVP%20is%20also%20searched%0A%09then%20in%20the%20root%20of%20the%20message.&In-Reply-To=%3C200908051035.n75AZpgg005394%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r707 - Added Diameter realm	routing extra checks in cdp: - if there is a	Auth-Application-Id AVP in the root of the message,	then use that instead of the one inside a	Vendor-Specific-Application-Id AVP - same for the	Acct-Application-Id AVP - a Vendor-Id AVP is also searched	then in the root of the message.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Aug  5 12:35:51 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001763.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r706 - Added safety check in	S_update_dialog()
+</A></li>
+        <LI>Next message: <A HREF="001765.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r709 - added dialog processing in	the LRF, to be used for the LOCSIP interface,	that uses a SUBSCRIBE-NOTIFY mechanism
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1764">[ date ]</a>
+              <a href="thread.html#1764">[ thread ]</a>
+              <a href="subject.html#1764">[ subject ]</a>
+              <a href="author.html#1764">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2009-08-05 12:35:48 +0200 (Wed, 05 Aug 2009)
+New Revision: 707 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=707">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=707</A> 
+
+Log:
+Added Diameter realm routing extra checks in cdp:
+- if there is a Auth-Application-Id AVP in the root of the message, then use that instead of the one inside a Vendor-Specific-Application-Id AVP
+- same for the Acct-Application-Id AVP
+- a Vendor-Id AVP is also searched then in the root of the message.
+
+
+Modified:
+   U	ser_ims/trunk/modules/cdp/routing.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/routing.c?rev=707&amp;view=diff&amp;r1=707&amp;r2=706">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/routing.c?rev=707&amp;view=diff&amp;r1=707&amp;r2=706</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001763.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r706 - Added safety check in	S_update_dialog()
+</A></li>
+	<LI>Next message: <A HREF="001765.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r709 - added dialog processing in	the LRF, to be used for the LOCSIP interface,	that uses a SUBSCRIBE-NOTIFY mechanism
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1764">[ date ]</a>
+              <a href="thread.html#1764">[ thread ]</a>
+              <a href="subject.html#1764">[ subject ]</a>
+              <a href="author.html#1764">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

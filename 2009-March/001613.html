@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] CDiameterPeer timers
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20CDiameterPeer%20timers&In-Reply-To=%3C49AE7DEC.7050504%40crg.ee.uct.ac.za%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001623.html">
+   <LINK REL="Next"  HREF="001630.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] CDiameterPeer timers</H1>
+    <B>Richard Good</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20CDiameterPeer%20timers&In-Reply-To=%3C49AE7DEC.7050504%40crg.ee.uct.ac.za%3E"
+       TITLE="[OpenIMSCore-CSCF] CDiameterPeer timers">rgood at crg.ee.uct.ac.za
+       </A><BR>
+    <I>Wed Mar  4 14:11:08 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001623.html">[OpenIMSCore-CSCF] How to change PCSCF port to 5060
+</A></li>
+        <LI>Next message: <A HREF="001630.html">[OpenIMSCore-CSCF] CDiameterPeer timers
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1613">[ date ]</a>
+              <a href="thread.html#1613">[ thread ]</a>
+              <a href="subject.html#1613">[ subject ]</a>
+              <a href="author.html#1613">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I'm using the CDiameterPeer package and have a Q about the timers.  
+There is a built in timer that allows you to execute a callback every X 
+number of seconds by creating a timer for the relevant method e.g. 
+add_timer(1,0,&amp;sip_msg_callback,0).
+
+However the minimum timer expiration is 1 second, so if for for example 
+you want to use this built in timer to check the network for SIP 
+messages, the callback can only happen once per second.  This would 
+significantly increase session setup delay and could result in lost SIP 
+messages. To do this you need the timer resolution to be in the order of 
+milliseconds or even microseconds.
+
+Is there any reason that the minimum timer expiration is 1 second?? Is 
+there any way to use this timer for higher timer resolution in the order 
+of ms or us??
+
+Regards,
+Richard.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001623.html">[OpenIMSCore-CSCF] How to change PCSCF port to 5060
+</A></li>
+	<LI>Next message: <A HREF="001630.html">[OpenIMSCore-CSCF] CDiameterPeer timers
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1613">[ date ]</a>
+              <a href="thread.html#1613">[ thread ]</a>
+              <a href="subject.html#1613">[ subject ]</a>
+              <a href="author.html#1613">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

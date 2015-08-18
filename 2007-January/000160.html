@@ -1,0 +1,1026 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r109 -	ser_ims/branches/01_persistency/modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r109%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200701302041.l0UKfbSx015773%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000159.html">
+   <LINK REL="Next"  HREF="000161.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r109 -	ser_ims/branches/01_persistency/modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r109%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200701302041.l0UKfbSx015773%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r109 -	ser_ims/branches/01_persistency/modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Jan 30 21:41:37 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000159.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r108 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000161.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r110 - ser_ims/trunk/modules/cdp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#160">[ date ]</a>
+              <a href="thread.html#160">[ thread ]</a>
+              <a href="subject.html#160">[ subject ]</a>
+              <a href="author.html#160">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-01-30 21:41:27 +0100 (Tue, 30 Jan 2007)
+New Revision: 109
+
+Modified:
+   ser_ims/branches/01_persistency/modules/scscf/bin.c
+   ser_ims/branches/01_persistency/modules/scscf/bin.h
+   ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+   ser_ims/branches/01_persistency/modules/scscf/bin_scscf.h
+   ser_ims/branches/01_persistency/modules/scscf/mod.c
+   ser_ims/branches/01_persistency/modules/scscf/registration.c
+   ser_ims/branches/01_persistency/modules/scscf/registration.h
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.h
+Log:
+Fixed bin_encode/decode for the auth_data.
+Added functions to make/load snapshots for auth_data to/from file.
+Reworked the auth_data hash table so that we lock properly and we only lock parts of the registrar.
+
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin.c	2007-01-30 12:17:14 UTC (rev 108)
++++ ser_ims/branches/01_persistency/modules/scscf/bin.c	2007-01-30 20:41:27 UTC (rev 109)
+@@ -56,6 +56,18 @@
+ #include &lt;stdio.h&gt;
+ #include &quot;bin.h&quot;
+ 
++/** 
++ * Whether to print debug message while encoding/decoding 
++ */
++#define BIN_DEBUG 1
++
++/** 
++ * Whether to do sanity checks on the available data when decoding
++ * If you are crazy about start-up performance you can disable this.
++ * However, this is very useful for detecting broken snapshots
++ */
++#define BIN_DECODE_CHECKS 1
++
+ inline int bin_alloc(bin_data *x, int max_len)
+ {                                
+ 	x-&gt;s = (char*)BIN_ALLOC_METHOD(max_len);     
+@@ -72,7 +84,9 @@
+ 
+ inline int bin_realloc(bin_data *x, int delta)
+ {
+-	DBG(&quot;DBG:&quot;M_NAME&quot;:bin_realloc: realloc %p from %d to + %d\n&quot;,x-&gt;s,x-&gt;max,delta);
++#if BIN_DEBUG
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_realloc: realloc %p from %d to + %d\n&quot;,x-&gt;s,x-&gt;max,delta);
++#endif	
+ 	x-&gt;s=BIN_REALLOC_METHOD(x-&gt;s,x-&gt;max + delta);    
+ 	if (x-&gt;s==NULL){                             
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_realloc: No more memory to expand %d with %d  \n&quot;,x-&gt;max,delta);
+@@ -85,8 +99,9 @@
+ inline int bin_expand(bin_data *x, int delta)
+ {
+ 	if (x-&gt;max-x-&gt;len&gt;=delta) return 1;
+-	
+-	DBG(&quot;DBG:&quot;M_NAME&quot;:bin_realloc: realloc %p from %d to + %d\n&quot;,x-&gt;s,x-&gt;max,delta);
++#if BIN_DEBUG	
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_realloc: realloc %p from %d to + %d\n&quot;,x-&gt;s,x-&gt;max,delta);
++#endif	
+ 	x-&gt;s=BIN_REALLOC_METHOD(x-&gt;s,x-&gt;max + delta);    
+ 	if (x-&gt;s==NULL){                             
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_realloc: No more memory to expand %d with %d  \n&quot;,x-&gt;max,delta);
+@@ -110,22 +125,22 @@
+ {
+ 	int i,j,w=16;
+ 	char c;
+-	printf(&quot;----------------------------------\nBinary form %d (max %d) bytes:\n&quot;,x-&gt;len,x-&gt;max);
++	fprintf(stderr,&quot;----------------------------------\nBinary form %d (max %d) bytes:\n&quot;,x-&gt;len,x-&gt;max);
+ 	for(i=0;i&lt;x-&gt;len;i+=w){
+-		printf(&quot;%04X&gt; &quot;,i);
++		fprintf(stderr,&quot;%04X&gt; &quot;,i);
+ 		for(j=0;j&lt;w;j++){
+-			if (i+j&lt;x-&gt;len) printf(&quot;%02X &quot;,(unsigned char)x-&gt;s[i+j]);
+-			else printf(&quot;   &quot;);
++			if (i+j&lt;x-&gt;len) fprintf(stderr,&quot;%02X &quot;,(unsigned char)x-&gt;s[i+j]);
++			else fprintf(stderr,&quot;   &quot;);
+ 		}
+ 		printf(&quot;\t&quot;);
+ 		for(j=0;j&lt;w;j++)if (i+j&lt;x-&gt;len){
+ 			if (x-&gt;s[i+j]&gt;32) c=x-&gt;s[i+j];
+ 			else c = '.';
+-			printf(&quot;%c&quot;,c);
+-		}else printf(&quot; &quot;);
+-		printf(&quot;\n&quot;);
++			fprintf(stderr,&quot;%c&quot;,c);
++		}else fprintf(stderr,&quot; &quot;);
++		fprintf(stderr,&quot;\n&quot;);
+ 	}
+-	printf(&quot;\n---------------------------------\n&quot;);
++	fprintf(stderr,&quot;\n---------------------------------\n&quot;);
+ }
+ 
+ 
+@@ -140,6 +155,9 @@
+ 	if (k&gt;0xff) 
+ 		LOG(L_ERR,&quot;ERROR:&quot;M_NAME&quot;:bin_encode_int1: Possible loss in encoding (int &gt; 0xff bytes) %d bytes \n&quot;,k);
+ 	x-&gt;s[x-&gt;len++]=k &amp; 0x000000FF; 
++#if BIN_DEBUG	
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_encode_int1: [%d]:[%.02x] new len %04x\n&quot;,k,x-&gt;s[x-&gt;len-1],x-&gt;len);
++#endif
+ 	return 1;   
+ }
+ 
+@@ -152,7 +170,10 @@
+ 	if (k&gt;0xffff) 
+ 		LOG(L_ERR,&quot;ERROR:&quot;M_NAME&quot;:bin_encode_int2: Possible loss in encoding (int &gt; 0xffff bytes) %d bytes \n&quot;,k);
+ 	x-&gt;s[x-&gt;len++]=k &amp; 0x000000FF;    
+-	x-&gt;s[x-&gt;len++]=k &amp; 0x0000FF00 &gt;&gt; 8;   
++	x-&gt;s[x-&gt;len++]=(k &amp; 0x0000FF00) &gt;&gt; 8;   
++#if BIN_DEBUG	
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_encode_int2: [%d]:[%.02x %.02x] new len %04x\n&quot;,k,x-&gt;s[x-&gt;len-2],x-&gt;s[x-&gt;len-1],x-&gt;len);
++#endif
+ 	return 1;   
+ }
+ 
+@@ -167,7 +188,11 @@
+ 	x-&gt;s[x-&gt;len++]= k &amp; 0x000000FF;          
+ 	x-&gt;s[x-&gt;len++]=(k &amp; 0x0000FF00) &gt;&gt; 8;    
+ 	x-&gt;s[x-&gt;len++]=(k &amp; 0x00FF0000) &gt;&gt;16;    
+-	x-&gt;s[x-&gt;len++]=(k &amp; 0xFF000000) &gt;&gt;24;    
++	x-&gt;s[x-&gt;len++]=(k &amp; 0xFF000000) &gt;&gt;24;
++#if BIN_DEBUG		    
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_encode_int4: [%d]:[%.02x %.02x %.02x %.02x] new len %04x\n&quot;,k,
++		x-&gt;s[x-&gt;len-4],x-&gt;s[x-&gt;len-3],x-&gt;s[x-&gt;len-2],x-&gt;s[x-&gt;len-1],x-&gt;len);
++#endif		
+ 	return 1;   
+ }
+ 
+@@ -183,6 +208,10 @@
+ 	x-&gt;s[x-&gt;len++]=(s-&gt;len &amp; 0x0000FF00)&gt;&gt;8;
+ 	memcpy(x-&gt;s+x-&gt;len,s-&gt;s,s-&gt;len);
+ 	x-&gt;len+=s-&gt;len;
++#if BIN_DEBUG		
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_encode_str : [%d]:[%.02x %.02x]:[%.*s] new len %04x\n&quot;,s-&gt;len,
++		x-&gt;s[x-&gt;len-s-&gt;len-2],x-&gt;s[x-&gt;len-s-&gt;len-1],s-&gt;len,s-&gt;s,x-&gt;len);
++#endif		
+ 	return 1;   
+ }
+ 
+@@ -216,8 +245,14 @@
+  */
+ inline int bin_decode_int1(bin_data *x,int *v)
+ {
+-	if (x-&gt;max+1&gt;x-&gt;len) return 0;
+-	*v = (unsigned char)x-&gt;s[x-&gt;max++];
++#if BIN_DECODE_CHECKS
++	if (x-&gt;max+1 &gt; x-&gt;len) return 0;
++#endif	
++	*v = (unsigned char)x-&gt;s[x-&gt;max];
++	x-&gt;max += 1;
++#if BIN_DEBUG	
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_decode_int1: [%d] new pos %04x\n&quot;,*v,x-&gt;max);
++#endif
+ 	return 1;
+ }
+ 
+@@ -226,9 +261,15 @@
+  */
+ inline int bin_decode_int2(bin_data *x,int *v)
+ {
+-	if (x-&gt;max+2&gt;x-&gt;len) return 0;
+-	*v =	((unsigned char)x-&gt;s[x-&gt;max++] | 
+-	 		 (unsigned char)x-&gt;s[x-&gt;max++] &lt;&lt;8);
++#if BIN_DECODE_CHECKS
++	if (x-&gt;max+2 &gt; x-&gt;len) return 0;
++#endif
++	*v =	(unsigned char)x-&gt;s[x-&gt;max  ]    |
++	 		(unsigned char)x-&gt;s[x-&gt;max+1]&lt;&lt;8;
++	x-&gt;max += 2;
++#if BIN_DEBUG	
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_decode_int2: [%d] new pos %04x\n&quot;,*v,x-&gt;max);
++#endif
+ 	return 1;
+ }
+ 
+@@ -237,11 +278,17 @@
+  */
+ inline int bin_decode_int4(bin_data *x,int *v)
+ {
+-	if (x-&gt;max+4&gt;x-&gt;len) return 0;
+-	*v =   ((unsigned char)x-&gt;s[x-&gt;max++] 			|
+-			(unsigned char)x-&gt;s[x-&gt;max++] &lt;&lt;8 	|
+-		  	(unsigned char)x-&gt;s[x-&gt;max++] &lt;&lt;16 	|
+-		  	(unsigned char)x-&gt;s[x-&gt;max++] &lt;&lt;24 	 );
++#if BIN_DECODE_CHECKS
++	if (x-&gt;max+4 &gt; x-&gt;len) return 0;
++#endif
++	*v =    (unsigned char)x-&gt;s[x-&gt;max  ] 		|
++			(unsigned char)x-&gt;s[x-&gt;max+1] &lt;&lt;8 	|
++		  	(unsigned char)x-&gt;s[x-&gt;max+2] &lt;&lt;16 	|
++		  	(unsigned char)x-&gt;s[x-&gt;max+3] &lt;&lt;24 	;
++	x-&gt;max += 4;
++#if BIN_DEBUG	
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_decode_int4: [%d] new pos %04x\n&quot;,*v,x-&gt;max);
++#endif
+ 	return 1;
+ }
+ 
+@@ -250,11 +297,18 @@
+  */
+ inline int bin_decode_str(bin_data *x,str *s)
+ {
+-	s-&gt;len = (unsigned char)x-&gt;s[x-&gt;max++] 	|
+-			 (unsigned char)x-&gt;s[x-&gt;max++]&lt;&lt;8;
+-	if (x-&gt;max+s-&gt;len&gt;x-&gt;len) return 0;
++#if BIN_DECODE_CHECKS
++	if (x-&gt;max+2 &gt; x-&gt;len) return 0;
++#endif
++	s-&gt;len = (unsigned char)x-&gt;s[x-&gt;max  ]    |
++	 		(unsigned char)x-&gt;s[x-&gt;max+1]&lt;&lt;8;
++	x-&gt;max +=2;
++	if (x-&gt;max+s-&gt;len&gt;=x-&gt;len) return 0;
+ 	s-&gt;s = x-&gt;s + x-&gt;max;
+ 	x-&gt;max += s-&gt;len;
++#if BIN_DEBUG	
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_decode_str : [%d]:[%.*s] new pos %04x\n&quot;,s-&gt;len,s-&gt;len,s-&gt;s,x-&gt;max);
++#endif
+ 	return 1;
+ }
+ 
+
+
+Property changes on: ser_ims/branches/01_persistency/modules/scscf/bin.c
+___________________________________________________________________
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+
+Property changes on: ser_ims/branches/01_persistency/modules/scscf/bin.h
+___________________________________________________________________
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-01-30 12:17:14 UTC (rev 108)
++++ ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-01-30 20:41:27 UTC (rev 109)
+@@ -99,7 +99,7 @@
+ 	
+ 	return 1;
+ error:
+-	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_public_identity: Error while decoding.\n&quot;);
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_public_identity: Error while decoding (at %d (%04x)).\n&quot;,x-&gt;max,x-&gt;max);
+ 	if (pi) {
+ 		if (pi-&gt;public_identity.s) shm_free(pi-&gt;public_identity.s);
+ 	}
+@@ -195,7 +195,7 @@
+ 	return 1;
+ 	
+ error:
+-	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_spt: Error while decoding.\n&quot;);
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_spt: Error while decoding (at %d (%04x)).\n&quot;,x-&gt;max,x-&gt;max);
+ 	if (spt){
+ 		switch (spt-&gt;type){
+ 			case 1:
+@@ -327,7 +327,7 @@
+ 
+ 	return 1;
+ error:
+-	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_filter_criteria: Error while decoding.\n&quot;);
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_filter_criteria: Error while decoding (at %d (%04x)).\n&quot;,x-&gt;max,x-&gt;max);
+ 	if (fc){
+ 		if (fc-&gt;trigger_point){
+ 			if (fc-&gt;trigger_point){
+@@ -446,7 +446,7 @@
+ 
+ 	return 1;
+ error:
+-	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_service_profile: Error while decoding.\n&quot;);
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_service_profile: Error while decoding (at %d (%04x)).\n&quot;,x-&gt;max,x-&gt;max);
+ 	if (sp) {
+ 		if (sp-&gt;public_identities) shm_free(sp-&gt;public_identities);
+ 		if (sp-&gt;filter_criteria) shm_free(sp-&gt;filter_criteria);
+@@ -528,7 +528,7 @@
+ 
+ 	return imss;
+ error:
+-	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_ims_subscription: Error while decoding.\n&quot;);
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_ims_subscription: Error while decoding (at %d (%04x)).\n&quot;,x-&gt;max,x-&gt;max);
+ 	if (imss) {
+ 		if (imss-&gt;private_identity.s) shm_free(imss-&gt;private_identity.s);
+ 		if (imss-&gt;service_profiles) shm_free(imss-&gt;service_profiles);
+@@ -587,7 +587,7 @@
+ 	
+ 	return c;
+ error:
+-	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_contact: Error while decoding.\n&quot;);
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_contact: Error while decoding (at %d (%04x)).\n&quot;,x-&gt;max,x-&gt;max);
+ 	if (c) {
+ 		if (c-&gt;uri.s) shm_free(c-&gt;uri.s);
+ 		if (c-&gt;ua.s) shm_free(c-&gt;ua.s);
+@@ -645,7 +645,7 @@
+ 	
+ 	return s;
+ error:
+-	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_contact: Error while decoding.\n&quot;);
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_contact: Error while decoding (at %d (%04x)).\n&quot;,x-&gt;max,x-&gt;max);
+ 	if (s) {
+ 		if (s-&gt;subscriber.s) shm_free(s-&gt;subscriber.s);
+ 		shm_free(s);
+@@ -747,7 +747,7 @@
+ 	
+ 	return p;
+ error:
+-	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_public: Error while decoding.\n&quot;);
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_public: Error while decoding (at %d (%04x)).\n&quot;,x-&gt;max,x-&gt;max);
+ 	if (p) {
+ 		if (p-&gt;aor.s) shm_free(p-&gt;aor.s);
+ 		while(p-&gt;head){
+@@ -791,7 +791,7 @@
+ 	if (!bin_encode_str(x,&amp;(v-&gt;ik))) goto error;
+ 	if (!bin_encode_int4(x,v-&gt;expires)) goto error;
+ 	k = v-&gt;status;
+-	if (!bin_encode_int4(x,k)) goto error;
++	if (!bin_encode_int1(x,k)) goto error;
+ 
+ 	return 1;
+ error:
+@@ -818,6 +818,7 @@
+ 	}
+ 	memset(v,0,len);
+ 	
++	if (!bin_decode_int4(x,&amp;(v-&gt;item_number))) goto error;
+ 	if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(v-&gt;algorithm),&amp;s)) goto error;
+ 	if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(v-&gt;authenticate),&amp;s)) goto error;
+ 	if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(v-&gt;authorization),&amp;s)) goto error;
+@@ -830,7 +831,7 @@
+ 	
+ 	return v;
+ error:
+-	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_auth_vector: Error while decoding.\n&quot;);
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_auth_vector: Error while decoding (at %d (%04x)).\n&quot;,x-&gt;max,x-&gt;max);
+ 	if (v) {
+ 		if (v-&gt;algorithm.s) shm_free(v-&gt;algorithm.s);
+ 		if (v-&gt;authenticate.s) shm_free(v-&gt;authenticate.s);
+@@ -861,7 +862,7 @@
+ 	if (!bin_encode_str(x,&amp;(u-&gt;public_identity))) goto error;
+ 	if (!bin_encode_int4(x,u-&gt;hash)) goto error;
+ 	if (!bin_encode_int4(x,u-&gt;expires)) goto error;
+-
++	
+ 	for(v=u-&gt;head;v;v=v-&gt;next)
+ 		k++;
+ 
+@@ -890,7 +891,7 @@
+ 	len = sizeof(auth_userdata);
+ 	u = (auth_userdata*) shm_malloc(len);
+ 	if (!u) {
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_auth_vector: Error allocating %d bytes.\n&quot;,len);
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_auth_userdata: Error allocating %d bytes.\n&quot;,len);
+ 		goto error;
+ 	}
+ 	memset(u,0,len);
+@@ -900,7 +901,7 @@
+ 	if (!bin_decode_int4(x,	&amp;(u-&gt;hash))) goto error;
+ 	if (!bin_decode_int4(x,	&amp;(u-&gt;expires))) goto error;
+ 	
+-	if (!bin_decode_int4(x,	&amp;k)) goto error;
++	if (!bin_decode_int2(x,	&amp;k)) goto error;
+ 	
+ 	for(i=0;i&lt;k;i++){
+ 		v = bin_decode_auth_vector(x);
+@@ -914,7 +915,7 @@
+ 	
+ 	return u;
+ error:
+-	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_auth_vector: Error while decoding.\n&quot;);
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_auth_userdata: Error while decoding (at %d (%04x)).\n&quot;,x-&gt;max,x-&gt;max);
+ 	if (u) {
+ 		if (u-&gt;private_identity.s) shm_free(u-&gt;private_identity.s);
+ 		if (u-&gt;public_identity.s) shm_free(u-&gt;public_identity.s);
+
+
+Property changes on: ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+___________________________________________________________________
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+
+Property changes on: ser_ims/branches/01_persistency/modules/scscf/bin_scscf.h
+___________________________________________________________________
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/mod.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/mod.c	2007-01-30 12:17:14 UTC (rev 108)
++++ ser_ims/branches/01_persistency/modules/scscf/mod.c	2007-01-30 20:41:27 UTC (rev 109)
+@@ -299,7 +299,7 @@
+ struct tm_binds tmb;							/**&lt; Structure with pointers to tm funcs 				*/
+ struct cdp_binds cdpb;							/**&lt; Structure with pointers to cdp funcs				*/
+ 
+-extern auth_data *Auth_data;					/**&lt; authentication vectors hast table 					*/
++extern auth_hash_slot_t *auth_data;					/**&lt; authentication vectors hast table 					*/
+ extern r_hash_slot *registrar;					/**&lt; the S-CSCF registrar								*/
+ extern r_notification_list *notification_list; 	/**&lt; list of notifications for reg to be sent			*/
+ 
+@@ -463,7 +463,7 @@
+ 	if (!auth_data_init(auth_data_hash_size)) goto error;
+ 
+ 	/* register the authentication vectors timer */
+-	if (register_timer(reg_await_timer,Auth_data,5)&lt;0) goto error;
++	if (register_timer(reg_await_timer,auth_data,10)&lt;0) goto error;
+ 	
+ 	/* init the registrar storage */
+ 	if (!r_storage_init(registrar_hash_size)) goto error;
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/registration.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/registration.c	2007-01-30 12:17:14 UTC (rev 108)
++++ ser_ims/branches/01_persistency/modules/scscf/registration.c	2007-01-30 20:41:27 UTC (rev 109)
+@@ -289,6 +289,7 @@
+ int S_is_authorized(struct sip_msg *msg,char *str1,char *str2 )
+ {
+ 	int ret=CSCF_RETURN_FALSE;
++	unsigned int aud_hash=0;
+ 	str realm;
+ 	str private_identity,public_identity;
+ 	str nonce,response16;
+@@ -333,9 +334,9 @@
+ 	}
+ 	uri = cscf_get_digest_uri(msg,realm);
+ 	
+-	av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_SENT,&amp;nonce);
++	av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_SENT,&amp;nonce,&amp;aud_hash);
+ 	if (!av)
+-	    av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_USELESS,&amp;nonce);
++	    av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_USELESS,&amp;nonce,&amp;aud_hash);
+ 	
+ 	if (!av) {
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_is_authorized: no matching auth vector found - maybe timer expired\n&quot;);		
+@@ -370,7 +371,7 @@
+ 	}		
+ 	
+ 		
+-
++	auth_data_unlock(aud_hash);
+ 	return ret;	
+ error:
+ 	ret = CSCF_RETURN_ERROR;		
+@@ -387,6 +388,7 @@
+ int S_challenge(struct sip_msg *msg,char *str1,char *str2 )
+ {
+ 	int ret=CSCF_RETURN_FALSE;
++	unsigned int aud_hash;
+ 	str realm,private_identity,public_identity,auts={0,0},nonce={0,0};
+ 	auth_vector *av=0;
+ 	str algo={0,0};
+@@ -437,24 +439,25 @@
+ 			S_REGISTER_reply(msg,403,MSG_403_NO_NONCE);
+ 			goto abort;
+ 		}
+-		av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_SENT,&amp;nonce);
++		av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_SENT,&amp;nonce,&amp;aud_hash);
+ 		if (!av)
+-	    	av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_USELESS,&amp;nonce);
++	    	av = get_auth_vector(private_identity,public_identity,AUTH_VECTOR_USELESS,&amp;nonce,&amp;aud_hash);
+ 					
+ 		if (!av){
+ 			LOG(L_ERR,&quot;DBG:&quot;M_NAME&quot;:S_challenge: Nonce not regonized as sent, no sync!\n&quot;);			
+ 			auts.len = 0; auts.s=0;
+ 		}else{
+ 			av-&gt;status = AUTH_VECTOR_USELESS;
++			auth_data_unlock(aud_hash);
++			av =0;
+ 		}
+-		av =0;
+ 		/* if synchronization - force MAR - if MAR ok, old avs will be droped*/
+ 		S_MAR(msg,public_identity,private_identity,av_request_at_sync,
+ 				algo,nonce,auts,scscf_name_str,realm);
+ 	}
+ 	
+ 	/* loop because some other process might steal the auth_vector that we just retrieved */
+-	while(!(av=get_auth_vector(private_identity,public_identity,AUTH_VECTOR_UNUSED,0))){
++	while(!(av=get_auth_vector(private_identity,public_identity,AUTH_VECTOR_UNUSED,0,&amp;aud_hash))){
+ 		if (!S_MAR(msg,public_identity,private_identity,av_request_at_once,
+ 				algo,nonce,auts,scscf_name_str,realm)) break;
+ 		/* do sync just once */
+@@ -468,10 +471,12 @@
+ 
+ 	if (!pack_challenge(msg,realm,av)){
+ 		S_REGISTER_reply(msg,500,MSG_500_PACK_AV);
++		auth_data_unlock(aud_hash);
+ 		goto error;
+ 	}
+ 	start_reg_await_timer(av);
+ 	//S_REGISTER_reply(msg,401,MSG_401_CHALLENGE);
++	auth_data_unlock(aud_hash);
+ 	return ret;
+ error:
+ 	ret = CSCF_RETURN_ERROR;	
+@@ -697,30 +702,51 @@
+  * Storage of authentication vectors
+  */
+  
+-auth_data *Auth_data;			/**&lt; Authentication vector hash table */
++auth_hash_slot_t *auth_data;			/**&lt; Authentication vector hash table */
++extern int auth_data_hash_size;						/**&lt; authentication vector hash table size */
+ 
+ /**
++ * Locks the required slot of the auth_data.
++ * @param hash - the index of the slot
++ */
++inline void auth_data_lock(unsigned int hash)
++{
++//	LOG(L_CRIT,&quot;GET %d\n&quot;,hash);
++	lock_get(auth_data[(hash)].lock);
++//	LOG(L_CRIT,&quot;GOT %d\n&quot;,hash);	
++}
++
++/**
++ * UnLocks the required slot of the auth_data
++ * @param hash - the index of the slot
++ */
++inline void auth_data_unlock(unsigned int hash)
++{
++	lock_release(auth_data[(hash)].lock);
++//	LOG(L_CRIT,&quot;RELEASED %d\n&quot;,hash);	
++}
++
++
++/**
+  * Initializes the Authorization Data structures.
+  * @param size - size of the hash table
+  * @returns 1 on success or 0 on error
+  */
+ int auth_data_init(int size)
+ {
+-	Auth_data = shm_malloc(sizeof(auth_data));
+-	if (!Auth_data){
++	int i;
++	auth_data = shm_malloc(sizeof(auth_hash_slot_t)*size);
++	if (!auth_data) {
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:auth_data_init: error allocating mem\n&quot;);
+ 		return 0;
+ 	}
+-	Auth_data-&gt;table = shm_malloc(sizeof(hash_slot_t)*size);
+-	if (!Auth_data-&gt;table) {
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:auth_data_init: error allocating mem\n&quot;);
+-		return 0;
++	memset(auth_data,0,sizeof(auth_hash_slot_t)*size);
++	auth_data_hash_size = size;
++	for(i=0;i&lt;size;i++){
++		auth_data[i].lock = lock_alloc();
++		lock_init(auth_data[i].lock);
+ 	}
+-	memset(Auth_data-&gt;table,0,sizeof(hash_slot_t)*size);
+-	Auth_data-&gt;size = size;
+-	Auth_data-&gt;lock = lock_alloc();
+-	lock_init(Auth_data-&gt;lock);
+-	
++	load_snapshot_auth(auth_data);
+ 	return 1;
+ }
+ 
+@@ -730,19 +756,17 @@
+ {
+ 	int i;
+ 	auth_userdata *aud,*next;
+-	if (Auth_data) {
+-		lock_destroy(Auth_data-&gt;lock);
+-		lock_dealloc(Auth_data-&gt;lock);
+-		for(i=0;i&lt;Auth_data-&gt;size;i++){
+-			aud = Auth_data-&gt;table[i].head;
+-			while(aud){
+-				next = aud-&gt;next;
+-				free_auth_userdata(aud);
+-				aud = next;
+-			}
++	for(i=0;i&lt;auth_data_hash_size;i++){
++		auth_data_lock(i);
++		lock_destroy(auth_data[i].lock);
++		lock_dealloc(auth_data[i].lock);
++		aud = auth_data[i].head;
++		while(aud){
++			next = aud-&gt;next;
++			free_auth_userdata(aud);
++			aud = next;
+ 		}
+-		if (Auth_data-&gt;table) shm_free(Auth_data-&gt;table);
+-		shm_free(Auth_data);
++		if (auth_data) shm_free(auth_data);
+ 	}
+ }
+ 
+@@ -967,13 +991,13 @@
+    }
+ 
+    h=((h)+(h&gt;&gt;11))+((h&gt;&gt;13)+(h&gt;&gt;23));
+-   return (h)%Auth_data-&gt;size;
++   return (h)%auth_data_hash_size;
+ #undef h_inc 
+ }
+ 
+ /**
+  * Retrieve the auth_userdata for a user.
+- * \note You must have the lock on the hash table when you call this!!!
++ * \note you will return with lock on the hash slot, so release it!
+  * @param private_identity - the private identity
+  * @param public_identity - the public identity
+  * @returns the auth_userdata* found or newly created on success, NULL on error
+@@ -982,12 +1006,12 @@
+ {
+ 	
+ 	unsigned int hash=0;
+-	hash_slot_t *slot;
+ 	auth_userdata *aud=0;
+ 	
++	
+ 	hash = get_hash(private_identity,public_identity);
+-	slot = Auth_data-&gt;table + hash;
+-	aud = slot-&gt;head;
++	auth_data_lock(hash);
++	aud = auth_data[hash].head;
+ 	while(aud){
+ 		if (aud-&gt;private_identity.len == private_identity.len &amp;&amp;
+ 			aud-&gt;public_identity.len == public_identity.len &amp;&amp;
+@@ -1000,15 +1024,18 @@
+ 	}
+ 	/* if we get here, there is no auth_userdata for this user */
+ 	aud = new_auth_userdata(private_identity,public_identity);
+-	if (!aud) return 0;
++	if (!aud) {
++		auth_data_unlock(hash);
++		return 0;
++	}
+ 	
+-	aud-&gt;prev = slot-&gt;tail;
++	aud-&gt;prev = auth_data[hash].tail;
+ 	aud-&gt;next = 0;
+ 	aud-&gt;hash = hash;
+ 	
+-	if (!slot-&gt;head) slot-&gt;head = aud;
+-	if (slot-&gt;tail) ((auth_userdata *) (slot-&gt;tail))-&gt;next = aud;
+-	slot-&gt;tail = aud;
++	if (!auth_data[hash].head) auth_data[hash].head = aud;
++	if (auth_data[hash].tail) auth_data[hash].tail-&gt;next = aud;
++	auth_data[hash].tail = aud;
+ 	
+ 	return aud;
+ }
+@@ -1036,7 +1063,6 @@
+ int add_auth_vector(str private_identity,str public_identity,auth_vector *av)
+ {
+ 	auth_userdata *aud;
+-	lock_get(Auth_data-&gt;lock);
+ 	aud = get_auth_userdata(private_identity,public_identity);
+ 	if (!aud) goto error;
+ 
+@@ -1047,26 +1073,26 @@
+ 	if (aud-&gt;tail) aud-&gt;tail-&gt;next = av;
+ 	aud-&gt;tail = av;
+ 	
+-	lock_release(Auth_data-&gt;lock);
++	auth_data_unlock(aud-&gt;hash);
+ 	return 1;
+ error:
+-	lock_release(Auth_data-&gt;lock);
+ 	return 0;
+ }
+ 
+ /**
+  * Retrieve an authentication vector.
++ * \note returns with a lock, so unlock it when done
+  * @param private_identity - the private identity
+  * @param public_identity - the public identity
+  * @param status - the status of the authentication vector
+  * @param nonce - the nonce in the auth vector
++ * @param hash - the hash to unlock when done
+  * @returns the auth_vector* if found or NULL if not
+  */
+-auth_vector* get_auth_vector(str private_identity,str public_identity,int status,str *nonce)
++auth_vector* get_auth_vector(str private_identity,str public_identity,int status,str *nonce,unsigned int *hash)
+ {
+ 	auth_userdata *aud;
+ 	auth_vector *av;
+-	lock_get(Auth_data-&gt;lock);
+ 	aud = get_auth_userdata(private_identity,public_identity);
+ 	if (!aud) goto error;
+ 
+@@ -1086,14 +1112,14 @@
+ 				default:	
+ 					break;					
+ 			}			
+-			lock_release(Auth_data-&gt;lock);
++			*hash = aud-&gt;hash;
+ 			return av;
+ 		}
+ 		av = av-&gt;next;
+ 	}
+ 	
+ error:
+-	lock_release(Auth_data-&gt;lock);
++	if (aud) auth_data_unlock(aud-&gt;hash);
+ 	return 0;
+ }
+ 
+@@ -1107,7 +1133,6 @@
+ {
+ 	auth_userdata *aud;
+ 	auth_vector *av;
+-	lock_get(Auth_data-&gt;lock);
+ 	aud = get_auth_userdata(private_identity,public_identity);
+ 	if (!aud) goto error;
+ 
+@@ -1116,10 +1141,10 @@
+ 		av-&gt;status = AUTH_VECTOR_USELESS;
+ 		av = av-&gt;next;
+ 	}
+-	lock_release(Auth_data-&gt;lock);
++	auth_data_unlock(aud-&gt;hash);
+ 	return 1;
+ error:	
+-	lock_release(Auth_data-&gt;lock);
++	if (aud) auth_data_unlock(aud-&gt;hash);
+ 	return 0;
+ }
+ 
+@@ -1143,16 +1168,14 @@
+ {
+ 	auth_userdata *aud,*aud_next;
+ 	auth_vector *av,*av_next;
+-	hash_slot_t *slot;
+-	auth_data *ad;
++	auth_hash_slot_t *ad;
+ 	int i;
+-	ad = (auth_data*) param;
++	ad = (auth_hash_slot_t*) param;
+ 	
+-	lock_get(ad-&gt;lock);
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:reg_await_timer: Looking for expired/useless at %d\n&quot;,ticks);
+-	for(i=0;i&lt;ad-&gt;size;i++){
+-		slot = ad-&gt;table +i;
+-		aud = slot-&gt;head;
++	for(i=0;i&lt;auth_data_hash_size;i++){
++		auth_data_lock(i);
++		aud = auth_data[i].head;
+ 		while(aud){
+ 			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:reg_await_timer: . Slot %4d &lt;%.*s&gt;\n&quot;,
+ 				aud-&gt;hash,aud-&gt;private_identity.len,aud-&gt;private_identity.s);
+@@ -1184,9 +1207,9 @@
+ 				if (aud-&gt;expires&lt;ticks){
+ 					LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:reg_await_timer: ... dropping aud \n&quot;);
+ 					if (aud-&gt;prev) aud-&gt;prev-&gt;next = aud-&gt;next;
+-					else slot-&gt;head = aud-&gt;next;
++					else auth_data[i].head = aud-&gt;next;
+ 					if (aud-&gt;next) aud-&gt;next-&gt;prev = aud-&gt;prev;
+-					else slot-&gt;tail = aud-&gt;prev;
++					else auth_data[i].tail = aud-&gt;prev;
+ 					free_auth_userdata(aud);	
+ 				}
+ 			}
+@@ -1194,8 +1217,8 @@
+ 				
+ 			aud = aud_next;
+ 		}
++		auth_data_unlock(i);
+ 	}
+-	snapshot_auth(ad); 
+-	lock_release(Auth_data-&gt;lock);	
++	make_snapshot_auth(ad); 
+ }
+ 
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/registration.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/registration.h	2007-01-30 12:17:14 UTC (rev 108)
++++ ser_ims/branches/01_persistency/modules/scscf/registration.h	2007-01-30 20:41:27 UTC (rev 109)
+@@ -108,25 +108,18 @@
+ 	
+ 	auth_vector *head;		/**&lt; first auth vector in list	*/
+ 	auth_vector *tail;		/**&lt; last auth vector in list	*/
++	
+ 	struct _auth_userdata *next;/**&lt; next element in list	*/
+ 	struct _auth_userdata *prev;/**&lt; previous element in list*/
+ } auth_userdata;
+ 
+ /** Authorization user data hash slot */
+ typedef struct {
+-	void *head;				/**&lt; first in the slot			*/ 
+-	void *tail;				/**&lt; last in the slot			*/
+-} hash_slot_t;
++	auth_userdata *head;				/**&lt; first in the slot			*/ 
++	auth_userdata *tail;				/**&lt; last in the slot			*/
++	gen_lock_t *lock;			/**&lt; slot lock 							*/	
++} auth_hash_slot_t;
+ 
+-/** User data hash table 
+- * \todo move lock in auth_userdata to improve performance of registration
+- */
+-typedef struct _auth_data{
+-	hash_slot_t *table;		/**&lt; hash table 				*/
+-	int size;				/**&lt; size of the hash table		*/
+-	
+-	gen_lock_t *lock;		/**&lt; lock for operations		*/
+-} auth_data;
+ 
+ 
+ 
+@@ -141,6 +134,9 @@
+ /*
+  * Storage of authentication vectors
+  */
++
++inline void auth_data_lock(unsigned int hash);
++inline void auth_data_unlock(unsigned int hash);
+  
+ int auth_data_init(int size);
+ 
+@@ -154,7 +150,7 @@
+ void free_auth_userdata(auth_userdata *aud);					
+ 
+ int add_auth_vector(str private_identity,str public_identity,auth_vector *av);
+-auth_vector* get_auth_vector(str private_identity,str public_identity,int status,str *nonce);
++auth_vector* get_auth_vector(str private_identity,str public_identity,int status,str *nonce,unsigned int *hash);
+ 
+ int drop_auth_userdata(str private_identity,str public_identity);
+ 
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-01-30 12:17:14 UTC (rev 108)
++++ ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-01-30 20:41:27 UTC (rev 109)
+@@ -53,9 +53,13 @@
+  */
+ 
+ #include &lt;time.h&gt;
++#include &lt;errno.h&gt;
+ 
+ #include &quot;bin_scscf.h&quot;
+ 
++extern auth_hash_slot_t *auth_data;			/**&lt; Authentication vector hash table */
++extern int auth_data_hash_size;						/**&lt; authentication vector hash table size */
++
+ int bin_dump_to_file(bin_data *x,char *prep_fname)
+ {
+ 	char c[256];
+@@ -64,18 +68,42 @@
+ 	int k;
+ 	
+ 	now = time(0);
+-	sprintf(c,&quot;%s_%u.bin&quot;,prep_fname,(unsigned int)now);
++	sprintf(c,&quot;%s_last.bin&quot;,prep_fname/*,(unsigned int)now*/);
+ 	f = fopen(c,&quot;w&quot;);
+ 	k = fwrite(x-&gt;s,1,x-&gt;len,f);
+ 	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_dump_to_file: Dumped %d bytes into %s.\n&quot;,k,c);
+ 	fclose(f);	
+-	bin_print(x);
+ 	if (k==x-&gt;len) return 1;
+ 	else return 0;
+ }
+ 
++int bin_load_from_file(bin_data *x,char *prep_fname)
++{
++	char c[256];
++	time_t now;
++	FILE *f;
++	int k;
++	
++	now = time(0);
++	sprintf(c,&quot;%s_last.bin&quot;,prep_fname/*,(unsigned int)now*/);
++	f = fopen(c,&quot;r&quot;);
++	if (!f) {
++		LOG(L_ERR,&quot;error opening %s : %s\n&quot;,c,strerror(errno));
++		return 0;
++	}
++	bin_alloc(x,1024);
++	while(!feof(f)){
++		bin_expand(x,1024);
++		k = fread(x-&gt;s+x-&gt;len,1,1024,f);
++		x-&gt;len+=k;
++	}
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_load_from_file: Read %d bytes from %s.\n&quot;,x-&gt;len,c);
++	fclose(f);	
++	return 1;
++}
+ 
+-int snapshot_auth(auth_data *ad)
++
++int make_snapshot_auth(auth_hash_slot_t *ad)
+ {
+ 	bin_data x;
+ 	auth_userdata *aud;
+@@ -83,14 +111,16 @@
+ 	
+ 	if (!bin_alloc(&amp;x,256)) goto error;
+ 	
+-	for(i=0;i&lt;ad-&gt;size;i++){
+-		aud = ad-&gt;table[i].head;
++	for(i=0;i&lt;auth_data_hash_size;i++){
++		auth_data_lock(i);
++		aud = auth_data[i].head;
+ 		while(aud){
+ 			if (!bin_encode_auth_userdata(&amp;x,aud)) goto error;
+-			bin_print(&amp;x);
+ 			aud = aud-&gt;next;
+ 		}
++		auth_data_unlock(i);
+ 	}
++	bin_print(&amp;x);
+ 	i = bin_dump_to_file(&amp;x,&quot;/opt/OpenIMSCore/authdata&quot;);
+ 	bin_free(&amp;x);
+ 	return i;
+@@ -98,4 +128,29 @@
+ 	return 0;
+ }  
+ 
+-
++int load_snapshot_auth(auth_hash_slot_t *ad)
++{
++	bin_data x;
++	auth_userdata *aud;
++	if (!bin_load_from_file(&amp;x,&quot;/opt/OpenIMSCore/authdata&quot;)) goto error;
++	bin_print(&amp;x);
++	x.max=0;
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_auth: max %d len %d\n&quot;,x.max,x.len);
++	while(x.max&lt;x.len){
++		aud = bin_decode_auth_userdata(&amp;x);
++		if (!aud) return 0;
++		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_auth: Loaded auth_userdata for &lt;%.*s&gt;\n&quot;,aud-&gt;private_identity.len,aud-&gt;private_identity.s);
++		auth_data_lock(aud-&gt;hash);
++		aud-&gt;prev = auth_data[aud-&gt;hash].tail;
++		aud-&gt;next = 0;
++		if (auth_data[aud-&gt;hash].tail) auth_data[aud-&gt;hash].tail-&gt;next = aud;
++		auth_data[aud-&gt;hash].tail = aud;
++		if (!auth_data[aud-&gt;hash].head) auth_data[aud-&gt;hash].head = aud;
++		auth_data_unlock(aud-&gt;hash);
++	}
++	bin_free(&amp;x);
++	return 1;
++error:
++	return 0;
++	
++}
+
+
+Property changes on: ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+___________________________________________________________________
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/s_persistency.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/s_persistency.h	2007-01-30 12:17:14 UTC (rev 108)
++++ ser_ims/branches/01_persistency/modules/scscf/s_persistency.h	2007-01-30 20:41:27 UTC (rev 109)
+@@ -59,6 +59,7 @@
+ 
+ #include &quot;bin_scscf.h&quot;
+ 
+-int snapshot_auth(auth_data *ad);
++int make_snapshot_auth(auth_hash_slot_t *ad);
++int load_snapshot_auth(auth_hash_slot_t *ad);
+ 
+ #endif
+
+
+Property changes on: ser_ims/branches/01_persistency/modules/scscf/s_persistency.h
+___________________________________________________________________
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000159.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r108 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000161.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r110 - ser_ims/trunk/modules/cdp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#160">[ date ]</a>
+              <a href="thread.html#160">[ thread ]</a>
+              <a href="subject.html#160">[ subject ]</a>
+              <a href="author.html#160">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

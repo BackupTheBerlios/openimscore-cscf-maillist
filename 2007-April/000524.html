@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r251 - Introduced P-CSCF session	release for INVITE dialogs on expiration.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r251%20-%20Introduced%20P-CSCF%20session%0A%09release%20for%20INVITE%20dialogs%20on%20expiration.&In-Reply-To=%3C200704251156.l3PBuNYS016391%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000523.html">
+   <LINK REL="Next"  HREF="000525.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r251 - Introduced P-CSCF session	release for INVITE dialogs on expiration.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r251%20-%20Introduced%20P-CSCF%20session%0A%09release%20for%20INVITE%20dialogs%20on%20expiration.&In-Reply-To=%3C200704251156.l3PBuNYS016391%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r251 - Introduced P-CSCF session	release for INVITE dialogs on expiration.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Apr 25 13:56:23 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000523.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r250 - Fixed dlg_state crash due	to buggy dialog expiration introduced in last revision. Fixed	To/From headers in the call release for the UAC leg.
+</A></li>
+        <LI>Next message: <A HREF="000525.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r252 - Additions to the P-CSCF	binary codec for the new p_dialog structure.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#524">[ date ]</a>
+              <a href="thread.html#524">[ thread ]</a>
+              <a href="subject.html#524">[ subject ]</a>
+              <a href="author.html#524">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-04-25 13:56:22 +0200 (Wed, 25 Apr 2007)
+New Revision: 251 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=251">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=251</A> 
+
+Log:
+Introduced P-CSCF session release for INVITE dialogs on expiration.
+
+
+Added:
+   A	ser_ims/trunk/modules/pcscf/release_call.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/release_call.c?rev=251&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/release_call.c?rev=251&amp;view=markup</A>
+   A	ser_ims/trunk/modules/pcscf/release_call.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/release_call.h?rev=251&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/release_call.h?rev=251&amp;view=markup</A>
+Modified:
+   U	ser_ims/trunk/modules/pcscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?rev=251&amp;view=diff&amp;r1=251&amp;r2=250">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?rev=251&amp;view=diff&amp;r1=251&amp;r2=250</A>
+   U	ser_ims/trunk/modules/pcscf/dlg_state.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.h?rev=251&amp;view=diff&amp;r1=251&amp;r2=250">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.h?rev=251&amp;view=diff&amp;r1=251&amp;r2=250</A>
+   U	ser_ims/trunk/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=251&amp;view=diff&amp;r1=251&amp;r2=250">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=251&amp;view=diff&amp;r1=251&amp;r2=250</A>
+   U	ser_ims/trunk/modules/tm/dlg.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/tm/dlg.c?rev=251&amp;view=diff&amp;r1=251&amp;r2=250">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/tm/dlg.c?rev=251&amp;view=diff&amp;r1=251&amp;r2=250</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000523.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r250 - Fixed dlg_state crash due	to buggy dialog expiration introduced in last revision. Fixed	To/From headers in the call release for the UAC leg.
+</A></li>
+	<LI>Next message: <A HREF="000525.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r252 - Additions to the P-CSCF	binary codec for the new p_dialog structure.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#524">[ date ]</a>
+              <a href="thread.html#524">[ thread ]</a>
+              <a href="subject.html#524">[ subject ]</a>
+              <a href="author.html#524">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

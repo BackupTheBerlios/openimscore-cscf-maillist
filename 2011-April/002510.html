@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Trusted entity
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Trusted%20entity&In-Reply-To=%3C002f01cc0512%2414e95d10%243ebc1730%24%40technikum-wien.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002509.html">
+   <LINK REL="Next"  HREF="002514.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Trusted entity</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Trusted%20entity&In-Reply-To=%3C002f01cc0512%2414e95d10%243ebc1730%24%40technikum-wien.at%3E"
+       TITLE="[OpenIMSCore-CSCF] Trusted entity">franz.edler at technikum-wien.at
+       </A><BR>
+    <I>Wed Apr 27 21:34:07 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002509.html">[OpenIMSCore-CSCF] Trusted entity
+</A></li>
+        <LI>Next message: <A HREF="002514.html">[OpenIMSCore-CSCF] NOTIFY issue
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2510">[ date ]</a>
+              <a href="thread.html#2510">[ thread ]</a>
+              <a href="subject.html#2510">[ subject ]</a>
+              <a href="author.html#2510">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> Is there any way to define trusted entity for OpenIMS ? 
+</I>
+Yes. The concept of trusted domains (TS 24.229 &#167;4.4)  is implemented -
+AFAIK.
+You can define trusted domains in I-CSCF and if a domain is untrusted
+specific header fields are stripped off before forwarding or not accepted if
+received. Look for the &quot;NDS&quot; functions.
+With a specific config-file for I-CSCF (icscf.thig.cfg) you also can
+implement topology hiding (encryption of specific header fields).
+
+I hope that helps.
+
+Franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002509.html">[OpenIMSCore-CSCF] Trusted entity
+</A></li>
+	<LI>Next message: <A HREF="002514.html">[OpenIMSCore-CSCF] NOTIFY issue
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2510">[ date ]</a>
+              <a href="thread.html#2510">[ thread ]</a>
+              <a href="subject.html#2510">[ subject ]</a>
+              <a href="author.html#2510">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

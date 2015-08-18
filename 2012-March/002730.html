@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ICSCF not coming up
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2012-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ICSCF%20not%20coming%20up&In-Reply-To=%3CCALBAsRz7A6ETE1-qWuDppN5AoBOahE35qfmFOXw9VuR5uFyAxw%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002729.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ICSCF not coming up</H1>
+    <B>Vikram Chhibber</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ICSCF%20not%20coming%20up&In-Reply-To=%3CCALBAsRz7A6ETE1-qWuDppN5AoBOahE35qfmFOXw9VuR5uFyAxw%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] ICSCF not coming up">vikram.chhibber at gmail.com
+       </A><BR>
+    <I>Thu Mar 29 01:37:29 CEST 2012</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002729.html">[OpenIMSCore-CSCF] ICSCF not coming up
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2730">[ date ]</a>
+              <a href="thread.html#2730">[ thread ]</a>
+              <a href="subject.html#2730">[ subject ]</a>
+              <a href="author.html#2730">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi All,
+
+Please ignore this error. I am able to bring-up all the servers after
+machine restart.
+
+Regards,
+Vikram
+
+On Wed, Mar 28, 2012 at 3:02 PM, Vikram Chhibber
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vikram.chhibber at gmail.com</A>&gt;wrote:
+
+&gt;<i> Hi All,
+</I>&gt;<i>
+</I>&gt;<i> I am facing problem bringing up I-CSCF after performing Debian packages
+</I>&gt;<i> installation from the latest code-base. I am able to bring-up S-CSCF
+</I>&gt;<i> successfully. The HSS is also up and running.
+</I>&gt;<i> Please help me out.
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i>
+</I>&gt;<i> Here are the detailed logs:
+</I>&gt;<i> 0(25871) INF:I-CSCF:icscf_db_get_nds: Loaded 1 trusted domains
+</I>&gt;<i> 0(25871) INF:I-CSCF:icscf_db_get_capabilities: Loaded 2 capabilities for 1
+</I>&gt;<i> S-CSCFs (0 invalid entries in db)
+</I>&gt;<i> 0(25871) Twofish encryption ready
+</I>&gt;<i> 0(25871) INFO:cdp:cdp_init(): CDiameterPeer initializing
+</I>&gt;<i> 0(25871) Diameter Peer Config:
+</I>&gt;<i> 0(25871) FQDN    : icscf.open-ims.test
+</I>&gt;<i> 0(25871) Realm   : open-ims.test
+</I>&gt;<i> 0(25871) VendorID: 10415
+</I>&gt;<i> 0(25871) ProdName: CDiameterPeer
+</I>&gt;<i> 0(25871) AcceptUn: [X]
+</I>&gt;<i> 0(25871) DropUnkn: [X]
+</I>&gt;<i> 0(25871) Tc      : 30
+</I>&gt;<i> 0(25871) Workers : 4
+</I>&gt;<i> 0(25871) QueueLen: 8
+</I>&gt;<i> 0(25871) ConnTime: 5
+</I>&gt;<i> 0(25871) TranTime: 5
+</I>&gt;<i> 0(25871) SessHash: 128
+</I>&gt;<i> 0(25871) DefAuthT: 60
+</I>&gt;<i> 0(25871) MaxAuthT: 300
+</I>&gt;<i> 0(25871) Peers   : 1
+</I>&gt;<i> 0(25871) FQDN:  hss.open-ims.test Realm: open-ims.test Port: 3868
+</I>&gt;<i> 0(25871) Acceptors : 1
+</I>&gt;<i> 0(25871) Port:  3869 Bind: 10.6.2.215
+</I>&gt;<i> 0(25871) Applications : 4
+</I>&gt;<i> 0(25871) Auth ID:  16777216 Vendor: 10415
+</I>&gt;<i> 0(25871) Auth ID:  16777216 Vendor: 4491
+</I>&gt;<i> 0(25871) Auth ID:  16777216 Vendor: 13019
+</I>&gt;<i> 0(25871) Auth ID:  16777216 Vendor: 0
+</I>&gt;<i> 0(25871) Supported Vendors : 0
+</I>&gt;<i> 0(25871) Routing Table :
+</I>&gt;<i> 0(25871) DefaultRoute: [  10] hss.open-ims.test
+</I>&gt;<i> 0(25871) INFO: udp_init: SO_RCVBUF is initially 114688
+</I>&gt;<i> 0(25871) INFO: udp_init: SO_RCVBUF is finally 262142
+</I>&gt;<i> 1(25874)  0(25871) INFO:I-CSCF:mod_init: Initialization of module in child
+</I>&gt;<i> [1] receiver child=0 sock=10.6.2.215:5060
+</I>&gt;<i> INFO:I-CSCF:mod_init: Initialization of module in child [0] main
+</I>&gt;<i> 0(25871) INFO:cdp:cdp_child_init(): CDiameterPeer starting ...
+</I>&gt;<i> 2(25875) INFO:I-CSCF:mod_init: Initialization of module in child [-1] slow
+</I>&gt;<i> timer
+</I>&gt;<i> 3(25876) INFO:I-CSCF:mod_init: Initialization of module in child [-1]
+</I>&gt;<i> timer
+</I>&gt;<i> 4(25877) INFO:I-CSCF:mod_init: Initialization of module in child [1001]
+</I>&gt;<i> cdp_worker
+</I>&gt;<i> 4(25877) INFO:[0] Worker process started...
+</I>&gt;<i> 5(25878) INFO:I-CSCF:mod_init: Initialization of module in child [1002]
+</I>&gt;<i> cdp_worker
+</I>&gt;<i> 5(25878) INFO:[1] Worker process started...
+</I>&gt;<i> 6(25879) INFO:I-CSCF:mod_init: Initialization of module in child [1003]
+</I>&gt;<i> cdp_worker
+</I>&gt;<i> 6(25879) INFO:[2] Worker process started...
+</I>&gt;<i> 7(25880) INFO:I-CSCF:mod_init: Initialization of module in child [1004]
+</I>&gt;<i> cdp_worker
+</I>&gt;<i> 7(25880) INFO:[3] Worker process started...
+</I>&gt;<i> 8(25881) INFO:I-CSCF:mod_init: Initialization of module in child [1002]
+</I>&gt;<i> cdp_receiver_peer_unkown
+</I>&gt;<i> 8(25881) INFO:receiver_process(): [] Receiver process doing init on new
+</I>&gt;<i> process...
+</I>&gt;<i> 8(25881) INFO:receiver_process(): [] Receiver process starting up...
+</I>&gt;<i> 8(25881) --- Receiver [cdp receiver peer unknown] Serviced Peers: ---
+</I>&gt;<i> 8(25881) --------------------------------------------------------
+</I>&gt;<i> 9(25882) INFO:I-CSCF:mod_init: Initialization of module in child [1000]
+</I>&gt;<i> cdp_receiver_peer
+</I>&gt;<i> 9(25882) INFO:receiver_process(): [hss.open-ims.test] Receiver process
+</I>&gt;<i> doing init on new process...
+</I>&gt;<i> 9(25882) INFO:add_serviced_peer(): Adding serviced_peer_t to receiver for
+</I>&gt;<i> peer [hss.open-ims.test]
+</I>&gt;<i> 10(25883) INFO:I-CSCF:mod_init: Initialization of module in child [1000]
+</I>&gt;<i> cdp_acceptor
+</I>&gt;<i> 10(25883) INFO:Acceptor process starting up...
+</I>&gt;<i> 0(25871) INFO:cdp:cdp_child_init(): ... CDiameterPeer started
+</I>&gt;<i> 10(25883) INFO:create_socket(): Trying to open/bind/listen on 10.6.2.215
+</I>&gt;<i> port 3869
+</I>&gt;<i> 10(25883) INFO:create_socket(): Successful socket open/bind/listen on
+</I>&gt;<i> 10.6.2.215 port 3869
+</I>&gt;<i> 10(25883) INFO:... Acceptor opened sockets. Entering accept loop ...
+</I>&gt;<i> 9(25882) INFO:receiver_process(): [hss.open-ims.test] Receiver process
+</I>&gt;<i> starting up...
+</I>&gt;<i> 9(25882) --- Receiver [cdp_receiver_peer=hss.open-ims.test] Serviced
+</I>&gt;<i> Peers: ---
+</I>&gt;<i> 9(25882)  Peer: [hss.open-ims.test]  TCP Socket: [-1] Recv.State: [0]
+</I>&gt;<i> 9(25882) --------------------------------------------------------
+</I>&gt;<i> 11(25884) INFO:I-CSCF:mod_init: Initialization of module in child [1001]
+</I>&gt;<i> cdp_timer
+</I>&gt;<i> 11(25884) 13(25886) INFO:Timer process starting up...
+</I>&gt;<i> INFO:I-CSCF:mod_init: Initialization of module in child [-4] tcp main
+</I>&gt;<i> process
+</I>&gt;<i> 12(25885) INFO:I-CSCF:mod_init: Initialization of module in child [2] tcp
+</I>&gt;<i> receiver child=0
+</I>&gt;<i> 11(25884) DBG:peer_timer(): Peer hss.open-ims.test State 0
+</I>&gt;<i> 11(25884) DBG:I_Snd_Conn_Req(): Peer hss.open-ims.test
+</I>&gt;<i> 11(25884) INFO:peer_connect(): Trying to connect to 10.6.2.215 port 3868
+</I>&gt;<i> 11(25884) INFO:peer_connect(): Peer hss.open-ims.test:3868 connected
+</I>&gt;<i> 11(25884) --- Peer List: ---
+</I>&gt;<i> 11(25884)  S[Wait_Conn_Ack] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 11(25884) ------------------
+</I>&gt;<i> 9(25882) ERROR:I_Snd_CER(): Error on finding local host address &gt; Socket
+</I>&gt;<i> operation on non-socket
+</I>&gt;<i> 9(25882) --- Peer List: ---
+</I>&gt;<i> 9(25882)  S[I_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 9(25882) [16777216,10415]
+</I>&gt;<i> 9(25882) [16777216,4491]
+</I>&gt;<i> 9(25882) [16777216,13019]
+</I>&gt;<i> 9(25882) [16777216,0]
+</I>&gt;<i> 9(25882) [16777217,10415]
+</I>&gt;<i> 9(25882) [16777221,10415]
+</I>&gt;<i> 9(25882) ------------------
+</I>&gt;<i> 11(25884) --- Peer List: ---
+</I>&gt;<i> 11(25884)  S[I_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i> 11(25884) [16777216,10415]
+</I>&gt;<i> 11(25884) [16777216,4491]
+</I>&gt;<i> 11(25884) [16777216,13019]
+</I>&gt;<i> 11(25884) [16777216,0]
+</I>&gt;<i> 11(25884) [16777217,10415]
+</I>&gt;<i> 11(25884) [16777221,10415]
+</I>&gt;<i> 11(25884) ------------------
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20120328/ef4fb178/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20120328/ef4fb178/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002729.html">[OpenIMSCore-CSCF] ICSCF not coming up
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2730">[ date ]</a>
+              <a href="thread.html#2730">[ thread ]</a>
+              <a href="subject.html#2730">[ subject ]</a>
+              <a href="author.html#2730">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] PCSCF Record Route Audit . Feature Request.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PCSCF%20Record%20Route%20Audit%20.%20Feature%20Request.&In-Reply-To=%3C49AF0B06.30106%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001602.html">
+   <LINK REL="Next"  HREF="001604.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] PCSCF Record Route Audit . Feature Request.</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PCSCF%20Record%20Route%20Audit%20.%20Feature%20Request.&In-Reply-To=%3C49AF0B06.30106%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] PCSCF Record Route Audit . Feature Request.">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Mar  5 00:13:10 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001602.html">[OpenIMSCore-CSCF] PCSCF Record Route Audit . Feature Request.
+</A></li>
+        <LI>Next message: <A HREF="001604.html">[OpenIMSCore-CSCF] Term-PCSCF Adds it's own Route while	generating ACK for failure response
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1620">[ date ]</a>
+              <a href="thread.html#1620">[ thread ]</a>
+              <a href="subject.html#1620">[ subject ]</a>
+              <a href="author.html#1620">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Arjun,
+
+this doesn't seem to require a branch as the timespan of just committing 
+it (as it is already done) is very short. So please just post back a 
+patch to the mailing list.
+
+Cheers,
+-Dragos
+
+Arjun Ramachandran wrote:
+&gt;<i> Hi All,
+</I>&gt;<i>
+</I>&gt;<i> I have Implemented the festure request named &quot;P-CSCF auditing of the Record-Route headers&quot;
+</I>&gt;<i>
+</I>&gt;<i> I Have added 2 functions P_verify_record_routes and P_force_record_routes to security.c .
+</I>&gt;<i> Calling them in Term_Intial_reply function of pcscf.cfg .
+</I>&gt;<i> Added their prototypes in mod.c.
+</I>&gt;<i>
+</I>&gt;<i> The two functions would be around 90 lines. Do i need to check in the the code creating a branch or should i do it in some other way ?
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i> Arjun
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001602.html">[OpenIMSCore-CSCF] PCSCF Record Route Audit . Feature Request.
+</A></li>
+	<LI>Next message: <A HREF="001604.html">[OpenIMSCore-CSCF] Term-PCSCF Adds it's own Route while	generating ACK for failure response
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1620">[ date ]</a>
+              <a href="thread.html#1620">[ thread ]</a>
+              <a href="subject.html#1620">[ subject ]</a>
+              <a href="author.html#1620">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

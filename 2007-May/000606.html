@@ -1,0 +1,365 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Registration Problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Registration%20Problem&In-Reply-To=%3C016d01c793c0%24e0fe3af0%240f40000a%40blr.velankani.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000604.html">
+   <LINK REL="Next"  HREF="000609.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Registration Problem</H1>
+    <B>Rishin Chakraborty</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Registration%20Problem&In-Reply-To=%3C016d01c793c0%24e0fe3af0%240f40000a%40blr.velankani.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Registration Problem">rchakraborty at velankani.com
+       </A><BR>
+    <I>Fri May 11 13:38:21 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000604.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r272 - Fixed possible crash due to	empty public_identity.
+</A></li>
+        <LI>Next message: <A HREF="000609.html">[OpenIMSCore-CSCF] Registration Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#606">[ date ]</a>
+              <a href="thread.html#606">[ thread ]</a>
+              <a href="subject.html#606">[ subject ]</a>
+              <a href="author.html#606">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+
+Could you please let me know where in the code, CSCFs try to extract a
+fallback IMPI from the IMPU when it can't find an IMPI?
+
+Thanks,
+Rishin
+
+-----Original Message-----
+From: Rishin Chakraborty [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">rchakraborty at velankani.com</A>] 
+Sent: Thursday, May 03, 2007 1:35 PM
+To: 'Dragos Vingarzan'
+Cc: '<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>'
+Subject: RE: [OpenIMSCore-CSCF] Registration Problem
+
+Thanks Dragos,
+
+As you have mentioned,
+&gt;<i> To allow for this
+</I>case, the CSCFs try to extract a fallback IMPI from the IMPU when it
+can't find an IMPI. And that is the same as IMPU without the URI scheme
+and parameters - so just <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">username at host</A>
+
+Where in CSCF's do we do this?
+I was trying to look for this fallback support in P-CSCF in release 242
+but could not find it. Could you please point us to the CSCF code for
+this IMPI extraction.
+
+Is there any export function for this that could be used in the cfg files?
+
+Regards,
+Rishin.
+
+-----Original Message-----
+From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+Sent: Thursday, May 03, 2007 1:27 PM
+To: Rishin Chakraborty
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] Registration Problem
+
+Hello Rishin,
+
+In IMS you need to use 2 identities:
+- the public identity - IMPU - used to indicate the person's identity
+- the private identity - IMPI - used for authentication, simply put, the
+phone's identity.
+
+IMPU is present in the From/To headers for REGISTER and then in
+P-Preferred-Identity/P-Asserted-Identity/P-Called-Party-ID,etc headers
+in other requests.
+
+IMPI is usually different and does not have to be a SIP URI. It is only
+used for authentication and is present in the WWW-Authenticate header.
+
+As you can mix different IMPIs with IMPUs (e.g. you have multiple phones
+with the same identity, or more identities on the same phone) you ALWAYS
+need to indicate the IMPI that you would like to use. To allow for this
+case, the CSCFs try to extract a fallback IMPI from the IMPU when it
+can't find an IMPI. And that is the same as IMPU without the URI scheme
+and parameters - so just <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">username at host.</A>
+
+Your messages seem to miss this IMPI information...
+
+-Dragos
+
+Rishin Chakraborty wrote:
+&gt;<i> Hi, 
+</I>&gt;<i>
+</I>&gt;<i> Since, the 401 response from P-CSCF is not being sent to 
+</I>&gt;<i> Cisco phone to the port on which it is listening, I have
+</I>&gt;<i> hard-coded the same in udp_server.c
+</I>&gt;<i>
+</I>&gt;<i> I have tweaked the code to send all messages to the Cisco phone
+</I>&gt;<i> at 5060, irrespective of the source UDP port.
+</I>&gt;<i>
+</I>&gt;<i> However, I am still not able to get the phone registered.
+</I>&gt;<i>
+</I>&gt;<i> Attaching both ethereal trace and pcscf.cfg with the mail.
+</I>&gt;<i>
+</I>&gt;<i> NOTE: when I compare the &quot;www-authenticate&quot; header coming in 401
+</I>&gt;<i> response to Cisco phone in both P-CSCF and SIP2IMS cases, I find 
+</I>&gt;<i> a difference. In pcscf case, the &quot;Digest username&quot; parameter is
+</I>&gt;<i> missing in the www-authenticate header whereas it is present there
+</I>&gt;<i> in case of sip2ims.
+</I>&gt;<i>
+</I>&gt;<i> Also attaching the sip2ims ethereal trace.
+</I>&gt;<i> Any help on this would be much appreciated.
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i> Rishin
+</I>&gt;<i>
+</I>&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Rishin Chakraborty [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">rchakraborty at velankani.com</A>] 
+</I>&gt;<i> Sent: Wednesday, April 25, 2007 7:24 PM
+</I>&gt;<i> To: 'Dragos Vingarzan'
+</I>&gt;<i> Cc: '<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>'
+</I>&gt;<i> Subject: RE: [OpenIMSCore-CSCF] Registration Problem
+</I>&gt;<i>
+</I>&gt;<i> Hi Dragos,
+</I>&gt;<i>
+</I>&gt;<i> I have downloaded r242 and disabled NAT in the cfg file.
+</I>&gt;<i> In my current setup I am having P-CSCF run on 5060 and
+</I>&gt;<i> I-CSCF on 4060.
+</I>&gt;<i>
+</I>&gt;<i> Still facing the same issue.
+</I>&gt;<i>
+</I>&gt;<i> Attaching the ethereal capture and pcscf.cfg
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i> Rishin
+</I>&gt;<i>
+</I>&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Rishin Chakraborty [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">rchakraborty at velankani.com</A>] 
+</I>&gt;<i> Sent: Wednesday, April 25, 2007 3:00 PM
+</I>&gt;<i> To: 'Dragos Vingarzan'
+</I>&gt;<i> Cc: '<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>'
+</I>&gt;<i> Subject: RE: [OpenIMSCore-CSCF] Registration Problem
+</I>&gt;<i>
+</I>&gt;<i> Hi Dragos,
+</I>&gt;<i>
+</I>&gt;<i> Sorry to reply back only to you. I should have &quot;replied all&quot;.
+</I>&gt;<i>
+</I>&gt;<i> Please find the pcscf.cfg attached here. I had not stored the trace for 
+</I>&gt;<i> no NAT scenario. However, just to reiterate, the 401 response was being
+</I>sent
+&gt;<i> back to the Source UDP port.
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i> Rishin
+</I>&gt;<i>
+</I>&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+</I>&gt;<i> Sent: Wednesday, April 25, 2007 1:47 PM
+</I>&gt;<i> To: Rishin Chakraborty
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] Registration Problem
+</I>&gt;<i>
+</I>&gt;<i> Could you please post a trace and the pcscf.cfg file?
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> Rishin Chakraborty wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> I am currently using r202 snapshot. I shall download the new load.
+</I>&gt;&gt;<i> However, before I do that I just wanted to try this out with r202.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Here, I have commented P_NAT_response() and P_NAT_request(). The 
+</I>&gt;&gt;<i> NAT parameter is also disabled. But still the 401 response is going
+</I>&gt;&gt;<i> back to Source UDP port and not to the ones mentioned in Contact or Via.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Am I missing anything?
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Thanks,
+</I>&gt;&gt;<i> Rishin
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -----Original Message-----
+</I>&gt;&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+</I>&gt;&gt;<i> Sent: Tuesday, April 24, 2007 7:18 PM
+</I>&gt;&gt;<i> To: Rishin Chakraborty
+</I>&gt;&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;<i> Subject: Re: [OpenIMSCore-CSCF] Registration Problem
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> No :). I actually mean P_NAT_relay(). Please update your ser_ims as that
+</I>&gt;&gt;<i> function was replaced by this one.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Rishin Chakraborty wrote:
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Thanks Dragos.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I assume that when you say P_NAT_relay() you actually mean
+</I>&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> P_NAT_response().
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Do we need to replace it with something else?
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Thanks,
+</I>&gt;&gt;&gt;<i> Rishin
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> -----Original Message-----
+</I>&gt;&gt;&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+</I>&gt;&gt;&gt;<i> Sent: Tuesday, April 24, 2007 3:57 PM
+</I>&gt;&gt;&gt;<i> To: Rishin Chakraborty
+</I>&gt;&gt;&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> Subject: Re: [OpenIMSCore-CSCF] Registration Problem
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Hello Rishin,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> The problem is that the P-CSCF has, by default, NAT relaying. This
+</I>&gt;&gt;&gt;<i> means, that in order to go over a NAT between the P-CSCF and the UE, the
+</I>&gt;&gt;&gt;<i> P-CSCF will always forward message to the source IP:port of the incoming
+</I>&gt;&gt;&gt;<i> messages from the client, and not to the Contact or first Via headers.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> We see this a feature and not a problem ;-). If you don't want it, just
+</I>&gt;&gt;&gt;<i> disable NAT and remove the P_NAT_relay() functionality from the
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;<i> pcscf.cfg.
+</I>&gt;<i>   
+</I>&gt;&gt;&gt;<i> -Dragos
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Rishin Chakraborty wrote:
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;&gt;&gt;<i> Hi,
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>  
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> I am facing problem while trying to REGISTER a Cisco 7960 phone with
+</I>&gt;&gt;&gt;&gt;<i> FOKUS IMS.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>  
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> The ethereal trace shows that while sending back 401 - User
+</I>&gt;&gt;&gt;&gt;<i> Unauthorized for the initial
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> REGISTER message, OSIMS sends the response message on the port which
+</I>&gt;&gt;&gt;&gt;<i> had come as
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Source Port of UDP header in the REGISTER message and **not** on what
+</I>&gt;&gt;&gt;&gt;<i> is provided with
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> the Contact header. However, the Cisco phone listens on 5060, which it
+</I>&gt;&gt;&gt;&gt;<i> had provided with the
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Contact header and misses the 401 response. As a result, Cisco phone
+</I>&gt;&gt;&gt;&gt;<i> keeps on retransmitting
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> the REGISTER.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>  
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> I tried to verify this behavior with X-Lite. The ethereal trace for
+</I>&gt;&gt;&gt;&gt;<i> X-Lite shows that OSIMS is
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> sending back 401 - User Unauthorized response to the Source Port of
+</I>&gt;&gt;&gt;&gt;<i> UDP header which
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> incidentally is the same one as provided with the Contact header. So,
+</I>&gt;&gt;&gt;&gt;<i> Registration is working
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> fine in the case of X-Lite.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>  
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Therefore, it appears to be a problem with FOKUS IMS.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>  
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Both the ethereal traces are attached. Could someone confirm my doubt?
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>  
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Thanks,
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Rishin
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>  
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>  
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i>
+</I>------------------------------------------------------------------------
+&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;&gt;<i>       
+</I>&gt;&gt;&gt;&gt;<i>         
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000604.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r272 - Fixed possible crash due to	empty public_identity.
+</A></li>
+	<LI>Next message: <A HREF="000609.html">[OpenIMSCore-CSCF] Registration Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#606">[ date ]</a>
+              <a href="thread.html#606">[ thread ]</a>
+              <a href="subject.html#606">[ subject ]</a>
+              <a href="author.html#606">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

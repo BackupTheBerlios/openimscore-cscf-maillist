@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 3rd Party REGISTER: iFC does not trigger at de-registration
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%203rd%20Party%20REGISTER%3A%20iFC%20does%20not%20trigger%20at%0A%20de-registration&In-Reply-To=%3C45AD46BE.5040805%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000101.html">
+   <LINK REL="Next"  HREF="000085.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 3rd Party REGISTER: iFC does not trigger at de-registration</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%203rd%20Party%20REGISTER%3A%20iFC%20does%20not%20trigger%20at%0A%20de-registration&In-Reply-To=%3C45AD46BE.5040805%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] 3rd Party REGISTER: iFC does not trigger at de-registration">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Jan 16 22:42:22 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000101.html">[OpenIMSCore-CSCF] 3rd Party REGISTER: iFC does not trigger at de-registration
+</A></li>
+        <LI>Next message: <A HREF="000085.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r80 - in ser_ims/trunk/modules:	cdp scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#132">[ date ]</a>
+              <a href="thread.html#132">[ thread ]</a>
+              <a href="subject.html#132">[ subject ]</a>
+              <a href="author.html#132">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+
+So I managed to fix it without a 4th state - see r89. However, the scscf
+script is quite nasty as for registration you have to do the 3rd party
+reg after the contacts are updated and for de-registration before.
+
+-Dragos
+
+Dragos Vingarzan wrote:
+&gt;<i> Yup, that is it. Hmm... this might require a similar trick to what I
+</I>&gt;<i> used on the P-CSCF - a 4th registration state - de-registered - which
+</I>&gt;<i> stays up for something like 30 seconds so that clean-ups can be performed.
+</I>&gt;<i>
+</I>&gt;<i> Erling (because you read the TS), could you please provide some info
+</I>&gt;<i> here on what the standards say for 3rd party de-registration?
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> Franz Edler wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi Jose,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> I think it's because when there is call to the ISC_match_filter_reg();
+</I>&gt;&gt;&gt;<i> on the script the user has already been deregistered (
+</I>&gt;&gt;&gt;<i> S_update_contacts()) and there is no structure on the registar
+</I>&gt;&gt;&gt;<i> pointing to a user profile wich is needed for triggering.
+</I>&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> Yes, this might bet he point. I did not look into the script before.
+</I>&gt;&gt;<i> So if another server needs to have actual information on the registration
+</I>&gt;&gt;<i> state it must use the subscription to registration state anyhow.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Regards
+</I>&gt;&gt;<i> Franz
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000101.html">[OpenIMSCore-CSCF] 3rd Party REGISTER: iFC does not trigger at de-registration
+</A></li>
+	<LI>Next message: <A HREF="000085.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r80 - in ser_ims/trunk/modules:	cdp scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#132">[ date ]</a>
+              <a href="thread.html#132">[ thread ]</a>
+              <a href="subject.html#132">[ subject ]</a>
+              <a href="author.html#132">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

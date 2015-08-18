@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r398 - - reworked isc module	(no tm callbacks, uses failure routes) - support for &quot;;	orig&quot; uri parameter to identity originating session case - allowed	some S-CSCF functions to be called from failure routes to imp
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r398%20-%20-%20reworked%20isc%20module%0A%09%28no%20tm%20callbacks%2C%20uses%20failure%20routes%29%20-%20support%20for%20%22%3B%0A%09orig%22%20uri%20parameter%20to%20identity%20originating%20session%20case%20-%20allowed%0A%09some%20S-CSCF%20functions%20to%20be%20called%20from%20failure%20routes%20to%20imp&In-Reply-To=%3Cb33002040707220425g10486c42t9b7b12f93c7e494d%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000860.html">
+   <LINK REL="Next"  HREF="000865.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r398 - - reworked isc module	(no tm callbacks, uses failure routes) - support for &quot;;	orig&quot; uri parameter to identity originating session case - allowed	some S-CSCF functions to be called from failure routes to imp</H1>
+    <B>JF</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r398%20-%20-%20reworked%20isc%20module%0A%09%28no%20tm%20callbacks%2C%20uses%20failure%20routes%29%20-%20support%20for%20%22%3B%0A%09orig%22%20uri%20parameter%20to%20identity%20originating%20session%20case%20-%20allowed%0A%09some%20S-CSCF%20functions%20to%20be%20called%20from%20failure%20routes%20to%20imp&In-Reply-To=%3Cb33002040707220425g10486c42t9b7b12f93c7e494d%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r398 - - reworked isc module	(no tm callbacks, uses failure routes) - support for &quot;;	orig&quot; uri parameter to identity originating session case - allowed	some S-CSCF functions to be called from failure routes to imp">jfkavaka at gmail.com
+       </A><BR>
+    <I>Sun Jul 22 13:25:57 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000860.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r398 - - reworked isc module (no	tm callbacks, uses failure routes) - support for &quot;; orig&quot; uri parameter to identity originating session case - allowed	some S-CSCF functions to be called from failure routes to	implement new isc behaviour - enhanced PSTN handling in	scscf.cfg - simplified ACK routing in scscf.cfg - fixed	S_is/orig/term_not_registered() functions - allow terminating	tel URIs in scscf.cfg - fixed some typos in scscf.cfg
+</A></li>
+        <LI>Next message: <A HREF="000865.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r398 - - reworked isc module	(no tm callbacks, uses failure routes) - support for &quot;;	orig&quot; uri parameter to identity originating session case - allowed	some S-CSCF functions to be called from failure routes to imp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#861">[ date ]</a>
+              <a href="thread.html#861">[ thread ]</a>
+              <a href="subject.html#861">[ subject ]</a>
+              <a href="author.html#861">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+
+It was intentional. Being a regexp you want to match exactly the
+domain open-ims.test, so the dot should be escaped in order to avoid
+matching any character instead of dot.
+
+Jo&#227;o
+
+On 7/21/07, Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>&gt; wrote:
+&gt;<i> Hello Joao,
+</I>&gt;<i>
+</I>&gt;<i> AFAIK, the S_check_visited_network_id() function takes as parameter a
+</I>&gt;<i> regexp. The latest patch changed the parameter from &quot;open-ims\.test&quot; to
+</I>&gt;<i> &quot;open-ims.test&quot;. Was this intentional or a typo?
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">placido at users.berlios.de</A> wrote:
+</I>&gt;<i> &gt; Author: placido
+</I>&gt;<i> &gt; Date: 2007-07-20 18:37:54 +0200 (Fri, 20 Jul 2007)
+</I>&gt;<i> &gt; New Revision: 398 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=398">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=398</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Log:
+</I>&gt;<i> &gt; - reworked isc module (no tm callbacks, uses failure routes)
+</I>&gt;<i> &gt; - support for &quot;;orig&quot; uri parameter to identity originating session case
+</I>&gt;<i> &gt; - allowed some S-CSCF functions to be called from failure routes to implement new isc behaviour
+</I>&gt;<i> &gt; - enhanced PSTN handling in scscf.cfg
+</I>&gt;<i> &gt; - simplified ACK routing in scscf.cfg
+</I>&gt;<i> &gt; - fixed S_is/orig/term_not_registered() functions
+</I>&gt;<i> &gt; - allow terminating tel URIs in scscf.cfg
+</I>&gt;<i> &gt; - fixed some typos in scscf.cfg
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Modified:
+</I>&gt;<i> &gt;    U  ser_ims/trunk/cfg/scscf.cfg
+</I>&gt;<i> &gt;               <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=398&amp;view=diff&amp;r1=398&amp;r2=397">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=398&amp;view=diff&amp;r1=398&amp;r2=397</A>
+</I>&gt;<i> &gt;    U  ser_ims/trunk/modules/isc/isc.c
+</I>&gt;<i> &gt;               <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/isc.c?rev=398&amp;view=diff&amp;r1=398&amp;r2=397">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/isc.c?rev=398&amp;view=diff&amp;r1=398&amp;r2=397</A>
+</I>&gt;<i> &gt;    U  ser_ims/trunk/modules/isc/isc.h
+</I>&gt;<i> &gt;               <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/isc.h?rev=398&amp;view=diff&amp;r1=398&amp;r2=397">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/isc.h?rev=398&amp;view=diff&amp;r1=398&amp;r2=397</A>
+</I>&gt;<i> &gt;    U  ser_ims/trunk/modules/isc/mark.c
+</I>&gt;<i> &gt;               <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/mark.c?rev=398&amp;view=diff&amp;r1=398&amp;r2=397">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/mark.c?rev=398&amp;view=diff&amp;r1=398&amp;r2=397</A>
+</I>&gt;<i> &gt;    U  ser_ims/trunk/modules/isc/mod.c
+</I>&gt;<i> &gt;               <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/mod.c?rev=398&amp;view=diff&amp;r1=398&amp;r2=397">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/mod.c?rev=398&amp;view=diff&amp;r1=398&amp;r2=397</A>
+</I>&gt;<i> &gt;    U  ser_ims/trunk/modules/isc/sip.c
+</I>&gt;<i> &gt;               <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/sip.c?rev=398&amp;view=diff&amp;r1=398&amp;r2=397">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/sip.c?rev=398&amp;view=diff&amp;r1=398&amp;r2=397</A>
+</I>&gt;<i> &gt;    U  ser_ims/trunk/modules/scscf/mod.c
+</I>&gt;<i> &gt;               <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=398&amp;view=diff&amp;r1=398&amp;r2=397">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=398&amp;view=diff&amp;r1=398&amp;r2=397</A>
+</I>&gt;<i> &gt;    U  ser_ims/trunk/modules/scscf/registrar.c
+</I>&gt;<i> &gt;               <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.c?rev=398&amp;view=diff&amp;r1=398&amp;r2=397">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.c?rev=398&amp;view=diff&amp;r1=398&amp;r2=397</A>
+</I>&gt;<i> &gt;    U  ser_ims/trunk/modules/scscf/registrar.h
+</I>&gt;<i> &gt;               <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.h?rev=398&amp;view=diff&amp;r1=398&amp;r2=397">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.h?rev=398&amp;view=diff&amp;r1=398&amp;r2=397</A>
+</I>&gt;<i> &gt;    U  ser_ims/trunk/modules/scscf/sip.c
+</I>&gt;<i> &gt;               <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.c?rev=398&amp;view=diff&amp;r1=398&amp;r2=397">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/sip.c?rev=398&amp;view=diff&amp;r1=398&amp;r2=397</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000860.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r398 - - reworked isc module (no	tm callbacks, uses failure routes) - support for &quot;; orig&quot; uri parameter to identity originating session case - allowed	some S-CSCF functions to be called from failure routes to	implement new isc behaviour - enhanced PSTN handling in	scscf.cfg - simplified ACK routing in scscf.cfg - fixed	S_is/orig/term_not_registered() functions - allow terminating	tel URIs in scscf.cfg - fixed some typos in scscf.cfg
+</A></li>
+	<LI>Next message: <A HREF="000865.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r398 - - reworked isc module	(no tm callbacks, uses failure routes) - support for &quot;;	orig&quot; uri parameter to identity originating session case - allowed	some S-CSCF functions to be called from failure routes to imp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#861">[ date ]</a>
+              <a href="thread.html#861">[ thread ]</a>
+              <a href="subject.html#861">[ subject ]</a>
+              <a href="author.html#861">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

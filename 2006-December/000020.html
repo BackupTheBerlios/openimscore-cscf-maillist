@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Persistancy of P/I/S-CSCF data
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Persistancy%20of%20P/I/S-CSCF%20data&In-Reply-To=%3C4576F535.9020204%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000019.html">
+   <LINK REL="Next"  HREF="000021.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Persistancy of P/I/S-CSCF data</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Persistancy%20of%20P/I/S-CSCF%20data&In-Reply-To=%3C4576F535.9020204%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Persistancy of P/I/S-CSCF data">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Dec  6 17:52:05 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000019.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r54 - in ser_ims/trunk/modules:	isc pcscf scscf
+</A></li>
+        <LI>Next message: <A HREF="000021.html">[OpenIMSCore-CSCF] S-CSCF crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#20">[ date ]</a>
+              <a href="thread.html#20">[ thread ]</a>
+              <a href="subject.html#20">[ subject ]</a>
+              <a href="author.html#20">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+
+As you have probably noticed, if you restart a CSCF, all the state is 
+lost. Some (even all) can be saved and retrieved. We have seen the 
+usrloc module and its strategy. However we have a different architecture 
+here and we shouldn't just blindly apply that.
+
+So let's brainstorm a little bit on what and how can be done for this. 
+Joao already pointed to me some direction of this discussion:
+
+- configuration (modparams for db_urls, database &quot;modes&quot; like db-only, 
+memory-only, caching, similar to SER's usrloc)
+- database model (what to store from high availability and scalability 
+points of view, taking into account the development effort involved)
+- guidance on where and what to change in the code (we will provide 
+that, so that you guys can easily contribute)
+
+I would add:
+- operation mode (is hot-stand-by needed or feasible?)
+- synchronization points/marks
+
+I would start this thread by outlining what needs to be saved.
+
+- the registrars, obviously:
+    - P/S-CSCF - the structure is pretty clear, I hope, and it could be 
+dumped fairly easy.
+    - based on the reliability requirements, this can be done 
+periodically on a timer or every changed immediately mirrored.
+    - the registrars are wrapped into functions and we will need to 
+change those.
+- the dialog state
+    - P/S-CSCF - the structures are a little incomplete here.
+    - again, wrapped in functions
+- the temporary authentication vectors
+    - on the S-CSCF - I think that only the ones that are currently used 
+would be essential. The other ones would trigger AKA synchronizations if 
+lost, but IMO that's not too bad.. or?
+- the selected capabilities
+    - on the I-CSCF - but it only makes sense if we also save the 
+transaction table. But the tm would not be that easy to dump....Do we 
+want to go that far? I think that loosing transaction state is not that 
+bad, as you only loose the transactions that are currently running, 
+while also retransmissions would save some of them.
+
+- anything else?
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000019.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r54 - in ser_ims/trunk/modules:	isc pcscf scscf
+</A></li>
+	<LI>Next message: <A HREF="000021.html">[OpenIMSCore-CSCF] S-CSCF crash
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#20">[ date ]</a>
+              <a href="thread.html#20">[ thread ]</a>
+              <a href="subject.html#20">[ subject ]</a>
+              <a href="author.html#20">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

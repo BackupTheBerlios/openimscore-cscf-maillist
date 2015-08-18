@@ -1,0 +1,527 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r118 -	ser_ims/branches/01_persistency/modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r118%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200702061509.l16F9MPc018350%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000172.html">
+   <LINK REL="Next"  HREF="000174.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r118 -	ser_ims/branches/01_persistency/modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r118%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200702061509.l16F9MPc018350%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r118 -	ser_ims/branches/01_persistency/modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Feb  6 16:09:22 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000172.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r117 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000174.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r120 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#173">[ date ]</a>
+              <a href="thread.html#173">[ thread ]</a>
+              <a href="subject.html#173">[ subject ]</a>
+              <a href="author.html#173">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-06 16:09:20 +0100 (Tue, 06 Feb 2007)
+New Revision: 118
+
+Modified:
+   ser_ims/branches/01_persistency/modules/scscf/bin.c
+   ser_ims/branches/01_persistency/modules/scscf/bin.h
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.h
+Log:
+Moved persistency functions around to allow nice reusal in the pcscf module.
+
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin.c	2007-02-06 14:53:10 UTC (rev 117)
++++ ser_ims/branches/01_persistency/modules/scscf/bin.c	2007-02-06 15:09:20 UTC (rev 118)
+@@ -54,6 +54,13 @@
+ 
+ 
+ #include &lt;stdio.h&gt;
++#include &lt;time.h&gt;
++#include &lt;errno.h&gt;
++#include &lt;sys/types.h&gt;
++#include &lt;dirent.h&gt;
++#include &lt;unistd.h&gt;
++#include &lt;stdlib.h&gt;
++
+ #include &quot;bin.h&quot;
+ 
+ /** 
+@@ -322,4 +329,162 @@
+ 	(*(PTR))+= 2+len;\
+ }
+ 
++
++
++
++int bin_files_keep_count=3;				/**&lt; how many old snapshots to keep				*/
++
++
++/**
++ * Writes the binary data to a snapshot file.
++ * The file names contain the time of the dump. If a file was dumped 
++ * just partialy it will contain a &quot;.part&quot; in the name. 
++ * A link to the last complete file is created each time.
++ * Old files are deleted and only scscf_persistency_keep_count time-stamped-files are kept.
++ * @param x - the binary data to write
++ * @param prepend_fname - what to prepend to the file_name
++ * @returns 1 on success or 0 on failure
++ */
++int bin_dump_to_file(bin_data *x,char *location,char *prepend_fname)
++{
++	char c_part[256],c_time[256],c_last[256];
++	time_t now;
++	FILE *f;
++	int k;
++	
++	now = time(0);
++	sprintf(c_part,&quot;%s/%s_%.10u.bin.part&quot;,location,prepend_fname,(unsigned int)now);
++	sprintf(c_time,&quot;%s/%s_%.10u.bin&quot;,location,prepend_fname,(unsigned int)now);
++	sprintf(c_last,&quot;%s/_%s.bin&quot;,location,prepend_fname);
++
++	/* first dump to a partial file */	
++	f = fopen(c_part,&quot;w&quot;);
++	if (!f){
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump_to_file: error when opening file &lt;%s&gt; for writting [%s]\n&quot;,c_part,strerror(errno));
++		return 0;
++	}
++	k = fwrite(x-&gt;s,1,x-&gt;len,f);
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_dump_to_file: Dumped %d bytes into %s.\n&quot;,k,c_part);
++	fclose(f);			
++	
++	/* then rename it as a complete file with timestamp */
++	if (rename(c_part,c_time)&lt;0){
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump_to_file: error when renaming  &lt;%s&gt; -&gt; &lt;%s&gt; [%s]\n&quot;,c_part,c_time,strerror(errno));
++		return 0;
++	}
++	
++	/* then link the last snapshot to it */
++	if (k==x-&gt;len) {
++		if (remove(c_last)&lt;0 &amp;&amp; errno!=ENOENT){
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump_to_file: error when removing symlink &lt;%s&gt; [%s]\n&quot;,c_last,strerror(errno));
++			return 0;
++		}
++		if (symlink(c_time,c_last)&lt;0){
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump_to_file: error when symlinking &lt;%s&gt; -&gt; &lt;%s&gt; [%s]\n&quot;,c_time,c_last,strerror(errno));
++			return 0;
++		}
++		/* then remove old snapshots */
++		{
++			struct dirent **namelist;
++			int i,n,k=bin_files_keep_count;
++			int len=strlen(prepend_fname);					
++			n = scandir(location,&amp;namelist,0,alphasort);
++			if (n&gt;0){
++				for(i=n-1;i&gt;=0;i--){
++					if (strlen(namelist[i]-&gt;d_name)&gt;len &amp;&amp;
++						memcmp(namelist[i]-&gt;d_name,prepend_fname,len)==0) {
++						if (k) k--;
++						else {							
++							sprintf(c_part,&quot;%s/%s&quot;,location,namelist[i]-&gt;d_name);
++							remove(c_part);
++						}
++					}
++					free(namelist[i]);
++				}
++				free(namelist);
++			}
++		}
++		return 1;	
++	}
++	else return 0;
++}
++
++/**
++ * Reloads the snapshot from the link to the last time-stamped-file.
++ * @param x - where to load
++ * @param prepend_fname - with what to prepend the filename
++ * @returns 1 on success, 0 on error
++ */
++int bin_load_from_file(bin_data *x,char *location,char *prepend_fname)
++{
++	char c[256];
++	FILE *f;
++	int k;
++	
++	sprintf(c,&quot;%s/_%s.bin&quot;,location,prepend_fname);
++	f = fopen(c,&quot;r&quot;);
++	if (!f) {
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load_from_file: error opening %s : %s\n&quot;,c,strerror(errno));
++		return 0;
++	}
++	bin_alloc(x,1024);
++	while(!feof(f)){
++		bin_expand(x,1024);
++		k = fread(x-&gt;s+x-&gt;len,1,1024,f);
++		x-&gt;len+=k;
++	}
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_load_from_file: Read %d bytes from %s.\n&quot;,x-&gt;len,c);
++	fclose(f);	
++	return 1;
++}
++
++
++/**
++ * Dump a binary data to certain location.
++ * @param mode - where to dump it to
++ * @param x - binary data to dump
++ * @returns 1 on success or 0 on failure
++ */
++int bin_dump(bin_data *x,int mode,char *location,char* prepend_fname)
++{	
++	switch (mode){
++		case NO_PERSISTENCY:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but persistency was disabled...\n&quot;);
++			return 0;
++		case WITH_FILES:
++			return bin_dump_to_file(x,location,prepend_fname);
++		case WITH_DATABASE:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but WITH_DATABASE not implemented...\n&quot;);
++			return 0;
++		default:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but no such mode %d\n&quot;,mode);
++			return 0;
++	}
++}
++
++/**
++ * Reloads the bin_data from certain location.
++ * @param mode - where to load it from
++ * @param x - where to load into
++ * @returns 1 on success, 0 on error
++ */
++int bin_load(bin_data *x,int mode,char *location,char* prepend_fname)
++{
++	switch (mode){
++		case NO_PERSISTENCY:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load: Persistency support was disabled\n&quot;);
++			return 0;
++		case WITH_FILES:
++			return bin_load_from_file(x,location,prepend_fname);		
++		case WITH_DATABASE:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load: WITH_DATABASE not implemented...\n&quot;);
++			return 0;
++		default:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load: Can't resume because no such mode %d\n&quot;,mode);
++			return 0;
++	}
++}
++
++
++
+ /* end of bin library functions */
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin.h	2007-02-06 14:53:10 UTC (rev 117)
++++ ser_ims/branches/01_persistency/modules/scscf/bin.h	2007-02-06 15:09:20 UTC (rev 118)
+@@ -143,6 +143,21 @@
+ 
+ 
+ 
++typedef enum {
++	NO_PERSISTENCY=0,
++	WITH_FILES=1,
++	WITH_DATABASE=2
++} persistency_mode_t;
+ 
++/* Dumping functions */
+ 
++
++int bin_dump_to_file(bin_data *x,char *location,char *prepend_fname);
++int bin_load_from_file(bin_data *x,char *location,char *prepend_fname);
++
++int bin_dump(bin_data *x,int mode,char *location,char* prepend_fname);
++int bin_load(bin_data *x,int mode,char *location,char* prepend_fname);
++
++
++
+ #endif
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-02-06 14:53:10 UTC (rev 117)
++++ ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-02-06 15:09:20 UTC (rev 118)
+@@ -52,167 +52,12 @@
+  *
+  */
+ 
+-#include &lt;time.h&gt;
+-#include &lt;errno.h&gt;
+-#include &lt;sys/types.h&gt;
+-#include &lt;dirent.h&gt;
+-
+ #include &quot;s_persistency.h&quot;
+ 
+ extern persistency_mode_t scscf_persistency_mode;/**&lt; the type of persistency					*/
+ extern char* scscf_persistency_location;		/**&lt; where to dump the persistency data 		*/ 
+-int scscf_persistency_keep_count=3;				/**&lt; how many old snapshots to keep				*/
+ 
+ 
+-/**
+- * Writes the binary data to a snapshot file.
+- * The file names contain the time of the dump. If a file was dumped 
+- * just partialy it will contain a &quot;.part&quot; in the name. 
+- * A link to the last complete file is created each time.
+- * Old files are deleted and only scscf_persistency_keep_count time-stamped-files are kept.
+- * @param x - the binary data to write
+- * @param prepend_fname - what to prepend to the file_name
+- * @returns 1 on success or 0 on failure
+- */
+-int bin_dump_to_file(bin_data *x,char *prepend_fname)
+-{
+-	char c_part[256],c_time[256],c_last[256];
+-	time_t now;
+-	FILE *f;
+-	int k;
+-	
+-	now = time(0);
+-	sprintf(c_part,&quot;%s/%s_%.10u.bin.part&quot;,scscf_persistency_location,prepend_fname,(unsigned int)now);
+-	sprintf(c_time,&quot;%s/%s_%.10u.bin&quot;,scscf_persistency_location,prepend_fname,(unsigned int)now);
+-	sprintf(c_last,&quot;%s/_%s.bin&quot;,scscf_persistency_location,prepend_fname);
+-
+-	/* first dump to a partial file */	
+-	f = fopen(c_part,&quot;w&quot;);
+-	if (!f){
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump_to_file: error when opening file &lt;%s&gt; for writting [%s]\n&quot;,c_part,strerror(errno));
+-		return 0;
+-	}
+-	k = fwrite(x-&gt;s,1,x-&gt;len,f);
+-	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_dump_to_file: Dumped %d bytes into %s.\n&quot;,k,c_part);
+-	fclose(f);			
+-	
+-	/* then rename it as a complete file with timestamp */
+-	if (rename(c_part,c_time)&lt;0){
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump_to_file: error when renaming  &lt;%s&gt; -&gt; &lt;%s&gt; [%s]\n&quot;,c_part,c_time,strerror(errno));
+-		return 0;
+-	}
+-	
+-	/* then link the last snapshot to it */
+-	if (k==x-&gt;len) {
+-		if (remove(c_last)&lt;0 &amp;&amp; errno!=ENOENT){
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump_to_file: error when removing symlink &lt;%s&gt; [%s]\n&quot;,c_last,strerror(errno));
+-			return 0;
+-		}
+-		if (symlink(c_time,c_last)&lt;0){
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump_to_file: error when symlinking &lt;%s&gt; -&gt; &lt;%s&gt; [%s]\n&quot;,c_time,c_last,strerror(errno));
+-			return 0;
+-		}
+-		/* then remove old snapshots */
+-		{
+-			struct dirent **namelist;
+-			int i,n,k=scscf_persistency_keep_count;
+-			int len=strlen(prepend_fname);					
+-			n = scandir(scscf_persistency_location,&amp;namelist,0,alphasort);
+-			if (n&gt;0){
+-				for(i=n-1;i&gt;=0;i--){
+-					if (strlen(namelist[i]-&gt;d_name)&gt;len &amp;&amp;
+-						memcmp(namelist[i]-&gt;d_name,prepend_fname,len)==0) {
+-						if (k) k--;
+-						else {							
+-							sprintf(c_part,&quot;%s/%s&quot;,scscf_persistency_location,namelist[i]-&gt;d_name);
+-							remove(c_part);
+-						}
+-					}
+-					free(namelist[i]);
+-				}
+-				free(namelist);
+-			}
+-		}
+-		return 1;	
+-	}
+-	else return 0;
+-}
+-
+-/**
+- * Reloads the snapshot from the link to the last time-stamped-file.
+- * @param x - where to load
+- * @param prepend_fname - with what to prepend the filename
+- * @returns 1 on success, 0 on error
+- */
+-int bin_load_from_file(bin_data *x,char *prepend_fname)
+-{
+-	char c[256];
+-	FILE *f;
+-	int k;
+-	
+-	sprintf(c,&quot;%s/_%s.bin&quot;,scscf_persistency_location,prepend_fname);
+-	f = fopen(c,&quot;r&quot;);
+-	if (!f) {
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load_from_file: error opening %s : %s\n&quot;,c,strerror(errno));
+-		return 0;
+-	}
+-	bin_alloc(x,1024);
+-	while(!feof(f)){
+-		bin_expand(x,1024);
+-		k = fread(x-&gt;s+x-&gt;len,1,1024,f);
+-		x-&gt;len+=k;
+-	}
+-	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:bin_load_from_file: Read %d bytes from %s.\n&quot;,x-&gt;len,c);
+-	fclose(f);	
+-	return 1;
+-}
+-
+-
+-/**
+- * Dump a binary data where configured to.
+- * @param x - binary data to dump
+- * @returns 1 on success or 0 on failure
+- */
+-int bin_dump(bin_data *x,char* prepend_fname)
+-{	
+-	switch (scscf_persistency_mode){
+-		case NO_PERSISTENCY:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but persistency was disabled...\n&quot;);
+-			return 0;
+-		case WITH_FILES:
+-			return bin_dump_to_file(x,prepend_fname);
+-		case WITH_DATABASE:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but WITH_DATABASE not implemented...\n&quot;);
+-			return 0;
+-		default:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but no such mode %d\n&quot;,scscf_persistency_mode);
+-			return 0;
+-	}
+-}
+-
+-/**
+- * Reloads the bin_data from where configured to.
+- * @param x - where to load into
+- * @returns 1 on success, 0 on error
+- */
+-int bin_load(bin_data *x,char* prepend_fname)
+-{
+-	switch (scscf_persistency_mode){
+-		case NO_PERSISTENCY:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load: Persistency support was disabled\n&quot;);
+-			return 0;
+-		case WITH_FILES:
+-			return bin_load_from_file(x,prepend_fname);		
+-		case WITH_DATABASE:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load: WITH_DATABASE not implemented...\n&quot;);
+-			return 0;
+-		default:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load: Can't resume because no such mode %d\n&quot;,scscf_persistency_mode);
+-			return 0;
+-	}
+-}
+-
+-
+ extern auth_hash_slot_t *auth_data;				/**&lt; Authentication vector hash table 			*/
+ extern int auth_data_hash_size;					/**&lt; authentication vector hash table size 		*/
+ 
+@@ -236,7 +81,7 @@
+ 		auth_data_unlock(i);
+ 	}
+ 	bin_print(&amp;x);
+-	i = bin_dump(&amp;x,&quot;authdata&quot;);		
++	i = bin_dump(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;authdata&quot;);		
+ 	bin_free(&amp;x);
+ 	return i;
+ error:
+@@ -251,7 +96,7 @@
+ {
+ 	bin_data x;
+ 	auth_userdata *aud;
+-	if (!bin_load(&amp;x,&quot;authdata&quot;)) goto error;
++	if (!bin_load(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;authdata&quot;)) goto error;
+ 	bin_print(&amp;x);
+ 	x.max=0;
+ 	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_auth: max %d len %d\n&quot;,x.max,x.len);
+@@ -312,7 +157,7 @@
+ 		d_unlock(i);
+ 	}
+ 	bin_print(&amp;x);
+-	i = bin_dump(&amp;x,&quot;dialogs&quot;);		
++	i = bin_dump(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;dialogs&quot;);		
+ 	bin_free(&amp;x);
+ 	return i;
+ error:
+@@ -327,7 +172,7 @@
+ {
+ 	bin_data x;
+ 	s_dialog *d;
+-	if (!bin_load(&amp;x,&quot;dialogs&quot;)) goto error;
++	if (!bin_load(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;dialogs&quot;)) goto error;
+ 	bin_print(&amp;x);
+ 	x.max=0;
+ 	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_dlg: max %d len %d\n&quot;,x.max,x.len);
+@@ -386,7 +231,7 @@
+ 		r_unlock(i);
+ 	}
+ 	bin_print(&amp;x);
+-	i = bin_dump(&amp;x,&quot;sregistrar&quot;);		
++	i = bin_dump(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;sregistrar&quot;);		
+ 	bin_free(&amp;x);
+ 	return i;
+ error:
+@@ -401,7 +246,7 @@
+ {
+ 	bin_data x;
+ 	r_public *p;
+-	if (!bin_load(&amp;x,&quot;sregistrar&quot;)) goto error;
++	if (!bin_load(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;sregistrar&quot;)) goto error;
+ 	bin_print(&amp;x);
+ 	x.max=0;
+ 	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_registrar: max %d len %d\n&quot;,x.max,x.len);
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/s_persistency.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/s_persistency.h	2007-02-06 14:53:10 UTC (rev 117)
++++ ser_ims/branches/01_persistency/modules/scscf/s_persistency.h	2007-02-06 15:09:20 UTC (rev 118)
+@@ -59,11 +59,6 @@
+ 
+ #include &quot;bin_scscf.h&quot;
+ 
+-typedef enum {
+-	NO_PERSISTENCY=0,
+-	WITH_FILES=1,
+-	WITH_DATABASE=2
+-} persistency_mode_t;
+ 
+ int make_snapshot_authdata();
+ int load_snapshot_authdata();
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000172.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r117 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000174.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r120 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#173">[ date ]</a>
+              <a href="thread.html#173">[ thread ]</a>
+              <a href="subject.html#173">[ subject ]</a>
+              <a href="author.html#173">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

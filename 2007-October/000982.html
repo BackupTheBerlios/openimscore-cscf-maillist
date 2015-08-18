@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r435 - Fixed P-CSCF reg subscription bug that caused crashes at very high loads. Removed ims_pm logging from console output.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r435%20-%20Fixed%20P-CSCF%20reg%0A%20subscription%20bug%20that%20caused%20crashes%20at%20very%20high%20loads.%20Removed%20ims_pm%0A%20logging%20from%20console%20output.&In-Reply-To=%3C4704D890.5040204%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000983.html">
+   <LINK REL="Next"  HREF="000985.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r435 - Fixed P-CSCF reg subscription bug that caused crashes at very high loads. Removed ims_pm logging from console output.</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r435%20-%20Fixed%20P-CSCF%20reg%0A%20subscription%20bug%20that%20caused%20crashes%20at%20very%20high%20loads.%20Removed%20ims_pm%0A%20logging%20from%20console%20output.&In-Reply-To=%3C4704D890.5040204%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r435 - Fixed P-CSCF reg subscription bug that caused crashes at very high loads. Removed ims_pm logging from console output.">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Oct  4 14:12:00 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000983.html">[OpenIMSCore-CSCF] How to install ser_ims in the	paticular	directory?
+</A></li>
+        <LI>Next message: <A HREF="000985.html">[OpenIMSCore-CSCF] INVITE not forwarded by S-CSCF in case of	AS-proxy
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#982">[ date ]</a>
+              <a href="thread.html#982">[ thread ]</a>
+              <a href="subject.html#982">[ subject ]</a>
+              <a href="author.html#982">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Jorg,
+
+Well, it depends on hardware, topology, configuration, etc.
+
+700 cps for SER seems a little too low to me...
+
+A rough estimate with OpenIMSCore for calls (no HSS interaction) would
+be around 1000. You had 8, so I guess there was something very wrong in
+how you tested it.
+
+So here are a few tips:
+- you should use different users - after all, the calls per second per
+user in a real case is a ridiculously small number, so the Open IMS Core
+was designed with this in mind. If you reuse the users, there will be a
+lot of locking.
+- don't serialize the test. The OpenIMSCore is a multi-process
+application that scales quite well, so don't limit the input.
+- check the *_hash_size parameter and increase it. Ideally this should
+be something near the total number of users that you have. Don't worry
+too much about memory though - from our measurements, 64MB for P-CSCF +
+64MB for S-CSCF are enough for &gt;25.000 users and I am sure that you have
+GB to go. If it runs out of shared memory, provide more with the -m
+parameter for SER. If the *_hash_size parameter is too low, you will get
+a lot of wasted CPU on linear searches and also a lot of inter-locking.
+- remove all logging. Really, it makes a BIG difference!
+- are you doing just calls or also registrations? registration is the
+most resource consuming operation. I am asking as usually SIPp is used,
+yet SIPp is not a benchmarking tool, although it has a wonderful speed.
+In our tests we register first all users, each with individual IP:port
+pairs as in the real case and then run the call test.
+
+I am attaching a graph for a pretty basic topology and configuration
+running on a T60 with a <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Core2Duo at 2Ghz</A> and about 30.000 users. The test
+was finished before failures though and the duration is short, but it's
+a good rough initial estimation I guess.
+
+We are doing a lot of performance testing on the OpenIMSCore. Actually,
+the OpenIMSCore is used as a reference SuT in the IMS/NGN Performance
+Benchmarking SIG which published the ETSI TS 186.008 (
+<A HREF="http://pda.etsi.org/pda/queryform.asp">http://pda.etsi.org/pda/queryform.asp</A> (use 186008 as keyword) ).
+
+Unfortunately, due to NDAs and copyrights, I can't share publicly more
+results from different projects.
+
+Cheers,
+-Dragos
+
+
+
+s wrote:
+&gt;<i> Hi Dragos,
+</I>&gt;<i>
+</I>&gt;<i> could you give a rough estimate of the kind of performance we can expect
+</I>&gt;<i> from the Open IMS core?
+</I>&gt;<i>
+</I>&gt;<i> &gt;From other postings on performance of the SER(so no IMS) I remember a
+</I>&gt;<i> figure of ca 700 calls per second on a P4 box.
+</I>&gt;<i>
+</I>&gt;<i> Our own messurements on the Open IMS core give us a call rate of ca 8
+</I>&gt;<i> calls per second. (We have done no tuning what so ever) and I know I I
+</I>&gt;<i> should not make such a comparison)
+</I>&gt;<i>
+</I>&gt;<i> So could you give a very rough indication what to expect?
+</I>&gt;<i> ie &lt; 10 cps, &lt; 20, &lt; 50, &lt; 100 cps?
+</I>&gt;<i>
+</I>&gt;<i> thanks,
+</I>&gt;<i>
+</I>&gt;<i> Jorg
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A> wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Author: vingarzan
+</I>&gt;&gt;<i> Date: 2007-08-20 13:51:14 +0200 (Mon, 20 Aug 2007)
+</I>&gt;&gt;<i> New Revision: 435 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=435">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=435</A> 
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Log:
+</I>&gt;&gt;<i> Fixed P-CSCF reg subscription bug that caused crashes at very high loads.
+</I>&gt;&gt;<i> Removed ims_pm logging from console output.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Modified:
+</I>&gt;&gt;<i>    U	ser_ims/trunk/modules/pcscf/registrar_subscribe.c
+</I>&gt;&gt;<i> 		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_subscribe.c?rev=435&amp;view=diff&amp;r1=435&amp;r2=434">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/registrar_subscribe.c?rev=435&amp;view=diff&amp;r1=435&amp;r2=434</A>
+</I>&gt;&gt;<i>    U	ser_ims/trunk/modules/scscf/ims_pm.c
+</I>&gt;&gt;<i> 		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/ims_pm.c?rev=435&amp;view=diff&amp;r1=435&amp;r2=434">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/ims_pm.c?rev=435&amp;view=diff&amp;r1=435&amp;r2=434</A>
+</I>&gt;&gt;<i>    U	ser_ims/trunk/modules/scscf/registrar_notify.c
+</I>&gt;&gt;<i> 		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_notify.c?rev=435&amp;view=diff&amp;r1=435&amp;r2=434">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_notify.c?rev=435&amp;view=diff&amp;r1=435&amp;r2=434</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: OpenIMSCore_cps.pdf
+Type: application/pdf
+Size: 26115 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071004/9cb1231d/attachment.pdf">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20071004/9cb1231d/attachment.pdf</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000983.html">[OpenIMSCore-CSCF] How to install ser_ims in the	paticular	directory?
+</A></li>
+	<LI>Next message: <A HREF="000985.html">[OpenIMSCore-CSCF] INVITE not forwarded by S-CSCF in case of	AS-proxy
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#982">[ date ]</a>
+              <a href="thread.html#982">[ thread ]</a>
+              <a href="subject.html#982">[ subject ]</a>
+              <a href="author.html#982">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

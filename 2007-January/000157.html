@@ -1,0 +1,341 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r106 -	ser_ims/branches/01_persistency/modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r106%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200701301125.l0UBPdu8016913%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000156.html">
+   <LINK REL="Next"  HREF="000158.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r106 -	ser_ims/branches/01_persistency/modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r106%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200701301125.l0UBPdu8016913%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r106 -	ser_ims/branches/01_persistency/modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Jan 30 12:25:39 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000156.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r105 - in	ser_ims/branches/01_persistency: . .settings modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000158.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r107 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#157">[ date ]</a>
+              <a href="thread.html#157">[ thread ]</a>
+              <a href="subject.html#157">[ subject ]</a>
+              <a href="author.html#157">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-01-30 12:25:34 +0100 (Tue, 30 Jan 2007)
+New Revision: 106
+
+Modified:
+   ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+Log:
+Finishing writting the S-CSCF registrar encoding/decoding functions.
+
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-01-29 17:08:53 UTC (rev 105)
++++ ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-01-30 11:25:34 UTC (rev 106)
+@@ -56,6 +56,7 @@
+ #include &quot;bin_scscf.h&quot;
+ #include &quot;ifc_datastruct.h&quot;
+ #include &quot;registration.h&quot;
++#include &quot;registrar_storage.h&quot;
+ 
+ /* structures reprezentation functions */
+ 
+@@ -545,13 +546,237 @@
+ 
+ 
+ 
++/**
++ * Encode a r_public into a binary form
++ * @param x - binary data to append to
++ * @param c - the r_contact to encode
++ * @returns 1 on succcess or 0 on error
++ */
++int bin_encode_r_contact(bin_data *x,r_contact *c)
++{
++	if (!bin_encode_str(x,&amp;(c-&gt;uri))) goto error;
++	if (!bin_encode_int4(x,c-&gt;expires)) goto error;
++	if (!bin_encode_str(x,&amp;(c-&gt;ua))) goto error;
++	if (!bin_encode_str(x,&amp;(c-&gt;path))) goto error;
+ 
++	return 1;
++error:
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_encode_r_contact: Error while encoding.\n&quot;);
++	return 0;		
++}
+ 
++/**
++ *	Decode a contact from a binary data structure
++ * @param x - binary data to decode from
++ * @returns the r_contact* where the data has been decoded
++ */
++r_contact* bin_decode_r_contact(bin_data *x)
++{
++	r_contact *c=0;
++	int len,k;
++	str s;
++	
++	len = sizeof(r_contact);
++	c = (r_contact*) shm_malloc(len);
++	if (!c) {
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_contact: Error allocating %d bytes.\n&quot;,len);
++		goto error;
++	}
++	memset(c,0,len);
++	
++	if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(c-&gt;uri),&amp;s)) goto error;
++	if (!bin_decode_int4(x,&amp;(k))) goto error;
++	c-&gt;expires = k;
++	if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(c-&gt;ua),&amp;s)) goto error;
++	if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(c-&gt;path),&amp;s)) goto error;
++	
++	return c;
++error:
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_contact: Error while decoding.\n&quot;);
++	if (c) {
++		if (c-&gt;uri.s) shm_free(c-&gt;uri.s);
++		if (c-&gt;ua.s) shm_free(c-&gt;ua.s);
++		if (c-&gt;path.s) shm_free(c-&gt;path.s);
++		
++		shm_free(c);
++	}
++	return 0;
++}
+ 
++/**
++ * Encode a r_subscriber into a binary form
++ * @param x - binary data to append to
++ * @param s - the r_subscriber to encode
++ * @returns 1 on succcess or 0 on error
++ */
++int bin_encode_r_subscriber(bin_data *x,r_subscriber *s)
++{
++	if (!bin_encode_str(x,&amp;(s-&gt;subscriber))) goto error;
++	if (!bin_encode_int1(x,s-&gt;event)) goto error;
++	if (!bin_encode_int4(x,s-&gt;expires)) goto error;
++	//TODO - encode the dlg_t in s-&gt;dialog!!!
++	if (!bin_encode_int4(x,s-&gt;version)) goto error;
+ 
++	return 1;
++error:
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_encode_r_subscriber: Error while encoding.\n&quot;);
++	return 0;		
++}
+ 
++/**
++ *	Decode a subscriber from a binary data structure
++ * @param x - binary data to decode from
++ * @returns the r_subscriber* where the data has been decoded
++ */
++r_subscriber* bin_decode_r_subscriber(bin_data *x)
++{
++	r_subscriber *s=0;
++	int len;
++	str st;
++	
++	len = sizeof(r_subscriber);
++	s = (r_subscriber*) shm_malloc(len);
++	if (!s) {
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_contact: Error allocating %d bytes.\n&quot;,len);
++		goto error;
++	}
++	memset(s,0,len);
++	
++	if (!bin_decode_str(x,&amp;st)||!str_shm_dup(&amp;(s-&gt;subscriber),&amp;st)) goto error;
++	if (!bin_decode_int1(x,&amp;(s-&gt;event))) goto error;
++	if (!bin_decode_int4(x,&amp;(s-&gt;expires))) goto error;
++	//TODO - decode the dlg_t into s-&gt;dialog!!!	
++	if (!bin_decode_int4(x,&amp;(s-&gt;version))) goto error;	
++	
++	return s;
++error:
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_contact: Error while decoding.\n&quot;);
++	if (s) {
++		if (s-&gt;subscriber.s) shm_free(s-&gt;subscriber.s);
++		shm_free(s);
++	}
++	return 0;
++}
+ 
++
++
+ /**
++ * Encode a r_public into a binary form
++ * @param x - binary data to append to
++ * @param p - the r_public to encode
++ * @returns 1 on succcess or 0 on error
++ */
++int bin_encode_r_public(bin_data *x,r_public *p)
++{
++	int k;
++	r_contact *c=0;
++	r_subscriber *s=0;
++	
++	if (!bin_encode_int4(x,p-&gt;hash)) goto error;
++	if (!bin_encode_str(x,&amp;(p-&gt;aor))) goto error;
++	k = p-&gt;reg_state;
++	if (!bin_encode_int1(x,k)) goto error;
++	if (!bin_encode_ims_subscription(x,p-&gt;s)) goto error;
++	
++	k=0;
++	for(c=p-&gt;head;c;c=c-&gt;next)
++		k++;
++	if (!bin_encode_int2(x,k)) goto error;
++	for(c=p-&gt;head;c;c=c-&gt;next)
++		if (!bin_encode_r_contact(x,c)) goto error;	
++	
++	k=0;
++	for(s=p-&gt;shead;s;s=s-&gt;next)
++		k++;
++	if (!bin_encode_int2(x,k)) goto error;
++	for(s=p-&gt;shead;s;s=s-&gt;next)
++		if (!bin_encode_r_subscriber(x,s)) goto error;	
++	
++
++	return 1;
++error:
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_encode_r_public: Error while encoding.\n&quot;);
++	return 0;		
++}
++
++/**
++ *	Decode a r_public from a binary data structure
++ * @param x - binary data to decode from
++ * @returns the r_public* where the data has been decoded
++ */
++r_public* bin_decode_r_public(bin_data *x)
++{
++	r_public *p=0;
++	r_contact *c=0,*cn=0;
++	r_subscriber *s,*sn=0;
++	int len,k,i;
++	str st;
++	
++	len = sizeof(r_public);
++	p = (r_public*) shm_malloc(len);
++	if (!p) {
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_public: Error allocating %d bytes.\n&quot;,len);
++		goto error;
++	}
++	memset(p,0,len);
++	
++	if (!bin_decode_int4(x,&amp;(p-&gt;hash))) goto error;
++	if (!bin_decode_str(x,&amp;st)||!str_shm_dup(&amp;(p-&gt;aor),&amp;st)) goto error;
++	if (!bin_decode_int1(x,&amp;k)) goto error;
++	p-&gt;reg_state = k;
++	
++	if (!bin_decode_int2(x,&amp;k)) goto error;
++	for(i=0;i&lt;k;i++){
++		c = bin_decode_r_contact(x);
++		if (!c) goto error;
++		c-&gt;prev = p-&gt;tail;
++		c-&gt;next = 0;
++		if (!p-&gt;head) p-&gt;head = c;
++		if (p-&gt;tail) p-&gt;tail-&gt;next = c;
++		p-&gt;tail = c;
++	}
++
++	if (!bin_decode_int2(x,&amp;k)) goto error;
++	for(i=0;i&lt;k;i++){
++		s = bin_decode_r_subscriber(x);
++		if (!s) goto error;
++		s-&gt;prev = p-&gt;stail;
++		s-&gt;next = 0;
++		if (!p-&gt;shead) p-&gt;shead = s;
++		if (p-&gt;stail) p-&gt;stail-&gt;next = s;
++		p-&gt;stail = s;
++	}
++	
++	return p;
++error:
++	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_r_public: Error while decoding.\n&quot;);
++	if (p) {
++		if (p-&gt;aor.s) shm_free(p-&gt;aor.s);
++		while(p-&gt;head){
++			c = p-&gt;head;
++			cn = c-&gt;next;
++			free_r_contact(c);
++			p-&gt;head = cn;
++		}
++		while(p-&gt;shead){
++			s = p-&gt;shead;
++			sn = s-&gt;next;
++			free_r_subscriber(s);
++			p-&gt;shead = sn;
++		}
++		shm_free(p);
++	}
++	return 0;
++}
++
++
++
++
++
++
++
++
++/**
+  * Encode an authentication vector into a binary form
+  * @param x - binary data to append to
+  * @param v - the authentication vector to encode
+@@ -620,6 +845,9 @@
+ }
+ 
+ 
++
++
++
+ /**
+  * Encode an authentication userdata into a binary form
+  * @param x - binary data to append to
+@@ -678,7 +906,7 @@
+ 	
+ 	for(i=0;i&lt;k;i++){
+ 		v = bin_decode_auth_vector(x);
+-		if (v) goto error;
++		if (!v) goto error;
+ 		v-&gt;prev = u-&gt;tail;
+ 		v-&gt;next = 0;
+ 		if (!u-&gt;head) u-&gt;head = v;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000156.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r105 - in	ser_ims/branches/01_persistency: . .settings modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000158.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r107 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#157">[ date ]</a>
+              <a href="thread.html#157">[ thread ]</a>
+              <a href="subject.html#157">[ subject ]</a>
+              <a href="author.html#157">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

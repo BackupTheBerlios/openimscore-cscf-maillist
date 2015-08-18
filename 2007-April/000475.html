@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r237 - Merged the 03_ratelimit	branch into trunk r203:236.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r237%20-%20Merged%20the%2003_ratelimit%0A%09branch%20into%20trunk%20r203%3A236.&In-Reply-To=%3C200704181259.l3ICxEhN015844%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000474.html">
+   <LINK REL="Next"  HREF="000477.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r237 - Merged the 03_ratelimit	branch into trunk r203:236.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r237%20-%20Merged%20the%2003_ratelimit%0A%09branch%20into%20trunk%20r203%3A236.&In-Reply-To=%3C200704181259.l3ICxEhN015844%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r237 - Merged the 03_ratelimit	branch into trunk r203:236.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Apr 18 14:59:14 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000474.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r236 - Merged the 02_persistency	branch into trunk r162:235. - support of P-CSCF persitency	with Database - new database SQL dump files for MySQL and	Postgres - deleted the 02_persistency branch.
+</A></li>
+        <LI>Next message: <A HREF="000477.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r238 - Created branch for P-CSCF	TLS support.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#475">[ date ]</a>
+              <a href="thread.html#475">[ thread ]</a>
+              <a href="subject.html#475">[ subject ]</a>
+              <a href="author.html#475">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-04-18 14:59:10 +0200 (Wed, 18 Apr 2007)
+New Revision: 237 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=237">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=237</A> 
+
+Log:
+Merged the 03_ratelimit branch into trunk r203:236.
+
+
+Added:
+   A	ser_ims/trunk/modules/ratelimit/doc/adaptive/
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/?rev=237">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/?rev=237</A>
+   A	ser_ims/trunk/modules/ratelimit/doc/adaptive/300_10-80.png
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/300_10-80.png?rev=237&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/300_10-80.png?rev=237&amp;view=markup</A>
+   A	ser_ims/trunk/modules/ratelimit/doc/adaptive/300_80-10.png
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/300_80-10.png?rev=237&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/300_80-10.png?rev=237&amp;view=markup</A>
+   A	ser_ims/trunk/modules/ratelimit/doc/adaptive/80_0-300.png
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/80_0-300.png?rev=237&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/80_0-300.png?rev=237&amp;view=markup</A>
+   A	ser_ims/trunk/modules/ratelimit/doc/adaptive/80_300-1700.png
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/80_300-1700.png?rev=237&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/80_300-1700.png?rev=237&amp;view=markup</A>
+   A	ser_ims/trunk/modules/ratelimit/doc/adaptive/Makefile
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/Makefile?rev=237&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/Makefile?rev=237&amp;view=markup</A>
+   A	ser_ims/trunk/modules/ratelimit/doc/adaptive/ratelimit-adaptive.html
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/ratelimit-adaptive.html?rev=237&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/ratelimit-adaptive.html?rev=237&amp;view=markup</A>
+   A	ser_ims/trunk/modules/ratelimit/doc/adaptive/ratelimit-adaptive.txt
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/ratelimit-adaptive.txt?rev=237&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/doc/adaptive/ratelimit-adaptive.txt?rev=237&amp;view=markup</A>
+Removed:
+   D	ser_ims/branches/03_ratelimit/
+   D	ser_ims/trunk/modules/ratelimit/doc/adaptive/300_10-80.png
+   D	ser_ims/trunk/modules/ratelimit/doc/adaptive/300_80-10.png
+   D	ser_ims/trunk/modules/ratelimit/doc/adaptive/80_0-300.png
+   D	ser_ims/trunk/modules/ratelimit/doc/adaptive/80_300-1700.png
+   D	ser_ims/trunk/modules/ratelimit/doc/adaptive/Makefile
+   D	ser_ims/trunk/modules/ratelimit/doc/adaptive/ratelimit-adaptive.html
+   D	ser_ims/trunk/modules/ratelimit/doc/adaptive/ratelimit-adaptive.txt
+Modified:
+   U	ser_ims/trunk/modules/ratelimit/ratelimit.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/ratelimit.c?rev=237&amp;view=diff&amp;r1=237&amp;r2=236">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/ratelimit/ratelimit.c?rev=237&amp;view=diff&amp;r1=237&amp;r2=236</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000474.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r236 - Merged the 02_persistency	branch into trunk r162:235. - support of P-CSCF persitency	with Database - new database SQL dump files for MySQL and	Postgres - deleted the 02_persistency branch.
+</A></li>
+	<LI>Next message: <A HREF="000477.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r238 - Created branch for P-CSCF	TLS support.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#475">[ date ]</a>
+              <a href="thread.html#475">[ thread ]</a>
+              <a href="subject.html#475">[ subject ]</a>
+              <a href="author.html#475">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] early-IMS Problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20early-IMS%20Problem&In-Reply-To=%3C4815A468.9010503%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001305.html">
+   <LINK REL="Next"  HREF="001321.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] early-IMS Problem</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20early-IMS%20Problem&In-Reply-To=%3C4815A468.9010503%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] early-IMS Problem">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Mon Apr 28 12:18:16 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001305.html">[OpenIMSCore-CSCF] early-IMS Problem
+</A></li>
+        <LI>Next message: <A HREF="001321.html">[OpenIMSCore-CSCF] early-IMS Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1315">[ date ]</a>
+              <a href="thread.html#1315">[ thread ]</a>
+              <a href="subject.html#1315">[ subject ]</a>
+              <a href="author.html#1315">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Eivar,
+
+could you please post the scscf.cfg and the scscf output around the 
+registration? It seems that the Early-IMS authentication went fine, but 
+then there was an error in the server assignment, on the S-CSCF, after 
+the SAR/SAA was successful.
+
+BTW: - you might want to put a real Contact address in the REGISTER, 
+containing the IP and port of the client... Also, there's no Expires 
+header or expires parameter to the contact. This might have caused the 
+failure as the S-CSCF might have not properly detected if you do a 
+registration or de-registration.
+
+Cheers,
+-Dragos
+Eivar Armero wrote:
+&gt;<i> Excuse me in my last post i forgot send you the traces of the Diameter 
+</I>&gt;<i> and SIP messages from wire shark :$
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Hi all,
+</I>&gt;<i>
+</I>&gt;<i> I'm developing a simple mobile client that connects to the Open IMS
+</I>&gt;<i> Core, for testing proposes I'm  using Early-IMS  authentication, i have
+</I>&gt;<i> been enable this capability in the scscf.cgf file, and add the IP
+</I>&gt;<i> address of the client, but when the authentication begins an error
+</I>&gt;<i> occurs  and a 500 - Server Internal Error - Server Assignment failed
+</I>&gt;<i> message is sent to the client instead of 200 - Ok.
+</I>&gt;<i>
+</I>&gt;<i> I followed the steps that i have been found in the mailing list but I
+</I>&gt;<i> can't resolve the problem
+</I>&gt;<i>
+</I>&gt;<i> can some body help me??
+</I>&gt;<i>
+</I>&gt;<i> tks for all...
+</I>&gt;<i>
+</I>&gt;<i> Eivar Armero Luna
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001305.html">[OpenIMSCore-CSCF] early-IMS Problem
+</A></li>
+	<LI>Next message: <A HREF="001321.html">[OpenIMSCore-CSCF] early-IMS Problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1315">[ date ]</a>
+              <a href="thread.html#1315">[ thread ]</a>
+              <a href="subject.html#1315">[ subject ]</a>
+              <a href="author.html#1315">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

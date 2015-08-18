@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r823 - solving some of the	compiling problems in relation to sip-router project portability
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r823%20-%20solving%20some%20of%20the%0A%09compiling%20problems%20in%20relation%20to%20sip-router%20project%20portability&In-Reply-To=%3C201001250955.o0P9tliu028886%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001990.html">
+   <LINK REL="Next"  HREF="001992.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r823 - solving some of the	compiling problems in relation to sip-router project portability</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r823%20-%20solving%20some%20of%20the%0A%09compiling%20problems%20in%20relation%20to%20sip-router%20project%20portability&In-Reply-To=%3C201001250955.o0P9tliu028886%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r823 - solving some of the	compiling problems in relation to sip-router project portability">aon at users.berlios.de
+       </A><BR>
+    <I>Mon Jan 25 10:55:47 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001990.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r822 - added an external reference	to the variable debug
+</A></li>
+        <LI>Next message: <A HREF="001992.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r824 - solved some of the problems	related to using the lrf module with the modules from	sip-router (as one of the modules_osims modules)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1991">[ date ]</a>
+              <a href="thread.html#1991">[ thread ]</a>
+              <a href="subject.html#1991">[ subject ]</a>
+              <a href="author.html#1991">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2010-01-25 10:55:28 +0100 (Mon, 25 Jan 2010)
+New Revision: 823 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=823">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=823</A> 
+
+Log:
+solving some of the compiling problems in relation to sip-router project portability
+
+
+Modified:
+   U	ser_ims/branches/12_em_services/modules/ecscf/Makefile
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/Makefile?rev=823&amp;view=diff&amp;r1=823&amp;r2=822">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/Makefile?rev=823&amp;view=diff&amp;r1=823&amp;r2=822</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c?rev=823&amp;view=diff&amp;r1=823&amp;r2=822">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c?rev=823&amp;view=diff&amp;r1=823&amp;r2=822</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/dlg_state.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.h?rev=823&amp;view=diff&amp;r1=823&amp;r2=822">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.h?rev=823&amp;view=diff&amp;r1=823&amp;r2=822</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/lrf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.c?rev=823&amp;view=diff&amp;r1=823&amp;r2=822">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.c?rev=823&amp;view=diff&amp;r1=823&amp;r2=822</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/lrf.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.h?rev=823&amp;view=diff&amp;r1=823&amp;r2=822">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.h?rev=823&amp;view=diff&amp;r1=823&amp;r2=822</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/mod.c?rev=823&amp;view=diff&amp;r1=823&amp;r2=822">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/mod.c?rev=823&amp;view=diff&amp;r1=823&amp;r2=822</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/release_call.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/release_call.c?rev=823&amp;view=diff&amp;r1=823&amp;r2=822">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/release_call.c?rev=823&amp;view=diff&amp;r1=823&amp;r2=822</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/release_call.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/release_call.h?rev=823&amp;view=diff&amp;r1=823&amp;r2=822">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/release_call.h?rev=823&amp;view=diff&amp;r1=823&amp;r2=822</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/sdp_helpr_funcs.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/sdp_helpr_funcs.c?rev=823&amp;view=diff&amp;r1=823&amp;r2=822">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/sdp_helpr_funcs.c?rev=823&amp;view=diff&amp;r1=823&amp;r2=822</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/sdp_helpr_funcs.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/sdp_helpr_funcs.h?rev=823&amp;view=diff&amp;r1=823&amp;r2=822">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/sdp_helpr_funcs.h?rev=823&amp;view=diff&amp;r1=823&amp;r2=822</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001990.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r822 - added an external reference	to the variable debug
+</A></li>
+	<LI>Next message: <A HREF="001992.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r824 - solved some of the problems	related to using the lrf module with the modules from	sip-router (as one of the modules_osims modules)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1991">[ date ]</a>
+              <a href="thread.html#1991">[ thread ]</a>
+              <a href="subject.html#1991">[ subject ]</a>
+              <a href="author.html#1991">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

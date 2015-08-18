@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SIGSEGV%20validating%20user%20data%20XML%20against%20XSD&In-Reply-To=%3C46715DD9.6040606%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000724.html">
+   <LINK REL="Next"  HREF="000735.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SIGSEGV%20validating%20user%20data%20XML%20against%20XSD&In-Reply-To=%3C46715DD9.6040606%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Jun 14 17:25:13 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000724.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r315 - Removed breaks from after	P_enforce_via_list()
+</A></li>
+        <LI>Next message: <A HREF="000735.html">[OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#731">[ date ]</a>
+              <a href="thread.html#731">[ thread ]</a>
+              <a href="subject.html#731">[ subject ]</a>
+              <a href="author.html#731">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>No :), I meant the XML that is downloaded in the SAA Diameter message
+and which crashes on XSD check, not the XSD.
+
+-Dragos
+
+Vance Shipley wrote:
+&gt;<i> On Thu, Jun 14, 2007 at 09:25:23AM +0200, Dragos Vingarzan wrote:
+</I>&gt;<i> }  could you please send us your XML so that we could try and replicate the
+</I>&gt;<i> }  issue?
+</I>&gt;<i>   
+</I>&gt;<i> It's just what is in CVS HEAD:
+</I>&gt;<i>
+</I>&gt;<i> 	$ cd /opt/OpenIMSCore/ser_ims
+</I>&gt;<i> 	$ cmp ./modules/scscf/CxDataType_Rel7.xsd /usr/local/etc/ser/scscf/CxDataType_Rel7.xsd
+</I>&gt;<i> 	$ svn diff modules/scscf/CxDataType_Rel7.xsd
+</I>&gt;<i> 	$
+</I>&gt;<i>
+</I>&gt;<i> }  It looks like the bug is in libxml as it shouldn't crash in any case, no
+</I>&gt;<i> }  matter how wrong the xsd or xml should be. And if the dtd validates the
+</I>&gt;<i> }  xml, it should be OK anyway...
+</I>&gt;<i>
+</I>&gt;<i> At some point I'll update the libxml2 package and see whether that helps.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 	-Vance
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000724.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r315 - Removed breaks from after	P_enforce_via_list()
+</A></li>
+	<LI>Next message: <A HREF="000735.html">[OpenIMSCore-CSCF] SIGSEGV validating user data XML against XSD
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#731">[ date ]</a>
+              <a href="thread.html#731">[ thread ]</a>
+              <a href="subject.html#731">[ subject ]</a>
+              <a href="author.html#731">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

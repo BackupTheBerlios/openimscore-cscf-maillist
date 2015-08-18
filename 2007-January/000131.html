@@ -1,0 +1,635 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r89 - in ser_ims/trunk: cfg	modules/isc modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r89%20-%20in%20ser_ims/trunk%3A%20cfg%0A%09modules/isc%20modules/scscf&In-Reply-To=%3C200701162139.l0GLdnoX026296%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000130.html">
+   <LINK REL="Next"  HREF="000133.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r89 - in ser_ims/trunk: cfg	modules/isc modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r89%20-%20in%20ser_ims/trunk%3A%20cfg%0A%09modules/isc%20modules/scscf&In-Reply-To=%3C200701162139.l0GLdnoX026296%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r89 - in ser_ims/trunk: cfg	modules/isc modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Jan 16 22:39:49 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000130.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r88 - in ser_ims/trunk/modules:	cdp pcscf
+</A></li>
+        <LI>Next message: <A HREF="000133.html">[OpenIMSCore-CSCF] Disabling the challenge
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#131">[ date ]</a>
+              <a href="thread.html#131">[ thread ]</a>
+              <a href="subject.html#131">[ subject ]</a>
+              <a href="author.html#131">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-01-16 22:38:38 +0100 (Tue, 16 Jan 2007)
+New Revision: 89
+
+Modified:
+   ser_ims/trunk/cfg/scscf.cfg
+   ser_ims/trunk/modules/isc/third_party_reg.c
+   ser_ims/trunk/modules/scscf/mod.c
+   ser_ims/trunk/modules/scscf/registrar.c
+   ser_ims/trunk/modules/scscf/registrar.h
+Log:
+Reorganized S_orig_/not_/unregistered() functions.
+Allowed for 3rd Party Deregistration in script.
+Fixed isc to send expires 0 on de-register.
+
+
+Modified: ser_ims/trunk/cfg/scscf.cfg
+===================================================================
+--- ser_ims/trunk/cfg/scscf.cfg	2007-01-16 21:34:32 UTC (rev 88)
++++ ser_ims/trunk/cfg/scscf.cfg	2007-01-16 21:38:38 UTC (rev 89)
+@@ -159,25 +159,37 @@
+ 	
+ 		if (!S_is_integrity_protected(&quot;open-ims.test&quot;)){
+ 			# Unprotected REGISTER
+-			#Variant 1 - accept also non IPSec clients
++			# Variant 1 - accept also non IPSec clients
+ 			if (!S_is_authorized(&quot;open-ims.test&quot;)) {
+ 				S_challenge(&quot;open-ims.test&quot;);
+ 				route(Service_Routes);
+ 				t_reply(&quot;401&quot;, &quot;Unauthorized - Challenging the UE&quot;);
+ 				exit;
+ 			}else{
+-				if (S_assign_server(&quot;open-ims.test&quot;)){
+-					route(Service_Routes);
+-					t_reply(&quot;200&quot;,&quot;OK - SAR succesful and registrar saved&quot;);
++				if (S_orig_not_registered()){
++					if (S_assign_server(&quot;open-ims.test&quot;)){
++						route(Service_Routes);
++						t_reply(&quot;200&quot;,&quot;OK - SAR succesful and registrar saved&quot;);
++						ISC_match_filter_reg();
++						exit;
++					}else{
++						t_reply(&quot;500&quot;,&quot;Server Internal Error - Server Assignment failed&quot;);
++						exit;
++					}
++				}else{
+ 					ISC_match_filter_reg();
+-					exit;
+-				}else{
+-					t_reply(&quot;500&quot;,&quot;Server Internal Error - Server Assignment failed&quot;);
+-					exit;
++					if (S_assign_server(&quot;open-ims.test&quot;)){
++						route(Service_Routes);
++						t_reply(&quot;200&quot;,&quot;OK - SAR succesful and registrar saved&quot;);
++						exit;
++					}else{
++						t_reply(&quot;500&quot;,&quot;Server Internal Error - Server Assignment failed&quot;);
++						exit;
++					}
+ 				}
+ 			}
+ 			
+-			#Variant 2 - accept only IPSec clients
++			# Variant 2 - accept only IPSec clients
+ 			#S_challenge(&quot;open-ims.test&quot;);
+ 			#route(Service_Routes);
+ 			#t_reply(&quot;401&quot;, &quot;Unauthorized - Challenging the UE&quot;);
+@@ -186,15 +198,15 @@
+ 		}else{
+ 			# Protected REGISTER
+ 			
+-			# - Variant - Always require reauthentication
+-			#			- to enable decomment following lines
++			# Variant 1 - Always require reauthentication
+ 			#if (!S_is_authorized(&quot;open-ims.test&quot;)) {
+ 			#	S_challenge(&quot;open-ims.test&quot;);
+ 			#	route(Service_Routes);
+ 			#	t_reply(&quot;401&quot;, &quot;Unauthorized - Challenging the UE&quot;);
+ 			#	exit;
+ 			#}
+-						
++
++			# Variant 2 - trust protected REGISTER
+ 			if (S_orig_not_registered()){
+ 				if (S_assign_server(&quot;open-ims.test&quot;)){
+ 					route(Service_Routes);
+@@ -206,10 +218,10 @@
+ 					exit;
+ 				}
+ 			}else{
++				ISC_match_filter_reg();
+ 				if (S_update_contacts()){
+ 					route(Service_Routes);
+ 					t_reply(&quot;200&quot;,&quot;OK - SAR succesful and registrar saved&quot;);
+-					ISC_match_filter_reg();
+ 					exit;
+ 				}else{
+ 					t_reply(&quot;500&quot;,&quot;Server Internal Error - Update Contacts failed&quot;);
+
+Modified: ser_ims/trunk/modules/isc/third_party_reg.c
+===================================================================
+--- ser_ims/trunk/modules/isc/third_party_reg.c	2007-01-16 21:34:32 UTC (rev 88)
++++ ser_ims/trunk/modules/isc/third_party_reg.c	2007-01-16 21:38:38 UTC (rev 89)
+@@ -84,7 +84,7 @@
+ int isc_third_party_reg(struct sip_msg *msg, isc_match *m,isc_mark *mark)
+ {
+ 	r_third_party_registration *r;
+-	int expires_hdr=0;
++	int expires_hdr=0,expires=0;
+ 	str req_uri ={0,0};
+ 	str to ={0,0};
+ 	str pani ={0,0};
+@@ -112,9 +112,13 @@
+ //	}
+ 
+ 	/* Get Expires from registrar */
+-	expires_hdr = isc_scscfb.get_r_public_expires(to);
+-	if (expires_hdr==-999){
+-		expires_hdr = cscf_get_expires_hdr(msg);
++	expires_hdr = cscf_get_expires_hdr(msg);
++	if (expires_hdr==0) expires = 0;
++	else {
++		expires = isc_scscfb.get_r_public_expires(to);
++		if (expires==-999){
++			expires = expires_hdr;
++		}
+ 	}	
+ 
+ 	/* Get P-Access-Network-Info header */
+@@ -125,23 +129,19 @@
+ 	/* Todo: implement also according to TS 24.229, chap 5.4.1.7 */
+ 	cv =   cscf_get_charging_vector(msg, &amp;hdr);
+ 
+-        if (req_uri.s){
+-
++	if (req_uri.s){
+ 		r = new_r_third_party_reg(req_uri, to, isc_my_uri_sip, pani, cv);
+-
+-                if (!r){
+-  			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:isc_third_party_reg: Error creating new third party registration\n&quot;);
+-                        return ISC_RETURN_FALSE;
+-                }
+-
+-		r_send_third_party_reg(r,expires_hdr+isc_expires_grace);
+-
++		if (!r){
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:isc_third_party_reg: Error creating new third party registration\n&quot;);
++			return ISC_RETURN_FALSE;
++		}
++		if (expires&lt;=0) r_send_third_party_reg(r,0);
++		else r_send_third_party_reg(r,expires+isc_expires_grace);
+ 		free_r_registration(r);
+-
+-                return ISC_RETURN_TRUE;
+-        }else{
+-                return ISC_RETURN_FALSE;
+-        }	
++		return ISC_RETURN_TRUE;
++	}else{
++		return ISC_RETURN_FALSE;
++	}	
+ }
+ 
+ 
+
+Modified: ser_ims/trunk/modules/scscf/mod.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/mod.c	2007-01-16 21:34:32 UTC (rev 88)
++++ ser_ims/trunk/modules/scscf/mod.c	2007-01-16 21:38:38 UTC (rev 89)
+@@ -182,12 +182,14 @@
+ 	{&quot;S_assign_server_unreg&quot;,		S_assign_server_unreg,		1,0,REQUEST_ROUTE},
+ 	{&quot;S_update_contacts&quot;,			S_update_contacts,			0,0,REQUEST_ROUTE},
+ 	{&quot;S_lookup&quot;,					S_lookup,					0,0,REQUEST_ROUTE},
++
+ 	{&quot;S_term_registered&quot;,			S_term_registered,			0,0,REQUEST_ROUTE},
++	{&quot;S_term_not_registered&quot;,		S_term_not_registered,		0,0,REQUEST_ROUTE},
+ 	{&quot;S_term_unregistered&quot;,			S_term_unregistered,		0,0,REQUEST_ROUTE},
+-	{&quot;S_term_not_registered&quot;,		S_term_not_registered,		0,0,REQUEST_ROUTE},
+-	{&quot;S_is_not_registered&quot;,			S_is_not_registered,		0,0,REQUEST_ROUTE},
+ 
++	{&quot;S_orig_registered&quot;,			S_orig_registered,			0,0,REQUEST_ROUTE},
+ 	{&quot;S_orig_not_registered&quot;,		S_orig_not_registered,		0,0,REQUEST_ROUTE},
++	{&quot;S_orig_unregistered&quot;,			S_orig_unregistered,		0,0,REQUEST_ROUTE},
+ 
+ 	{&quot;S_can_subscribe&quot;,				S_can_subscribe,			0,0,REQUEST_ROUTE},
+ 	{&quot;S_subscribe&quot;,					S_subscribe,				0,0,REQUEST_ROUTE},
+
+Modified: ser_ims/trunk/modules/scscf/registrar.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar.c	2007-01-16 21:34:32 UTC (rev 88)
++++ ser_ims/trunk/modules/scscf/registrar.c	2007-01-16 21:38:38 UTC (rev 89)
+@@ -263,7 +263,7 @@
+ 			return ret;
+ 		}
+ 		//TODO 
+-		if (S_is_registered_id(public_identity)) 
++		if (r_is_registered_id(public_identity)) 
+ 			assignment_type = AVP_IMS_SAR_RE_REGISTRATION;
+ 		else
+ 			assignment_type = AVP_IMS_SAR_REGISTRATION;
+@@ -856,7 +856,7 @@
+ 			return CSCF_RETURN_BREAK;
+ 		}
+ 		//TODO 
+-		if (S_is_registered_id(public_identity)) 
++		if (r_is_registered_id(public_identity)) 
+ 			assignment_type = AVP_IMS_SAR_RE_REGISTRATION;
+ 		else
+ 			assignment_type = AVP_IMS_SAR_REGISTRATION;
+@@ -1089,7 +1089,7 @@
+  * @param public_identity - the public identity
+  * @returns 1 if registered, 0 if not or error
+  */
+-int S_is_registered_id(str public_identity)
++int r_is_registered_id(str public_identity)
+ {
+ 	int ret=0;
+ 	r_public *p;
+@@ -1122,11 +1122,35 @@
+ }
+ 
+ /**
++ * Finds if the user is not registered at this S-CSCF
++ * @param public_identity - the SIP message
++ * @returns 1 if registered, 0 if not or error
++ */
++int r_is_not_registered_id(str public_identity)
++{
++	int ret=0;
++	r_public *p;
++
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_is_not_registered_id: Looking if NOT registered\n&quot;);
++//	print_r(L_INFO);
++	/* First check the parameters */
++	
++	p = get_r_public(public_identity);
++	if (!p) return 1;
++	if (p-&gt;reg_state==IMS_USER_NOT_REGISTERED){
++		r_unlock(p-&gt;hash);
++		return 1;
++	}
++	r_unlock(p-&gt;hash);
++	return ret;
++}
++
++/**
+  * Finds if the user is unregistered at this S-CSCF
+  * @param public_identity - the SIP message
+  * @returns 1 if registered, 0 if not or error
+  */
+-int S_is_unregistered_id(str public_identity)
++int r_is_unregistered_id(str public_identity)
+ {
+ 	int ret=0;
+ 	r_public *p;
+@@ -1158,32 +1182,7 @@
+ 	return ret;
+ }
+ 
+-/**
+- * Finds if the user is not registered at this S-CSCF
+- * @param public_identity - the SIP message
+- * @returns 1 if registered, 0 if not or error
+- */
+-int S_is_not_registered_id(str public_identity)
+-{
+-	int ret=0;
+-	r_public *p;
+ 
+-	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_is_not_registered_id: Looking if NOT registered\n&quot;);
+-//	print_r(L_INFO);
+-	/* First check the parameters */
+-	
+-	p = get_r_public(public_identity);
+-	if (!p) return 1;
+-	if (p-&gt;reg_state==IMS_USER_NOT_REGISTERED){
+-		r_unlock(p-&gt;hash);
+-		return 1;
+-	}
+-	r_unlock(p-&gt;hash);
+-	return ret;
+-}
+-
+-
+-
+ /**
+  * Finds if the terminating user (in the RequestURI) is registered at this S-CSCF.
+  * @param msg - the SIP message
+@@ -1233,7 +1232,7 @@
+ 	
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_registered: Looking for &lt;%.*s&gt;\n&quot;,uri.len,uri.s);
+ 	
+-	if (S_is_registered_id(uri)) 
++	if (r_is_registered_id(uri)) 
+ 		ret = CSCF_RETURN_TRUE;
+ 	else 
+ 		ret = CSCF_RETURN_FALSE;
+@@ -1246,25 +1245,26 @@
+ 	return ret;	
+ }
+ 
++
+ /**
+- * Finds if the terminating user (in the RequestURI) is unregistered at this S-CSCF
++ * Finds if the terminating user (in the RequestURI) is not registered at this S-CSCF
+  * @param msg - the SIP message
+  * @param str1 - not used
+  * @param str2 - not used
+- * @returns #CSCF_RETURN_TRUE if unregistered, else #CSCF_RETURN_FALSE or #CSCF_RETURN_ERROR on error
++ * @returns #CSCF_RETURN_TRUE if not registered, else #CSCF_RETURN_FALSE or #CSCF_RETURN_ERROR on error
+  */
+-int S_term_unregistered(struct sip_msg *msg,char *str1,char *str2)
++int S_term_not_registered(struct sip_msg *msg,char *str1,char *str2)
+ {
+ 	int ret=CSCF_RETURN_FALSE;
+ 	struct sip_uri puri;
+ 	str uri={0,0};	
+ 
+-	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_unregistered: Looking if registered\n&quot;);
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_not_registered: Looking if registered\n&quot;);
+ //	print_r(L_INFO);
+ 	/* First check the parameters */
+ 	if (msg-&gt;first_line.type!=SIP_REQUEST)
+ 	{
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_unregistered: This message is not a request\n&quot;);
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_not_registered: This message is not a request\n&quot;);
+ 		goto error;
+ 	}		
+ 
+@@ -1273,14 +1273,14 @@
+ 	else uri = msg-&gt;first_line.u.request.uri;
+ 	
+ 	if (parse_uri(uri.s, uri.len, &amp;puri) &lt; 0) {
+-		LOG(L_INFO,&quot;INF:&quot;M_NAME&quot;:S_term_unregistered: Error parsing uri &lt;%.*s&gt;\n&quot;,
++		LOG(L_INFO,&quot;INF:&quot;M_NAME&quot;:S_term_not_registered: Error parsing uri &lt;%.*s&gt;\n&quot;,
+ 			uri.len,uri.s);
+ 		goto error;
+ 	}
+ 	uri.len = lookup_sip.len+puri.user.len+1+puri.host.len;
+ 	uri.s = pkg_malloc(uri.len);
+ 	if (!uri.s){
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_unregistered: Error allocating %d bytes\n&quot;,uri.len);
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_not_registered: Error allocating %d bytes\n&quot;,uri.len);
+ 		return CSCF_RETURN_ERROR;
+ 	}
+ 	uri.len=0;
+@@ -1293,9 +1293,9 @@
+ 	uri.len+=puri.host.len;
+ 	
+ 	
+-	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_unregistered: Looking for &lt;%.*s&gt;\n&quot;,uri.len,uri.s);
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_not_registered: Looking for &lt;%.*s&gt;\n&quot;,uri.len,uri.s);
+ 	
+-	if (S_is_unregistered_id(uri)) 
++	if (r_is_not_registered_id(uri)) 
+ 		ret = CSCF_RETURN_TRUE;
+ 	else 
+ 		ret = CSCF_RETURN_FALSE;
+@@ -1309,24 +1309,24 @@
+ }
+ 
+ /**
+- * Finds if the terminating user (in the RequestURI) is not registered at this S-CSCF
++ * Finds if the terminating user (in the RequestURI) is unregistered at this S-CSCF
+  * @param msg - the SIP message
+  * @param str1 - not used
+  * @param str2 - not used
+- * @returns #CSCF_RETURN_TRUE if not registered, else #CSCF_RETURN_FALSE or #CSCF_RETURN_ERROR on error
++ * @returns #CSCF_RETURN_TRUE if unregistered, else #CSCF_RETURN_FALSE or #CSCF_RETURN_ERROR on error
+  */
+-int S_term_not_registered(struct sip_msg *msg,char *str1,char *str2)
++int S_term_unregistered(struct sip_msg *msg,char *str1,char *str2)
+ {
+ 	int ret=CSCF_RETURN_FALSE;
+ 	struct sip_uri puri;
+ 	str uri={0,0};	
+ 
+-	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_not_registered: Looking if registered\n&quot;);
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_unregistered: Looking if registered\n&quot;);
+ //	print_r(L_INFO);
+ 	/* First check the parameters */
+ 	if (msg-&gt;first_line.type!=SIP_REQUEST)
+ 	{
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_not_registered: This message is not a request\n&quot;);
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_unregistered: This message is not a request\n&quot;);
+ 		goto error;
+ 	}		
+ 
+@@ -1335,14 +1335,14 @@
+ 	else uri = msg-&gt;first_line.u.request.uri;
+ 	
+ 	if (parse_uri(uri.s, uri.len, &amp;puri) &lt; 0) {
+-		LOG(L_INFO,&quot;INF:&quot;M_NAME&quot;:S_term_not_registered: Error parsing uri &lt;%.*s&gt;\n&quot;,
++		LOG(L_INFO,&quot;INF:&quot;M_NAME&quot;:S_term_unregistered: Error parsing uri &lt;%.*s&gt;\n&quot;,
+ 			uri.len,uri.s);
+ 		goto error;
+ 	}
+ 	uri.len = lookup_sip.len+puri.user.len+1+puri.host.len;
+ 	uri.s = pkg_malloc(uri.len);
+ 	if (!uri.s){
+-		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_not_registered: Error allocating %d bytes\n&quot;,uri.len);
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_term_unregistered: Error allocating %d bytes\n&quot;,uri.len);
+ 		return CSCF_RETURN_ERROR;
+ 	}
+ 	uri.len=0;
+@@ -1355,9 +1355,9 @@
+ 	uri.len+=puri.host.len;
+ 	
+ 	
+-	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_not_registered: Looking for &lt;%.*s&gt;\n&quot;,uri.len,uri.s);
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_term_unregistered: Looking for &lt;%.*s&gt;\n&quot;,uri.len,uri.s);
+ 	
+-	if (S_is_not_registered_id(uri)) 
++	if (r_is_unregistered_id(uri)) 
+ 		ret = CSCF_RETURN_TRUE;
+ 	else 
+ 		ret = CSCF_RETURN_FALSE;
+@@ -1370,6 +1370,7 @@
+ 	return ret;	
+ }
+ 
++
+ /**
+  * Finds if the originating user (in P-Asserted-Identity) is registered at this S-CSCF
+  * @param msg - the SIP message
+@@ -1377,7 +1378,7 @@
+  * @param str2 - not used
+  * @returns #CSCF_RETURN_TRUE if not registered, else #CSCF_RETURN_FALSE or #CSCF_RETURN_ERROR on error
+  */
+-int S_orig_not_registered(struct sip_msg *msg,char *str1,char *str2)
++int S_orig_registered(struct sip_msg *msg,char *str1,char *str2)
+ {
+ 	int ret=CSCF_RETURN_FALSE;
+ 	str public_identity;	
+@@ -1395,7 +1396,7 @@
+ 	
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_orig_registered: Looking for &lt;%.*s&gt;\n&quot;,public_identity.len,public_identity.s);
+ 	
+-	if (S_is_not_registered_id(public_identity)) 
++	if (r_is_registered_id(public_identity)) 
+ 		ret = CSCF_RETURN_TRUE;
+ 	else 
+ 		ret = CSCF_RETURN_FALSE;
+@@ -1408,6 +1409,80 @@
+ }
+ 
+ /**
++ * Finds if the originating user (in P-Asserted-Identity) is not registered at this S-CSCF
++ * @param msg - the SIP message
++ * @param str1 - not used
++ * @param str2 - not used
++ * @returns #CSCF_RETURN_TRUE if not registered, else #CSCF_RETURN_FALSE or #CSCF_RETURN_ERROR on error
++ */
++int S_orig_not_registered(struct sip_msg *msg,char *str1,char *str2)
++{
++	int ret=CSCF_RETURN_FALSE;
++	str public_identity;	
++
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_orig_not_registered: Looking if registered\n&quot;);
++//	print_r(L_INFO);
++	/* First check the parameters */
++	if (msg-&gt;first_line.type!=SIP_REQUEST)
++	{
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_orig_not_registered: This message is not a request\n&quot;);
++		goto error;
++	}		
++
++	public_identity = cscf_get_public_identity(msg);
++	
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_orig_not_registered: Looking for &lt;%.*s&gt;\n&quot;,public_identity.len,public_identity.s);
++	
++	if (r_is_not_registered_id(public_identity)) 
++		ret = CSCF_RETURN_TRUE;
++	else 
++		ret = CSCF_RETURN_FALSE;
++			
++	
++	return ret;
++error:
++	ret=CSCF_RETURN_ERROR;
++	return ret;	
++}
++
++/**
++ * Finds if the originating user (in P-Asserted-Identity) is unregistered at this S-CSCF
++ * @param msg - the SIP message
++ * @param str1 - not used
++ * @param str2 - not used
++ * @returns #CSCF_RETURN_TRUE if not registered, else #CSCF_RETURN_FALSE or #CSCF_RETURN_ERROR on error
++ */
++int S_orig_unregistered(struct sip_msg *msg,char *str1,char *str2)
++{
++	int ret=CSCF_RETURN_FALSE;
++	str public_identity;	
++
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_orig_unregistered: Looking if registered\n&quot;);
++//	print_r(L_INFO);
++	/* First check the parameters */
++	if (msg-&gt;first_line.type!=SIP_REQUEST)
++	{
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:S_orig_unregistered: This message is not a request\n&quot;);
++		goto error;
++	}		
++
++	public_identity = cscf_get_public_identity(msg);
++	
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_orig_unregistered: Looking for &lt;%.*s&gt;\n&quot;,public_identity.len,public_identity.s);
++	
++	if (r_is_unregistered_id(public_identity)) 
++		ret = CSCF_RETURN_TRUE;
++	else 
++		ret = CSCF_RETURN_FALSE;
++			
++	
++	return ret;
++error:
++	ret=CSCF_RETURN_ERROR;
++	return ret;	
++}
++
++/**
+  * Finds if the terminating user (in Request-URI) is not registered at this S-CSCF
+  * @param msg - the SIP message
+  * @param str1 - not used
+@@ -1456,7 +1531,7 @@
+ 	
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_is_not_registered: Looking for &lt;%.*s&gt;\n&quot;,uri.len,uri.s);
+ 	
+-	if (S_is_not_registered_id(uri)) 
++	if (r_is_not_registered_id(uri)) 
+ 		ret = CSCF_RETURN_TRUE;
+ 	else 
+ 		ret = CSCF_RETURN_FALSE;
+
+Modified: ser_ims/trunk/modules/scscf/registrar.h
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar.h	2007-01-16 21:34:32 UTC (rev 88)
++++ ser_ims/trunk/modules/scscf/registrar.h	2007-01-16 21:38:38 UTC (rev 89)
+@@ -65,6 +65,8 @@
+ #define IMS_USER_REGISTERED 1
+ /** User unregistered (not registered but with services for unregistered state) */
+ #define IMS_USER_UNREGISTERED -1
++/** User de-registered */
++#define IMS_USER_DEREGISTERED -2
+ 
+ void registrar_timer(unsigned int ticks, void* param);
+ 
+@@ -83,19 +85,19 @@
+ int S_lookup(struct sip_msg *msg,char *str1,char *str2);
+ 
+ 
+-int S_is_registered_id(str public_identity);
++int r_is_registered_id(str public_identity);
++int r_is_not_registered_id(str public_identity);
++int r_is_unregistered_id(str public_identity);
+ 
+-int S_is_not_registered_id(str public_identity);
+-
+ int S_term_registered(struct sip_msg *msg,char *str1,char *str2);
+-
++int S_term_not_registered(struct sip_msg *msg,char *str1,char *str2);
+ int S_term_unregistered(struct sip_msg *msg,char *str1,char *str2);
+ 
+-int S_term_not_registered(struct sip_msg *msg,char *str1,char *str2);
+ 
++int S_orig_registered(struct sip_msg *msg,char *str1,char *str2);
+ int S_orig_not_registered(struct sip_msg *msg,char *str1,char *str2);
++int S_orig_unregistered(struct sip_msg *msg,char *str1,char *str2);
+ 
+-int S_is_not_registered(struct sip_msg *msg,char *str1,char *str2);
+ 
+ 
+ int S_mobile_originating(struct sip_msg *msg,char *str1,char *str2);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000130.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r88 - in ser_ims/trunk/modules:	cdp pcscf
+</A></li>
+	<LI>Next message: <A HREF="000133.html">[OpenIMSCore-CSCF] Disabling the challenge
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#131">[ date ]</a>
+              <a href="thread.html#131">[ thread ]</a>
+              <a href="subject.html#131">[ subject ]</a>
+              <a href="author.html#131">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

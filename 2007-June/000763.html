@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] SCSCF CRASH : when presence is enable in uct
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SCSCF%20CRASH%20%3A%20when%20presence%20is%20enable%20in%20uct&In-Reply-To=%3C467AA1E5.6060605%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000762.html">
+   <LINK REL="Next"  HREF="000764.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] SCSCF CRASH : when presence is enable in uct</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SCSCF%20CRASH%20%3A%20when%20presence%20is%20enable%20in%20uct&In-Reply-To=%3C467AA1E5.6060605%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] SCSCF CRASH : when presence is enable in uct">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Jun 21 18:05:57 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000762.html">[OpenIMSCore-CSCF] SCSCF CRASH : when presence is enable in uct
+</A></li>
+        <LI>Next message: <A HREF="000764.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r335 - icscf database schema for	postgres
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#763">[ date ]</a>
+              <a href="thread.html#763">[ thread ]</a>
+              <a href="subject.html#763">[ subject ]</a>
+              <a href="author.html#763">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Laurent,
+
+Well, as crashes are not something that we want no matter what we do, it
+is obviously a bug ;-).
+
+What revision are you using? Can you replicate the issue with a SIPp
+script for example that will allow us to debug? If not could you at
+least send us a backtrace on the dumped core file?
+
+-Dragos
+
+
+laurent craignou wrote:
+&gt;<i> hello,
+</I>&gt;<i>
+</I>&gt;<i> when I enable presence option in uct and register user I can see this
+</I>&gt;<i> scenario in UCT and SCSCF crash
+</I>&gt;<i>
+</I>&gt;<i> 11:33:19&gt; REGISTER -&gt; Unauthorized - Challenging the UE
+</I>&gt;<i> 11:33:20&gt; REGISTER -&gt; OK - SAR succesful and registrar saved
+</I>&gt;<i> 11:33:20&gt; IMPUs: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A> &lt;mailto:sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at open-ims.test</A>&gt;&gt;
+</I>&gt;<i> 11:33:20&gt; SUBSCRIBE -&gt; Subscription to REG saved
+</I>&gt;<i> 11:33:20&gt; PUBLISH Received
+</I>&gt;<i> 11:33:20&gt; SUBSCRIBE -&gt; Temporarily Unavailable - HSS Identity not
+</I>&gt;<i> registered
+</I>&gt;<i> 11:33:23&gt; NOTIFY Received
+</I>&gt;<i> 11:33:25&gt; PUBLISH Received
+</I>&gt;<i> 11:33:25&gt; PUBLISH Received
+</I>&gt;<i> 11:33:50&gt; PUBLISH -&gt; Request Timeout
+</I>&gt;<i>
+</I>&gt;<i> anyone has an idea ?
+</I>&gt;<i> it is a bug in scscf ?
+</I>&gt;<i>
+</I>&gt;<i> Laurent
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000762.html">[OpenIMSCore-CSCF] SCSCF CRASH : when presence is enable in uct
+</A></li>
+	<LI>Next message: <A HREF="000764.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r335 - icscf database schema for	postgres
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#763">[ date ]</a>
+              <a href="thread.html#763">[ thread ]</a>
+              <a href="subject.html#763">[ subject ]</a>
+              <a href="author.html#763">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

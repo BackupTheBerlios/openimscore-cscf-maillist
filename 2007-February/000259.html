@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Sipp tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Sipp%20tests&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C013973D4%40INOAVREX05.ptin.corpPT.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000255.html">
+   <LINK REL="Next"  HREF="000258.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Sipp tests</H1>
+    <B>Jos&#233; Carlos Amorim</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Sipp%20tests&In-Reply-To=%3C0AE2132CE51D1943A20F450AA7258E5C013973D4%40INOAVREX05.ptin.corpPT.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Sipp tests">jose-c-amorim at ptinovacao.pt
+       </A><BR>
+    <I>Wed Feb 28 19:19:22 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000255.html">[OpenIMSCore-CSCF] Sipp tests
+</A></li>
+        <LI>Next message: <A HREF="000258.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r158 - in ser_ims/trunk/modules:	icscf pcscf scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#259">[ date ]</a>
+              <a href="thread.html#259">[ thread ]</a>
+              <a href="subject.html#259">[ subject ]</a>
+              <a href="author.html#259">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos, 
+
+I've been continuing the tests and I noticed there are some Diameter messages (the only ones I found so far were UAR and LIR) that look as if they  send various Diameter messages in one packet (in the sip trace I send, the last packet has this behavior). I don't know if this is correct or incorrect, could you clarify. 
+
+Regarding your question
+&gt;&gt;<i> Could you check your traces and see if you have any DNS issues(like requests not answered)?
+</I>
+I've looked at the traces and there are no DNS queries when the delay happens. 
+
+Thanks,
+Jos&#233; Carlos Silva
+-----Original Message-----
+From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+Sent: ter&#231;a-feira, 27 de Fevereiro de 2007 15:38
+To: Jos&#233; Carlos Amorim
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] Sipp tests
+
+Hello Jose,
+
+The delay should not have anything to do with the CDP configuration. It
+is in deed a strange thing if you see the I/S react after so long time
+if you say that the bottleneck was not the HSS (you received the
+answer). Could you check your traces and see if you have any DNS issues
+(like requests not answered)?
+
+On that machine, without considering the HSS overhead you should get at
+least 50 registrations/sec... or this is what I get. And a registration
+should take around 20-30 ms...
+
+-Dragos
+
+
+Jos&#233; Carlos Amorim wrote:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I'm doing some simple tests with Sipp, openimscore and our HSS but I
+</I>&gt;<i> can't figure out a correct configuration for cdp module. At this
+</I>&gt;<i> moment we have I-, S- and Hss on the same machine. The problem that
+</I>&gt;<i> I'm running into is that I have situations that it takes 40 ms and
+</I>&gt;<i> more for I- and S- to send out a SIP response after they get a
+</I>&gt;<i> Diameter answer.
+</I>&gt;<i>
+</I>&gt;<i> On the tests CDP is configured with 6 worker processes and a queue
+</I>&gt;<i> length of 30.
+</I>&gt;<i>
+</I>&gt;<i> I run I- an S- with 10 children each and with -m parameter of 512.
+</I>&gt;<i>
+</I>&gt;<i> We are only able to put Sipp generating 5 Registers/s without having
+</I>&gt;<i> the 40 ms delay I talked about.
+</I>&gt;<i>
+</I>&gt;<i> The machine were we are running the I-,S- and Hss is a Pentium4 3GHz
+</I>&gt;<i> and with 2GB of RAM.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Did anybody else do these kind of tests?
+</I>&gt;<i>
+</I>&gt;<i> Dragos any pointers on what I should alter, or any reference scenarios
+</I>&gt;<i> were you tested and configurations you used?
+</I>&gt;<i>
+</I>&gt;<i> What can we expect as the maximum number of Registers/Invites an I- or
+</I>&gt;<i> S- can support?
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Best regards,
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: cdp.cap
+Type: application/octet-stream
+Size: 17605 bytes
+Desc: cdp.cap
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070228/7476e0b9/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070228/7476e0b9/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000255.html">[OpenIMSCore-CSCF] Sipp tests
+</A></li>
+	<LI>Next message: <A HREF="000258.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r158 - in ser_ims/trunk/modules:	icscf pcscf scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#259">[ date ]</a>
+              <a href="thread.html#259">[ thread ]</a>
+              <a href="subject.html#259">[ subject ]</a>
+              <a href="author.html#259">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

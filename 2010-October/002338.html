@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P-CSCF registeration issue
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20registeration%20issue&In-Reply-To=%3C398919.90438.qm%40web113613.mail.gq1.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="002339.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P-CSCF registeration issue</H1>
+    <B>Mohsen Emami-Nouri</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20registeration%20issue&In-Reply-To=%3C398919.90438.qm%40web113613.mail.gq1.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] P-CSCF registeration issue">memamin at yahoo.com
+       </A><BR>
+    <I>Thu Oct  7 04:12:27 CEST 2010</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="002339.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1003 - configuration fix
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2338">[ date ]</a>
+              <a href="thread.html#2338">[ thread ]</a>
+              <a href="subject.html#2338">[ subject ]</a>
+              <a href="author.html#2338">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi All,
+P-CSCF dose not respond positively to my UE registration message which includes 2 VIA headers since it goes through a proxy on my side before arriving at P-CSCF; would that be a problem; this is the trace of request and response:
+
+best regards,
+~Mohsen
+
+REGISTER sip:open-ims.test SIP/2.0^M
+Via: SIP/2.0/UDP 8.23.233.53:5060;branch=z9hG4bK-d8754z-9102a4767475a41e-1---d8754z-;rport^M
+Via: SIP/2.0/UDP 192.168.1.1;branch=z9hG4bKac79b23ec66004803^M
+Max-Forwards: 69^M
+Path: &lt;sip:8.23.233.53;lr&gt;^M
+Contact: &quot;Askey2&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">432 at 192.168.1.1</A>;transport=udp&gt;^M
+To: &quot;Askey2&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">432 at open-ims.test</A>&gt;^M
+From: &quot;Askey2&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">432 at open-ims.test</A>&gt;;tag=5f43f73f4f^M
+Call-ID: 08a80e1c618665d9^M
+CSeq: 846930886 REGISTER^M
+Allow: INVITE, ACK, CANCEL, BYE, NOTIFY, REFER, OPTIONS, UPDATE, PRACK, INFO^M
+Supported: path^M
+User-Agent: Brcm-Callctrl/v1.10.3 M5T SIP Stack/4.1.2.2^M
+Authorization: Digest username=&quot;432&quot;, realm=&quot;open-ims.test&quot;, nonce=&quot;&quot;, uri=&quot;sip:open-ims.test&quot;, response=&quot;&quot;, algorithm=MD5^M
+Privacy: none^M
+Content-Length: 0
+
+SIP/2.0 504 Server Time-Out^M
+Via: SIP/2.0/UDP 8.23.233.53:5060;branch=z9hG4bK-d8754z-9102a4767475a41e-1---d8754z-;rport=5060^M
+Via: SIP/2.0/UDP 192.168.1.1;branch=z9hG4bKac79b23ec66004803^M
+To: &quot;Askey2&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">432 at open-ims.test</A>&gt;;tag=9ff71e676167fb06c58ea233c56d16a1-de4f^M
+From: &quot;Askey2&quot;&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">432 at open-ims.test</A>&gt;;tag=5f43f73f4f^M
+Call-ID: 08a80e1c618665d9^M
+CSeq: 846930886 REGISTER^M
+Server: Sip EXpress router (2.1.0-dev1 OpenIMSCore (i386/linux))^M
+Warning: 392 8.23.233.52:5060 &quot;Noisy feedback tells:  pid=9605 req_src_ip=8.23.233.53 req_src_port=5060 in_uri=sip:open-ims.test out_uri=sip:open-ims.test via_cnt==0&quot;^M
+Content-Length: 0^M
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="002339.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1003 - configuration fix
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2338">[ date ]</a>
+              <a href="thread.html#2338">[ thread ]</a>
+              <a href="subject.html#2338">[ subject ]</a>
+              <a href="author.html#2338">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

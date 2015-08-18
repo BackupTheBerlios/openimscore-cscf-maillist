@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] S-CSCF FORKING
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20S-CSCF%20FORKING&In-Reply-To=%3C47B17BD9.6040306%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001172.html">
+   <LINK REL="Next"  HREF="001173.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] S-CSCF FORKING</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20S-CSCF%20FORKING&In-Reply-To=%3C47B17BD9.6040306%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] S-CSCF FORKING">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Feb 12 11:58:33 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001172.html">[OpenIMSCore-CSCF] S-CSCF FORKING
+</A></li>
+        <LI>Next message: <A HREF="001173.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r519 - patch for small bug	introduced a couple of weeks ago
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1177">[ date ]</a>
+              <a href="thread.html#1177">[ thread ]</a>
+              <a href="subject.html#1177">[ subject ]</a>
+              <a href="author.html#1177">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Jose,
+
+Thanx for the patch. Fixed since r520.
+
+-Dragos
+Jos&#233; Carlos Amorim wrote:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> We detected an incorrect behaviour when there is forking done by the
+</I>&gt;<i> S-CSCF.
+</I>&gt;<i>
+</I>&gt;<i> If we have 2 users registered in two distinct locations and when the
+</I>&gt;<i> S-CSCF forks the request to these locations and one of the locations
+</I>&gt;<i> sends a 486 Busy here before the other location answers, the call will
+</I>&gt;<i> never be established. This happens because as soon as the S-CSCF gets
+</I>&gt;<i> the 486 it drops the dialog and when the other location answers and
+</I>&gt;<i> sends the 200 OK the dialog is gone.
+</I>&gt;<i> Here is that patch we used to solve this:
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> +++ OpenIMSCore_v2/modules/scscf/dlg_state.c    2008-02-08
+</I>&gt;<i> 18:51:23.000000000 +0000
+</I>&gt;<i> @@ -1116,8 +1116,10 @@
+</I>&gt;<i>              }else
+</I>&gt;<i>                  if (response&gt;300){
+</I>&gt;<i>                      d-&gt;state = DLG_STATE_TERMINATED;
+</I>&gt;<i> -                    d_unlock(d-&gt;hash);                
+</I>&gt;<i> -                    return S_drop_dialog(msg,str1,str2);
+</I>&gt;<i> +                    d_unlock(d-&gt;hash);
+</I>&gt;<i> +                    struct cell * t = tmb.t_gett();
+</I>&gt;<i> +                    if(t-&gt;nr_of_outgoings &lt; 2)
+</I>&gt;<i> +                        return S_drop_dialog(msg,str1,str2);
+</I>&gt;<i>                  }                
+</I>&gt;<i>          }else{
+</I>&gt;<i>              /* reply to subsequent request */            
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Best Regards,
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001172.html">[OpenIMSCore-CSCF] S-CSCF FORKING
+</A></li>
+	<LI>Next message: <A HREF="001173.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r519 - patch for small bug	introduced a couple of weeks ago
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1177">[ date ]</a>
+              <a href="thread.html#1177">[ thread ]</a>
+              <a href="subject.html#1177">[ subject ]</a>
+              <a href="author.html#1177">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

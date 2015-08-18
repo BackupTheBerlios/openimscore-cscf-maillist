@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 400 bad request-Not following indicated	service routes-after domain name changes
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20400%20bad%20request-Not%20following%20indicated%0A%09service%20routes-after%20domain%20name%20changes&In-Reply-To=%3C194.113.59.80.1232455232.wm%40webmail.inode.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001545.html">
+   <LINK REL="Next"  HREF="001547.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 400 bad request-Not following indicated	service routes-after domain name changes</H1>
+    <B>franz.edler at inode.at</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20400%20bad%20request-Not%20following%20indicated%0A%09service%20routes-after%20domain%20name%20changes&In-Reply-To=%3C194.113.59.80.1232455232.wm%40webmail.inode.at%3E"
+       TITLE="[OpenIMSCore-CSCF] 400 bad request-Not following indicated	service routes-after domain name changes">franz.edler at inode.at
+       </A><BR>
+    <I>Tue Jan 20 13:40:32 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001545.html">[OpenIMSCore-CSCF] 400 bad request-Not following indicated service	routes-after domain name changes
+</A></li>
+        <LI>Next message: <A HREF="001547.html">[OpenIMSCore-CSCF] P-CSCF sends forked request to wrong destination
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1546">[ date ]</a>
+              <a href="thread.html#1546">[ thread ]</a>
+              <a href="subject.html#1546">[ subject ]</a>
+              <a href="author.html#1546">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Siddu,
+
+&gt;<i> I am getting &quot;400 bad request-Not following indicated service routes&quot;.
+</I>&gt;<i> Please suggest possible solution.
+</I>
+I guess that your client is not an IMS client (supporting e.g the Service
+Route header field). That' s no problem with OpenIMSCore, you can adapt
+the situation in &quot;pcscf.cfg&quot; file. You simply have to enable Variant #2
+and set Variant #1 under comment.
+
+----- snip of pcscf.cfg
+--------------------------------------------------------
+
+	if (!P_follows_service_routes()){
+		#Variant 1 - deny access to the network
+		sl_send_reply(&quot;400&quot;,&quot;Bad Request - Not following indicated
+Service-Routes&quot;);
+		break;
+		#Variant 2 - enforce routes and let the dialog continue
+   		#P_enforce_service_routes();
+	}
+
+---------------------------------------------------------------------------------
+
+regards
+Franz
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001545.html">[OpenIMSCore-CSCF] 400 bad request-Not following indicated service	routes-after domain name changes
+</A></li>
+	<LI>Next message: <A HREF="001547.html">[OpenIMSCore-CSCF] P-CSCF sends forked request to wrong destination
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1546">[ date ]</a>
+              <a href="thread.html#1546">[ thread ]</a>
+              <a href="subject.html#1546">[ subject ]</a>
+              <a href="author.html#1546">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

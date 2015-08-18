@@ -1,0 +1,260 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r112 -	ser_ims/branches/01_persistency/modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r112%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200701312105.l0VL50YU012335%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000162.html">
+   <LINK REL="Next"  HREF="000164.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r112 -	ser_ims/branches/01_persistency/modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r112%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200701312105.l0VL50YU012335%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r112 -	ser_ims/branches/01_persistency/modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Jan 31 22:05:00 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000162.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r111 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000164.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r113 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#163">[ date ]</a>
+              <a href="thread.html#163">[ thread ]</a>
+              <a href="subject.html#163">[ subject ]</a>
+              <a href="author.html#163">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-01-31 22:04:58 +0100 (Wed, 31 Jan 2007)
+New Revision: 112
+
+Modified:
+   ser_ims/branches/01_persistency/modules/scscf/mod.c
+   ser_ims/branches/01_persistency/modules/scscf/registration.c
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.h
+Log:
+Removed parameters from make/load_snapshot_auth().
+Fixed multile free on auth_data_destroy.
+Introduced snapshots on shutdown.
+
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/mod.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/mod.c	2007-01-31 20:30:56 UTC (rev 111)
++++ ser_ims/branches/01_persistency/modules/scscf/mod.c	2007-01-31 21:04:58 UTC (rev 112)
+@@ -131,6 +131,7 @@
+ str scscf_aaa_peer_str;					/**&lt; fixed FQDN of the Diameter Peer (HSS) 				*/
+ 
+ int * callback_singleton;				/**&lt; Cx callback singleton 								*/
++int * shutdown_singleton;				/**&lt; Shutdown singleton 								*/
+ 
+ /** 
+  * Exported functions.
+@@ -432,6 +433,9 @@
+ 	load_cdp_f load_cdp;
+ 	callback_singleton=shm_malloc(sizeof(int));
+ 	*callback_singleton=0;
++	shutdown_singleton=shm_malloc(sizeof(int));
++	*shutdown_singleton=0;
++	
+ 		
+ 	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:mod_init: Initialization of module\n&quot;);
+ 	/* fix the parameters */
+@@ -471,10 +475,9 @@
+ 	
+ 	
+ 	/* Init the authorization data storage */
+-	if (!auth_data_init(auth_data_hash_size)) goto error;
+-	
++	if (!auth_data_init(auth_data_hash_size)) goto error;	
+ 	if (scscf_persistency_mode!=NO_PERSISTENCY){
+-		load_snapshot_auth(auth_data);
++		load_snapshot_auth();
+ 		if (register_timer(auth_persistency_timer,0,scscf_persistency_auth_data_timer)&lt;0) goto error;
+ 	}
+ 	
+@@ -534,10 +537,10 @@
+ //		scscf_db_capabilities_table);
+ 	/* init the diameter callback - must be done just once */
+ 	lock_get(process_lock);
+-	if((*callback_singleton)==0){
+-		*callback_singleton=1;
+-		cdpb.AAAAddRequestHandler(CxRequestHandler,NULL);
+-	}
++		if((*callback_singleton)==0){
++			*callback_singleton=1;
++			cdpb.AAAAddRequestHandler(CxRequestHandler,NULL);
++		}
+ 	lock_release(process_lock);
+ 	/* Init the user data parser */
+ 	if (!parser_init(scscf_user_data_dtd,scscf_user_data_xsd)) return -1;
+@@ -550,13 +553,25 @@
+  */
+ static void mod_destroy(void)
+ {
++	int do_destroy=0;
+ 	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:mod_destroy: child exit\n&quot;);
+-	auth_data_destroy();
+-	parser_destroy();
+-	r_notify_destroy();	
+-	r_storage_destroy();
+-	s_dialogs_destroy();	
+-	pkg_free(scscf_service_route.s);
++	lock_get(process_lock);
++		if((*shutdown_singleton)==0){
++			*shutdown_singleton=1;
++			do_destroy=1;
++		}
++	lock_release(process_lock);
++	if (do_destroy){
++		/* First let's snapshot everything */
++		make_snapshot_auth();
++		/* Then nuke it all */
++		auth_data_destroy();
++		parser_destroy();
++		r_notify_destroy();	
++		r_storage_destroy();
++		s_dialogs_destroy();	
++		pkg_free(scscf_service_route.s);
++	}
+ }
+ 
+ 
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/registration.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/registration.c	2007-01-31 20:30:56 UTC (rev 111)
++++ ser_ims/branches/01_persistency/modules/scscf/registration.c	2007-01-31 21:04:58 UTC (rev 112)
+@@ -764,9 +764,9 @@
+ 			next = aud-&gt;next;
+ 			free_auth_userdata(aud);
+ 			aud = next;
+-		}
+-		if (auth_data) shm_free(auth_data);
++		}		
+ 	}
++	if (auth_data) shm_free(auth_data);
+ }
+ 
+ /**
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-01-31 20:30:56 UTC (rev 111)
++++ ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-01-31 21:04:58 UTC (rev 112)
+@@ -68,6 +68,17 @@
+ extern auth_hash_slot_t *auth_data;				/**&lt; Authentication vector hash table 			*/
+ extern int auth_data_hash_size;					/**&lt; authentication vector hash table size 		*/
+ 
++
++/**
++ * Writes the binary data to a snapshot file.
++ * The file names contain the time of the dump. If a file was dumped 
++ * just partialy it will contain a &quot;.part&quot; in the name. 
++ * A link to the last complete file is created each time.
++ * Old files are deleted and only scscf_persistency_keep_count time-stamped-files are kept.
++ * @param x - the binary data to write
++ * @param prepend_fname - what to prepend to the file_name
++ * @returns 1 on success or 0 on failure
++ */
+ int bin_dump_to_file(bin_data *x,char *prepend_fname)
+ {
+ 	char c_part[256],c_time[256],c_last[256];
+@@ -132,6 +143,12 @@
+ 	else return 0;
+ }
+ 
++/**
++ * Reloads the snapshot from the link to the last time-stamped-file.
++ * @param x - where to load
++ * @param prepend_fname - with what to prepend the filename
++ * @returns 1 on success, 0 on error
++ */
+ int bin_load_from_file(bin_data *x,char *prepend_fname)
+ {
+ 	char c[256];
+@@ -156,7 +173,12 @@
+ }
+ 
+ 
+-int make_snapshot_auth(auth_hash_slot_t *ad)
++
++/**
++ * Creates a snapshots of the authorization data and then calls the dumping function.
++ * @returns 1 on success or 0 on failure
++ */
++int make_snapshot_auth()
+ {
+ 	bin_data x;
+ 	auth_userdata *aud;
+@@ -197,7 +219,7 @@
+ 	return 0;
+ }  
+ 
+-int load_snapshot_auth(auth_hash_slot_t *ad)
++int load_snapshot_auth()
+ {
+ 	bin_data x;
+ 	auth_userdata *aud;
+@@ -247,7 +269,7 @@
+  */
+ void auth_persistency_timer(unsigned int ticks, void* param)
+ {
+-	make_snapshot_auth(auth_data);	 	
++	make_snapshot_auth();	 	
+ }
+ 
+ 
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/s_persistency.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/s_persistency.h	2007-01-31 20:30:56 UTC (rev 111)
++++ ser_ims/branches/01_persistency/modules/scscf/s_persistency.h	2007-01-31 21:04:58 UTC (rev 112)
+@@ -65,8 +65,8 @@
+ 	WITH_DATABASE=2
+ } persistency_mode_t;
+ 
+-int make_snapshot_auth(auth_hash_slot_t *ad);
+-int load_snapshot_auth(auth_hash_slot_t *ad);
++int make_snapshot_auth();
++int load_snapshot_auth();
+ 
+ void auth_persistency_timer(unsigned int ticks, void* param);
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000162.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r111 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000164.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r113 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#163">[ date ]</a>
+              <a href="thread.html#163">[ thread ]</a>
+              <a href="subject.html#163">[ subject ]</a>
+              <a href="author.html#163">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

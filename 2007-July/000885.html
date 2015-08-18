@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r419 - Fixed max dialog count	limit disable - was not disabled on decrement - now we are	lighter wither some locks. Returning CSCF_RETURN_BREAK on	P/S_save_dialog() if the dialog already exists (there was	probably a retransmission - or you are trying to call	yourself, which is still a known bug).
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r419%20-%20Fixed%20max%20dialog%20count%0A%09limit%20disable%20-%20was%20not%20disabled%20on%20decrement%20-%20now%20we%20are%0A%09lighter%20wither%20some%20locks.%20Returning%20CSCF_RETURN_BREAK%20on%0A%09P/S_save_dialog%28%29%20if%20the%20dialog%20already%20exists%20%28there%20was%0A%09probably%20a%20retransmission%20-%20or%20you%20are%20trying%20to%20call%0A%09yourself%2C%20which%20is%20still%20a%20known%20bug%29.&In-Reply-To=%3C200707252019.l6PKJkIR013337%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000884.html">
+   <LINK REL="Next"  HREF="000887.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r419 - Fixed max dialog count	limit disable - was not disabled on decrement - now we are	lighter wither some locks. Returning CSCF_RETURN_BREAK on	P/S_save_dialog() if the dialog already exists (there was	probably a retransmission - or you are trying to call	yourself, which is still a known bug).</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r419%20-%20Fixed%20max%20dialog%20count%0A%09limit%20disable%20-%20was%20not%20disabled%20on%20decrement%20-%20now%20we%20are%0A%09lighter%20wither%20some%20locks.%20Returning%20CSCF_RETURN_BREAK%20on%0A%09P/S_save_dialog%28%29%20if%20the%20dialog%20already%20exists%20%28there%20was%0A%09probably%20a%20retransmission%20-%20or%20you%20are%20trying%20to%20call%0A%09yourself%2C%20which%20is%20still%20a%20known%20bug%29.&In-Reply-To=%3C200707252019.l6PKJkIR013337%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r419 - Fixed max dialog count	limit disable - was not disabled on decrement - now we are	lighter wither some locks. Returning CSCF_RETURN_BREAK on	P/S_save_dialog() if the dialog already exists (there was	probably a retransmission - or you are trying to call	yourself, which is still a known bug).">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Jul 25 22:19:46 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000884.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r418 - Commented useless	on_failure routes in the P-CSCF Fixed on_reply routed exit	with error Relayed ACK reliable in S-CSCF for termination of	initial request
+</A></li>
+        <LI>Next message: <A HREF="000887.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r420 - Reduced memory logging for	unknown semop error (errno=34). Increased memory logging for	pkg/shm_status() on standalone CDiameterPeer.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#885">[ date ]</a>
+              <a href="thread.html#885">[ thread ]</a>
+              <a href="subject.html#885">[ subject ]</a>
+              <a href="author.html#885">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-07-25 22:19:34 +0200 (Wed, 25 Jul 2007)
+New Revision: 419 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=419">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=419</A> 
+
+Log:
+Fixed max dialog count limit disable - was not disabled on decrement - now we are lighter wither some locks.
+Returning CSCF_RETURN_BREAK on P/S_save_dialog() if the dialog already exists (there was probably a retransmission - or you are trying to call yourself, which is still a known bug).
+
+
+Modified:
+   U	ser_ims/trunk/modules/pcscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?rev=419&amp;view=diff&amp;r1=419&amp;r2=418">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?rev=419&amp;view=diff&amp;r1=419&amp;r2=418</A>
+   U	ser_ims/trunk/modules/scscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/dlg_state.c?rev=419&amp;view=diff&amp;r1=419&amp;r2=418">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/dlg_state.c?rev=419&amp;view=diff&amp;r1=419&amp;r2=418</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000884.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r418 - Commented useless	on_failure routes in the P-CSCF Fixed on_reply routed exit	with error Relayed ACK reliable in S-CSCF for termination of	initial request
+</A></li>
+	<LI>Next message: <A HREF="000887.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r420 - Reduced memory logging for	unknown semop error (errno=34). Increased memory logging for	pkg/shm_status() on standalone CDiameterPeer.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#885">[ date ]</a>
+              <a href="thread.html#885">[ thread ]</a>
+              <a href="subject.html#885">[ subject ]</a>
+              <a href="author.html#885">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

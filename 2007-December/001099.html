@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] NASS-Bundle Authentication
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20NASS-Bundle%20Authentication&In-Reply-To=%3C475E55F1.7090003%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001098.html">
+   <LINK REL="Next"  HREF="001100.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] NASS-Bundle Authentication</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20NASS-Bundle%20Authentication&In-Reply-To=%3C475E55F1.7090003%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] NASS-Bundle Authentication">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Dec 11 10:18:41 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001098.html">[OpenIMSCore-CSCF] NASS-Bundle Authentication
+</A></li>
+        <LI>Next message: <A HREF="001100.html">[OpenIMSCore-CSCF] NASS-Bundle Authentication
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1099">[ date ]</a>
+              <a href="thread.html#1099">[ thread ]</a>
+              <a href="subject.html#1099">[ subject ]</a>
+              <a href="author.html#1099">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Klemens,
+
+You are on the right track with the S-CSCF/HSS configuration. But then
+you also need to reconfigure the P-CSCF, enable the e2 diameter
+interface and have a CLF node ready to give you the DSL line identifier
+that the P-CSCF would fill in.
+
+The error that you get... well, the Early-IMS and NASS-Bundled
+authentications, if they fail and you have one of them as default, the
+S-CSCF won't have anything to pack in an authentication vector by
+default as these are not challenge-type authentications. So this is a
+clear failure, yet the error message is a little misleading as we tried
+to make the S-CSCF work in a multi-authentication environment. Our idea
+was that you might want to have a default challenge-authentication
+method selected with registration_default_algorithm. If you enable the
+nass_bundled and/or early_ims then one extra MAR/MAA is generated for
+each that would check with the HSS if the line-identifier or the source
+IP address is authorized, before trying a challenge. In your case, there
+was no challenge method selected, so no fallback, and you got the 500.
+
+If the NASS-Bundled would've succeeded you would've got the 200 OK for
+it. If you select a challenge authentication for the default algorithm
+then in case NASS-bundled succeeds you get a 200 OK, else you get a 401
+with a challenge.
+
+-Dragos
+
+
+Klemens Schragel wrote:
+&gt;<i> Hi All,
+</I>&gt;<i>
+</I>&gt;<i> I want to test the NBA but unfortunately I'm not quit sure how...
+</I>&gt;<i>
+</I>&gt;<i> scscf.cfg:
+</I>&gt;<i> I think optional:
+</I>&gt;<i>   modparam(&quot;scscf&quot;,&quot;registration_default_algorithm&quot;,&quot;NASS-Bundled&quot;)
+</I>&gt;<i> mandatory:
+</I>&gt;<i>   modparam(&quot;scscf&quot;,&quot;registration_disable_nass_bundled&quot;,0)
+</I>&gt;<i>
+</I>&gt;<i> hss-db:
+</I>&gt;<i> at least &quot;allow NASS-bundled&quot;, maybe also as &quot;default&quot;...
+</I>&gt;<i> and then I think I also have to enter the ID string which the P-CSCF will enter in the REGISTER (p-access-network-info), in my case &quot;net1.test&quot;
+</I>&gt;<i>
+</I>&gt;<i> anything else?
+</I>&gt;<i>
+</I>&gt;<i> I receive an 500 Server Initial Error - while packing auth vector (see trace)...
+</I>&gt;<i>
+</I>&gt;<i> br, Klemens
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001098.html">[OpenIMSCore-CSCF] NASS-Bundle Authentication
+</A></li>
+	<LI>Next message: <A HREF="001100.html">[OpenIMSCore-CSCF] NASS-Bundle Authentication
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1099">[ date ]</a>
+              <a href="thread.html#1099">[ thread ]</a>
+              <a href="subject.html#1099">[ subject ]</a>
+              <a href="author.html#1099">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

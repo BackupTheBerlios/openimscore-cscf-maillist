@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Registration from HSS user unknown error
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Registration%20from%20HSS%20user%20unknown%20error&In-Reply-To=%3CCALursqYNnjw1FhLtL4-XtTnSffj55O%3Da%3DuS%3DSL5sVjd7idmKvg%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002674.html">
+   <LINK REL="Next"  HREF="002676.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Registration from HSS user unknown error</H1>
+    <B>Roc&#237;o Ruz</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Registration%20from%20HSS%20user%20unknown%20error&In-Reply-To=%3CCALursqYNnjw1FhLtL4-XtTnSffj55O%3Da%3DuS%3DSL5sVjd7idmKvg%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Registration from HSS user unknown error">rociorsr at gmail.com
+       </A><BR>
+    <I>Fri Sep 30 20:48:41 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002674.html">[OpenIMSCore-CSCF] Registration from HSS user unknown error
+</A></li>
+        <LI>Next message: <A HREF="002676.html">[OpenIMSCore-CSCF] IMS Kamailio extensions - Open IMS Core real	commercial deployment
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2675">[ date ]</a>
+              <a href="thread.html#2675">[ thread ]</a>
+              <a href="subject.html#2675">[ subject ]</a>
+              <a href="author.html#2675">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+I think you are not using the correct IMPU when registering.
+Try configuring sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">client-lb1 at open-ims.test</A> on your softphone.
+
+I hope this helps.
+Regards,
+Rocio
+
+2011/9/30 Lakshman Bana &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">lakshman.bana at gmail.com</A>&gt;
+
+&gt;<i> Hi,
+</I>&gt;<i> Could you please tell me why I get HSS user unknown whenever I send
+</I>&gt;<i> the the following REGISTER message.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> REGISTER sip:open-ims.test SIP/2.0
+</I>&gt;<i>
+</I>&gt;<i> Via: SIP/2.0/UDP 127.0.0.1:7060;rport;branch=z9hG4bKacokiodj
+</I>&gt;<i>
+</I>&gt;<i> Max-Forwards: 70
+</I>&gt;<i>
+</I>&gt;<i> To: &quot;Alice&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">+12123335555 at open-ims.test</A>;user=phone&gt;
+</I>&gt;<i>
+</I>&gt;<i> From: &quot;Alice&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">+12123335555 at open-ims.test</A>;user=phone&gt;;tag=retcn
+</I>&gt;<i>
+</I>&gt;<i> Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">kdqnpmgvvztmmrc at ubuntu.ubuntu-domain</A>
+</I>&gt;<i>
+</I>&gt;<i> CSeq: 364 REGISTER
+</I>&gt;<i>
+</I>&gt;<i> Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">+12123335555 at 127.0.0.1</A>:7060;user=phone&gt;;expires=3600
+</I>&gt;<i>
+</I>&gt;<i> Allow:
+</I>&gt;<i> INVITE,ACK,BYE,CANCEL,OPTIONS,PRACK,REFER,NOTIFY,SUBSCRIBE,INFO,MESSAGE
+</I>&gt;<i>
+</I>&gt;<i> User-Agent: Twinkle/1.4.2
+</I>&gt;<i>
+</I>&gt;<i> Content-Length: 0
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Also please see my attached HSS screenshot. Any kind of help on this
+</I>&gt;<i> please...
+</I>&gt;<i> thanks
+</I>&gt;<i> lb
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110930/25272d37/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110930/25272d37/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002674.html">[OpenIMSCore-CSCF] Registration from HSS user unknown error
+</A></li>
+	<LI>Next message: <A HREF="002676.html">[OpenIMSCore-CSCF] IMS Kamailio extensions - Open IMS Core real	commercial deployment
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2675">[ date ]</a>
+              <a href="thread.html#2675">[ thread ]</a>
+              <a href="subject.html#2675">[ subject ]</a>
+              <a href="author.html#2675">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

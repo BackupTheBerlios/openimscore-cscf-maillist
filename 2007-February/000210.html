@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r135 - in ser_ims/trunk/modules:	isc scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r135%20-%20in%20ser_ims/trunk/modules%3A%0A%09isc%20scscf&In-Reply-To=%3C200702131525.l1DFPxE9022313%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000209.html">
+   <LINK REL="Next"  HREF="000211.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r135 - in ser_ims/trunk/modules:	isc scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r135%20-%20in%20ser_ims/trunk/modules%3A%0A%09isc%20scscf&In-Reply-To=%3C200702131525.l1DFPxE9022313%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r135 - in ser_ims/trunk/modules:	isc scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Feb 13 16:25:59 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000209.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r134 -	ser_ims/branches/01_persistency/cfg
+</A></li>
+        <LI>Next message: <A HREF="000211.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r136 - in ser_ims/trunk: . mem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#210">[ date ]</a>
+              <a href="thread.html#210">[ thread ]</a>
+              <a href="subject.html#210">[ subject ]</a>
+              <a href="author.html#210">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-13 16:25:46 +0100 (Tue, 13 Feb 2007)
+New Revision: 135
+
+Modified:
+   ser_ims/trunk/modules/isc/checker.c
+   ser_ims/trunk/modules/scscf/registrar_parser.c
+Log:
+Fixed ISC bugs:
+- scscf/registrar_parser.c was failing to get header type because parse_hname2() was changed to fail when not trailing ':' was present after a header name
+- isc/checker.c had a typo in isc_check_headers()
+
+
+Modified: ser_ims/trunk/modules/isc/checker.c
+===================================================================
+--- ser_ims/trunk/modules/isc/checker.c	2007-02-12 17:53:25 UTC (rev 134)
++++ ser_ims/trunk/modules/isc/checker.c	2007-02-13 15:25:46 UTC (rev 135)
+@@ -91,31 +91,33 @@
+ static int isc_check_headers(ims_spt *spt, struct hdr_field *headers)
+ {
+ 	struct hdr_field *i;
+-	char c,c2,ch;
++	char c,ch;
++	char buf[256];
+ 	regex_t header_comp,content_comp;
+ 	i = headers;
+ 	/* compile the regex for header name */
+-	c2=spt-&gt;sip_header.header.s[spt-&gt;sip_header.header.len];
+-	spt-&gt;sip_header.header.s[spt-&gt;sip_header.header.len]=0;				
+-	regcomp(&amp;(header_comp),spt-&gt;sip_header.header.s,REG_ICASE|REG_EXTENDED);
+-	spt-&gt;sip_header.header.s[spt-&gt;sip_header.header.len]=c2;
++	memcpy(buf,spt-&gt;sip_header.header.s,spt-&gt;sip_header.header.len);
++	buf[spt-&gt;sip_header.header.len]=0;
++	regcomp(&amp;(header_comp),buf,REG_ICASE|REG_EXTENDED);
+ 	
+ 	/* compile the regex for content */
+-	c2=spt-&gt;sip_header.content.s[spt-&gt;sip_header.content.len];
+-	spt-&gt;sip_header.content.s[spt-&gt;sip_header.content.len]=0;				
+-	regcomp(&amp;(content_comp),spt-&gt;sip_header.content.s,REG_ICASE|REG_EXTENDED);
+-	spt-&gt;sip_header.content.s[spt-&gt;sip_header.content.len]=c2;
+-
++	memcpy(buf,spt-&gt;sip_header.content.s,spt-&gt;sip_header.content.len);
++	buf[spt-&gt;sip_header.content.len]=0;
++	regcomp(&amp;(content_comp),buf,REG_ICASE|REG_EXTENDED);
++	
++	DBG(&quot;DEBUG:&quot;M_NAME&quot;:ifc_check_headers:            Looking for Header[%.*s(%d)] %.*s \n&quot;,
++		spt-&gt;sip_header.header.len,spt-&gt;sip_header.header.s,spt-&gt;sip_header.type,
++		spt-&gt;sip_header.content.len,spt-&gt;sip_header.content.s);
+ 	while(i!=NULL){
+ 		ch = i-&gt;name.s[i-&gt;name.len];
+ 		i-&gt;name.s[i-&gt;name.len]=0;
+-		if ((spt-&gt;type&gt;0&amp;&amp;spt-&gt;type==i-&gt;type)|| //matches known type
+-			(regexec(&amp;(header_comp),i-&gt;name.s,0,NULL,0)==0)
+-			)		//or matches the name
++		if ((spt-&gt;sip_header.type&gt;0&amp;&amp;spt-&gt;sip_header.type==i-&gt;type)|| //matches known type
++			(regexec(&amp;(header_comp),i-&gt;name.s,0,NULL,0)==0)//or matches the name
++		   )		
+ 		{
+ 			i-&gt;name.s[i-&gt;name.len]=ch;
+-			DBG(&quot;DEBUG:&quot;M_NAME&quot;:ifc_check_headers:            Found Header[%.*s] %.*s \n&quot;,
+-					i-&gt;name.len,i-&gt;name.s,i-&gt;body.len,i-&gt;body.s);
++			DBG(&quot;DEBUG:&quot;M_NAME&quot;:ifc_check_headers:            Found Header[%.*s(%d)] %.*s \n&quot;,
++					i-&gt;name.len,i-&gt;name.s,i-&gt;type,i-&gt;body.len,i-&gt;body.s);
+ 			//if the header should be absent but found it
+ 			if (spt-&gt;sip_header.content.s==NULL)
+ 				if (spt-&gt;condition_negated) return FALSE;
+
+Modified: ser_ims/trunk/modules/scscf/registrar_parser.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar_parser.c	2007-02-12 17:53:25 UTC (rev 134)
++++ ser_ims/trunk/modules/scscf/registrar_parser.c	2007-02-13 15:25:46 UTC (rev 135)
+@@ -329,6 +329,8 @@
+ {
+ 	xmlNodePtr child;
+ 	xmlChar *x;
++	char c[256];
++	int len;
+ 	struct hdr_field hf;
+ 	sh-&gt;header.s=NULL;sh-&gt;header.len=0;
+ 	sh-&gt;content.s=NULL;sh-&gt;content.len=0;
+@@ -338,9 +340,14 @@
+ 			switch (child-&gt;name[0]) {
+ 				case 'H':case 'h':	//Header
+ 					x = xmlNodeListGetString(doc, child-&gt;xmlChildrenNode, 1);
++					len = strlen(x);		
++					memcpy(c,x,len);
++					c[len++]=':';
++					c[len]=0;
+ 					space_trim_dup(&amp;(sh-&gt;header),x);
+-					parse_hname2(sh-&gt;header.s,sh-&gt;header.s+sh-&gt;header.len,&amp;hf);
++					parse_hname2(c,c+(len&lt;4?4:len),&amp;hf);
+ 					sh-&gt;type=hf.type;
++					//LOG(L_CRIT,&quot;[%.*s(%d)]\n&quot;,sh-&gt;header.len,sh-&gt;header.s,sh-&gt;type);
+ 					xmlFree(x);
+ 					break;
+ 				case 'C':case 'c':	//Content
+@@ -970,9 +977,10 @@
+ 								s-&gt;service_profiles[i].filter_criteria[j].trigger_point-&gt;spt[k].method.s);
+ 							break;
+ 						case 3:
+-							LOG(log_level,&quot;INF:&quot;M_NAME&quot;:\t\t\t\t\t Hdr(%.*s) == &lt;%.*s&gt;\n&quot;,
++							LOG(log_level,&quot;INF:&quot;M_NAME&quot;:\t\t\t\t\t Hdr(%.*s(%d)) == &lt;%.*s&gt;\n&quot;,
+ 								s-&gt;service_profiles[i].filter_criteria[j].trigger_point-&gt;spt[k].sip_header.header.len,
+ 								s-&gt;service_profiles[i].filter_criteria[j].trigger_point-&gt;spt[k].sip_header.header.s,
++								s-&gt;service_profiles[i].filter_criteria[j].trigger_point-&gt;spt[k].sip_header.type,
+ 								s-&gt;service_profiles[i].filter_criteria[j].trigger_point-&gt;spt[k].sip_header.content.len,
+ 								s-&gt;service_profiles[i].filter_criteria[j].trigger_point-&gt;spt[k].sip_header.content.s);
+ 							break;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000209.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r134 -	ser_ims/branches/01_persistency/cfg
+</A></li>
+	<LI>Next message: <A HREF="000211.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r136 - in ser_ims/trunk: . mem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#210">[ date ]</a>
+              <a href="thread.html#210">[ thread ]</a>
+              <a href="subject.html#210">[ subject ]</a>
+              <a href="author.html#210">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

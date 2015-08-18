@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r819 - CDP: - Cleaned-up the	exports - Lots of fixes on the Sessions
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r819%20-%20CDP%3A%20-%20Cleaned-up%20the%0A%09exports%20-%20Lots%20of%20fixes%20on%20the%20Sessions&In-Reply-To=%3C201001221635.o0MGZRgY015989%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001984.html">
+   <LINK REL="Next"  HREF="001986.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r819 - CDP: - Cleaned-up the	exports - Lots of fixes on the Sessions</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r819%20-%20CDP%3A%20-%20Cleaned-up%20the%0A%09exports%20-%20Lots%20of%20fixes%20on%20the%20Sessions&In-Reply-To=%3C201001221635.o0MGZRgY015989%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r819 - CDP: - Cleaned-up the	exports - Lots of fixes on the Sessions">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Fri Jan 22 17:35:27 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001984.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r818 - Removed useless cb_param	from cdp sessions - there is generic_data which has the same role
+</A></li>
+        <LI>Next message: <A HREF="001986.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r820 - CDP: - Fixed locking bugs	on session timer - improved session timeout on auth server
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1985">[ date ]</a>
+              <a href="thread.html#1985">[ thread ]</a>
+              <a href="subject.html#1985">[ subject ]</a>
+              <a href="author.html#1985">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2010-01-22 17:35:17 +0100 (Fri, 22 Jan 2010)
+New Revision: 819 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=819">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=819</A> 
+
+Log:
+CDP:
+- Cleaned-up the exports
+- Lots of fixes on the Sessions
+
+Added:
+   A	ser_ims/branches/13_pcc_fixing/modules/cdp/diameter_comm.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/diameter_comm.c?rev=819&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/diameter_comm.c?rev=819&amp;view=markup</A>
+Removed:
+   D	ser_ims/branches/13_pcc_fixing/modules/cdp/diameter_api.c
+Modified:
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/api_process.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/api_process.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/api_process.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/authstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/authstatemachine.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/authstatemachine.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/cdp_load.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/cdp_load.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/cdp_load.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/cdp_load.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/cdp_load.h?rev=819&amp;view=diff&amp;r1=819&amp;r2=818">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/cdp_load.h?rev=819&amp;view=diff&amp;r1=819&amp;r2=818</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/diameter_api.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/diameter_api.h?rev=819&amp;view=diff&amp;r1=819&amp;r2=818">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/diameter_api.h?rev=819&amp;view=diff&amp;r1=819&amp;r2=818</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/diameter_peer.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/diameter_peer.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/diameter_peer.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/mod_wharf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/mod_wharf.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/mod_wharf.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/peerstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/peerstatemachine.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/peerstatemachine.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/session.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/session.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/session.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/session.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/session.h?rev=819&amp;view=diff&amp;r1=819&amp;r2=818">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/session.h?rev=819&amp;view=diff&amp;r1=819&amp;r2=818</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/transaction.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/transaction.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/transaction.c?rev=819&amp;view=diff&amp;r1=819&amp;r2=818</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/cdp/transaction.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/transaction.h?rev=819&amp;view=diff&amp;r1=819&amp;r2=818">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/transaction.h?rev=819&amp;view=diff&amp;r1=819&amp;r2=818</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001984.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r818 - Removed useless cb_param	from cdp sessions - there is generic_data which has the same role
+</A></li>
+	<LI>Next message: <A HREF="001986.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r820 - CDP: - Fixed locking bugs	on session timer - improved session timeout on auth server
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1985">[ date ]</a>
+              <a href="thread.html#1985">[ thread ]</a>
+              <a href="subject.html#1985">[ subject ]</a>
+              <a href="author.html#1985">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

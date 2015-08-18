@@ -1,0 +1,366 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Add Route header on P-CSCF and send to exit	IBCF?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Add%20Route%20header%20on%20P-CSCF%20and%20send%20to%20exit%0A%09IBCF%3F&In-Reply-To=%3C527E3FCD6D15A141A2245921633673E504FC34F4%40xmb-hkg-416.apac.cisco.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001728.html">
+   <LINK REL="Next"  HREF="001730.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Add Route header on P-CSCF and send to exit	IBCF?</H1>
+    <B>Qingao Wu (qinwu)</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Add%20Route%20header%20on%20P-CSCF%20and%20send%20to%20exit%0A%09IBCF%3F&In-Reply-To=%3C527E3FCD6D15A141A2245921633673E504FC34F4%40xmb-hkg-416.apac.cisco.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Add Route header on P-CSCF and send to exit	IBCF?">qinwu at cisco.com
+       </A><BR>
+    <I>Sat Jun 27 09:03:45 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001728.html">[OpenIMSCore-CSCF] Add Route header on P-CSCF and send to exit IBCF?
+</A></li>
+        <LI>Next message: <A HREF="001730.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r681 - updated the scripts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1729">[ date ]</a>
+              <a href="thread.html#1729">[ thread ]</a>
+              <a href="subject.html#1729">[ subject ]</a>
+              <a href="author.html#1729">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi, Dragos
+
+Thx for your suggestion and insight into the code! I've done the initial
+modification according to your suggestion, and I'm now able to register
+from visited network through exit IBCF.
+
+I'll do a thorough test of INVITE, SUBSCRIBE, etc, and finetune the
+added code if necessary. After that, pls help me do a code review and we
+can commit the code as a patch. 
+
+Regards,
+ 
+Qingao Wu
+
+-----Original Message-----
+From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>] 
+Sent: Saturday, June 27, 2009 02:26 AM
+To: Qingao Wu (qinwu)
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] Add Route header on P-CSCF and send to
+exit IBCF?
+
+Hi Qingao,
+
+yes, you are right. The problem arises from the fact that SER works a
+bit differently than what you'd expect normally.
+
+So adding a header or changing anything in the message does not actually
+change anything in the actual buffer or parsed structures that are used
+by any functions, like the ones in the rr or textops module. Instead,
+the changes to be made are written in a list of modifications to be
+applied to the message before sending it out. These are called
+internally &quot;lumps&quot; and it's nothing more than instructions like: at
+position 23 insert this string or delete this many chars.
+
+These is this way for optimization purposes (I know... ugly...). So the
+only hacked way to see any changes to the message is to actually send it
+out and then received it back and have it re-parsed.
+
+The work-around in your situation is to add the route header like you
+did on top and then to set the dst_uri to the same value. The dst_uri
+does not actually mean the Request-URI, but the actual destination of
+the request. For example loose_route() would set it to the value of the
+first Route header, without necessarily changing the real Request-URI.
+
+Now, unfortunately AFAIK there's no function to this from the script. 
+And so far, as this was not critically required in the CSCFs, neither
+did we export one. The good news is that we actually employed this in
+quite many situations. For example look in the
+P_enforce_service_routes() functions in
+ser_ims/modules/registration.c:845.
+* Copy that to another function called P_route_to_IBCF()
+* remove the registrar look-up stuff and just use the first parameter
+for example as the IBCF URI
+* insert the Route header in a similar manner - don't forget to append a
+&quot;;lr&quot; parameter if it was not provided in the parameter
+* set the msg-&gt;dst_uri (don't forget that you should first duplicate the
+URI in pkg an it should also be good if you'd check if msg-&gt;dst_uri was
+not previously set and then pkg_free the old msg-&gt;dst_uri.s)
+* put the function declaration also in the registration.h (although
+maybe you put all this new in security.c/h - it's a better place)
+* put the function in the mod.c list of exported function. Don't forget
+to indicate there that 1 parameter is to be provided
+* use it in the script like P_route_to_IBCF(&quot;sip:ibcf.open-ims.test&quot;)
+for example.
+
+This should be it. And we'd of course appreciate a patch ;-) so that
+this would stick to the project.
+
+I know that it's not a big deal for me to do it instead, but I am a bit
+busy at the moment and won't have time to do this and test it until late
+next week or so. So would appreciate your help.
+
+Cheers,
+-Dragos
+
+Qingao Wu (qinwu) wrote:
+&gt;<i> Hi,
+</I>&gt;<i>  
+</I>&gt;<i> I've looked through textops.c, and found insert_hf_value is capable of
+</I>
+&gt;<i> doing this, so I revised the pcscf.cfg like below
+</I>&gt;<i>  
+</I>&gt;<i> But the result is the Route header is correctly added from the 
+</I>&gt;<i> outgoing SIP msg from P-CSCF, but when loose-route, it cannot find 
+</I>&gt;<i> this added Route header, and it still route based on Request-URI.
+</I>&gt;<i> Seems when doing parse_headers in loose_route(), it cannot see the 
+</I>&gt;<i> added Route header ...
+</I>&gt;<i>  
+</I>&gt;<i> I have 2 networks, open-ims.test as visited network, and t-mobile.com 
+</I>&gt;<i> as home network. The log is like below
+</I>&gt;<i>  
+</I>&gt;<i>  1(5267) SIP Request:
+</I>&gt;<i>  1(5267)  method:  &lt;REGISTER&gt;
+</I>&gt;<i>  1(5267)  uri:     &lt;sip:t-mobile.com&gt;
+</I>&gt;<i>  1(5267)  version: &lt;SIP/2.0&gt;
+</I>&gt;<i>  1(5267) parse_headers: flags=2
+</I>&gt;<i>  1(5267) Found param type 235, &lt;rport&gt; = &lt;n/a&gt;; state=6
+</I>&gt;<i>  1(5267) Found param type 232, &lt;branch&gt; = &lt;z9hG4bK18756&gt;; state=16
+</I>&gt;<i>  1(5267) end of header reached, state=5
+</I>&gt;<i>  1(5267) parse_headers: Via found, flags=2
+</I>&gt;<i>  1(5267) parse_headers: this is the first via
+</I>&gt;<i>  1(5267) After parse_msg...
+</I>&gt;<i>  1(5267) preparing to run routing scripts...
+</I>&gt;<i>  1(5267) parse_headers: flags=100
+</I>&gt;<i>  1(5267) end of header reached, state=9
+</I>&gt;<i>  1(5267) DEBUG: get_hdr_field: &lt;To&gt; [24]; uri=[sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at t-mobile.com</A>]
+</I>&gt;<i>  1(5267) DEBUG: to body [&lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at t-mobile.com</A>&gt;]
+</I>&gt;<i>  1(5267) get_hdr_field: cseq &lt;CSeq&gt;: &lt;601&gt; &lt;REGISTER&gt;
+</I>&gt;<i>  1(5267) DEBUG:maxfwd:is_maxfwd_present: value = 70
+</I>&gt;<i>  1(5267) DBG:maxfwd:process_maxfwd_header: value 70 decreased to 16
+</I>&gt;<i>  1(5267) Calling SELECT 0x819cf0c
+</I>&gt;<i>  1(5267) parse_headers: flags=ffffffffffffffff
+</I>&gt;<i>  1(5267) DEBUG: get_hdr_body : content_length=0
+</I>&gt;<i>  1(5267) found end of header
+</I>&gt;<i>  1(5267) DBG:P-CSCF:P_check_sent_by(): Received from &lt;10.0.229.22&gt;
+</I>&gt;<i>  1(5267) parse_headers: flags=ffffffffffffffff
+</I>&gt;<i>  1(5267) DBG:P-CSCF:P_check_sent_by(): Via sent-by=&lt;10.0.229.22&gt;
+</I>&gt;<i>  1(5267) DBG:P-CSCF:P_check_sent_by(): sent-by matches the actual IP 
+</I>&gt;<i> received from
+</I>&gt;<i>  1(5267) DEBUG: t_newtran: msg id=1 , global msg id=0 , T on 
+</I>&gt;<i> entrance=0xffffffff
+</I>&gt;<i>  1(5267) parse_headers: flags=ffffffffffffffff
+</I>&gt;<i>  1(5267) parse_headers: flags=78
+</I>&gt;<i>  1(5267) t_lookup_request: start searching: hash=13366, isACK=0
+</I>&gt;<i>  1(5267) DEBUG: RFC3261 transaction matching failed
+</I>&gt;<i>  1(5267) DEBUG: t_lookup_request: no transaction found
+</I>&gt;<i>  1(5267) DEBUG: add_param: tag=19954
+</I>&gt;<i>  1(5267) end of header reached, state=29
+</I>&gt;<i>  1(5267) parse_headers: flags=ffffffffffffffff
+</I>&gt;<i>  1(5267) DBG:P-CSCF:P_emergency_flag: Check if the user made an 
+</I>&gt;<i> Emergency Registration
+</I>&gt;<i>  1(5267) parse_headers: flags=ffffffffffffffff
+</I>&gt;<i>  1(5267) DBG:P-CSCF:P_emergency_flag: contact 
+</I>&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.0.229.22</A>:1726;transport=udp&gt;
+</I>&gt;<i>  1(5267) DBG:P-CSCF:cscf_get_sos_uri_param: searching through the uri 
+</I>&gt;<i> parameters:transport=udp 1(5267)
+</I>&gt;<i> DBG:P-CSCF:cscf_get_sos_uri_param:name: transport body: udp
+</I>&gt;<i>  1(5267) DBG:P-CSCF:P_verify_security: Looking for 
+</I>&gt;<i> &lt;1://10.0.229.22:1726&gt;
+</I>&gt;<i>  1(5267) DBG:P-CSCF:P_verify_security: No Contact found !
+</I>&gt;<i>  1(5267) DBG:P-CSCF:P_is_integrity_protected: Looking if registered
+</I>&gt;<i>  1(5267) DBG:P-CSCF:P_is_integrity_protected: Looking for 
+</I>&gt;<i> &lt;1://10.0.229.22:1726,1726&gt;
+</I>&gt;<i>  1(5267) parse_headers: flags=ffffffffffffffff
+</I>&gt;<i>  1(5267) parse_headers: flags=2000
+</I>&gt;<i>  1(5267) parse_headers: flags=ffffffffffffffff
+</I>&gt;<i>  1(5267) parse_headers: flags=ffffffffffffffff
+</I>&gt;<i>  1(5267) parse_headers: flags=ffffffffffffffff
+</I>&gt;<i>  1(5267) DBG:P-CSCF:cscf_add_p_charging_vector: time is 1246013351d
+</I>&gt;<i>  1(5267) DBG:P-CSCF:cscf_add_p_charging_vector: count is 0d
+</I>&gt;<i>  1(5267) parse_headers: flags=ffffffffffffffff
+</I>&gt;<i>  1(5267) DBG:P-CSCF:cscf_get_visited_network_id: P-Visited-Network-ID 
+</I>&gt;<i> header not found
+</I>&gt;<i>  1(5267) DBG:P-CSCF:cscf_get_visited_network_id: &lt;&gt;
+</I>&gt;<i>  1(5267) DBG:P-CSCF:cscf_del_header: no header specified.
+</I>&gt;<i>  1(5267) parse_headers: flags=200
+</I>&gt;<i> * 1(5267) find_first_route: No Route headers found
+</I>&gt;<i>  1(5267) loose_route: There is no Route HF*
+</I>&gt;<i>  1(5267) DEBUG: t_newtran: msg id=1 , global msg id=1 , T on
+</I>&gt;<i> entrance=0xb61cb9a8
+</I>&gt;<i>  1(5267) DEBUG: t_newtran: transaction already in process 0xb61cb9a8
+</I>&gt;<i> * 1(5267) dns_hash_find(_sip._udp.t-mobile.com(22), 33), h=707*
+</I>&gt;<i>  5(5271) DBG:P-CSCF:registrar_timer: Called at 94493995
+</I>&gt;<i>  5(5271) INF:P-CSCF:----------  Registrar Contents begin --------
+</I>&gt;<i>  5(5271) INF:P-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>  5(5271) INF:P-CSCF:----------  Subscription list begin ---------
+</I>&gt;<i>  5(5271) INF:P-CSCF:----------  Subscription list end -----------
+</I>&gt;<i>  
+</I>&gt;<i> Can anyone shed some light on this? I believe this is a basic function
+</I>
+&gt;<i> of pcscf, and should be easy to do in the cfg file. But it has taken 
+</I>&gt;<i> me some time and still no luck. Am I heading on the wrong direction?
+</I>&gt;<i>  
+</I>&gt;<i> route[REGISTER]
+</I>&gt;<i> {
+</I>&gt;<i>     t_newtran();
+</I>&gt;<i>  
+</I>&gt;<i> *        if (from_uri != &quot;open-ims.test&quot;) {
+</I>&gt;<i>                 
+</I>&gt;<i> insert_hf_value(&quot;Route[1]&quot;,&quot;&lt;sip:ibcf.open-ims.test:5060;lr&gt;&quot;);
+</I>&gt;<i>         }*
+</I>&gt;<i>  
+</I>&gt;<i>         if(P_emergency_flag()){
+</I>&gt;<i>                 log(1, &quot;&gt;&gt; emergency flag in REGISTER\n&quot;);
+</I>&gt;<i>                 if(!P_emergency_serv_enabled()){
+</I>&gt;<i>                         P_380_em_alternative_serv(&quot;no Emergency 
+</I>&gt;<i> Services support at this PCSCF&quot;);
+</I>&gt;<i>                         t_reply(&quot;380&quot;, &quot;Alternative Services&quot;);
+</I>&gt;<i>                         exit;
+</I>&gt;<i>                 }
+</I>&gt;<i>     }
+</I>&gt;<i>  
+</I>&gt;<i>         if (!P_verify_security()) {
+</I>&gt;<i>                 route(REGISTER_494);
+</I>&gt;<i>                 break;
+</I>&gt;<i>         };
+</I>&gt;<i>         if (!P_is_integrity_protected()){
+</I>&gt;<i>                 #Variant 1 - accept also non IPSec clients
+</I>&gt;<i>                 P_remove_security_client();
+</I>&gt;<i>  
+</I>&gt;<i>                 #Variant 2 - accept only IPSec clients
+</I>&gt;<i>                 #if (!P_remove_security_client()){
+</I>&gt;<i>                 #       route(REGISTER_494);
+</I>&gt;<i>                 #       break;
+</I>&gt;<i>                 #}
+</I>&gt;<i>                 P_add_integrity_protected(&quot;no&quot;);
+</I>&gt;<i>         }else{
+</I>&gt;<i>                 if
+</I>&gt;<i> (!P_remove_security_verify()||!P_remove_security_client()){
+</I>&gt;<i>                         route(REGISTER_494);
+</I>&gt;<i>                         break;
+</I>&gt;<i>                 }
+</I>&gt;<i>                 P_add_integrity_protected(&quot;yes&quot;);
+</I>&gt;<i>         };
+</I>&gt;<i>         P_remove_header_tag(&quot;Require&quot;,&quot;sec-agree&quot;);
+</I>&gt;<i>         P_remove_header_tag(&quot;Proxy-Require&quot;,&quot;sec-agree&quot;);
+</I>&gt;<i>         P_remove_security_verify();
+</I>&gt;<i>         P_add_path();
+</I>&gt;<i>         P_add_require();
+</I>&gt;<i>         P_add_p_charging_vector();
+</I>&gt;<i>         P_add_p_visited_network_id(&quot;open-ims.test&quot;);
+</I>&gt;<i>  
+</I>&gt;<i>         # trigger the UDR on the e2 interface (NASS-Bundled
+</I>&gt;<i> Authentication)
+</I>&gt;<i>         P_access_network_info(&quot;open-ims.test&quot;);
+</I>&gt;<i>  
+</I>&gt;<i>         t_on_reply(&quot;REGISTER_reply&quot;);
+</I>&gt;<i>         t_on_failure(&quot;REGISTER_failure&quot;);
+</I>&gt;<i>  
+</I>&gt;<i> *        loose_route();*
+</I>&gt;<i>  
+</I>&gt;<i>         if (!t_relay()) {
+</I>&gt;<i>                 sl_send_reply(&quot;500&quot;,&quot;Error forwarding to Home
+</I>Domain&quot;);
+&gt;<i>                 break;
+</I>&gt;<i>         };
+</I>&gt;<i> }
+</I>&gt;<i>  
+</I>&gt;<i> Regards,
+</I>&gt;<i>  
+</I>&gt;<i> Qingao Wu
+</I>&gt;<i>
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i> --
+</I>&gt;<i> *From:* <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+</I>&gt;<i> [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>] *On Behalf Of 
+</I>&gt;<i> *Qingao Wu (qinwu)
+</I>&gt;<i> *Sent:* Thursday, June 25, 2009 19:40 PM
+</I>&gt;<i> *To:* <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> *Subject:* [OpenIMSCore-CSCF] Add Route header on P-CSCF and send to 
+</I>&gt;<i> exit IBCF?
+</I>&gt;<i>
+</I>&gt;<i> Hi, All
+</I>&gt;<i>  
+</I>&gt;<i> I'm rather new at OpenIMSCore and OpenSER (Opensips). For testing an 
+</I>&gt;<i> IBCF implementation, I set up 2 IMS networks with OpenIMSCore. Now I 
+</I>&gt;<i> need to register users and make calls through visited network to the 
+</I>&gt;<i> home network. I need the P-CSCF in visited network to route the SIP 
+</I>&gt;<i> request from non local subscribers to exit IBCF.
+</I>&gt;<i>  
+</I>&gt;<i> I think what I need to do is add a route header, and then let P-CSCF 
+</I>&gt;<i> do loose_route(). There're already 2 comments in pcscf.cfg example
+</I>file.
+&gt;<i>  
+</I>&gt;<i> # add IBCF/THIG route here if required
+</I>&gt;<i>  
+</I>&gt;<i> The problem is how can I add a route header here? I've checked openser
+</I>
+&gt;<i> documentation, there's textops and avpops modules capable of doing 
+</I>&gt;<i> this. insert_hf() in textops is ideal for this, to add this extra 
+</I>&gt;<i> Route header at the top of all headers. But looking at the textops.c 
+</I>&gt;<i> that comes along with OpenIMSCore, it's very old, and only have very 
+</I>&gt;<i> few functions like append_hf(), which cannot do this. And utilizing 
+</I>&gt;<i> avpops module is a bit complicated.
+</I>&gt;<i>  
+</I>&gt;<i> Is there any working example of configuration available for routing 
+</I>&gt;<i> the SIP request to IBCF? I would really appreciate your help here.
+</I>Thx.
+&gt;<i>  
+</I>&gt;<i> Regards,
+</I>&gt;<i>  
+</I>&gt;<i> Qingao Wu
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i> --
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+--
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org We could change the
+world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001728.html">[OpenIMSCore-CSCF] Add Route header on P-CSCF and send to exit IBCF?
+</A></li>
+	<LI>Next message: <A HREF="001730.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r681 - updated the scripts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1729">[ date ]</a>
+              <a href="thread.html#1729">[ thread ]</a>
+              <a href="subject.html#1729">[ subject ]</a>
+              <a href="author.html#1729">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

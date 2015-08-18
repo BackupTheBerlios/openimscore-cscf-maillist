@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r82 - ser_ims/trunk/modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r82%20-%20ser_ims/trunk/modules/scscf&In-Reply-To=%3C200701051140.l05Berua006539%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000102.html">
+   <LINK REL="Next"  HREF="000109.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r82 - ser_ims/trunk/modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r82%20-%20ser_ims/trunk/modules/scscf&In-Reply-To=%3C200701051140.l05Berua006539%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r82 - ser_ims/trunk/modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Fri Jan  5 12:40:53 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000102.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r81 - ser_ims/trunk/cfg
+</A></li>
+        <LI>Next message: <A HREF="000109.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r83 - ser_ims/trunk/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#108">[ date ]</a>
+              <a href="thread.html#108">[ thread ]</a>
+              <a href="subject.html#108">[ subject ]</a>
+              <a href="author.html#108">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-01-05 12:40:49 +0100 (Fri, 05 Jan 2007)
+New Revision: 82
+
+Modified:
+   ser_ims/trunk/modules/scscf/registrar_notify.c
+   ser_ims/trunk/modules/scscf/registrar_notify.h
+   ser_ims/trunk/modules/scscf/registrar_storage.c
+   ser_ims/trunk/modules/scscf/registrar_storage.h
+Log:
+Fixed version parameter to reginfo - now it is incremented for each subscriber each time that a notification is sent.
+
+
+Modified: ser_ims/trunk/modules/scscf/registrar_notify.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar_notify.c	2007-01-05 10:15:09 UTC (rev 81)
++++ ser_ims/trunk/modules/scscf/registrar_notify.c	2007-01-05 11:40:49 UTC (rev 82)
+@@ -501,7 +501,7 @@
+ 			STR_PKG_DUP(subscription_state,subs_terminated,&quot;pkg subs state&quot;);
+ 		}
+ 		n = new_r_notification(req_uri,uri,subscription_state,event,
+-			content_type,content,s-&gt;dialog);						
++			content_type,content,s-&gt;dialog,s-&gt;version++);						
+ 		if (req_uri.s) pkg_free(req_uri.s);
+ 		if (subscription_state.s) pkg_free(subscription_state.s);	
+ 		if (n) add_r_notification(n);		
+@@ -554,7 +554,7 @@
+ 
+ static str r_full={&quot;full&quot;,4};
+ static str r_partial={&quot;partial&quot;,7};
+-static str r_reginfo_s={&quot;&lt;reginfo xmlns=\&quot;urn:ietf:params:xml:ns:reginfo\&quot; version=\&quot;0\&quot; state=\&quot;%.*s\&quot;&gt;\n&quot;,74};
++static str r_reginfo_s={&quot;&lt;reginfo xmlns=\&quot;urn:ietf:params:xml:ns:reginfo\&quot; version=\&quot;%s\&quot; state=\&quot;%.*s\&quot;&gt;\n&quot;,74};
+ static str r_reginfo_e={&quot;&lt;/reginfo&gt;\n&quot;,11};
+ 
+ //static str r_init={&quot;init&quot;,4};
+@@ -604,7 +604,7 @@
+ 	*subsExpires = r_update_subscription_status(p);
+ 	
+ 	STR_APPEND(buf,xml_start);
+-	sprintf(pad.s,r_reginfo_s.s,r_full.len,r_full.s);
++	sprintf(pad.s,r_reginfo_s.s,&quot;%d&quot;,r_full.len,r_full.s);
+ 	pad.len = strlen(pad.s);
+ 	STR_APPEND(buf,pad);
+ 	
+@@ -647,10 +647,11 @@
+ 	STR_APPEND(buf,r_reginfo_e);
+ 
+ 	
+-	x.s = pkg_malloc(buf.len);
++	x.s = pkg_malloc(buf.len+1);
+ 	if (x.s){
+ 		x.len = buf.len;
+ 		memcpy(x.s,buf.s,buf.len);
++		x.s[x.len]=0;
+ 	}
+ 	return x;
+ }
+@@ -683,7 +684,7 @@
+ 	*subsExpires = r_update_subscription_status(p);
+ 	
+ 	STR_APPEND(buf,xml_start);
+-	sprintf(pad.s,r_reginfo_s.s,r_partial.len,r_partial.s);
++	sprintf(pad.s,r_reginfo_s.s,&quot;%d&quot;,r_partial.len,r_partial.s);
+ 	pad.len = strlen(pad.s);
+ 	STR_APPEND(buf,pad);
+ 	
+@@ -754,10 +755,11 @@
+ 	STR_APPEND(buf,r_reginfo_e);
+ 
+ 	
+-	x.s = pkg_malloc(buf.len);
++	x.s = pkg_malloc(buf.len+1);
+ 	if (x.s){
+ 		x.len = buf.len;
+ 		memcpy(x.s,buf.s,buf.len);
++		x.s[x.len]=0;		
+ 	}
+ 	return x;
+ }
+@@ -924,9 +926,11 @@
+  * @returns the r_notification or NULL on error
+  */
+ r_notification* new_r_notification(str req_uri,str uri,str subscription_state,str event,
+-					str content_type,str content,dlg_t *dialog)
++					str content_type,str content,dlg_t *dialog,int version)
+ {
+ 	r_notification *n=0;
++	str buf;	
++	char bufc[MAX_REGINFO_SIZE];
+ 	
+ 	n = shm_malloc(sizeof(r_notification));
+ 	if (!n){
+@@ -951,7 +955,10 @@
+ 	STR_SHM_DUP(n-&gt;content_type,content_type,&quot;new_r_notification&quot;);
+ 	if (!n-&gt;content_type.s) goto error;
+ 
+-	STR_SHM_DUP(n-&gt;content,content,&quot;new_r_notification&quot;);
++	sprintf(bufc,content.s,version);
++	buf.s = bufc;
++	buf.len = strlen(bufc);
++	STR_SHM_DUP(n-&gt;content,buf,&quot;new_r_notification&quot;);
+ 	if (!n-&gt;content.s) goto error;
+ 	
+ 	n-&gt;dialog = dialog;
+
+Modified: ser_ims/trunk/modules/scscf/registrar_notify.h
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar_notify.h	2007-01-05 10:15:09 UTC (rev 81)
++++ ser_ims/trunk/modules/scscf/registrar_notify.h	2007-01-05 11:40:49 UTC (rev 82)
+@@ -122,7 +122,7 @@
+ void notification_timer(unsigned int ticks, void* param);
+ 
+ r_notification* new_r_notification(str req_uri,str uri,str subscription_state,str event,
+-					str content_type,str content,dlg_t *dialog);
++					str content_type,str content,dlg_t *dialog,int version);
+ void add_r_notification(r_notification *n);
+ void free_r_notification(r_notification *n);
+ 
+
+Modified: ser_ims/trunk/modules/scscf/registrar_storage.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar_storage.c	2007-01-05 10:15:09 UTC (rev 81)
++++ ser_ims/trunk/modules/scscf/registrar_storage.c	2007-01-05 11:40:49 UTC (rev 82)
+@@ -234,7 +234,7 @@
+ 	s-&gt;expires = expires;
+ 
+ 	s-&gt;dialog = dialog;
+-				
++					
+ 	return s;
+ error:
+ 	if (s){
+
+Modified: ser_ims/trunk/modules/scscf/registrar_storage.h
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar_storage.h	2007-01-05 10:15:09 UTC (rev 81)
++++ ser_ims/trunk/modules/scscf/registrar_storage.h	2007-01-05 11:40:49 UTC (rev 82)
+@@ -89,6 +89,8 @@
+ 	int expires;				/**&lt; Time of expiration		 			*/
+ 	dlg_t *dialog;				/**&lt; tm dialog to send notify out		*/
+ 	
++	int version;				/**&lt; Last version sent to this subs.	*/
++	
+ 	struct _r_subscriber *next;/**&lt; the next subscriber in the list		*/
+ 	struct _r_subscriber *prev;/**&lt; the previous subscriber in the list	*/
+ } r_subscriber;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000102.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r81 - ser_ims/trunk/cfg
+</A></li>
+	<LI>Next message: <A HREF="000109.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r83 - ser_ims/trunk/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#108">[ date ]</a>
+              <a href="thread.html#108">[ thread ]</a>
+              <a href="subject.html#108">[ subject ]</a>
+              <a href="author.html#108">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

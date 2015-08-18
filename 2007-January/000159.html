@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r108 -	ser_ims/branches/01_persistency/modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r108%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200701301217.l0UCHKFK014405%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000158.html">
+   <LINK REL="Next"  HREF="000160.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r108 -	ser_ims/branches/01_persistency/modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r108%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200701301217.l0UCHKFK014405%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r108 -	ser_ims/branches/01_persistency/modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Jan 30 13:17:20 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000158.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r107 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000160.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r109 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#159">[ date ]</a>
+              <a href="thread.html#159">[ thread ]</a>
+              <a href="subject.html#159">[ subject ]</a>
+              <a href="author.html#159">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-01-30 13:17:14 +0100 (Tue, 30 Jan 2007)
+New Revision: 108
+
+Added:
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.h
+Modified:
+   ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+   ser_ims/branches/01_persistency/modules/scscf/bin_scscf.h
+   ser_ims/branches/01_persistency/modules/scscf/registration.c
+Log:
+Added snapshot dump to file for auth_userdata
+
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-01-30 11:29:10 UTC (rev 107)
++++ ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-01-30 12:17:14 UTC (rev 108)
+@@ -52,11 +52,7 @@
+  *
+  */
+ 
+-#include &quot;bin.h&quot;
+ #include &quot;bin_scscf.h&quot;
+-#include &quot;ifc_datastruct.h&quot;
+-#include &quot;registration.h&quot;
+-#include &quot;registrar_storage.h&quot;
+ 
+ /* structures reprezentation functions */
+ 
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin_scscf.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin_scscf.h	2007-01-30 11:29:10 UTC (rev 107)
++++ ser_ims/branches/01_persistency/modules/scscf/bin_scscf.h	2007-01-30 12:17:14 UTC (rev 108)
+@@ -49,47 +49,6 @@
+  * Binary codec operations for the S-CSCF
+  *
+  *  \author Dragos Vingarzan vingarzan -at- fokus dot fraunhofer dot de
+-
+-        IMSSubscription:
+-                str(private_id)
+-                array(service_profile,service_profile_cnt)
+-
+-
+-        service_profile:
+-                array(public_identity,public_identity_cnt)
+-                array(filter_criteria,filter_criteria_cnt)
+-                int(cn_service_auth,4)  - optional, if eq 0XFFFFFF means not specified
+-
+-
+-        public_identity:
+-                int(barring_indication,1)
+-                str(identity)
+-
+-        filter_criteria:
+-                int(priority,4)
+-                int(pofile_part_indicator,1)            - ppindicator+1 : if eq 0 then null
+-                int( condition_type_cnf,1)              - if eq 0xff means no filter_criteria
+-                array(spt,spt_cnt)
+-
+-
+-        spt:
+-                int(condition_negated&lt;&lt;7 | registration_type&lt;&lt;4 | type,1)
+-                int(group,2)
+-
+-                str(request_uri)                                - if type==1
+-
+-                str(method)                                             - if type==2
+-
+-                int(header-&gt;type,1)                             - if type==3
+-                str(header-&gt;header)                             - if type==3
+-                str(header-&gt;content)                    - if type==3
+-                regex(header-&gt;content_comp)             - if type==3
+-
+-                int(session_case,1)                             - if type==4
+-
+-                str(session_desc-&gt;line)                 - if type==5
+-                str(session_desc-&gt;content)              - if type==5
+-                regex(session_desc-&gt;content_comp)- if type==5
+  *
+  */
+ 
+@@ -99,7 +58,19 @@
+ #define _BIN_SCSCF_H
+ 
+ #include &quot;bin.h&quot;
++#include &quot;ifc_datastruct.h&quot;
++#include &quot;registration.h&quot;
++#include &quot;registrar_storage.h&quot;
+ 
+ #define BIN_INITIAL_ALLOC_SIZE 256
+ 
++int bin_encode_ims_subscription(bin_data *x, ims_subscription *s);
++ims_subscription *bin_decode_ims_subscription(bin_data *x);
++
++int bin_encode_r_public(bin_data *x,r_public *p);
++r_public* bin_decode_r_public(bin_data *x);
++
++int bin_encode_auth_userdata(bin_data *x,auth_userdata *u);
++auth_userdata* bin_decode_auth_userdata(bin_data *x);
++
+ #endif
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/registration.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/registration.c	2007-01-30 11:29:10 UTC (rev 107)
++++ ser_ims/branches/01_persistency/modules/scscf/registration.c	2007-01-30 12:17:14 UTC (rev 108)
+@@ -65,6 +65,7 @@
+ #include &quot;registrar.h&quot;
+ #include &quot;sip_messages.h&quot; 
+ #include &quot;rfc2617.h&quot;
++#include &quot;s_persistency.h&quot;
+ 
+ extern struct tm_binds tmb;						/**&lt; Structure with pointers to tm funcs 		*/
+ extern struct cdp_binds cdpb;					/**&lt; Structure with pointers to cdp funcs 		*/
+@@ -1194,7 +1195,7 @@
+ 			aud = aud_next;
+ 		}
+ 	}
+-	 
++	snapshot_auth(ad); 
+ 	lock_release(Auth_data-&gt;lock);	
+ }
+ 
+
+Added: ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+
+Added: ser_ims/branches/01_persistency/modules/scscf/s_persistency.h
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000158.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r107 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000160.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r109 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#159">[ date ]</a>
+              <a href="thread.html#159">[ thread ]</a>
+              <a href="subject.html#159">[ subject ]</a>
+              <a href="author.html#159">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

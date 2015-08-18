@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Originate dialog from AS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Originate%20dialog%20from%20AS&In-Reply-To=%3C97125b0818ba4e028dab621cc5851825%40atlas.sk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="002256.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Originate dialog from AS</H1>
+    <B>yenke jano</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Originate%20dialog%20from%20AS&In-Reply-To=%3C97125b0818ba4e028dab621cc5851825%40atlas.sk%3E"
+       TITLE="[OpenIMSCore-CSCF] Originate dialog from AS">yenke at atlas.sk
+       </A><BR>
+    <I>Sat May  1 01:38:09 CEST 2010</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="002256.html">[OpenIMSCore-CSCF] Originate dialog from AS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2255">[ date ]</a>
+              <a href="thread.html#2255">[ thread ]</a>
+              <a href="subject.html#2255">[ subject ]</a>
+              <a href="author.html#2255">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+
+Hello,
+
+I`m trying to simulate folowoing situation. I`m interconnecting two domains (domain1 and domain2). In domain2 AS should&nbsp;generate&nbsp;message and send it in INVITE message to AS in domain1. For begining I`m just jusing SIPp but still not able to get the message throught interconnection. I`m able to make calls between domains without problems.
+
+Message from AS(domain2) is sent to S-CSCF(domain2). Standard sip INVITE replied with error 403 &quot;Dialog not found on S-CSCF or Terminating user not suitable for unregistered services&quot;. To pass this problem I added&nbsp;
+
+Route: 
+
+Now I`m stucked at&nbsp;ISC_match_filter(&quot;orig&quot;) in Orig route. S-CSCF(domain2) do not reply with any message. In console of S-CSCF logs &nbsp;&quot;&gt;&gt; &nbsp; &nbsp; &nbsp; Orig - msg was fwded to AS&quot;
+
+I`m I get these principals right or I&#39;m doing something wrong?
+
+I have two standard cores(default configuration). In both of them I added application server through FHoSS web console Service tab. I`ve also set up DNS server with both FQDN(AS records) installed (also reverse records are correct).
+
+Content of the message I`m trying to send from AS(domain2) to S-CSCF(domain2) using SIPp is:
+
+INVITE sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">info at as.open-ims.test</A> SIP/2.0
+
+Via: SIP/2.0/UDP [local_ip]:[local_port];rport;branch=[branch]
+
+From: ;tag=[call_number]
+
+To: 
+
+Call-ID: [call_id]
+
+CSeq: 1 INVITE
+
+Contact: sip:info@[local_ip]:[local_port]
+
+Content-Type: text/plain
+
+Allow: INVITE, ACK, CANCEL, BYE, PRACK, UPDATE, REFER, MESSAGE
+
+Max-Forwards: 70
+
+User-Agent: UCT IMS Client
+
+Subject: IMS Call
+
+Expires: 120
+
+P-Asserted-Identity: 
+
+P-Preferred-Service: urn:xxx:3gpp-service.ims.icsi.mmtel
+
+Privacy: none
+
+P-Access-Network-Info: IEEE-802.11a
+
+Require: precondition
+
+Require: sec-agree
+
+Proxy-Require: sec-agree
+
+Supported: 100rel
+
+Content-Length: &nbsp; 4
+
+&nbsp;
+
+text&nbsp;
+
+&nbsp;
+
+To me it seems to make this model work I have to add some Header to INVITE&nbsp;message&nbsp;to&nbsp;finally&nbsp;send it to _sip.domain1(I-CSCF).
+
+Thanks for the answer in advance.
+
+Regards,&nbsp;
+
+&nbsp;Jan&nbsp;
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20100501/66d90b84/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20100501/66d90b84/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="002256.html">[OpenIMSCore-CSCF] Originate dialog from AS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2255">[ date ]</a>
+              <a href="thread.html#2255">[ thread ]</a>
+              <a href="subject.html#2255">[ subject ]</a>
+              <a href="author.html#2255">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

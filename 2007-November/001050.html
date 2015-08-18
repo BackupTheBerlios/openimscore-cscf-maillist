@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r490 - Upgraded the ISC module. -	the public identity is saved in the ISC mark =&gt; now we don't	care anymore about the S-CSCF changing the R-URI or not	droppping - introduced new timers just for fwding on the ISC	interface - isc_fr_timeout/isc_fr_inv_timeout - before the	overall fr timers were set for the S-CSCF - now non-ISC	transactions won't timeout prematurely as before
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r490%20-%20Upgraded%20the%20ISC%20module.%20-%0A%09the%20public%20identity%20is%20saved%20in%20the%20ISC%20mark%20%3D%3E%20now%20we%20don%27t%0A%09care%20anymore%20about%20the%20S-CSCF%20changing%20the%20R-URI%20or%20not%0A%09droppping%20-%20introduced%20new%20timers%20just%20for%20fwding%20on%20the%20ISC%0A%09interface%20-%20isc_fr_timeout/isc_fr_inv_timeout%20-%20before%20the%0A%09overall%20fr%20timers%20were%20set%20for%20the%20S-CSCF%20-%20now%20non-ISC%0A%09transactions%20won%27t%20timeout%20prematurely%20as%20before&In-Reply-To=%3C200711090045.lA90jhwq014394%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001049.html">
+   <LINK REL="Next"  HREF="001051.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r490 - Upgraded the ISC module. -	the public identity is saved in the ISC mark =&gt; now we don't	care anymore about the S-CSCF changing the R-URI or not	droppping - introduced new timers just for fwding on the ISC	interface - isc_fr_timeout/isc_fr_inv_timeout - before the	overall fr timers were set for the S-CSCF - now non-ISC	transactions won't timeout prematurely as before</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r490%20-%20Upgraded%20the%20ISC%20module.%20-%0A%09the%20public%20identity%20is%20saved%20in%20the%20ISC%20mark%20%3D%3E%20now%20we%20don%27t%0A%09care%20anymore%20about%20the%20S-CSCF%20changing%20the%20R-URI%20or%20not%0A%09droppping%20-%20introduced%20new%20timers%20just%20for%20fwding%20on%20the%20ISC%0A%09interface%20-%20isc_fr_timeout/isc_fr_inv_timeout%20-%20before%20the%0A%09overall%20fr%20timers%20were%20set%20for%20the%20S-CSCF%20-%20now%20non-ISC%0A%09transactions%20won%27t%20timeout%20prematurely%20as%20before&In-Reply-To=%3C200711090045.lA90jhwq014394%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r490 - Upgraded the ISC module. -	the public identity is saved in the ISC mark =&gt; now we don't	care anymore about the S-CSCF changing the R-URI or not	droppping - introduced new timers just for fwding on the ISC	interface - isc_fr_timeout/isc_fr_inv_timeout - before the	overall fr timers were set for the S-CSCF - now non-ISC	transactions won't timeout prematurely as before">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Fri Nov  9 01:45:43 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001049.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Send	B2B BYE on INVITE dialog expiration (and for respectively	SUBSCRIBE dialog termination)
+</A></li>
+        <LI>Next message: <A HREF="001051.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Save	originating/terminating identification info in the ISC mark,	detect changes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1050">[ date ]</a>
+              <a href="thread.html#1050">[ thread ]</a>
+              <a href="subject.html#1050">[ subject ]</a>
+              <a href="author.html#1050">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-11-09 01:45:40 +0100 (Fri, 09 Nov 2007)
+New Revision: 490 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=490">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=490</A> 
+
+Log:
+Upgraded the ISC module.
+ - the public identity is saved in the ISC mark =&gt; now we don't care anymore
+about the S-CSCF changing the R-URI or not droppping
+ - introduced new timers just for fwding on the ISC interface
+   - isc_fr_timeout/isc_fr_inv_timeout
+   - before the overall fr timers were set for the S-CSCF
+   - now non-ISC transactions won't timeout prematurely as before
+
+
+
+Modified:
+   U	ser_ims/trunk/cfg/scscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=490&amp;view=diff&amp;r1=490&amp;r2=489">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=490&amp;view=diff&amp;r1=490&amp;r2=489</A>
+   U	ser_ims/trunk/modules/isc/isc.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/isc.c?rev=490&amp;view=diff&amp;r1=490&amp;r2=489">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/isc.c?rev=490&amp;view=diff&amp;r1=490&amp;r2=489</A>
+   U	ser_ims/trunk/modules/isc/mark.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/mark.c?rev=490&amp;view=diff&amp;r1=490&amp;r2=489">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/mark.c?rev=490&amp;view=diff&amp;r1=490&amp;r2=489</A>
+   U	ser_ims/trunk/modules/isc/mark.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/mark.h?rev=490&amp;view=diff&amp;r1=490&amp;r2=489">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/mark.h?rev=490&amp;view=diff&amp;r1=490&amp;r2=489</A>
+   U	ser_ims/trunk/modules/isc/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/mod.c?rev=490&amp;view=diff&amp;r1=490&amp;r2=489">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/mod.c?rev=490&amp;view=diff&amp;r1=490&amp;r2=489</A>
+   U	ser_ims/trunk/modules/isc/sip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/sip.c?rev=490&amp;view=diff&amp;r1=490&amp;r2=489">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/sip.c?rev=490&amp;view=diff&amp;r1=490&amp;r2=489</A>
+   U	ser_ims/trunk/modules/isc/sip.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/sip.h?rev=490&amp;view=diff&amp;r1=490&amp;r2=489">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/isc/sip.h?rev=490&amp;view=diff&amp;r1=490&amp;r2=489</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001049.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Send	B2B BYE on INVITE dialog expiration (and for respectively	SUBSCRIBE dialog termination)
+</A></li>
+	<LI>Next message: <A HREF="001051.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Save	originating/terminating identification info in the ISC mark,	detect changes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1050">[ date ]</a>
+              <a href="thread.html#1050">[ thread ]</a>
+              <a href="subject.html#1050">[ subject ]</a>
+              <a href="author.html#1050">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] regarding performance of openimscore...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20regarding%20performance%20of%20openimscore...&In-Reply-To=%3CAANLkTinRa2DnkOhhWBV_%3DvB1x2CHm5V1d%2Bh5XfMxMvm7%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002473.html">
+   <LINK REL="Next"  HREF="002475.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] regarding performance of openimscore...</H1>
+    <B>Paul Carter-Brown</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20regarding%20performance%20of%20openimscore...&In-Reply-To=%3CAANLkTinRa2DnkOhhWBV_%3DvB1x2CHm5V1d%2Bh5XfMxMvm7%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] regarding performance of openimscore...">paul.carter-brown at smilecoms.com
+       </A><BR>
+    <I>Fri Apr  1 22:43:08 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002473.html">[OpenIMSCore-CSCF] regarding performance of openimscore...
+</A></li>
+        <LI>Next message: <A HREF="002475.html">[OpenIMSCore-CSCF] regarding performance of openimscore...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2474">[ date ]</a>
+              <a href="thread.html#2474">[ thread ]</a>
+              <a href="subject.html#2474">[ subject ]</a>
+              <a href="author.html#2474">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>In terms of performance, throughput is based on software + hardware... not
+software alone. What hardware are you talking about for the various
+components. If you split the CSCF's, HSS etc across a number of
+multi-processor/multi-core servers, you will get much more than a single CPU
+desktop...
+
+On 1 April 2011 20:41, viswavardhanreddy karna
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">viswavardhanreddy at gmail.com</A>&gt;wrote:
+
+&gt;<i> HI everyone,
+</I>&gt;<i>                    I am doing some experiments on the performance of
+</I>&gt;<i> openimscore. i wanted to know if openimscore supports the registration with
+</I>&gt;<i> out challenging the user like the scenario shown below:
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>             register
+</I>&gt;<i> -----------------------------------&gt;
+</I>&gt;<i>              200 ok
+</I>&gt;<i> &lt;--------------------------------------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> and i wanted to know if openimscore handles 100 calls/sec or 20 calls/sec
+</I>&gt;<i> maximum ..... i am little bit stuck here dont know how many calls does it
+</I>&gt;<i> handle... but when i tested it took only 10calls/sec .. when i tried with
+</I>&gt;<i> 20calls/sec the server is not able to handle and generating the response of
+</I>&gt;<i> 408 timed out....
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> so MY QUESTION IS how many calls/sec does openimscore can handle? and in
+</I>&gt;<i> order to handle more number of calls should i configure the components of
+</I>&gt;<i> ims like pcscf.cfg,icscf.cfg,scscf.cfg
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> if so how can i configure... can any body help me please....
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> thanks in advance,
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> with regards,
+</I>&gt;<i> viswavardhan
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+-- 
+Paul Carter-Brown
+Group CIO
+Smile Communications
+Johannesburg, South Africa
+Phone: +27 83 442 7179
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110401/0055ec46/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110401/0055ec46/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002473.html">[OpenIMSCore-CSCF] regarding performance of openimscore...
+</A></li>
+	<LI>Next message: <A HREF="002475.html">[OpenIMSCore-CSCF] regarding performance of openimscore...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2474">[ date ]</a>
+              <a href="thread.html#2474">[ thread ]</a>
+              <a href="subject.html#2474">[ subject ]</a>
+              <a href="author.html#2474">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

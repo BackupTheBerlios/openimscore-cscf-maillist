@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] PSI on CSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PSI%20on%20CSCF&In-Reply-To=%3C47CFD26E.9030509%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001226.html">
+   <LINK REL="Next"  HREF="001229.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] PSI on CSCF</H1>
+    <B>Alberto Diez</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PSI%20on%20CSCF&In-Reply-To=%3C47CFD26E.9030509%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] PSI on CSCF">Alberto.Diez at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Mar  6 12:15:58 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001226.html">[OpenIMSCore-CSCF] Add an extra field to the Route Header
+</A></li>
+        <LI>Next message: <A HREF="001229.html">[OpenIMSCore-CSCF] PSI on CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1227">[ date ]</a>
+              <a href="thread.html#1227">[ thread ]</a>
+              <a href="subject.html#1227">[ subject ]</a>
+              <a href="author.html#1227">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi Enrique and all!
+
+
+PSI are implemented and work. There are several issues.
+
+Distinct PSI and Wildcarded PSI are supported
+
+
+Provisioning an PSI in the HSS is not easy, so you&#180;ll need to play 
+around a bit.
+
+if you want I-CSCF routing is a bit easier and there wont be any S-CSCF 
+involved, this procedure is defined by 3GPP for trusted AS that don&#180;t 
+need to go through the S-CSCF
+
+I-CSCF routing
+-------------------------
+
+---- put the address of your AS as a preferred-SCSCF (and set priority 
+to 1 at least)
+---- create an IMSU for your AS and asign the preferred-SCSCF to it
+--- create IMPI and IMPU  and attach the whole thing  IMSU-IMPI-IMPU
+
+UE--{SIP INVITE}----&gt;I-CSCF----{Diameter LIR}---&gt;HSS--{-Diameter 
+LIA}---&gt;I-CSCF----{SIP INVITE}--&gt;AS
+
+
+S-CSCF routing
+--------------------------
+
+--create Application Server with your settings for the AS that hosts the PSI
+--create iFC with no Trigger point (that means matchs everything) and 
+profile part indicator Any or Unregistered
+--attach ifC to AS
+--Create a service profile and attach ifC created
+
+---create an IMSU and asign a normal preferred-SCSCF to it (but asign 
+one! if not it wont work)
+--- create an IMPI
+---create an IMPU choosing Distinct or Wildcard and write the wildcard 
+int he appropriate format 
+(sip:your*wildcarded?expre??<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">ion at open-ims.test</A>), it would be logical to 
+click in the Can Register thing and dont let this IMPU to register  and 
+of course you have to click the PSI Activation to activate it and select 
+the created service profile for that PSI
+--- attach IMPU to IMPI and IMPI to IMSU
+
+
+UE--{SIP INVITE}----&gt;I-CSCF----{Diameter LIR}---&gt;HSS---{Diameter 
+LIA}---&gt;I-CSCF----{SIP INVITE}--&gt;S-CSCF---{Diameter 
+SAR}--&gt;HSS---&gt;{Diameter SAA}--&gt;S-CSCF---{SIP INVITE}--&gt;AS
+
+***************************************************************
+Wildcarded PSI issues
+
+- I didnt use the standardised format for PSI definition (TS23003?) but 
+an easier one
+
+    you define  sip:*<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">games at open-ims.test</A>  and  it would match 
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">sportgames at open-ims.test</A> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">sims2.games at open-ims.test</A> ...            
+    you define sip:channel.?<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">.tv at open-ims.test</A>   and it matches 
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">channel.1.tv at open-ims.test</A>  <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">channel.e.tv at open-ims.test</A>  ..
+
+do not forget the sip: in the HSS interface
+
+
+- Support for Wildcard PSI makes S-CSCF a bit inefficent because when it 
+receives a request for an user, it searchs in the user database and 
+afterwards if no match it trys to match with all wildcards
+  to activate this support you have to put a parameter in S-CSCF config 
+file modparam(&quot;scscf&quot;,&quot;support_wildcardPSI&quot;,1)
+
+Distinct work always
+
+
+May suggestion is to have a network with two S-CSCF one with the 
+parameter enabled and this is selected as preferred for all the PSI 
+things and the other one for the normal users (much quicker!)
+**********************************************************************
+
+
+We might make some changes in the FHoSS web to give some hints on doing 
+this, but i guess dedicating one hour to play with the different 
+possibilities you are an expert in PSI provisioning
+
+
+Good Luck!
+
+
+Alberto Diez Albaladejo
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Alberto.Diez at fokus.fraunhofer.de</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001226.html">[OpenIMSCore-CSCF] Add an extra field to the Route Header
+</A></li>
+	<LI>Next message: <A HREF="001229.html">[OpenIMSCore-CSCF] PSI on CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1227">[ date ]</a>
+              <a href="thread.html#1227">[ thread ]</a>
+              <a href="subject.html#1227">[ subject ]</a>
+              <a href="author.html#1227">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

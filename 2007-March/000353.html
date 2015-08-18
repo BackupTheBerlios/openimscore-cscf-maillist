@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] S-CSCF crashes at registration timout (ERROR: receive_fd: EOF on 10)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20S-CSCF%20crashes%20at%20registration%20timout%0A%20%28ERROR%3A%20receive_fd%3A%20EOF%20on%2010%29&In-Reply-To=%3C46050A0C.902%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000337.html">
+   <LINK REL="Next"  HREF="000340.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] S-CSCF crashes at registration timout (ERROR: receive_fd: EOF on 10)</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20S-CSCF%20crashes%20at%20registration%20timout%0A%20%28ERROR%3A%20receive_fd%3A%20EOF%20on%2010%29&In-Reply-To=%3C46050A0C.902%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] S-CSCF crashes at registration timout (ERROR: receive_fd: EOF on 10)">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Sat Mar 24 12:22:52 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000337.html">[OpenIMSCore-CSCF] S-CSCF crashes at registration timout (ERROR:	receive_fd: EOF on 10)
+</A></li>
+        <LI>Next message: <A HREF="000340.html">[OpenIMSCore-CSCF] 3rd party Registration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#353">[ date ]</a>
+              <a href="thread.html#353">[ thread ]</a>
+              <a href="subject.html#353">[ subject ]</a>
+              <a href="author.html#353">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Franz,
+
+The Early-IMS patches are not yet final (no announcement yet). There
+were a series of modifications that I did ahead of time so that I won't
+block the development for other people, but it was not finished. The HSS
+is not yet fully supporting it. This might be the cause. I will
+investigate further as it shouldn't have crashed anyway.
+
+-Dragos
+
+Franz Edler wrote:
+&gt;<i> Hi Dragos,
+</I>&gt;<i>
+</I>&gt;<i> I have made some tests to understand the early-IMS concept.
+</I>&gt;<i> During these test I produced some S-CSCF crashes (repeatable) on simple
+</I>&gt;<i> registration timeout. I used revision 199.
+</I>&gt;<i>
+</I>&gt;<i> I have attached the wireshark-trace and the S-CSCF-log (DEBUG=9). 
+</I>&gt;<i> The only thing I did was: I registered Alice (with expire=50 to shorten the
+</I>&gt;<i> test-period) via SIPp.
+</I>&gt;<i>
+</I>&gt;<i> In the scscf-log you can find in line 2115: ERROR: receive_fd: EOF on 10
+</I>&gt;<i>
+</I>&gt;<i> What happens here?
+</I>&gt;<i>
+</I>&gt;<i> Cheers
+</I>&gt;<i> Franz
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000337.html">[OpenIMSCore-CSCF] S-CSCF crashes at registration timout (ERROR:	receive_fd: EOF on 10)
+</A></li>
+	<LI>Next message: <A HREF="000340.html">[OpenIMSCore-CSCF] 3rd party Registration
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#353">[ date ]</a>
+              <a href="thread.html#353">[ thread ]</a>
+              <a href="subject.html#353">[ subject ]</a>
+              <a href="author.html#353">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

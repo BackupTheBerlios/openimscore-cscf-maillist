@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] problem updating dialog on reply after a	trigger to a B2BUA AS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20problem%20updating%20dialog%20on%20reply%20after%20a%0A%09trigger%20to%20a%20B2BUA%20AS&In-Reply-To=%3Cb33002040705171133lb7eef0drf3e6fd11f66df257%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000621.html">
+   <LINK REL="Next"  HREF="000624.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] problem updating dialog on reply after a	trigger to a B2BUA AS</H1>
+    <B>JF</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20problem%20updating%20dialog%20on%20reply%20after%20a%0A%09trigger%20to%20a%20B2BUA%20AS&In-Reply-To=%3Cb33002040705171133lb7eef0drf3e6fd11f66df257%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] problem updating dialog on reply after a	trigger to a B2BUA AS">jfkavaka at gmail.com
+       </A><BR>
+    <I>Thu May 17 20:33:34 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000621.html">[OpenIMSCore-CSCF] problem updating dialog on reply after a trigger	to a B2BUA AS
+</A></li>
+        <LI>Next message: <A HREF="000624.html">[OpenIMSCore-CSCF] problem updating dialog on reply after a	trigger to a B2BUA AS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#622">[ date ]</a>
+              <a href="thread.html#622">[ thread ]</a>
+              <a href="subject.html#622">[ subject ]</a>
+              <a href="author.html#622">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Found it!
+
+Changing the S-CSCF script the following way it works fine. Probably
+the same is needed for orig routes...
+The problem was that ISC_match_filter calls t_relay inside function
+isc_foward(), but obviously doesn't install onreply_routes, so no
+chance for updating the dialogs in the middle of triggers when the AS
+creates new dialogs.
+
+Note: this causes t_onreply() to be called twice in the script, but
+this is not a problem IMO.
+
+Can these changes be commited on CVS?
+
+Jo&#227;o Filipe Pl&#225;cido
+
+
+1) inside route[Term]:
+
+# check if dialog saved as fwded to AS
+t_on_reply(&quot;ISC_Term_reply&quot;);  # must be called before
+ISC_match_filter forwards the message through TM
+t_on_failure(&quot;ISC_Term_failure&quot;);
+if (ISC_match_filter(&quot;term&quot;)){
+
+#       if (!t_relay()) {
+#           sl_send_reply(&quot;500&quot;,&quot;Error forwarding to AS&quot;);
+#           exit;
+#       };
+        exit;
+}
+
+
+2) update dialog inside ISC_Term_reply:
+
+onreply_route[ISC_Term_reply]
+{
+    log(1,&quot;&gt;&gt;       ISC_Term_reply\n&quot;);
+    if (t_check_status(&quot;1..&quot;)||t_check_status(&quot;2..&quot;)){
+        if (!S_update_dialog(&quot;term&quot;)){
+            log(1,&quot;&gt;&gt;       Error updating term dialog - maybe
+non-dialog request...\n&quot;);
+        }
+    }
+    break;
+}
+
+
+
+On 5/17/07, JF &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">jfkavaka at gmail.com</A>&gt; wrote:
+&gt;<i> Hi all,
+</I>&gt;<i>
+</I>&gt;<i> We're facing the following situation:
+</I>&gt;<i>
+</I>&gt;<i> After a MT trigger to a B2BUA AS, we receive
+</I>&gt;<i>
+</I>&gt;<i>  [00m 3(19987)  [01;32mINFO:ISC:isc_failure: reached with s=1;h=0;d=1
+</I>&gt;<i>  [00m 3(19987)  [01;30mDEBUG: t_check: msg id=4 global id=4 T end=0xb60ea634
+</I>&gt;<i>  [00m 3(19987)  [01;30mDEBUG: reply_received: org. status uas=100,
+</I>&gt;<i> uac[0]=100 local=0 is_invite=1)
+</I>&gt;<i>  [00m 3(19987)  [01;30m-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; T_code=100, new_code=180
+</I>&gt;<i>  [00m 3(19987)  [01;30mDEBUG: relay_reply: branch=0, save=0, relay=0
+</I>&gt;<i>
+</I>&gt;<i> After this, the reply is relayed but the Term_reply route is NOT
+</I>&gt;<i> called, and thus the dialog update doesn't take place, which then
+</I>&gt;<i> leads to deletion of the dialog by the release_call code after 60
+</I>&gt;<i> seconds.
+</I>&gt;<i>
+</I>&gt;<i> This seems like a bug in the ISC module code. Dragos, can you take a
+</I>&gt;<i> look? I will also try to dig deeper into it.
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i>
+</I>&gt;<i> Jo&#227;o Filipe Pl&#225;cido
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000621.html">[OpenIMSCore-CSCF] problem updating dialog on reply after a trigger	to a B2BUA AS
+</A></li>
+	<LI>Next message: <A HREF="000624.html">[OpenIMSCore-CSCF] problem updating dialog on reply after a	trigger to a B2BUA AS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#622">[ date ]</a>
+              <a href="thread.html#622">[ thread ]</a>
+              <a href="subject.html#622">[ subject ]</a>
+              <a href="author.html#622">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

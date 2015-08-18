@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] daemonize SER
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20daemonize%20SER&In-Reply-To=%3C477B993B.2040402%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001109.html">
+   <LINK REL="Next"  HREF="001114.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] daemonize SER</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20daemonize%20SER&In-Reply-To=%3C477B993B.2040402%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] daemonize SER">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Jan  2 15:01:31 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001109.html">[OpenIMSCore-CSCF] daemonize SER
+</A></li>
+        <LI>Next message: <A HREF="001114.html">[OpenIMSCore-CSCF] [OpenIMSCore-HSS] [OpenIMSCore-Users] Could I change port number in 200 ok message so the client will sent INVITE to p
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1110">[ date ]</a>
+              <a href="thread.html#1110">[ thread ]</a>
+              <a href="subject.html#1110">[ subject ]</a>
+              <a href="author.html#1110">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Markus,
+
+Thanx for the kudos ;-).
+
+So that would be a knoppix. It seems that strangely your system does not
+know about the EPERM error for the kill() function. Strange as I did not
+ever saw this problem again. Also, I can't really debug it as I need the
+same system. Neither have I seen such a report for knoppix.
+
+You could either:
+- try to find why EPERM does not exist on your system. On mine, the man
+page (man 2 kill) mentions it.
+- try another distribution
+- just comment the &quot;|| errno==EPERM&quot; part.
+
+Cheers,
+-Dragos
+
+
+Markus Winkler wrote:
+&gt;<i> Hi all!
+</I>&gt;<i>
+</I>&gt;<i> Firstly, I would take the chance to thank you for your continuous encouragement in providing the community with valuable open source platforms.
+</I>&gt;<i>
+</I>&gt;<i> However, while compiling the ser_ims rev. 510 with the command mentioned in your guideline......I am encountering an problematic error, which seems to skip installing ser (./pcscf.sh: line 7: /opt/OpenIMSCore/ser_ims/ser: No such file or directory)
+</I>&gt;<i>
+</I>&gt;<i> My approach during the installation was based on your Guideline...
+</I>&gt;<i> Even though, I am receiving a &quot;'daemonize'&quot; error......
+</I>&gt;<i>
+</I>&gt;<i> pls see below.......
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at Knoppix</A>:/opt/OpenIMSCore/ser_ims# make install-libs all
+</I>&gt;<i>
+</I>&gt;<i> .
+</I>&gt;<i> .
+</I>&gt;<i> .
+</I>&gt;<i> .
+</I>&gt;<i> .
+</I>&gt;<i>
+</I>&gt;<i> DISABLE_NAGLE -DHAVE_RESOLV_RES -DDBG_QM_MALLOC -DUSE_DNS_CACHE -DUSE_DNS_FAILOVER -DUSE_DST_BLACKLIST -ggdb  -DUSE_TLS -DTLS_HOOKS -DFAST_LOCK -DADAPTIVE_WAIT -DADAPTIVE_WAIT_LOOPS=1024  -DCC_GCC_LIKE_ASM -DHAVE_GETHOSTBYNAME2 -DHAVE_UNION_SEMUN -DHAVE_SCHED_YIELD -DHAVE_MSG_NOSIGNAL -DHAVE_MSGHDR_MSG_CONTROL -DHAVE_ALLOCA_H -DHAVE_TIMEGM -DHAVE_EPOLL -DHAVE_SIGIO_RT -DSIGINFO64_WORKARROUND -DHAVE_SELECT -c daemonize.c -o daemonize.o
+</I>&gt;<i> daemonize.c: In function 'daemonize':
+</I>&gt;<i> daemonize.c:129: error: 'EPERM' undeclared (first use in this function)
+</I>&gt;<i> daemonize.c:129: error: (Each undeclared identifier is reported only once
+</I>&gt;<i> daemonize.c:129: error: for each function it appears in.)
+</I>&gt;<i> make: *** [daemonize.o] Error 1
+</I>&gt;<i>
+</I>&gt;<i> What do you think??
+</I>&gt;<i>
+</I>&gt;<i> I would highly appreciate any of your valuable hints.
+</I>&gt;<i>
+</I>&gt;<i> Cheers,
+</I>&gt;<i> Markus Winkler
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001109.html">[OpenIMSCore-CSCF] daemonize SER
+</A></li>
+	<LI>Next message: <A HREF="001114.html">[OpenIMSCore-CSCF] [OpenIMSCore-HSS] [OpenIMSCore-Users] Could I change port number in 200 ok message so the client will sent INVITE to p
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1110">[ date ]</a>
+              <a href="thread.html#1110">[ thread ]</a>
+              <a href="subject.html#1110">[ subject ]</a>
+              <a href="author.html#1110">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

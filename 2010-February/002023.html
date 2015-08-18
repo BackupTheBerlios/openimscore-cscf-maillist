@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r840 - improved the sip_body.c	from the mgcf and linked it in the modules pcscf and	nathelper, used to extract the sdp body properly,	as the body could also be a multipart body (aapplied the changes also	in PCC_AAR)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r840%20-%20improved%20the%20sip_body.c%0A%09from%20the%20mgcf%20and%20linked%20it%20in%20the%20modules%20pcscf%20and%0A%09nathelper%2C%20used%20to%20extract%20the%20sdp%20body%20properly%2C%0A%09as%20the%20body%20could%20also%20be%20a%20multipart%20body%20%28aapplied%20the%20changes%20also%0A%09in%20PCC_AAR%29&In-Reply-To=%3C201002010948.o119m4ve002737%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002022.html">
+   <LINK REL="Next"  HREF="002024.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r840 - improved the sip_body.c	from the mgcf and linked it in the modules pcscf and	nathelper, used to extract the sdp body properly,	as the body could also be a multipart body (aapplied the changes also	in PCC_AAR)</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r840%20-%20improved%20the%20sip_body.c%0A%09from%20the%20mgcf%20and%20linked%20it%20in%20the%20modules%20pcscf%20and%0A%09nathelper%2C%20used%20to%20extract%20the%20sdp%20body%20properly%2C%0A%09as%20the%20body%20could%20also%20be%20a%20multipart%20body%20%28aapplied%20the%20changes%20also%0A%09in%20PCC_AAR%29&In-Reply-To=%3C201002010948.o119m4ve002737%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r840 - improved the sip_body.c	from the mgcf and linked it in the modules pcscf and	nathelper, used to extract the sdp body properly,	as the body could also be a multipart body (aapplied the changes also	in PCC_AAR)">aon at users.berlios.de
+       </A><BR>
+    <I>Mon Feb  1 10:48:04 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002022.html">[OpenIMSCore-CSCF] about compilation error plz help in this
+</A></li>
+        <LI>Next message: <A HREF="002024.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r841 - added missing files
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2023">[ date ]</a>
+              <a href="thread.html#2023">[ thread ]</a>
+              <a href="subject.html#2023">[ subject ]</a>
+              <a href="author.html#2023">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2010-02-01 10:47:56 +0100 (Mon, 01 Feb 2010)
+New Revision: 840 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=840">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=840</A> 
+
+Log:
+improved the sip_body.c from the mgcf and linked it in the modules pcscf and nathelper, used to extract the sdp body properly, as the body could also be a multipart body (aapplied the changes also in PCC_AAR)
+
+
+Added:
+   A	ser_ims/branches/13_pcc_fixing/modules/nathelper/mod.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/mod.h?rev=840&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/mod.h?rev=840&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/nathelper/sip_body.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/sip_body.c?rev=840&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/sip_body.c?rev=840&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/nathelper/sip_body.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/sip_body.h?rev=840&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/sip_body.h?rev=840&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/pcscf/nat_helper.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/nat_helper.c?rev=840&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/nat_helper.c?rev=840&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/pcscf/nat_helper.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/nat_helper.h?rev=840&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/nat_helper.h?rev=840&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/pcscf/sip_body.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/sip_body.c?rev=840&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/sip_body.c?rev=840&amp;view=markup</A>
+   A	ser_ims/branches/13_pcc_fixing/modules/pcscf/sip_body.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/sip_body.h?rev=840&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/sip_body.h?rev=840&amp;view=markup</A>
+Removed:
+   D	ser_ims/branches/13_pcc_fixing/modules/pcscf/nat_helper.c
+   D	ser_ims/branches/13_pcc_fixing/modules/pcscf/nat_helper.h
+Modified:
+   U	ser_ims/branches/13_pcc_fixing/modules/mgcf/sip_body.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/mgcf/sip_body.c?rev=840&amp;view=diff&amp;r1=840&amp;r2=839">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/mgcf/sip_body.c?rev=840&amp;view=diff&amp;r1=840&amp;r2=839</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/mgcf/sip_body.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/mgcf/sip_body.h?rev=840&amp;view=diff&amp;r1=840&amp;r2=839">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/mgcf/sip_body.h?rev=840&amp;view=diff&amp;r1=840&amp;r2=839</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/nathelper/nathelper.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/nathelper.c?rev=840&amp;view=diff&amp;r1=840&amp;r2=839">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/nathelper/nathelper.c?rev=840&amp;view=diff&amp;r1=840&amp;r2=839</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c?rev=840&amp;view=diff&amp;r1=840&amp;r2=839">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc.c?rev=840&amp;view=diff&amp;r1=840&amp;r2=839</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_gqprima.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_gqprima.c?rev=840&amp;view=diff&amp;r1=840&amp;r2=839">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_gqprima.c?rev=840&amp;view=diff&amp;r1=840&amp;r2=839</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/sdp_util.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/sdp_util.c?rev=840&amp;view=diff&amp;r1=840&amp;r2=839">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/sdp_util.c?rev=840&amp;view=diff&amp;r1=840&amp;r2=839</A>
+   U	ser_ims/branches/13_pcc_fixing/modules/pcscf/sdp_util.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/sdp_util.h?rev=840&amp;view=diff&amp;r1=840&amp;r2=839">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/pcscf/sdp_util.h?rev=840&amp;view=diff&amp;r1=840&amp;r2=839</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002022.html">[OpenIMSCore-CSCF] about compilation error plz help in this
+</A></li>
+	<LI>Next message: <A HREF="002024.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r841 - added missing files
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2023">[ date ]</a>
+              <a href="thread.html#2023">[ thread ]</a>
+              <a href="subject.html#2023">[ subject ]</a>
+              <a href="author.html#2023">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

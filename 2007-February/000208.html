@@ -1,0 +1,449 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r133 -	ser_ims/branches/01_persistency/modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r133%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200702121733.l1CHXeHK006595%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000207.html">
+   <LINK REL="Next"  HREF="000209.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r133 -	ser_ims/branches/01_persistency/modules/scscf</H1>
+    <B>mariojvp at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r133%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200702121733.l1CHXeHK006595%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r133 -	ser_ims/branches/01_persistency/modules/scscf">mariojvp at users.berlios.de
+       </A><BR>
+    <I>Mon Feb 12 18:33:40 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000207.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r132 -	ser_ims/trunk/modules/sip2ims
+</A></li>
+        <LI>Next message: <A HREF="000209.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r134 -	ser_ims/branches/01_persistency/cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#208">[ date ]</a>
+              <a href="thread.html#208">[ thread ]</a>
+              <a href="subject.html#208">[ subject ]</a>
+              <a href="author.html#208">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: mariojvp
+Date: 2007-02-12 18:33:12 +0100 (Mon, 12 Feb 2007)
+New Revision: 133
+
+Modified:
+   ser_ims/branches/01_persistency/modules/scscf/bin.c
+   ser_ims/branches/01_persistency/modules/scscf/bin.h
+   ser_ims/branches/01_persistency/modules/scscf/mod.c
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+Log:
+Initial support for S-CSCF database persistency:
+- authentication dump to db
+- still missing load from db at startup
+- next steps will be persist registrar and s_dialogs
+- to do : implement database cache mode; for now full dumps are executed
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin.c	2007-02-12 17:32:51 UTC (rev 132)
++++ ser_ims/branches/01_persistency/modules/scscf/bin.c	2007-02-12 17:33:12 UTC (rev 133)
+@@ -54,15 +54,24 @@
+ 
+ 
+ #include &lt;stdio.h&gt;
++#include &lt;string.h&gt;
+ #include &lt;time.h&gt;
+ #include &lt;errno.h&gt;
+ #include &lt;sys/types.h&gt;
+ #include &lt;dirent.h&gt;
+ #include &lt;unistd.h&gt;
+ #include &lt;stdlib.h&gt;
++//#include &quot;../../db/db.h&quot;
+ 
+ #include &quot;bin.h&quot;
+ 
++//It can't be here, this file is shared with pcscf module.
++//Moved to s_persistency.c
++//extern db_con_t* scscf_db; /**&lt; Database connection handle */
++//extern db_func_t scscf_dbf;	/**&lt; Structure with pointers to db functions */
++//extern int* auth_snapshot_version;
++//extern int* auth_step_version;
++
+ /** 
+  * Whether to print debug message while encoding/decoding 
+  */
+@@ -613,6 +622,7 @@
+ 	else return 0;
+ }
+ 
++
+ /**
+  * Reloads the snapshot from the link to the last time-stamped-file.
+  * @param x - where to load
+@@ -647,6 +657,7 @@
+  * Dump a binary data to certain location.
+  * @param mode - where to dump it to
+  * @param x - binary data to dump
++ * @param what - dump auth, dialog or registrar information
+  * @returns 1 on success or 0 on failure
+  */
+ int bin_dump(bin_data *x,int mode,char *location,char* prepend_fname)
+@@ -657,9 +668,11 @@
+ 			return 0;
+ 		case WITH_FILES:
+ 			return bin_dump_to_file(x,location,prepend_fname);
+-		case WITH_DATABASE:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but WITH_DATABASE not implemented...\n&quot;);
+-			return 0;
++		/*case WITH_DATABASE_BULK:
++			return bin_dump_to_db(x, prepend_fname);
++		case WITH_DATABASE_CACHE:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but WITH_DATABASE_CACHE not implemented...\n&quot;);
++			return 0;*/
+ 		default:
+ 			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but no such mode %d\n&quot;,mode);
+ 			return 0;
+@@ -680,9 +693,12 @@
+ 			return 0;
+ 		case WITH_FILES:
+ 			return bin_load_from_file(x,location,prepend_fname);		
+-		case WITH_DATABASE:
+-			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load: WITH_DATABASE not implemented...\n&quot;);
++		case WITH_DATABASE_BULK:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load: WITH_DATABASE_BULK not implemented...\n&quot;);
+ 			return 0;
++		case WITH_DATABASE_CACHE:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load: WITH_DATABASE_CACHE not implemented...\n&quot;);
++			return 0;
+ 		default:
+ 			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_load: Can't resume because no such mode %d\n&quot;,mode);
+ 			return 0;
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin.h	2007-02-12 17:32:51 UTC (rev 132)
++++ ser_ims/branches/01_persistency/modules/scscf/bin.h	2007-02-12 17:33:12 UTC (rev 133)
+@@ -160,7 +160,8 @@
+ typedef enum {
+ 	NO_PERSISTENCY=0,
+ 	WITH_FILES=1,
+-	WITH_DATABASE=2
++	WITH_DATABASE_BULK=2,
++	WITH_DATABASE_CACHE=3
+ } persistency_mode_t;
+ 
+ /* Dumping functions */
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/mod.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/mod.c	2007-02-12 17:32:51 UTC (rev 132)
++++ ser_ims/branches/01_persistency/modules/scscf/mod.c	2007-02-12 17:33:12 UTC (rev 133)
+@@ -58,6 +58,7 @@
+ 
+ #include &quot;mod.h&quot;
+ 
++#include &quot;../../db/db.h&quot;
+ #include &quot;../../sr_module.h&quot;
+ #include &quot;../../timer.h&quot;
+ #include &quot;../../locking.h&quot;
+@@ -120,6 +121,9 @@
+ int scscf_persistency_timer_authdata=60;							/**&lt; interval to snapshot authorization data*/ 
+ int scscf_persistency_timer_dialogs=60;								/**&lt; interval to snapshot dialogs data		*/ 
+ int scscf_persistency_timer_registrar=60;							/**&lt; interval to snapshot registrar data	*/ 
++char* scscf_db_url=&quot;<A HREF="postgres://mario:mario@localhost/scscfdb">postgres://mario:mario@localhost/scscfdb</A>&quot;;
++int* auth_snapshot_version;	/**&lt; the version of the next snapshot on the db*/
++int* auth_step_version;	/**&lt; the step version within the current snapshot version*/
+ 
+ /* fixed parameter storage */
+ str scscf_name_str;						/**&lt; fixed name of the S-CSCF 							*/
+@@ -294,6 +298,7 @@
+ 	{&quot;persistency_timer_authdata&quot;,		INT_PARAM, &amp;scscf_persistency_timer_authdata},
+ 	{&quot;persistency_timer_dialogs&quot;,		INT_PARAM, &amp;scscf_persistency_timer_dialogs},
+ 	{&quot;persistency_timer_registrar&quot;,		INT_PARAM, &amp;scscf_persistency_timer_registrar},
++	{&quot;scscf_db_url&quot;,					STR_PARAM, &amp;scscf_db_url},
+ 	{0,0,0} 
+ };
+ 
+@@ -326,6 +331,9 @@
+ 
+ extern s_dialog_hash_slot *s_dialogs;			/**&lt; the dialogs hash table								*/
+ 
++/** database */
++db_con_t* scscf_db = NULL; /**&lt; Database connection handle */
++db_func_t scscf_dbf;	/**&lt; Structure with pointers to db functions */
+ 
+ static str s_service_route = {&quot;Service-Route: &lt;&quot;,16};
+ static str s_orig = {&quot;sip:orig@&quot;,9};
+@@ -468,7 +476,38 @@
+ 	
+ //	/* bind to the db module */
+ //	if ( cscf_db_bind( scscf_db_url ) &lt; 0 ) goto error;
++
++	if(scscf_persistency_mode==WITH_DATABASE_BULK || scscf_persistency_mode==WITH_DATABASE_CACHE){
++		if (!scscf_db_url) {
++			LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:mod_init: no db_url specified but DB has to be used &quot;
++				&quot;(scscf_persistency_mode=%d\n&quot;, scscf_persistency_mode);
++			return -1;
++		}
++		if (bind_dbmod(scscf_db_url, &amp;scscf_dbf) &lt; 0) { /* Find database module */
++			LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:mod_init: Can't bind database module via url %s\n&quot;, scscf_db_url);
++			return -1;
++		}
++
++		if (!DB_CAPABILITY(scscf_dbf, DB_CAP_ALL)) {
++			LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:mod_init: Database module does not implement all functions needed by the module\n&quot;);
++			return -1;
++		}
++	}
+ 	
++	auth_snapshot_version=(int*)shm_malloc(sizeof(int));
++	if(!auth_snapshot_version){
++		LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:mod_init: auth_snapshot_version, no memory left\n&quot;);
++		return -1;
++	}
++	*auth_snapshot_version=0;
++	
++	auth_step_version=(int*)shm_malloc(sizeof(int));
++	if(!auth_step_version){
++		LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:mod_init: auth_step_version, no memory left\n&quot;);
++		return -1;
++	}
++	*auth_step_version=0;
++	
+ 	/* bind to the tm module */
+ 	if (!(load_tm = (load_tm_f)find_export(&quot;load_tm&quot;,NO_SCRIPT,0))) {
+ 		LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:mod_init: Can not import load_tm. This module requires tm module\n&quot;);
+@@ -548,6 +587,20 @@
+ 
+ extern gen_lock_t* process_lock;		/* lock on the process table */
+ 
++/* can be called after mod_init and creates new SCSCF DB connection */
++db_con_t* create_scscf_db_connection()
++{
++	if (scscf_persistency_mode!=WITH_DATABASE_BULK &amp;&amp; scscf_persistency_mode!=WITH_DATABASE_CACHE) return NULL;
++	if (!scscf_dbf.init) return NULL;
++
++	return scscf_dbf.init(scscf_db_url);
++}
++
++void close_scscf_db_connection(db_con_t* db)
++{
++	if (db &amp;&amp; scscf_dbf.close) scscf_dbf.close(db);
++}
++
+ /**
+  * Initializes the module in child.
+  */
+@@ -564,6 +617,16 @@
+ //		scscf_db_nds_table,
+ //		scscf_db_scscf_table,
+ //		scscf_db_capabilities_table);
++	
++	if (scscf_persistency_mode==WITH_DATABASE_BULK || scscf_persistency_mode==WITH_DATABASE_CACHE) { 
++		scscf_db = create_scscf_db_connection();
++		if (!scscf_db) {
++			LOG(L_ERR, &quot;ERROR: mod_child_init(%d): &quot;
++					&quot;Error while connecting database\n&quot;, rank);
++			return -1;
++		}
++	}
++	
+ 	/* init the diameter callback - must be done just once */
+ 	lock_get(process_lock);
+ 		if((*callback_singleton)==0){
+@@ -605,6 +668,12 @@
+ 		s_dialogs_destroy();	
+ 		pkg_free(scscf_service_route.s);
+ 	}
++	
++	if ( (scscf_persistency_mode==WITH_DATABASE_BULK || scscf_persistency_mode==WITH_DATABASE_CACHE) &amp;&amp; scscf_db) {
++		DBG(&quot;INFO:&quot;M_NAME&quot;: ... closing db connection\n&quot;);
++		close_scscf_db_connection(scscf_db);
++	}
++	scscf_db = NULL;
+ }
+ 
+ 
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-02-12 17:32:51 UTC (rev 132)
++++ ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-02-12 17:33:12 UTC (rev 133)
+@@ -61,6 +61,13 @@
+ extern auth_hash_slot_t *auth_data;				/**&lt; Authentication vector hash table 			*/
+ extern int auth_data_hash_size;					/**&lt; authentication vector hash table size 		*/
+ 
++extern db_con_t* scscf_db; /**&lt; Database connection handle */
++extern db_func_t scscf_dbf;	/**&lt; Structure with pointers to db functions */
++extern int* auth_snapshot_version;
++extern int* auth_step_version;
++
++int s_dump(bin_data* x, persistency_mode_t mode, char* location, char* prepend_fname);
++
+ /**
+  * Creates a snapshots of the authorization data and then calls the dumping function.
+  * @returns 1 on success or 0 on failure
+@@ -81,14 +88,118 @@
+ 		auth_data_unlock(i);
+ 	}
+ 	bin_print(&amp;x);
+-	i = bin_dump(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;authdata&quot;);		
++	i=s_dump(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;authdata&quot;);
++	//i = bin_dump(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;authdata&quot;);		
+ 	bin_free(&amp;x);
+ 	return i;
+ error:
+ 	return 0;
++}
++
++int bin_dump_to_db(bin_data *x, char* prepend_fname);
++
++int s_dump(bin_data* x, persistency_mode_t mode, char* location, char* prepend_fname){
++	
++	switch (mode){
++		case NO_PERSISTENCY:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but persistency was disabled...\n&quot;);
++			return 0;
++		case WITH_FILES:
++			return bin_dump_to_file(x,location,prepend_fname);
++		case WITH_DATABASE_BULK:
++			return bin_dump_to_db(x, prepend_fname);
++		case WITH_DATABASE_CACHE:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but WITH_DATABASE_CACHE not implemented...\n&quot;);
++			return 0;
++		default:
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump: Snapshot done but no such mode %d\n&quot;,mode);
++			return 0;
++	}
+ }  
+ 
++int bin_dump_auth_to_db(bin_data *x);
+ /**
++ * Writes the binary data to a snapshot on the DB.
++ * @param x - the binary data to write
++ * @param what - dump auth, dialog or registrar information
++ * @returns 1 on success or 0 on failure
++ */
++int bin_dump_to_db(bin_data *x, char* prepend_fname){
++	
++	if(!strncmp(prepend_fname,&quot;sregistrar&quot;,10)){
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump_to_db: Snapshot of REGISTRAR information to db not implemented...\n&quot;);
++		return 0;
++	}
++	else{
++		if(!strncmp(prepend_fname,&quot;sdialogs&quot;,8)){
++			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump_to_db: Snapshot of S_DIALOGS to db not implemented...\n&quot;);
++			return 0;
++		}
++		else{
++			if(!strncmp(prepend_fname,&quot;authdata&quot;,8)){
++				return bin_dump_auth_to_db(x);
++			}
++			else{
++				LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_dump_to_db: No such information to dump %s\n&quot;, prepend_fname);
++				return 0;
++			}
++		}
++	}	
++}
++
++/**
++ * Writes auth data to a snapshot on the DB.
++ * @param x - the binary data to write
++ * @returns 1 on success or 0 on failure
++ */
++int bin_dump_auth_to_db(bin_data *x){
++	db_key_t keys[3];
++	db_val_t vals[3];
++
++	keys[0] = &quot;snapshot_version&quot;;
++	keys[1] = &quot;step_version&quot;;
++	//keys[2] = &quot;private&quot;;
++	//keys[3] = &quot;public&quot;;
++	keys[2] = &quot;data&quot;;
++
++	vals[0].type = DB_INT;
++	vals[0].nul = 0;
++	vals[0].val.int_val=*auth_snapshot_version;//snapshot timer must increment it
++	
++	vals[1].type = DB_INT;
++	vals[1].nul = 0;
++	vals[1].val.int_val=*auth_step_version;//step timer must increment it
++	
++	/*vals[2].type = DB_STR;
++	vals[2].nul = 0;
++	vals[2].val.str_val.s=private.s;
++	vals[2].val.str_val.len=MIN(private.len, 128);
++	
++	vals[3].type = DB_STR;
++	vals[3].nul = 0;
++	vals[3].val.str_val.s=public.s;
++	vals[3].val.str_val.len=MIN(public.len, 128);*/
++
++	str d = {x-&gt;s, x-&gt;len};
++	vals[2].type = DB_BLOB;
++	vals[2].nul = 0;
++	vals[2].val.blob_val = d;
++
++
++	if (scscf_dbf.use_table(scscf_db, &quot;auth_data_bulk&quot;) &lt; 0) {
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_dump_auth_to_db(): Error in use_table\n&quot;);
++		return 0;
++	}
++
++	if (scscf_dbf.insert(scscf_db, keys, vals, 3) &lt; 0) {
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:bin_dump_auth_to_db(): Error while inserting auth_userdata\n&quot;);
++		return 0;
++	}
++	
++	return 1;
++}
++
++/**
+  * Loads the authorization data from the last snapshot.
+  * @returns 1 on success or 0 on failure
+  */
+@@ -127,7 +238,9 @@
+  */
+ void persistency_timer_authdata(unsigned int ticks, void* param)
+ {
+-	make_snapshot_authdata();	 	
++	make_snapshot_authdata();
++	
++	(*auth_snapshot_version)++; 	
+ }
+ 
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000207.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r132 -	ser_ims/trunk/modules/sip2ims
+</A></li>
+	<LI>Next message: <A HREF="000209.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r134 -	ser_ims/branches/01_persistency/cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#208">[ date ]</a>
+              <a href="thread.html#208">[ thread ]</a>
+              <a href="subject.html#208">[ subject ]</a>
+              <a href="author.html#208">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] REGISTER over ipsec
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20REGISTER%20over%20ipsec&In-Reply-To=%3C235074.9617.qm%40web113609.mail.gq1.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002566.html">
+   <LINK REL="Next"  HREF="002571.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] REGISTER over ipsec</H1>
+    <B>Mohsen Emami-Nouri</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20REGISTER%20over%20ipsec&In-Reply-To=%3C235074.9617.qm%40web113609.mail.gq1.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] REGISTER over ipsec">memamin at yahoo.com
+       </A><BR>
+    <I>Thu Jun  9 03:00:41 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002566.html">[OpenIMSCore-CSCF] REGISTER over ipsec
+</A></li>
+        <LI>Next message: <A HREF="002571.html">[OpenIMSCore-CSCF] REGISTER over ipsec
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2570">[ date ]</a>
+              <a href="thread.html#2570">[ thread ]</a>
+              <a href="subject.html#2570">[ subject ]</a>
+              <a href="author.html#2570">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+Just reporting back how I resolved this issue. The reason for this behavior was that my UE was using a different port for ipsec protected messages then the port for unprotected messages; as soon as I started using the same port for both protected and unprotected; the issue with SUBSCRIBE was resolved.
+best regards,
+~Mohsen
+
+--- On Wed, 6/1/11, Mohsen Emami-Nouri &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">memamin at yahoo.com</A>&gt; wrote:
+
+&gt;<i> From: Mohsen Emami-Nouri &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">memamin at yahoo.com</A>&gt;
+</I>&gt;<i> Subject: [OpenIMSCore-CSCF] REGISTER over ipsec
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>, <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at technikum-wien.at</A>
+</I>&gt;<i> Date: Wednesday, June 1, 2011, 7:37 PM
+</I>&gt;<i> Hi dear openImsCore people,
+</I>&gt;<i> I am not 100% sure, but it looks like there are some issues
+</I>&gt;<i> with registering over ipsec; in fact I have spent sometime
+</I>&gt;<i> to look at the traces of P-CSCF ; and it looks that P-CSCF
+</I>&gt;<i> never updates the reg_state of the contact when the
+</I>&gt;<i> registratio is done over ipsec. The registration goes
+</I>&gt;<i> successful, so my UE receives 200OK and HSS shows that the
+</I>&gt;<i> UE is indeed registered; however the P-CSCF believes that it
+</I>&gt;<i> is not and rejects the SUBSCRIBE coming over the same
+</I>&gt;<i> security association. P-CSCF indeed subscribe with S-CSCF
+</I>&gt;<i> and does receive the notification about the registration
+</I>&gt;<i> state, but in the code it looks that in the
+</I>&gt;<i> registrar_subscribe.c , it only tries to call
+</I>&gt;<i> update_r_contact and it can not find it , so the contact
+</I>&gt;<i> reg_state stays PENDING all the time. I am wondering why
+</I>&gt;<i> P-CSCF does not also call the update_r_contact_sec as this
+</I>&gt;<i> seems to be responsible for secure registration state
+</I>&gt;<i> update. The update_r_contact_sec does get invoked by
+</I>&gt;<i> save_contact_security
+</I>&gt;<i>  function in the security.c , but save_contact_security
+</I>&gt;<i> function sets the reg_state only to PENDING.
+</I>&gt;<i> your help is greatly appreciated.
+</I>&gt;<i> best regards,
+</I>&gt;<i> ~Mohsen
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> 
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002566.html">[OpenIMSCore-CSCF] REGISTER over ipsec
+</A></li>
+	<LI>Next message: <A HREF="002571.html">[OpenIMSCore-CSCF] REGISTER over ipsec
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2570">[ date ]</a>
+              <a href="thread.html#2570">[ thread ]</a>
+              <a href="subject.html#2570">[ subject ]</a>
+              <a href="author.html#2570">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

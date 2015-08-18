@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] source port and VIA's sent-to port differ &amp;	digest [GishPuppy]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20source%20port%20and%20VIA%27s%20sent-to%20port%20differ%20%26%0A%09digest%20%5BGishPuppy%5D&In-Reply-To=%3C20071023101248.C9834A59%40minuteman.ai.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001010.html">
+   <LINK REL="Next"  HREF="001011.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] source port and VIA's sent-to port differ &amp;	digest [GishPuppy]</H1>
+    <B>berliosde.xg3 at gishpuppy.com</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20source%20port%20and%20VIA%27s%20sent-to%20port%20differ%20%26%0A%09digest%20%5BGishPuppy%5D&In-Reply-To=%3C20071023101248.C9834A59%40minuteman.ai.net%3E"
+       TITLE="[OpenIMSCore-CSCF] source port and VIA's sent-to port differ &amp;	digest [GishPuppy]">berliosde.xg3 at gishpuppy.com
+       </A><BR>
+    <I>Tue Oct 23 12:12:48 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001010.html">[OpenIMSCore-CSCF] Avp problems
+</A></li>
+        <LI>Next message: <A HREF="001011.html">[OpenIMSCore-CSCF] source port and VIA's sent-to port differ	&amp;digest [GishPuppy]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1009">[ date ]</a>
+              <a href="thread.html#1009">[ thread ]</a>
+              <a href="subject.html#1009">[ subject ]</a>
+              <a href="author.html#1009">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+I had 2 questions.
+
+I'm using a SIP client library that sends SIP register request over UDP.
+It uses a random UDP source port for sending
+In the SIP request the VIA header has a sent-to port number 5060.
+According to the RFC 3261, the server should reply to 5060.
+But instead I see with wireshark that the p-cscf uses the source port.
+It ignores the request's VIA header.
+As the SIP client library only listens on 5060, 
+it never gets the SIP response from the p-cscf.
+
+Is it allowed behavior (from client as well as server)?
+I cannot change the library because it's binary only.
+Can somebody give a hint where to change the open IMS source,
+so that it uses the VIA's sent-to port instead to the source UDP port?
+
+I tried to change the AKAv1-MD5 algorithm through the web GUI
+Only the AKAv2-MD5 seems to be supported.
+Other digest algorithms are not supported?
+Or am I mistaken? 
+
+Thanks,
+fran
+
+Gishpuppy | To reply to this email, click here: 
+<A HREF="http://www.gishpuppy.com/cgi-bin/edit.py?email=berliosde.xg3@gishpuppy.com">http://www.gishpuppy.com/cgi-bin/edit.py?email=berliosde.xg3@gishpuppy.com</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001010.html">[OpenIMSCore-CSCF] Avp problems
+</A></li>
+	<LI>Next message: <A HREF="001011.html">[OpenIMSCore-CSCF] source port and VIA's sent-to port differ	&amp;digest [GishPuppy]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1009">[ date ]</a>
+              <a href="thread.html#1009">[ thread ]</a>
+              <a href="subject.html#1009">[ subject ]</a>
+              <a href="author.html#1009">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

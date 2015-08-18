@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Mobicents%20SIP%20WAKE%20UP&In-Reply-To=%3C405966524FF944AA808B91F6A8DABD90%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001471.html">
+   <LINK REL="Next"  HREF="001461.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Mobicents SIP WAKE UP</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Mobicents%20SIP%20WAKE%20UP&In-Reply-To=%3C405966524FF944AA808B91F6A8DABD90%40notebook%3E"
+       TITLE="[OpenIMSCore-CSCF] Mobicents SIP WAKE UP">franz.edler at inode.at
+       </A><BR>
+    <I>Sat Aug 30 07:54:49 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001471.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+        <LI>Next message: <A HREF="001461.html">[OpenIMSCore-CSCF] How to connect Core IMS network elements to	IMSCore
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1467">[ date ]</a>
+              <a href="thread.html#1467">[ thread ]</a>
+              <a href="subject.html#1467">[ subject ]</a>
+              <a href="author.html#1467">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi again,
+ 
+&gt;<i> I'm sorry...totally forget it!
+</I>
+I have attached the scenario and can explain why the MESSAGE request iis
+rejected by P-CSCF.
+
+The P-CSCF cares for network security and rejects requests (other than
+REGISTER) coming from not registered users. The criteria for this check are
+the parameters &quot;protocol, host and port&quot; of the Via header field, which must
+match with existing registered users in P-CSCF.
+
+The REGISTER request used &quot;UDP 192.168.3.9:5061&quot;.
+The MESSAGE request used &quot;UDP 192.168.3.7:6060&quot;.
+
+Therfore the MESSAGE request is rejected with &quot;403 Forbidden - Not
+Registered! You must register first with a S-CSCF&quot;.
+
+-franz
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: mobicentsWakeUp.zip
+Type: application/x-zip-compressed
+Size: 9779 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080830/995fbe7a/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20080830/995fbe7a/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001471.html">[OpenIMSCore-CSCF] Mobicents SIP WAKE UP
+</A></li>
+	<LI>Next message: <A HREF="001461.html">[OpenIMSCore-CSCF] How to connect Core IMS network elements to	IMSCore
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1467">[ date ]</a>
+              <a href="thread.html#1467">[ thread ]</a>
+              <a href="subject.html#1467">[ subject ]</a>
+              <a href="author.html#1467">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] 2 Service-Route headers in case of	THIG	androaming
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%202%20Service-Route%20headers%20in%20case%20of%0A%09THIG%09androaming&In-Reply-To=%3C45A38D05.20809%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000112.html">
+   <LINK REL="Next"  HREF="000113.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] 2 Service-Route headers in case of	THIG	androaming</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%202%20Service-Route%20headers%20in%20case%20of%0A%09THIG%09androaming&In-Reply-To=%3C45A38D05.20809%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] 2 Service-Route headers in case of	THIG	androaming">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Jan  9 13:39:33 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000112.html">[OpenIMSCore-CSCF] 2 Service-Route headers in case of THIG	androaming
+</A></li>
+        <LI>Next message: <A HREF="000113.html">[OpenIMSCore-CSCF] I-CSCF-THIG: Record-Roue and Route header are	not encrypted
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#117">[ date ]</a>
+              <a href="thread.html#117">[ thread ]</a>
+              <a href="subject.html#117">[ subject ]</a>
+              <a href="author.html#117">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Yes, there are 2 service routes as we want to force any initial request
+to go through the THIG node so that it can Record-route, etc and follow
+the dialog in order to encrypt all needed headers.
+
+Double encryption could be avoided by specifying a regular expression to
+match on the old header in order to encrypt it. I think that I did
+implement that :) some time ago, but not sure. Anyway, THIG, as specd,
+should only encrypt headers from ones own network and this is why this
+regexp checking is possible.
+
+-Dragos
+
+Franz Edler wrote:
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> everything is o.k.
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> As can further be seen only one Service-Route is enforced by the P-CSCF.
+</I>&gt;&gt;<i>     
+</I>&gt;<i> It's my mistake, I see now: both Service-Route header fields are enforced by
+</I>&gt;<i> P-CSCF (obviously it was too late in the evening to write e-mails).
+</I>&gt;<i>
+</I>&gt;<i> Also the question why two Service-Route header fields are used is
+</I>&gt;<i> irrelevant, because I think it is an implementation dependent matter and it
+</I>&gt;<i> works perfect.
+</I>&gt;<i>
+</I>&gt;<i> In addition there are a lot of details to explore for me in the message flow
+</I>&gt;<i> like double encryption of Via header fields...
+</I>&gt;<i>
+</I>&gt;<i> Cheers
+</I>&gt;<i> Franz
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000112.html">[OpenIMSCore-CSCF] 2 Service-Route headers in case of THIG	androaming
+</A></li>
+	<LI>Next message: <A HREF="000113.html">[OpenIMSCore-CSCF] I-CSCF-THIG: Record-Roue and Route header are	not encrypted
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#117">[ date ]</a>
+              <a href="thread.html#117">[ thread ]</a>
+              <a href="subject.html#117">[ subject ]</a>
+              <a href="author.html#117">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

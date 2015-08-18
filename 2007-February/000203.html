@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed	to local IP
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20changes%20to%20mysql%20when%20127.0.0.1%20is%20changed%0A%09to%20local%20IP&In-Reply-To=%3C424932.82851.qm%40web56103.mail.re3.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000195.html">
+   <LINK REL="Next"  HREF="000191.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed	to local IP</H1>
+    <B>Sudhakar Patil</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20changes%20to%20mysql%20when%20127.0.0.1%20is%20changed%0A%09to%20local%20IP&In-Reply-To=%3C424932.82851.qm%40web56103.mail.re3.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed	to local IP">spatil4572 at yahoo.com
+       </A><BR>
+    <I>Thu Feb  8 18:41:09 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000195.html">[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed to	local IP
+</A></li>
+        <LI>Next message: <A HREF="000191.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r128 - in	ser_ims/branches/01_persistency: cfg modules/isc	modules/pcscf modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#203">[ date ]</a>
+              <a href="thread.html#203">[ thread ]</a>
+              <a href="subject.html#203">[ subject ]</a>
+              <a href="author.html#203">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Thank you. 
+
+This helped in getting my first successful call using
+OSIMS on Solaris. 
+
+Regards,
+Sudhakar.
+
+--- Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>&gt;
+wrote:
+
+&gt;<i> Hello Sudhakar,
+</I>&gt;<i> 
+</I>&gt;<i> The xml configuration files are for the
+</I>&gt;<i> CDiameterPeer and
+</I>&gt;<i> JavaDiameterPeer libraries. Now if you run the whole
+</I>&gt;<i> Open IMS Core on
+</I>&gt;<i> the same machine, then you can leave it as it was.
+</I>&gt;<i> If you want to use
+</I>&gt;<i> the diameter peers between different machines (eg.
+</I>&gt;<i> FHoSS accessible for
+</I>&gt;<i> Sh from an AS on another machine, on a CSCF
+</I>&gt;<i> somewhere else) then you
+</I>&gt;<i> need to change the respective xml.
+</I>&gt;<i> 
+</I>&gt;<i> Now by default, the Accept tag in the xml has a bind
+</I>&gt;<i> parameter to the
+</I>&gt;<i> localhost. If you drop this parameter it will just
+</I>&gt;<i> listen for
+</I>&gt;<i> connections on all interfaces. So dropping this
+</I>&gt;<i> parameter is a quick way
+</I>&gt;<i> of making the diameter peers listen everywhere. I
+</I>&gt;<i> did bind it by default
+</I>&gt;<i> to 127.0.0.1 as a security measure - for
+</I>&gt;<i> inexperienced users, I didn't
+</I>&gt;<i> want to open up their diameter peer to everyone.
+</I>&gt;<i> 
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> Sudhakar Patil wrote:
+</I>&gt;<i> &gt; Hi,
+</I>&gt;<i> &gt; Should we also change
+</I>&gt;<i> FHoSS/deploy/DiameterPeerHSS.xml
+</I>&gt;<i> &gt; from 127.0.0.1 to the machine's IP address? 
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Also should we change
+</I>&gt;<i> &gt; FHoSS/deploy/hibernate.properties? 
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Regards,
+</I>&gt;<i> &gt; Sudhakar.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;  
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>____________________________________________________________________________________
+&gt;<i> &gt; Want to start your own business?
+</I>&gt;<i> &gt; Learn how on Yahoo! Small Business.
+</I>&gt;<i> &gt; <A HREF="http://smallbusiness.yahoo.com/r-index">http://smallbusiness.yahoo.com/r-index</A>
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I><A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+&gt;<i> &gt;
+</I>&gt;<i> &gt;   
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> -- 
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+</I>&gt;<i> Web www.fokus.fraunhofer.de
+</I>&gt;<i> We could change the world if God would give us the
+</I>&gt;<i> source code...
+</I>&gt;<i>
+</I>-----------------------------------------------------------------
+&gt;<i> 
+</I>&gt;<i> 
+</I>
+
+
+ 
+____________________________________________________________________________________
+Do you Yahoo!?
+Everyone is raving about the all-new Yahoo! Mail beta.
+<A HREF="http://new.mail.yahoo.com">http://new.mail.yahoo.com</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000195.html">[OpenIMSCore-CSCF] changes to mysql when 127.0.0.1 is changed to	local IP
+</A></li>
+	<LI>Next message: <A HREF="000191.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r128 - in	ser_ims/branches/01_persistency: cfg modules/isc	modules/pcscf modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#203">[ date ]</a>
+              <a href="thread.html#203">[ thread ]</a>
+              <a href="subject.html#203">[ subject ]</a>
+              <a href="author.html#203">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

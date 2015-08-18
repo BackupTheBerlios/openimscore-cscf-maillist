@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r552 - Fixed the issue with	subscriptions being deleted on terminating user	de-registering - only originating session are dropped on	de-registration. Improved detection of S_is_in_dialog() to	fix some of the bugs related to the case when a user calls himself.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r552%20-%20Fixed%20the%20issue%20with%0A%09subscriptions%20being%20deleted%20on%20terminating%20user%0A%09de-registering%20-%20only%20originating%20session%20are%20dropped%20on%0A%09de-registration.%20Improved%20detection%20of%20S_is_in_dialog%28%29%20to%0A%09fix%20some%20of%20the%20bugs%20related%20to%20the%20case%20when%20a%20user%20calls%20himself.&In-Reply-To=%3C200804171730.m3HHUFwY018658%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001288.html">
+   <LINK REL="Next"  HREF="001290.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r552 - Fixed the issue with	subscriptions being deleted on terminating user	de-registering - only originating session are dropped on	de-registration. Improved detection of S_is_in_dialog() to	fix some of the bugs related to the case when a user calls himself.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r552%20-%20Fixed%20the%20issue%20with%0A%09subscriptions%20being%20deleted%20on%20terminating%20user%0A%09de-registering%20-%20only%20originating%20session%20are%20dropped%20on%0A%09de-registration.%20Improved%20detection%20of%20S_is_in_dialog%28%29%20to%0A%09fix%20some%20of%20the%20bugs%20related%20to%20the%20case%20when%20a%20user%20calls%20himself.&In-Reply-To=%3C200804171730.m3HHUFwY018658%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r552 - Fixed the issue with	subscriptions being deleted on terminating user	de-registering - only originating session are dropped on	de-registration. Improved detection of S_is_in_dialog() to	fix some of the bugs related to the case when a user calls himself.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Thu Apr 17 19:30:15 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001288.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r551 - Some checking for spoilt	SDP contents
+</A></li>
+        <LI>Next message: <A HREF="001290.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r553 - Cleaned-up the P-CSCF	dialog handling. Fixed partly the can't call yourself bug.	Still breaks on dialog terminating side sending BYE. Will	need proper from/to tag handling to fix completly.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1289">[ date ]</a>
+              <a href="thread.html#1289">[ thread ]</a>
+              <a href="subject.html#1289">[ subject ]</a>
+              <a href="author.html#1289">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2008-04-17 19:30:10 +0200 (Thu, 17 Apr 2008)
+New Revision: 552 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=552">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=552</A> 
+
+Log:
+Fixed the issue with subscriptions being deleted on terminating user de-registering - only originating session are dropped on de-registration.
+Improved detection of S_is_in_dialog() to fix some of the bugs related to the case when a user calls himself.
+
+
+Modified:
+   U	ser_ims/trunk/modules/scscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/dlg_state.c?rev=552&amp;view=diff&amp;r1=552&amp;r2=551">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/dlg_state.c?rev=552&amp;view=diff&amp;r1=552&amp;r2=551</A>
+   U	ser_ims/trunk/modules/scscf/dlg_state.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/dlg_state.h?rev=552&amp;view=diff&amp;r1=552&amp;r2=551">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/dlg_state.h?rev=552&amp;view=diff&amp;r1=552&amp;r2=551</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001288.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r551 - Some checking for spoilt	SDP contents
+</A></li>
+	<LI>Next message: <A HREF="001290.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r553 - Cleaned-up the P-CSCF	dialog handling. Fixed partly the can't call yourself bug.	Still breaks on dialog terminating side sending BYE. Will	need proper from/to tag handling to fix completly.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1289">[ date ]</a>
+              <a href="thread.html#1289">[ thread ]</a>
+              <a href="subject.html#1289">[ subject ]</a>
+              <a href="author.html#1289">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

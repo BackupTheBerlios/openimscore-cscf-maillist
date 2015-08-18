@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] New 10_persistency_big branch
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20New%2010_persistency_big%20branch&In-Reply-To=%3C48F5FC1D.2030804%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001513.html">
+   <LINK REL="Next"  HREF="001515.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] New 10_persistency_big branch</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20New%2010_persistency_big%20branch&In-Reply-To=%3C48F5FC1D.2030804%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] New 10_persistency_big branch">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Oct 15 16:20:13 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001513.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r593 - Added new branch for work	on Caller Preferences (RFC3841). Also changes for GRUU are	welcomed here.
+</A></li>
+        <LI>Next message: <A HREF="001515.html">[OpenIMSCore-CSCF] core dump due to checking trigger point,	session description
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1514">[ date ]</a>
+              <a href="thread.html#1514">[ thread ]</a>
+              <a href="subject.html#1514">[ subject ]</a>
+              <a href="author.html#1514">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Mario,
+
+recently I noticed that for about 100.000 subscribers or more, the
+persistency functionality does not work. This is because all the data is
+serialized into a big structure and just after that it is all dumped.
+Same thing happens on loading, when the entire thing is loaded into
+memory and then decoded. At 100K, while dumping, it will normally run
+out of memory. Probably loading it will fail too. I was targeting 1
+million, so I had to change it.
+
+Besides reorganizing the code into smaller chunks (extracted the db
+related stuff from s/p_persistency to bin_db_p/scscf), my changes were
+so far only for the file procedures. There I added some sequential
+dumping (separated functions for open file, append, close file) of only
+one hash-slot at a time (smaller chunks would just take too long to
+lock/unlock while dumping to file). Also I added some sequential reading
+- one big-enough buffer (several KiB) is read and then in a loop an
+element is read / more data is loaded.
+
+I committed my changes already and they seem to work - I got up to
+300.000 subscribers and will do more in the next days.
+
+Would be great if you could find the time to do similar changes on the
+db functionality. Probably the cache is good, but the bulk would need
+some changes.
+
+Also to note is that the &quot;#define DEFAULT_SER_KILL_TIMEOUT 60 /* seconds
+*/&quot; in config.h would have to be big enough to allow a dump of the whole
+thing of SIGINT. In theory, this should be enough for 1 million subscribers.
+
+
+Cheers,
+-Dragos
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001513.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r593 - Added new branch for work	on Caller Preferences (RFC3841). Also changes for GRUU are	welcomed here.
+</A></li>
+	<LI>Next message: <A HREF="001515.html">[OpenIMSCore-CSCF] core dump due to checking trigger point,	session description
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1514">[ date ]</a>
+              <a href="thread.html#1514">[ thread ]</a>
+              <a href="subject.html#1514">[ subject ]</a>
+              <a href="author.html#1514">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [PCSCF] Trying to build SAs with IMS-Communicator
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BPCSCF%5D%20Trying%20to%20build%20SAs%20with%20IMS-Communicator&In-Reply-To=%3C20070807071102.275160%40gmx.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000912.html">
+   <LINK REL="Next"  HREF="000921.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [PCSCF] Trying to build SAs with IMS-Communicator</H1>
+    <B>Klemens Schragel</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BPCSCF%5D%20Trying%20to%20build%20SAs%20with%20IMS-Communicator&In-Reply-To=%3C20070807071102.275160%40gmx.net%3E"
+       TITLE="[OpenIMSCore-CSCF] [PCSCF] Trying to build SAs with IMS-Communicator">klemens.schragel at gmx.at
+       </A><BR>
+    <I>Tue Aug  7 09:11:02 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000912.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Module	for the Gq/Gq' interface on PCSCF
+</A></li>
+        <LI>Next message: <A HREF="000921.html">[OpenIMSCore-CSCF] [PCSCF] Trying to build SAs with	IMS-Communicator
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#913">[ date ]</a>
+              <a href="thread.html#913">[ thread ]</a>
+              <a href="subject.html#913">[ subject ]</a>
+              <a href="author.html#913">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello All,
+
+I was trying to Register an IMS-Communicator over IPSec and had some problems (especially because the IMS-Communicator ignored the IPSec SAs)...
+
+My question is basically about behaviour of the PCSCF:
+when 401 with security-server header is transmitted to the UE, PCSCF executes ipsec_P_Inc_Req.sh and awaits a message over this SA, but because my IMS-Communicator ignores the SAs it sends normal messages.
+If the the standard UE Client-port and the standard PCSCF Server-port are the same as within the one SA, the PCSCF does not react on unencrypted messages at all as if it would not receive any messages. I.e. I can trace with TCPDUMP the SIP-Messages at the server-IF as usual, but the debugger does not react.
+I think this behaviour is caused by the setkey command of ipsec_P_Inc_Req.sh, because every triggering of the PCSCF-modul would have caused some kind of logging/debugging...
+unfortunately I currently don't know much about that command... is there some kind of debugging intended for this special case?
+
+Br, Klemens
+
+-- 
+Ist Ihr Browser Vista-kompatibel? Jetzt die neuesten 
+Browser-Versionen downloaden: <A HREF="http://www.gmx.net/de/go/browser">http://www.gmx.net/de/go/browser</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000912.html">[OpenIMSCore-CSCF] [Call Session Control Functions feature] Module	for the Gq/Gq' interface on PCSCF
+</A></li>
+	<LI>Next message: <A HREF="000921.html">[OpenIMSCore-CSCF] [PCSCF] Trying to build SAs with	IMS-Communicator
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#913">[ date ]</a>
+              <a href="thread.html#913">[ thread ]</a>
+              <a href="subject.html#913">[ subject ]</a>
+              <a href="author.html#913">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

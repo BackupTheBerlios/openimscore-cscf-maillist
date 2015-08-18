@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r722 - Merged the 08_cdp_sessions	branch into trunk - support for Diameter Sessions - Diameter	Authorization state machine added - Diameter Accounting state	machine started - P-CSCF support for the Gq, Gq', Rx interfaces
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r722%20-%20Merged%20the%2008_cdp_sessions%0A%09branch%20into%20trunk%20-%20support%20for%20Diameter%20Sessions%20-%20Diameter%0A%09Authorization%20state%20machine%20added%20-%20Diameter%20Accounting%20state%0A%09machine%20started%20-%20P-CSCF%20support%20for%20the%20Gq%2C%20Gq%27%2C%20Rx%20interfaces&In-Reply-To=%3C200909150926.n8F9Qxoe011479%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="001783.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r722 - Merged the 08_cdp_sessions	branch into trunk - support for Diameter Sessions - Diameter	Authorization state machine added - Diameter Accounting state	machine started - P-CSCF support for the Gq, Gq', Rx interfaces</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r722%20-%20Merged%20the%2008_cdp_sessions%0A%09branch%20into%20trunk%20-%20support%20for%20Diameter%20Sessions%20-%20Diameter%0A%09Authorization%20state%20machine%20added%20-%20Diameter%20Accounting%20state%0A%09machine%20started%20-%20P-CSCF%20support%20for%20the%20Gq%2C%20Gq%27%2C%20Rx%20interfaces&In-Reply-To=%3C200909150926.n8F9Qxoe011479%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r722 - Merged the 08_cdp_sessions	branch into trunk - support for Diameter Sessions - Diameter	Authorization state machine added - Diameter Accounting state	machine started - P-CSCF support for the Gq, Gq', Rx interfaces">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Sep 15 11:26:59 CEST 2009</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="001783.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r723 - Removed useless logging	Changed the peer manager timer to be 1/5 of the Tc.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1782">[ date ]</a>
+              <a href="thread.html#1782">[ thread ]</a>
+              <a href="subject.html#1782">[ subject ]</a>
+              <a href="author.html#1782">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2009-09-15 11:26:48 +0200 (Tue, 15 Sep 2009)
+New Revision: 722 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=722">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=722</A> 
+
+Log:
+Merged the 08_cdp_sessions branch into trunk
+- support for Diameter Sessions
+- Diameter Authorization state machine added
+- Diameter Accounting state machine started
+- P-CSCF support for the Gq, Gq', Rx interfaces
+
+
+Added:
+   A	ser_ims/trunk/cfg/README.PCC
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/README.PCC?rev=722&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/README.PCC?rev=722&amp;view=markup</A>
+   A	ser_ims/trunk/cfg/Seagull/
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/Seagull/?rev=722">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/Seagull/?rev=722</A>
+   A	ser_ims/trunk/cfg/TGPPGq.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/TGPPGq.xml?rev=722&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/TGPPGq.xml?rev=722&amp;view=markup</A>
+   A	ser_ims/trunk/cfg/TGPPRx.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/TGPPRx.xml?rev=722&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/TGPPRx.xml?rev=722&amp;view=markup</A>
+   A	ser_ims/trunk/cfg/pcscf.pcrf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.pcrf.cfg?rev=722&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.pcrf.cfg?rev=722&amp;view=markup</A>
+   A	ser_ims/trunk/modules/cdp/authstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/authstatemachine.c?rev=722&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/authstatemachine.c?rev=722&amp;view=markup</A>
+   A	ser_ims/trunk/modules/cdp/authstatemachine.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/authstatemachine.h?rev=722&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/authstatemachine.h?rev=722&amp;view=markup</A>
+   A	ser_ims/trunk/modules/pcscf/gqprima.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/gqprima.c?rev=722&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/gqprima.c?rev=722&amp;view=markup</A>
+   A	ser_ims/trunk/modules/pcscf/gqprima.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/gqprima.h?rev=722&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/gqprima.h?rev=722&amp;view=markup</A>
+   A	ser_ims/trunk/modules/pcscf/pcc.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/pcc.c?rev=722&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/pcc.c?rev=722&amp;view=markup</A>
+   A	ser_ims/trunk/modules/pcscf/pcc.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/pcc.h?rev=722&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/pcc.h?rev=722&amp;view=markup</A>
+   A	ser_ims/trunk/modules/pcscf/pcc_avp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/pcc_avp.c?rev=722&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/pcc_avp.c?rev=722&amp;view=markup</A>
+   A	ser_ims/trunk/modules/pcscf/pcc_avp.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/pcc_avp.h?rev=722&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/pcc_avp.h?rev=722&amp;view=markup</A>
+   A	ser_ims/trunk/modules/pcscf/policy_control.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/policy_control.c?rev=722&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/policy_control.c?rev=722&amp;view=markup</A>
+   A	ser_ims/trunk/modules/pcscf/policy_control.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/policy_control.h?rev=722&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/policy_control.h?rev=722&amp;view=markup</A>
+Modified:
+   U	ser_ims/trunk/cfg/icscf.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/icscf.xml?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/icscf.xml?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/cfg/open-ims.dnszone
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/open-ims.dnszone?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/open-ims.dnszone?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/cfg/pcscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.cfg?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/cfg/pcscf.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.xml?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/pcscf.xml?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/cfg/scscf.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.xml?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.xml?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/api_process.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/api_process.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/api_process.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/cdp_load.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/cdp_load.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/cdp_load.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/cdp_load.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/cdp_load.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/cdp_load.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/config.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/config.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/config.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/config.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/config.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/config.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/configexample/ConfigExample.xml
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/configexample/ConfigExample.xml?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/configexample/ConfigExample.xml?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/configparser.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/configparser.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/configparser.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/diameter.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/diameter_api.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_api.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_api.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/diameter_api.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_api.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_api.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/diameter_avp.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_avp.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_avp.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/diameter_ims.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_ims.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_ims.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/diameter_msg.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_msg.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_msg.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/diameter_peer.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_peer.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/diameter_peer.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/mod.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/mod.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/mod_wharf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/mod_wharf.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/mod_wharf.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/peerstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peerstatemachine.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peerstatemachine.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/session.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/session.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/session.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/cdp/session.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/session.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/session.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/icscf/cx.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/cx.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/cx.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/pcscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/pcscf/dlg_state.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/dlg_state.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/pcscf/e2.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/e2.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/e2.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/pcscf/release_call.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/release_call.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/release_call.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/pcscf/release_call.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/release_call.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/release_call.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/pcscf/sdp_util.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/sdp_util.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/sdp_util.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/pcscf/sdp_util.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/sdp_util.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/sdp_util.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/scscf/cx.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/cx.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/cx.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/tm/dlg.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/tm/dlg.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/tm/dlg.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/tm/t_lookup.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/tm/t_lookup.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/tm/t_lookup.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/tm/tm.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/tm/tm.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/tm/tm.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/tm/tm_load.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/tm/tm_load.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/tm/tm_load.c?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+   U	ser_ims/trunk/modules/tm/tm_load.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/tm/tm_load.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/tm/tm_load.h?rev=722&amp;view=diff&amp;r1=722&amp;r2=721</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="001783.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r723 - Removed useless logging	Changed the peer manager timer to be 1/5 of the Tc.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1782">[ date ]</a>
+              <a href="thread.html#1782">[ thread ]</a>
+              <a href="subject.html#1782">[ subject ]</a>
+              <a href="author.html#1782">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

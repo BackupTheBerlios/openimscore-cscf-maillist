@@ -1,0 +1,604 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] IPsec -- which version to use? ---	FW:	[OpenIMSCore-Users] Registration over IPSec is not consistent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20IPsec%20--%20which%20version%20to%20use%3F%20---%0A%09FW%3A%09%5BOpenIMSCore-Users%5D%20Registration%20over%20IPSec%20is%20not%20consistent&In-Reply-To=%3CB7B40D44871EC84496E2BACA7CADE77B019D098D%40spqcexc04.exfo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002251.html">
+   <LINK REL="Next"  HREF="002253.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] IPsec -- which version to use? ---	FW:	[OpenIMSCore-Users] Registration over IPSec is not consistent</H1>
+    <B>Bin Zhou</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20IPsec%20--%20which%20version%20to%20use%3F%20---%0A%09FW%3A%09%5BOpenIMSCore-Users%5D%20Registration%20over%20IPSec%20is%20not%20consistent&In-Reply-To=%3CB7B40D44871EC84496E2BACA7CADE77B019D098D%40spqcexc04.exfo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] IPsec -- which version to use? ---	FW:	[OpenIMSCore-Users] Registration over IPSec is not consistent">bin.zhou at exfo.com
+       </A><BR>
+    <I>Thu Apr 29 13:32:22 CEST 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002251.html">[OpenIMSCore-CSCF] IPsec -- which version to use? --- FW:	[OpenIMSCore-Users] Registration over IPSec is not consistent
+</A></li>
+        <LI>Next message: <A HREF="002253.html">[OpenIMSCore-CSCF] error in checkout of emergency branch (saheb.ali)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2252">[ date ]</a>
+              <a href="thread.html#2252">[ thread ]</a>
+              <a href="subject.html#2252">[ subject ]</a>
+              <a href="author.html#2252">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+
+Thanks for the response.  
+
+I cannot find 13_pcc_fixing branch, which looks like have a fix
+according to your message on Feb 24th. 
+
+Cheers,
+
+Bin
+
+-----Original Message-----
+From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>] 
+Sent: April 29, 2010 3:37 AM
+To: Bin Zhou
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: Re: [OpenIMSCore-CSCF] IPsec -- which version to use? --- FW:
+[OpenIMSCore-Users] Registration over IPSec is not consistent
+
+Hi Bin,
+
+sorry, can't really tell as I don't have an IPsec client around to test 
+with. the last changes were related to the diameter stacks. If you have 
+a patch and would like to commit it, it would be better if you open an 
+account on developer.berlios.de and I will then give you svn write 
+permissions.
+
+Cheers,
+-Dragos
+
+Bin Zhou wrote:
+&gt;<i>
+</I>&gt;<i> Hello
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Is the problem below fixed in r940? Thanks,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Bin
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>
+</I>------------------------------------------------------------------------
+&gt;<i>
+</I>&gt;<i> *From:* Bin Zhou
+</I>&gt;<i> *Sent:* April 22, 2010 10:57 AM
+</I>&gt;<i> *To:* Sunil; Dragos Vingarzan
+</I>&gt;<i> *Cc:* <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-users at lists.berlios.de</A>
+</I>&gt;<i> *Subject:* RE: [OpenIMSCore-Users] Registration over IPSec is not 
+</I>&gt;<i> consistent
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I found the version I am using is broken in 
+</I>&gt;<i> /opt/OpenIMSCore/ser_ims/modules/pcscf/ipsec_P_Inc_Req.sh. After I 
+</I>&gt;<i> comment out as follows, there is no syntax error any more.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> #&lt;&lt;&lt;&lt;&lt;&lt;&lt; .mine
+</I>&gt;<i>
+</I>&gt;<i> #spdadd $ue/32[$port_uc] $pcscf/32[$port_ps] tcp -P in ipsec 
+</I>&gt;<i> esp/transport//require ;
+</I>&gt;<i>
+</I>&gt;<i> #spdadd $ue/32[$port_uc] $pcscf/32[$port_ps] udp -P in ipsec 
+</I>&gt;<i> esp/transport//require ;
+</I>&gt;<i>
+</I>&gt;<i> #add $ue $pcscf esp 5003 -m transport -E $ealg $ck -A $alg $ik ;
+</I>&gt;<i>
+</I>&gt;<i> #=======
+</I>&gt;<i>
+</I>&gt;<i> spdadd $ue[$port_uc] $pcscf[$port_ps] tcp -P in ipsec 
+</I>&gt;<i> $prot/$mod/$tunnel/require ;
+</I>&gt;<i>
+</I>&gt;<i> spdadd $ue[$port_uc] $pcscf[$port_ps] udp -P in ipsec 
+</I>&gt;<i> $prot/$mod/$tunnel/require ;
+</I>&gt;<i>
+</I>&gt;<i> add $ue $pcscf $prot $spi_ps -m $mod -E $ealg $ck -A $alg $ik ;
+</I>&gt;<i>
+</I>&gt;<i> #&gt;&gt;&gt;&gt;&gt;&gt;&gt; .r933
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> But now I got into a new issue: /var/log/syslog shows
+</I>&gt;<i>
+</I>&gt;<i> Kernel: [74099.283640] alg: No test for 
+</I>&gt;<i> authenc(hmac(md5),cbc(des3_ede)) 
+</I>&gt;<i> (authenc(hmac(md5-generic),cbc(des3_ede-generic)))
+</I>&gt;<i>
+</I>&gt;<i> The kenel I am using is 2.6.32.9, and ipsec-tools version is 0.6.7.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Please advise. If you have a working branch or patch, please let me 
+</I>&gt;<i> know how to do it as well.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Thanks.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Bin
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Here is the broken ipsec_P_Inc_Req.sh file:
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> #!/bin/bash
+</I>&gt;<i>
+</I>&gt;<i> #
+</I>&gt;<i>
+</I>&gt;<i> # Proxy-CSCF SA for Incoming Requests ( UC -&gt; PS )
+</I>&gt;<i>
+</I>&gt;<i> #
+</I>&gt;<i>
+</I>&gt;<i> # \author Dragos Vingarzan vingarzan -at- fokus dot fraunhofer dot de
+</I>&gt;<i>
+</I>&gt;<i> # \author Laurent Etiemble laurent.etiemble -at- inexbee -dot- com
+</I>&gt;<i>
+</I>&gt;<i> # \author Mamadou Diop mamadou.diop -at- inexbee -dot- com
+</I>&gt;<i>
+</I>&gt;<i> #
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> # Strip unwanted characters that surrounds IPv6 addresses
+</I>&gt;<i>
+</I>&gt;<i> ue=`echo $1 | tr -d &quot;'[]&quot;`
+</I>&gt;<i>
+</I>&gt;<i> port_uc=$2
+</I>&gt;<i>
+</I>&gt;<i> # Strip unwanted characters that surrounds IPv6 addresses
+</I>&gt;<i>
+</I>&gt;<i> pcscf=`echo $3 | tr -d &quot;'[]&quot;`
+</I>&gt;<i>
+</I>&gt;<i> port_ps=$4
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> spi_ps=$5
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> ealg=$6
+</I>&gt;<i>
+</I>&gt;<i> ck=$7
+</I>&gt;<i>
+</I>&gt;<i> alg=$8
+</I>&gt;<i>
+</I>&gt;<i> ik=$9
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> prot=${10}
+</I>&gt;<i>
+</I>&gt;<i> mod=${11}
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> if [ &quot;$6&quot; = &quot;null&quot; ]
+</I>&gt;<i>
+</I>&gt;<i> then
+</I>&gt;<i>
+</I>&gt;<i>             ck=&quot;&quot;
+</I>&gt;<i>
+</I>&gt;<i> fi
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> if [ &quot;$mod&quot; = &quot;tun&quot; ]
+</I>&gt;<i>
+</I>&gt;<i> then
+</I>&gt;<i>
+</I>&gt;<i>             mod=&quot;tunnel&quot;
+</I>&gt;<i>
+</I>&gt;<i>             tunnel=$ue-$pcscf
+</I>&gt;<i>
+</I>&gt;<i> else
+</I>&gt;<i>
+</I>&gt;<i>             mod=&quot;transport&quot;
+</I>&gt;<i>
+</I>&gt;<i>             tunnel=&quot;&quot;
+</I>&gt;<i>
+</I>&gt;<i> fi
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> setkey -c &lt;&lt; EOF
+</I>&gt;<i>
+</I>&gt;<i> &lt;&lt;&lt;&lt;&lt;&lt;&lt; .mine
+</I>&gt;<i>
+</I>&gt;<i> spdadd $ue/32[$port_uc] $pcscf/32[$port_ps] tcp -P in ipsec 
+</I>&gt;<i> esp/transport//require ;
+</I>&gt;<i>
+</I>&gt;<i> spdadd $ue/32[$port_uc] $pcscf/32[$port_ps] udp -P in ipsec 
+</I>&gt;<i> esp/transport//require ;
+</I>&gt;<i>
+</I>&gt;<i> add $ue $pcscf esp 5003 -m transport -E $ealg $ck -A $alg $ik ;
+</I>&gt;<i>
+</I>&gt;<i> =======
+</I>&gt;<i>
+</I>&gt;<i> spdadd $ue[$port_uc] $pcscf[$port_ps] tcp -P in ipsec 
+</I>&gt;<i> $prot/$mod/$tunnel/require ;
+</I>&gt;<i>
+</I>&gt;<i> spdadd $ue[$port_uc] $pcscf[$port_ps] udp -P in ipsec 
+</I>&gt;<i> $prot/$mod/$tunnel/require ;
+</I>&gt;<i>
+</I>&gt;<i> add $ue $pcscf $prot $spi_ps -m $mod -E $ealg $ck -A $alg $ik ;
+</I>&gt;<i>
+</I>&gt;<i> &gt;&gt;&gt;&gt;&gt;&gt;&gt; .r933
+</I>&gt;<i>
+</I>&gt;<i> EOF
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>
+</I>------------------------------------------------------------------------
+&gt;<i>
+</I>&gt;<i> *From:* <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-users-bounces at lists.berlios.de</A> 
+</I>&gt;<i> [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-users-bounces at lists.berlios.de</A>] *On Behalf Of *Bin
+</I>
+&gt;<i> Zhou
+</I>&gt;<i> *Sent:* April 21, 2010 5:10 PM
+</I>&gt;<i> *To:* Sunil; Dragos Vingarzan
+</I>&gt;<i> *Cc:* <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-users at lists.berlios.de</A>
+</I>&gt;<i> *Subject:* Re: [OpenIMSCore-Users] Registration over IPSec is not 
+</I>&gt;<i> consistent
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I tried IPsec with version 933. I cannot make a single registration 
+</I>&gt;<i> work. No SA is established. Is it related to the Syntax error below.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:P_security_401: Security-Client header found : 
+</I>&gt;<i>
+</I>&lt;ipsec-3gpp;alg=hmac-md5-96;ealg=des-ede3-cbc;prot=esp;mod=trans;spi-c=1
+024;port-c=12345;spi-s=2048;port-s=3062&gt;.
+&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> parse_headers: flags=ffffffffffffffff
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:save_contact_security: 
+</I>&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at 100.250.1.11</A>:3061;transport=udp&gt;
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:save_contact_security: 1 100.250.1.11 : 3061
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:save_contact_security: Protocol: &lt;esp&gt;
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:save_contact_security: Mode: &lt;trans&gt;
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:save_contact_security: Protocol: &lt;esp&gt;
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:save_contact_security: Mode: &lt;trans&gt;
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:save_contact_security: CK:
+</I>&lt;5fb417a7fc4a370e46d6d013a0a630e8&gt;
+&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:save_contact_security: IK:
+</I>&lt;1088117e7c1d07f1c6b0927ea882b835&gt;
+&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:save_contact_security: Enc Algorithm: &lt;des-ede3-cbc&gt;
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:save_contact_security: Int Algorithm: &lt;hmac-md5-96&gt;
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:save_contact_security: SPI-C: 1024
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:save_contact_security: SPI-S: 2048
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:save_contact_security: Port-C: 12345
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DBG:P-CSCF:save_contact_security: Port-S: 3062
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> parse_headers: flags=ffffffffffffffff
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> INF:P-CSCF:execute_cmd: 
+</I>&gt;<i> [/opt/OpenIMSCore/ser_ims/modules/pcscf/ipsec_P_Inc_Req.sh 
+</I>&gt;<i> 100.250.1.11 12345 100.250.0.104 4060 5001 3des-cbc 
+</I>&gt;<i> 0x5fb417a7fc4a370e46d6d013a0a630e85fb417a7fc4a370e hmac-md5 
+</I>&gt;<i> 0x1088117e7c1d07f1c6b0927ea882b835 esp trans]
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> *DBG:P-CSCF:execute_cmd: &gt; line 0: Syntax error at [&lt;]*
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: DEBUG: 
+</I>&gt;<i> t_check: msg id=1 global id=1 T start=0xb567aa44
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: DEBUG: 
+</I>&gt;<i> t_check: T already found!
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> DEBUG:t_check_status: checked status is &lt;401&gt;
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> ERR:P-CSCF:P_security_relay: we cannot find the contact or its 
+</I>&gt;<i> IPSec/TLS SAs for &lt;1://100.250.1.11:3061&gt;.
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> INFO:P-CSCF:P_NAT_relay: &lt;sip:100.250.1.11:3061&gt;
+</I>&gt;<i>
+</I>&gt;<i> Apr 21 16:14:30 openser4 /opt/OpenIMSCore/ser_ims/ser[12000]: 
+</I>&gt;<i> -&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; T_code=0, new_code=401
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Please update the svn trunk files.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Bin
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>
+</I>------------------------------------------------------------------------
+&gt;<i>
+</I>&gt;<i> *From:* <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-users-bounces at lists.berlios.de</A> 
+</I>&gt;<i> [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-users-bounces at lists.berlios.de</A>] *On Behalf Of
+</I>*Sunil
+&gt;<i> *Sent:* February 26, 2010 9:11 AM
+</I>&gt;<i> *To:* Dragos Vingarzan
+</I>&gt;<i> *Cc:* <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-users at lists.berlios.de</A>
+</I>&gt;<i> *Subject:* Re: [OpenIMSCore-Users] Registration over IPSec is not 
+</I>&gt;<i> consistent
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Hi Dragos,
+</I>&gt;<i>                 Thanks for the fix.After applying the fix,spi 
+</I>&gt;<i> generation is proper.I found one more issue when we register more than
+</I>
+&gt;<i> one
+</I>&gt;<i>                 user using the same application.
+</I>&gt;<i>  
+</I>&gt;<i> Scenario :
+</I>&gt;<i>                 I registered two  users using same application 
+</I>&gt;<i> successfully.But when refresh registration is sent,the server is 
+</I>&gt;<i> sending 200 ok
+</I>&gt;<i>                 using the spi of wrong user but to the correct 
+</I>&gt;<i> port.Since we are receiving 200 ok using wrong spi,we are not 
+</I>&gt;<i> processing the response.
+</I>&gt;<i>                 Please find the attached ethereal captures and SA 
+</I>&gt;<i> information text file.
+</I>&gt;<i>
+</I>&gt;<i> First User - 211
+</I>&gt;<i> Outgoing - 0x00001389 (port 4060)
+</I>&gt;<i> Incoming - 0x000003e9 (port 16003)
+</I>&gt;<i>                                 
+</I>&gt;<i> Second User - 311
+</I>&gt;<i> Outgoing - 0x0000138d (port 4060)
+</I>&gt;<i> Incoming - 0x000003ef (port 1607)
+</I>&gt;<i>
+</I>&gt;<i> While trying to refresh user  - 211 ,server is sending 200 ok using 
+</I>&gt;<i> 0x000003ef to port 16003.
+</I>&gt;<i>
+</I>&gt;<i> *Register Refresh Packet snapshot-*
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> *200 ok snapshot which we are ignoring :*
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>     I request your help in solving this issue.
+</I>&gt;<i>
+</I>&gt;<i> Thanks and Regards,
+</I>&gt;<i> Sunil
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> On Wed, 2010-02-24 at 18:54 +0100, Dragos Vingarzan wrote:
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i> forgot the actual patch...
+</I>&gt;<i>  
+</I>&gt;<i>  
+</I>&gt;<i> Dragos Vingarzan wrote:
+</I>&gt;<i> &gt; Hi Sunil,
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; ermm... I would rather say that you made it more unpredictable,
+</I>rather 
+&gt;<i> &gt; than fixing it.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; I guess that the problem was because the current_spi variable was 
+</I>&gt;<i> &gt; process local and not in shm. I have committed the attached patch
+</I>into 
+&gt;<i> &gt; the 13_pcc_fixing branch. Please test and tell me if it is ok.
+</I>During 
+&gt;<i> &gt; the initial development I usually use just one child, so that
+</I>debugging 
+&gt;<i> &gt; is easier. This was hiding the issue.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Cheers,
+</I>&gt;<i> &gt; -Dragos
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Sunil wrote:
+</I>&gt;<i> &gt;   
+</I>&gt;<i> &gt;&gt; Hi Dragos,
+</I>&gt;<i> &gt;&gt; 
+</I>&gt;<i> &gt;&gt;    We have made a change in  get_next_spi() function to fix the
+</I>issue. 
+&gt;<i> &gt;&gt; we have used random() system call to generate unique SPI values 
+</I>&gt;<i> &gt;&gt; every-time. We know this may not be a proper fix, but its working
+</I>for 
+&gt;<i> &gt;&gt; us.Please let us know if this fix might give any other issue.
+</I>&gt;<i> &gt;&gt; 
+</I>&gt;<i> &gt;&gt; FIX:
+</I>&gt;<i> &gt;&gt; 
+</I>&gt;<i> &gt;&gt; /**
+</I>&gt;<i> &gt;&gt;  * Returns the next unused SPI.
+</I>&gt;<i> &gt;&gt;  * \todo - make sure that this SPI is not used at the moment
+</I>&gt;<i> &gt;&gt;  * @returns the next SPI
+</I>&gt;<i> &gt;&gt;  */
+</I>&gt;<i> &gt;&gt; int get_next_spi()
+</I>&gt;<i> &gt;&gt; {
+</I>&gt;<i> &gt;&gt; //    return current_spi++;
+</I>&gt;<i> &gt;&gt;     return random();
+</I>&gt;<i> &gt;&gt; }
+</I>&gt;<i> &gt;&gt; 
+</I>&gt;<i> &gt;&gt; PATH: ser_ims/modules/pcscf/security.c
+</I>&gt;<i> &gt;&gt; 
+</I>&gt;<i> &gt;&gt; Thanks and Regards,
+</I>&gt;<i> &gt;&gt; Sunil
+</I>&gt;<i> &gt;&gt; 
+</I>&gt;<i> &gt;&gt; 
+</I>&gt;<i> &gt;&gt; 
+</I>&gt;<i> &gt;&gt; On Wed, 2010-02-17 at 15:41 +0100, Dragos Vingarzan wrote:
+</I>&gt;<i> &gt;&gt;     
+</I>&gt;<i> &gt;&gt;&gt; Hi Sunil,
+</I>&gt;<i> &gt;&gt;&gt; 
+</I>&gt;<i> &gt;&gt;&gt; no, it not a known issue, but it is not really unexpected either.
+</I>The 
+&gt;<i> &gt;&gt;&gt; same SPI for 2 users should not really happen...
+</I>&gt;<i> &gt;&gt;&gt; 
+</I>&gt;<i> &gt;&gt;&gt; The SPI management is not really done properly, but merely hacked.
+</I>So 
+&gt;<i> &gt;&gt;&gt; here contributions would be warmly welcomed into a better a deeper
+</I>
+&gt;<i> &gt;&gt;&gt; synchronization of the P-CSCF state with that of the ipsec tools.
+</I>&gt;<i> &gt;&gt;&gt; 
+</I>&gt;<i> &gt;&gt;&gt; Cheers,
+</I>&gt;<i> &gt;&gt;&gt; -Dragos
+</I>&gt;<i> &gt;&gt;&gt; 
+</I>&gt;<i> &gt;&gt;&gt; Sunil wrote:
+</I>&gt;<i> &gt;&gt;&gt;       
+</I>&gt;<i> &gt;&gt;&gt;&gt; Hi All,
+</I>&gt;<i> &gt;&gt;&gt;&gt;             I am  using OpenIMSCore Revision 680.I have noticed
+</I>that 
+&gt;<i> &gt;&gt;&gt;&gt; registration over IPSec is not consistent when i try to register
+</I>two 
+&gt;<i> &gt;&gt;&gt;&gt; users. i.e I am able to register a single user consistently .If i
+</I>try 
+&gt;<i> &gt;&gt;&gt;&gt; to register one more user ,sometimes the server is unable to
+</I>create 
+&gt;<i> &gt;&gt;&gt;&gt; the SA's and also it deletes 2 SA's of already registered user. I
+</I>have 
+&gt;<i> &gt;&gt;&gt;&gt; noticed that this seems to happen when same SPI values are
+</I>generated 
+&gt;<i> &gt;&gt;&gt;&gt; by the server for both the users.
+</I>&gt;<i> &gt;&gt;&gt;&gt; 
+</I>&gt;<i> &gt;&gt;&gt;&gt; Is this a known issue?..and also is there a fix available for
+</I>this 
+&gt;<i> &gt;&gt;&gt;&gt; issue in latest revision?.
+</I>&gt;<i> &gt;&gt;&gt;&gt; 
+</I>&gt;<i> &gt;&gt;&gt;&gt; Thanks and Regards,
+</I>&gt;<i> &gt;&gt;&gt;&gt; Sunil
+</I>&gt;<i> &gt;&gt;&gt;&gt; 
+</I>&gt;<i> &gt;&gt;&gt;&gt;        
+</I>&gt;<i> &gt;&gt;&gt;&gt;
+</I>------------------------------------------------------------------------
+&gt;<i> &gt;&gt;&gt;&gt; 
+</I>&gt;<i> &gt;&gt;&gt;&gt; _______________________________________________
+</I>&gt;<i> &gt;&gt;&gt;&gt; OpenIMSCore-Users mailing list
+</I>&gt;<i> &gt;&gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-Users at lists.berlios.de</A>
+</I>&lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-Users at lists.berlios.de</A>&gt;
+&lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-Users at lists.berlios.de</A>&gt;
+&gt;<i> &gt;&gt;&gt;&gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-users">https://lists.berlios.de/mailman/listinfo/openimscore-users</A>
+</I>&gt;<i> &gt;&gt;&gt;&gt;   
+</I>&gt;<i> &gt;&gt;&gt;&gt;         
+</I>&gt;<i> &gt;&gt;&gt;     
+</I>&gt;<i> &gt;&gt;&gt;       
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt;   
+</I>&gt;<i>  
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>------------------------------------------------------------------------
+&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002251.html">[OpenIMSCore-CSCF] IPsec -- which version to use? --- FW:	[OpenIMSCore-Users] Registration over IPSec is not consistent
+</A></li>
+	<LI>Next message: <A HREF="002253.html">[OpenIMSCore-CSCF] error in checkout of emergency branch (saheb.ali)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2252">[ date ]</a>
+              <a href="thread.html#2252">[ thread ]</a>
+              <a href="subject.html#2252">[ subject ]</a>
+              <a href="author.html#2252">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

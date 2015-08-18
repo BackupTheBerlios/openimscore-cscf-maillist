@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] unexpected CSCF behaviour (P-CSCF subscribes to	event reg after	deregistration &amp; S-CSCF adds weird Warning header)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20unexpected%20CSCF%20behaviour%20%28P-CSCF%20subscribes%20to%0A%09event%20reg%20after%09deregistration%20%26%20S-CSCF%20adds%20weird%20Warning%20header%29&In-Reply-To=%3C1166702939.8997.16.camel%40localhost.localdomain%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000077.html">
+   <LINK REL="Next"  HREF="000061.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] unexpected CSCF behaviour (P-CSCF subscribes to	event reg after	deregistration &amp; S-CSCF adds weird Warning header)</H1>
+    <B>Alberto D&#237;ez</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20unexpected%20CSCF%20behaviour%20%28P-CSCF%20subscribes%20to%0A%09event%20reg%20after%09deregistration%20%26%20S-CSCF%20adds%20weird%20Warning%20header%29&In-Reply-To=%3C1166702939.8997.16.camel%40localhost.localdomain%3E"
+       TITLE="[OpenIMSCore-CSCF] unexpected CSCF behaviour (P-CSCF subscribes to	event reg after	deregistration &amp; S-CSCF adds weird Warning header)">proyecto at whiterabbit.org
+       </A><BR>
+    <I>Thu Dec 21 13:08:59 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000077.html">[OpenIMSCore-CSCF] Scscf does not treat RTR and PPR messages
+</A></li>
+        <LI>Next message: <A HREF="000061.html">[OpenIMSCore-CSCF] unexpected CSCF behaviour (P-CSCF subscribes to	event reg after	deregistration &amp; S-CSCF adds weird Warning header)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#57">[ date ]</a>
+              <a href="thread.html#57">[ thread ]</a>
+              <a href="subject.html#57">[ subject ]</a>
+              <a href="author.html#57">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi!
+
+I'm running a simple test using sipp (i attach scenario file
+escenario2v2.xml and the escenario1.csv file which is just one i found
+on a previous thread on the list). It's only supposed to REGISTER,
+SUBSCRIBE to the &quot;reg&quot; event and  then  deregister. From the UE point of
+view everything works fine , all the messages are the expected. But
+everything that comes back from the S-CSCF has a suspicious header
+Warning: with the following message 
+
+Warning: 392 127.0.0.1:6060 &quot;Noisy feedback tells:  pid=8097
+req_src_ip=127.0.0.1 req_src_port=5060
+in_uri=sip:scscf.open-ims.test:6060 out_uri=sip:scscf.open-ims.test:6060
+via_cnt==3&quot;
+
+QUESTION : what and why is this Noisy feedback there? 
+
+I attach a ethereal capture file (only with sip and diameter traffic)
+escenario2v2.eth and up to the message 50 everything is as expected.
+&gt;<i>From the 50 to 56 it's retransmisions due to the UE not being reacheable
+</I>anymore (after the  200 OK for it's REGISTER with expires=0 it
+disconnects) but from message 57 to 84 i don't really know what is going
+on... Why does the P-CSCF send a new SUBSCRIBE ?   there is a problem in
+the I-CSCF Cx interface at that moment (i don't know why but this
+happens often ??)  and it doesn't go any further ..
+
+QUESTION :  does the P-CSCF really delete alice from its table when
+sending the 200 OK P-CSCF processed notification (message 49) ? If so
+what's the explanation for the SUBSCRIBE?
+
+
+I run the test with  sipp 127.0.0.1:4060 -inf escenario1.csv -sf
+escenario2v2.xml  -m 1 -c 1 , and all my configuration is the standard
+that came with OpenIMSCore
+
+Thank you!
+
+
+-- 
+Alberto D&#237;ez &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">proyecto at whiterabbit.org</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: escenario1.csv
+Type: text/x-comma-separated-values
+Size: 84 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20061221/da13c35f/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20061221/da13c35f/attachment.bin</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: escenario2v2.xml
+Type: text/xml
+Size: 3098 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20061221/da13c35f/attachment.xml">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20061221/da13c35f/attachment.xml</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: escenario2v2.eth
+Type: application/octet-stream
+Size: 52238 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20061221/da13c35f/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20061221/da13c35f/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000077.html">[OpenIMSCore-CSCF] Scscf does not treat RTR and PPR messages
+</A></li>
+	<LI>Next message: <A HREF="000061.html">[OpenIMSCore-CSCF] unexpected CSCF behaviour (P-CSCF subscribes to	event reg after	deregistration &amp; S-CSCF adds weird Warning header)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#57">[ date ]</a>
+              <a href="thread.html#57">[ thread ]</a>
+              <a href="subject.html#57">[ subject ]</a>
+              <a href="author.html#57">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

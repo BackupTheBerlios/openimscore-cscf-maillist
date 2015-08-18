@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] SER_IMS Installation problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SER_IMS%20Installation%20problem&In-Reply-To=%3CFEEA46BAF9F042B29535DC01565FF9BD%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001720.html">
+   <LINK REL="Next"  HREF="001722.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] SER_IMS Installation problem</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SER_IMS%20Installation%20problem&In-Reply-To=%3CFEEA46BAF9F042B29535DC01565FF9BD%40notebook%3E"
+       TITLE="[OpenIMSCore-CSCF] SER_IMS Installation problem">franz-edler at aon.at
+       </A><BR>
+    <I>Tue Jun 23 08:48:04 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001720.html">[OpenIMSCore-CSCF] SER_IMS Installation problem
+</A></li>
+        <LI>Next message: <A HREF="001722.html">[OpenIMSCore-CSCF] IMS_DNS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1721">[ date ]</a>
+              <a href="thread.html#1721">[ thread ]</a>
+              <a href="subject.html#1721">[ subject ]</a>
+              <a href="author.html#1721">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Shazi,
+
+&gt;<i> when i write the commands &quot;make install -libs all&quot; i found error of mysql.
+</I>&gt;<i> I edit the makefile and remove the mysql reference. Again write &quot;make
+</I>&gt;<i> install -libs all&quot; and found acc_radius error i.e..
+</I>
+You should not remove mysql because this database is needed by OpenIMSCore.
+You should look for the exact cause of the error. I assume
+- either mysql is not included in your packages
+- or the development-library of mysql is missing (e.g. libmysqlclient15-dev)
+
+Regards
+Franz
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001720.html">[OpenIMSCore-CSCF] SER_IMS Installation problem
+</A></li>
+	<LI>Next message: <A HREF="001722.html">[OpenIMSCore-CSCF] IMS_DNS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1721">[ date ]</a>
+              <a href="thread.html#1721">[ thread ]</a>
+              <a href="subject.html#1721">[ subject ]</a>
+              <a href="author.html#1721">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

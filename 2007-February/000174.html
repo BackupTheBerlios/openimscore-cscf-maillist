@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r120 -	ser_ims/branches/01_persistency/modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r120%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200702061754.l16Hs637001958%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000173.html">
+   <LINK REL="Next"  HREF="000175.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r120 -	ser_ims/branches/01_persistency/modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r120%20-%0A%09ser_ims/branches/01_persistency/modules/scscf&In-Reply-To=%3C200702061754.l16Hs637001958%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r120 -	ser_ims/branches/01_persistency/modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Feb  6 18:54:06 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000173.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r118 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000175.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r121 -	ser_ims/branches/01_persistency/modules/pcscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#174">[ date ]</a>
+              <a href="thread.html#174">[ thread ]</a>
+              <a href="subject.html#174">[ subject ]</a>
+              <a href="author.html#174">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-06 18:54:00 +0100 (Tue, 06 Feb 2007)
+New Revision: 120
+
+Modified:
+   ser_ims/branches/01_persistency/modules/scscf/bin.h
+   ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+   ser_ims/branches/01_persistency/modules/scscf/mod.c
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+Log:
+Minor fixes to accomodate for other registrar persistency
+Comment changes.
+
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin.h	2007-02-06 16:48:35 UTC (rev 119)
++++ ser_ims/branches/01_persistency/modules/scscf/bin.h	2007-02-06 17:54:00 UTC (rev 120)
+@@ -103,6 +103,7 @@
+ #define _BIN_H
+ 
+ #include &quot;mod.h&quot;
++#include &quot;../../mem/mem.h&quot;
+ 
+ typedef struct _bin_data {
+ 	char* s; /*string*/
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-02-06 16:48:35 UTC (rev 119)
++++ ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-02-06 17:54:00 UTC (rev 120)
+@@ -950,9 +950,9 @@
+ 
+ 
+ /**
+- * Encode an authentication userdata into a binary form
++ * Encode a dialog into a binary form
+  * @param x - binary data to append to
+- * @param u - the authentication usedata to encode
++ * @param u - the dialog to encode
+  * @returns 1 on succcess or 0 on error
+  */
+ int bin_encode_s_dialog(bin_data *x,s_dialog *d)
+@@ -980,9 +980,9 @@
+ }
+ 
+ /**
+- *	Decode an authentication userdata from a binary data structure
++ *	Decode a dialog userdata from a binary data structure
+  * @param x - binary data to decode from
+- * @returns the auth_userdata* where the data has been decoded
++ * @returns the s_dialog* where the data has been decoded
+  */
+ s_dialog* bin_decode_s_dialog(bin_data *x)
+ {
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/mod.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/mod.c	2007-02-06 16:48:35 UTC (rev 119)
++++ ser_ims/branches/01_persistency/modules/scscf/mod.c	2007-02-06 17:54:00 UTC (rev 120)
+@@ -253,8 +253,9 @@
+  * &lt;p&gt;
+  * - persistency_mode - how to do persistency - 0 none; 1 with files; 2 with db	
+  * - persistency_location - where to dump/load the persistency data to/from
+- * - persistency_auth_data_timer - interval to make authorization data snapshots at
+- * - persistency_dialogs_timer - interval to make dialogs data snapshots at
++ * - persistency_timer_authdata - interval to make authorization data snapshots at
++ * - persistency_timer_dialogs - interval to make dialogs data snapshots at
++ * - persistency_timer_registrar - interval to make registrar snapshots at
+  */	
+ static param_export_t scscf_params[]={ 
+ 	{&quot;name&quot;, 							STR_PARAM, &amp;scscf_name},
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-02-06 16:48:35 UTC (rev 119)
++++ ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-02-06 17:54:00 UTC (rev 120)
+@@ -157,7 +157,7 @@
+ 		d_unlock(i);
+ 	}
+ 	bin_print(&amp;x);
+-	i = bin_dump(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;dialogs&quot;);		
++	i = bin_dump(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;sdialogs&quot;);		
+ 	bin_free(&amp;x);
+ 	return i;
+ error:
+@@ -172,7 +172,7 @@
+ {
+ 	bin_data x;
+ 	s_dialog *d;
+-	if (!bin_load(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;dialogs&quot;)) goto error;
++	if (!bin_load(&amp;x,scscf_persistency_mode,scscf_persistency_location,&quot;sdialogs&quot;)) goto error;
+ 	bin_print(&amp;x);
+ 	x.max=0;
+ 	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_dlg: max %d len %d\n&quot;,x.max,x.len);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000173.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r118 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000175.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r121 -	ser_ims/branches/01_persistency/modules/pcscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#174">[ date ]</a>
+              <a href="thread.html#174">[ thread ]</a>
+              <a href="subject.html#174">[ subject ]</a>
+              <a href="author.html#174">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r860 - store R-CER msg to peer in	order for Wait_Conn_Ack_Elect to Elect Free CER msg when CEA	is not sent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r860%20-%20store%20R-CER%20msg%20to%20peer%0A%20in%09order%20for%20Wait_Conn_Ack_Elect%20to%20Elect%20Free%20CER%20msg%20when%20CEA%09is%20not%20sent&In-Reply-To=%3C4B6B0B3F.8040600%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002052.html">
+   <LINK REL="Next"  HREF="002056.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r860 - store R-CER msg to peer in	order for Wait_Conn_Ack_Elect to Elect Free CER msg when CEA	is not sent</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r860%20-%20store%20R-CER%20msg%20to%20peer%0A%20in%09order%20for%20Wait_Conn_Ack_Elect%20to%20Elect%20Free%20CER%20msg%20when%20CEA%09is%20not%20sent&In-Reply-To=%3C4B6B0B3F.8040600%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r860 - store R-CER msg to peer in	order for Wait_Conn_Ack_Elect to Elect Free CER msg when CEA	is not sent">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Feb  4 19:00:31 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002052.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r860 - store R-CER msg to peer in	order for Wait_Conn_Ack_Elect to Elect Free CER msg when CEA	is not sent
+</A></li>
+        <LI>Next message: <A HREF="002056.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r860 - store R-CER msg to peer	in	order for Wait_Conn_Ack_Elect to Elect Free CER msg when	CEA	is not sent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2055">[ date ]</a>
+              <a href="thread.html#2055">[ thread ]</a>
+              <a href="subject.html#2055">[ subject ]</a>
+              <a href="author.html#2055">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Min,
+
+Would the next patch be usefull or not?
+
+Index: peerstatemachine.c
+===================================================================
+--- peerstatemachine.c  (revision 860)
++++ peerstatemachine.c  (working copy)
+@@ -147,6 +147,7 @@
+                                        result_code = Process_CER(p,msg);
+                                        if (result_code&gt;=2000 &amp;&amp; 
+result_code&lt;3000){
+                                                p-&gt;state = 
+Wait_Conn_Ack_Elect;
++                                               if (p-&gt;r_cer) 
+AAAFreeMessage(&amp;(p-&gt;r_cer));
+                                                p-&gt;r_cer = msg;
+                                        }
+                                        else {
+
+Cheers,
+-Dragos
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mwang at users.berlios.de</A> wrote:
+&gt;<i> Author: mwang
+</I>&gt;<i> Date: 2010-02-04 17:05:11 +0100 (Thu, 04 Feb 2010)
+</I>&gt;<i> New Revision: 860 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=860">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=860</A> 
+</I>&gt;<i>
+</I>&gt;<i> Log:
+</I>&gt;<i> 	store R-CER msg to peer in order for Wait_Conn_Ack_Elect to Elect
+</I>&gt;<i> 	Free CER msg when CEA is not sent
+</I>&gt;<i>
+</I>&gt;<i> Modified:
+</I>&gt;<i>    U	ser_ims/branches/13_pcc_fixing/modules/cdp/peer.h
+</I>&gt;<i> 		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/peer.h?rev=860&amp;view=diff&amp;r1=860&amp;r2=859">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/peer.h?rev=860&amp;view=diff&amp;r1=860&amp;r2=859</A>
+</I>&gt;<i>    U	ser_ims/branches/13_pcc_fixing/modules/cdp/peerstatemachine.c
+</I>&gt;<i> 		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/peerstatemachine.c?rev=860&amp;view=diff&amp;r1=860&amp;r2=859">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fixing/modules/cdp/peerstatemachine.c?rev=860&amp;view=diff&amp;r1=860&amp;r2=859</A>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002052.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r860 - store R-CER msg to peer in	order for Wait_Conn_Ack_Elect to Elect Free CER msg when CEA	is not sent
+</A></li>
+	<LI>Next message: <A HREF="002056.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r860 - store R-CER msg to peer	in	order for Wait_Conn_Ack_Elect to Elect Free CER msg when	CEA	is not sent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2055">[ date ]</a>
+              <a href="thread.html#2055">[ thread ]</a>
+              <a href="subject.html#2055">[ subject ]</a>
+              <a href="author.html#2055">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

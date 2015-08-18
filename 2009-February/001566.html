@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P-CSCF doesn't support multiple bindings on same	user
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20doesn%27t%20support%20multiple%20bindings%20on%0A%20same%09user&In-Reply-To=%3C4992A6FD.9050200%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001555.html">
+   <LINK REL="Next"  HREF="001556.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P-CSCF doesn't support multiple bindings on same	user</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20doesn%27t%20support%20multiple%20bindings%20on%0A%20same%09user&In-Reply-To=%3C4992A6FD.9050200%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] P-CSCF doesn't support multiple bindings on same	user">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Feb 11 11:22:53 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001555.html">[OpenIMSCore-CSCF] P-CSCF doesn't support multiple bindings on same	user
+</A></li>
+        <LI>Next message: <A HREF="001556.html">[OpenIMSCore-CSCF] 404 Not found -User not registered on this scscf.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1566">[ date ]</a>
+              <a href="thread.html#1566">[ thread ]</a>
+              <a href="subject.html#1566">[ subject ]</a>
+              <a href="author.html#1566">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Oren,
+
+this shouldn't happen.... could you please reduce you scenario to 
+exclude the final de-registration of :25909 and then post the output of 
+the P-CSCF? Every few seconds, it should print the contents of the 
+registrar there, so that we could identify if the contact was somehow 
+deleted from the registrar or there was an identification issue.
+
+Cheers,
+-Dragos
+
+Oren K. wrote:
+&gt;<i> Hi,
+</I>&gt;<i> This is a similar but distinct bug than the one I posted earlier.
+</I>&gt;<i> Behavior of P-CSCF may be invalid in the following scenario:
+</I>&gt;<i>
+</I>&gt;<i> 1. REGISTER sip:openims.summit-tech.ca
+</I>&gt;<i>    Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at 10.0.100.189</A>:25909&gt;;expires=900
+</I>&gt;<i>
+</I>&gt;<i>    response: [200 OK]
+</I>&gt;<i>
+</I>&gt;<i> 2. REGISTER sip:openims.summit-tech.ca
+</I>&gt;<i>    Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at 10.0.100.189</A>:31610&gt;;expires=900
+</I>&gt;<i>
+</I>&gt;<i>    response: [200 OK]
+</I>&gt;<i>
+</I>&gt;<i> 3. (un)REGISTER sip:openims.summit-tech.ca
+</I>&gt;<i>    Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at 10.0.100.189</A>:31610&gt;;expires=0
+</I>&gt;<i>
+</I>&gt;<i>    detailed response:
+</I>&gt;<i>
+</I>&gt;<i>    SIP/2.0 200 OK - SAR succesful and registrar saved
+</I>&gt;<i>    Via: SIP/2.0/UDP
+</I>&gt;<i> 10.0.100.189:31610;rport=31610;branch=z9hG4bK56eb.4708.4a50
+</I>&gt;<i>    To:
+</I>&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at openims.summit-tech.ca</A>&gt;;tag=34a1659c9e7f682b3a02a4e0d0cffb54-
+</I>&gt;<i> 4e4c
+</I>&gt;<i>    From: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at openims.summit-tech.ca</A>&gt;;tag=2f2d55a8-3a78.0
+</I>&gt;<i>    Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at 10.0.100.189</A>:31610&gt;;expires=0
+</I>&gt;<i>    Contact: &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at 10.0.100.189</A>:25909&gt;;expires=899
+</I>&gt;<i>
+</I>&gt;<i> 4. PUBLISH sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at openims.summit-tech.ca</A> SIP/2.0
+</I>&gt;<i>    Via: SIP/2.0/UDP 10.0.100.189:25909;branch=z9hG4bK3724.7287.2b68
+</I>&gt;<i>
+</I>&gt;<i>    ..this _should_ work, as the user1 on port 25909 is still registered,
+</I>&gt;<i> however:
+</I>&gt;<i>
+</I>&gt;<i>    SIP/2.0 403 Forbidden - Not Registered! You must register first with
+</I>&gt;<i> a S-CSCF
+</I>&gt;<i>    Via: SIP/2.0/UDP
+</I>&gt;<i> 10.0.100.189:25909;branch=z9hG4bK3724.7287.2b68;rport=25909
+</I>&gt;<i>    CSeq: 1 PUBLISH
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I haven't traced the source of this bug but I suspect that it comes from
+</I>&gt;<i> the same one as the last one I posted (multiple URIs on same ip/port).
+</I>&gt;<i> As in the previous bug posted, S-CSCF behavior differs from the P-CSCF:
+</I>&gt;<i> When I subsequently un-register the <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">user1 at openims.summit-tech.ca</A> on port
+</I>&gt;<i> 25909, it receives a [200 OK] for that operation. Attached a Wireshark
+</I>&gt;<i> trace of the described scenario. 
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i> Oren K.
+</I>&gt;<i>   
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001555.html">[OpenIMSCore-CSCF] P-CSCF doesn't support multiple bindings on same	user
+</A></li>
+	<LI>Next message: <A HREF="001556.html">[OpenIMSCore-CSCF] 404 Not found -User not registered on this scscf.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1566">[ date ]</a>
+              <a href="thread.html#1566">[ thread ]</a>
+              <a href="subject.html#1566">[ subject ]</a>
+              <a href="author.html#1566">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

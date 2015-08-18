@@ -1,0 +1,540 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r117 - in	ser_ims/branches/01_persistency: cfg modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r117%20-%20in%0A%09ser_ims/branches/01_persistency%3A%20cfg%20modules/scscf&In-Reply-To=%3C200702061453.l16ErFvt017371%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000171.html">
+   <LINK REL="Next"  HREF="000173.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r117 - in	ser_ims/branches/01_persistency: cfg modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r117%20-%20in%0A%09ser_ims/branches/01_persistency%3A%20cfg%20modules/scscf&In-Reply-To=%3C200702061453.l16ErFvt017371%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r117 - in	ser_ims/branches/01_persistency: cfg modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Feb  6 15:53:15 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000171.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r116 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000173.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r118 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#172">[ date ]</a>
+              <a href="thread.html#172">[ thread ]</a>
+              <a href="subject.html#172">[ subject ]</a>
+              <a href="author.html#172">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-06 15:53:10 +0100 (Tue, 06 Feb 2007)
+New Revision: 117
+
+Modified:
+   ser_ims/branches/01_persistency/cfg/scscf.cfg
+   ser_ims/branches/01_persistency/modules/scscf/bin.c
+   ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+   ser_ims/branches/01_persistency/modules/scscf/mod.c
+   ser_ims/branches/01_persistency/modules/scscf/registrar_storage.h
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+   ser_ims/branches/01_persistency/modules/scscf/s_persistency.h
+Log:
+Added persistency for the S-CSCF registrar.
+
+
+Modified: ser_ims/branches/01_persistency/cfg/scscf.cfg
+===================================================================
+--- ser_ims/branches/01_persistency/cfg/scscf.cfg	2007-02-06 13:13:57 UTC (rev 116)
++++ ser_ims/branches/01_persistency/cfg/scscf.cfg	2007-02-06 14:53:10 UTC (rev 117)
+@@ -67,10 +67,12 @@
+ 
+ modparam(&quot;scscf&quot;,&quot;dialogs_expiration_time&quot;,3600)
+ 
++# persistency_mode - 0 None / 1 Files / 2 Databases
+ modparam(&quot;scscf&quot;,&quot;persistency_mode&quot;,1)
+ modparam(&quot;scscf&quot;,&quot;persistency_location&quot;,&quot;/opt/OpenIMSCore/persistency&quot;)
+-modparam(&quot;scscf&quot;,&quot;persistency_auth_data_timer&quot;,60)
+-modparam(&quot;scscf&quot;,&quot;persistency_dialogs_timer&quot;,5)
++modparam(&quot;scscf&quot;,&quot;persistency_timer_authdata&quot;,60)
++modparam(&quot;scscf&quot;,&quot;persistency_timer_dialogs&quot;,60)
++modparam(&quot;scscf&quot;,&quot;persistency_timer_registrar&quot;,60)
+ 
+ loadmodule &quot;/opt/OpenIMSCore/ser_ims/modules/isc/isc.so&quot;
+ 
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin.c	2007-02-06 13:13:57 UTC (rev 116)
++++ ser_ims/branches/01_persistency/modules/scscf/bin.c	2007-02-06 14:53:10 UTC (rev 117)
+@@ -109,7 +109,6 @@
+ 	}
+ 	x-&gt;max += delta;
+ 	return 1;
+-	
+ }
+ 
+ inline void bin_free(bin_data *x)
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-02-06 13:13:57 UTC (rev 116)
++++ ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c	2007-02-06 14:53:10 UTC (rev 117)
+@@ -56,7 +56,9 @@
+ 
+ /* structures reprezentation functions */
+ 
++extern int r_hash_size;						/**&lt; Size of S-CSCF registrar hash table		*/
+ 
++
+ static inline int str_shm_dup(str *dest,str *src)
+ {
+ 	dest-&gt;s = shm_malloc(src-&gt;len);
+@@ -162,6 +164,8 @@
+ static int bin_decode_spt(bin_data *x, ims_spt *spt)
+ {
+ 	int k;
++	str s;
++	
+ 	if (!bin_decode_int1(x,&amp;k)) goto error;
+ 	
+ 	spt-&gt;type = k &amp; 0x0F;
+@@ -172,23 +176,23 @@
+ 
+ 	switch (spt-&gt;type){
+ 		case 1:
+-			if (!bin_decode_str(x,&amp;(spt-&gt;request_uri))) goto error;
++			if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(spt-&gt;request_uri),&amp;s)) goto error;
+ 			break;
+ 		case 2:
+-			if (!bin_decode_str(x,&amp;(spt-&gt;method))) goto error;
++			if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(spt-&gt;method),&amp;s)) goto error;
+ 			break;
+ 		case 3:
+ 			if (!bin_decode_int1(x,&amp;(spt-&gt;sip_header.type))) goto error;
+-			if (!bin_decode_str(x,&amp;(spt-&gt;sip_header.header))) goto error;
+-			if (!bin_decode_str(x,&amp;(spt-&gt;sip_header.content))) goto error;
++			if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(spt-&gt;sip_header.header),&amp;s)) goto error;
++			if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(spt-&gt;sip_header.content),&amp;s)) goto error;
+ 			//TODO - compute the regex!!!
+ 			break;
+ 		case 4:
+ 			if (!bin_decode_int1(x,&amp;(spt-&gt;session_case))) goto error;
+ 			break;
+ 		case 5:
+-			if (!bin_decode_str(x,&amp;(spt-&gt;session_desc.line))) goto error;
+-			if (!bin_decode_str(x,&amp;(spt-&gt;session_desc.content))) goto error;
++			if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(spt-&gt;session_desc.line),&amp;s)) goto error;
++			if (!bin_decode_str(x,&amp;s)||!str_shm_dup(&amp;(spt-&gt;session_desc.content),&amp;s)) goto error;
+ 			break;
+ 
+ 	}
+@@ -247,7 +251,7 @@
+ 		for(i=0;i&lt;fc-&gt;trigger_point-&gt;spt_cnt;i++)
+ 			if (!bin_encode_spt(x,fc-&gt;trigger_point-&gt;spt+i)) goto error;
+ 	} else {
+-		if (!bin_encode_int1(x,0xff)) goto error;
++		if (!bin_encode_int1(x,0xFF)) goto error;
+ 	}
+ 	
+ 	//app server
+@@ -255,6 +259,7 @@
+ 	if (!bin_encode_int1(x,fc-&gt;application_server.default_handling)) goto error;
+ 	if (!bin_encode_str(x,&amp;(fc-&gt;application_server.service_info))) goto error;
+ 	
++	return 1;
+ error:
+ 	LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_encode_filter_criteria: Error while encoding.\n&quot;);
+ 	return 0;		
+@@ -269,7 +274,7 @@
+  */
+ static int bin_decode_filter_criteria(bin_data *x, ims_filter_criteria *fc)
+ {
+-	int cnf,i,ppindicator,len;
++	int cnf,i,ppindicator,len,k;
+ 	str s;
+ 	
+ 	//priority
+@@ -307,14 +312,15 @@
+ 		memset(tp,0,len);
+ 		tp-&gt;condition_type_cnf=cnf;
+ 		
+-		if (!bin_decode_int2(x,&amp;(tp-&gt;spt_cnt))) goto error;
++		if (!bin_decode_int2(x,&amp;k)) goto error;
++		tp-&gt;spt_cnt = k;
+ 		len = sizeof(ims_spt)*tp-&gt;spt_cnt;
+ 		tp-&gt;spt = (ims_spt*)shm_malloc(len);
+ 		if (!tp-&gt;spt) {
+ 			LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:bin_decode_filter_criteria: Error allocating %d bytes.\n&quot;,len);
+ 			goto error;
+ 		}
+-		memset(tp,0,len);
++		memset(tp-&gt;spt,0,len);
+ 		for(i=0;i&lt;tp-&gt;spt_cnt;i++)
+ 			if (!bin_decode_spt(x,tp-&gt;spt+i)) goto error;
+ 	}
+@@ -525,6 +531,7 @@
+ 
+ 	imss-&gt;lock = lock_alloc();
+ 	imss-&gt;lock = lock_init(imss-&gt;lock);
++	imss-&gt;ref_count = 1;
+ 
+ 	return imss;
+ error:
+@@ -667,7 +674,6 @@
+ 	r_contact *c=0;
+ 	r_subscriber *s=0;
+ 	
+-	if (!bin_encode_int4(x,p-&gt;hash)) goto error;
+ 	if (!bin_encode_str(x,&amp;(p-&gt;aor))) goto error;
+ 	k = p-&gt;reg_state;
+ 	if (!bin_encode_int1(x,k)) goto error;
+@@ -715,8 +721,8 @@
+ 	}
+ 	memset(p,0,len);
+ 	
+-	if (!bin_decode_int4(x,&amp;(p-&gt;hash))) goto error;
+ 	if (!bin_decode_str(x,&amp;st)||!str_shm_dup(&amp;(p-&gt;aor),&amp;st)) goto error;
++	p-&gt;hash = get_aor_hash(p-&gt;aor,r_hash_size);
+ 	if (!bin_decode_int1(x,&amp;k)) goto error;
+ 	p-&gt;reg_state = k;
+ 	
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/mod.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/mod.c	2007-02-06 13:13:57 UTC (rev 116)
++++ ser_ims/branches/01_persistency/modules/scscf/mod.c	2007-02-06 14:53:10 UTC (rev 117)
+@@ -116,8 +116,9 @@
+ 
+ persistency_mode_t scscf_persistency_mode=NO_PERSISTENCY;			/**&lt; the type of persistency				*/
+ char* scscf_persistency_location=&quot;/opt/OpenIMSCore/persistency&quot;;	/**&lt; where to dump the persistency data 	*/
+-int scscf_persistency_auth_data_timer=60;							/**&lt; interval to snapshot authorization data*/ 
+-int scscf_persistency_dialogs_timer=60;								/**&lt; interval to snapshot dialogs data		*/ 
++int scscf_persistency_timer_authdata=60;							/**&lt; interval to snapshot authorization data*/ 
++int scscf_persistency_timer_dialogs=60;								/**&lt; interval to snapshot dialogs data		*/ 
++int scscf_persistency_timer_registrar=60;							/**&lt; interval to snapshot registrar data	*/ 
+ 
+ /* fixed parameter storage */
+ str scscf_name_str;						/**&lt; fixed name of the S-CSCF 							*/
+@@ -288,8 +289,9 @@
+ 	
+ 	{&quot;persistency_mode&quot;,	 			INT_PARAM, &amp;scscf_persistency_mode},	
+ 	{&quot;persistency_location&quot;, 			STR_PARAM, &amp;scscf_persistency_location},
+-	{&quot;persistency_auth_data_timer&quot;,		INT_PARAM, &amp;scscf_persistency_auth_data_timer},
+-	{&quot;persistency_dialogs_timer&quot;,		INT_PARAM, &amp;scscf_persistency_dialogs_timer},
++	{&quot;persistency_timer_authdata&quot;,		INT_PARAM, &amp;scscf_persistency_timer_authdata},
++	{&quot;persistency_timer_dialogs&quot;,		INT_PARAM, &amp;scscf_persistency_timer_dialogs},
++	{&quot;persistency_timer_registrar&quot;,		INT_PARAM, &amp;scscf_persistency_timer_registrar},
+ 	{0,0,0} 
+ };
+ 
+@@ -481,8 +483,8 @@
+ 	/* Init the authorization data storage */
+ 	if (!auth_data_init(auth_data_hash_size)) goto error;	
+ 	if (scscf_persistency_mode!=NO_PERSISTENCY){
+-		load_snapshot_auth();
+-		if (register_timer(auth_persistency_timer,0,scscf_persistency_auth_data_timer)&lt;0) goto error;
++		load_snapshot_authdata();
++		if (register_timer(persistency_timer_authdata,0,scscf_persistency_timer_authdata)&lt;0) goto error;
+ 	}
+ 	
+ 
+@@ -491,6 +493,10 @@
+ 	
+ 	/* init the registrar storage */
+ 	if (!r_storage_init(registrar_hash_size)) goto error;
++	if (scscf_persistency_mode!=NO_PERSISTENCY){
++		load_snapshot_registrar();
++		if (register_timer(persistency_timer_registrar,0,scscf_persistency_timer_registrar)&lt;0) goto error;
++	}
+ 
+ 	/* register the registrar timer */
+ 	if (register_timer(registrar_timer,registrar,10)&lt;0) goto error;
+@@ -507,8 +513,8 @@
+ 		goto error;
+ 	}		
+ 	if (scscf_persistency_mode!=NO_PERSISTENCY){
+-		load_snapshot_dlg();
+-		if (register_timer(dlg_persistency_timer,0,scscf_persistency_dialogs_timer)&lt;0) goto error;
++		load_snapshot_dialogs();
++		if (register_timer(persistency_timer_dialogs,0,scscf_persistency_timer_dialogs)&lt;0) goto error;
+ 	}
+ 
+ 	/* register the dialog timer */
+@@ -571,8 +577,9 @@
+ 	lock_release(process_lock);
+ 	if (do_destroy){
+ 		/* First let's snapshot everything */
+-		make_snapshot_auth();
+-		make_snapshot_dlg();
++		make_snapshot_authdata();
++		make_snapshot_dialogs();
++		make_snapshot_registrar();
+ 		/* Then nuke it all */
+ 		auth_data_destroy();
+ 		parser_destroy();
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/registrar_storage.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/registrar_storage.h	2007-02-06 13:13:57 UTC (rev 116)
++++ ser_ims/branches/01_persistency/modules/scscf/registrar_storage.h	2007-02-06 14:53:10 UTC (rev 117)
+@@ -68,12 +68,6 @@
+ 
+ /* REGISTRAR Structures */
+ 
+-/** S-CSCF registrar hash slot */
+-typedef struct {
+-	void *head;					/**&lt; first slot in the table			*/
+-	void *tail;					/**&lt; last slot in the table				*/
+-	gen_lock_t *lock;			/**&lt; slot lock 							*/	
+-} r_hash_slot;
+ 
+ /** Events for subscriptions */
+ enum {
+@@ -126,6 +120,16 @@
+ 	struct _r_public *next,*prev; /**&lt; collision hash neighbours		*/
+ } r_public;
+ 
++
++/** S-CSCF registrar hash slot */
++typedef struct {
++	r_public *head;					/**&lt; first slot in the table			*/
++	r_public *tail;					/**&lt; last slot in the table				*/
++	gen_lock_t *lock;			/**&lt; slot lock 							*/	
++} r_hash_slot;
++
++
++
+ /** funtion to find a public identity in a registrar */
+ typedef r_public* (*get_r_public_f)(str aor);
+ /** function to unlock a registrar slot */
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/s_persistency.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-02-06 13:13:57 UTC (rev 116)
++++ ser_ims/branches/01_persistency/modules/scscf/s_persistency.c	2007-02-06 14:53:10 UTC (rev 117)
+@@ -220,7 +220,7 @@
+  * Creates a snapshots of the authorization data and then calls the dumping function.
+  * @returns 1 on success or 0 on failure
+  */
+-int make_snapshot_auth()
++int make_snapshot_authdata()
+ {
+ 	bin_data x;
+ 	auth_userdata *aud;
+@@ -247,7 +247,7 @@
+  * Loads the authorization data from the last snapshot.
+  * @returns 1 on success or 0 on failure
+  */
+-int load_snapshot_auth()
++int load_snapshot_authdata()
+ {
+ 	bin_data x;
+ 	auth_userdata *aud;
+@@ -256,7 +256,7 @@
+ 	x.max=0;
+ 	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_auth: max %d len %d\n&quot;,x.max,x.len);
+ 	while(x.max&lt;x.len){
+-		aud = bin_decode_auth_userdata(&amp;x);
++		aud = bin_decode_auth_userdata(&amp;x);		
+ 		if (!aud) return 0;
+ 		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_auth: Loaded auth_userdata for &lt;%.*s&gt;\n&quot;,aud-&gt;private_identity.len,aud-&gt;private_identity.s);
+ 		auth_data_lock(aud-&gt;hash);
+@@ -280,9 +280,9 @@
+  * @param ticks - what's the time
+  * @param param - a given parameter to be called with
+  */
+-void auth_persistency_timer(unsigned int ticks, void* param)
++void persistency_timer_authdata(unsigned int ticks, void* param)
+ {
+-	make_snapshot_auth();	 	
++	make_snapshot_authdata();	 	
+ }
+ 
+ 
+@@ -293,10 +293,10 @@
+ extern s_dialog_hash_slot *s_dialogs;				/**&lt; the hash table									*/
+ 
+ /**
+- * Creates a snapshots of the authorization data and then calls the dumping function.
++ * Creates a snapshots of the dialogs data and then calls the dumping function.
+  * @returns 1 on success or 0 on failure
+  */
+-int make_snapshot_dlg()
++int make_snapshot_dialogs()
+ {
+ 	bin_data x;
+ 	s_dialog *d;
+@@ -312,7 +312,7 @@
+ 		d_unlock(i);
+ 	}
+ 	bin_print(&amp;x);
+-	i = bin_dump(&amp;x,&quot;dlg&quot;);		
++	i = bin_dump(&amp;x,&quot;dialogs&quot;);		
+ 	bin_free(&amp;x);
+ 	return i;
+ error:
+@@ -320,14 +320,14 @@
+ }  
+ 
+ /**
+- * Loads the authorization data from the last snapshot.
++ * Loads the dialogs data from the last snapshot.
+  * @returns 1 on success or 0 on failure
+  */
+-int load_snapshot_dlg()
++int load_snapshot_dialogs()
+ {
+ 	bin_data x;
+ 	s_dialog *d;
+-	if (!bin_load(&amp;x,&quot;dlg&quot;)) goto error;
++	if (!bin_load(&amp;x,&quot;dialogs&quot;)) goto error;
+ 	bin_print(&amp;x);
+ 	x.max=0;
+ 	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_dlg: max %d len %d\n&quot;,x.max,x.len);
+@@ -356,9 +356,82 @@
+  * @param ticks - what's the time
+  * @param param - a given parameter to be called with
+  */
+-void dlg_persistency_timer(unsigned int ticks, void* param)
++void persistency_timer_dialogs(unsigned int ticks, void* param)
+ {
+-	make_snapshot_dlg();	 	
++	make_snapshot_dialogs();	 	
+ }
+ 
+ 
++
++extern int r_hash_size;						/**&lt; Size of S-CSCF registrar hash table		*/
++extern r_hash_slot *registrar;				/**&lt; The S-CSCF registrar 						*/
++
++/**
++ * Creates a snapshots of the registrar and then calls the dumping function.
++ * @returns 1 on success or 0 on failure
++ */
++int make_snapshot_registrar()
++{
++	bin_data x;
++	r_public *p;
++	int i;	
++	if (!bin_alloc(&amp;x,256)) goto error;		
++	for(i=0;i&lt;r_hash_size;i++){
++		r_lock(i);
++		p = registrar[i].head;
++		while(p){
++			if (!bin_encode_r_public(&amp;x,p)) goto error;
++			p = p-&gt;next;
++		}
++		r_unlock(i);
++	}
++	bin_print(&amp;x);
++	i = bin_dump(&amp;x,&quot;sregistrar&quot;);		
++	bin_free(&amp;x);
++	return i;
++error:
++	return 0;
++}  
++
++/**
++ * Loads the registrar data from the last snapshot.
++ * @returns 1 on success or 0 on failure
++ */
++int load_snapshot_registrar()
++{
++	bin_data x;
++	r_public *p;
++	if (!bin_load(&amp;x,&quot;sregistrar&quot;)) goto error;
++	bin_print(&amp;x);
++	x.max=0;
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_registrar: max %d len %d\n&quot;,x.max,x.len);
++	while(x.max&lt;x.len){
++		p = bin_decode_r_public(&amp;x);
++		if (!p) return 0;
++		LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:load_snapshot_registrar: Loaded r_public for &lt;%.*s&gt;\n&quot;,p-&gt;aor.len,p-&gt;aor.s);
++		r_lock(p-&gt;hash);
++		p-&gt;prev = registrar[p-&gt;hash].tail;
++		p-&gt;next = 0;
++		if (registrar[p-&gt;hash].tail) registrar[p-&gt;hash].tail-&gt;next = p;
++		registrar[p-&gt;hash].tail = p;
++		if (!registrar[p-&gt;hash].head) registrar[p-&gt;hash].head = p;
++		r_unlock(p-&gt;hash);
++	}
++	bin_free(&amp;x);
++	return 1;
++error:
++	return 0;
++	
++}
++
++
++/**
++ * Timer callback for persistency dumps
++ * @param ticks - what's the time
++ * @param param - a given parameter to be called with
++ */
++void persistency_timer_registrar(unsigned int ticks, void* param)
++{
++	make_snapshot_registrar();	 	
++}
++
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/s_persistency.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/s_persistency.h	2007-02-06 13:13:57 UTC (rev 116)
++++ ser_ims/branches/01_persistency/modules/scscf/s_persistency.h	2007-02-06 14:53:10 UTC (rev 117)
+@@ -65,12 +65,16 @@
+ 	WITH_DATABASE=2
+ } persistency_mode_t;
+ 
+-int make_snapshot_auth();
+-int load_snapshot_auth();
+-void auth_persistency_timer(unsigned int ticks, void* param);
++int make_snapshot_authdata();
++int load_snapshot_authdata();
++void persistency_timer_authdata(unsigned int ticks, void* param);
+ 
+-int make_snapshot_dlg();
+-int load_snapshot_dlg();
+-void dlg_persistency_timer(unsigned int ticks, void* param);
++int make_snapshot_dialogs();
++int load_snapshot_dialogs();
++void persistency_timer_dialogs(unsigned int ticks, void* param);
+ 
++int make_snapshot_registrar();
++int load_snapshot_registrar();
++void persistency_timer_registrar(unsigned int ticks, void* param);
++
+ #endif
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000171.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r116 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000173.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r118 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#172">[ date ]</a>
+              <a href="thread.html#172">[ thread ]</a>
+              <a href="subject.html#172">[ subject ]</a>
+              <a href="author.html#172">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

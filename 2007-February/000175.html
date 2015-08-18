@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r121 -	ser_ims/branches/01_persistency/modules/pcscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r121%20-%0A%09ser_ims/branches/01_persistency/modules/pcscf&In-Reply-To=%3C200702061754.l16Hstkc003570%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000174.html">
+   <LINK REL="Next"  HREF="000176.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r121 -	ser_ims/branches/01_persistency/modules/pcscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r121%20-%0A%09ser_ims/branches/01_persistency/modules/pcscf&In-Reply-To=%3C200702061754.l16Hstkc003570%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r121 -	ser_ims/branches/01_persistency/modules/pcscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Feb  6 18:54:55 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000174.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r120 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000176.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r122 - ser_ims/trunk/cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#175">[ date ]</a>
+              <a href="thread.html#175">[ thread ]</a>
+              <a href="subject.html#175">[ subject ]</a>
+              <a href="author.html#175">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-06 18:54:39 +0100 (Tue, 06 Feb 2007)
+New Revision: 121
+
+Added:
+   ser_ims/branches/01_persistency/modules/pcscf/bin.c
+   ser_ims/branches/01_persistency/modules/pcscf/bin.h
+   ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.c
+   ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.h
+   ser_ims/branches/01_persistency/modules/pcscf/p_persistency.c
+   ser_ims/branches/01_persistency/modules/pcscf/p_persistency.h
+Modified:
+   ser_ims/branches/01_persistency/modules/pcscf/mod.c
+   ser_ims/branches/01_persistency/modules/pcscf/registrar_storage.c
+   ser_ims/branches/01_persistency/modules/pcscf/registrar_storage.h
+Log:
+Added P-CSCF registrar persistency
+
+
+Added: ser_ims/branches/01_persistency/modules/pcscf/bin.c
+
+
+Property changes on: ser_ims/branches/01_persistency/modules/pcscf/bin.c
+___________________________________________________________________
+Name: svn:special
+   + *
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+Added: ser_ims/branches/01_persistency/modules/pcscf/bin.h
+
+
+Property changes on: ser_ims/branches/01_persistency/modules/pcscf/bin.h
+___________________________________________________________________
+Name: svn:special
+   + *
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+Added: ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.c
+
+
+Property changes on: ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.c
+___________________________________________________________________
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+Added: ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.h
+
+
+Property changes on: ser_ims/branches/01_persistency/modules/pcscf/bin_pcscf.h
+___________________________________________________________________
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+Modified: ser_ims/branches/01_persistency/modules/pcscf/mod.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/pcscf/mod.c	2007-02-06 17:54:00 UTC (rev 120)
++++ ser_ims/branches/01_persistency/modules/pcscf/mod.c	2007-02-06 17:54:39 UTC (rev 121)
+@@ -81,6 +81,7 @@
+ #include &quot;security.h&quot;
+ #include &quot;dlg_state.h&quot;
+ #include &quot;sdp_util.h&quot;
++#include &quot;p_persistency.h&quot;
+ 
+ 
+ MODULE_VERSION
+@@ -161,6 +162,16 @@
+ str pcscf_sip2ims_via_host;					/**&lt; fixed Via host of the SIP2IMS gateway - this is a hack \todo Remove this when the SIP2IMS is fully B2B */
+ int pcscf_sip2ims_via_port;					/**&lt; fixed Via port of the SIP2IMS gateway - this is a hack \todo Remove this when the SIP2IMS is fully B2B */
+ 
++
++persistency_mode_t pcscf_persistency_mode=NO_PERSISTENCY;			/**&lt; the type of persistency				*/
++char* pcscf_persistency_location=&quot;/opt/OpenIMSCore/persistency&quot;;	/**&lt; where to dump the persistency data 	*/
++int pcscf_persistency_timer_dialogs=60;								/**&lt; interval to snapshot dialogs data		*/ 
++int pcscf_persistency_timer_registrar=60;							/**&lt; interval to snapshot registrar data	*/ 
++
++
++int * shutdown_singleton;				/**&lt; Shutdown singleton 								*/
++
++
+ /** 
+  * Exported functions.
+  * - P_add_path() - Add the Path header to the message
+@@ -294,6 +305,11 @@
+  * - subscribe_retries - how many times to attempt SUBSCRIBE to reg on failure
+  * &lt;p&gt;
+  * - sip2ims_via - Via address of the SIP2IMS gateway \todo - remove when we would have a full B2B gateway
++ * &lt;p&gt;
++ * - persistency_mode - how to do persistency - 0 none; 1 with files; 2 with db	
++ * - persistency_location - where to dump/load the persistency data to/from
++ * - persistency_timer_dialogs - interval to make dialogs data snapshots at
++ * - persistency_timer_registrar - interval to make registrar snapshots at
+  */	
+ static param_export_t pcscf_params[]={ 
+ 	{&quot;name&quot;, STR_PARAM, &amp;pcscf_name},
+@@ -335,6 +351,11 @@
+ 	{&quot;icid_gen_addr&quot;,			STR_PARAM,		&amp;pcscf_icid_gen_addr},
+ 	{&quot;orig_ioi&quot;,				STR_PARAM,		&amp;pcscf_orig_ioi},
+ 	{&quot;term_ioi&quot;,				STR_PARAM,		&amp;pcscf_term_ioi},
++
++	{&quot;persistency_mode&quot;,	 			INT_PARAM, &amp;pcscf_persistency_mode},	
++	{&quot;persistency_location&quot;, 			STR_PARAM, &amp;pcscf_persistency_location},
++	{&quot;persistency_timer_dialogs&quot;,		INT_PARAM, &amp;pcscf_persistency_timer_dialogs},
++	{&quot;persistency_timer_registrar&quot;,		INT_PARAM, &amp;pcscf_persistency_timer_registrar},
+ 	
+ 	{0,0,0} 
+ };
+@@ -499,8 +520,12 @@
+  */
+ static int mod_init(void)
+ {
+-	load_tm_f load_tm;
++	load_tm_f load_tm;		
+ 	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:mod_init: Initialization of module\n&quot;);
++	shutdown_singleton=shm_malloc(sizeof(int));
++	*shutdown_singleton=0;
++	
++	
+ 	/* fix the parameters */
+ 	if (!fix_parameters()) goto error;
+ 	
+@@ -526,6 +551,10 @@
+ 	
+ 	/* init the registrar storage */
+ 	if (!r_storage_init(registrar_hash_size)) goto error;
++	if (pcscf_persistency_mode!=NO_PERSISTENCY){
++		load_snapshot_registrar();
++		if (register_timer(persistency_timer_registrar,0,pcscf_persistency_timer_registrar)&lt;0) goto error;
++	}
+ 
+ 	/* register the registrar timer */
+ 	if (register_timer(registrar_timer,registrar,10)&lt;0) goto error;
+@@ -541,6 +570,10 @@
+ 		LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:mod_init: Error initializing the Hash Table for stored dialogs\n&quot;);
+ 		goto error;
+ 	}		
++	if (pcscf_persistency_mode!=NO_PERSISTENCY){
++		load_snapshot_dialogs();
++		if (register_timer(persistency_timer_dialogs,0,pcscf_persistency_timer_dialogs)&lt;0) goto error;
++	}
+ 
+ 	/* register the dialog timer */
+ 	if (register_timer(dialog_timer,p_dialogs,60)&lt;0) goto error;
+@@ -558,6 +591,8 @@
+ 	return -1;
+ }
+ 
++extern gen_lock_t* process_lock;		/* lock on the process table */
++
+ /**
+  * Initializes the module in child.
+  */
+@@ -585,11 +620,24 @@
+  */
+ static void mod_destroy(void)
+ {
+-	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:mod_destroy: child exit\n&quot;);	
+-	parser_destroy();
+-	r_subscription_destroy();
+-	r_storage_destroy();
+-	p_dialogs_destroy();
++	int do_destroy=0;
++	LOG(L_INFO,&quot;INFO:&quot;M_NAME&quot;:mod_destroy: child exit\n&quot;);
++	lock_get(process_lock);
++		if((*shutdown_singleton)==0){
++			*shutdown_singleton=1;
++			do_destroy=1;
++		}
++	lock_release(process_lock);
++	if (do_destroy){
++		/* First let's snapshot everything */
++		make_snapshot_dialogs();
++		make_snapshot_registrar();
++		/* Then nuke it all */		
++		parser_destroy();
++		r_subscription_destroy();
++		r_storage_destroy();
++		p_dialogs_destroy();
++	}
+ }
+ 
+ 
+
+Added: ser_ims/branches/01_persistency/modules/pcscf/p_persistency.c
+
+
+Property changes on: ser_ims/branches/01_persistency/modules/pcscf/p_persistency.c
+___________________________________________________________________
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+Added: ser_ims/branches/01_persistency/modules/pcscf/p_persistency.h
+
+
+Property changes on: ser_ims/branches/01_persistency/modules/pcscf/p_persistency.h
+___________________________________________________________________
+Name: svn:keywords
+   + URL HeadURL Author LastChangedBy Date LastChangedDate Rev Revision LastChangedRevision Id
+
+Modified: ser_ims/branches/01_persistency/modules/pcscf/registrar_storage.c
+===================================================================
+--- ser_ims/branches/01_persistency/modules/pcscf/registrar_storage.c	2007-02-06 17:54:00 UTC (rev 120)
++++ ser_ims/branches/01_persistency/modules/pcscf/registrar_storage.c	2007-02-06 17:54:39 UTC (rev 121)
+@@ -113,7 +113,7 @@
+  * @param hash_size - size of the hash, to % with
+  * @returns the hash for the contact
+  */
+-static inline unsigned int get_contact_hash(str aor,int port,int transport,int hash_size)
++inline unsigned int get_contact_hash(str aor,int port,int transport,int hash_size)
+ {
+ #define h_inc h+=v^(v&gt;&gt;3)
+    char* p;
+
+Modified: ser_ims/branches/01_persistency/modules/pcscf/registrar_storage.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/pcscf/registrar_storage.h	2007-02-06 17:54:00 UTC (rev 120)
++++ ser_ims/branches/01_persistency/modules/pcscf/registrar_storage.h	2007-02-06 17:54:39 UTC (rev 121)
+@@ -64,13 +64,6 @@
+ 	unsigned short nat_port;	/**&lt; port of the pin hole in the NAT 	*/
+ }r_nat_dest;
+ 
+-/** Registrar Slot Structure */
+-typedef struct {
+-	void *head;					/**&lt; first contact in the slot			*/
+-	void *tail;					/**&lt; last contact in the slot			*/
+-	gen_lock_t *lock;			/**&lt; slot lock 							*/
+-} r_hash_slot;
+-
+ /** Registrar Public Identity Structure */
+ typedef struct _r_public {
+ 	str aor;					/**&lt; the public identity 				*/
+@@ -130,6 +123,12 @@
+ 	struct _r_contact *prev;	/**&lt; previous contact in this hash slot	*/
+ } r_contact;
+ 
++/** Registrar Slot Structure */
++typedef struct {
++	r_contact *head;					/**&lt; first contact in the slot			*/
++	r_contact *tail;					/**&lt; last contact in the slot			*/
++	gen_lock_t *lock;			/**&lt; slot lock 							*/
++} r_hash_slot;
+ 
+ 
+ void r_act_time();
+@@ -143,6 +142,8 @@
+ inline void r_lock(unsigned int hash);
+ inline void r_unlock(unsigned int hash);
+ 
++unsigned int get_contact_hash(str aor,int port,int transport,int hash_size);
++
+ r_public* new_r_public(str aor, int is_default);
+ r_public* get_r_public(r_contact *c, str aor);
+ r_public* add_r_public(r_contact *c,str aor,int is_default);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000174.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r120 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000176.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r122 - ser_ims/trunk/cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#175">[ date ]</a>
+              <a href="thread.html#175">[ thread ]</a>
+              <a href="subject.html#175">[ subject ]</a>
+              <a href="author.html#175">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

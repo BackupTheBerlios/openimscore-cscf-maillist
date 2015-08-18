@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Notify Request contains Invalid value..
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Notify%20Request%20contains%20Invalid%20value..&In-Reply-To=%3C4677AAC3.2080500%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000741.html">
+   <LINK REL="Next"  HREF="000743.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Notify Request contains Invalid value..</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Notify%20Request%20contains%20Invalid%20value..&In-Reply-To=%3C4677AAC3.2080500%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Notify Request contains Invalid value..">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Jun 19 12:06:59 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000741.html">[OpenIMSCore-CSCF] Notify Request contains Invalid value..
+</A></li>
+        <LI>Next message: <A HREF="000743.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r322 - Fixed P_IPSec_relay() and	P_NAT_relay() to force response relays to the right dst uri	(the rpl-&gt;dst_uri was never parsed).
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#742">[ date ]</a>
+              <a href="thread.html#742">[ thread ]</a>
+              <a href="subject.html#742">[ subject ]</a>
+              <a href="author.html#742">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Samir,
+
+Are you sure about the standard? I have not read any XML standard, just
+used common sense and the tabs to indent the XML so that it would more
+human readable... but so far no XML parser complained about it...
+
+Here is how it looks...
+
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;reginfo xmlns=&quot;urn:ietf:params:xml:ns:reginfo&quot; version=&quot;0&quot; state=&quot;full&quot;&gt;
+    &lt;registration aor=&quot;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">weik at open-ims.org</A>&quot; id=&quot;0xb5d58140&quot;
+state=&quot;active&quot;&gt;
+        &lt;contact id=&quot;0xb5d581c4&quot; state=&quot;active&quot; event=&quot;registered&quot;
+expires=&quot;599&quot;&gt;
+            &lt;uri&gt;sip:10.147.67.158:5060&lt;/uri&gt;
+        &lt;/contact&gt;
+    /registration&gt;
+&lt;/reginfo&gt;
+
+-Dragos
+
+
+SamirPatry wrote:
+&gt;<i> Hi All,  I am using our own tool in which i simulate the PCSCF and other 
+</I>&gt;<i> entity to test the SCSCF functionality. So after successful registration the 
+</I>&gt;<i> pcscf(our tool) send the Subscribe message and then receive the 200 ok for 
+</I>&gt;<i> the same(acting as PCSCF).Then the SCSCF will send the NOTIFY request toward 
+</I>&gt;<i> the pcscf .But in the it has some problem so our tool cannot decode the 
+</I>&gt;<i> notify request.After analyzing the  issue, it was concluded that the issue 
+</I>&gt;<i> is due to the XML data sent from SCSCF,  which sends NOTIFY request.Notify 
+</I>&gt;<i> with XML  attachment contains some 09 (tab) characters in XML dump which is 
+</I>&gt;<i> not decoded by our tool. Presence of 09/tab characters in XML data is not 
+</I>&gt;<i> accepted as per  standards.So dose anyone has any idea plz help me on the 
+</I>&gt;<i> same.
+</I>&gt;<i>
+</I>&gt;<i> dump contains some 09 (tab)characters which are high lighted in offset line 
+</I>&gt;<i> number 624, 704, 784, 816, 832.
+</I>&gt;<i>
+</I>&gt;<i>    0: 4E  4F 54 49 46 59 20 73      69 70 3A 33 36 2E 32 31      NOTIFY 
+</I>&gt;<i> sip:36.21
+</I>&gt;<i>   16: 32  2E 31 37 36 2E 39 32      3A 35 30 39 32 20 53 49 
+</I>&gt;<i> 2.176.92:5092  SI
+</I>&gt;<i>   32: 50  2F 32 2E 30 0D 0A 56      69 61 3A 20 53 49 50 2F      P/2.0..Via: 
+</I>&gt;<i> SIP/
+</I>&gt;<i>   48: 32  2E 30 2F 55 44 50 20      33 36 2E 32 31 32 2E 31      2.0/UDP 
+</I>&gt;<i> 36.212.1
+</I>&gt;<i>   64: 37  36 2E 39 32 3A 36 30      36 30 3B 62 72 61 6E 63 
+</I>&gt;<i> 76.92:6060;branc
+</I>&gt;<i>   80: 68  3D 7A 39 68 47 34 62      4B 33 62 64 32 2E 39 35 
+</I>&gt;<i> h=z9hG4bK3bd2.95
+</I>&gt;<i>   96: 39  33 32 37 2E 30 0D 0A      54 6F 3A 20 22 61 62 68      9327.0..To: 
+</I>&gt;<i> &quot;abh
+</I>&gt;<i>  112: 69  32 22 3C 73 69 70 3A      62 6F 62 40 6F 70 65 6E 
+</I>&gt;<i> i2&quot;&lt;sip:bob at open
+</I>&gt;<i>  128: 2D  69 6D 73 2E 74 65 73      74 3E 3B 74 61 67 3D 
+</I>&gt;<i>    -ims.test&gt;;tag=1
+</I>&gt;<i>  144: 31  38 31 37 34 33 30 33      35 36 34 31 0D 0A 46 72 
+</I>&gt;<i> 181743035641..Fr
+</I>&gt;<i>  160: 6F  6D 3A 20 22 61 62 68      69 32 22 3C 73 69 70 3A      om: 
+</I>&gt;<i> &quot;abhi2&quot;&lt;sip:
+</I>&gt;<i>  176: 62  6F 62 40 6F 70 65 6E      2D 69 6D 73 2E 74 65 73      bob at 
+</I>&gt;<i> open-ims.tes
+</I>&gt;<i>  192: 74  3E 3B 74 61 67 3D 34      30 64 34 66 34 65 38 63 
+</I>&gt;<i> t&gt;;tag=40d4f4e8c
+</I>&gt;<i>  208: 37  66 34 33 37 63 63 39      37 65 62 34 31 32 66 39 
+</I>&gt;<i> 7f437cc97eb412f9
+</I>&gt;<i>  224: 32  35 35 38 64 33 66 2D      39 63 63 34 0D 0A 43 53 
+</I>&gt;<i> 2558d3f-9cc4..CS
+</I>&gt;<i>  240: 65  71 3A 20 31 35 20 4E      4F 54 49 46 59 0D 0A 43      eq: 15 
+</I>&gt;<i> NOTIFY..C
+</I>&gt;<i>  256: 61  6C 6C 2D 49 44 3A 20      31 31 38 31 37 34 33 30      all-ID: 
+</I>&gt;<i> 11817430
+</I>&gt;<i>  272: 33  35 36 34 31 40 6F 70      65 6E 2D 69 6D 73 2E 74      35641 at 
+</I>&gt;<i> open-ims.t
+</I>&gt;<i>  288: 65  73 74 0D 0A 43 6F 6E      74 65 6E 74 2D 4C 65 6E 
+</I>&gt;<i> est..Content-Len
+</I>&gt;<i>  304: 67  74 68 3A 20 33 32 38      0D 0A 55 73 65 72 2D 41      gth: 
+</I>&gt;<i> 328..User-A
+</I>&gt;<i>  320: 67  65 6E 74 3A 20 53 69      70 20 45 58 70 72 65 73      gent: Sip 
+</I>&gt;<i> EXpres
+</I>&gt;<i>  336: 73  20 72 6F 75 74 65 72      28 32 2E 31 2E 30 2D 64      s 
+</I>&gt;<i> router(2.1.0-d
+</I>&gt;<i>  352: 65  76 31 20 4F 70 65 6E      49 4D 53 43 6F 72 65 20      ev1 
+</I>&gt;<i> OpenIMSCore
+</I>&gt;<i>  368: 28  69 33 38 36 2F 6C 69      6E 75 78 29 29 0D 0A 43 
+</I>&gt;<i> (i386/linux))..C
+</I>&gt;<i>  384: 6F  6E 74 61 63 74 3A 20      3C 73 69 70 3A 73 63 73      ontact: 
+</I>&gt;<i> &lt;sip:scs
+</I>&gt;<i>  400: 63  66 2E 6F 70 65 6E 2D      69 6D 73 2E 74 65 73 74 
+</I>&gt;<i> cf.open-ims.test
+</I>&gt;<i>  416: 3A  36 30 36 30 3E 0D 0A      45 76 65 6E 74 3A 20 72 
+</I>&gt;<i> :6060&gt;..Event:  r
+</I>&gt;<i>  432: 65  67 0D 0A 4D 61 78 2D      46 6F 72 77 61 72 64 73 
+</I>&gt;<i> eg..Max-Forwards
+</I>&gt;<i>  448: 3A  20 37 30 0D 0A 53 75      62 73 63 72 69 70 74 69      : 
+</I>&gt;<i> 70..Subscripti
+</I>&gt;<i>  464: 6F  6E 2D 53 74 61 74 65      3A 20 61 63 74 69 76 65      on-State: 
+</I>&gt;<i> active
+</I>&gt;<i>  480: 3B  65 78 70 69 72 65 73      3D 33 36 33 30 0D 0A 43 
+</I>&gt;<i> ;expires=3630..C
+</I>&gt;<i>  496: 6F  6E 74 65 6E 74 2D 54      79 70 65 3A 20 61 70 70 
+</I>&gt;<i> ontent-Type:  app
+</I>&gt;<i>  512: 6C  69 63 61 74 69 6F 6E      2F 72 65 67 69 6E 66 6F 
+</I>&gt;<i> lication/reginfo
+</I>&gt;<i>  528: 2B  78 6D 6C 0D 0A 0D 0A      3C 3F 78 6D 6C 20 76 65 
+</I>&gt;<i> +xml....&lt;?xml  ve
+</I>&gt;<i>  544: 72  73 69 6F 6E 3D 22 31      2E 30 22 3F 3E 0A 3C 72 
+</I>&gt;<i> rsion=&quot;1.0&quot;?&gt;.&lt;r
+</I>&gt;<i>  560: 65  67 69 6E 66 6F 20 78      6D 6C 6E 73 3D 22 75 72      eginfo 
+</I>&gt;<i> xmlns=&quot;ur
+</I>&gt;<i>  576: 6E  3A 69 65 74 66 3A 70      61 72 61 6D 73 3A 78 6D 
+</I>&gt;<i> n:ietf:params:xm
+</I>&gt;<i>  592: 6C  3A 6E 73 3A 72 65 67      69 6E 66 6F 22 20 76 65 
+</I>&gt;<i> l:ns:reginfo&quot;  ve
+</I>&gt;<i>  608: 72  73 69 6F 6E 3D 22 35      22 20 73 74 61 74 65 3D      rsion=&quot;5&quot; 
+</I>&gt;<i> state=
+</I>&gt;<i>  624: 22  70 61 72 74 69 61 6C      22 3E 0A 09 3C 72 65  67 
+</I>&gt;<i> &quot;partial&quot;&gt;..&lt;reg
+</I>&gt;<i>  640: 69  73 74 72 61 74 69 6F      6E 20 61 6F 72 3D 22 73      istration 
+</I>&gt;<i> aor=&quot;s
+</I>&gt;<i>  656: 69  70 3A 62 6F 62 40 6F      70 65 6E 2D 69 6D 73 2E       ip:bob at 
+</I>&gt;<i> open-ims.
+</I>&gt;<i>  672: 74  65 73 74 22 20 69 64      3D 22 30 78 62 35 33 64      test&quot; 
+</I>&gt;<i> id=&quot;0xb53d
+</I>&gt;<i>  688: 65  62 35 63 22 20 73 74      61 74 65 3D 22 61 63 74      eb5c&quot; 
+</I>&gt;<i> state=&quot;act
+</I>&gt;<i>  704: 69  76 65 22 3E 0A 09  09      3C  63 6F 6E 74 61 63 74 
+</I>&gt;<i> ive&quot;&gt;...&lt;contact
+</I>&gt;<i>  720: 20  69 64 3D 22 30 78 62      35 33 64 61 33 64 30 22 
+</I>&gt;<i> id=&quot;0xb53da3d0&quot;
+</I>&gt;<i>  736: 20  73 74 61 74 65 3D 22      61 63 74 69 76 65 22 20 
+</I>&gt;<i> state=&quot;active&quot;
+</I>&gt;<i>  752: 65  76 65 6E 74 3D 22 72      65 66 72 65 73 68 65 64 
+</I>&gt;<i> event=&quot;refreshed
+</I>&gt;<i>  768: 22  20 65 78 70 69 72 65      73 3D 22 33 36 30 30 22      &quot; 
+</I>&gt;<i> expires=&quot;3600&quot;
+</I>&gt;<i>  784: 3E  0A 09  09 09 3C 75  72      69 3E 73 69 70 3A 33 36 
+</I>&gt;<i>  &gt;....&lt;uri&gt;sip:36
+</I>&gt;<i>  800: 2E  32 31 32 2E 31 37 36      2E 39 32 3A 35 30 39 32 
+</I>&gt;<i> .212.176.92:5092
+</I>&gt;<i>  816: 3C  2F 75 72 69 3E 0A 09       09 3C 2F 63  6F 6E 74 61 
+</I>&gt;<i> &lt;/uri&gt;...&lt;/conta
+</I>&gt;<i>  832: 63  74 3E 0A 09 3C 2F  72      65 67 69 73 74 72 61 74 
+</I>&gt;<i> ct&gt;..&lt;/registrat
+</I>&gt;<i>  848: 69  6F 6E 3E 0A 3C 2F 72      65 67 69 6E 66 6F 3E 0A 
+</I>&gt;<i> ion&gt;.&lt;/reginfo&gt;.
+</I>&gt;<i>  864:
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>     Regards
+</I>&gt;<i>
+</I>&gt;<i>     Samir Patry 
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000741.html">[OpenIMSCore-CSCF] Notify Request contains Invalid value..
+</A></li>
+	<LI>Next message: <A HREF="000743.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r322 - Fixed P_IPSec_relay() and	P_NAT_relay() to force response relays to the right dst uri	(the rpl-&gt;dst_uri was never parsed).
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#742">[ date ]</a>
+              <a href="thread.html#742">[ thread ]</a>
+              <a href="subject.html#742">[ subject ]</a>
+              <a href="author.html#742">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

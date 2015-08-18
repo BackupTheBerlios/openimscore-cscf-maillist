@@ -1,0 +1,389 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r105 - in	ser_ims/branches/01_persistency: . .settings modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r105%20-%20in%0A%09ser_ims/branches/01_persistency%3A%20.%20.settings%20modules/scscf&In-Reply-To=%3C200701291709.l0TH92PP013933%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000155.html">
+   <LINK REL="Next"  HREF="000157.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r105 - in	ser_ims/branches/01_persistency: . .settings modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r105%20-%20in%0A%09ser_ims/branches/01_persistency%3A%20.%20.settings%20modules/scscf&In-Reply-To=%3C200701291709.l0TH92PP013933%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r105 - in	ser_ims/branches/01_persistency: . .settings modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Mon Jan 29 18:09:02 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000155.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r104 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000157.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r106 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#156">[ date ]</a>
+              <a href="thread.html#156">[ thread ]</a>
+              <a href="subject.html#156">[ subject ]</a>
+              <a href="author.html#156">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-01-29 18:08:53 +0100 (Mon, 29 Jan 2007)
+New Revision: 105
+
+Added:
+   ser_ims/branches/01_persistency/modules/scscf/bin.c
+   ser_ims/branches/01_persistency/modules/scscf/bin.h
+   ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+   ser_ims/branches/01_persistency/modules/scscf/bin_scscf.h
+Removed:
+   ser_ims/branches/01_persistency/modules/scscf/ifc_bin.c
+   ser_ims/branches/01_persistency/modules/scscf/ifc_bin.h
+Modified:
+   ser_ims/branches/01_persistency/.cdtproject
+   ser_ims/branches/01_persistency/.project
+   ser_ims/branches/01_persistency/.settings/org.eclipse.cdt.core.prefs
+   ser_ims/branches/01_persistency/modules/scscf/ifc_datastruct.h
+   ser_ims/branches/01_persistency/modules/scscf/mod.h
+Log:
+Worked on binary encoding:
+- cleaned up basic functions
+- added ims_subscription full encode/decode
+- added auth_userdata full encode/decode
+- compiles, but not tested !
+
+
+
+Modified: ser_ims/branches/01_persistency/.cdtproject
+===================================================================
+--- ser_ims/branches/01_persistency/.cdtproject	2007-01-27 09:58:10 UTC (rev 104)
++++ ser_ims/branches/01_persistency/.cdtproject	2007-01-29 17:08:53 UTC (rev 105)
+@@ -59,133 +59,133 @@
+ &lt;buildTargets&gt;
+ &lt;target name=&quot;pcscf&quot; path=&quot;modules/pcscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;pcscf clean&quot; path=&quot;modules/pcscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;all&quot; path=&quot;modules/cdp&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;clean&quot; path=&quot;modules/cdp&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;isc&quot; path=&quot;modules/isc&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;isc clean&quot; path=&quot;modules/isc&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;sh&quot; path=&quot;modules/sh&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;sh clean&quot; path=&quot;modules/sh&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;all&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;distclean&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;distclean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;clean&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;modules&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;modules&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;icscf&quot; path=&quot;modules/icscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;icscf clean&quot; path=&quot;modules/icscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;doxygen&quot; path=&quot;doxygen&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;doxygen&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;doxygen.config&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;false&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;sip2ims&quot; path=&quot;modules/sip2ims&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;sip2ims clean&quot; path=&quot;modules/sip2ims&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;scscf&quot; path=&quot;modules/scscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;scscf clean&quot; path=&quot;modules/scscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildArguments/&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+
+Modified: ser_ims/branches/01_persistency/.project
+===================================================================
+--- ser_ims/branches/01_persistency/.project	2007-01-27 09:58:10 UTC (rev 104)
++++ ser_ims/branches/01_persistency/.project	2007-01-29 17:08:53 UTC (rev 105)
+@@ -1,13 +1,13 @@
+ &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+ &lt;projectDescription&gt;
+-	&lt;name&gt;ser_ims&lt;/name&gt;
++	&lt;name&gt;ser_ims.01_persistency&lt;/name&gt;
+ 	&lt;comment&gt;&lt;/comment&gt;
+ 	&lt;projects&gt;
+ 	&lt;/projects&gt;
+ 	&lt;buildSpec&gt;
+ 		&lt;buildCommand&gt;
+ 			&lt;name&gt;org.eclipse.cdt.make.core.makeBuilder&lt;/name&gt;
+-			&lt;triggers&gt;&lt;/triggers&gt;
++			&lt;triggers&gt;clean,full,incremental,&lt;/triggers&gt;
+ 			&lt;arguments&gt;
+ 				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.build.arguments&lt;/key&gt;
+@@ -18,40 +18,40 @@
+ 					&lt;value&gt;org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.VCErrorParser;&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
++					&lt;key&gt;org.eclipse.cdt.make.core.enableAutoBuild&lt;/key&gt;
++					&lt;value&gt;false&lt;/value&gt;
++				&lt;/dictionary&gt;
++				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.environment&lt;/key&gt;
+ 					&lt;value&gt;&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
+-					&lt;key&gt;org.eclipse.cdt.make.core.enableAutoBuild&lt;/key&gt;
+-					&lt;value&gt;false&lt;/value&gt;
++					&lt;key&gt;org.eclipse.cdt.make.core.enableFullBuild&lt;/key&gt;
++					&lt;value&gt;true&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.build.target.inc&lt;/key&gt;
+ 					&lt;value&gt;all&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
+-					&lt;key&gt;org.eclipse.cdt.make.core.enableFullBuild&lt;/key&gt;
+-					&lt;value&gt;false&lt;/value&gt;
+-				&lt;/dictionary&gt;
+-				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.enabledIncrementalBuild&lt;/key&gt;
+-					&lt;value&gt;false&lt;/value&gt;
++					&lt;value&gt;true&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.build.location&lt;/key&gt;
+ 					&lt;value&gt;&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
++					&lt;key&gt;org.eclipse.cdt.make.core.build.target.clean&lt;/key&gt;
++					&lt;value&gt;clean&lt;/value&gt;
++				&lt;/dictionary&gt;
++				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.build.command&lt;/key&gt;
+ 					&lt;value&gt;make&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
+-					&lt;key&gt;org.eclipse.cdt.make.core.build.target.clean&lt;/key&gt;
+-					&lt;value&gt;clean&lt;/value&gt;
+-				&lt;/dictionary&gt;
+-				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.enableCleanBuild&lt;/key&gt;
+-					&lt;value&gt;false&lt;/value&gt;
++					&lt;value&gt;true&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.append_environment&lt;/key&gt;
+
+Modified: ser_ims/branches/01_persistency/.settings/org.eclipse.cdt.core.prefs
+===================================================================
+--- ser_ims/branches/01_persistency/.settings/org.eclipse.cdt.core.prefs	2007-01-27 09:58:10 UTC (rev 104)
++++ ser_ims/branches/01_persistency/.settings/org.eclipse.cdt.core.prefs	2007-01-29 17:08:53 UTC (rev 105)
+@@ -1,3 +1,3 @@
+-#Wed Nov 22 14:45:59 CET 2006
++#Mon Jan 29 09:03:54 CET 2007
+ eclipse.preferences.version=1
+ indexerId=org.eclipse.cdt.core.nullindexer
+
+Copied: ser_ims/branches/01_persistency/modules/scscf/bin.c (from rev 104, ser_ims/branches/01_persistency/modules/scscf/ifc_bin.c)
+
+Copied: ser_ims/branches/01_persistency/modules/scscf/bin.h (from rev 104, ser_ims/branches/01_persistency/modules/scscf/ifc_bin.h)
+
+Added: ser_ims/branches/01_persistency/modules/scscf/bin_scscf.c
+
+Added: ser_ims/branches/01_persistency/modules/scscf/bin_scscf.h
+
+Deleted: ser_ims/branches/01_persistency/modules/scscf/ifc_bin.c
+
+Deleted: ser_ims/branches/01_persistency/modules/scscf/ifc_bin.h
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/ifc_datastruct.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/ifc_datastruct.h	2007-01-27 09:58:10 UTC (rev 104)
++++ ser_ims/branches/01_persistency/modules/scscf/ifc_datastruct.h	2007-01-29 17:08:53 UTC (rev 105)
+@@ -151,8 +151,8 @@
+ 
+ /** Public Identity Structure */
+ typedef struct {
++	int barring;				/**&lt; Barring state									*/
+ 	str public_identity;		/**&lt; Public Identity string							*/
+-	int barring;				/**&lt; Barring state									*/
+ } ims_public_identity;
+ 
+ /** Initial Filter Criteria Structure */
+@@ -164,7 +164,7 @@
+ 	int *profile_part_indicator;				/**&lt; profile part indicator 0..1 */	
+ } ims_filter_criteria;
+ 
+-/** CoreNetowkr Service Authorization */
++/** CoreNetwork Service Authorization */
+ typedef struct _ims_cn_service_auth
+ {
+ 	int subscribed_media_profile_id;	/* must be &gt;=0 */
+
+Modified: ser_ims/branches/01_persistency/modules/scscf/mod.h
+===================================================================
+--- ser_ims/branches/01_persistency/modules/scscf/mod.h	2007-01-27 09:58:10 UTC (rev 104)
++++ ser_ims/branches/01_persistency/modules/scscf/mod.h	2007-01-29 17:08:53 UTC (rev 105)
+@@ -124,6 +124,8 @@
+ #define S_CSCF_MOD_H
+ 
+ #include &quot;../../sr_module.h&quot;
++#include &quot;../../mem/shm_mem.h&quot;
++#include &quot;../../mem/mem.h&quot;
+ 
+ #define M_NAME &quot;S-CSCF&quot;
+ 
+@@ -143,7 +145,7 @@
+ {\
+ 	(dest).s = shm_malloc((src).len);\
+ 	if (!(dest).s){\
+-		LOG(L_ERR,&quot;ERRL:&quot;M_NAME&quot;:&quot;txt&quot;: Error allocating %d bytes\n&quot;,(src).len);\
++		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:&quot;txt&quot;: Error allocating %d bytes\n&quot;,(src).len);\
+ 	}\
+ 	(dest).len = (src).len;\
+ 	memcpy((dest).s,(src).s,(src).len);\
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000155.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r104 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000157.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r106 -	ser_ims/branches/01_persistency/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#156">[ date ]</a>
+              <a href="thread.html#156">[ thread ]</a>
+              <a href="subject.html#156">[ subject ]</a>
+              <a href="author.html#156">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

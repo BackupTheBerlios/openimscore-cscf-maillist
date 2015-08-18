@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] REGISTER over ipsec
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20REGISTER%20over%20ipsec&In-Reply-To=%3C006901cc2655%249cd25f10%24d6771d30%24%40technikum-wien.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002570.html">
+   <LINK REL="Next"  HREF="002577.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] REGISTER over ipsec</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20REGISTER%20over%20ipsec&In-Reply-To=%3C006901cc2655%249cd25f10%24d6771d30%24%40technikum-wien.at%3E"
+       TITLE="[OpenIMSCore-CSCF] REGISTER over ipsec">franz.edler at technikum-wien.at
+       </A><BR>
+    <I>Thu Jun  9 05:30:42 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002570.html">[OpenIMSCore-CSCF] REGISTER over ipsec
+</A></li>
+        <LI>Next message: <A HREF="002577.html">[OpenIMSCore-CSCF] Issues with using IPv6
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2571">[ date ]</a>
+              <a href="thread.html#2571">[ thread ]</a>
+              <a href="subject.html#2571">[ subject ]</a>
+              <a href="author.html#2571">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Mohsen,
+
+&gt;<i> Just reporting back how I resolved this issue. The reason for this
+</I>behavior
+&gt;<i> was that my UE was using a different port for ipsec protected messages
+</I>then
+&gt;<i> the port for unprotected messages; as soon as I started using the same
+</I>port
+&gt;<i> for both protected and unprotected; the issue with SUBSCRIBE was resolved.
+</I>&gt;<i> best regards,
+</I>
+I recently had also some trouble to get IPsec working. Therefor I am
+interested in your case.
+Can you add a tracefile?
+What is with the 2nd REGISTER request? 
+Was it already protected and only the SUBSCRIBE request unprotected?
+
+What kind of client did you use?
+
+BR
+Franz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002570.html">[OpenIMSCore-CSCF] REGISTER over ipsec
+</A></li>
+	<LI>Next message: <A HREF="002577.html">[OpenIMSCore-CSCF] Issues with using IPv6
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2571">[ date ]</a>
+              <a href="thread.html#2571">[ thread ]</a>
+              <a href="subject.html#2571">[ subject ]</a>
+              <a href="author.html#2571">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

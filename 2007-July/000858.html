@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r397 - support for privacy	procedures for P-Asserted-Identity (RFCs 3323/3325)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r397%20-%20support%20for%20privacy%0A%09procedures%20for%20P-Asserted-Identity%20%28RFCs%203323/3325%29&In-Reply-To=%3C200707201559.l6KFxeD0018173%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000857.html">
+   <LINK REL="Next"  HREF="000859.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r397 - support for privacy	procedures for P-Asserted-Identity (RFCs 3323/3325)</H1>
+    <B>placido at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r397%20-%20support%20for%20privacy%0A%09procedures%20for%20P-Asserted-Identity%20%28RFCs%203323/3325%29&In-Reply-To=%3C200707201559.l6KFxeD0018173%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r397 - support for privacy	procedures for P-Asserted-Identity (RFCs 3323/3325)">placido at users.berlios.de
+       </A><BR>
+    <I>Fri Jul 20 17:59:40 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000857.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r396 - I-CSCF support for	&quot;Originating procedures for requests containing the 'orig'	parameter&quot; - section 5.3.2.1A of 3GPP TS 24.229-770
+</A></li>
+        <LI>Next message: <A HREF="000859.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r398 - - reworked isc module (no	tm callbacks, uses failure routes) - support for &quot;;	orig&quot; uri parameter to identity originating session case - allowed	some S-CSCF functions to be called from failure routes to	implement new isc behaviour - enhanced PSTN handling in	scscf.cfg - simplified ACK routing in scscf.cfg - fixed	S_is/orig/term_not_registered() functions - allow terminating	tel URIs in scscf.cfg - fixed some typos in scscf.cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#858">[ date ]</a>
+              <a href="thread.html#858">[ thread ]</a>
+              <a href="subject.html#858">[ subject ]</a>
+              <a href="author.html#858">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: placido
+Date: 2007-07-20 17:59:27 +0200 (Fri, 20 Jul 2007)
+New Revision: 397 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=397">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=397</A> 
+
+Log:
+support for privacy procedures for P-Asserted-Identity (RFCs 3323/3325)
+
+Added:
+   A	ser_ims/trunk/modules/scscf/privacy.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/privacy.c?rev=397&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/privacy.c?rev=397&amp;view=markup</A>
+   A	ser_ims/trunk/modules/scscf/privacy.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/privacy.h?rev=397&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/privacy.h?rev=397&amp;view=markup</A>
+Modified:
+   U	ser_ims/trunk/cfg/scscf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=397&amp;view=diff&amp;r1=397&amp;r2=396">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/scscf.cfg?rev=397&amp;view=diff&amp;r1=397&amp;r2=396</A>
+   U	ser_ims/trunk/modules/scscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=397&amp;view=diff&amp;r1=397&amp;r2=396">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/mod.c?rev=397&amp;view=diff&amp;r1=397&amp;r2=396</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000857.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r396 - I-CSCF support for	&quot;Originating procedures for requests containing the 'orig'	parameter&quot; - section 5.3.2.1A of 3GPP TS 24.229-770
+</A></li>
+	<LI>Next message: <A HREF="000859.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r398 - - reworked isc module (no	tm callbacks, uses failure routes) - support for &quot;;	orig&quot; uri parameter to identity originating session case - allowed	some S-CSCF functions to be called from failure routes to	implement new isc behaviour - enhanced PSTN handling in	scscf.cfg - simplified ACK routing in scscf.cfg - fixed	S_is/orig/term_not_registered() functions - allow terminating	tel URIs in scscf.cfg - fixed some typos in scscf.cfg
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#858">[ date ]</a>
+              <a href="thread.html#858">[ thread ]</a>
+              <a href="subject.html#858">[ subject ]</a>
+              <a href="author.html#858">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

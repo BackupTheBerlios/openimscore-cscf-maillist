@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r79 - ser_ims/trunk/modules/isc
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r79%20-%20ser_ims/trunk/modules/isc&In-Reply-To=%3C200701021412.l02ECt47015667%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000082.html">
+   <LINK REL="Next"  HREF="000084.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r79 - ser_ims/trunk/modules/isc</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r79%20-%20ser_ims/trunk/modules/isc&In-Reply-To=%3C200701021412.l02ECt47015667%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r79 - ser_ims/trunk/modules/isc">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Tue Jan  2 15:12:55 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000082.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r78 - in ser_ims/trunk: cfg	modules/isc modules/scscf
+</A></li>
+        <LI>Next message: <A HREF="000084.html">[OpenIMSCore-CSCF] 3rd Party REGISTER
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#83">[ date ]</a>
+              <a href="thread.html#83">[ thread ]</a>
+              <a href="subject.html#83">[ subject ]</a>
+              <a href="author.html#83">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-01-02 15:12:34 +0100 (Tue, 02 Jan 2007)
+New Revision: 79
+
+Added:
+   ser_ims/trunk/modules/isc/third_party_reg.h
+Modified:
+   ser_ims/trunk/modules/isc/mod.h
+   ser_ims/trunk/modules/isc/sip.h
+Log:
+Commited missing files for 3rd Party REGISTER.
+
+
+Modified: ser_ims/trunk/modules/isc/mod.h
+===================================================================
+--- ser_ims/trunk/modules/isc/mod.h	2007-01-02 14:09:37 UTC (rev 78)
++++ ser_ims/trunk/modules/isc/mod.h	2007-01-02 14:12:34 UTC (rev 79)
+@@ -200,6 +200,21 @@
+ /** User unregistered (not registered but with services for unregistered state) */
+ #define IMS_USER_UNREGISTERED -1
+ 
++#define STR_SHM_DUP(dest,src,txt)\
++{\
++        (dest).s = shm_malloc((src).len);\
++        if (!(dest).s){\
++                LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:&quot;txt&quot;: Error allocating %d bytes\n&quot;,(src).len);\
++        }else{\
++                (dest).len = (src).len;\
++                memcpy((dest).s,(src).s,(src).len);\
++        }\
++}
++
++#define STR_APPEND(dst,src)\
++        {memcpy((dst).s+(dst).len,(src).s,(src).len);\
++        (dst).len = (dst).len + (src).len;}
++
+ /** Direction of the dialog */
+ enum dialog_direction {
+ 	DLG_MOBILE_ORIGINATING=0,	/** Originating */
+
+Modified: ser_ims/trunk/modules/isc/sip.h
+===================================================================
+--- ser_ims/trunk/modules/isc/sip.h	2007-01-02 14:09:37 UTC (rev 78)
++++ ser_ims/trunk/modules/isc/sip.h	2007-01-02 14:12:34 UTC (rev 79)
+@@ -56,6 +56,7 @@
+ 
+ #include &quot;../../data_lump_rpl.h&quot;
+ //#include &quot;../../fifo_server.h&quot;
++#include &quot;../../parser/contact/parse_contact.h&quot;
+ #include &quot;../../parser/parse_uri.h&quot;
+ #include &quot;../../parser/parse_from.h&quot;
+ #include &quot;../../parser/parse_content.h&quot;
+@@ -68,6 +69,7 @@
+ int str2icmp(str x,str y);
+ 
+ int isc_is_initial_request(struct sip_msg *msg);
++int isc_is_register(struct sip_msg *msg);
+ 	
+ int isc_get_originating_user( struct sip_msg * msg, str *uri );
+ 
+@@ -83,6 +85,17 @@
+ 
+ struct sip_msg* cscf_get_request_from_reply(struct sip_msg *reply);
+ 
++// from scscf
++int cscf_get_expires_hdr(struct sip_msg *msg);
++contact_body_t *cscf_parse_contacts(struct sip_msg *msg);
++str cscf_get_public_identity(struct sip_msg *msg);
++
++// from pcscf
++int cscf_get_first_p_associated_uri(struct sip_msg *msg,str *public_id);
++str cscf_get_access_network_info(struct sip_msg *msg, struct hdr_field **h);
++str cscf_get_visited_network_id(struct sip_msg *msg, struct hdr_field **h);
++str cscf_get_charging_vector(struct sip_msg *msg, struct hdr_field **h);
++
+ #endif
+ 
+ 
+
+Added: ser_ims/trunk/modules/isc/third_party_reg.h
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000082.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r78 - in ser_ims/trunk: cfg	modules/isc modules/scscf
+</A></li>
+	<LI>Next message: <A HREF="000084.html">[OpenIMSCore-CSCF] 3rd Party REGISTER
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#83">[ date ]</a>
+              <a href="thread.html#83">[ thread ]</a>
+              <a href="subject.html#83">[ subject ]</a>
+              <a href="author.html#83">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

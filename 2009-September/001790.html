@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r729 - -added exported function	E_fwded_dialog to check if the initial INVITE request was	forwarded to the PSAP,	to be used to check if the ACK or CANCEL should be forwarded as well	-modified the exported function E_get_location to return TRUE	(ok) if no Geolocation header is found,	as the location can be retrieved by the LRF through the GLE
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r729%20-%20-added%20exported%20function%0A%09E_fwded_dialog%20to%20check%20if%20the%20initial%20INVITE%20request%20was%0A%09forwarded%20to%20the%20PSAP%2C%0A%09to%20be%20used%20to%20check%20if%20the%20ACK%20or%20CANCEL%20should%20be%20forwarded%20as%20well%0A%09-modified%20the%20exported%20function%20E_get_location%20to%20return%20TRUE%0A%09%28ok%29%20if%20no%20Geolocation%20header%20is%20found%2C%0A%09as%20the%20location%20can%20be%20retrieved%20by%20the%20LRF%20through%20the%20GLE&In-Reply-To=%3C200909240716.n8O7GuTs007753%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001789.html">
+   <LINK REL="Next"  HREF="001791.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r729 - -added exported function	E_fwded_dialog to check if the initial INVITE request was	forwarded to the PSAP,	to be used to check if the ACK or CANCEL should be forwarded as well	-modified the exported function E_get_location to return TRUE	(ok) if no Geolocation header is found,	as the location can be retrieved by the LRF through the GLE</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r729%20-%20-added%20exported%20function%0A%09E_fwded_dialog%20to%20check%20if%20the%20initial%20INVITE%20request%20was%0A%09forwarded%20to%20the%20PSAP%2C%0A%09to%20be%20used%20to%20check%20if%20the%20ACK%20or%20CANCEL%20should%20be%20forwarded%20as%20well%0A%09-modified%20the%20exported%20function%20E_get_location%20to%20return%20TRUE%0A%09%28ok%29%20if%20no%20Geolocation%20header%20is%20found%2C%0A%09as%20the%20location%20can%20be%20retrieved%20by%20the%20LRF%20through%20the%20GLE&In-Reply-To=%3C200909240716.n8O7GuTs007753%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r729 - -added exported function	E_fwded_dialog to check if the initial INVITE request was	forwarded to the PSAP,	to be used to check if the ACK or CANCEL should be forwarded as well	-modified the exported function E_get_location to return TRUE	(ok) if no Geolocation header is found,	as the location can be retrieved by the LRF through the GLE">aon at users.berlios.de
+       </A><BR>
+    <I>Thu Sep 24 09:16:56 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001789.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r728 - -added exported function	LRF_sw2options - separated the code to switch to the OPTIONS	transaction from the NOTIFY transaction directly from the	script -added exported function LRF_options_empty_repl - send	a transactional reply to the OPTIONS request,	sl_send_reply from the script was sending replies to the NOTIFY	request,	to be used to send (error) replies to the OPTIONS request with no	body
+</A></li>
+        <LI>Next message: <A HREF="001791.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r730 - -fixed a bug in the parser:	search for the namespace of geodetic or civic location in the	&lt;location-info&gt; node,	not the &lt;presence&gt; node -modified the parser to support geodetic and	civic location info in the same &lt;location-info&gt; node
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1790">[ date ]</a>
+              <a href="thread.html#1790">[ thread ]</a>
+              <a href="subject.html#1790">[ subject ]</a>
+              <a href="author.html#1790">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2009-09-24 09:16:51 +0200 (Thu, 24 Sep 2009)
+New Revision: 729 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=729">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=729</A> 
+
+Log:
+-added exported function E_fwded_dialog to check if the initial INVITE request was forwarded to the PSAP, to be used to check if the ACK or CANCEL should be forwarded as well
+-modified the exported function E_get_location to return TRUE (ok) if no Geolocation header is found, as the location can be retrieved by the LRF through the GLE
+
+
+Modified:
+   U	ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c?rev=729&amp;view=diff&amp;r1=729&amp;r2=728">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c?rev=729&amp;view=diff&amp;r1=729&amp;r2=728</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/dlg_state.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.h?rev=729&amp;view=diff&amp;r1=729&amp;r2=728">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.h?rev=729&amp;view=diff&amp;r1=729&amp;r2=728</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/lrf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.c?rev=729&amp;view=diff&amp;r1=729&amp;r2=728">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.c?rev=729&amp;view=diff&amp;r1=729&amp;r2=728</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/mod.c?rev=729&amp;view=diff&amp;r1=729&amp;r2=728">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/mod.c?rev=729&amp;view=diff&amp;r1=729&amp;r2=728</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001789.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r728 - -added exported function	LRF_sw2options - separated the code to switch to the OPTIONS	transaction from the NOTIFY transaction directly from the	script -added exported function LRF_options_empty_repl - send	a transactional reply to the OPTIONS request,	sl_send_reply from the script was sending replies to the NOTIFY	request,	to be used to send (error) replies to the OPTIONS request with no	body
+</A></li>
+	<LI>Next message: <A HREF="001791.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r730 - -fixed a bug in the parser:	search for the namespace of geodetic or civic location in the	&lt;location-info&gt; node,	not the &lt;presence&gt; node -modified the parser to support geodetic and	civic location info in the same &lt;location-info&gt; node
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1790">[ date ]</a>
+              <a href="thread.html#1790">[ thread ]</a>
+              <a href="subject.html#1790">[ subject ]</a>
+              <a href="author.html#1790">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

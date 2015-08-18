@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] IPSec SPI for Outbound SA at P-CSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2012-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20IPSec%20SPI%20for%20Outbound%20SA%20at%20P-CSCF&In-Reply-To=%3C1341207066.90605.YahooMailNeo%40web161201.mail.bf1.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] IPSec SPI for Outbound SA at P-CSCF</H1>
+    <B>Sudhakar A.N</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20IPSec%20SPI%20for%20Outbound%20SA%20at%20P-CSCF&In-Reply-To=%3C1341207066.90605.YahooMailNeo%40web161201.mail.bf1.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] IPSec SPI for Outbound SA at P-CSCF">sudhakar_aqua at yahoo.com
+       </A><BR>
+    <I>Mon Jul  2 07:31:06 CEST 2012</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2733">[ date ]</a>
+              <a href="thread.html#2733">[ thread ]</a>
+              <a href="subject.html#2733">[ subject ]</a>
+              <a href="author.html#2733">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I have made changes to the cscf code to fix the discrepancies I mentioned in my previous mail.
+
+Here is some explanation to the changes I have made.
+
+All cscfs are modules on top of ser. As a result they inheit the same design as that of ser. There is one main process which starts listening on the UDP port.(open socket and bind) This process then forks any number of child pocesses that inherith this UDP socket and can wait for messages on them. In case of PCSCF, for Sec-Agree, I could make out that a new thread is being created to listen on messages on the Sec-Agree port-ps. Also, a port-pc is created to send messages from the server. This socket is only valid in the process that is processing the REGISTER with challenge-response.&#160; Subsequent messages that get routed from the P-CSCF to the UE may be done from different processes than the one that created this socket. This will result in an error while forwarding the message to the UE. I have tried to create this port-pc everytime a message needs to be sent to the UE. Better approach would be to switch to a multi-threaded approach instead of
+ multi-process like the scheme in the opensips 2.0 codebase.
+
+
+fix_all_socket_lists () was being called during ipsec SA/SP creation after successful Registration of UE with SCSCF. This was taking a long time and IPSec/Sec-Agree Registration was getting timed out. This is moved to main.c to reduce this delay.
+
+Increased size of buffers to accomadate bigger messages when sending/receiving on IPv6.
+
+
+Please integrate these changes.
+
+
+Thanks and Regards,
+Sudhakar
+
+
+________________________________
+ From: Sudhakar A.N &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">sudhakar_aqua at yahoo.com</A>&gt;
+To: &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>&gt; 
+Sent: Wednesday, February 8, 2012 10:54 AM
+Subject: IPSec SPI for Outbound SA at P-CSCF
+ 
+
+Hi,
+
+I am trying to use OpenIMSCore with Sec-Agree (AKA-V1-MD5). I find that the Outbound SA created for sending responses to client (UE) uses Spi_c instead of Spi_s. Here is some information from 3GPP specifications&#160;
+
+33.203 Clause 7.1 
+UDP case: the UE receives requests and responses protected with ESP on the port port_us (the&quot;protected server port&quot;).
+The UE sends requests and responses protected with ESP on the port port_uc (the &quot;protected client port&quot;).
+
+33.203 Annex H
+Spi c: Defines the SPI number of the inbound SA at the protected client port.
+Spi s: Defines the SPI number of the inbound SA at the protected server port.
+
+From the above two pieces of information, we can conclude that the Outbound SA at the P-CSCF needs to be created with 
+Spi_s,
+ port_us, port_pc&#160; 
+and not
+Spi_c, port_us, port_pc
+
+Can this be changed in accordance with the specifications?
+
+Thanks and Regards,
+Sudhakar
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20120701/23d09cdc/attachment-0001.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20120701/23d09cdc/attachment-0001.html</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: secagree.patch
+Type: application/octet-stream
+Size: 23994 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20120701/23d09cdc/attachment-0001.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20120701/23d09cdc/attachment-0001.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2733">[ date ]</a>
+              <a href="thread.html#2733">[ thread ]</a>
+              <a href="subject.html#2733">[ subject ]</a>
+              <a href="author.html#2733">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

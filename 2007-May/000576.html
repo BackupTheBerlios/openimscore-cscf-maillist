@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ICSCF not starting
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ICSCF%20not%20starting&In-Reply-To=%3C464185B8.7000105%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000577.html">
+   <LINK REL="Next"  HREF="000566.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ICSCF not starting</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ICSCF%20not%20starting&In-Reply-To=%3C464185B8.7000105%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] ICSCF not starting">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed May  9 10:26:32 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000577.html">[OpenIMSCore-CSCF] ICSCF not starting
+</A></li>
+        <LI>Next message: <A HREF="000566.html">[OpenIMSCore-CSCF] [Question]How to redirect CSCF log
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#576">[ date ]</a>
+              <a href="thread.html#576">[ thread ]</a>
+              <a href="subject.html#576">[ subject ]</a>
+              <a href="author.html#576">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Karthik,
+
+Probably you have some dependencies missing, related to libmysqlclient.
+Please check again that the mysql module in ser_ims/modules/mysql
+compiles cleanly as it looks like it did not.
+
+-Dragos
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">karthik.natarajan at wipro.com</A> wrote:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>   I am getting the following error in fedora core 6. while starting icscf
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> /icscf.sh: line 3: killser: command not found
+</I>&gt;<i>  0(25565) ERROR: load_module: could not open module
+</I>&gt;<i> &lt;/usr/lib/mysql.so&gt;: libcrypto.so.0: cannot open shared object file:
+</I>&gt;<i> No such file or directory
+</I>&gt;<i>  0(25565) parse error (31,13-14): failed to load module
+</I>&gt;<i> ERROR: bad config file (1 errors)
+</I>&gt;<i>  0(25565) INFO:cdp:cdp_exit(): CDiameterPeer stoping ...
+</I>&gt;<i> ./icscf.sh: line 4: 25565 Segmentation fault     
+</I>&gt;<i> /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+</I>&gt;<i>
+</I>&gt;<i> i have got libcrypto.so.0.9.8b in /lib/libcrypto.so.0.9.8b
+</I>&gt;<i>
+</I>&gt;<i> I have worked in Fc4 it was perfectly fine
+</I>&gt;<i>
+</I>&gt;<i> I dont know what problem is there . have i missed something..
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> -----------------------------------------------
+</I>&gt;<i> Thanks &amp; Regards,
+</I>&gt;<i>
+</I>&gt;<i> Karthik.K.N (111891)
+</I>&gt;<i> Project Engineer(Project Engineering solutions -COE)
+</I>&gt;<i> Wipro Technologies
+</I>&gt;<i> Madivala II
+</I>&gt;<i> Ph no-08041371000 Ext -5133
+</I>&gt;<i> Cell no:9880982028
+</I>&gt;<i> Bangalore
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> -
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> The information contained in this electronic message and any
+</I>&gt;<i> attachments to this message are intended for the exclusive use of the
+</I>&gt;<i> addressee(s) and may contain proprietary, confidential or privileged
+</I>&gt;<i> information. If you are not the intended recipient, you should not
+</I>&gt;<i> disseminate, distribute or copy this e-mail. Please notify the sender
+</I>&gt;<i> immediately and destroy all copies of this message and any attachments.
+</I>&gt;<i>
+</I>&gt;<i> WARNING: Computer viruses can be transmitted via email. The recipient
+</I>&gt;<i> should check this email and any attachments for the presence of
+</I>&gt;<i> viruses. The company accepts no liability for any damage caused by any
+</I>&gt;<i> virus transmitted by this email.
+</I>&gt;<i>
+</I>&gt;<i> www.wipro.com
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000577.html">[OpenIMSCore-CSCF] ICSCF not starting
+</A></li>
+	<LI>Next message: <A HREF="000566.html">[OpenIMSCore-CSCF] [Question]How to redirect CSCF log
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#576">[ date ]</a>
+              <a href="thread.html#576">[ thread ]</a>
+              <a href="subject.html#576">[ subject ]</a>
+              <a href="author.html#576">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

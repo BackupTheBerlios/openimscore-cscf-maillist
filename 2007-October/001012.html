@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Solution: Damaged message body
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Solution%3A%20Damaged%20message%20body&In-Reply-To=%3CCE74D45C9564494998E85AE3C4CA3E3501BAADAC%40hb-altair.hb.buc.materna.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001001.html">
+   <LINK REL="Next"  HREF="000995.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Solution: Damaged message body</H1>
+    <B>Stefan.Brozinski at materna.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Solution%3A%20Damaged%20message%20body&In-Reply-To=%3CCE74D45C9564494998E85AE3C4CA3E3501BAADAC%40hb-altair.hb.buc.materna.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Solution: Damaged message body">Stefan.Brozinski at materna.de
+       </A><BR>
+    <I>Wed Oct 24 17:48:19 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001001.html">[OpenIMSCore-CSCF] Update: Damaged message body
+</A></li>
+        <LI>Next message: <A HREF="000995.html">[OpenIMSCore-CSCF] 403 Forbiddent Hss Unable To Comply
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1012">[ date ]</a>
+              <a href="thread.html#1012">[ thread ]</a>
+              <a href="subject.html#1012">[ subject ]</a>
+              <a href="author.html#1012">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dragos,
+
+I have found the cause for this problem.
+
+The bad code is in 'udp_server.c:462'. It looks like that:
+
+#ifndef USE_STUN
+    if (buf[len-1]==0) {
+        tmp=ip_addr2a(&amp;ri.src_ip);
+        LOG(L_WARN, &quot;WARNING: udp_rcv_loop: &quot;
+                    &quot;upstream bug - 0-terminated packet from %s %d\n&quot;,
+                     tmp, htons(ri.src_port));
+        len--;
+    }
+#endif
+
+Seems to be a workaround for some bug that had occured sometime in the past.
+However, not it cripples every packet that contains a binary zero in the last byte.
+
+I suggest to remove this whole section.
+
+
+Regards
+Stefan
+
+
+
+&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>] 
+</I>&gt;<i> Sent: Tuesday, October 16, 2007 1:13 PM
+</I>&gt;<i> To: Brozinski, Stefan
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at bat.berlios.de</A>
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] Update: Damaged message body
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> Hello Stefan,
+</I>&gt;<i> 
+</I>&gt;<i> I was looking in our IMS code additions and did not 
+</I>&gt;<i> identified anything
+</I>&gt;<i> yet. I was suspecting that somehow with these lumps that modify the
+</I>&gt;<i> messages, a wrong length one would cause the problem. I did not find
+</I>&gt;<i> anything yet, but it's a move forward that this issue was 
+</I>&gt;<i> observed back
+</I>&gt;<i> in SER 0.9.4. However, it does not completely eliminated a 
+</I>&gt;<i> fault on the
+</I>&gt;<i> IMS extensions...
+</I>&gt;<i> 
+</I>&gt;<i> So, now we need to put a lot of logging all over the 
+</I>&gt;<i> processing path and
+</I>&gt;<i> see where the length is wrong.... nasty task...
+</I>&gt;<i> 
+</I>&gt;<i> -Dragos
+</I>&gt;<i> 
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Stefan.Brozinski at materna.de</A> wrote:
+</I>&gt;<i> &gt; Hello everybody
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I have just seen that this one has been observed by someone 
+</I>&gt;<i> else, but apparently it has not been fixed yet.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; <A HREF="http://tracker.iptel.org/browse/SER-94">http://tracker.iptel.org/browse/SER-94</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I will try to re-open this issue at iptel.org, but I would 
+</I>&gt;<i> also be glad if someone here who is familiar with SER's code 
+</I>&gt;<i> could give any advice where to look for suspicious code.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Gru&#223;
+</I>&gt;<i> &gt; Stefan
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;   
+</I>&gt;<i> &gt;&gt; -----Original Message-----
+</I>&gt;<i> &gt;&gt; From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> 
+</I>&gt;<i> &gt;&gt; [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>] On Behalf 
+</I>&gt;<i> &gt;&gt; Of <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Stefan.Brozinski at materna.de</A>
+</I>&gt;<i> &gt;&gt; Sent: Wednesday, October 10, 2007 1:12 PM
+</I>&gt;<i> &gt;&gt; To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at bat.berlios.de</A>
+</I>&gt;<i> &gt;&gt; Subject: [OpenIMSCore-CSCF] Damaged message body
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Hello everybody
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; I have noticed that the P-CSCF sometimes removes the last 
+</I>&gt;<i> byte of the
+</I>&gt;<i> &gt;&gt; message body when forwarding a request.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; A wireshark trace is attached which shows an example (this is
+</I>&gt;<i> &gt;&gt; reproducible).
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; The first SIP request in the trace is between the UE and 
+</I>&gt;<i> the P-CSCF.
+</I>&gt;<i> &gt;&gt; The second request is the same request when it is 
+</I>&gt;<i> forwarded from the
+</I>&gt;<i> &gt;&gt; P-CSCF to the S-CSCF.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Both requests have a &quot;Content-Length=6&quot; header, but the 
+</I>&gt;<i> actual message
+</I>&gt;<i> &gt;&gt; body changes.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; The body of the first requests contains 6 bytes (the value 
+</I>&gt;<i> of the last
+</I>&gt;<i> &gt;&gt; byte is zero, if that matters).
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; In the body of the second request, the last byte is missing.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; I have tried to find the reason in OpenIMSCore/SER's code, 
+</I>&gt;<i> but without
+</I>&gt;<i> &gt;&gt; success yet. Function get_body() in msg_parser.h looks 
+</I>&gt;<i> &gt;&gt; dangerous because
+</I>&gt;<i> &gt;&gt; it seems be unsure whether or not to skip the CRLF sequence that
+</I>&gt;<i> &gt;&gt; separates the headers from the body, so it looks if there 
+</I>&gt;<i> is CR, LF or
+</I>&gt;<i> &gt;&gt; CRLF and skips whatever it finds. But as the body of my 
+</I>&gt;<i> requests does
+</I>&gt;<i> &gt;&gt; neither start with CR nor with LF, this can't be the 
+</I>&gt;<i> reason of what is
+</I>&gt;<i> &gt;&gt; happening here.
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Any idea where to look?
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt; Regards
+</I>&gt;<i> &gt;&gt; Stefan
+</I>&gt;<i> &gt;&gt;
+</I>&gt;<i> &gt;&gt;     
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;   
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> -- 
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001001.html">[OpenIMSCore-CSCF] Update: Damaged message body
+</A></li>
+	<LI>Next message: <A HREF="000995.html">[OpenIMSCore-CSCF] 403 Forbiddent Hss Unable To Comply
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1012">[ date ]</a>
+              <a href="thread.html#1012">[ thread ]</a>
+              <a href="subject.html#1012">[ subject ]</a>
+              <a href="author.html#1012">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

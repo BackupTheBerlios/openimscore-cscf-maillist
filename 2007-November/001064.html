@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Fwd: [OpenSER-Users] NEW FEATURE: new logging	design
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Fwd%3A%20%5BOpenSER-Users%5D%20NEW%20FEATURE%3A%20new%20logging%0A%09design&In-Reply-To=%3Cb33002040711270648u2cafb575sd93badf1157e633a%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001067.html">
+   <LINK REL="Next"  HREF="001068.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Fwd: [OpenSER-Users] NEW FEATURE: new logging	design</H1>
+    <B>JF</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Fwd%3A%20%5BOpenSER-Users%5D%20NEW%20FEATURE%3A%20new%20logging%0A%09design&In-Reply-To=%3Cb33002040711270648u2cafb575sd93badf1157e633a%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Fwd: [OpenSER-Users] NEW FEATURE: new logging	design">jfkavaka at gmail.com
+       </A><BR>
+    <I>Tue Nov 27 15:48:57 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001067.html">[OpenIMSCore-CSCF] SAR authentication_failure
+</A></li>
+        <LI>Next message: <A HREF="001068.html">[OpenIMSCore-CSCF] Fwd: [OpenSER-Users] NEW FEATURE: new logging design
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1064">[ date ]</a>
+              <a href="thread.html#1064">[ thread ]</a>
+              <a href="subject.html#1064">[ subject ]</a>
+              <a href="author.html#1064">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Would be nice to have this in OpenIMSCore. What do others think?
+Should I submit a feature request?
+
+The log/debug level runtime configuration could be implemented using
+SER's xmlrpc interface.
+
+JF
+
+
+---------- Forwarded message ----------
+From: Bogdan-Andrei Iancu &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bogdan at voice-system.ro</A>&gt;
+Date: Jul 24, 2007 7:04 AM
+Subject: [OpenSER-Users] NEW FEATURE: new logging design
+To: &quot;users openser.org&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">users at openser.org</A>&gt;, devel &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">devel at openser.org</A>&gt;
+
+
+Hi,
+
+OpenSER trunk has a new logging design, covering new functionalities
+(for end-user), more simplicity (for developers), better log format, etc.
+
+End-user functionalities
+=========================
+
+1) configurable debug level at runtime - so far we had static debug
+level, but now, there is a MI function to change it at runtime. If you
+want to have or not a configurable debug level, there is a compile
+option named CHANGEABLE_DEBUG_LEVEL (see Makefile.defs). By default is
+on, but, if there are performance concerns, you can turn it off.
+The MI function is called &quot;debug&quot;:
+  # display the current debug level
+  openserctl fifo debug
+  # set a new debug level (L_ERR)
+  openserctl fifo debug -1
+
+The function changes the global debug level, so all processes and all
+code will be affected.
+
+2) script function for changing the debug level - this functions allows
+you to change the debug level from script, only for a specific script
+block. Only the debug level of the current process will be changed. This
+is very helpful if you are tracing and debugging only a specific piece
+of code.
+The script function is:
+    setdebug(4); # set debug level for debug
+    setdebug(); # reset the debug level to the global one
+
+Ex:
+    debug= -1 # err only
+    .....
+    {
+       ......
+       setdebug(4);
+       uac_replace_from(....);
+       setdebug();
+       .......
+    }
+The function change the debug level of the current process and changing
+the global debug level (MI function) does not affect it, so be careful
+and reset the pre process debug level when you are done.
+
+
+
+More simplicity
+=================
+
+The logging function used in code was replaced with a new set of
+functions, more simple and flexible:
+    LOG / DBG were replaced with:
+    LM_ALERT( ...)
+    LM_CRIT( ...)
+    LM_ERR( ...)
+    LM_WARN( ...)
+    LM_NOTICE( ...)
+    LM_INFO( ...)
+    LM_DBG( ...)
+
+Prototype is LM_XXX( &quot;FMT&quot;, .....);
+The functions will automatically add to the logged message the log
+level, the module name, function name, process pid and time stamp, so
+you do not have to care about it from the code.
+
+
+
+Better log format
+==================
+
+Even if you use syslog or stderr logging, the log message will contain
+information about log level, the module name, function name, process pid
+and time stamp.
+
+For syslog, the log level is mapped over the syslog levels, so no text
+will be used - you can configure syslog to use different files for each
+log level. Also time and pid are not pushed from openser as this info is
+automatically logged by syslog.
+
+For stderr logging, openser take care and appends the log level as text,
+time and pid (as text).
+
+Ex:
+    Jul 23 19:52:19 [0] INFO:sl:mod_init: Initializing StateLess engine
+
+So, either you are using syslog, either stderr, you will still get the
+same information logged.
+
+
+We still need to migrate all the log messages from script from the old
+to the new set of functions, so, for the moment, not all logs will be
+&quot;nice&quot; formatted.
+
+
+Regards,
+Bogdan
+
+
+
+_______________________________________________
+Users mailing list
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Users at openser.org</A>
+<A HREF="http://openser.org/cgi-bin/mailman/listinfo/users">http://openser.org/cgi-bin/mailman/listinfo/users</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001067.html">[OpenIMSCore-CSCF] SAR authentication_failure
+</A></li>
+	<LI>Next message: <A HREF="001068.html">[OpenIMSCore-CSCF] Fwd: [OpenSER-Users] NEW FEATURE: new logging design
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1064">[ date ]</a>
+              <a href="thread.html#1064">[ thread ]</a>
+              <a href="subject.html#1064">[ subject ]</a>
+              <a href="author.html#1064">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

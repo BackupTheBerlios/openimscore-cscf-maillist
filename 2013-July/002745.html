@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Some problem with open ims core.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2013-July/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Some%20problem%20with%20open%20ims%20core.&In-Reply-To=%3Ctencent_0426113B279D58286C6C7753%40qq.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="002746.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Some problem with open ims core.</H1>
+    <B>&#25955;&#33853;&#30340;&#33970;&#20844;&#33521;</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Some%20problem%20with%20open%20ims%20core.&In-Reply-To=%3Ctencent_0426113B279D58286C6C7753%40qq.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Some problem with open ims core.">409936523 at qq.com
+       </A><BR>
+    <I>Wed Jul  3 10:06:58 CEST 2013</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="002746.html">[OpenIMSCore-CSCF] Some problem with open ims core.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2745">[ date ]</a>
+              <a href="thread.html#2745">[ thread ]</a>
+              <a href="subject.html#2745">[ subject ]</a>
+              <a href="author.html#2745">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi all:
+    I try to test some ims ue, but i get some problems as bellow:
+    first : do a register procedure with worry password, according to the  standardized procedure, the core should return a 403 after the second 
+register message, actually the core return another 401 response, the UE will send a third register message again and recieve a 401 response, The cycle will continue until the ue stops to send a register message.
+     second: when alice calls bob and build a  session between them, when alice choose stop the session and send a BYE request, the request will go through the mo-pcscf, mo-scscf, mt-scscf, mt-pcscf to bob as the route headers' order. but bob send a BYE request to stop the session, the request just go through the mt-pcscf  to alice, the other route headers are still in the BYE request when alice recieve it.
+     I get the open ims core from svn. and I also test the second problem on a VM ready-to-run image(ubuntu), the problem doesn't occor.
+      thank for your attention for the two problem.
+                                                                                                                                                                                                                         chenyang
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20130703/9d939030/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20130703/9d939030/attachment.html</A>&gt;
+</PRE>
+
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="002746.html">[OpenIMSCore-CSCF] Some problem with open ims core.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2745">[ date ]</a>
+              <a href="thread.html#2745">[ thread ]</a>
+              <a href="subject.html#2745">[ subject ]</a>
+              <a href="author.html#2745">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

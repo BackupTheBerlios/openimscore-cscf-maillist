@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Rx interface: Session-Id AVP not ordered properly
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Rx%20interface%3A%20Session-Id%20AVP%20not%20ordered%20properly&In-Reply-To=%3C82671237-4AFC-4452-A95F-9FC40F77DBAB%40tno.nl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002717.html">
+   <LINK REL="Next"  HREF="002719.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Rx interface: Session-Id AVP not ordered properly</H1>
+    <B>Cramer, E.R. (Eelco)</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Rx%20interface%3A%20Session-Id%20AVP%20not%20ordered%20properly&In-Reply-To=%3C82671237-4AFC-4452-A95F-9FC40F77DBAB%40tno.nl%3E"
+       TITLE="[OpenIMSCore-CSCF] Rx interface: Session-Id AVP not ordered properly">Eelco.Cramer at tno.nl
+       </A><BR>
+    <I>Thu Nov 17 10:23:55 CET 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002717.html">[OpenIMSCore-CSCF] Rx interface: values of Session-Timeout and Authorization-Lifetime AVPs do not match
+</A></li>
+        <LI>Next message: <A HREF="002719.html">[OpenIMSCore-CSCF] Memory Leak in SCSCF ?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2718">[ date ]</a>
+              <a href="thread.html#2718">[ thread ]</a>
+              <a href="subject.html#2718">[ subject ]</a>
+              <a href="author.html#2718">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+In my Rx tests I run into some problems. It seems that there is an error in order that the OpenIMS PCSCF adds the AVPs to the AAR message.
+
+According to the specification the first AVP must be the Session-ID AVP. The other AVPs can appear in any order.
+
+The specification of this message is:
+
+Message Format:
+
+&lt;AA-Request&gt; ::= &lt; Diameter Header: 265, REQ, PXY &gt;
+               &lt; Session-Id &gt;
+                { Auth-Application-Id }
+               { Origin-Host }
+               { Origin-Realm }
+               { Destination-Realm }
+              *[ Media-Component-Description ]
+               *[ Flow-Grouping ]
+               [ AF-Charging-Identifier ]
+               [ SIP-Forking-Indication ]
+              *[ Specific-Action ]
+              *[ Subscription-ID ]
+              *[ Proxy-Info ]
+              *[ Route-Record ]
+              *[ AVP ] 
+
+According to the Command Code ABNF specification (RFC 3588 section 3.2) elements surrounded by &lt; &gt; have a fixed position in the message:
+
+fixed            = [qual] &quot;&lt;&quot; avp-spec &quot;&gt;&quot;
+                     ; Defines the fixed position of an AVP
+
+I attached a patch that resolves this issue.
+
+This e-mail and its contents are subject to the DISCLAIMER at <A HREF="http://www.tno.nl/emaildisclaimer">http://www.tno.nl/emaildisclaimer</A>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: Rx-AVP-ordering.patch
+Type: application/octet-stream
+Size: 1173 bytes
+Desc: Rx-AVP-ordering.patch
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20111117/d6cf485d/attachment.obj">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20111117/d6cf485d/attachment.obj</A>&gt;
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: ATT00001.txt
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20111117/d6cf485d/attachment.txt">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20111117/d6cf485d/attachment.txt</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002717.html">[OpenIMSCore-CSCF] Rx interface: values of Session-Timeout and Authorization-Lifetime AVPs do not match
+</A></li>
+	<LI>Next message: <A HREF="002719.html">[OpenIMSCore-CSCF] Memory Leak in SCSCF ?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2718">[ date ]</a>
+              <a href="thread.html#2718">[ thread ]</a>
+              <a href="subject.html#2718">[ subject ]</a>
+              <a href="author.html#2718">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

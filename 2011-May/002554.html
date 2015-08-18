@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] PCSCF: Problem with Authorization-Lifetime AVP	value in Rx interface
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PCSCF%3A%20Problem%20with%20Authorization-Lifetime%20AVP%0A%09value%20in%20Rx%20interface&In-Reply-To=%3C6778F70CA9FEA94EB4BFD725156C88960C5A79BC%40MADARRMAILBOX01.indra.es%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002552.html">
+   <LINK REL="Next"  HREF="002555.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] PCSCF: Problem with Authorization-Lifetime AVP	value in Rx interface</H1>
+    <B>Huertas Garc&#237;a, V&#237;ctor</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20PCSCF%3A%20Problem%20with%20Authorization-Lifetime%20AVP%0A%09value%20in%20Rx%20interface&In-Reply-To=%3C6778F70CA9FEA94EB4BFD725156C88960C5A79BC%40MADARRMAILBOX01.indra.es%3E"
+       TITLE="[OpenIMSCore-CSCF] PCSCF: Problem with Authorization-Lifetime AVP	value in Rx interface">vhuertas at indra.es
+       </A><BR>
+    <I>Thu May 19 20:23:07 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002552.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1109 - Client_Rf: fixed	compilation from wharf
+</A></li>
+        <LI>Next message: <A HREF="002555.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1110 - pcscf: client_rf usage is	not related to PCC, separated them
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2554">[ date ]</a>
+              <a href="thread.html#2554">[ thread ]</a>
+              <a href="subject.html#2554">[ subject ]</a>
+              <a href="author.html#2554">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+
+I have in my lab an OpenIMScore in order to build a test bed. Such IMS core is well installed and is running. I have the Rx interface activated to an SPDF that is under development.
+However, I have observed something curious when I try to make a call between two users that are registered in the same domain (in my case: open-ims.test).
+These two users are &quot;bob&quot; (already inserted when installing FHoSS) and &quot;lena&quot; (added by me). Both users registers in the S-CSCF but when I try to make a voice call from &quot;bob&quot; to &quot;lena&quot; and when I capture the Diameter messages exchanged in Rx interface I always see the following:
+
+AAR message regarding &quot;lena&quot; user: Authorization-Lifetime AVP value is always set to 60 seconds
+AAR message regarding &quot;bob&quot; user: Authorization-Lifetime AVP value is always set to 300 seconds.
+
+Therefore whenever I try to maintain the voice call longer than 60 seconds the P-CSCF sents a STR message with cause: DIAMETER_ADMINISTRATIVE for the session ID related to &quot;lena&quot; and the voice call automatically hangs up.
+
+There is no way to make the PCSCF insert a greater value and I don't know why two users of the same OpenIMScore have two different Authorization-Lifetime values.
+
+At registration time, both users have 3600 seconds in the AARs generation by REGISTER SIP message.
+
+Does anybody know if this issue is a bug and how to solve it?
+
+Thank you very much.
+
+Victor
+
+
+________________________________
+Este correo electr&#243;nico y, en su caso, cualquier fichero anexo al mismo, contiene informaci&#243;n de car&#225;cter confidencial exclusivamente dirigida a su destinatario o destinatarios. Si no es vd. el destinatario indicado, queda notificado que la lectura, utilizaci&#243;n, divulgaci&#243;n y/o copia sin autorizaci&#243;n est&#225; prohibida en virtud de la legislaci&#243;n vigente. En el caso de haber recibido este correo electr&#243;nico por error, se ruega notificar inmediatamente esta circunstancia mediante reenv&#237;o a la direcci&#243;n electr&#243;nica del remitente.
+Evite imprimir este mensaje si no es estrictamente necesario.
+
+This email and any file attached to it (when applicable) contain(s) confidential information that is exclusively addressed to its recipient(s). If you are not the indicated recipient, you are informed that reading, using, disseminating and/or copying it without authorisation is forbidden in accordance with the legislation in effect. If you have received this email by mistake, please immediately notify the sender of the situation by resending it to their email address.
+Avoid printing this message if it is not absolutely necessary.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110519/a298204c/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110519/a298204c/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002552.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1109 - Client_Rf: fixed	compilation from wharf
+</A></li>
+	<LI>Next message: <A HREF="002555.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r1110 - pcscf: client_rf usage is	not related to PCC, separated them
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2554">[ date ]</a>
+              <a href="thread.html#2554">[ thread ]</a>
+              <a href="subject.html#2554">[ subject ]</a>
+              <a href="author.html#2554">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

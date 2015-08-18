@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Route header in a ReInvite request
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Route%20header%20in%20a%20ReInvite%20request&In-Reply-To=%3C47A83283.50708%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001167.html">
+   <LINK REL="Next"  HREF="001171.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Route header in a ReInvite request</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Route%20header%20in%20a%20ReInvite%20request&In-Reply-To=%3C47A83283.50708%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Route header in a ReInvite request">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Feb  5 10:55:15 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001167.html">[OpenIMSCore-CSCF] Route header in a ReInvite request
+</A></li>
+        <LI>Next message: <A HREF="001171.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] SCSCF not	redirecting the 302 responses
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1168">[ date ]</a>
+              <a href="thread.html#1168">[ thread ]</a>
+              <a href="subject.html#1168">[ subject ]</a>
+              <a href="author.html#1168">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Andrea,
+
+I think that you are taking the specs to strict. The 2 standards do not
+conflict actually. So each identity can be used  by multiple UEs such
+that you could have multiple contacts on the same identity.
+
+Then the second one refers to a different thing - that the current specs
+only support 1 IP address/UE (does not actually say 1 IP
+address/identity!!!).
+
+An UE as a concept is a different thing. I see it as one logical entity
+having possibly multiple identities and this version supports only UEs
+that use just 1 IP at once. That is not to say that you can not have
+multiple logical UEs grouped in your IMS client, rather that each can
+not just jump from one IP to other as it chooses. I would nterpret it
+more like: you can not start some signaling from one IP and then expect
+to continue it seamlessly from another...
+
+Cheers,
+-Dragos
+
+Andrea Polidoro wrote:
+&gt;<i> Sorry Franz, but I'm a little bit confused.
+</I>&gt;<i> How can IMS support  the multiple contact registration:
+</I>&gt;<i>
+</I>&gt;<i> TS 23.228 &#167;4.2.7/
+</I>&gt;<i> The S CSCF shall support the ability for a Public User Identity to be 
+</I>&gt;<i> registered from multiple contact addresses, as defined in IETF RFC 3261 
+</I>&gt;<i> [12]. The S CSCF shall support forking so that an incoming SIP request 
+</I>&gt;<i> addressed to a Public User Identity is proxied to multiple registered 
+</I>&gt;<i> contact addresses. This allows forking across multiple contact addresses 
+</I>&gt;<i> of the same Public User Identity
+</I>&gt;<i> /
+</I>&gt;<i> without support the simultaneously registration?
+</I>&gt;<i> TS 24.229 &#167;5.1.1
+</I>&gt;<i> /The UE shall use one IP address for all SIP signalling, i.e. 
+</I>&gt;<i> simultaneous registration using different IP addresses from the same UE 
+</I>&gt;<i> is not supported in this release of this document.
+</I>&gt;<i>
+</I>&gt;<i> /That means that an UE can only insert more contacts in the same 
+</I>&gt;<i> register but that it can't use more registers to indicate more contacts?
+</I>&gt;<i> Please forgive my insistence, maybe this discussion if off-topic for 
+</I>&gt;<i> this mailing list,I just want to understand how.
+</I>&gt;<i>
+</I>&gt;<i> Thanks again for your help
+</I>&gt;<i>
+</I>&gt;<i> Andrea
+</I>&gt;<i> /
+</I>&gt;<i> /<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at inode.at</A> ha scritto:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Andrea,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Ok, but how you can see in the attach, when I start a new registration
+</I>&gt;&gt;&gt;<i> process without de-registered my first IP address, in the log of P-CSCF
+</I>&gt;&gt;&gt;<i> there are 2 addresses registered from my public identity. Do you think
+</I>&gt;&gt;&gt;<i> this could be a bug?
+</I>&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> No. I think this is simply a second registration, which leads to forking
+</I>&gt;&gt;<i> (TS 23.228 &#167;4.2.7).
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Franz
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001167.html">[OpenIMSCore-CSCF] Route header in a ReInvite request
+</A></li>
+	<LI>Next message: <A HREF="001171.html">[OpenIMSCore-CSCF] [Call Session Control Functions bug] SCSCF not	redirecting the 302 responses
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1168">[ date ]</a>
+              <a href="thread.html#1168">[ thread ]</a>
+              <a href="subject.html#1168">[ subject ]</a>
+              <a href="author.html#1168">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

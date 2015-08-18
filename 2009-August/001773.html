@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r715 - -added comments for the	exported functions -renamed LRF_save_user_loc to	LRF_parse_user_loc -replaced the parameters for the LOCSIP	server with the parameter locsip_srv_uri,	default value &quot;sip:locsip.open-ims.test:9180&quot; -updated the running	script for the LRF and the dns configuration file
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r715%20-%20-added%20comments%20for%20the%0A%09exported%20functions%20-renamed%20LRF_save_user_loc%20to%0A%09LRF_parse_user_loc%20-replaced%20the%20parameters%20for%20the%20LOCSIP%0A%09server%20with%20the%20parameter%20locsip_srv_uri%2C%0A%09default%20value%20%22sip%3Alocsip.open-ims.test%3A9180%22%20-updated%20the%20running%0A%09script%20for%20the%20LRF%20and%20the%20dns%20configuration%20file&In-Reply-To=%3C200908120957.n7C9vvBH029203%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001772.html">
+   <LINK REL="Next"  HREF="001774.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r715 - -added comments for the	exported functions -renamed LRF_save_user_loc to	LRF_parse_user_loc -replaced the parameters for the LOCSIP	server with the parameter locsip_srv_uri,	default value &quot;sip:locsip.open-ims.test:9180&quot; -updated the running	script for the LRF and the dns configuration file</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r715%20-%20-added%20comments%20for%20the%0A%09exported%20functions%20-renamed%20LRF_save_user_loc%20to%0A%09LRF_parse_user_loc%20-replaced%20the%20parameters%20for%20the%20LOCSIP%0A%09server%20with%20the%20parameter%20locsip_srv_uri%2C%0A%09default%20value%20%22sip%3Alocsip.open-ims.test%3A9180%22%20-updated%20the%20running%0A%09script%20for%20the%20LRF%20and%20the%20dns%20configuration%20file&In-Reply-To=%3C200908120957.n7C9vvBH029203%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r715 - -added comments for the	exported functions -renamed LRF_save_user_loc to	LRF_parse_user_loc -replaced the parameters for the LOCSIP	server with the parameter locsip_srv_uri,	default value &quot;sip:locsip.open-ims.test:9180&quot; -updated the running	script for the LRF and the dns configuration file">aon at users.berlios.de
+       </A><BR>
+    <I>Wed Aug 12 11:57:57 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001772.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r714 - really last changes before	the merge of the 08_cdp_branch
+</A></li>
+        <LI>Next message: <A HREF="001774.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r716 - * added a pointer to the	location subscription in the user_data structure,	used to clean the information when LRF_del_user_data is called
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1773">[ date ]</a>
+              <a href="thread.html#1773">[ thread ]</a>
+              <a href="subject.html#1773">[ subject ]</a>
+              <a href="author.html#1773">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2009-08-12 11:57:54 +0200 (Wed, 12 Aug 2009)
+New Revision: 715 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=715">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=715</A> 
+
+Log:
+-added comments for the exported functions
+-renamed LRF_save_user_loc to LRF_parse_user_loc
+-replaced the parameters for the LOCSIP server with the parameter locsip_srv_uri, default value &quot;sip:locsip.open-ims.test:9180&quot;
+-updated the running script for the LRF and the dns configuration file
+
+
+
+Modified:
+   U	ser_ims/branches/12_em_services/cfg/lrf.cfg
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/cfg/lrf.cfg?rev=715&amp;view=diff&amp;r1=715&amp;r2=714">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/cfg/lrf.cfg?rev=715&amp;view=diff&amp;r1=715&amp;r2=714</A>
+   U	ser_ims/branches/12_em_services/cfg/open-ims.dnszone
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/cfg/open-ims.dnszone?rev=715&amp;view=diff&amp;r1=715&amp;r2=714">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/cfg/open-ims.dnszone?rev=715&amp;view=diff&amp;r1=715&amp;r2=714</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/locsip.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip.c?rev=715&amp;view=diff&amp;r1=715&amp;r2=714">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip.c?rev=715&amp;view=diff&amp;r1=715&amp;r2=714</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.c?rev=715&amp;view=diff&amp;r1=715&amp;r2=714">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.c?rev=715&amp;view=diff&amp;r1=715&amp;r2=714</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.h?rev=715&amp;view=diff&amp;r1=715&amp;r2=714">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/locsip_subscribe.h?rev=715&amp;view=diff&amp;r1=715&amp;r2=714</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/lost.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/lost.c?rev=715&amp;view=diff&amp;r1=715&amp;r2=714">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/lost.c?rev=715&amp;view=diff&amp;r1=715&amp;r2=714</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/lost.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/lost.h?rev=715&amp;view=diff&amp;r1=715&amp;r2=714">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/lost.h?rev=715&amp;view=diff&amp;r1=715&amp;r2=714</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/mod.c?rev=715&amp;view=diff&amp;r1=715&amp;r2=714">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/mod.c?rev=715&amp;view=diff&amp;r1=715&amp;r2=714</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/user_data.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/user_data.c?rev=715&amp;view=diff&amp;r1=715&amp;r2=714">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/user_data.c?rev=715&amp;view=diff&amp;r1=715&amp;r2=714</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001772.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r714 - really last changes before	the merge of the 08_cdp_branch
+</A></li>
+	<LI>Next message: <A HREF="001774.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r716 - * added a pointer to the	location subscription in the user_data structure,	used to clean the information when LRF_del_user_data is called
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1773">[ date ]</a>
+              <a href="thread.html#1773">[ thread ]</a>
+              <a href="subject.html#1773">[ subject ]</a>
+              <a href="author.html#1773">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

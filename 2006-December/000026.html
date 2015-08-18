@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] In REGISTER, SCSCF don't send diameter SAR
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20In%20REGISTER%2C%20SCSCF%20don%27t%20send%20diameter%20SAR&In-Reply-To=%3C4577F3A9.8000605%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000025.html">
+   <LINK REL="Next"  HREF="000027.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] In REGISTER, SCSCF don't send diameter SAR</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20In%20REGISTER%2C%20SCSCF%20don%27t%20send%20diameter%20SAR&In-Reply-To=%3C4577F3A9.8000605%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] In REGISTER, SCSCF don't send diameter SAR">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Dec  7 11:57:45 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000025.html">[OpenIMSCore-CSCF] In REGISTER, SCSCF don't send diameter SAR
+</A></li>
+        <LI>Next message: <A HREF="000027.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r56 - ser_ims/trunk/modules/cdp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Yes, this should be the issue. Because the password is incorrect, 
+another MAR is triggered so that a new authentication vector is 
+generated. SAR would only be called when the S-CSCF receives the 
+expected response and the authentication completes successfully.
+
+-Dragos
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">upadhyay.gaurav at wipro.com</A> wrote:
+&gt;<i> Hi,
+</I>&gt;<i> I had faced the same problem, but found that this was happening since 
+</I>&gt;<i> the Password I was using on the client side was incorrect. You 
+</I>&gt;<i> can check the password (=private UID/alice) on your client, while 
+</I>&gt;<i> responding to 401 - Challenge.
+</I>&gt;<i>  
+</I>&gt;<i> Regards,
+</I>&gt;<i> Gaurav
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i> *From:* <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> 
+</I>&gt;<i> [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>] *On Behalf Of *Yin 
+</I>&gt;<i> Ben Xia
+</I>&gt;<i> *Sent:* Thursday, December 07, 2006 3:56 PM
+</I>&gt;<i> *To:* <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> *Subject:* [OpenIMSCore-CSCF] In REGISTER, SCSCF don't send diameter SAR
+</I>&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> When I do sip-client registration, its first round negotiation looks 
+</I>&gt;<i> like right, SCSCF issues 'SIP/2.0 401 Unauthorized - Challenging the UE'
+</I>&gt;<i> But in second round, SCSCF still send Diameter MAR to hss, so it 
+</I>&gt;<i> issues 401 again. I think SCSCF should issues diameter SAR to hss.
+</I>&gt;<i>
+</I>&gt;<i> What is wrong with this?
+</I>&gt;<i>
+</I>&gt;<i> Attached file is package for ethereal.
+</I>&gt;<i>
+</I>&gt;<i> /(See attached file: UserRegister8.pcap)/
+</I>&gt;<i>
+</I>&gt;<i> Best Regards,
+</I>&gt;<i>
+</I>&gt;<i> Ben
+</I>&gt;<i> ---------------------
+</I>&gt;<i>
+</I>&gt;<i> Dr. Yin Ben Xia
+</I>&gt;<i> IBM China Research Laboratory
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> The information contained in this electronic message and any 
+</I>&gt;<i> attachments to this message are intended for the exclusive use of the 
+</I>&gt;<i> addressee(s) and may contain proprietary, confidential or privileged 
+</I>&gt;<i> information. If you are not the intended recipient, you should not 
+</I>&gt;<i> disseminate, distribute or copy this e-mail. Please notify the sender 
+</I>&gt;<i> immediately and destroy all copies of this message and any attachments.
+</I>&gt;<i>
+</I>&gt;<i> WARNING: Computer viruses can be transmitted via email. The recipient 
+</I>&gt;<i> should check this email and any attachments for the presence of 
+</I>&gt;<i> viruses. The company accepts no liability for any damage caused by any 
+</I>&gt;<i> virus transmitted by this email.
+</I>&gt;<i>
+</I>&gt;<i> www.wipro.com
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000025.html">[OpenIMSCore-CSCF] In REGISTER, SCSCF don't send diameter SAR
+</A></li>
+	<LI>Next message: <A HREF="000027.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r56 - ser_ims/trunk/modules/cdp
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] IMS_DNS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20IMS_DNS&In-Reply-To=%3C572663.32782.qm%40web111001.mail.gq1.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001721.html">
+   <LINK REL="Next"  HREF="001723.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] IMS_DNS</H1>
+    <B>Shahbaz Ali</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20IMS_DNS&In-Reply-To=%3C572663.32782.qm%40web111001.mail.gq1.yahoo.com%3E"
+       TITLE="[OpenIMSCore-CSCF] IMS_DNS">shahbazali1010 at yahoo.com
+       </A><BR>
+    <I>Wed Jun 24 09:41:41 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001721.html">[OpenIMSCore-CSCF] SER_IMS Installation problem
+</A></li>
+        <LI>Next message: <A HREF="001723.html">[OpenIMSCore-CSCF] FHoSS Build failed
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1722">[ date ]</a>
+              <a href="thread.html#1722">[ thread ]</a>
+              <a href="subject.html#1722">[ subject ]</a>
+              <a href="author.html#1722">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi all..
+Plz tell that a DNS Server is compulsery for IMS Test bed ?
+
+--- On Thu, 18/6/09, <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A>&gt; wrote:
+
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A>&gt;
+Subject: OpenIMSCore-CSCF Digest, Vol 32, Issue 5
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Received: Thursday, 18 June, 2009, 10:01 AM
+
+Send OpenIMSCore-CSCF mailing list submissions to
+&#160;&#160;&#160; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+
+To subscribe or unsubscribe via the World Wide Web, visit
+&#160;&#160;&#160; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+or, via email, send a message with subject or body 'help' to
+&#160;&#160;&#160; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A>
+
+You can reach the person managing the list at
+&#160;&#160;&#160; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-owner at lists.berlios.de</A>
+
+When replying, please edit your Subject line so it is more specific
+than &quot;Re: Contents of OpenIMSCore-CSCF digest...&quot;
+
+
+Today's Topics:
+
+&#160;&#160;&#160;1. [SVN-ser_ims] r677 - Cleaned the I-CSCF error&#160;&#160;&#160; responses on
+&#160; &#160; &#160; orig/term public identity identification (<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>)
+&#160;&#160;&#160;2. [SVN-ser_ims] r678 - Added explicit checks for&#160;&#160;&#160; TEL URIs in
+&#160; &#160; &#160; the RR loose_route() functionality. This was&#160;&#160;&#160; failing on
+&#160; &#160; &#160; identifying the right cases and then requests at&#160;&#160;&#160; the I-CSCF with
+&#160; &#160; &#160; an orig indicator towards TEL URIs were&#160;&#160;&#160; failing to be processed.
+&#160; &#160; &#160; (<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>)
+&#160;&#160;&#160;3. [SVN-ser_ims] r679 - Fixes to enum_query_orig()&#160;&#160;&#160; for use in
+&#160; &#160; &#160; the TRCF - fixes to e164 number identification -&#160;&#160;&#160; added Route
+&#160; &#160; &#160; header with orig indicator - replacing&#160;&#160;&#160; P-Asserted-Identity with
+&#160; &#160; &#160; the new value (<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>)
+&#160;&#160;&#160;4. [SVN-ser_ims] r680 - Small typo fix (<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Thu, 18 Jun 2009 04:58:16 +0200
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>
+Subject: [OpenIMSCore-CSCF] [SVN-ser_ims] r677 - Cleaned the I-CSCF
+&#160;&#160;&#160; error&#160;&#160;&#160; responses on orig/term public identity identification
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">200906180258.n5I2wGqa011792 at sheep.berlios.de</A>&gt;
+Content-Type: text/plain; charset=UTF-8
+
+Author: vingarzan
+Date: 2009-06-18 04:58:13 +0200 (Thu, 18 Jun 2009)
+New Revision: 677 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=677">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=677</A> 
+
+Log:
+Cleaned the I-CSCF error responses on orig/term public identity identification
+
+Modified:
+&#160;&#160;&#160;U&#160;&#160;&#160; ser_ims/trunk/modules/icscf/location.c
+&#160;&#160;&#160; &#160;&#160;&#160; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/location.c?rev=677&amp;view=diff&amp;r1=677&amp;r2=676">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/location.c?rev=677&amp;view=diff&amp;r1=677&amp;r2=676</A>
+&#160;&#160;&#160;U&#160;&#160;&#160; ser_ims/trunk/modules/icscf/registration.h
+&#160;&#160;&#160; &#160;&#160;&#160; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/registration.h?rev=677&amp;view=diff&amp;r1=677&amp;r2=676">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/icscf/registration.h?rev=677&amp;view=diff&amp;r1=677&amp;r2=676</A>
+
+
+
+------------------------------
+
+Message: 2
+Date: Thu, 18 Jun 2009 05:00:40 +0200
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>
+Subject: [OpenIMSCore-CSCF] [SVN-ser_ims] r678 - Added explicit checks
+&#160;&#160;&#160; for&#160;&#160;&#160; TEL URIs in the RR loose_route() functionality. This was&#160;&#160;&#160; failing
+&#160;&#160;&#160; on identifying the right cases and then requests at&#160;&#160;&#160; the I-CSCF with an
+&#160;&#160;&#160; orig indicator towards TEL URIs were&#160;&#160;&#160; failing to be processed.
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">200906180300.n5I30ert012160 at sheep.berlios.de</A>&gt;
+Content-Type: text/plain; charset=UTF-8
+
+Author: vingarzan
+Date: 2009-06-18 05:00:31 +0200 (Thu, 18 Jun 2009)
+New Revision: 678 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=678">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=678</A> 
+
+Log:
+Added explicit checks for TEL URIs in the RR loose_route() functionality. This was failing on identifying the right cases and then requests at the I-CSCF with an orig indicator towards TEL URIs were failing to be processed.
+
+Modified:
+&#160;&#160;&#160;U&#160;&#160;&#160; ser_ims/trunk/modules/rr/loose.c
+&#160;&#160;&#160; &#160;&#160;&#160; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/rr/loose.c?rev=678&amp;view=diff&amp;r1=678&amp;r2=677">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/rr/loose.c?rev=678&amp;view=diff&amp;r1=678&amp;r2=677</A>
+
+
+
+------------------------------
+
+Message: 3
+Date: Thu, 18 Jun 2009 06:25:27 +0200
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>
+Subject: [OpenIMSCore-CSCF] [SVN-ser_ims] r679 - Fixes to
+&#160;&#160;&#160; enum_query_orig()&#160;&#160;&#160; for use in the TRCF - fixes to e164 number
+&#160;&#160;&#160; identification -&#160;&#160;&#160; added Route header with orig indicator - replacing
+&#160;&#160;&#160; P-Asserted-Identity with the new value
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">200906180425.n5I4PRBT019556 at sheep.berlios.de</A>&gt;
+Content-Type: text/plain; charset=UTF-8
+
+Author: vingarzan
+Date: 2009-06-18 06:25:22 +0200 (Thu, 18 Jun 2009)
+New Revision: 679 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=679">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=679</A> 
+
+Log:
+Fixes to enum_query_orig() for use in the TRCF
+- fixes to e164 number identification
+- added Route header with orig indicator
+- replacing P-Asserted-Identity with the new value
+
+
+Modified:
+&#160;&#160;&#160;U&#160;&#160;&#160; ser_ims/trunk/modules/enum/enum.c
+&#160;&#160;&#160; &#160;&#160;&#160; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/enum/enum.c?rev=679&amp;view=diff&amp;r1=679&amp;r2=678">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/enum/enum.c?rev=679&amp;view=diff&amp;r1=679&amp;r2=678</A>
+
+
+
+------------------------------
+
+Message: 4
+Date: Thu, 18 Jun 2009 06:29:17 +0200
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at users.berlios.de</A>
+Subject: [OpenIMSCore-CSCF] [SVN-ser_ims] r680 - Small typo fix
+To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">200906180429.n5I4THiK021950 at sheep.berlios.de</A>&gt;
+Content-Type: text/plain; charset=UTF-8
+
+Author: vingarzan
+Date: 2009-06-18 06:29:13 +0200 (Thu, 18 Jun 2009)
+New Revision: 680 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=680">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=680</A> 
+
+Log:
+Small typo fix
+
+Modified:
+&#160;&#160;&#160;U&#160;&#160;&#160; ser_ims/trunk/cfg/icscf.cfg
+&#160;&#160;&#160; &#160;&#160;&#160; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/icscf.cfg?rev=680&amp;view=diff&amp;r1=680&amp;r2=679">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/icscf.cfg?rev=680&amp;view=diff&amp;r1=680&amp;r2=679</A>
+
+
+
+------------------------------
+
+_______________________________________________
+OpenIMSCore-CSCF mailing list
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+
+
+End of OpenIMSCore-CSCF Digest, Vol 32, Issue 5
+***********************************************
+
+
+
+      Access Yahoo!7 Mail on your mobile. Anytime. Anywhere.
+Show me how: <A HREF="http://au.mobile.yahoo.com/mail">http://au.mobile.yahoo.com/mail</A>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090624/66c8991e/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20090624/66c8991e/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001721.html">[OpenIMSCore-CSCF] SER_IMS Installation problem
+</A></li>
+	<LI>Next message: <A HREF="001723.html">[OpenIMSCore-CSCF] FHoSS Build failed
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1722">[ date ]</a>
+              <a href="thread.html#1722">[ thread ]</a>
+              <a href="subject.html#1722">[ subject ]</a>
+              <a href="author.html#1722">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

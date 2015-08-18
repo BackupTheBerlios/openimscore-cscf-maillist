@@ -1,0 +1,468 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Disable DNS resolving of hostname on	P-CSCF
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Disable%20DNS%20resolving%20of%20hostname%20on%09P-CSCF&In-Reply-To=%3C478E8D8D.5030904%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001143.html">
+   <LINK REL="Next"  HREF="001145.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Disable DNS resolving of hostname on	P-CSCF</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Disable%20DNS%20resolving%20of%20hostname%20on%09P-CSCF&In-Reply-To=%3C478E8D8D.5030904%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Disable DNS resolving of hostname on	P-CSCF">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Jan 17 00:04:45 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001143.html">[OpenIMSCore-CSCF] Disable DNS resolving of hostname on	P-CSCF
+</A></li>
+        <LI>Next message: <A HREF="001145.html">[OpenIMSCore-CSCF] Loop between AS, S-CSCF and ICSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1144">[ date ]</a>
+              <a href="thread.html#1144">[ thread ]</a>
+              <a href="subject.html#1144">[ subject ]</a>
+              <a href="author.html#1144">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Nick,
+
+Well, actually the IMS P-CSCF is quite smart if you compare it with an
+SBC. It actually follows all the registrations and has a lot of state
+internally such that it is able to allow only registered users to
+communicate (something that a good SBC would do, right?). Also it does a
+little bit of police job as it also checks signaling if correct (also a
+good SBC would do this).
+
+Well, our target was not to build a carrier-grade P-CSCF neither an SBC,
+so our P-CSCF is-what-it-is. If some SBC vendor would try to use FUD to
+sell you an SBC for IMS, ask him how would the SBC be able to do
+anything if placed between the UE and the P-CSCF if the UE and P-CSCF
+encrypt all the traffic? What is the big-purpose of such an SBC if IMS
+comes with a lot of built-in security?
+
+Between networks - this is another topic often referred in IMS as NDS -
+Network Domain Security. We have some stubs in the form of a white-list
+implemented now in the I-CSCF and the rest of the job should be done by
+good-old&amp;proven IP security (as in how to secure IP traffic between 2
+networks, often done through VPN, IPSec, IKE, etc to just throw in some
+stuff).
+
+Now I think that you are trying to hi-jack the whole home/visited-domain
+concepts of IMS. There are some things that I think are wrong here
+- IMS uses DNS for resolving names and as such making routing decisions.
+Why is that bad and why do you want to replace it? Almost all IP
+protocols are built with it and it seems to work pretty well. Seems to
+me that you are trying to pull an old
+we-control-the-numbering-plan-so-we-rule scheme ;-) that the telecoms
+are still very attached to for financial-locking-reasons let's say, but
+which we know it's way to hard to operate efficiently and has no
+technical benefits over the IP naming services.
+- Should I update all the P-CSCF/I-CSCF-known tables in the whole world
+when a remote domain adds a new domain? I am not saying here that
+operators should just open their IMS networks to the public internet,
+but what's wrong with just-DNS?
+- Also the user knows its own home network. If I have a telephone from
+user A, why should network XYZ know which network am I on instead of me?
+Should it be that any handset should be accepted in any network, all the
+services the same and at the end of the month I should just get a bill
+piped through my operator? The IMS idea is that I would have my own
+services that I can access from anywhere and the visited network is not
+doing much more than providing a secured and QoSed access networks.
+- if the authorization decision is happening in the visited network, how
+can I tell if the network that I am connect to is a true-one or is the
+visited network doing a man-in-the-middle-attack? In IMS with AKA also
+the user does authenticate the network.
+- you say that the decision if a user is authorized is on the I-S-HSS,
+but then you want to move it on the P. The P-CSCF can't decide if any
+phone in the world has the right authorizations without contacting it's
+home network. Your idea would only partially work in a network without
+roaming, where the P-CSCF can connect directly to the HSS, because I
+don't think that it is feasible to assume that operator A would allow
+full access to its whole subscriber database to operator B, such that
+operator B could entirely service the users without operator A even
+being involved at all in signaling.
+
+For some authentication methods the expected response to a challenge
+does not even leave the HSS and for any it does not go any further than
+the S-CSCF, for security reasons.
+
+I said partially above because then you would also want to update the
+registrar for domain open-ims.sk with the location of <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>
+because well, if I try to contact <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">time at open-ims.sk</A>, I would contact
+open-ims.sk first.
+
+
+Well, in any case, you are free to do anything that you desire to the
+OpenIMSCore and change it as you would like (just obey the GPLv2 license
+;-) ). I hope that you don't get me wrong, because I really encourage
+you to experiment. But I think that you are wrong in your architecture
+and trying to solve a problem that is not there actually.
+
+
+BTW: Something related to this that would really be helpful is to
+extract the THIG and NDS functionality from the icscf module that it is
+into now and create a standalone IBGF that would be able to do THIG on
+both both visited and home network. Unfortunately there wasn't any
+exciting interest in security so far with the OpenIMSCore and as such
+things might be quite hard-edged, untested and unfinished in many
+places, but we hope to improve that once the interest is there.
+
+A lot of security things that you probably want are not there because
+simply there wasn't much to do. For example, for network-to-network
+authentication, if I recall it well, IPSec should be used, but this is
+more of a network configuration than any line of code in the CSCFs. The
+idea would be to have a list of trusted networks. The application level
+authorization is already built-in and the transport level is external I
+would say.
+
+
+Cheers,
+-Dragos
+
+
+Nick.Burmester wrote:
+&gt;<i> Hi Dragos
+</I>&gt;<i>
+</I>&gt;<i> The Point of my interest is that we are trying to implement so kind of
+</I>&gt;<i> Gateway
+</I>&gt;<i> (Interconnect Border Control Function) to other IMS networks.
+</I>&gt;<i>
+</I>&gt;<i> I thought from the standard the P-CSCF is very dumb, and build only
+</I>&gt;<i> the entry
+</I>&gt;<i> Point to the IMS Network for the Clients.
+</I>&gt;<i> The name of the P-CSCF can transmitted over DHCP or is hardcoded in the
+</I>&gt;<i> Clienthardware from the Telcos.
+</I>&gt;<i> Only the P-CSCF should know the name of the I-CSCF and can communicate
+</I>&gt;<i> with the I-CSCF.
+</I>&gt;<i>
+</I>&gt;<i> So the P-CSCF should forward all requests from any client to the
+</I>&gt;<i> I-CSCF because
+</I>&gt;<i> it cant decide if the client is authorized to register to the network.
+</I>&gt;<i> This decision can only made by the I-CSCF in combination with the S-CSCF.
+</I>&gt;<i>
+</I>&gt;<i> Because of this I conzentrade my work on the I-CSCF to make routing
+</I>&gt;<i> decisions.
+</I>&gt;<i> I build a database with networks and the IBCFs which is connected to this
+</I>&gt;<i> network.
+</I>&gt;<i> So the I-CSCF should forward Request from Tim@[open-ims.sk] to
+</I>&gt;<i> ibcf1.open-ims.test in my network.
+</I>&gt;<i>
+</I>&gt;<i> If the network [open-ims.sk] is not in the database the I-CSCF should
+</I>&gt;<i> request an
+</I>&gt;<i> DNS resolve from all IBCFs in the Network.
+</I>&gt;<i> the result should written in the Database.
+</I>&gt;<i>
+</I>&gt;<i> I hope now you can better understand why i want to disable the DNS
+</I>&gt;<i> resolving in
+</I>&gt;<i> the P-CSCF.
+</I>&gt;<i>
+</I>&gt;<i> greats Nick
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Quoting Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>&gt;:
+</I>&gt;<i>
+</I>&gt;&gt;<i> Hi Nick,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Yes, that is correct behavior. The P-CSCF will always try to send the
+</I>&gt;&gt;<i> message out to the user's home network and not to P-CSCF network. I
+</I>&gt;&gt;<i> don't think that you need to forward the registrations to your home
+</I>&gt;&gt;<i> network. The thing is that in order for anybody to reach
+</I>&gt;&gt;<i> sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>, they will contact the I-CSCF for open-ims.sk and
+</I>&gt;&gt;<i> not your open-ims.test I-CSCF, so really you should be registered in
+</I>&gt;&gt;<i> your home-network and not in a visited one. I don't know too much about
+</I>&gt;&gt;<i> GSM roaming, but I guess you are kind of registered in the visited
+</I>&gt;&gt;<i> network there in a sense. Here the visited network is not doing the hard
+</I>&gt;&gt;<i> work, just forwarding signaling to your home network where your services
+</I>&gt;&gt;<i> are always applied.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> So, really, you are supposed to always register to your home-network.
+</I>&gt;&gt;<i> The visited-network can not authenticate you anyway as it does not have
+</I>&gt;&gt;<i> the right credentials.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Cheers,
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Nick.Burmester wrote:
+</I>&gt;&gt;&gt;<i> Hello I have some problems with the P-CSCF.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I tryed to connect a client to the IMS network(open-ims.test) as
+</I>&gt;&gt;&gt;<i> visitor from
+</I>&gt;&gt;&gt;<i> (open-ims.sk) network.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I used the OpenIMSClient as clientsoftware
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> config:
+</I>&gt;&gt;&gt;<i> Public Identity: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Tim at open-ims.sk</A>
+</I>&gt;&gt;&gt;<i> Private Identity:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Tim at open-ims.sk</A>
+</I>&gt;&gt;&gt;<i> Realm:open-ims.sk
+</I>&gt;&gt;&gt;<i> ProxyServer: pcscf:2060/UDP
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> On connecting the P-CSCF display this Error
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>           ERROR: sip_hostport2su: could not resolve hostname:
+</I>&gt;&gt;&gt;<i> &quot;open-ims.sk&quot;
+</I>&gt;&gt;&gt;<i>  1(17353) ERROR: uri2dst: failed to resolve &quot;open-ims.sk&quot;
+</I>&gt;&gt;&gt;<i>  1(17353) ERROR: t_forward_nonack: failure to add branches
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> It seems that the P-CSCF trys to resolve the hostname/network of the
+</I>&gt;&gt;&gt;<i> client
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>
+</I>&gt;&gt;&gt;<i> but i thought that the P-CSCF forwards the Message to the I-CSCF if
+</I>&gt;&gt;&gt;<i> it doesnt
+</I>&gt;&gt;&gt;<i> knows the Host or Network.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> How i can get the P-CSCF to forward the REGISTER of unknown users,
+</I>&gt;&gt;&gt;<i> which are
+</I>&gt;&gt;&gt;<i> visitors in my network to my I-CSCF?
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> P-CSCF has the port 2060
+</I>&gt;&gt;&gt;<i> I-CSCF has the port 3060
+</I>&gt;&gt;&gt;<i> S-CSCF has the port 4060
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Wireshark log
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Frame 1 (780 bytes on wire, 780 bytes captured)
+</I>&gt;&gt;&gt;<i> Ethernet II, Src: 00:00:00_00:00:00 (00:00:00:00:00:00), Dst:
+</I>&gt;&gt;&gt;<i> 00:00:00_00:00:00
+</I>&gt;&gt;&gt;<i> (00:00:00:00:00:00)
+</I>&gt;&gt;&gt;<i> Internet Protocol, Src: localhost (127.0.0.1), Dst: localhost
+</I>&gt;&gt;&gt;<i> (127.0.0.1)
+</I>&gt;&gt;&gt;<i> User Datagram Protocol, Src Port: sip (5060), Dst Port: 2060 (2060)
+</I>&gt;&gt;&gt;<i> Session Initiation Protocol
+</I>&gt;&gt;&gt;<i>     Request-Line: REGISTER sip:open-ims.sk SIP/2.0
+</I>&gt;&gt;&gt;<i>         Method: REGISTER
+</I>&gt;&gt;&gt;<i>         [Resent Packet: False]
+</I>&gt;&gt;&gt;<i>     Message Header
+</I>&gt;&gt;&gt;<i>         Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">9c0a6aed375d6969e525973c49fcb511 at 127.0.0.1</A>
+</I>&gt;&gt;&gt;<i>         CSeq: 1 REGISTER
+</I>&gt;&gt;&gt;<i>             Sequence Number: 1
+</I>&gt;&gt;&gt;<i>             Method: REGISTER
+</I>&gt;&gt;&gt;<i>         From: &quot;Tim&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>&gt;;tag=1001
+</I>&gt;&gt;&gt;<i>             SIP Display info: &quot;Tim&quot;
+</I>&gt;&gt;&gt;<i>             SIP from address: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>
+</I>&gt;&gt;&gt;<i>             SIP tag: 1001
+</I>&gt;&gt;&gt;<i>         To: &quot;Tim&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>&gt;
+</I>&gt;&gt;&gt;<i>             SIP Display info: &quot;Tim&quot;
+</I>&gt;&gt;&gt;<i>             SIP to address: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>
+</I>&gt;&gt;&gt;<i>         Via: SIP/2.0/UDP
+</I>&gt;&gt;&gt;<i> 127.0.0.1:5060;branch=z9hG4bK56a9ce288d0da4fbd3736228ad89ab57
+</I>&gt;&gt;&gt;<i>             Transport: UDP
+</I>&gt;&gt;&gt;<i>             Sent-by Address: 127.0.0.1
+</I>&gt;&gt;&gt;<i>             Sent-by port: 5060
+</I>&gt;&gt;&gt;<i>             Branch: z9hG4bK56a9ce288d0da4fbd3736228ad89ab57
+</I>&gt;&gt;&gt;<i>         Max-Forwards: 20
+</I>&gt;&gt;&gt;<i>         Expires: 3600
+</I>&gt;&gt;&gt;<i>         Authorization: Digest
+</I>&gt;&gt;&gt;<i> username=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>&quot;,realm=&quot;open-ims.sk&quot;,nonce=&quot;&quot;,response=&quot;&quot;,uri=&quot;sip:open-ims.sk&quot;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>             Authentication Scheme: Digest
+</I>&gt;&gt;&gt;<i>             Username: &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>&quot;
+</I>&gt;&gt;&gt;<i>             Realm: &quot;open-ims.sk&quot;
+</I>&gt;&gt;&gt;<i>             Nonce Value: &quot;&quot;
+</I>&gt;&gt;&gt;<i>             Digest Authentication Response: &quot;&quot;
+</I>&gt;&gt;&gt;<i>             Authentication URI: &quot;sip:open-ims.sk&quot;
+</I>&gt;&gt;&gt;<i>         Supported: path
+</I>&gt;&gt;&gt;<i>         Contact: &quot;Tim&quot; &lt;sip:127.0.0.1:5060&gt;
+</I>&gt;&gt;&gt;<i>             Contact Binding: &quot;Tim&quot; &lt;sip:127.0.0.1:5060&gt;
+</I>&gt;&gt;&gt;<i>                 URI: &quot;Tim&quot; &lt;sip:127.0.0.1:5060&gt;
+</I>&gt;&gt;&gt;<i>                     SIP Display info: &quot;Tim&quot;
+</I>&gt;&gt;&gt;<i>                     SIP contact address: sip:127.0.0.1:5060
+</I>&gt;&gt;&gt;<i>         P-Preferred-Identity: &quot;Tim&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>&gt;
+</I>&gt;&gt;&gt;<i>         P-Access-Network-Info: 3GPP-UTRAN-TDD;
+</I>&gt;&gt;&gt;<i> utran-cell-id-3gpp=00000000
+</I>&gt;&gt;&gt;<i>         Privacy: none
+</I>&gt;&gt;&gt;<i>         User-Agent: Fraunhofer FOKUS/NGNI Java IMS UserEndpoint
+</I>&gt;&gt;&gt;<i> FoJIE 0.1
+</I>&gt;&gt;&gt;<i> (jdk1.3)
+</I>&gt;&gt;&gt;<i>         Allow: INVITE,ACK,CANCEL,BYE,MESSAGE,NOTIFY
+</I>&gt;&gt;&gt;<i>         Content-Length: 0
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Frame 2 (617 bytes on wire, 617 bytes captured)
+</I>&gt;&gt;&gt;<i> Ethernet II, Src: 00:00:00_00:00:00 (00:00:00:00:00:00), Dst:
+</I>&gt;&gt;&gt;<i> 00:00:00_00:00:00
+</I>&gt;&gt;&gt;<i> (00:00:00:00:00:00)
+</I>&gt;&gt;&gt;<i> Internet Protocol, Src: localhost (127.0.0.1), Dst: localhost
+</I>&gt;&gt;&gt;<i> (127.0.0.1)
+</I>&gt;&gt;&gt;<i> User Datagram Protocol, Src Port: 2060 (2060), Dst Port: sip (5060)
+</I>&gt;&gt;&gt;<i> Session Initiation Protocol
+</I>&gt;&gt;&gt;<i>     Status-Line: SIP/2.0 478 Unresolvable destination (478/TM)
+</I>&gt;&gt;&gt;<i>         Status-Code: 478
+</I>&gt;&gt;&gt;<i>         [Resent Packet: False]
+</I>&gt;&gt;&gt;<i>     Message Header
+</I>&gt;&gt;&gt;<i>         Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">9c0a6aed375d6969e525973c49fcb511 at 127.0.0.1</A>
+</I>&gt;&gt;&gt;<i>         CSeq: 1 REGISTER
+</I>&gt;&gt;&gt;<i>             Sequence Number: 1
+</I>&gt;&gt;&gt;<i>             Method: REGISTER
+</I>&gt;&gt;&gt;<i>         From: &quot;Tim&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>&gt;;tag=1001
+</I>&gt;&gt;&gt;<i>             SIP Display info: &quot;Tim&quot;
+</I>&gt;&gt;&gt;<i>             SIP from address: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>
+</I>&gt;&gt;&gt;<i>             SIP tag: 1001
+</I>&gt;&gt;&gt;<i>         To: &quot;Tim&quot;
+</I>&gt;&gt;&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>&gt;;tag=23e505f7d87c5af53ee0a11da5d8db4b-ddf6
+</I>&gt;&gt;&gt;<i>             SIP Display info: &quot;Tim&quot;
+</I>&gt;&gt;&gt;<i>             SIP to address: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>
+</I>&gt;&gt;&gt;<i>             SIP tag: 23e505f7d87c5af53ee0a11da5d8db4b-ddf6
+</I>&gt;&gt;&gt;<i>         Via: SIP/2.0/UDP
+</I>&gt;&gt;&gt;<i> 127.0.0.1:5060;branch=z9hG4bK56a9ce288d0da4fbd3736228ad89ab57;rport=5060
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>             Transport: UDP
+</I>&gt;&gt;&gt;<i>             Sent-by Address: 127.0.0.1
+</I>&gt;&gt;&gt;<i>             Sent-by port: 5060
+</I>&gt;&gt;&gt;<i>             Branch: z9hG4bK56a9ce288d0da4fbd3736228ad89ab57
+</I>&gt;&gt;&gt;<i>             RPort: 5060
+</I>&gt;&gt;&gt;<i>         Server: Sip EXpress router (2.1.0-dev1 OpenIMSCore
+</I>&gt;&gt;&gt;<i> (i386/linux))
+</I>&gt;&gt;&gt;<i>         Content-Length: 0
+</I>&gt;&gt;&gt;<i>         Warning: 392 127.0.0.1:2060 &quot;Noisy feedback tells:  pid=5825
+</I>&gt;&gt;&gt;<i> req_src_ip=127.0.0.1 req_src_port=5060 in_uri=sip:open-ims.sk
+</I>&gt;&gt;&gt;<i> out_uri=sip:open-ims.sk via_cnt==1&quot;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Frame 3 (615 bytes on wire, 615 bytes captured)
+</I>&gt;&gt;&gt;<i> Ethernet II, Src: 00:00:00_00:00:00 (00:00:00:00:00:00), Dst:
+</I>&gt;&gt;&gt;<i> 00:00:00_00:00:00
+</I>&gt;&gt;&gt;<i> (00:00:00:00:00:00)
+</I>&gt;&gt;&gt;<i> Internet Protocol, Src: localhost (127.0.0.1), Dst: localhost
+</I>&gt;&gt;&gt;<i> (127.0.0.1)
+</I>&gt;&gt;&gt;<i> User Datagram Protocol, Src Port: 2060 (2060), Dst Port: sip (5060)
+</I>&gt;&gt;&gt;<i> Session Initiation Protocol
+</I>&gt;&gt;&gt;<i>     Status-Line: SIP/2.0 500 Error forwarding to Home Domain
+</I>&gt;&gt;&gt;<i>         Status-Code: 500
+</I>&gt;&gt;&gt;<i>         [Resent Packet: False]
+</I>&gt;&gt;&gt;<i>     Message Header
+</I>&gt;&gt;&gt;<i>         Call-ID: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">9c0a6aed375d6969e525973c49fcb511 at 127.0.0.1</A>
+</I>&gt;&gt;&gt;<i>         CSeq: 1 REGISTER
+</I>&gt;&gt;&gt;<i>             Sequence Number: 1
+</I>&gt;&gt;&gt;<i>             Method: REGISTER
+</I>&gt;&gt;&gt;<i>         From: &quot;Tim&quot; &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>&gt;;tag=1001
+</I>&gt;&gt;&gt;<i>             SIP Display info: &quot;Tim&quot;
+</I>&gt;&gt;&gt;<i>             SIP from address: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>
+</I>&gt;&gt;&gt;<i>             SIP tag: 1001
+</I>&gt;&gt;&gt;<i>         To: &quot;Tim&quot;
+</I>&gt;&gt;&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>&gt;;tag=c2c43482b33df0442c766393f456f5e2.ddf6
+</I>&gt;&gt;&gt;<i>             SIP Display info: &quot;Tim&quot;
+</I>&gt;&gt;&gt;<i>             SIP to address: sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">tim at open-ims.sk</A>
+</I>&gt;&gt;&gt;<i>             SIP tag: c2c43482b33df0442c766393f456f5e2.ddf6
+</I>&gt;&gt;&gt;<i>         Via: SIP/2.0/UDP
+</I>&gt;&gt;&gt;<i> 127.0.0.1:5060;branch=z9hG4bK56a9ce288d0da4fbd3736228ad89ab57;rport=5060
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>             Transport: UDP
+</I>&gt;&gt;&gt;<i>             Sent-by Address: 127.0.0.1
+</I>&gt;&gt;&gt;<i>             Sent-by port: 5060
+</I>&gt;&gt;&gt;<i>             Branch: z9hG4bK56a9ce288d0da4fbd3736228ad89ab57
+</I>&gt;&gt;&gt;<i>             RPort: 5060
+</I>&gt;&gt;&gt;<i>         Server: Sip EXpress router (2.1.0-dev1 OpenIMSCore
+</I>&gt;&gt;&gt;<i> (i386/linux))
+</I>&gt;&gt;&gt;<i>         Content-Length: 0
+</I>&gt;&gt;&gt;<i>         Warning: 392 127.0.0.1:2060 &quot;Noisy feedback tells:  pid=5825
+</I>&gt;&gt;&gt;<i> req_src_ip=127.0.0.1 req_src_port=5060 in_uri=sip:open-ims.sk
+</I>&gt;&gt;&gt;<i> out_uri=sip:open-ims.sk via_cnt==1&quot;
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Deutsche Telekom AG
+</I>&gt;&gt;&gt;<i> Hochschule f&#252;r Telekommunikation Leipzig
+</I>&gt;&gt;&gt;<i> University of Applied Sciences
+</I>&gt;&gt;&gt;<i>  Institut f&#252;r Telekommunikationsinformatik
+</I>&gt;&gt;&gt;<i>  Dipl.-Ing.(FH) Stephan Massner
+</I>&gt;&gt;&gt;<i>  Labor Next Generation Network/ L1.07
+</I>&gt;&gt;&gt;<i> Hausadresse: Gustav-Freytag-Str. 43-45, 04277  Leipzig
+</I>&gt;&gt;&gt;<i> Postanschrift: Postfach 71, 04251 Leipzig
+</I>&gt;&gt;&gt;<i> Tel.: +49 341 3062 - 238
+</I>&gt;&gt;&gt;<i> mailto: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">stephan.massner at hft-leipzig.de</A>
+</I>&gt;&gt;&gt;<i> web: www.hft-leipzig.de
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Deutsche Telekom AG
+</I>&gt;&gt;&gt;<i> Aufsichtsrat: Dr. Klaus Zumwinkel (Vorsitzender)
+</I>&gt;&gt;&gt;<i> Vorstand: Ren&#233; Obermann (Vorsitzender),
+</I>&gt;&gt;&gt;<i> Dr. Karl-Gerhard Eick (stellvertretender Vorsitzender),
+</I>&gt;&gt;&gt;<i> Hamid Akhavan, Timotheus H&#246;ttges, Thomas Sattelberger
+</I>&gt;&gt;&gt;<i> Handelsregister: Amtsgericht Bonn HRB 6794
+</I>&gt;&gt;&gt;<i> Sitz der Gesellschaft: Bonn
+</I>&gt;&gt;&gt;<i> WEEE-Reg.-Nr.: DE50478376
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -- 
+</I>&gt;&gt;<i> -----------------------------------------
+</I>&gt;&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;&gt;<i> Fraunhofer FOKUS/NGNI
+</I>&gt;&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;&gt;<i> 10589 Berlin,Germany
+</I>&gt;&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;&gt;<i> Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;&gt;<i> Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;&gt;<i> -----------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001143.html">[OpenIMSCore-CSCF] Disable DNS resolving of hostname on	P-CSCF
+</A></li>
+	<LI>Next message: <A HREF="001145.html">[OpenIMSCore-CSCF] Loop between AS, S-CSCF and ICSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1144">[ date ]</a>
+              <a href="thread.html#1144">[ thread ]</a>
+              <a href="subject.html#1144">[ subject ]</a>
+              <a href="author.html#1144">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

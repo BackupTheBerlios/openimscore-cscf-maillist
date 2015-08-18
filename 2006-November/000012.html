@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r42 - in ser_ims/trunk/modules:	pcscf scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r42%20-%20in%20ser_ims/trunk/modules%3A%0A%09pcscf%20scscf&In-Reply-To=%3C200611301715.kAUHFPjZ002676%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000011.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r42 - in ser_ims/trunk/modules:	pcscf scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r42%20-%20in%20ser_ims/trunk/modules%3A%0A%09pcscf%20scscf&In-Reply-To=%3C200611301715.kAUHFPjZ002676%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r42 - in ser_ims/trunk/modules:	pcscf scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Thu Nov 30 18:15:25 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000011.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r38 - in ser_ims/trunk/modules:	cdp icscf pcscf scscf
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#12">[ date ]</a>
+              <a href="thread.html#12">[ thread ]</a>
+              <a href="subject.html#12">[ subject ]</a>
+              <a href="author.html#12">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2006-11-30 18:15:23 +0100 (Thu, 30 Nov 2006)
+New Revision: 42
+
+Modified:
+   ser_ims/trunk/modules/pcscf/dlg_state.c
+   ser_ims/trunk/modules/scscf/dlg_state.c
+Log:
+reduced logging level for dialogs.
+
+
+Modified: ser_ims/trunk/modules/pcscf/dlg_state.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/dlg_state.c	2006-11-30 13:15:21 UTC (rev 41)
++++ ser_ims/trunk/modules/pcscf/dlg_state.c	2006-11-30 17:15:23 UTC (rev 42)
+@@ -626,7 +626,7 @@
+ 
+ 	if (msg-&gt;first_line.type==SIP_REQUEST){
+ 		/* Request */
+-		LOG(L_ERR,&quot;DBG:&quot;M_NAME&quot;:P_update_dialog(%s): Method &lt;%.*s&gt; \n&quot;,str1,
++		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:P_update_dialog(%s): Method &lt;%.*s&gt; \n&quot;,str1,
+ 			msg-&gt;first_line.u.request.method.len,msg-&gt;first_line.u.request.method.s);
+ 		cseq = cscf_get_cseq(msg,&amp;h);
+ 		if (cseq&gt;d-&gt;last_cseq) d-&gt;last_cseq = cseq;
+@@ -634,7 +634,7 @@
+ 	}else{
+ 		/* Reply */
+ 		response = msg-&gt;first_line.u.reply.statuscode;
+-		LOG(L_ERR,&quot;DBG:&quot;M_NAME&quot;:P_update_dialog(%s): &lt;%d&gt; \n&quot;,str1,response);
++		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:P_update_dialog(%s): &lt;%d&gt; \n&quot;,str1,response);
+ 		cseq = cscf_get_cseq(msg,&amp;h);
+ 		if (cseq==0 || h==0) return CSCF_RETURN_FALSE;
+ 		if (d-&gt;first_cseq==cseq &amp;&amp; d-&gt;method_str.len == ((struct cseq_body *)h-&gt;parsed)-&gt;method.len &amp;&amp;
+@@ -821,7 +821,7 @@
+ 	if (!call_id.len)
+ 		return CSCF_RETURN_FALSE;
+ 
+-	LOG(L_INFO,&quot;DBG:&quot;M_NAME&quot;:P_follows_dialog_routes(%s): Call-ID &lt;%.*s&gt; %<A HREF="d://%.*s:%d\n">d://%.*s:%d\n</A>&quot;,
++	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:P_follows_dialog_routes(%s): Call-ID &lt;%.*s&gt; %<A HREF="d://%.*s:%d\n">d://%.*s:%d\n</A>&quot;,
+ 		str1,call_id.len,call_id.s,
+ 		transport,host.len,host.s,port);
+ 
+@@ -845,14 +845,14 @@
+ 	}
+ 	r = (rr_t*) hdr-&gt;parsed;	
+ 	for(i=0;i&lt;d-&gt;routes_cnt;i++){
+-		LOG(L_ERR,&quot;DBG:&quot;M_NAME&quot;:P_follows_dialog_routes:  must &lt;%.*s&gt;\n&quot;,
++		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:P_follows_dialog_routes:  must &lt;%.*s&gt;\n&quot;,
+ 			d-&gt;routes[i].len,d-&gt;routes[i].s);		
+ 		if (!r) {
+ 			hdr = cscf_get_next_route(msg,hdr);
+ 			if (!hdr) goto nok;
+ 			r = (rr_t*) hdr-&gt;parsed;	
+ 		}
+-		LOG(L_ERR,&quot;DBG:&quot;M_NAME&quot;:P_follows_dialog_routes: src %.*s\n&quot;,
++		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:P_follows_dialog_routes: src %.*s\n&quot;,
+ 			r-&gt;nameaddr.uri.len,r-&gt;nameaddr.uri.s);		
+ 		if (r-&gt;nameaddr.uri.len==d-&gt;routes[i].len &amp;&amp;
+ 				strncasecmp(r-&gt;nameaddr.uri.s,
+@@ -860,14 +860,14 @@
+ 		{
+ 			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:P_follows_dialog_routes: src match\n&quot;);		
+ 		} else {
+-			LOG(L_ERR,&quot;DBG:&quot;M_NAME&quot;:P_follows_dialog_routes: found &lt;%.*s&gt;\n&quot;,
++			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:P_follows_dialog_routes: found &lt;%.*s&gt;\n&quot;,
+ 				r-&gt;nameaddr.uri.len,r-&gt;nameaddr.uri.s);					
+ 			goto nok;
+ 		}
+ 		r = r-&gt;next;
+ 	}
+ 	if (r) {
+-		LOG(L_ERR,&quot;DBG:&quot;M_NAME&quot;:P_follows_dialog_routes: still has some extra Routes\n&quot;);		
++		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:P_follows_dialog_routes: still has some extra Routes\n&quot;);		
+ 		goto nok;
+ 	}
+ 	else 
+
+Modified: ser_ims/trunk/modules/scscf/dlg_state.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/dlg_state.c	2006-11-30 13:15:21 UTC (rev 41)
++++ ser_ims/trunk/modules/scscf/dlg_state.c	2006-11-30 17:15:23 UTC (rev 42)
+@@ -650,7 +650,7 @@
+ 	}else{
+ 		/* Reply */
+ 		response = msg-&gt;first_line.u.reply.statuscode;
+-		LOG(L_ERR,&quot;DBG:&quot;M_NAME&quot;:S_update_dialog(%s): &lt;%d&gt; \n&quot;,str1,response);
++		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:S_update_dialog(%s): &lt;%d&gt; \n&quot;,str1,response);
+ 		cseq = cscf_get_cseq(msg,&amp;h);
+ 		if (cseq==0 || h==0) return CSCF_RETURN_FALSE;
+ 		if (d-&gt;first_cseq==cseq &amp;&amp; d-&gt;method_str.len == ((struct cseq_body *)h-&gt;parsed)-&gt;method.len &amp;&amp;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000011.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r38 - in ser_ims/trunk/modules:	cdp icscf pcscf scscf
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#12">[ date ]</a>
+              <a href="thread.html#12">[ thread ]</a>
+              <a href="subject.html#12">[ subject ]</a>
+              <a href="author.html#12">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

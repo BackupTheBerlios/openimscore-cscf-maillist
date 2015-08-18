@@ -1,0 +1,340 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] cscf_get_first_route and other problems
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20cscf_get_first_route%20and%20other%20problems&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BCF9D%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002040.html">
+   <LINK REL="Next"  HREF="002044.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] cscf_get_first_route and other problems</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20cscf_get_first_route%20and%20other%20problems&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BCF9D%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] cscf_get_first_route and other problems">wang at basis-audionet.com
+       </A><BR>
+    <I>Wed Feb  3 15:48:55 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002040.html">[OpenIMSCore-CSCF] cscf_get_first_route and other problems
+</A></li>
+        <LI>Next message: <A HREF="002044.html">[OpenIMSCore-CSCF] cscf_get_first_route and other problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2041">[ date ]</a>
+              <a href="thread.html#2041">[ thread ]</a>
+              <a href="subject.html#2041">[ subject ]</a>
+              <a href="author.html#2041">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Andreaa:
+
+See my comments below:
+&gt;<i> 
+</I>&gt;<i> Dragos has fixed the problem.
+</I>&gt;<i> But now, when trying to use P_Rx on the terminating leg, the function
+</I>&gt;<i> cscf_get_mobile_side crashes. Please fix this, as I think you have
+</I>&gt;<i> modified it, or related functions, like cscf_get_first_route.
+</I>&gt;<i> 
+</I>&gt;<i> DBG:P-CSCF:P_Rx: t-&gt;method is INVITE
+</I>&gt;<i>  1(28442) INF:P-CSCF:PCC_AAR: called PCC_AAR
+</I>&gt;<i>  1(28442) cscf_get_mobile_side : called
+</I>&gt;<i>  1(28442) parse_headers: flags=200
+</I>&gt;<i>  1(28442) 20(28461) ERROR: receive_fd: EOF on 6
+</I>&gt;<i> 20(28461) DBG: handle_ser_child: dead child 1, pid 28442 (shutting
+</I>&gt;<i> down?)
+</I>
+Is it repeatable? If so it is better if you could give me the core dump
+file. Or do the gdb backtrace to see what inside.
+
+And in what case you get this error?
+
+&gt;<i> 
+</I>&gt;<i> I also have seen that pcscf crashes when a call is cancelled, the
+</I>&gt;<i> function P_follows_via_list() is trying to free a non-valid
+</I>&gt;<i> pointer/overwrite one.
+</I>&gt;<i> This is probably as well a side effect of the shm and pkg checking
+</I>that
+&gt;<i> you did lately.
+</I>
+P_follows_via_list certainly has not been changed.
+
+but I do see 
+req = cscf_get_request_from_reply(rpl) inside;
+
+I guess that is the same error we need to avoid: there is something
+operated on that without freeing the pkg mem.
+
+I will look at it.
+
+
+&gt;<i> 
+</I>&gt;<i> So, the tests should be:
+</I>&gt;<i> 1) alice calls bob, alice hangs up
+</I>&gt;<i> 2) alice calls bob, bob hangs up
+</I>&gt;<i> 3) alice calls bob, but cancels the call
+</I>
+With yesterday's build  r851, I could do all of them. Actually it is the
+first build can I could run over-night.
+
+
+&gt;<i> 
+</I>&gt;<i> Let us know when they are working again.
+</I>&gt;<i> 
+</I>&gt;<i> If you cannot fix the problem(s), we will make a revert in the next
+</I>few
+&gt;<i> days.
+</I>
+If you revert it, it will make thing worse. That is not correct. Please
+read the following to understand more:
+
+* <A HREF="http://lists.sip-router.org/pipermail/sr-dev/2009-December/005314.html">http://lists.sip-router.org/pipermail/sr-dev/2009-December/005314.html</A>
+
+ *
+<A HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-December/002349.">http://lists.berlios.de/pipermail/openimscore-cscf/2009-December/002349.</A>
+html
+
+
+
+Kind regards.
+
+Min Wang
+
+
+&gt;<i> 
+</I>&gt;<i> Best regards,
+</I>&gt;<i> Ancuta
+</I>&gt;<i> 
+</I>&gt;<i> &gt; Message: 6
+</I>&gt;<i> &gt; Date: Mon, 1 Feb 2010 22:01:55 +0100
+</I>&gt;<i> &gt; From: &quot;Min Wang&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">wang at basis-audionet.com</A>&gt;
+</I>&gt;<i> &gt; Subject: [OpenIMSCore-CSCF] deadlock again in p-cscf
+</I>&gt;<i> &gt; To: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>&gt;
+</I>&gt;<i> &gt; Message-ID:
+</I>&gt;<i> &gt; 	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">04A856F26940EE42A7D6129D5073F24A022BCEB7 at BASIS001152003.basis-</A>
+</I>&gt;<i> audionet.de&gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Content-Type: text/plain;	charset=&quot;us-ascii&quot;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Hi
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Deadlock again.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; See the back trace, it seems:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; P_drop_dialog --&gt; d =
+</I>get_p_dialog(call_id,host,port,transport,&amp;dir);
+&gt;<i> &gt;
+</I>&gt;<i> &gt; Then in:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; callback_for_pccsession:
+</I>&gt;<i> &gt;    -&gt;
+</I>&gt;<i> &gt;
+</I>dlg=get_p_dialog(pcc_data-&gt;callid,pcc_data-&gt;host,pcc_data-&gt;port,pcc_data
+&gt;<i> &gt; -&gt;transport,&amp;(pcc_data-&gt;direction));
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Thus deadlock.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; (gdb) bt
+</I>&gt;<i> &gt; #0  0xb7f3f424 in __kernel_vsyscall ()
+</I>&gt;<i> &gt; #1  0xb7e80fac in sched_yield () from /lib/i686/cmov/libc.so.6
+</I>&gt;<i> &gt; #2  0xb7a2fb05 in get_p_dialog () from /usr/lib/ser/modules/pcscf.so
+</I>&gt;<i> &gt; #3  0xb7a43710 in callback_for_pccsession () from
+</I>&gt;<i> &gt; /usr/lib/ser/modules/pcscf.so
+</I>&gt;<i> &gt; #4  0xb78b062e in auth_client_statefull_sm_process () from
+</I>&gt;<i> &gt; /usr/lib/ser/modules/cdp.so
+</I>&gt;<i> &gt; #5  0xb78cbe60 in AAATerminateAuthSession () from
+</I>&gt;<i> &gt; /usr/lib/ser/modules/cdp.so
+</I>&gt;<i> &gt; #6  0xb7a407fc in terminate_pcc_session () from
+</I>&gt;<i> &gt; /usr/lib/ser/modules/pcscf.so
+</I>&gt;<i> &gt; #7  0xb7a3218c in P_drop_dialog () from
+</I>/usr/lib/ser/modules/pcscf.so
+&gt;<i> &gt; #8  0xb7a3330d in P_update_dialog () from
+</I>/usr/lib/ser/modules/pcscf.so
+&gt;<i> &gt; #9  0x08054727 in do_action ()
+</I>&gt;<i> &gt; #10 0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #11 0x080544bc in do_action ()
+</I>&gt;<i> &gt; #12 0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #13 0xb7d9ea3f in reply_received () from /usr/lib/ser/modules/tm.so
+</I>&gt;<i> &gt; #14 0x080703d2 in forward_reply ()
+</I>&gt;<i> &gt; #15 0x08091805 in receive_msg ()
+</I>&gt;<i> &gt; #16 0x080c920d in udp_rcv_loop ()
+</I>&gt;<i> &gt; #17 0x0807a2e0 in main_loop ()
+</I>&gt;<i> &gt; #18 0x0807c29d in main ()
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; 0  0xb7f3f424 in __kernel_vsyscall ()
+</I>&gt;<i> &gt; #1  0xb7e80fac in sched_yield () from /lib/i686/cmov/libc.so.6
+</I>&gt;<i> &gt; #2  0xb7a30365 in is_p_dialog () from /usr/lib/ser/modules/pcscf.so
+</I>&gt;<i> &gt; #3  0xb7a35048 in P_is_in_dialog () from
+</I>/usr/lib/ser/modules/pcscf.so
+&gt;<i> &gt; #4  0x08054727 in do_action ()
+</I>&gt;<i> &gt; #5  0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #6  0x080992e0 in eval_expr ()
+</I>&gt;<i> &gt; #7  0x08054475 in do_action ()
+</I>&gt;<i> &gt; #8  0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #9  0x080544bc in do_action ()
+</I>&gt;<i> &gt; #10 0x08056471 in run_actions ()
+</I>&gt;<i> &gt; #11 0x080916bf in receive_msg ()
+</I>&gt;<i> &gt; #12 0x080c920d in udp_rcv_loop ()
+</I>&gt;<i> &gt; #13 0x0807a2e0 in main_loop ()
+</I>&gt;<i> &gt; #14 0x0807c29d in main ()
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; #0  0xb7f3f424 in __kernel_vsyscall ()
+</I>&gt;<i> &gt; #1  0xb7e80fac in sched_yield () from /lib/i686/cmov/libc.so.6
+</I>&gt;<i> &gt; #2  0xb7a2d1e5 in d_lock () from /usr/lib/ser/modules/pcscf.so
+</I>&gt;<i> &gt; #3  0xb7a48ec0 in make_snapshot_dialogs () from
+</I>&gt;<i> &gt; /usr/lib/ser/modules/pcscf.so
+</I>&gt;<i> &gt; #4  0xb7a49147 in persistency_timer_dialogs () from
+</I>&gt;<i> &gt; /usr/lib/ser/modules/pcscf.so
+</I>&gt;<i> &gt; #5  0x080c3ae1 in ?? ()
+</I>&gt;<i> &gt; #6  0x028fb1af in ?? ()
+</I>&gt;<i> &gt; #7  0x00000000 in ?? ()
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Kind Regards
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Min Wang
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ------------------------------
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Message: 7
+</I>&gt;<i> &gt; Date: Tue, 2 Feb 2010 16:01:52 +0530
+</I>&gt;<i> &gt; From: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">rohini.n56 at wipro.com</A>&gt;
+</I>&gt;<i> &gt; Subject: [OpenIMSCore-CSCF] about Start the components error
+</I>&gt;<i> &gt; To: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>&gt;
+</I>&gt;<i> &gt; Message-ID:
+</I>&gt;<i> &gt;
+</I>&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">2E0479C07E2F5A49A60A7E3DEB1D0A7C07F11FE1 at BLR-EC-MBX03.wipro.com</A>&gt;
+&gt;<i> &gt; Content-Type: text/plain; charset=&quot;iso-8859-1&quot;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Hello Sir,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; now as given in 6th step
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; *
+</I>&gt;<i> &gt; Start pcscf.sh, icscf.sh and scscf.sh
+</I>&gt;<i> &gt; *
+</I>&gt;<i> &gt; All these should run in parallel.
+</I>&gt;<i> &gt; here when executing this using linux command [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at localhost</A>
+</I>&gt;<i> OpenIMSCore]# ./pcscf.sh
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; i was getting error as given in below, now as
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ./pcscf.sh: line 3: ./ser_ims/cfg/killser: Permission denied
+</I>&gt;<i> &gt;  0(3243) ERROR: load_module: could not open module
+</I>&gt;<i> &lt;/opt/OpenIMSCore/ser_ims/modules/dialog/dialog.so&gt;: lib_ser_cds.so:
+</I>&gt;<i> cannot open shared object file: No such file or directory
+</I>&gt;<i> &gt;  0(3243) parse error (37,13-14): failed to load module
+</I>&gt;<i> &gt;  0(3243) ERROR: load_module: could not open module
+</I>&gt;<i> &lt;/opt/OpenIMSCore/ser_ims/modules/pcscf/pcscf.so&gt;: lib_ser_cds.so:
+</I>cannot
+&gt;<i> open shared object file: No such file or directory
+</I>&gt;<i> &gt;  0(3243) parse error (42,13-14): failed to load module
+</I>&gt;<i> &gt;  0(3243) set_mod_param_regex: No module matching &lt;pcscf&gt; found
+</I>&gt;<i> &gt;  0(3243) parse error (44,18-19): Can't set module parameter
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; *
+</I>&gt;<i> &gt; we solved this by using the cmmnd #chmod 744
+</I>&gt;<i> &gt; *
+</I>&gt;<i> &gt; read write executable the permission is accessed now
+</I>&gt;<i> &gt; but only that error is solved and now its coming as given in below..
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">root at localhost</A> OpenIMSCore]# ./icscf.sh
+</I>&gt;<i> &gt;  0(7528) ERROR: load_module: could not open module
+</I>&gt;<i> &lt;/opt/OpenIMSCore/ser_ims/modules/mysql/mysql.so&gt;:
+</I>&gt;<i> /opt/OpenIMSCore/ser_ims/modules/mysql/mysql.so: undefined symbol: log
+</I>&gt;<i> &gt;  0(7528) parse error (30,13-14): failed to load module
+</I>&gt;<i> &gt; ERROR: bad config file (1 errors)
+</I>&gt;<i> &gt;  0(7528) INFO:cdp:cdp_exit(): CDiameterPeer stoping ...
+</I>&gt;<i> &gt; ./icscf.sh: line 4:  7528 Segmentation fault
+</I>&gt;<i> /opt/OpenIMSCore/ser_ims/ser -f /opt/OpenIMSCore/icscf.cfg -D -D
+</I>&gt;<i> &gt; ------ Semaphore Arrays --------
+</I>&gt;<i> &gt; key        semid      owner      perms      nsems
+</I>&gt;<i> &gt; 0x4d00024c 0          wipro     600        8
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; do have any idea about it!!
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; if so then plz guide me in this..
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; With Regards,
+</I>&gt;<i> &gt; N.Rohini
+</I>&gt;<i> &gt; Project Trainee
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Please do not print this email unless it is absolutely necessary.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; The information contained in this electronic message and any
+</I>attachments
+&gt;<i> to this message are intended for the exclusive use of the addressee(s)
+</I>and
+&gt;<i> may contain proprietary, confidential or privileged information. If
+</I>you
+&gt;<i> are not the intended recipient, you should not disseminate, distribute
+</I>or
+&gt;<i> copy this e-mail. Please notify the sender immediately and destroy all
+</I>&gt;<i> copies of this message and any attachments.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; WARNING: Computer viruses can be transmitted via email. The
+</I>recipient
+&gt;<i> should check this email and any attachments for the presence of
+</I>viruses.
+&gt;<i> The company accepts no liability for any damage caused by any virus
+</I>&gt;<i> transmitted by this email.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; www.wipro.com
+</I>&gt;<i> &gt; -------------- next part --------------
+</I>&gt;<i> &gt; An HTML attachment was scrubbed...
+</I>&gt;<i> &gt; URL: <A HREF="https://lists.berlios.de/pipermail/openimscore-">https://lists.berlios.de/pipermail/openimscore-</A>
+</I>&gt;<i> cscf/attachments/20100202/430a3652/attachment.html
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ------------------------------
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; End of OpenIMSCore-CSCF Digest, Vol 40, Issue 3
+</I>&gt;<i> &gt; ***********************************************
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002040.html">[OpenIMSCore-CSCF] cscf_get_first_route and other problems
+</A></li>
+	<LI>Next message: <A HREF="002044.html">[OpenIMSCore-CSCF] cscf_get_first_route and other problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2041">[ date ]</a>
+              <a href="thread.html#2041">[ thread ]</a>
+              <a href="subject.html#2041">[ subject ]</a>
+              <a href="author.html#2041">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

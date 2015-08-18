@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Serusers] loose_route behaviour,	detecting single Route with myself
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSerusers%5D%20loose_route%20behaviour%2C%0A%09detecting%20single%20Route%20with%20myself&In-Reply-To=%3Cb33002040706220211q2e16ea85uc499012dce0a841a%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000765.html">
+   <LINK REL="Next"  HREF="000771.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Serusers] loose_route behaviour,	detecting single Route with myself</H1>
+    <B>JF</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSerusers%5D%20loose_route%20behaviour%2C%0A%09detecting%20single%20Route%20with%20myself&In-Reply-To=%3Cb33002040706220211q2e16ea85uc499012dce0a841a%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] [Serusers] loose_route behaviour,	detecting single Route with myself">jfkavaka at gmail.com
+       </A><BR>
+    <I>Fri Jun 22 11:11:15 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000765.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r336 - Added Security-Verify	header test on register after a 401 response
+</A></li>
+        <LI>Next message: <A HREF="000771.html">[OpenIMSCore-CSCF] [Serusers] loose_route behaviour,	detecting single Route with myself
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#766">[ date ]</a>
+              <a href="thread.html#766">[ thread ]</a>
+              <a href="subject.html#766">[ subject ]</a>
+              <a href="author.html#766">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Thanks Greger,
+
+The problem is related to the fact that the Req-URI is a tel-URI.
+I had to work around it in the script by not letting loose_route get
+called when the URI is a tel URI.
+
+In loose.c, loose_route() says (by looking at the log):
+DBG(&quot;loose_route: RURI is NOT myself\n&quot;);
+because Req-URI doesn't have a host part.
+
+Then after_loose(_m, &amp;puri, 1, 0) is called because the single
+existing Route header has our SIP URI.
+And then:
+DBG(&quot;after_loose: Topmost route URI: '%.*s' is me\n&quot;, uri-&gt;len, ZSW(uri-&gt;s));
+and
+DBG(&quot;after_loose: No next URI found\n&quot;);
+An since _ruri_myself == 0, return RR_DRIVEN;
+
+IMO the fact that the Req-URI is a tel URI shouldn't make loose_route
+return true in this case...
+
+JF
+
+
+On 6/21/07, Greger V. Teigre &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">greger at teigre.com</A>&gt; wrote:
+&gt;<i> If there's a single Route header pointing to itself, then this is a good
+</I>&gt;<i> indication that a UA added a Route to your proxy as an outbound proxy.
+</I>&gt;<i> If SER correctly identities the uri as itself, it should AFAIK return false.
+</I>&gt;<i> Could you please turn on debugging and then look for loose_route and
+</I>&gt;<i> after_loose debug messages in the logs and post them?
+</I>&gt;<i> g-)
+</I>&gt;<i>
+</I>&gt;<i> JF wrote:
+</I>&gt;<i> &gt; Hi all,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; When SER receives an INVITE with a single Route header pointing to
+</I>&gt;<i> &gt; itself, it's supposed to delete it and process the message as if no
+</I>&gt;<i> &gt; Route header was there in the first place. This is what RFC3261
+</I>&gt;<i> &gt; mandates, right?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; But currently the loose_route function returns true to the script in
+</I>&gt;<i> &gt; this case, just like when more Route headers are present.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; So I have some routing logic for when no Route headers are present,
+</I>&gt;<i> &gt; and if I want to apply the same routing logic to the case when there
+</I>&gt;<i> &gt; is a single Route header pointing to myself (naturally, as it's the
+</I>&gt;<i> &gt; same as if no Route header was present), I currently have to replicate
+</I>&gt;<i> &gt; the same routing logic inside the if (loose_route())...
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Or is there an other way? Do I have to develop my own module function
+</I>&gt;<i> &gt; or use some regexp search from the script to detect if there are more
+</I>&gt;<i> &gt; Routes besides myself before I call loose_route?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; The best would be to change loose_route to return false and just
+</I>&gt;<i> &gt; remove the Route header pointing to myself when there are no more
+</I>&gt;<i> &gt; Route headers in the message... what do you think?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; JF
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; Serusers mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Serusers at lists.iptel.org</A>
+</I>&gt;<i> &gt; <A HREF="http://lists.iptel.org/mailman/listinfo/serusers">http://lists.iptel.org/mailman/listinfo/serusers</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000765.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r336 - Added Security-Verify	header test on register after a 401 response
+</A></li>
+	<LI>Next message: <A HREF="000771.html">[OpenIMSCore-CSCF] [Serusers] loose_route behaviour,	detecting single Route with myself
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#766">[ date ]</a>
+              <a href="thread.html#766">[ thread ]</a>
+              <a href="subject.html#766">[ subject ]</a>
+              <a href="author.html#766">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Bracnch parameters not getting populated in ACKmessage
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Bracnch%20parameters%20not%20getting%20populated%20in%0A%20ACKmessage&In-Reply-To=%3C459E38ED.2070202%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000106.html">
+   <LINK REL="Next"  HREF="000110.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Bracnch parameters not getting populated in ACKmessage</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Bracnch%20parameters%20not%20getting%20populated%20in%0A%20ACKmessage&In-Reply-To=%3C459E38ED.2070202%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Bracnch parameters not getting populated in ACKmessage">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Jan  5 12:39:25 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000106.html">[OpenIMSCore-CSCF] Bracnch parameters not getting populated in	ACKmessage
+</A></li>
+        <LI>Next message: <A HREF="000110.html">[OpenIMSCore-CSCF] Bracnch parameters not getting populated in	ACKmessage
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#107">[ date ]</a>
+              <a href="thread.html#107">[ thread ]</a>
+              <a href="subject.html#107">[ subject ]</a>
+              <a href="author.html#107">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Yes George, but why would you need to inspect the branch parameter set
+by another proxy? What use can you make of that?
+
+-Dragos
+
+Babu George wrote:
+&gt;<i>
+</I>&gt;<i> Dragos,
+</I>&gt;<i>
+</I>&gt;<i>  The application server may not like ACK messages coming with branch as 0.
+</I>&gt;<i>
+</I>&gt;<i>  As 3261 the branch parameter should start with magic cooki &#8216;z9hG4bK&#8217;.
+</I>&gt;<i>
+</I>&gt;<i>  Attaching the relevant portion from RFC-3261
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> The branch ID inserted by an element compliant with this
+</I>&gt;<i>
+</I>&gt;<i> specification MUST always begin with the characters &quot;z9hG4bK&quot;. These
+</I>&gt;<i>
+</I>&gt;<i> 7 characters are used as a magic cookie (7 is deemed sufficient to
+</I>&gt;<i>
+</I>&gt;<i> ensure that an older RFC 2543 implementation would not pick such a
+</I>&gt;<i>
+</I>&gt;<i> value), so that servers receiving the request can determine that the
+</I>&gt;<i>
+</I>&gt;<i> branch ID was constructed in the fashion described by this
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Thanks
+</I>&gt;<i>
+</I>&gt;<i> Babu
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>]
+</I>&gt;<i> Sent: Friday, January 05, 2007 3:54 PM
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at inode.at</A>
+</I>&gt;<i> Cc: Babu George; 'openimscore-cscf'
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] Bracnch parameters not getting
+</I>&gt;<i> populated in ACKmessage
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Well, yes it is 0... but how does this bother you? The branch is
+</I>&gt;<i>
+</I>&gt;<i> important just for the node that sets it. It seems that SER sets 0 for
+</I>&gt;<i>
+</I>&gt;<i> ACK (the S-CSCF does the same). Anyway, ACKs are not replied or
+</I>&gt;<i>
+</I>&gt;<i> anything, so the branch should be useless, right?
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I am not a SIP expert, so if I am wrong here please correct me.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Franz Edler wrote:
+</I>&gt;<i>
+</I>&gt;<i> &gt; Hi Babu,
+</I>&gt;<i>
+</I>&gt;<i> &gt; 
+</I>&gt;<i>
+</I>&gt;<i> &gt;  
+</I>&gt;<i>
+</I>&gt;<i> &gt;&gt; One more info. I tried it by putting service route in INVITE
+</I>&gt;<i> message, but
+</I>&gt;<i>
+</I>&gt;<i> &gt;&gt; no luck in getting a proper Branch parameters in ACK message.
+</I>&gt;<i>
+</I>&gt;<i> &gt;&gt;     
+</I>&gt;<i>
+</I>&gt;<i> &gt; 
+</I>&gt;<i>
+</I>&gt;<i> &gt; Indeed, I now compared it with my traces and detected the same issue:
+</I>&gt;<i>
+</I>&gt;<i> &gt; The branch-parameter in ACK is set to &quot;0&quot; by P- and S-CSCF.
+</I>&gt;<i>
+</I>&gt;<i> &gt; But routing is correct; therefore I did not detect the issue before.
+</I>&gt;<i>
+</I>&gt;<i> &gt; 
+</I>&gt;<i>
+</I>&gt;<i> &gt; I agree: it still is an issue.
+</I>&gt;<i>
+</I>&gt;<i> &gt; 
+</I>&gt;<i>
+</I>&gt;<i> &gt; cheers
+</I>&gt;<i>
+</I>&gt;<i> &gt; Franz
+</I>&gt;<i>
+</I>&gt;<i> &gt; 
+</I>&gt;<i>
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i>
+</I>&gt;<i> &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i> &gt; 
+</I>&gt;<i>
+</I>&gt;<i> &gt;  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> -- 
+</I>&gt;<i>
+</I>&gt;<i> -----------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i>
+</I>&gt;<i> FOKUS/NGNI
+</I>&gt;<i>
+</I>&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;<i>
+</I>&gt;<i> 10589 Berlin,Germany
+</I>&gt;<i>
+</I>&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i>
+</I>&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;<i>
+</I>&gt;<i> eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+</I>&gt;<i>
+</I>&gt;<i> Web www.fokus.fraunhofer.de
+</I>&gt;<i>
+</I>&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;<i>
+</I>&gt;<i> -----------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000106.html">[OpenIMSCore-CSCF] Bracnch parameters not getting populated in	ACKmessage
+</A></li>
+	<LI>Next message: <A HREF="000110.html">[OpenIMSCore-CSCF] Bracnch parameters not getting populated in	ACKmessage
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#107">[ date ]</a>
+              <a href="thread.html#107">[ thread ]</a>
+              <a href="subject.html#107">[ subject ]</a>
+              <a href="author.html#107">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

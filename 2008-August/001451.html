@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] SUBSCRIBE scenario
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SUBSCRIBE%20scenario&In-Reply-To=%3C48AE8749.2030303%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001443.html">
+   <LINK REL="Next"  HREF="001445.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] SUBSCRIBE scenario</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20SUBSCRIBE%20scenario&In-Reply-To=%3C48AE8749.2030303%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] SUBSCRIBE scenario">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Aug 22 11:30:49 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001443.html">[OpenIMSCore-CSCF] SUBSCRIBE scenario
+</A></li>
+        <LI>Next message: <A HREF="001445.html">[OpenIMSCore-CSCF] Bad DNS request from P-CSCF since r573
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1451">[ date ]</a>
+              <a href="thread.html#1451">[ thread ]</a>
+              <a href="subject.html#1451">[ subject ]</a>
+              <a href="author.html#1451">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Khaldon,
+
+The behavior is normal, as you forgot the Event: reg header in the
+SUBSCRIBE, so the S-CSCF did not respond to it, but it forwarded it as
+it would with any regular request.
+
+Cheers,
+-Dragos
+
+ims.asuser ims.asuser wrote:
+&gt;<i>
+</I>&gt;<i> Hi all,
+</I>&gt;<i>
+</I>&gt;<i> I would like to test the OpenIMSCore platform (I will perform as much
+</I>&gt;<i> as I can). These tests will be then given to the IMS community.
+</I>&gt;<i> First of all, did anyone perform OpenIMSCOre tests using SIPp?
+</I>&gt;<i>  
+</I>&gt;<i> I would like to perform first in different stage:
+</I>&gt;<i> 1) Registration
+</I>&gt;<i> 2) Calls
+</I>&gt;<i> 3) Instant Messaging
+</I>&gt;<i>
+</I>&gt;<i> So far, I'm only on the first step (registering a user). I only
+</I>&gt;<i> managed to do a simple registration (register -&gt;, &lt;-401, register-&gt;,
+</I>&gt;<i> &lt;-200). But I have problems when I want to go further.
+</I>&gt;<i> In ims, the scenario looks like that:
+</I>&gt;<i> 1) register -&gt;
+</I>&gt;<i> 2) &lt;-401
+</I>&gt;<i> 3) register-&gt;
+</I>&gt;<i> 4) &lt;-200
+</I>&gt;<i> 5) subscribe-&gt;
+</I>&gt;<i> 6) &lt;-notify
+</I>&gt;<i> 7)  200-&gt;
+</I>&gt;<i>
+</I>&gt;<i> The IMS Core is behaving really eerily when I send a subscribe message
+</I>&gt;<i> then the simulation stops
+</I>&gt;<i> Is anyone know why is it working like that?
+</I>&gt;<i>
+</I>&gt;<i> Attached are my script and wireshark trace.
+</I>&gt;<i>
+</I>&gt;<i> Many thanks,
+</I>&gt;<i> Khaldon
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001443.html">[OpenIMSCore-CSCF] SUBSCRIBE scenario
+</A></li>
+	<LI>Next message: <A HREF="001445.html">[OpenIMSCore-CSCF] Bad DNS request from P-CSCF since r573
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1451">[ date ]</a>
+              <a href="thread.html#1451">[ thread ]</a>
+              <a href="subject.html#1451">[ subject ]</a>
+              <a href="author.html#1451">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

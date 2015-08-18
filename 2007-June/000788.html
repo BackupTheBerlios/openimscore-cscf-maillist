@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple	ASare invoked by using iFC
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Question%20about%20S-CSCF%20behavior%20when%20multiple%0A%09ASare%20invoked%20by%20using%20iFC&In-Reply-To=%3C000601c7b826%24d46279c0%240200a8c0%40fenotebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000781.html">
+   <LINK REL="Next"  HREF="000789.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple	ASare invoked by using iFC</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Question%20about%20S-CSCF%20behavior%20when%20multiple%0A%09ASare%20invoked%20by%20using%20iFC&In-Reply-To=%3C000601c7b826%24d46279c0%240200a8c0%40fenotebook%3E"
+       TITLE="[OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple	ASare invoked by using iFC">franz.edler at inode.at
+       </A><BR>
+    <I>Tue Jun 26 21:18:49 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000781.html">[OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple AS	are invoked by using iFC
+</A></li>
+        <LI>Next message: <A HREF="000789.html">[OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple	ASare invoked by using iFC
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#788">[ date ]</a>
+              <a href="thread.html#788">[ thread ]</a>
+              <a href="subject.html#788">[ subject ]</a>
+              <a href="author.html#788">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Thomas,
+
+&gt;<i> For example in case Alice calls Bob.
+</I>&gt;<i> Let's assume that IFC for Alice is set to route AS1,IFC for Bob is set to
+</I>&gt;<i> route AS2.
+</I>&gt;<i> 
+</I>&gt;<i> SIP INVITE request is routed like below.
+</I>&gt;<i> (180Ringing,200OK,ACK request is routed properly)
+</I>&gt;<i> Alice -&gt;OpenIMS-&gt;AS1-&gt;OpenIMS-&gt;AS2-&gt;OpenIMS-&gt;Bob.
+</I>&gt;<i> 
+</I>&gt;<i> However BYE request from Bob is not routed because S-CSCF returns '403
+</I>&gt;<i> Forbidden' 
+</I>&gt;<i> when BYE request is transferred from AS2 to AS1 via OpenIMS(S-CSCF).
+</I>
+This is not my experience. Multiple AS work well.
+See the attached SIP-scenario and wireshark trace.
+
+Your problem must be somwhere else.
+
+Cheers
+Franz
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: REG-INVITE-2iFCs.zip
+Type: application/x-zip-compressed
+Size: 39074 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070626/7a8a0e2f/attachment.bin">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070626/7a8a0e2f/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000781.html">[OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple AS	are invoked by using iFC
+</A></li>
+	<LI>Next message: <A HREF="000789.html">[OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple	ASare invoked by using iFC
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#788">[ date ]</a>
+              <a href="thread.html#788">[ thread ]</a>
+              <a href="subject.html#788">[ subject ]</a>
+              <a href="author.html#788">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS Identity not registered
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DS-CSCF%20returns%20404%20Not%20Found%20-%20HSS%0A%20Identity%20not%20registered&In-Reply-To=%3C46418210.80700%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000581.html">
+   <LINK REL="Next"  HREF="000585.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS Identity not registered</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DS-CSCF%20returns%20404%20Not%20Found%20-%20HSS%0A%20Identity%20not%20registered&In-Reply-To=%3C46418210.80700%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS Identity not registered">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed May  9 10:10:56 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000581.html">[OpenIMSCore-CSCF] Calls PSTN to IMS
+</A></li>
+        <LI>Next message: <A HREF="000585.html">[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found -	HSSIdentity not registered
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#571">[ date ]</a>
+              <a href="thread.html#571">[ thread ]</a>
+              <a href="subject.html#571">[ subject ]</a>
+              <a href="author.html#571">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Hideyuki,
+
+Well, I am not sure if this is in the specs or we felt that 404 is more
+appropriate as 480 might mean a Time-out... In the end it's a matter of
+taste.
+
+You can easily change the cscf.cfg to rely whatever response do you want
+in this case. Anyway, the example configuration files are just that -
+examples and not definitive solutions for CSCFs. And also the the source
+code is public so feel free to make your modifications. If more people
+agree with you then we will change it in the main tree too.
+
+-Dragos
+
+
+Hideyuki Yamashita wrote:
+&gt;<i> Hi 
+</I>&gt;<i>
+</I>&gt;<i> I hava a question about S-CSCF response.
+</I>&gt;<i>
+</I>&gt;<i> [Question]
+</I>&gt;<i> When a user(i.e. <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>) is not registered, 
+</I>&gt;<i> S-CSCF responses 404(Not Found -HSS Identity not registered)
+</I>&gt;<i> to INVITE request to that user. 
+</I>&gt;<i>
+</I>&gt;<i> I have read RFC 3261 and felt that 480 is more appropriate 
+</I>&gt;<i> response than 404 in this situation.
+</I>&gt;<i>
+</I>&gt;<i> I quoted related description from RFC3261 below.
+</I>&gt;<i> How do you say about that?
+</I>&gt;<i> ----------------------------------------------------------------
+</I>&gt;<i> 21.4.5 404 Not Found
+</I>&gt;<i>
+</I>&gt;<i>    The server has definitive information that the user does not exist at
+</I>&gt;<i>    the domain specified in the Request-URI.  This status is also
+</I>&gt;<i>    returned if the domain in the Request-URI does not match any of the
+</I>&gt;<i>    domains handled by the recipient of the request.
+</I>&gt;<i> ----------------------------------------------------------------
+</I>&gt;<i> 21.4.18 480 Temporarily Unavailable
+</I>&gt;<i>
+</I>&gt;<i>    The callee's end system was contacted successfully but the callee is
+</I>&gt;<i>    currently unavailable (for example, is not logged in, logged in but
+</I>&gt;<i>    in a state that precludes communication with the callee, or has
+</I>&gt;<i>    activated the &quot;do not disturb&quot; feature).  The response MAY indicate a
+</I>&gt;<i>    better time to call in the Retry-After header field.  The user could
+</I>&gt;<i>    also be available elsewhere (unbeknownst to this server).  The reason
+</I>&gt;<i>    phrase SHOULD indicate a more precise cause as to why the callee is
+</I>&gt;<i>    unavailable.  This value SHOULD be settable by the UA.  Status 486
+</I>&gt;<i>    (Busy Here) MAY be used to more precisely indicate a particular
+</I>&gt;<i>    reason for the call failure.
+</I>&gt;<i>
+</I>&gt;<i>    This status is also returned by a redirect or proxy server that
+</I>&gt;<i>    recognizes the user identified by the Request-URI, but does not
+</I>&gt;<i>    currently have a valid forwarding location for that user.
+</I>&gt;<i> -------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> [OpenIMSCore Release I use]
+</I>&gt;<i> CSCFs:ser_ims2007327.r0202
+</I>&gt;<i> HSS  :FHoSS2007329.r0204
+</I>&gt;<i>
+</I>&gt;<i> Best Regards,
+</I>&gt;<i> Hideyuki
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000581.html">[OpenIMSCore-CSCF] Calls PSTN to IMS
+</A></li>
+	<LI>Next message: <A HREF="000585.html">[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found -	HSSIdentity not registered
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#571">[ date ]</a>
+              <a href="thread.html#571">[ thread ]</a>
+              <a href="subject.html#571">[ subject ]</a>
+              <a href="author.html#571">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

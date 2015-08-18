@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r350 - Re-fixed the S-CSCF	registration flip-flop bug that was fixed in r313 - previous	commit was done without svn update before. Cosmetical changes	- realigned the code to 4 spaces TABs. Re-ordered the	get_r_public calls so that it won't be called with an empty	parameter. !WARNING! This revision is inconsistent due to	change in the previous one and you might experience S-CSCF locks.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r350%20-%20Re-fixed%20the%20S-CSCF%0A%09registration%20flip-flop%20bug%20that%20was%20fixed%20in%20r313%20-%20previous%0A%09commit%20was%20done%20without%20svn%20update%20before.%20Cosmetical%20changes%0A%09-%20realigned%20the%20code%20to%204%20spaces%20TABs.%20Re-ordered%20the%0A%09get_r_public%20calls%20so%20that%20it%20won%27t%20be%20called%20with%20an%20empty%0A%09parameter.%20%21WARNING%21%20This%20revision%20is%20inconsistent%20due%20to%0A%09change%20in%20the%20previous%20one%20and%20you%20might%20experience%20S-CSCF%20locks.&In-Reply-To=%3C200706281003.l5SA3A2o012273%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000797.html">
+   <LINK REL="Next"  HREF="000800.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r350 - Re-fixed the S-CSCF	registration flip-flop bug that was fixed in r313 - previous	commit was done without svn update before. Cosmetical changes	- realigned the code to 4 spaces TABs. Re-ordered the	get_r_public calls so that it won't be called with an empty	parameter. !WARNING! This revision is inconsistent due to	change in the previous one and you might experience S-CSCF locks.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r350%20-%20Re-fixed%20the%20S-CSCF%0A%09registration%20flip-flop%20bug%20that%20was%20fixed%20in%20r313%20-%20previous%0A%09commit%20was%20done%20without%20svn%20update%20before.%20Cosmetical%20changes%0A%09-%20realigned%20the%20code%20to%204%20spaces%20TABs.%20Re-ordered%20the%0A%09get_r_public%20calls%20so%20that%20it%20won%27t%20be%20called%20with%20an%20empty%0A%09parameter.%20%21WARNING%21%20This%20revision%20is%20inconsistent%20due%20to%0A%09change%20in%20the%20previous%20one%20and%20you%20might%20experience%20S-CSCF%20locks.&In-Reply-To=%3C200706281003.l5SA3A2o012273%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r350 - Re-fixed the S-CSCF	registration flip-flop bug that was fixed in r313 - previous	commit was done without svn update before. Cosmetical changes	- realigned the code to 4 spaces TABs. Re-ordered the	get_r_public calls so that it won't be called with an empty	parameter. !WARNING! This revision is inconsistent due to	change in the previous one and you might experience S-CSCF locks.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Thu Jun 28 12:03:10 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000797.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r349 - proper handling of implicit	identities in the S-CSCF registrar contributed by Jose'	Carlos Amorim (jose-c-amorim at ptinovacao dot pt)
+</A></li>
+        <LI>Next message: <A HREF="000800.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r351 - Removed the dead-locks for	implicit sets when an implicit set identity would've been in	the same registrar hash slot as the one being updated.	!WARNING! There are still dead-locks associated with implicit	sets! For example,	if there are 2 de-registrations for 2 identities comming in parallel,	it is possible that they will lock each-other out!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#799">[ date ]</a>
+              <a href="thread.html#799">[ thread ]</a>
+              <a href="subject.html#799">[ subject ]</a>
+              <a href="author.html#799">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-06-28 12:03:09 +0200 (Thu, 28 Jun 2007)
+New Revision: 350 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=350">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=350</A> 
+
+Log:
+Re-fixed the S-CSCF registration flip-flop bug that was fixed in r313 - previous commit was done without svn update before.
+Cosmetical changes - realigned the code to 4 spaces TABs.
+Re-ordered the get_r_public calls so that it won't be called with an empty parameter.
+
+!WARNING! This revision is inconsistent due to change in the previous one and you might experience S-CSCF locks.
+
+
+
+Modified:
+   U	ser_ims/trunk/modules/scscf/registrar.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.c?rev=350&amp;view=diff&amp;r1=350&amp;r2=349">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.c?rev=350&amp;view=diff&amp;r1=350&amp;r2=349</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000797.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r349 - proper handling of implicit	identities in the S-CSCF registrar contributed by Jose'	Carlos Amorim (jose-c-amorim at ptinovacao dot pt)
+</A></li>
+	<LI>Next message: <A HREF="000800.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r351 - Removed the dead-locks for	implicit sets when an implicit set identity would've been in	the same registrar hash slot as the one being updated.	!WARNING! There are still dead-locks associated with implicit	sets! For example,	if there are 2 de-registrations for 2 identities comming in parallel,	it is possible that they will lock each-other out!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#799">[ date ]</a>
+              <a href="thread.html#799">[ thread ]</a>
+              <a href="subject.html#799">[ subject ]</a>
+              <a href="author.html#799">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

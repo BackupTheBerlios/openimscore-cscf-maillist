@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r756 - Added Alberto's patches and	extra debugging for auth state machine
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r756%20-%20Added%20Alberto%27s%20patches%20and%0A%09extra%20debugging%20for%20auth%20state%20machine&In-Reply-To=%3C200911091311.nA9DBkTs017703%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001838.html">
+   <LINK REL="Next"  HREF="001840.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r756 - Added Alberto's patches and	extra debugging for auth state machine</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r756%20-%20Added%20Alberto%27s%20patches%20and%0A%09extra%20debugging%20for%20auth%20state%20machine&In-Reply-To=%3C200911091311.nA9DBkTs017703%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r756 - Added Alberto's patches and	extra debugging for auth state machine">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Mon Nov  9 14:11:46 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001838.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r755 - Fixed serialization of cdp	task execution due to locking on the handler list
+</A></li>
+        <LI>Next message: <A HREF="001840.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r757 - Fixed small issue in log
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1839">[ date ]</a>
+              <a href="thread.html#1839">[ thread ]</a>
+              <a href="subject.html#1839">[ subject ]</a>
+              <a href="author.html#1839">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2009-11-09 14:11:35 +0100 (Mon, 09 Nov 2009)
+New Revision: 756 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=756">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=756</A> 
+
+Log:
+Added Alberto's patches and extra debugging for auth state machine
+
+
+Modified:
+   U	ser_ims/trunk/modules/cdp/authstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/authstatemachine.c?rev=756&amp;view=diff&amp;r1=756&amp;r2=755">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/authstatemachine.c?rev=756&amp;view=diff&amp;r1=756&amp;r2=755</A>
+   U	ser_ims/trunk/modules/cdp/peerstatemachine.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peerstatemachine.c?rev=756&amp;view=diff&amp;r1=756&amp;r2=755">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/peerstatemachine.c?rev=756&amp;view=diff&amp;r1=756&amp;r2=755</A>
+   U	ser_ims/trunk/modules/cdp/receiver.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/receiver.c?rev=756&amp;view=diff&amp;r1=756&amp;r2=755">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/receiver.c?rev=756&amp;view=diff&amp;r1=756&amp;r2=755</A>
+   U	ser_ims/trunk/modules/cdp/routing.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/routing.c?rev=756&amp;view=diff&amp;r1=756&amp;r2=755">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/routing.c?rev=756&amp;view=diff&amp;r1=756&amp;r2=755</A>
+   U	ser_ims/trunk/modules/cdp/session.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/session.c?rev=756&amp;view=diff&amp;r1=756&amp;r2=755">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/session.c?rev=756&amp;view=diff&amp;r1=756&amp;r2=755</A>
+   U	ser_ims/trunk/modules/cdp/session.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/session.h?rev=756&amp;view=diff&amp;r1=756&amp;r2=755">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/cdp/session.h?rev=756&amp;view=diff&amp;r1=756&amp;r2=755</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001838.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r755 - Fixed serialization of cdp	task execution due to locking on the handler list
+</A></li>
+	<LI>Next message: <A HREF="001840.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r757 - Fixed small issue in log
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1839">[ date ]</a>
+              <a href="thread.html#1839">[ thread ]</a>
+              <a href="subject.html#1839">[ subject ]</a>
+              <a href="author.html#1839">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P-CSCF IPSec issues
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20IPSec%20issues&In-Reply-To=%3C45D30313.9060304%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000218.html">
+   <LINK REL="Next"  HREF="000220.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P-CSCF IPSec issues</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20IPSec%20issues&In-Reply-To=%3C45D30313.9060304%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] P-CSCF IPSec issues">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Feb 14 13:39:47 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000218.html">[OpenIMSCore-CSCF] P-CSCF IPSec issues
+</A></li>
+        <LI>Next message: <A HREF="000220.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r141 - ser_ims/trunk/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#219">[ date ]</a>
+              <a href="thread.html#219">[ thread ]</a>
+              <a href="subject.html#219">[ subject ]</a>
+              <a href="author.html#219">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Jose,
+
+Jos&#233; Carlos Amorim wrote:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I have been doing some tests with our IMS client and OpenIMSCore, and
+</I>&gt;<i> noticed an incorrect behavior at the P-CSCF. Since our IMS client does
+</I>&gt;<i> not support IPSec it does not establish the Security Associations, but
+</I>&gt;<i> even do it does not have this capacity it sends the various Security
+</I>&gt;<i> headers that would be necessary to establish the Security associations
+</I>&gt;<i> with the P-CSCF.
+</I>&gt;<i>
+</I>in ser_ims/modules/pcscf/ you can find the 5 scripts required to set the
+SAs from the client side. You can use those from linux.
+&gt;<i>
+</I>&gt;<i> Although sending the Security headers without support for IPSec is
+</I>&gt;<i> incorrect it was useful to detect this problem.
+</I>&gt;<i>
+</I>&gt;<i> The P-CSCF has the following behavior, when the 401 challenge to the
+</I>&gt;<i> Register Request passes, an r_ipsec structure is created (even if the
+</I>&gt;<i> security association was not created) and added to the r_contact.
+</I>&gt;<i>
+</I>Yes, because the 2nd REGISTER can already be received over a secure channel.
+&gt;<i>
+</I>&gt;<i> When the Second Register arrives at the P-CSCF it will check if the
+</I>&gt;<i> message has a r_ipsec and if the ports are correct, if so it will add
+</I>&gt;<i> an integrity-protected=&#8221;yes&#8221;.
+</I>&gt;<i>
+</I>yes, this is what it was intended to do.
+&gt;<i>
+</I>&gt;<i> In our situation when the 401 passes the P-CSCF no security
+</I>&gt;<i> association is created, but the r_ipsec structure is created and added
+</I>&gt;<i> to r_contact, and when the second register reaches the
+</I>&gt;<i>
+</I>what do you mean by &quot;no security association is created&quot;? You have
+disabled the scripts? or?
+&gt;<i>
+</I>&gt;<i> P-CSCF since the ports are correct and the r_contact structure has
+</I>&gt;<i> r_ipsec structure (which is wrong) it includes the
+</I>&gt;<i> integrity-protected=&#8221;yes&#8221; (when it should be integrity-protected=&#8221;no&#8221;).
+</I>&gt;<i>
+</I>yes, this is on purpose ;-).
+&gt;<i>
+</I>&gt;<i> This will lead to the user registering without being authenticated
+</I>&gt;<i> unless you uncomment the part of S-CSCF script which checks the
+</I>&gt;<i> authentication response when the user is integrity-protected.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> So my question is, is there any way to detect that the scripts that
+</I>&gt;<i> are called to create the Security associations create everything
+</I>&gt;<i> correctly?
+</I>&gt;<i>
+</I>aha, so you did disable the scripts! Hmm... you are right though... when
+the scripts fail, the r_ipsec structures should be dropped. I will fill
+a bug report at the moment I don't have time to look into it.
+*<A HREF="https://developer.berlios.de/bugs/?func=detailbug&amp;bug_id=10364&amp;group_id=7589*">https://developer.berlios.de/bugs/?func=detailbug&amp;bug_id=10364&amp;group_id=7589*</A>
+
+Then I would point out some things. After the SAs are established, any
+request received is trusted as any other traffic that is unencrypted is
+dropped in the kernel, before it reaches the P-CSCF. And if you run the
+client on the same machine, the traffic won't be encrypted at all and as
+such not dropped if incorrect.
+
+-Dragos
+
+&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000218.html">[OpenIMSCore-CSCF] P-CSCF IPSec issues
+</A></li>
+	<LI>Next message: <A HREF="000220.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r141 - ser_ims/trunk/modules/scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#219">[ date ]</a>
+              <a href="thread.html#219">[ thread ]</a>
+              <a href="subject.html#219">[ subject ]</a>
+              <a href="author.html#219">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

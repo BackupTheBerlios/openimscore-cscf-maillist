@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Deregisters no r222
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Deregisters%20no%20r222&In-Reply-To=%3C462DE6DD.1080909%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000476.html">
+   <LINK REL="Next"  HREF="000438.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Deregisters no r222</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Deregisters%20no%20r222&In-Reply-To=%3C462DE6DD.1080909%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Deregisters no r222">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Apr 24 13:15:41 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000476.html">[OpenIMSCore-CSCF] Deregisters no r222
+</A></li>
+        <LI>Next message: <A HREF="000438.html">[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header after	P-CSCF processing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#501">[ date ]</a>
+              <a href="thread.html#501">[ thread ]</a>
+              <a href="subject.html#501">[ subject ]</a>
+              <a href="author.html#501">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Oh, now I see what you mean. So you mean implicit sets. De-registration
+of implicit sets is still a little bit fuzzy for me and I don't
+understand it well. Will come for sure with the new HSS revamp, when we
+will also update a lot of the things in the CSCFs to align with 3GPP Rel.7.
+
+-Dragos
+
+Jos&#233; Carlos Amorim wrote:
+&gt;<i> Dragos,
+</I>&gt;<i>
+</I>&gt;<i> I understand what you are saying, but this is not the case for me, in my case I have a Public User Identity registered with a implicitly registered Public User Identity set on the S-CSCF, all with the same contact. So what I'm trying to say is that I consider that the S-CSCF has an incorrect behaviour. When the expected behaviour would be to proceed with the de-registration of the corresponding implicitly registered Public User Identity set and send a SAR message after receiving a de-registration of a Public Identity,  this is not the behaviour the S-CSCF follows. What happens is that only the Public Identity of the de-registration is deregistered and not the implicitly registered Public User Identity set. 
+</I>&gt;<i> Do you agree?
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;<i>
+</I>&gt;<i> -----Mensagem original-----
+</I>&gt;<i> De: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+</I>&gt;<i> Enviada: ter&#231;a-feira, 17 de Abril de 2007 22:40
+</I>&gt;<i> Para: Jos&#233; Carlos Amorim
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Assunto: Re: [OpenIMSCore-CSCF] Deregisters no r222
+</I>&gt;<i>
+</I>&gt;<i> True, but I was saying that it is often the case, observed by us, that
+</I>&gt;<i> the client disappears (loss of IP connectivity for example) and then
+</I>&gt;<i> comes back again and registers with another contact on the same
+</I>&gt;<i> identity. Then, when it turns off this new contact, a SAR is expected,
+</I>&gt;<i> but this won't come until the first contact will expire. This is because
+</I>&gt;<i> there was no information that the first identity actually is no longer
+</I>&gt;<i> there. If you want to make sure that you deregister all your contacts
+</I>&gt;<i> then send a de-register with a &quot;Contact: *&quot; header - but be aware that
+</I>&gt;<i> if you have multiple phones on the same public identity, then the first
+</I>&gt;<i> one doing a deregister with a Contact: * will practically de-register
+</I>&gt;<i> all other phones!
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Jos&#233; Carlos Amorim wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hi Dragos,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> The user that sends the deregister has a corresponding implicitly registered Public User Identity set also registered on the S-CSCF all with one contact.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> &gt;From what I read on 24.229 and on 29.228 I think that in this case when the S-CSCF receives a de-registration of a Public Identity it should proceed to the de-registration of the corresponding implicitly registered Public User Identity set, which will lead to sending a SAR message towards the S-CSCF.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Regards,
+</I>&gt;&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -----Mensagem original-----
+</I>&gt;&gt;<i> De: Dragos Vingarzan [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>] 
+</I>&gt;&gt;<i> Enviada: segunda-feira, 16 de Abril de 2007 11:58
+</I>&gt;&gt;<i> Para: Jos&#233; Carlos Amorim
+</I>&gt;&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;<i> Assunto: Re: [OpenIMSCore-CSCF] Deregisters no r222
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Hello Jose,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Can you confirm that there were no more contacts in the S-CSCF registrar
+</I>&gt;&gt;<i> for that public identity? If they were, this is the answer: the SAR is
+</I>&gt;&gt;<i> sent only when all contacts where expired.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Jos&#233; Carlos Amorim wrote:
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Hi I just updated OpenIMSCore to revision 222 and I noticed that when
+</I>&gt;&gt;&gt;<i> S-CSCF receives deregisters it does not originate any SAR messages
+</I>&gt;&gt;&gt;<i> towards the HSS, has this happened to anybody else?
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I attached a network trace.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>  
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Regards,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Jos&#233; Carlos Silva
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> ------------------------------------------------------------------------
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i>   
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000476.html">[OpenIMSCore-CSCF] Deregisters no r222
+</A></li>
+	<LI>Next message: <A HREF="000438.html">[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header after	P-CSCF processing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#501">[ date ]</a>
+              <a href="thread.html#501">[ thread ]</a>
+              <a href="subject.html#501">[ subject ]</a>
+              <a href="author.html#501">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,689 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r37 - in ser_ims/trunk: .	modules/isc modules/pcscf modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r37%20-%20in%20ser_ims/trunk%3A%20.%0A%09modules/isc%20modules/pcscf%20modules/scscf&In-Reply-To=%3C200611292026.kATKQjoR029590%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000009.html">
+   <LINK REL="Next"  HREF="000011.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r37 - in ser_ims/trunk: .	modules/isc modules/pcscf modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r37%20-%20in%20ser_ims/trunk%3A%20.%0A%09modules/isc%20modules/pcscf%20modules/scscf&In-Reply-To=%3C200611292026.kATKQjoR029590%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r37 - in ser_ims/trunk: .	modules/isc modules/pcscf modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Nov 29 21:26:45 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000009.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r36 - ser_ims/trunk/modules/pcscf
+</A></li>
+        <LI>Next message: <A HREF="000011.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r38 - in ser_ims/trunk/modules:	cdp icscf pcscf scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2006-11-29 21:26:42 +0100 (Wed, 29 Nov 2006)
+New Revision: 37
+
+Modified:
+   ser_ims/trunk/.cdtproject
+   ser_ims/trunk/.project
+   ser_ims/trunk/modules/isc/sip.c
+   ser_ims/trunk/modules/pcscf/registrar.c
+   ser_ims/trunk/modules/pcscf/registrar.h
+   ser_ims/trunk/modules/pcscf/registration.c
+   ser_ims/trunk/modules/scscf/sip.c
+   ser_ims/trunk/modules/scscf/sip.h
+Log:
+Fixed P-Preferred-Identity retrieval.
+Fixed P-Asserted-Identity setting and retrieval.
+
+
+Modified: ser_ims/trunk/.cdtproject
+===================================================================
+--- ser_ims/trunk/.cdtproject	2006-11-29 18:57:09 UTC (rev 36)
++++ ser_ims/trunk/.cdtproject	2006-11-29 20:26:42 UTC (rev 37)
+@@ -59,119 +59,133 @@
+ &lt;buildTargets&gt;
+ &lt;target name=&quot;pcscf&quot; path=&quot;modules/pcscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;pcscf clean&quot; path=&quot;modules/pcscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;all&quot; path=&quot;modules/cdp&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;clean&quot; path=&quot;modules/cdp&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;isc&quot; path=&quot;modules/isc&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;isc clean&quot; path=&quot;modules/isc&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+-&lt;target name=&quot;icscf&quot; path=&quot;modules/icscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
++&lt;target name=&quot;sh&quot; path=&quot;modules/sh&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+-&lt;target name=&quot;icscf clean&quot; path=&quot;modules/icscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
++&lt;target name=&quot;sh clean&quot; path=&quot;modules/sh&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;all&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;distclean&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;distclean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;clean&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;modules&quot; path=&quot;&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;modules&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
++&lt;target name=&quot;icscf&quot; path=&quot;modules/icscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
++&lt;buildCommand&gt;make&lt;/buildCommand&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildTarget&gt;all&lt;/buildTarget&gt;
++&lt;stopOnError&gt;true&lt;/stopOnError&gt;
++&lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
++&lt;/target&gt;
++&lt;target name=&quot;icscf clean&quot; path=&quot;modules/icscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
++&lt;buildCommand&gt;make&lt;/buildCommand&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
++&lt;buildTarget&gt;clean&lt;/buildTarget&gt;
++&lt;stopOnError&gt;true&lt;/stopOnError&gt;
++&lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
++&lt;/target&gt;
+ &lt;target name=&quot;doxygen&quot; path=&quot;doxygen&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;doxygen&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;doxygen.config&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;false&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;sip2ims&quot; path=&quot;modules/sip2ims&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;sip2ims clean&quot; path=&quot;modules/sip2ims&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;scscf&quot; path=&quot;modules/scscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;all&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+ &lt;/target&gt;
+ &lt;target name=&quot;scscf clean&quot; path=&quot;modules/scscf&quot; targetID=&quot;org.eclipse.cdt.make.MakeTargetBuilder&quot;&gt;
+ &lt;buildCommand&gt;make&lt;/buildCommand&gt;
+-&lt;buildArguments/&gt;
++&lt;buildArguments&gt;&lt;/buildArguments&gt;
+ &lt;buildTarget&gt;clean&lt;/buildTarget&gt;
+ &lt;stopOnError&gt;true&lt;/stopOnError&gt;
+ &lt;useDefaultCommand&gt;true&lt;/useDefaultCommand&gt;
+
+Modified: ser_ims/trunk/.project
+===================================================================
+--- ser_ims/trunk/.project	2006-11-29 18:57:09 UTC (rev 36)
++++ ser_ims/trunk/.project	2006-11-29 20:26:42 UTC (rev 37)
+@@ -7,7 +7,7 @@
+ 	&lt;buildSpec&gt;
+ 		&lt;buildCommand&gt;
+ 			&lt;name&gt;org.eclipse.cdt.make.core.makeBuilder&lt;/name&gt;
+-			&lt;triggers&gt;clean,full,incremental,&lt;/triggers&gt;
++			&lt;triggers&gt;&lt;/triggers&gt;
+ 			&lt;arguments&gt;
+ 				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.build.arguments&lt;/key&gt;
+@@ -18,40 +18,40 @@
+ 					&lt;value&gt;org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.VCErrorParser;&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
+-					&lt;key&gt;org.eclipse.cdt.make.core.enableAutoBuild&lt;/key&gt;
+-					&lt;value&gt;false&lt;/value&gt;
+-				&lt;/dictionary&gt;
+-				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.environment&lt;/key&gt;
+ 					&lt;value&gt;&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
+-					&lt;key&gt;org.eclipse.cdt.make.core.enableFullBuild&lt;/key&gt;
+-					&lt;value&gt;true&lt;/value&gt;
++					&lt;key&gt;org.eclipse.cdt.make.core.enableAutoBuild&lt;/key&gt;
++					&lt;value&gt;false&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.build.target.inc&lt;/key&gt;
+ 					&lt;value&gt;all&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
++					&lt;key&gt;org.eclipse.cdt.make.core.enableFullBuild&lt;/key&gt;
++					&lt;value&gt;false&lt;/value&gt;
++				&lt;/dictionary&gt;
++				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.enabledIncrementalBuild&lt;/key&gt;
+-					&lt;value&gt;true&lt;/value&gt;
++					&lt;value&gt;false&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.build.location&lt;/key&gt;
+ 					&lt;value&gt;&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
++					&lt;key&gt;org.eclipse.cdt.make.core.build.command&lt;/key&gt;
++					&lt;value&gt;make&lt;/value&gt;
++				&lt;/dictionary&gt;
++				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.build.target.clean&lt;/key&gt;
+ 					&lt;value&gt;clean&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
+-					&lt;key&gt;org.eclipse.cdt.make.core.build.command&lt;/key&gt;
+-					&lt;value&gt;make&lt;/value&gt;
+-				&lt;/dictionary&gt;
+-				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.enableCleanBuild&lt;/key&gt;
+-					&lt;value&gt;true&lt;/value&gt;
++					&lt;value&gt;false&lt;/value&gt;
+ 				&lt;/dictionary&gt;
+ 				&lt;dictionary&gt;
+ 					&lt;key&gt;org.eclipse.cdt.make.core.append_environment&lt;/key&gt;
+
+Modified: ser_ims/trunk/modules/isc/sip.c
+===================================================================
+--- ser_ims/trunk/modules/isc/sip.c	2006-11-29 18:57:09 UTC (rev 36)
++++ ser_ims/trunk/modules/isc/sip.c	2006-11-29 20:26:42 UTC (rev 37)
+@@ -133,41 +133,55 @@
+ }
+ 
+ 
++str s_asserted_identity={&quot;P-Asserted-Identity&quot;,19};
+ /**
+- * Looks for the P-Asserted-Identity header and extracts its content.
+- * @param msg - the SIP message
+- * @returns the event value
++ * Looks for the P-Asserted-Identity header and extracts its content
++ * @param msg - the sip message
++ * @returns the asserted identity
+  */
+ str cscf_get_asserted_identity(struct sip_msg *msg)
+ {
+-	str id={0,0};
++	name_addr_t id;
+ 	struct hdr_field *h;
+-	
+-	if (!msg) return id;
++	rr_t *r;
++	memset(&amp;id,0,sizeof(name_addr_t));
++	if (!msg) return id.uri;
+ 	if (parse_headers(msg, HDR_EOH_F, 0)&lt;0) {
+-		return id;
++		return id.uri;
+ 	}
+ 	h = msg-&gt;headers;
+ 	while(h)
+ 	{
+-		if (h-&gt;name.len == 19  &amp;&amp;
+-			strncasecmp(h-&gt;name.s,&quot;P-Asserted-Identity&quot;,19)==0)
++		if (h-&gt;name.len == s_asserted_identity.len  &amp;&amp;
++			strncasecmp(h-&gt;name.s,s_asserted_identity.s,s_asserted_identity.len)==0)
+ 		{
+-			id = h-&gt;body;
+-			while(id.len &amp;&amp; (id.s[0]==' ' || id.s[0]=='\t' || id.s[0]=='&lt;')){
+-				id.s = id.s+1;
+-				id.len --;
++			if (parse_rr(h)&lt;0){
++				//This might be an old client
++				LOG(L_CRIT,&quot;WARN:&quot;M_NAME&quot;:cscf_get_asserted_identity: P-Asserted-Identity header must contain a Nameaddr!!! Fix the client!\n&quot;);
++				id.name.s = h-&gt;body.s;
++				id.name.len = 0;
++				id.len = h-&gt;body.len;
++				id.uri = h-&gt;body;
++				while(id.uri.len &amp;&amp; (id.uri.s[0]==' ' || id.uri.s[0]=='\t' || id.uri.s[0]=='&lt;')){
++					id.uri.s = id.uri.s+1;
++					id.uri.len --;
++				}
++				while(id.uri.len &amp;&amp; (id.uri.s[id.uri.len-1]==' ' || id.uri.s[id.uri.len-1]=='\t' || id.uri.s[id.uri.len-1]=='&gt;')){
++					id.uri.len--;
++				}
++				return id.uri;	
+ 			}
+-			while(id.len &amp;&amp; (id.s[id.len-1]==' ' || id.s[id.len-1]=='\t' || id.s[id.len-1]=='&gt;')){
+-				id.len--;
+-			}	
+-			return id;
++			r = (rr_t*) h-&gt;parsed;
++			id = r-&gt;nameaddr; 
++			free_rr((rr_t**)(&amp;h-&gt;parsed));
++			h-&gt;parsed=0;
++			LOG(L_CRIT,&quot;%.*s&quot;,id.uri.len,id.uri.s);
++			return id.uri;
+ 		}
+ 		h = h-&gt;next;
+ 	}
+-	return id;
++	return id.uri;
+ }
+-
+ /**
+  *	Get the public identity from P-Asserted-Identity, or From if asserted not found.
+  * @param msg - the SIP message
+
+Modified: ser_ims/trunk/modules/pcscf/registrar.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/registrar.c	2006-11-29 18:57:09 UTC (rev 36)
++++ ser_ims/trunk/modules/pcscf/registrar.c	2006-11-29 20:26:42 UTC (rev 37)
+@@ -398,15 +398,18 @@
+  * @param preferred - the P-Preferred-Identity header value
+  * @returns 1 if registered, {0,0} if not or error
+  */
+-str r_assert_identity(str host,int port,int transport,str preferred)
++name_addr_t r_assert_identity(str host,int port,int transport,name_addr_t preferred)
+ {
+ 	r_contact *c;
+ 	r_public *p;
+-	str id={0,0};
++	name_addr_t id;
++	str x={0,0};
+ 	if (port==0) port=5060;
+ 
++	memset(&amp;id,0,sizeof(name_addr_t));
++	
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_assert_identity: Asserting preferred id &lt;%.*s&gt;\n&quot;,
+-		preferred.len,preferred.s);
++		preferred.uri.len,preferred.uri.s);
+ //	print_r(L_INFO);
+ 	c = get_r_contact(host,port,transport);
+ 
+@@ -426,29 +429,30 @@
+ 		r_unlock(c-&gt;hash);
+ 		return id;	
+ 	}
+-	if (!preferred.len){
++	id.name = preferred.name;	
++	if (!preferred.uri.len){
+ 		p = c-&gt;head;
+ 		while(p&amp;&amp;!p-&gt;is_default)
+ 			p = p-&gt;next;
+ 		if (p) {
+ 			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_assert_identity: to &lt;%.*s&gt;\n&quot;,p-&gt;aor.len,p-&gt;aor.s);
+-			STR_PKG_DUP(id,p-&gt;aor,&quot;r_assert_identity&quot;);
++			id.uri=p-&gt;aor;
+ 			r_unlock(c-&gt;hash);
+ 			return id;
+ 		} else {
+ 			LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_assert_identity: to &lt;%.*s&gt;\n&quot;,c-&gt;head-&gt;aor.len,c-&gt;head-&gt;aor.s);
+-			STR_PKG_DUP(id,c-&gt;head-&gt;aor,&quot;r_assert_identity&quot;);
++			id.uri=c-&gt;head-&gt;aor;
+ 			r_unlock(c-&gt;hash);
+ 			return id;	
+ 		}
+ 	}else{
+ 		p = c-&gt;head;
+ 		while(p){
+-			if (p-&gt;aor.len==preferred.len &amp;&amp;
+-				strncasecmp(p-&gt;aor.s,preferred.s,preferred.len)==0)
++			if (p-&gt;aor.len==preferred.uri.len &amp;&amp;
++				strncasecmp(p-&gt;aor.s,preferred.uri.s,preferred.uri.len)==0)
+ 			{
+ 				LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:r_assert_identity: to &lt;%.*s&gt;\n&quot;,p-&gt;aor.len,p-&gt;aor.s);
+-				STR_PKG_DUP(id,c-&gt;head-&gt;aor,&quot;r_assert_identity&quot;);
++				id.uri = preferred.uri;
+ 				r_unlock(c-&gt;hash);
+ 				return id;					
+ 			}
+
+Modified: ser_ims/trunk/modules/pcscf/registrar.h
+===================================================================
+--- ser_ims/trunk/modules/pcscf/registrar.h	2006-11-29 18:57:09 UTC (rev 36)
++++ ser_ims/trunk/modules/pcscf/registrar.h	2006-11-29 20:26:42 UTC (rev 37)
+@@ -68,6 +68,6 @@
+ 
+ int r_is_registered(str host,int port,int transport);
+ 
+-str r_assert_identity(str host, int port,int transport,str preferred);
++name_addr_t r_assert_identity(str host, int port,int transport,name_addr_t preferred);
+ 
+ #endif //P_CSCF_REGISTRAR_H_
+
+Modified: ser_ims/trunk/modules/pcscf/registration.c
+===================================================================
+--- ser_ims/trunk/modules/pcscf/registration.c	2006-11-29 18:57:09 UTC (rev 36)
++++ ser_ims/trunk/modules/pcscf/registration.c	2006-11-29 20:26:42 UTC (rev 37)
+@@ -582,7 +582,8 @@
+ }
+ 
+ 
+-static str p_asserted_identity_s={&quot;P-Asserted-Identity: &lt;&quot;,22};
++static str p_asserted_identity_s={&quot;P-Asserted-Identity: &quot;,21};
++static str p_asserted_identity_m={&quot;&lt;&quot;,1};
+ static str p_asserted_identity_e={&quot;&gt;\r\n&quot;,3};
+ /**
+  * Asserts the P-Preferred-Identity if registered and inserts the P-Asserted-Identity.
+@@ -596,9 +597,9 @@
+ 	int ret=CSCF_RETURN_FALSE;
+ 	struct via_body *vb;
+ 	struct hdr_field *h=0;
+-	str preferred={0,0},asserted={0,0},x={0,0};
++	name_addr_t preferred,asserted;
++	str x={0,0};
+ 
+-
+ 	LOG(L_INFO,&quot;INF:&quot;M_NAME&quot;:P_assert_identity: Asserting Identity\n&quot;);
+ //	print_r(L_INFO);
+ 	
+@@ -606,29 +607,30 @@
+ 	
+ 	preferred = cscf_get_preferred_identity(msg,&amp;h);
+ 	
+-	LOG(L_INFO,&quot;DBG:&quot;M_NAME&quot;:P_assert_identity: Looking for &lt;%<A HREF="d://%.*s:%d">d://%.*s:%d</A>&gt; Pref: &lt;%.*s&gt;\n&quot;,
++	LOG(L_INFO,&quot;DBG:&quot;M_NAME&quot;:P_assert_identity: Looking for &lt;%<A HREF="d://%.*s:%d">d://%.*s:%d</A>&gt; Pref: %.*s\n&quot;,
+ 		vb-&gt;proto,vb-&gt;host.len,vb-&gt;host.s,vb-&gt;port,
+-		preferred.len,preferred.s);
++		preferred.len,preferred.name.s);
+ 
+ 	asserted = r_assert_identity(vb-&gt;host,vb-&gt;port,vb-&gt;proto,preferred);
+-	if (!asserted.len){
++	if (!asserted.uri.len){
+ 		ret = CSCF_RETURN_FALSE;	
+ 	}else{
+ 		cscf_del_header(msg,h);
+-		x.len = p_asserted_identity_s.len+asserted.len+p_asserted_identity_e.len;
++		x.len = p_asserted_identity_s.len+asserted.name.len+p_asserted_identity_m.len + 
++			asserted.uri.len+p_asserted_identity_e.len;
+ 		x.s = pkg_malloc(x.len);
+ 		if (!x.s){
+ 			LOG(L_ERR, &quot;ERR&quot;M_NAME&quot;:P_assert_identity: Error allocating %d bytes\n&quot;,
+ 				require_hdr.len);
+ 			x.len=0;
+-			pkg_free(asserted.s);
+ 			goto error;		
+ 		}
+ 		x.len=0;
+ 		STR_APPEND(x,p_asserted_identity_s);
+-		STR_APPEND(x,asserted);
++		STR_APPEND(x,asserted.name);
++		STR_APPEND(x,p_asserted_identity_m);
++		STR_APPEND(x,asserted.uri);
+ 		STR_APPEND(x,p_asserted_identity_e);
+-		pkg_free(asserted.s);
+ 		
+ 		if (cscf_add_header(msg,&amp;x,HDR_OTHER_T))
+ 			ret = CSCF_RETURN_TRUE;
+@@ -636,6 +638,7 @@
+ 			ret = CSCF_RETURN_FALSE;	
+ 	}
+ 	
++	
+ 	return ret;
+ error:
+ 	ret=CSCF_RETURN_ERROR;
+
+Modified: ser_ims/trunk/modules/scscf/sip.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/sip.c	2006-11-29 18:57:09 UTC (rev 36)
++++ ser_ims/trunk/modules/scscf/sip.c	2006-11-29 20:26:42 UTC (rev 37)
+@@ -62,6 +62,7 @@
+ #include &quot;../../parser/parse_to.h&quot;
+ #include &quot;../../parser/parse_expires.h&quot;
+ #include &quot;../../parser/parse_content.h&quot;
++#include &quot;../../parser/parse_nameaddr.h&quot;
+ #include &quot;../../parser/digest/digest.h&quot;
+ #include &quot;../../parser/contact/contact.h&quot;
+ #include &quot;../../parser/contact/parse_contact.h&quot;
+@@ -770,6 +771,8 @@
+ 	return e;
+ }
+ 
++
++str s_asserted_identity={&quot;P-Asserted-Identity&quot;,19};
+ /**
+  * Looks for the P-Asserted-Identity header and extracts its content
+  * @param msg - the sip message
+@@ -777,34 +780,49 @@
+  */
+ str cscf_get_asserted_identity(struct sip_msg *msg)
+ {
+-	str id={0,0};
++	name_addr_t id;
+ 	struct hdr_field *h;
+-	
+-	if (!msg) return id;
++	rr_t *r;
++	memset(&amp;id,0,sizeof(name_addr_t));
++	if (!msg) return id.uri;
+ 	if (parse_headers(msg, HDR_EOH_F, 0)&lt;0) {
+-		return id;
++		return id.uri;
+ 	}
+ 	h = msg-&gt;headers;
+ 	while(h)
+ 	{
+-		if (h-&gt;name.len == 19  &amp;&amp;
+-			strncasecmp(h-&gt;name.s,&quot;P-Asserted-Identity&quot;,19)==0)
++		if (h-&gt;name.len == s_asserted_identity.len  &amp;&amp;
++			strncasecmp(h-&gt;name.s,s_asserted_identity.s,s_asserted_identity.len)==0)
+ 		{
+-			id = h-&gt;body;
+-			while(id.len &amp;&amp; (id.s[0]==' ' || id.s[0]=='\t' || id.s[0]=='&lt;')){
+-				id.s = id.s+1;
+-				id.len --;
++			if (parse_rr(h)&lt;0){
++				//This might be an old client
++				LOG(L_CRIT,&quot;WARN:&quot;M_NAME&quot;:cscf_get_asserted_identity: P-Asserted-Identity header must contain a Nameaddr!!! Fix the client!\n&quot;);
++				id.name.s = h-&gt;body.s;
++				id.name.len = 0;
++				id.len = h-&gt;body.len;
++				id.uri = h-&gt;body;
++				while(id.uri.len &amp;&amp; (id.uri.s[0]==' ' || id.uri.s[0]=='\t' || id.uri.s[0]=='&lt;')){
++					id.uri.s = id.uri.s+1;
++					id.uri.len --;
++				}
++				while(id.uri.len &amp;&amp; (id.uri.s[id.uri.len-1]==' ' || id.uri.s[id.uri.len-1]=='\t' || id.uri.s[id.uri.len-1]=='&gt;')){
++					id.uri.len--;
++				}
++				return id.uri;	
+ 			}
+-			while(id.len &amp;&amp; (id.s[id.len-1]==' ' || id.s[id.len-1]=='\t' || id.s[id.len-1]=='&gt;')){
+-				id.len--;
+-			}	
+-			return id;
++			r = (rr_t*) h-&gt;parsed;
++			id = r-&gt;nameaddr; 
++			free_rr((rr_t**)(&amp;h-&gt;parsed));
++			h-&gt;parsed=0;
++			LOG(L_CRIT,&quot;%.*s&quot;,id.uri.len,id.uri.s);
++			return id.uri;
+ 		}
+ 		h = h-&gt;next;
+ 	}
+-	return id;
++	return id.uri;
+ }
+ 
++
+ /**
+  * Looks for the Contact header and extracts its content
+  * @param msg - the sip message
+@@ -1897,11 +1915,14 @@
+  * @param hr - the header ptr to be filled with the result
+  * @returns the preferred identity string or an empty string if none found
+  */
+-str cscf_get_preferred_identity(struct sip_msg *msg,struct hdr_field **hr)
++name_addr_t cscf_get_preferred_identity(struct sip_msg *msg,struct hdr_field **hr)
+ {
+-	str id={0,0};
++	name_addr_t id;
+ 	struct hdr_field *h;
++	rr_t *r;
++	
+ 	*hr=0;
++	memset(&amp;id,0,sizeof(name_addr_t));
+ 	if (!msg) return id;
+ 	if (parse_headers(msg, HDR_EOH_F, 0)&lt;0) {
+ 		return id;
+@@ -1912,15 +1933,28 @@
+ 		if (h-&gt;name.len == s_preferred_id.len  &amp;&amp;
+ 			strncasecmp(h-&gt;name.s,s_preferred_id.s,s_preferred_id.len)==0)
+ 		{
+-			id = h-&gt;body;
+-			while(id.len &amp;&amp; (id.s[0]==' ' || id.s[0]=='\t' || id.s[0]=='&lt;')){
+-				id.s = id.s+1;
+-				id.len --;
++			if (parse_rr(h)&lt;0){
++				//This might be an old client
++				LOG(L_CRIT,&quot;WARN:&quot;M_NAME&quot;:cscf_get_preferred_identity: P-Preferred-Identity header must contain a Nameaddr!!! Fix the client!\n&quot;);
++				id.name.s = h-&gt;body.s;
++				id.name.len = 0;
++				id.len = h-&gt;body.len;
++				id.uri = h-&gt;body;
++				while(id.uri.len &amp;&amp; (id.uri.s[0]==' ' || id.uri.s[0]=='\t' || id.uri.s[0]=='&lt;')){
++					id.uri.s = id.uri.s+1;
++					id.uri.len --;
++				}
++				while(id.uri.len &amp;&amp; (id.uri.s[id.uri.len-1]==' ' || id.uri.s[id.uri.len-1]=='\t' || id.uri.s[id.uri.len-1]=='&gt;')){
++					id.uri.len--;
++				}
++				if (hr) *hr = h;			
++				return id;	
+ 			}
+-			while(id.len &amp;&amp; (id.s[id.len-1]==' ' || id.s[id.len-1]=='\t' || id.s[id.len-1]=='&gt;')){
+-				id.len--;
+-			}	
+-			*hr = h;
++			r = (rr_t*) h-&gt;parsed;
++			id = r-&gt;nameaddr; 
++			free_rr((rr_t**)(&amp;h-&gt;parsed));
++			h-&gt;parsed=0;
++			if (hr) *hr = h;			
+ 			return id;
+ 		}
+ 		h = h-&gt;next;
+
+Modified: ser_ims/trunk/modules/scscf/sip.h
+===================================================================
+--- ser_ims/trunk/modules/scscf/sip.h	2006-11-29 18:57:09 UTC (rev 36)
++++ ser_ims/trunk/modules/scscf/sip.h	2006-11-29 20:26:42 UTC (rev 37)
+@@ -144,7 +144,7 @@
+ int cscf_get_p_associated_uri(struct sip_msg *msg,str **public_id,int *public_id_cnt);
+ int cscf_get_first_p_associated_uri(struct sip_msg *msg,str *public_id);
+ 
+-str cscf_get_preferred_identity(struct sip_msg *msg,struct hdr_field **h);
++name_addr_t cscf_get_preferred_identity(struct sip_msg *msg,struct hdr_field **h);
+ str cscf_get_called_party_id(struct sip_msg *msg,struct hdr_field **hr);
+ 
+ struct hdr_field* cscf_get_next_route(struct sip_msg *msg,struct hdr_field *start);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000009.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r36 - ser_ims/trunk/modules/pcscf
+</A></li>
+	<LI>Next message: <A HREF="000011.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r38 - in ser_ims/trunk/modules:	cdp icscf pcscf scscf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

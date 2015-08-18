@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 42, Issue 4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenIMSCore-CSCF%20Digest%2C%20Vol%2042%2C%20Issue%204&In-Reply-To=%3C1271070100.2830.51.camel%40localhost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002239.html">
+   <LINK REL="Next"  HREF="002241.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 42, Issue 4</H1>
+    <B>Andreea Ancuta Onofrei</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenIMSCore-CSCF%20Digest%2C%20Vol%2042%2C%20Issue%204&In-Reply-To=%3C1271070100.2830.51.camel%40localhost%3E"
+       TITLE="[OpenIMSCore-CSCF] OpenIMSCore-CSCF Digest, Vol 42, Issue 4">andreea.ancuta.onofrei at fokus.fraunhofer.de
+       </A><BR>
+    <I>Mon Apr 12 13:01:40 CEST 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002239.html">[OpenIMSCore-CSCF] LRF processing of NOTIFY - 481 Subscription does	not exist
+</A></li>
+        <LI>Next message: <A HREF="002241.html">[OpenIMSCore-CSCF] error in checkout of emergency branch
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2240">[ date ]</a>
+              <a href="thread.html#2240">[ thread ]</a>
+              <a href="subject.html#2240">[ subject ]</a>
+              <a href="author.html#2240">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Vijay,
+
+I think the documentation here will help you understand:
+<A HREF="http://openimscore.org/emergency_testing_guide#em_no_loc">http://openimscore.org/emergency_testing_guide#em_no_loc</A>
+
+So, there is a file called &quot;location.cvs&quot; that can send to the SIPp
+LOCSIP stub server data like: username, IP, port and associated location
+information of the user. The information is used by SIPp to mapp the
+username +IP and port to a location XML, this is what field0,field1 and
+field2 mean in the notify_active.xml SIPp script, see
+<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/test/emerg_serv/notify_active.xml?revision=766&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/test/emerg_serv/notify_active.xml?revision=766&amp;view=markup</A>
+
+
+location.cvs can be extended or modified as you please. From the
+wireshark capture I think you have modified only the IP, so the port
+should be modified as well :). So, the data from the user profile and
+the location.cvs must be in sync. :)
+
+The link to the file is:
+<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/test/emerg_serv/location.csv?revision=770&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/test/emerg_serv/location.csv?revision=770&amp;view=markup</A>
+
+
+If you find some documentation on how to enable SIP to know which row it
+should use from location.cvs, please let me know, otherwise, I would
+suggest modifying the file and test it accordingly with X-lite.
+
+Best regards,
+Ancuta
+
+
+
+On Fri, 2010-04-09 at 12:00 +0200,
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A> wrote:
+&gt;<i> Send OpenIMSCore-CSCF mailing list submissions to
+</I>&gt;<i> 	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> 
+</I>&gt;<i> To subscribe or unsubscribe via the World Wide Web, visit
+</I>&gt;<i> 	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> or, via email, send a message with subject or body 'help' to
+</I>&gt;<i> 	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A>
+</I>&gt;<i> 
+</I>&gt;<i> You can reach the person managing the list at
+</I>&gt;<i> 	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-owner at lists.berlios.de</A>
+</I>&gt;<i> 
+</I>&gt;<i> When replying, please edit your Subject line so it is more specific
+</I>&gt;<i> than &quot;Re: Contents of OpenIMSCore-CSCF digest...&quot;
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> Today's Topics:
+</I>&gt;<i> 
+</I>&gt;<i>    1. Re: LRF processing of NOTIFY - 481 Subscription does	not
+</I>&gt;<i>       exist (Varma, Vijay K)
+</I>&gt;<i> 
+</I>&gt;<i> Vijay
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i> 
+</I>&gt;<i> Message: 1
+</I>&gt;<i> Date: Thu, 8 Apr 2010 12:00:28 -0400
+</I>&gt;<i> From: &quot;Varma, Vijay K&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vvarma at telcordia.com</A>&gt;
+</I>&gt;<i> To: &quot;Varma, Vijay K&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vvarma at telcordia.com</A>&gt;,
+</I>&gt;<i> 	&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>&quot;
+</I>&gt;<i> 	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>&gt;
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] LRF processing of NOTIFY - 481
+</I>&gt;<i> 	Subscription does	not exist
+</I>&gt;<i> Message-ID:
+</I>&gt;<i> 	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">563593148DD9A040B93397F642B3C12557B04B4B29 at rrc-dte-exmb1.dte.telcordia.com</A>&gt;
+</I>&gt;<i> 	
+</I>&gt;<i> Content-Type: text/plain; charset=&quot;us-ascii&quot;
+</I>&gt;<i> 
+</I>&gt;<i> Hi,
+</I>&gt;<i> 
+</I>&gt;<i> We notice that the LOCSIP stub is tied to SIPp script in determining what port number is returned in NOTIFY to LRF when it subscribes for location information.  Therefore, when a softphone client makes an emergency call, the port numbers won't match (unless the same port number is forced on the client) and the LRF can not find the subscription leading to &quot;SIP/2.0 481 Subscription doea not exist&quot; error message.
+</I>&gt;<i> 
+</I>&gt;<i> Regards,
+</I>&gt;<i> 
+</I>&gt;<i> Vijay
+</I>&gt;<i> 
+</I>&gt;<i> ________________________________
+</I>&gt;<i> From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>] On Behalf Of Varma, Vijay K
+</I>&gt;<i> Sent: Tuesday, April 06, 2010 5:54 PM
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: [OpenIMSCore-CSCF] LRF processing of NOTIFY - 481 Subscription does not exist
+</I>&gt;<i> 
+</I>&gt;<i> Hi,
+</I>&gt;<i> 
+</I>&gt;<i> When SIPp script is used to make an emergency call without providing location info in INVITE, the call succeeds with LOCSIP server providing the Location Information and LRF getting the PSAP address.  However, when we replace the SIPp script with an X-Lite client making the emergency call, the call fails with the LRF returning to E-CSCF a &quot; SIP/2.0 481 Subscription doea not exist&quot; message.  The NOTIFY sent by the LOCSIP sever looks identical (except that Alice's port number got changed from what was in Subscribe to 3061) to the case when SIPp was used.   The wireshark capture of Subscribe/Notify of the failure case is attached.
+</I>&gt;<i> 
+</I>&gt;<i> Does LOCSIP server always put 3061 as the port number is the NOTIFY?  Does LRF expect any specific information tied to SIPp scripts?  Why does the call fail? Thanks,
+</I>&gt;<i> 
+</I>&gt;<i> Vijay
+</I>&gt;<i> -------------- next part --------------
+</I>&gt;<i> An HTML attachment was scrubbed...
+</I>&gt;<i> URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20100408/80b25d29/attachment-0001.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20100408/80b25d29/attachment-0001.html</A>&gt;
+</I>&gt;<i> 
+</I>&gt;<i> ------------------------------
+</I>&gt;<i> 
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> End of OpenIMSCore-CSCF Digest, Vol 42, Issue 4
+</I>&gt;<i> ***********************************************
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002239.html">[OpenIMSCore-CSCF] LRF processing of NOTIFY - 481 Subscription does	not exist
+</A></li>
+	<LI>Next message: <A HREF="002241.html">[OpenIMSCore-CSCF] error in checkout of emergency branch
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2240">[ date ]</a>
+              <a href="thread.html#2240">[ thread ]</a>
+              <a href="subject.html#2240">[ subject ]</a>
+              <a href="author.html#2240">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

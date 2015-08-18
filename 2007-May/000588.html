@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS	Identity not registered
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DS-CSCF%20returns%20404%20Not%20Found%20-%20HSS%0A%09Identity%20not%20registered&In-Reply-To=%3C200705100515.l4A5Fuo6022738%40imj.m.ecl.ntt.co.jp%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000586.html">
+   <LINK REL="Next"  HREF="000593.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS	Identity not registered</H1>
+    <B>Hideyuki Yamashita</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DS-CSCF%20returns%20404%20Not%20Found%20-%20HSS%0A%09Identity%20not%20registered&In-Reply-To=%3C200705100515.l4A5Fuo6022738%40imj.m.ecl.ntt.co.jp%3E"
+       TITLE="[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS	Identity not registered">yamashita.hideyuki at lab.ntt.co.jp
+       </A><BR>
+    <I>Thu May 10 07:21:10 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000586.html">[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS	Identity not registered
+</A></li>
+        <LI>Next message: <A HREF="000593.html">[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS Identity not registered
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#588">[ date ]</a>
+              <a href="thread.html#588">[ thread ]</a>
+              <a href="subject.html#588">[ subject ]</a>
+              <a href="author.html#588">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Franz and Dragos,
+
+Thanks for your opinion.
+
+By the way,the response code is not configurable in icscf.cfg.
+404 response is not generated from icscf.cfg.
+
+In /opt/OpenIMS/ser_ims/modules/icscf/location.c ,
+the code resides.(I-CSCF query location of callee using Cx 
+interface(LIR/LIA))
+
+I quote source code below.
+(I commented **** comment ******,where I think the cause of 404).
+
+/**
+ * Process a Location-Information-Answer.
+ * Called from the Cx_LIA handler when the LIA is received
+ * @param msg - the original SIP message retrieved from the transaction
+ * @param lia - the LIA diameter answer received from the HSS
+ * @returns #CSCF_RETURN_TRUE on success or #CSCF_RETURN_FALSE on error
+ */
+int I_LIA(struct sip_msg* msg, AAAMessage* lia)
+{
+	int rc=-1,experimental_rc=-1;
+	str server_name;
+	int *m_capab=0,m_capab_cnt=0;
+	int *o_capab=0,o_capab_cnt=0;
+	scscf_list *list=0;
+	str call_id;	
+	
+	if (!lia){
+		//TODO - add the warning code 99 in the reply	
+		cscf_reply_transactional(msg,480,MSG_480_DIAMETER_TIMEOUT_LIA);		
+		return CSCF_RETURN_BREAK;
+	}
+	
+	if (!Cx_get_result_code(lia,&amp;rc)&amp;&amp;
+		!Cx_get_experimental_result_code(lia,&amp;experimental_rc))
+	{
+		cscf_reply_transactional(msg,480,MSG_480_DIAMETER_MISSING_AVP_LIA);		
+		return CSCF_RETURN_BREAK;			
+	}
+	
+	switch(rc){
+		case -1:
+			switch(experimental_rc){
+				
+				case RC_IMS_DIAMETER_ERROR_USER_UNKNOWN:
+					cscf_reply_transactional(msg,604,MSG_604_USER_UNKNOWN);
+					return CSCF_RETURN_BREAK;
+**************************** In here, source code maps LIA exper
+imental code(5004?) to SIP 404*************
+ 				case 
+					RC_IMS_DIAMETER_ERROR_IDENTITY_NOT_REGISTERED:						cscf_reply_transactional(msg,404,MSG_404_NOT_REGISTERED);		
+			return CSCF_RETURN_BREAK;
+****************************************************************									case 
+RC_IMS_DIAMETER_UNREGISTERED_SERVICE:					goto 
+success;	
+				
+				default:
+					cscf_reply_transactional(msg,403,MSG_403_UNKOWN_EXPERIMENTAL_RC);		
+					return CSCF_RETURN_BREAK;
+			}
+			break;
+		
+		case AAA_UNABLE_TO_COMPLY:
+			cscf_reply_transactional(msg,403,MSG_403_UNABLE_TO_COMPLY);		
+			return CSCF_RETURN_BREAK;
+			break;
+				
+		case AAA_SUCCESS:
+			goto success;			
+			break;
+						
+		default:
+			cscf_reply_transactional(msg,403,MSG_403_UNKOWN_RC);		
+			return CSCF_RETURN_BREAK;
+	}
+	
+success:
+	server_name = Cx_get_server_name(lia);
+	if (server_name.len){
+		list = shm_malloc(sizeof(scscf_list));
+		list-&gt;scscf_name=server_name;
+		list-&gt;score=MAXINT;
+		list-&gt;next=0;
+	}else{
+		Cx_get_capabilities(lia,&amp;m_capab,&amp;m_capab_cnt,&amp;o_capab,&amp;o_capab_cnt);
+		list = I_get_capab_ordered(server_name,m_capab,m_capab_cnt,o_capab,o_capab_cnt);
+		if (m_capab) shm_free(m_capab);
+		if (o_capab) shm_free(o_capab);
+	}
+
+	if (!list) {
+		cscf_reply_transactional(msg,600,MSG_600_EMPTY_LIST);	
+		return CSCF_RETURN_BREAK;
+	}
+	call_id = cscf_get_call_id(msg,0);
+	if (!call_id.len||!add_s_list(call_id,list)){
+		cscf_reply_transactional(msg,500,MSG_500_ERROR_SAVING_LIST);	
+		return CSCF_RETURN_BREAK;
+	}
+	//print_s_list(L_ERR);	
+		
+	return CSCF_RETURN_TRUE;
+}
+
+
+Thanks,
+Hideyuki
+
+&gt;<i> Hi Hideyuki and Dragos,
+</I>&gt;<i>  
+</I>&gt;<i> &gt; Well, I am not sure if this is in the specs or we felt that 404 is more
+</I>&gt;<i> &gt; appropriate as 480 might mean a Time-out... In the end it's a matter of
+</I>&gt;<i> &gt; taste.
+</I>&gt;<i> 
+</I>&gt;<i> In principle I agree with Hideyuki referring to the definition of response
+</I>&gt;<i> codes in RFC 3261. But I now have another problem:
+</I>&gt;<i> 
+</I>&gt;<i> I did not find a statement where a response like 404 Not Found -HSS Identity
+</I>&gt;<i> not registered is created; neither in scscf.cfg nor in icscf.cfg. Maybe
+</I>&gt;<i> because I am already using revision 261.
+</I>&gt;<i> 
+</I>&gt;<i> Hideyuki please help me to find the position. 
+</I>&gt;<i> 
+</I>&gt;<i> Cheers
+</I>&gt;<i> Franz
+</I>&gt;<i> 
+</I>
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000586.html">[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS	Identity not registered
+</A></li>
+	<LI>Next message: <A HREF="000593.html">[OpenIMSCore-CSCF] [Question]S-CSCF returns 404 Not Found - HSS Identity not registered
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#588">[ date ]</a>
+              <a href="thread.html#588">[ thread ]</a>
+              <a href="subject.html#588">[ subject ]</a>
+              <a href="author.html#588">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

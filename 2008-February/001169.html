@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] OpenSer as  presence server
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenSer%20as%20%20presence%20server&In-Reply-To=%3C47A832EC.8000501%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001166.html">
+   <LINK REL="Next"  HREF="001167.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] OpenSer as  presence server</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenSer%20as%20%20presence%20server&In-Reply-To=%3C47A832EC.8000501%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] OpenSer as  presence server">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Feb  5 10:57:00 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001166.html">[OpenIMSCore-CSCF] OpenSer as  presence server
+</A></li>
+        <LI>Next message: <A HREF="001167.html">[OpenIMSCore-CSCF] Route header in a ReInvite request
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1169">[ date ]</a>
+              <a href="thread.html#1169">[ thread ]</a>
+              <a href="subject.html#1169">[ subject ]</a>
+              <a href="author.html#1169">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Maybe you will find your answers quicker on the OpenSER mailing list?
+
+OpenSER and the presence functionality inside it were not developed as
+part of the OpenIMSCore project. We merely use them as some examples...
+
+-Dragos
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">mustafa at cec.sy</A> wrote:
+&gt;<i> Hi all,
+</I>&gt;<i> i try to run the OpenSer server version 1.2 (for ubuntu OS) (as presence
+</I>&gt;<i> server), how i can configure the openser to run as presence server.i try
+</I>&gt;<i> the following config file but i get the error :bad cfg file.
+</I>&gt;<i> thanks
+</I>&gt;<i> Best Regards
+</I>&gt;<i> #
+</I>&gt;<i> # $Id: openser_presence.cfg 30-05-2007
+</I>&gt;<i> #
+</I>&gt;<i> # Simple quick-start config script for the openser to act as a presence
+</I>&gt;<i> server
+</I>&gt;<i>
+</I>&gt;<i> # To be used with the Open Source IMS Core <A HREF="http://www.openimscore.org">http://www.openimscore.org</A>
+</I>&gt;<i> # and the UCTIMSClient <A HREF="http://www.uctimsclient.berlios.de">http://www.uctimsclient.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> # Please refer to the Core CookBook at
+</I>&gt;<i> <A HREF="http://www.openser.org/dokuwiki/doku.php">http://www.openser.org/dokuwiki/doku.php</A>
+</I>&gt;<i> # for a explanation of possible statements, functions and parameters.
+</I>&gt;<i> #
+</I>&gt;<i> # ----------- global configuration parameters ------------------------
+</I>&gt;<i>
+</I>&gt;<i> debug=3
+</I>&gt;<i> log_stderror=yes
+</I>&gt;<i>
+</I>&gt;<i> fork=yes
+</I>&gt;<i> #log_stderror=no    # (cmd line: -E)
+</I>&gt;<i> children=4
+</I>&gt;<i>
+</I>&gt;<i> # Uncomment these lines to enter debugging mode
+</I>&gt;<i> #fork=no
+</I>&gt;<i> #log_stderror=yes
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> listen=127.0.0.1
+</I>&gt;<i> port=5065
+</I>&gt;<i>
+</I>&gt;<i> # uncomment the following lines for TLS support
+</I>&gt;<i> #disable_tls = 0
+</I>&gt;<i> #listen = tls:your_IP:5061
+</I>&gt;<i> #tls_verify_server = 1
+</I>&gt;<i> #tls_verify_client = 1
+</I>&gt;<i> #tls_require_client_certificate = 0
+</I>&gt;<i> #tls_method = TLSv1
+</I>&gt;<i> #tls_certificate = &quot;/etc/openser/tls/user/user-cert.pem&quot;
+</I>&gt;<i> #tls_private_key = &quot;/etc/openser/tls/user/user-privkey.pem&quot;
+</I>&gt;<i> #tls_ca_list = &quot;/etc/openser/tls/user/user-calist.pem&quot;
+</I>&gt;<i>
+</I>&gt;<i> # ------------------ module loading ----------------------------------
+</I>&gt;<i>
+</I>&gt;<i> #set module path
+</I>&gt;<i> mpath=&quot;/usr/lib/openser/modules/&quot;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> # Uncomment this if you want to use SQL database
+</I>&gt;<i> loadmodule &quot;mysql.so&quot;
+</I>&gt;<i>
+</I>&gt;<i> loadmodule &quot;sl.so&quot;
+</I>&gt;<i> loadmodule &quot;tm.so&quot;
+</I>&gt;<i> loadmodule &quot;rr.so&quot;
+</I>&gt;<i> loadmodule &quot;presence.so&quot;
+</I>&gt;<i> loadmodule &quot;maxfwd.so&quot;
+</I>&gt;<i> loadmodule &quot;usrloc.so&quot;
+</I>&gt;<i> loadmodule &quot;registrar.so&quot;
+</I>&gt;<i> loadmodule &quot;textops.so&quot;
+</I>&gt;<i> loadmodule &quot;mi_fifo.so&quot;
+</I>&gt;<i>
+</I>&gt;<i> # Uncomment this if you want digest authentication
+</I>&gt;<i> # mysql.so must be loaded !
+</I>&gt;<i> #loadmodule &quot;auth.so&quot;
+</I>&gt;<i> #loadmodule &quot;auth_db.so&quot;
+</I>&gt;<i>
+</I>&gt;<i> # ----------------- setting module-specific parameters ---------------
+</I>&gt;<i>
+</I>&gt;<i> # -- mi_fifo params --
+</I>&gt;<i>
+</I>&gt;<i> modparam(&quot;mi_fifo&quot;, &quot;fifo_name&quot;, &quot;/tmp/openser_fifo&quot;)
+</I>&gt;<i>
+</I>&gt;<i> # -- usrloc params --
+</I>&gt;<i>
+</I>&gt;<i> modparam(&quot;usrloc&quot;, &quot;db_mode&quot;,   0)
+</I>&gt;<i>
+</I>&gt;<i> # Uncomment this if you want to use SQL database
+</I>&gt;<i> # for persistent storage and comment the previous line
+</I>&gt;<i> #modparam(&quot;usrloc&quot;, &quot;db_mode&quot;, 2)
+</I>&gt;<i>
+</I>&gt;<i> # -- auth params --
+</I>&gt;<i> # Uncomment if you are using auth module
+</I>&gt;<i> #
+</I>&gt;<i> #modparam(&quot;auth_db&quot;, &quot;calculate_ha1&quot;, yes)
+</I>&gt;<i> #
+</I>&gt;<i> # If you set &quot;calculate_ha1&quot; parameter to yes (which true in this config),
+</I>&gt;<i> # uncomment also the following parameter)
+</I>&gt;<i> #
+</I>&gt;<i> #modparam(&quot;auth_db&quot;, &quot;password_column&quot;, &quot;password&quot;)
+</I>&gt;<i>
+</I>&gt;<i> # -- rr params --
+</I>&gt;<i> # add value to ;lr param to make some broken UAs happy
+</I>&gt;<i> modparam(&quot;rr&quot;, &quot;enable_full_lr&quot;, 1)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> # -- presence params --
+</I>&gt;<i> modparam(&quot;presence&quot;, &quot;db_url&quot;, &quot;<A HREF="mysql://openser:openserrw@localhost/openser">mysql://openser:openserrw@localhost/openser</A>&quot;)
+</I>&gt;<i> modparam(&quot;presence&quot;, &quot;presentity_table&quot;, &quot;presentity&quot;)
+</I>&gt;<i> modparam(&quot;presence&quot;, &quot;active_watchers_table&quot;, &quot;active_watchers&quot;)
+</I>&gt;<i> modparam(&quot;presence&quot;, &quot;watchers_table&quot;, &quot;watchers&quot;)
+</I>&gt;<i> modparam(&quot;presence&quot;, &quot;xcap_table&quot;, &quot;xcaps&quot;)
+</I>&gt;<i> modparam(&quot;presence&quot;, &quot;clean_period&quot;, 100)
+</I>&gt;<i> modparam(&quot;presence&quot;, &quot;to_tag_pref&quot;, 'a')
+</I>&gt;<i> modparam(&quot;presence&quot;, &quot;lock_set_size&quot;, 8)
+</I>&gt;<i> modparam(&quot;presence&quot;, &quot;expires_offset&quot;, 10)
+</I>&gt;<i> modparam(&quot;presence&quot;, &quot;force_active&quot;, 1)
+</I>&gt;<i> modparam(&quot;presence&quot;, &quot;max_expires&quot;, 3600)
+</I>&gt;<i> modparam(&quot;presence&quot;, &quot;server_address&quot;, &quot;sip:localhost:5065&quot;)
+</I>&gt;<i>
+</I>&gt;<i> # -------------------------  request routing logic -------------------
+</I>&gt;<i>
+</I>&gt;<i> # main routing logic
+</I>&gt;<i>
+</I>&gt;<i> route{
+</I>&gt;<i>
+</I>&gt;<i> 	# initial sanity checks -- messages with
+</I>&gt;<i> 	# max_forwards==0, or excessively long requests
+</I>&gt;<i> 	if (!mf_process_maxfwd_header(&quot;10&quot;)) {
+</I>&gt;<i> 		sl_send_reply(&quot;483&quot;,&quot;Too Many Hops&quot;);
+</I>&gt;<i> 		exit;
+</I>&gt;<i> 	};
+</I>&gt;<i>
+</I>&gt;<i> 	if (msg:len &gt;=  2048 ) {
+</I>&gt;<i> 		sl_send_reply(&quot;513&quot;, &quot;Message too big&quot;);
+</I>&gt;<i> 		exit;
+</I>&gt;<i> 	};
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 	# if the request is for other domain use UsrLoc
+</I>&gt;<i> 	# (in case, it does not work, use the following command
+</I>&gt;<i> 	# with proper names and addresses in it)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 	# presence handling
+</I>&gt;<i> 	if(method==&quot;PUBLISH&quot;){
+</I>&gt;<i> 		route(2);
+</I>&gt;<i> 	}
+</I>&gt;<i>
+</I>&gt;<i> 	if(method==&quot;SUBSCRIBE&quot;){
+</I>&gt;<i> 		route(2);
+</I>&gt;<i> 	}
+</I>&gt;<i>
+</I>&gt;<i> 	route(1);
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i> route[1]
+</I>&gt;<i> {
+</I>&gt;<i> 	# send it out now; use stateful forwarding as it works reliably
+</I>&gt;<i> 	# even for UDP2TCP
+</I>&gt;<i> 	if (!t_relay()) {
+</I>&gt;<i> 		sl_reply_error();
+</I>&gt;<i> 	};
+</I>&gt;<i> 	exit;
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i> # presence handling route
+</I>&gt;<i> route[2]
+</I>&gt;<i> {
+</I>&gt;<i> 	# absorb retransmissions
+</I>&gt;<i> 	if (! t_newtran())
+</I>&gt;<i> 	{
+</I>&gt;<i> 	        sl_reply_error();
+</I>&gt;<i> 	        exit;
+</I>&gt;<i> 	};
+</I>&gt;<i>
+</I>&gt;<i> 	if(is_method(&quot;PUBLISH&quot;))
+</I>&gt;<i> 	{
+</I>&gt;<i> 		handle_publish();
+</I>&gt;<i> 		t_release();
+</I>&gt;<i> 	} else if( is_method(&quot;SUBSCRIBE&quot;)) {
+</I>&gt;<i> 		handle_subscribe();
+</I>&gt;<i> 		t_release();
+</I>&gt;<i> 	};
+</I>&gt;<i>
+</I>&gt;<i> 	exit;
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001166.html">[OpenIMSCore-CSCF] OpenSer as  presence server
+</A></li>
+	<LI>Next message: <A HREF="001167.html">[OpenIMSCore-CSCF] Route header in a ReInvite request
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1169">[ date ]</a>
+              <a href="thread.html#1169">[ thread ]</a>
+              <a href="subject.html#1169">[ subject ]</a>
+              <a href="author.html#1169">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

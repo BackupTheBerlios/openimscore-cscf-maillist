@@ -1,0 +1,622 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2010-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20pcscf.xml%2C%20and%20Send_STR&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BD211%40BASIS001152003.basis-audionet.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002089.html">
+   <LINK REL="Next"  HREF="002094.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR</H1>
+    <B>Min Wang</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20About%20pcscf.xml%2C%20and%20Send_STR&In-Reply-To=%3C04A856F26940EE42A7D6129D5073F24A022BD211%40BASIS001152003.basis-audionet.de%3E"
+       TITLE="[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR">wang at basis-audionet.com
+       </A><BR>
+    <I>Tue Feb  9 16:56:30 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002089.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+        <LI>Next message: <A HREF="002094.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2092">[ date ]</a>
+              <a href="thread.html#2092">[ thread ]</a>
+              <a href="subject.html#2092">[ subject ]</a>
+              <a href="author.html#2092">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Ancuta:
+
+Thanks.
+
+In the p-cscf.cfg 
+
+route[Orig_Initial_Emergency] -&gt;
+P_is_anonymous_identity() is missing?
+
+
+
+Kind Regards
+ 
+Min Wang
+
+&gt;<i> -----Original Message-----
+</I>&gt;<i> From: Andreea Ancuta Onofrei
+</I>&gt;<i> [mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.onofrei at fokus.fraunhofer.de</A>]
+</I>&gt;<i> Sent: Tuesday, February 09, 2010 10:40 AM
+</I>&gt;<i> To: Min Wang
+</I>&gt;<i> Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> Subject: RE: [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</I>&gt;<i> 
+</I>&gt;<i> Sorry,
+</I>&gt;<i> 
+</I>&gt;<i> I forgot to add some files. Now it should compile.
+</I>&gt;<i> 
+</I>&gt;<i> Best regards,
+</I>&gt;<i> Ancuta
+</I>&gt;<i> 
+</I>&gt;<i> On Tue, 2010-02-09 at 15:45 +0100, Min Wang wrote:
+</I>&gt;<i> &gt; Hi Ancuta
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Thanks for the fix. However I can not compile, seems some files are
+</I>&gt;<i> &gt; missing, see the following:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; dlg_state.c:72:24: error: em_numbers.h: No such file or directory
+</I>&gt;<i> &gt; dlg_state.c: In function 'P_save_dialog':
+</I>&gt;<i> &gt; dlg_state.c:896: error: 'urn_t' undeclared (first use in this
+</I>function)
+&gt;<i> &gt; dlg_state.c:896: error: (Each undeclared identifier is reported only
+</I>&gt;<i> &gt; once
+</I>&gt;<i> &gt; dlg_state.c:896: error: for each function it appears in.)
+</I>&gt;<i> &gt; dlg_state.c:896: error: expected ';' before 'urn_type'
+</I>&gt;<i> &gt; dlg_state.c:897: error: 'urn_type' undeclared (first use in this
+</I>&gt;<i> &gt; function)
+</I>&gt;<i> &gt; dlg_state.c:897: error: 'NOT_URN' undeclared (first use in this
+</I>&gt;<i> &gt; function)
+</I>&gt;<i> &gt; dlg_state.c:897: error: 'NOT_EM_URN' undeclared (first use in this
+</I>&gt;<i> &gt; function)
+</I>&gt;<i> &gt; make[2]: *** [dlg_state.o] Error 1
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Kind Regards
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Min Wang
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; &gt; -----Original Message-----
+</I>&gt;<i> &gt; &gt; From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+</I>&gt;<i> &gt; [mailto:openimscore-cscf-
+</I>&gt;<i> &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bounces at lists.berlios.de</A>] On Behalf Of Andreea Ancuta Onofrei
+</I>&gt;<i> &gt; &gt; Sent: Tuesday, February 09, 2010 8:17 AM
+</I>&gt;<i> &gt; &gt; To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; Subject: Re: [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Dear Min,
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; The Destination-Realm AVP was not corectly set.
+</I>&gt;<i> &gt; &gt; I fixed this. Please try again. I will take a look if there is any
+</I>&gt;<i> &gt; &gt; problem with the destination-host as well.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Best regards,
+</I>&gt;<i> &gt; &gt; Ancuta
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; On Tue, 2010-02-09 at 12:02 +0100,
+</I>&gt;<i> &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A> wrote:
+</I>&gt;<i> &gt; &gt; &gt; Send OpenIMSCore-CSCF mailing list submissions to
+</I>&gt;<i> &gt; &gt; &gt; 	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; To subscribe or unsubscribe via the World Wide Web, visit
+</I>&gt;<i> &gt; &gt; &gt;
+</I><A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+&gt;<i> &gt; &gt; &gt; or, via email, send a message with subject or body 'help' to
+</I>&gt;<i> &gt; &gt; &gt; 	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; You can reach the person managing the list at
+</I>&gt;<i> &gt; &gt; &gt; 	<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-owner at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; When replying, please edit your Subject line so it is more
+</I>specific
+&gt;<i> &gt; &gt; &gt; than &quot;Re: Contents of OpenIMSCore-CSCF digest...&quot;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Today's Topics:
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;    1. About pcscf.xml, and Send_STR (Min Wang)
+</I>&gt;<i> &gt; &gt; &gt;    2. [SVN-ser_ims] r875 - added a parameter in the	pcscf to
+</I>&gt;<i> enable
+</I>&gt;<i> &gt; &gt; &gt;       or disable the usage of ports in the	IPFilterRules
+</I>&gt;<i> towards
+</I>&gt;<i> &gt; the
+</I>&gt;<i> &gt; &gt; &gt;       pcrf (<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">aon at users.berlios.de</A>)
+</I>&gt;<i> &gt; &gt; &gt;    3. Re: 2. Re: About pcc, p-cscf crash (Min Wang)
+</I>&gt;<i> &gt; &gt; &gt;       (Andreea Ancuta Onofrei)
+</I>&gt;<i> &gt; &gt; &gt;    4. Re: About pcscf.xml, and Send_STR (Dragos Vingarzan)
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt;
+</I>----------------------------------------------------------------------
+&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Message: 1
+</I>&gt;<i> &gt; &gt; &gt; Date: Mon, 8 Feb 2010 21:46:16 +0100
+</I>&gt;<i> &gt; &gt; &gt; From: &quot;Min Wang&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">wang at basis-audionet.com</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; Subject: [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</I>&gt;<i> &gt; &gt; &gt; To: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; Message-ID:
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> 	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">04A856F26940EE42A7D6129D5073F24A022BD185 at BASIS001152003.basis-</A>
+</I>&gt;<i> &gt; &gt; audionet.de&gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Content-Type: text/plain;	charset=&quot;us-ascii&quot;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Hi
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Question regarding the pcscf.xml config, I have following
+</I>config:
+&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; In p-cscf.xml:
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;         &lt;Peer FQDN=&quot;pcrf.xxx.net&quot; Realm=&quot;xxx.net&quot; port=&quot;4868&quot;/&gt;
+</I>&gt;<i> &gt; &gt; &gt;         &lt;DefaultRoute FQDN=&quot;clf.xxx.net&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &lt;/DiameterPeer&gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; In p-cscf.cfg:
+</I>&gt;<i> &gt; &gt; &gt; modparam(&quot;pcscf&quot;,&quot;use_pcc&quot;,1)
+</I>&gt;<i> &gt; &gt; &gt; modparam(&quot;pcscf&quot;,&quot;forced_qos_peer&quot;,&quot;pcrf.xxx.net&quot;)
+</I>&gt;<i> &gt; &gt; &gt; modparam(&quot;pcscf&quot;,&quot;pcc_dest_realm&quot;,&quot;xxx.net&quot;)
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; AAR is sent to pcrf,
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; As pcrf return 5xxxx, the p-cscf will Send_STR ( in
+</I>&gt;<i> &gt; &gt; &gt; auth_client_statefull_sm_process),
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; However the Destination-Host AVP is not set, so the diameter msg
+</I>is
+&gt;<i> &gt; &gt; &gt; using realm-based routing to find peer to send,
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; As the default route is not pcrf.xxx.net,
+</I>&gt;<i> &gt; &gt; &gt; The msg does not send to pcrF, but try to send to clf ( in my
+</I>case,
+&gt;<i> &gt; I do
+</I>&gt;<i> &gt; &gt; &gt; not have clf running.) so the msg goes no where.
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Anything/configure wrong?
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Pcrf already advertise its CER to support app, shoud it to be
+</I>added
+&gt;<i> &gt; to
+</I>&gt;<i> &gt; &gt; &gt; config-&gt;r_table-&gt;realms; ? Or something else?
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Kind regards.
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Min Wang
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; ------------------------------
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Message: 2
+</I>&gt;<i> &gt; &gt; &gt; Date: Tue, 9 Feb 2010 11:08:37 +0100
+</I>&gt;<i> &gt; &gt; &gt; From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">aon at users.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; Subject: [OpenIMSCore-CSCF] [SVN-ser_ims] r875 - added a
+</I>parameter
+&gt;<i> &gt; in
+</I>&gt;<i> &gt; &gt; &gt; 	the	pcscf to enable or disable the usage of ports in
+</I>the
+&gt;<i> &gt; &gt; 	IPFilterRules
+</I>&gt;<i> &gt; &gt; &gt; 	towards the pcrf
+</I>&gt;<i> &gt; &gt; &gt; To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">201002091008.o19A8bxD015279 at sheep.berlios.de</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; Content-Type: text/plain; charset=UTF-8
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Author: aon
+</I>&gt;<i> &gt; &gt; &gt; Date: 2010-02-09 11:08:35 +0100 (Tue, 09 Feb 2010)
+</I>&gt;<i> &gt; &gt; &gt; New Revision: 875
+</I>&gt;<i> &gt; &gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=875">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=875</A>
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Log:
+</I>&gt;<i> &gt; &gt; &gt; added a parameter in the pcscf to enable or disable the usage of
+</I>&gt;<i> &gt; ports
+</I>&gt;<i> &gt; &gt; in the IPFilterRules towards the pcrf
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Modified:
+</I>&gt;<i> &gt; &gt; &gt;    U	ser_ims/branches/13_pcc_fixing/cfg/pcscf.cfg
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i> &gt; &gt; xing/cfg/pcscf.cfg?rev=875&amp;view=diff&amp;r1=875&amp;r2=874
+</I>&gt;<i> &gt; &gt; &gt;    U	ser_ims/branches/13_pcc_fixing/modules/pcscf/mod.c
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i> &gt; &gt; xing/modules/pcscf/mod.c?rev=875&amp;view=diff&amp;r1=875&amp;r2=874
+</I>&gt;<i> &gt; &gt; &gt;    U	ser_ims/branches/13_pcc_fixing/modules/pcscf/pcc_avp.c
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; <A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/13_pcc_fi</A>
+</I>&gt;<i> &gt; &gt; xing/modules/pcscf/pcc_avp.c?rev=875&amp;view=diff&amp;r1=875&amp;r2=874
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; ------------------------------
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Message: 3
+</I>&gt;<i> &gt; &gt; &gt; Date: Tue, 09 Feb 2010 11:19:39 +0100
+</I>&gt;<i> &gt; &gt; &gt; From: Andreea Ancuta Onofrei
+</I>&gt;<i> &gt; &gt; &gt; 	&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">andreea.ancuta.onofrei at fokus.fraunhofer.de</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; Subject: Re: [OpenIMSCore-CSCF] 2. Re: About pcc, p-cscf crash
+</I>(Min
+&gt;<i> &gt; &gt; &gt; 	Wang)
+</I>&gt;<i> &gt; &gt; &gt; To: Min Wang &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">wang at basis-audionet.com</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1265710779.31120.11.camel at localhost</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; Content-Type: text/plain
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Hello Min,
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; I have added a parameter to the pcscf so that it can ignore the
+</I>&gt;<i> &gt; ports.
+</I>&gt;<i> &gt; &gt; &gt; The specification TS 29.213 says that ports should be used so
+</I>the
+&gt;<i> &gt; PCRF
+</I>&gt;<i> &gt; &gt; &gt; should support ports.
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; We are testing the Open IMS Core with our new testbed: OpenEPC.
+</I>&gt;<i> &gt; &gt; &gt; You can find more information about our toolkit on:
+</I>&gt;<i> &gt; &gt; &gt; <A HREF="http://www.openepc.net/en/openepc/overview/openEPC/index.html">http://www.openepc.net/en/openepc/overview/openEPC/index.html</A>
+</I>&gt;<i> &gt; &gt; &gt; <A HREF="http://www.openepc.net/en/openepc/events/2010/index.html">http://www.openepc.net/en/openepc/events/2010/index.html</A>
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; and...information about releases:
+</I>&gt;<i> &gt; &gt; &gt; <A HREF="http://www.openepc.net/en/openepc/overview/releases/index.html">http://www.openepc.net/en/openepc/overview/releases/index.html</A>
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Enjoy the documentation,
+</I>&gt;<i> &gt; &gt; &gt; Ancuta
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; PS: I will add something to handle the error code for
+</I>registrations,
+&gt;<i> &gt; but
+</I>&gt;<i> &gt; &gt; &gt; it will take a while. Until then you are now able to test the
+</I>&quot;ok&quot;
+&gt;<i> &gt; case.
+</I>&gt;<i> &gt; &gt; &gt; Any ideas and feedback is welcome.
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; On Mon, 2010-02-08 at 18:03 +0100, Min Wang wrote:
+</I>&gt;<i> &gt; &gt; &gt; &gt; Hi Ancuta:
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; Thanks.
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; Some of the problems have been fixed, regarding the
+</I>terminating
+&gt;<i> &gt; leg
+</I>&gt;<i> &gt; &gt; &gt; &gt; PCC
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; stuff.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; Handling the error code of the AAA is one of our target, so
+</I>&gt;<i> &gt; further
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; fixes will come soon :).
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; That would be great. Please let us know when you are done, so
+</I>we
+&gt;<i> &gt; can
+</I>&gt;<i> &gt; &gt; &gt; &gt; start to test.
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; @Min: the only thing that could have triggered the error
+</I>code
+&gt;<i> &gt; that
+</I>&gt;<i> &gt; &gt; you
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; receive is that the ports of the flows are now also sent.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; For example, the log is pretty straight forward:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; DBG:P-CSCF:PCC_create_media_component: first flow is permit
+</I>out
+&gt;<i> &gt; ip
+</I>&gt;<i> &gt; &gt; &gt; &gt; from
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; 127.0.0.1 4060 to 127.0.0.1 9080
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; This is not a problem regarding Open IMS Core, but it is
+</I>&gt;<i> &gt; probably
+</I>&gt;<i> &gt; &gt; the
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; PCRF you are using that is not able to handle the ports as
+</I>well.
+&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; I am using uct pcrf for testing, here is the log, probably
+</I>because
+&gt;<i> &gt; of
+</I>&gt;<i> &gt; &gt; &gt; &gt; the adding flow port, the uct pcrf is broken seem the Dest IP
+</I>is
+&gt;<i> &gt; empty.
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; What kind of pcrf are you using?
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; INFO: Received AAR DIAMETER message from P-CSCF
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Session ID: pcscf.centercall.net;4000988146;3
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Orig Realm: centercall.net
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Dest Realm: centercall.net
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Media Component Number: 1
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Flow Number: 1
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Flow Description: permit out ip from 67.154.255.47
+</I>63556 to
+&gt;<i> &gt; &gt; &gt; &gt; 172.16.8.43 34822
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Source IP: 67.154.255.47
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Dest IP: to
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Flow Description: permit in ip from 172.16.8.43 34822
+</I>to
+&gt;<i> &gt; &gt; &gt; &gt; 67.154.255.47 63556
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Flow Number: 2
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Flow Description: permit out ip from 67.154.255.47
+</I>63557 to
+&gt;<i> &gt; &gt; &gt; &gt; 172.16.8.43 34823
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Source IP: 67.154.255.47
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Dest IP: to
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Flow Description: permit in ip from 172.16.8.43 34823
+</I>to
+&gt;<i> &gt; &gt; &gt; &gt; 67.154.255.47 63557
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: session id; originating realm; destination realm
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG:
+</I>&gt;<i> &gt; pcscf.centercall.net;4000988146;3;centercall.net;centercall.net
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: session id; flow id; source ip; dest ip; source port;
+</I>dest
+&gt;<i> &gt; port;
+</I>&gt;<i> &gt; &gt; &gt; &gt; usage; status; BW ul; BW dl; QoS class; Media Type
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG:
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt;
+</I>pcscf.centercall.net;4000988146;3;1,1;67.154.255.47;to;172.16.8.43;34822
+&gt;<i> &gt; &gt; &gt; &gt; ;63556;0;2;-1;-1;2;0
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG:
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt;
+</I>pcscf.centercall.net;4000988146;3;1,2;67.154.255.47;to;172.16.8.43;34823
+&gt;<i> &gt; &gt; &gt; &gt; ;63557;1;2;-1;-1;2;0
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUG: Codecs: 0;8;3;101
+</I>&gt;<i> &gt; &gt; &gt; &gt; INFO: Codecs authorised
+</I>&gt;<i> &gt; &gt; &gt; &gt; INFO: Originating and Destination Domains authorised
+</I>&gt;<i> &gt; &gt; &gt; &gt; Exception in thread &quot;Thread-2&quot; java.lang.NullPointerException
+</I>&gt;<i> &gt; &gt; &gt; &gt;         at pcrf.xcap.getIPFlows(xcap.java:1219)
+</I>&gt;<i> &gt; &gt; &gt; &gt;         at
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>pcrf.DecisionEngine.termination_request(DecisionEngine.java:548)
+&gt;<i> &gt; &gt; &gt; &gt;         at
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt;
+</I>de.fhg.fokus.pcrf_diam.rx.STRCommandListener.recvMessage(STRCommandListe
+&gt;<i> &gt; &gt; &gt; &gt; ner.java:145)
+</I>&gt;<i> &gt; &gt; &gt; &gt;         at
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt;
+</I>de.fhg.fokus.diameter.DiameterPeer.DiameterWorker.run(DiameterWorker.jav
+&gt;<i> &gt; &gt; &gt; &gt; a:100)
+</I>&gt;<i> &gt; &gt; &gt; &gt; INFO: Session ID: pcscf.centercall.net;4000988146;2 does not
+</I>exist
+&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; INFO: Mon Feb 08 11:33:48 EST 2010 Session with ID :
+</I>&gt;<i> &gt; &gt; &gt; &gt; pcscf.centercall.net;4000988146;2 attempted to request more
+</I>&gt;<i> &gt; bandwidth
+</I>&gt;<i> &gt; &gt; &gt; &gt; than the requested QoS class can handle.
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; INFO: Sending DIAMETER AAA message to P-CSCF
+</I>&gt;<i> &gt; &gt; &gt; &gt; INFO: Codecs authorised
+</I>&gt;<i> &gt; &gt; &gt; &gt; INFO: Originating and Destination Domains authorised
+</I>&gt;<i> &gt; &gt; &gt; &gt; INFO: Session ID: pcscf.centercall.net;4000988146;3 does not
+</I>exist
+&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; INFO: Mon Feb 08 11:33:48 EST 2010 Session with ID :
+</I>&gt;<i> &gt; &gt; &gt; &gt; pcscf.centercall.net;4000988146;3 attempted to request more
+</I>&gt;<i> &gt; bandwidth
+</I>&gt;<i> &gt; &gt; &gt; &gt; than the requested QoS class can handle.
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; INFO: Sending DIAMETER AAA message to P-CSCF
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; --------------------------------------------------
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; INFO: Received STR DIAMETER message from P-CSCF
+</I>&gt;<i> &gt; &gt; &gt; &gt; DEBUGGING: Session ID: pcscf.centercall.net;4000988146;3
+</I>&gt;<i> &gt; &gt; &gt; &gt; Exception in thread &quot;Thread-4&quot; java.lang.NullPointerException
+</I>&gt;<i> &gt; &gt; &gt; &gt;         at pcrf.xcap.getIPFlows(xcap.java:1219)
+</I>&gt;<i> &gt; &gt; &gt; &gt;         at
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>pcrf.DecisionEngine.termination_request(DecisionEngine.java:548)
+&gt;<i> &gt; &gt; &gt; &gt;         at
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt;
+</I>de.fhg.fokus.pcrf_diam.rx.STRCommandListener.recvMessage(STRCommandListe
+&gt;<i> &gt; &gt; &gt; &gt; ner.java:145)
+</I>&gt;<i> &gt; &gt; &gt; &gt;         at
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt;
+</I>de.fhg.fokus.diameter.DiameterPeer.DiameterWorker.run(DiameterWorker.jav
+&gt;<i> &gt; &gt; &gt; &gt; a:100)
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; Kind regards.
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; Best regards,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; On Fri, 2010-02-05 at 17:36 +0100, Min Wang wrote:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; HI Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; thanks!
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Kind regards
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; -----Original Message-----
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> on behalf
+</I>of
+&gt;<i> &gt; &gt; Andreea
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Ancuta Onofrei
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Sent: Fri 2/5/2010 12:40 PM
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; To: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Subject: [OpenIMSCore-CSCF] 2. Re: About pcc, p-cscf crash
+</I>&gt;<i> &gt; (Min
+</I>&gt;<i> &gt; &gt; &gt; &gt; Wang)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Yup, that is just one of the problems.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; I am working on fixing it and other problems related to
+</I>PCC.
+&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Please have a little bit of patience.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; If you want a run without crashes, please disable the PCC
+</I>&gt;<i> &gt; related
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; functions on the terminating leg.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; I will let you know when this is safe to use :D.
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Best regards,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; Ancuta
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; On Fri, 2010-02-05 at 12:01 +0100,
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-request at lists.berlios.de</A> wrote:
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; &gt; 2. Re: About pcc, p-cscf crash (Min Wang)
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; _______________________________________________
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; ------------------------------
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Message: 4
+</I>&gt;<i> &gt; &gt; &gt; Date: Tue, 09 Feb 2010 11:25:28 +0100
+</I>&gt;<i> &gt; &gt; &gt; From: Dragos Vingarzan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; Subject: Re: [OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</I>&gt;<i> &gt; &gt; &gt; To: Min Wang &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">wang at basis-audionet.com</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4B713818.6090006 at fokus.fraunhofer.de</A>&gt;
+</I>&gt;<i> &gt; &gt; &gt; Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Hi Min,
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; this looks like a bug. The STR should contain the
+</I>&gt;<i> &gt; Destination-Host/Relam
+</I>&gt;<i> &gt; &gt; &gt; AVPs.
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Cheers,
+</I>&gt;<i> &gt; &gt; &gt; -Dragos
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; Min Wang wrote:
+</I>&gt;<i> &gt; &gt; &gt; &gt; Hi
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; Question regarding the pcscf.xml config, I have following
+</I>config:
+&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; In p-cscf.xml:
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;         &lt;Peer FQDN=&quot;pcrf.xxx.net&quot; Realm=&quot;xxx.net&quot;
+</I>port=&quot;4868&quot;/&gt;
+&gt;<i> &gt; &gt; &gt; &gt;         &lt;DefaultRoute FQDN=&quot;clf.xxx.net&quot; metric=&quot;10&quot;/&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; &lt;/DiameterPeer&gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; In p-cscf.cfg:
+</I>&gt;<i> &gt; &gt; &gt; &gt; modparam(&quot;pcscf&quot;,&quot;use_pcc&quot;,1)
+</I>&gt;<i> &gt; &gt; &gt; &gt; modparam(&quot;pcscf&quot;,&quot;forced_qos_peer&quot;,&quot;pcrf.xxx.net&quot;)
+</I>&gt;<i> &gt; &gt; &gt; &gt; modparam(&quot;pcscf&quot;,&quot;pcc_dest_realm&quot;,&quot;xxx.net&quot;)
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; AAR is sent to pcrf,
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; As pcrf return 5xxxx, the p-cscf will Send_STR ( in
+</I>&gt;<i> &gt; &gt; &gt; &gt; auth_client_statefull_sm_process),
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; However the Destination-Host AVP is not set, so the diameter
+</I>msg
+&gt;<i> &gt; is
+</I>&gt;<i> &gt; &gt; &gt; &gt; using realm-based routing to find peer to send,
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; As the default route is not pcrf.xxx.net,
+</I>&gt;<i> &gt; &gt; &gt; &gt; The msg does not send to pcrF, but try to send to clf ( in my
+</I>&gt;<i> &gt; case, I
+</I>&gt;<i> &gt; &gt; do
+</I>&gt;<i> &gt; &gt; &gt; &gt; not have clf running.) so the msg goes no where.
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; Anything/configure wrong?
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; Pcrf already advertise its CER to support app, shoud it to be
+</I>&gt;<i> &gt; added to
+</I>&gt;<i> &gt; &gt; &gt; &gt; config-&gt;r_table-&gt;realms; ? Or something else?
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; Kind regards.
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; Min Wang
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt; _______________________________________________
+</I>&gt;<i> &gt; &gt; &gt; &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt;
+</I>&gt;<i> &gt; &gt; _______________________________________________
+</I>&gt;<i> &gt; &gt; OpenIMSCore-CSCF mailing list
+</I>&gt;<i> &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> &gt; &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002089.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+	<LI>Next message: <A HREF="002094.html">[OpenIMSCore-CSCF] About pcscf.xml, and Send_STR
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2092">[ date ]</a>
+              <a href="thread.html#2092">[ thread ]</a>
+              <a href="subject.html#2092">[ subject ]</a>
+              <a href="author.html#2092">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

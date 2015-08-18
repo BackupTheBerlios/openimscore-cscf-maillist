@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] CSCF - HSS TEST
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20CSCF%20-%20HSS%20TEST&In-Reply-To=%3C804B13F8F3D94A4AB18B9B01ACB68FA13184EA%40EXCHSRV.fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000313.html">
+   <LINK REL="Next"  HREF="000318.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] CSCF - HSS TEST</H1>
+    <B>Emin, Umut</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20CSCF%20-%20HSS%20TEST&In-Reply-To=%3C804B13F8F3D94A4AB18B9B01ACB68FA13184EA%40EXCHSRV.fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] CSCF - HSS TEST">Umut.Emin at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Mar 14 08:40:16 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000313.html">[OpenIMSCore-CSCF] CSCF - HSS TEST
+</A></li>
+        <LI>Next message: <A HREF="000318.html">[OpenIMSCore-CSCF] P-Visited-Network-ID header missing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#314">[ date ]</a>
+              <a href="thread.html#314">[ thread ]</a>
+              <a href="subject.html#314">[ subject ]</a>
+              <a href="author.html#314">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hello Srini,
+
+
+Actually, you have replied your first question with the second one. In order to be
+sure that the all components work properly, watch out the log messages which
+appear on your shells. There should be no errors. Then you have to think 
+couple of scenarios to test your own IMS.Try registration of a user and call between 
+registered users. If these work properly then you have successfully set up a
+default testbed. Then you can try out things with reconfiguring your *.cfg files
+for your special needs.
+
+I dont use 3CX SIP Phone so i cannot exactly  tell you where your problem lies but
+it's mostly because of a incorrect sip header which your client sends.
+OpenIMSCore is built on IMS Standards so see if you can get an IMS Client for your
+tests. This would ease your problems. Further more X-Lite Sip Phone has been also discussed 
+in our forums again and again. So if you want to use a SIP-Phone, you would 
+find enough guidance(but we dont give any support for that) in our mail archieves.
+
+And for future, if you come up with any problems, please attach a trace of your
+traffic so that we could help you with your problem.
+
+
+I hope this helps,
+Umut
+
+ps: You dont have to cross-post the same mail in all forums, one is just enough ;)
+
+
+-----Urspr&#252;ngliche Nachricht-----
+Von: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A> im Auftrag von SRINI VASAN.R.J
+Gesendet: Mi 14.03.2007 08:03
+An: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Betreff: [OpenIMSCore-CSCF] CSCF - HSS TEST
+ 
+Hi ,
+           Thanks for your reply, Its  really helped me, I follwed your
+steps and configured S-CSCF anf HSS and they are communicating , Now i have
+some more doubts.
+
+                1) How to test whether all the components working fine not
+
+                2) i tried to register <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A> ( prepopulated in
+hss) using 3CX phone, The Register message reached at ICSCF but its not
+fowarded to SCSCF,whether we have to do some configuration settings to
+forward requsest to SCSCF.
+
+                 If any of you come across this problem ,Kindly let me know.
+
+Thanks,
+Srini
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070314/8e2f97ef/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070314/8e2f97ef/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000313.html">[OpenIMSCore-CSCF] CSCF - HSS TEST
+</A></li>
+	<LI>Next message: <A HREF="000318.html">[OpenIMSCore-CSCF] P-Visited-Network-ID header missing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#314">[ date ]</a>
+              <a href="thread.html#314">[ thread ]</a>
+              <a href="subject.html#314">[ subject ]</a>
+              <a href="author.html#314">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

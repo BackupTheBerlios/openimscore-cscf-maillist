@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Extra steps required to run the 01_persistency branch
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Extra%20steps%20required%20to%20run%20the%0A%2001_persistency%20branch&In-Reply-To=%3C45CA718A.5080204%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000180.html">
+   <LINK REL="Next"  HREF="000183.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Extra steps required to run the 01_persistency branch</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Extra%20steps%20required%20to%20run%20the%0A%2001_persistency%20branch&In-Reply-To=%3C45CA718A.5080204%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] Extra steps required to run the 01_persistency branch">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Feb  8 01:40:42 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000180.html">[OpenIMSCore-CSCF] Extra steps required to run the 01_persistency	branch
+</A></li>
+        <LI>Next message: <A HREF="000183.html">[OpenIMSCore-CSCF] Unable to reach AS on another machine
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#194">[ date ]</a>
+              <a href="thread.html#194">[ thread ]</a>
+              <a href="subject.html#194">[ subject ]</a>
+              <a href="author.html#194">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>The 01_persistency branch is since r129 complete from the file
+snapshooting point of view. So if you want to give it a try, would
+appreciate any feedback before I will merge it into the main tree.
+
+What id does: every &lt;configurable&gt; seconds, the state data is dumped
+into files. Also, when you stop the P/S-CSCF nicely, a snapshot is made.
+On start-up, the last snapshots are loaded. I have tested it a little
+and restarting the CSCFs doesn't seem to have much effect anymore on the
+registered users.
+
+What is saved:
+P-CSCF:
+    - the registrar
+    - the dialogs
+    - the subscription to reg
+
+S-CSCF
+    - the registrar
+    - the dialogs
+    - the authentication vectors
+
+-Dragos
+
+
+Dragos Vingarzan wrote:
+&gt;<i> Hi all,
+</I>&gt;<i>
+</I>&gt;<i> As part of the persistency support I had to save the dlg_t data also.
+</I>&gt;<i> This data structure is quite nasty as it contains a lot of other
+</I>&gt;<i> different structures. As such, I have preferred not to re-implement the
+</I>&gt;<i> whole serialization done in the dialog module. However, those functions
+</I>&gt;<i> were using the lib/cds functionality. So if you want to use this branch,
+</I>&gt;<i> you will need to do the following steps:
+</I>&gt;<i>
+</I>&gt;<i> cd /opt/OpenIMSCore/ser_ims/lib
+</I>&gt;<i> make -f Makefile.ser install.
+</I>&gt;<i>
+</I>&gt;<i> Then use the new {p|s}cscf.cfg and ALSO the new {p|s}cscf.sh!
+</I>&gt;<i>
+</I>&gt;<i> This is required ONLY in the 01_persistency branch and only from
+</I>&gt;<i> revision 123 on.
+</I>&gt;<i>
+</I>&gt;<i> Now, who volunteers to write some code? I received quite many
+</I>&gt;<i> participation requests, so if you have some free time, we have some
+</I>&gt;<i> immediate tasks for you, like:
+</I>&gt;<i>
+</I>&gt;<i> - migrate the whole dlg_state to dlg_t structures
+</I>&gt;<i> - send B2B BYEs to all INVITE dialogs on de-registration
+</I>&gt;<i> - go through the code and make modifications for tel URI support
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> -Dragos
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000180.html">[OpenIMSCore-CSCF] Extra steps required to run the 01_persistency	branch
+</A></li>
+	<LI>Next message: <A HREF="000183.html">[OpenIMSCore-CSCF] Unable to reach AS on another machine
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#194">[ date ]</a>
+              <a href="thread.html#194">[ thread ]</a>
+              <a href="subject.html#194">[ subject ]</a>
+              <a href="author.html#194">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

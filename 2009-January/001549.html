@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] P-CSCF sends forked request to wrong	destination
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20sends%20forked%20request%20to%20wrong%0A%09destination&In-Reply-To=%3C4981A9C8.20205%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001547.html">
+   <LINK REL="Next"  HREF="001548.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] P-CSCF sends forked request to wrong	destination</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20P-CSCF%20sends%20forked%20request%20to%20wrong%0A%09destination&In-Reply-To=%3C4981A9C8.20205%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] P-CSCF sends forked request to wrong	destination">Dragos.Vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Jan 29 14:06:16 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001547.html">[OpenIMSCore-CSCF] P-CSCF sends forked request to wrong destination
+</A></li>
+        <LI>Next message: <A HREF="001548.html">[OpenIMSCore-CSCF] private user identity in IMS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1549">[ date ]</a>
+              <a href="thread.html#1549">[ thread ]</a>
+              <a href="subject.html#1549">[ subject ]</a>
+              <a href="author.html#1549">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Sathish,
+
+I see that the P_NAT_relay() function is using the same destination 
+IP:port for both contacts. The reason for that might be that you have 
+actually used the same IP:port to send out the registrations.
+
+So either:
+- disable NAT in the P-CSCF
+- really use the IP:port that you indicate in the Contact for 
+originating messages.
+
+Cheers,
+-Dragos
+
+Sathish R. wrote:
+&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>             .
+</I>&gt;<i>
+</I>&gt;<i> I am facing problem in P-CSCF, when it serves forked INVITE requests.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>    1. alice &amp; bob are registered users and bob is registered from two
+</I>&gt;<i>       location.
+</I>&gt;<i>    2. When alice make call to bob, S-CSCF fork the INVITE request.
+</I>&gt;<i>    3. PCSCF receives the forked requests (Term_inital) but it sends
+</I>&gt;<i>       both requests to the most recently registered bob's location.
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> I have attached the pcap file for the above mentioned scenario (packet 
+</I>&gt;<i> no. 10 &amp; 12).
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> The P-CSCF behavior for the forked request:
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> PCSCF                             <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.11.200.214</A>           
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.11.204.72</A>
+</I>&gt;<i>
+</I>&gt;<i>      |  <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.11.200.214</A>                  |  
+</I>&gt;<i>                                 |     
+</I>&gt;<i>
+</I>&gt;<i>      |----------------------------------------------&gt; | 
+</I>&gt;<i>                                  |                             
+</I>&gt;<i>
+</I>&gt;<i>      |                                                 |       
+</I>&gt;<i>                            |
+</I>&gt;<i>
+</I>&gt;<i>      | <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">bob at 10.11.204.72</A>                     |             
+</I>&gt;<i>                      |
+</I>&gt;<i>
+</I>&gt;<i>      |---------------------------------------------&#224; |       
+</I>&gt;<i>                            |
+</I>&gt;<i>
+</I>&gt;<i>      |                        
+</I>&gt;<i>                          |                                  |
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> P-CSCF console for Term-Inital request
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  4(22780) &gt;&gt;       Term_Initial
+</I>&gt;<i>
+</I>&gt;<i>  4(22780) DBG:P-CSCF:cscf_get_terminating_contact: 0://10.11.205.68:5062
+</I>&gt;<i>
+</I>&gt;<i>  4(22780) INFO:P-CSCF:P_NAT_relay: &lt;sip:10.11.200.214:5061&gt;
+</I>&gt;<i>
+</I>&gt;<i>  1(22777) DBG:P-CSCF:cscf_get_originating_contact: 1://10.11.200.214:5062
+</I>&gt;<i>
+</I>&gt;<i>  1(22777) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+</I>&gt;<i>
+</I>&gt;<i>  1(22777) INF:P-CSCF:[ 199] Dir:[0]         
+</I>&gt;<i> Call-ID:&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4605c0a39a2bdd003cb5bb52ce51fcfe at 10.11.200.214</A>&gt;            
+</I>&gt;<i> AOR:1://10.11.200.214:5062
+</I>&gt;<i>
+</I>&gt;<i>  1(22777) INF:P-CSCF:               Method:[1] State:[1] Exp:[3600]
+</I>&gt;<i>
+</I>&gt;<i>  1(22777) INF:P-CSCF:[ 199] Dir:[1]         
+</I>&gt;<i> Call-ID:&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4605c0a39a2bdd003cb5bb52ce51fcfe at 10.11.200.214</A>&gt;            
+</I>&gt;<i> AOR:0://10.11.205.68:5062
+</I>&gt;<i>
+</I>&gt;<i>  1(22777) INF:P-CSCF:               Method:[1] State:[1] Exp:[  60]
+</I>&gt;<i>
+</I>&gt;<i>  1(22777) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+</I>&gt;<i>
+</I>&gt;<i>  1(22777) INFO:P-CSCF:P_NAT_relay: &lt;sip:10.11.200.214:5062&gt;
+</I>&gt;<i>
+</I>&gt;<i>  2(22778) DBG:P-CSCF:cscf_get_terminating_contact: 0://10.11.200.214:5061
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  2(22778) &gt;&gt;       Term_Initial
+</I>&gt;<i>
+</I>&gt;<i>  2(22778) DBG:P-CSCF:cscf_get_terminating_contact: 0://10.11.200.214:5061
+</I>&gt;<i>
+</I>&gt;<i>  2(22778) INF:P-CSCF:----------  P-CSCF Dialog List begin --------------
+</I>&gt;<i>
+</I>&gt;<i>  2(22778) INF:P-CSCF:[ 199] Dir:[0]         
+</I>&gt;<i> Call-ID:&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4605c0a39a2bdd003cb5bb52ce51fcfe at 10.11.200.214</A>&gt;            
+</I>&gt;<i> AOR:1://10.11.200.214:5062
+</I>&gt;<i>
+</I>&gt;<i>  2(22778) INF:P-CSCF:               Method:[1] State:[1] Exp:[3600]
+</I>&gt;<i>
+</I>&gt;<i>  2(22778) INF:P-CSCF:[ 199] Dir:[1]         
+</I>&gt;<i> Call-ID:&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4605c0a39a2bdd003cb5bb52ce51fcfe at 10.11.200.214</A>&gt;            
+</I>&gt;<i> AOR:0://10.11.205.68:5062
+</I>&gt;<i>
+</I>&gt;<i>  2(22778) INF:P-CSCF:               Method:[1] State:[1] Exp:[  60]
+</I>&gt;<i>
+</I>&gt;<i>  2(22778) INF:P-CSCF:[ 199] Dir:[1]         
+</I>&gt;<i> Call-ID:&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">4605c0a39a2bdd003cb5bb52ce51fcfe at 10.11.200.214</A>&gt;            
+</I>&gt;<i> AOR:0://10.11.200.214:5061
+</I>&gt;<i>
+</I>&gt;<i>  2(22778) INF:P-CSCF:               Method:[1] State:[1] Exp:[  60]
+</I>&gt;<i>
+</I>&gt;<i>  2(22778) INF:P-CSCF:----------  P-CSCF Dialog List end   --------------
+</I>&gt;<i>
+</I>&gt;<i>  2(22778) INFO:P-CSCF:P_NAT_relay: &lt;sip:10.11.200.214:5061&gt;
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> Did anybody come across this issue?    Am I doing anything wrong here?
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> *Regards,*
+</I>&gt;<i>
+</I>&gt;<i> *Sathish.R*
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+Fraunhofer FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)176 - 48 32 16 00
+Web www.fokus.fraunhofer.de www.openimscore.org
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001547.html">[OpenIMSCore-CSCF] P-CSCF sends forked request to wrong destination
+</A></li>
+	<LI>Next message: <A HREF="001548.html">[OpenIMSCore-CSCF] private user identity in IMS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1549">[ date ]</a>
+              <a href="thread.html#1549">[ thread ]</a>
+              <a href="subject.html#1549">[ subject ]</a>
+              <a href="author.html#1549">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

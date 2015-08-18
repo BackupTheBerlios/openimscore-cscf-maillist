@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] NOTIFY issue
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20NOTIFY%20issue&In-Reply-To=%3C4DC20759.2060103%40acision.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002521.html">
+   <LINK REL="Next"  HREF="002523.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] NOTIFY issue</H1>
+    <B>Daniel Ciprus</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20NOTIFY%20issue&In-Reply-To=%3C4DC20759.2060103%40acision.com%3E"
+       TITLE="[OpenIMSCore-CSCF] NOTIFY issue">daniel.ciprus at acision.com
+       </A><BR>
+    <I>Thu May  5 04:11:37 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002521.html">[OpenIMSCore-CSCF] NOTIFY issue
+</A></li>
+        <LI>Next message: <A HREF="002523.html">[OpenIMSCore-CSCF] NOTIFY issue
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2522">[ date ]</a>
+              <a href="thread.html#2522">[ thread ]</a>
+              <a href="subject.html#2522">[ subject ]</a>
+              <a href="author.html#2522">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Mohsen,
+
+using filter &quot;sip&quot; in wireshark I don't see any rejection from IMS side 
+on SUBSCRIBE. Packets 727, 762 are SUBSCRIBEs and responses are in 763 
+and 764 which is 200 Subscrioption saved.
+
+On 05/04/2011 08:28 PM, Mohsen Emami-Nouri wrote:
+&gt;<i> Hi Franz,
+</I>&gt;<i> Thanks a lot for your great help. I have captured the traces as instructed; it is attached; the same behaviour when going over ipsec; REGISTER is ok, but SUBSCRIBE is rejected with 403 by P-CSCF.
+</I>&gt;<i> best regards,
+</I>&gt;<i> ~Mohsen
+</I>&gt;<i>
+</I>&gt;<i> --- On Sun, 5/1/11, Franz Edler&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at technikum-wien.at</A>&gt;  wrote:
+</I>&gt;<i>
+</I>&gt;&gt;<i> From: Franz Edler&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">franz.edler at technikum-wien.at</A>&gt;
+</I>&gt;&gt;<i> Subject: RE: [OpenIMSCore-CSCF] NOTIFY issue
+</I>&gt;&gt;<i> To: &quot;'Mohsen Emami-Nouri'&quot;&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">memamin at yahoo.com</A>&gt;, <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+</I>&gt;&gt;<i> Date: Sunday, May 1, 2011, 12:06 PM
+</I>&gt;&gt;<i> I Mohsen,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Thanks for the catch, makes totally sense. Now it
+</I>&gt;&gt;<i> works when it goes
+</I>&gt;&gt;&gt;<i> unprotected; but when I try to do the same use case
+</I>&gt;&gt;<i> over ip-sec; REGISTER
+</I>&gt;&gt;<i> is
+</I>&gt;&gt;&gt;<i> fine , but P-CSCF rejects the SUBSCRIBE with &quot;403
+</I>&gt;&gt;<i> Forbidden - Not
+</I>&gt;&gt;&gt;<i> Registered! You must register first a S-CSCF&quot; ; I have
+</I>&gt;&gt;<i> attached
+</I>&gt;&gt;<i> P-CSCF/S-CSCF
+</I>&gt;&gt;&gt;<i> display log and UE-P-CSCF messaging.
+</I>&gt;&gt;<i> To help you analyse the problem I need two things:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> 1. the trace-file should not be a textfile but a file in
+</I>&gt;&gt;<i> pcap-format
+</I>&gt;&gt;<i> produced inside the Linux machine with &quot;tcpdump -i any -s
+</I>&gt;&gt;<i> 3000 -w
+</I>&gt;&gt;<i> /var/tmp/tracefile.pcap&quot;.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> 2. Add a trace-statement into pcscf.cfg and scscf.cfg to
+</I>&gt;&gt;<i> mark a request when
+</I>&gt;&gt;<i> it arrives. I do this with the command at the beginning of
+</I>&gt;&gt;<i> themain routing
+</I>&gt;&gt;<i> block:
+</I>&gt;&gt;<i>       xlog(&quot;L_INFO&quot;,&quot;%CybTracepoint: %cs
+</I>&gt;&gt;<i> %rm %ru from %si:%sp From: %fu  To:
+</I>&gt;&gt;<i> %tu\n%Cxx&quot;);
+</I>&gt;&gt;<i>      Therfore you also have to load the xlog
+</I>&gt;&gt;<i> module: loadmodule
+</I>&gt;&gt;<i> &quot;/opt/OpenIMSCore/ser_ims/modules/xlog/xlog.so&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> BR
+</I>&gt;&gt;<i> Franz
+</I>&gt;&gt;<i>
+</I>&gt;<i> &gt;
+</I>
+-- 
+*Daniel Ciprus*
+Integration engineer
+------------------------------------------------------
+*<A HREF="http://www.acision.com*">http://www.acision.com*</A>
+4870 Sadler Rd
+Suite 200
+Glen Allen, VA 23060
+USA
+T: +1 804 762 5601
+E: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">daniel.ciprus at acision.com</A>
+
+
+This e-mail and any attachment is for authorised use by the intended recipient(s) only. It may contain proprietary material, confidential information and/or be subject to legal privilege. It should not be copied, disclosed to, retained or used by, any other party. If you are not an intended recipient then please promptly delete this e-mail and any attachment and all copies and inform the sender. Thank you.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110504/5b77e2fb/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110504/5b77e2fb/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002521.html">[OpenIMSCore-CSCF] NOTIFY issue
+</A></li>
+	<LI>Next message: <A HREF="002523.html">[OpenIMSCore-CSCF] NOTIFY issue
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2522">[ date ]</a>
+              <a href="thread.html#2522">[ thread ]</a>
+              <a href="subject.html#2522">[ subject ]</a>
+              <a href="author.html#2522">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

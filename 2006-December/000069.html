@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] OPTION Message not getting through with Tel URI
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OPTION%20Message%20not%20getting%20through%20with%20Tel%0A%20URI&In-Reply-To=%3C458BD9C7.7070600%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000063.html">
+   <LINK REL="Next"  HREF="000066.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] OPTION Message not getting through with Tel URI</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OPTION%20Message%20not%20getting%20through%20with%20Tel%0A%20URI&In-Reply-To=%3C458BD9C7.7070600%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] OPTION Message not getting through with Tel URI">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Dec 22 14:12:39 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000063.html">[OpenIMSCore-CSCF] OPTION Message not getting through with Tel URI
+</A></li>
+        <LI>Next message: <A HREF="000066.html">[OpenIMSCore-CSCF] Problem adding new user to FHoSS database &amp; registration of Kphone
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#69">[ date ]</a>
+              <a href="thread.html#69">[ thread ]</a>
+              <a href="subject.html#69">[ subject ]</a>
+              <a href="author.html#69">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi George,
+
+This is the same tel uri problem, not the OPTIONS one - as you ca see,
+the hostname is wrongly extracted and then DNS fails.
+
+-Dragos
+Babu George wrote:
+&gt;<i>
+</I>&gt;<i> All,
+</I>&gt;<i>
+</I>&gt;<i>   I modified the cfg files with the entry &#8220;OPTIONS&#8221; for handling this
+</I>&gt;<i> message.
+</I>&gt;<i>
+</I>&gt;<i>   Alice&amp;Bob are assigned tel no. +10987654321&amp;+11234567890 respectively.
+</I>&gt;<i>
+</I>&gt;<i>   Registered both the users and try to send an OPTIONS message from
+</I>&gt;<i> Alice to Bob
+</I>&gt;<i>
+</I>&gt;<i>  using the Tel URI.But the message is not getting routed towards
+</I>&gt;<i> Bob.Scscf should derive the
+</I>&gt;<i>
+</I>&gt;<i>  Public user ID from the tel no(Here +11234567890) and route message
+</I>&gt;<i> towards Bob.
+</I>&gt;<i>
+</I>&gt;<i>  Is this functionality supported?
+</I>&gt;<i>
+</I>&gt;<i> Here is the error message I get at Scscf.Ethereal trace is also
+</I>&gt;<i> attached.Can someone help me?
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> 5(7573) INF:S-CSCF:           UA: &lt;Unknown UA&gt;
+</I>&gt;<i>
+</I>&gt;<i>  5(7573) INF:S-CSCF:         S: Event[0] Exp:[994357]
+</I>&gt;<i> &lt;sip:pcscf.open-ims.test:5060&gt;
+</I>&gt;<i>
+</I>&gt;<i>  5(7573) INF:S-CSCF:----------  Registrar Contents end ----------
+</I>&gt;<i>
+</I>&gt;<i>  4(7572) &gt;&gt;       Orig
+</I>&gt;<i>
+</I>&gt;<i>  4(7572) DBG:S-CSCF:S_save_dialog(orig): Call-ID &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">1-9790 at 192.168.20.13</A>&gt;
+</I>&gt;<i>
+</I>&gt;<i>  4(7572) INFO:ISC:ISC_match_filter(orig): Checking triggers
+</I>&gt;<i>
+</I>&gt;<i>  4(7572) INFO:ISC:isc_mark_get_from_msg: Trying to get the mark from
+</I>&gt;<i> the message
+</I>&gt;<i>
+</I>&gt;<i>  4(7572) INFO:ISC:ISC_match_filter(orig): Starting triggering
+</I>&gt;<i>
+</I>&gt;<i>  4(7572) INFO:ISC:ISC_match_filter(orig): Orig User
+</I>&gt;<i> &lt;sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">alice at open-ims.test</A>&gt; [1]
+</I>&gt;<i>
+</I>&gt;<i>  4(7572) INFO:ISC:isc_checker_find: starting search
+</I>&gt;<i>
+</I>&gt;<i>  4(7572) ERROR: sip_hostport2su: could not resolve hostname: &quot;&quot;
+</I>&gt;<i>
+</I>&gt;<i>  4(7572) ERROR: uri2dst: failed to resolve &quot;&quot;
+</I>&gt;<i>
+</I>&gt;<i>  4(7572) ERROR: t_forward_nonack: failure to add branches
+</I>&gt;<i>
+</I>&gt;<i> 17(7585) --- Peer List: ---
+</I>&gt;<i>
+</I>&gt;<i> 17(7585)  S[I_Open] hss.open-ims.test:3868 D[ ]
+</I>&gt;<i>
+</I>&gt;<i> 17(7585) ------------------
+</I>&gt;<i>
+</I>&gt;<i> 17(7585) DBG:peer_timer(): Peer hss.open-ims.test       State
+</I>&gt;<i>
+</I>&gt;<i> Thanks
+</I>&gt;<i>
+</I>&gt;<i> Babu
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000063.html">[OpenIMSCore-CSCF] OPTION Message not getting through with Tel URI
+</A></li>
+	<LI>Next message: <A HREF="000066.html">[OpenIMSCore-CSCF] Problem adding new user to FHoSS database &amp; registration of Kphone
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#69">[ date ]</a>
+              <a href="thread.html#69">[ thread ]</a>
+              <a href="subject.html#69">[ subject ]</a>
+              <a href="author.html#69">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

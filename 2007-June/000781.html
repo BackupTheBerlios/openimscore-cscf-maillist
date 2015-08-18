@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple AS	are invoked by using iFC
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Question%20about%20S-CSCF%20behavior%20when%20multiple%20AS%0A%09are%20invoked%20by%20using%20iFC&In-Reply-To=%3Cb712f9530706260251i5e2978cfje9ffd9c3c2f02dc6%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000780.html">
+   <LINK REL="Next"  HREF="000788.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple AS	are invoked by using iFC</H1>
+    <B>Tom Paris</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Question%20about%20S-CSCF%20behavior%20when%20multiple%20AS%0A%09are%20invoked%20by%20using%20iFC&In-Reply-To=%3Cb712f9530706260251i5e2978cfje9ffd9c3c2f02dc6%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple AS	are invoked by using iFC">tom.paris001 at gmail.com
+       </A><BR>
+    <I>Tue Jun 26 11:51:53 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000780.html">[OpenIMSCore-CSCF]  IMS core &amp; IPv6
+</A></li>
+        <LI>Next message: <A HREF="000788.html">[OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple	ASare invoked by using iFC
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#781">[ date ]</a>
+              <a href="thread.html#781">[ thread ]</a>
+              <a href="subject.html#781">[ subject ]</a>
+              <a href="author.html#781">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I have some questions regarding S-CSCF behavior.
+
+[My recognition]
+1.TS.24.229 specifies S-CSCF behavior to avoid
+SIP loop routing.
+
+2.OpenIMS realize the behavior by implementing
+pushing identifier in route header when ifc routing is detected by S-CSCF.
+
+3.OpenIMS is able to invoke multiple SIP-ASs sequentially.
+Identifier that is inserted by S-CSCF indicate the progress of SIP AS
+invocation.
+
+[Question1]
+Are there any 3GPP specifications that specifies multiple SIP-ASs
+invocation?
+(In another word, OpenIMS comply with some kind of specification regarding
+this behavior?
+Or are those things left 'implementation specific?')
+
+[Question2]
+As far as I could test in my environment, multiple SIP-ASs invocation can be
+achieved by
+OpenIMS though it seems it can not handle BYE signals properly.
+
+For example in case Alice calls Bob.
+Let's assume that IFC for Alice is set to route AS1,IFC for Bob is set to
+route AS2.
+
+SIP INVITE request is routed like below.
+(180Ringing,200OK,ACK request is routed properly)
+Alice -&gt;OpenIMS-&gt;AS1-&gt;OpenIMS-&gt;AS2-&gt;OpenIMS-&gt;Bob.
+
+However BYE request from Bob is not routed because S-CSCF returns '403
+Forbidden'
+when BYE request is transfered from AS2 to AS1 via OpenIMS(S-CSCF).
+
+Is it a know issue?
+
+Best Regards,
+Thomas
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070626/2560a0ca/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070626/2560a0ca/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000780.html">[OpenIMSCore-CSCF]  IMS core &amp; IPv6
+</A></li>
+	<LI>Next message: <A HREF="000788.html">[OpenIMSCore-CSCF] Question about S-CSCF behavior when multiple	ASare invoked by using iFC
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#781">[ date ]</a>
+              <a href="thread.html#781">[ thread ]</a>
+              <a href="subject.html#781">[ subject ]</a>
+              <a href="author.html#781">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

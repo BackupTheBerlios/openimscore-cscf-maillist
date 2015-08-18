@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Question]How to redirect CSCF log
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DHow%20to%20redirect%20CSCF%20log&In-Reply-To=%3C200705080915.l489FK6F001625%40imj.m.ecl.ntt.co.jp%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000566.html">
+   <LINK REL="Next"  HREF="000568.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Question]How to redirect CSCF log</H1>
+    <B>Hideyuki Yamashita</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DHow%20to%20redirect%20CSCF%20log&In-Reply-To=%3C200705080915.l489FK6F001625%40imj.m.ecl.ntt.co.jp%3E"
+       TITLE="[OpenIMSCore-CSCF] [Question]How to redirect CSCF log">yamashita.hideyuki at lab.ntt.co.jp
+       </A><BR>
+    <I>Tue May  8 11:20:36 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000566.html">[OpenIMSCore-CSCF] [Question]How to redirect CSCF log
+</A></li>
+        <LI>Next message: <A HREF="000568.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r263 - add ACR[event] creation for	a successful registration add AVP creation for Asssociated	URI, Inter-Operator-Identifier, IMS Charging Indentifier,	Cause Code, Access Network Information.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#567">[ date ]</a>
+              <a href="thread.html#567">[ thread ]</a>
+              <a href="subject.html#567">[ subject ]</a>
+              <a href="author.html#567">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I tried as you adviced.
+And operation successed.
+
+Thanks for your advise!
+
+Best Regards,
+Hideyuki
+
+&gt;<i> Just use the command as
+</I>&gt;<i> 
+</I>&gt;<i> opt/OpenIMSCore&gt; pcscf.sh &gt;&amp;PCSCF_LOG
+</I>&gt;<i> 
+</I>&gt;<i> Also change the log level as 9 in the pcscf.cfg file.
+</I>&gt;<i>   Thanx &amp; Regd's
+</I>&gt;<i> 
+</I>&gt;<i>    Samir Patry
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> -----Original Message-----
+</I>&gt;<i> 
+</I>&gt;<i> From: Hideyuki Yamashita &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">yamashita.hideyuki at lab.ntt.co.jp</A>&gt;
+</I>&gt;<i> 
+</I>&gt;<i> To: &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>&gt;
+</I>&gt;<i> 
+</I>&gt;<i> Cc: &#12484;&#12454;&#12465;&#12531;(&#23665;&#19979;) &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">yamashita.hideyuki at lab.ntt.co.jp</A>&gt;
+</I>&gt;<i> 
+</I>&gt;<i> Date: Tue, 08 May 2007 15:40:22 +0900
+</I>&gt;<i> 
+</I>&gt;<i> Subject: Re: [OpenIMSCore-CSCF] [Question]How to redirect CSCF log
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> Hi,
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> I have reserched document of SER.
+</I>&gt;<i> 
+</I>&gt;<i> (OSIMS is SER based, isn't it?)
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> The document tells that SER uses syslog.
+</I>&gt;<i> 
+</I>&gt;<i> OpenIMS also uses syslog?
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> To log CSCF activities, do I have to configure /etc/syslog.conf?
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> Please somebody help.
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> Regards,
+</I>&gt;<i> 
+</I>&gt;<i> Hideyuki
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> &gt; Hi,
+</I>&gt;<i> 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> 
+</I>&gt;<i> &gt; I have a question about CSCF log.
+</I>&gt;<i> 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> 
+</I>&gt;<i> &gt; [Question]
+</I>&gt;<i> 
+</I>&gt;<i> &gt; I want to know how to redirect CSCF log from STDERR(STDOUT?) to 
+</I>&gt;<i> 
+</I>&gt;<i> &gt; normal file.
+</I>&gt;<i> 
+</I>&gt;<i> &gt; I know that debug information is displayed in STDERR after I 
+</I>&gt;<i> 
+</I>&gt;<i> &gt; invoke cscf startup shell(i.e. pcscf.sh)
+</I>&gt;<i> 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> 
+</I>&gt;<i> &gt; I want to store those information into files.
+</I>&gt;<i> 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> 
+</I>&gt;<i> &gt; Please somebody help me.
+</I>&gt;<i> 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> 
+</I>&gt;<i> &gt; [OpenIMSCore Release I use]
+</I>&gt;<i> 
+</I>&gt;<i> &gt; CSCFs:ser_ims2007327.r0202
+</I>&gt;<i> 
+</I>&gt;<i> &gt; HSS  :FHoSS2007329.r0204]
+</I>&gt;<i> 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> 
+</I>&gt;<i> &gt; Best Regards,
+</I>&gt;<i> 
+</I>&gt;<i> &gt; Hideyuki
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> 
+</I>&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;<i> 
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;<i> 
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A> 
+</I>&gt;<i> [<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>]
+</I>
+
+_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+NTT&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#26666;&#24335;&#20250;&#31038;
+&#24773;&#22577;&#27969;&#36890;&#22522;&#30436;&#32207;&#21512;&#30740;&#31350;&#25152;
+&#12469;&#12540;&#12499;&#12473;&#12452;&#12531;&#12486;&#12464;&#12524;&#12540;&#12471;&#12519;&#12531;&#22522;&#30436;&#30740;&#31350;&#25152;
+&#23665;&#19979;&#12288;&#33521;&#20043;
+TEL(0422)-59-6227
+&#12306;180-0012 &#26481;&#20140;&#37117;&#27494;&#34101;&#37326;&#24066;&#32209;&#30010;3-9-11 NTT&#27494;&#34101;&#37326;&#30740;&#31350;&#38283;&#30330;&#12475;&#12531;&#12479;&#20869; 7&#21495;&#39208;7-B05A
+E-mail:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">yamashita.hideyuki at lab.ntt.co.jp</A>
+_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000566.html">[OpenIMSCore-CSCF] [Question]How to redirect CSCF log
+</A></li>
+	<LI>Next message: <A HREF="000568.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r263 - add ACR[event] creation for	a successful registration add AVP creation for Asssociated	URI, Inter-Operator-Identifier, IMS Charging Indentifier,	Cause Code, Access Network Information.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#567">[ date ]</a>
+              <a href="thread.html#567">[ thread ]</a>
+              <a href="subject.html#567">[ subject ]</a>
+              <a href="author.html#567">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

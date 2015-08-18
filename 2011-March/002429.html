@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] Regarding error in openimscore
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2011-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Regarding%20error%20in%20openimscore&In-Reply-To=%3C4D7E4589.2000207%40acision.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="002427.html">
+   <LINK REL="Next"  HREF="002430.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] Regarding error in openimscore</H1>
+    <B>Daniel Ciprus</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20Regarding%20error%20in%20openimscore&In-Reply-To=%3C4D7E4589.2000207%40acision.com%3E"
+       TITLE="[OpenIMSCore-CSCF] Regarding error in openimscore">daniel.ciprus at acision.com
+       </A><BR>
+    <I>Mon Mar 14 17:42:49 CET 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="002427.html">[OpenIMSCore-CSCF] Regarding error in openimscore
+</A></li>
+        <LI>Next message: <A HREF="002430.html">[OpenIMSCore-CSCF] Regarding error in openimscore
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2429">[ date ]</a>
+              <a href="thread.html#2429">[ thread ]</a>
+              <a href="subject.html#2429">[ subject ]</a>
+              <a href="author.html#2429">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I hope your experiments won't have an impact on Japan ..
+
+Could you please post a snippet of the log file you're retrieving these 
+errors + binary snoop of the traffic so we'll know what you're sending 
+from the client ?
+
+Secondly : OpenIMS is delivered with the scripts which can provision all 
+necessary attributes for you. When you download svn version script is 
+located :
+
+./cfg/add-imscore-user_newdb.sh
+
+Please go through this script and once you're done with provisioning 
+send us a snoop from the traffic you're sending. Also the procedure 
+you've done with provisioning might help to understand what happened.
+
+Dan.
+
+
+On 03/14/2011 12:33 PM, viswavardhanreddy karna wrote:
+&gt;<i> Hi everyone,
+</I>&gt;<i>                      I am doing some experiments on how to register a 
+</I>&gt;<i> client at openimscore. i am using sipp as client  and when i send 
+</I>&gt;<i> register message from the command to openimscore...
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ia m getting an error like
+</I>&gt;<i>
+</I>&gt;<i> err:i-cscf:i_uar: visited network identity not found, responding with 400
+</I>&gt;<i> rr:i-cscf:i_uar: visited network identity not found, responding with 400
+</I>&gt;<i> rr:i-cscf:i_uar: visited network identity not found, responding with 400
+</I>&gt;<i> rr:i-cscf:i_uar: visited network identity not found, responding with 400
+</I>&gt;<i> rr:i-cscf:i_uar: visited network identity not found, responding with 400
+</I>&gt;<i> rr:i-cscf:i_uar: visited network identity not found, responding with 400
+</I>&gt;<i>
+</I>&gt;<i> any one help me how to point out my error and how can i register a 
+</I>&gt;<i> client.... i have made changes in FHOSS webconsole by configuring 
+</I>&gt;<i> every thing but i dont whether i am doing right or wrong...
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> iam really stuck in the middle please me...
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Awaiting for the reply as earliest as possible,
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> with regards,
+</I>&gt;<i> viswavardhan
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+-- 
+*Daniel Ciprus*
+Integration engineer
+------------------------------------------------------
+*<A HREF="http://www.acision.com*">http://www.acision.com*</A>
+4870 Sadler Rd
+Suite 200
+Glen Allen, VA 23060
+USA
+T: +1 804 762 5601
+E: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">daniel.ciprus at acision.com</A>
+
+
+This e-mail and any attachment is for authorised use by the intended recipient(s) only. It may contain proprietary material, confidential information and/or be subject to legal privilege. It should not be copied, disclosed to, retained or used by, any other party. If you are not an intended recipient then please promptly delete this e-mail and any attachment and all copies and inform the sender. Thank you.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110314/6938e36c/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20110314/6938e36c/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="002427.html">[OpenIMSCore-CSCF] Regarding error in openimscore
+</A></li>
+	<LI>Next message: <A HREF="002430.html">[OpenIMSCore-CSCF] Regarding error in openimscore
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2429">[ date ]</a>
+              <a href="thread.html#2429">[ thread ]</a>
+              <a href="subject.html#2429">[ subject ]</a>
+              <a href="author.html#2429">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

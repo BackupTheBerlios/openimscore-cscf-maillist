@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] OpenIMSCore fails to apply remaining IFCs	whenan AS triggered on the terminating unregistered session	caserewrites the URI
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenIMSCore%20fails%20to%20apply%20remaining%20IFCs%0A%09whenan%20AS%20triggered%20on%20the%20terminating%20unregistered%20session%0A%09caserewrites%20the%20URI&In-Reply-To=%3C002301c7f629%24f4512880%240200a8c0%40fenotebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000950.html">
+   <LINK REL="Next"  HREF="000953.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] OpenIMSCore fails to apply remaining IFCs	whenan AS triggered on the terminating unregistered session	caserewrites the URI</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20OpenIMSCore%20fails%20to%20apply%20remaining%20IFCs%0A%09whenan%20AS%20triggered%20on%20the%20terminating%20unregistered%20session%0A%09caserewrites%20the%20URI&In-Reply-To=%3C002301c7f629%24f4512880%240200a8c0%40fenotebook%3E"
+       TITLE="[OpenIMSCore-CSCF] OpenIMSCore fails to apply remaining IFCs	whenan AS triggered on the terminating unregistered session	caserewrites the URI">franz.edler at inode.at
+       </A><BR>
+    <I>Thu Sep 13 19:17:24 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000950.html">[OpenIMSCore-CSCF] OpenIMSCore fails to apply remaining IFCs when	an AS triggered on the terminating unregistered session case	rewrites the URI
+</A></li>
+        <LI>Next message: <A HREF="000953.html">[OpenIMSCore-CSCF] OpenIMSCore fails to apply remaining IFCs when an AS triggered on the terminating unregistered session case rewrites the URI
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#951">[ date ]</a>
+              <a href="thread.html#951">[ thread ]</a>
+              <a href="subject.html#951">[ subject ]</a>
+              <a href="author.html#951">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Marius,
+
+ 
+
+it would help if you attach a trace-file including the REGISTER-sequence,
+which shows the iFCs downloaded to the S-CSCF.
+
+ 
+
+regards 
+
+Franz
+
+ 
+
+  _____  
+
+From: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>
+[mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf-bounces at lists.berlios.de</A>] On Behalf Of Marius Patea
+Sent: Thursday, September 13, 2007 4:29 PM
+To: Dragos Vingarzan
+Cc: <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-cscf at lists.berlios.de</A>
+Subject: [OpenIMSCore-CSCF] OpenIMSCore fails to apply remaining IFCs whenan
+AS triggered on the terminating unregistered session caserewrites the URI
+
+ 
+
+Hello Dragos
+
+ 
+
+The problem is that OpenIMSCore fails to apply remaining IFCs when an AS
+triggered on the terminating unregistered session case rewrites the URI.
+
+This issue appeared on the OpenIMSCore revision 254.
+
+I'm trying to upgrade the OpenIMSCore to a new revision, but it seems that,
+at least on revision 436, SCSCF is not able to apply any IFC with INVITE as
+trigger method. Can you help me with some hints?
+
+ 
+
+Please find bellow the details:
+
+ 
+
+ 
+
+First issue, using OpenIMSCore revision 254: 
+
+Trying to trigger an announcement server as an application server, using
+trigger points (after another application server rewrites request uri)
+fails.
+
+ 
+
+Details:
+
+There are four triggers:
+
+            Sip Method=&quot;INVITE&quot; AND SessionCase=&quot;ORIGINATING&quot;
+
+ 
+
+            SipMethod=&quot;INVITE AND SessionCase=&quot;TERMINATING&quot;
+
+     
+
+            SipMethod=&quot;INVITE AND SessionCase=&quot;UNREGISTER&quot;
+
+            
+
+            SipMethod=&quot;INVITE AND RequestUri=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">hello at domain</A>&quot;
+
+ 
+
+They are respectively associated to the following application servers:
+
+            sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">orig at appserv.domain</A> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">sip at appserv.domain</A>&gt; 
+
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term_reg at appserv.domain</A> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">sip at appserv.domain</A>&gt; 
+
+sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">term_unreg at appserv.domain</A> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">sip at appserv.domain</A>&gt; 
+
+sip:asteriskaddres
+
+ 
+
+One service profile contains the four IFCs associating the triggers and the
+application servers, in the same order as above.
+
+ 
+
+When the application server is triggered on the terminating unregistered
+session case, it rewrites the request uri to &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">hello at domain</A>&quot; and performs
+loose routing. When the SCSCF receives the forwarded INVITE, it answers with
+:<i> &quot;404 Not Found - destination user not found on this SCSCF&quot;. It seems that
+</I>it does not match the trigger any more, but does a lookup, which fails
+because there is no such user.
+
+ 
+
+ 
+
+ 
+
+Second issue, using OpenIMSCore revision 436:
+
+Trying to trigger an application server with the INVITE method fails.
+
+ 
+
+Details:
+
+Using one simple trigger:
+
+            Sip Method=&quot;INVITE&quot;
+
+ 
+
+At first it would not trigger the application server at all. Found a record
+of a bug relating to using INVITE as method trigger point and solved this
+problem: one must user a different method when creating the trigger point,
+save, and then change to INVITE and save again.
+
+ 
+
+Doing as described above got the application server triggered. The
+application server does a simple loose route and relays back the INVITE. At
+this point, the SCSCF fails to answer in any way, or forward the invite, so
+the application server resends the invite, until there is a timeout. Then it
+sends 408 Timeout, which is acknowledged by the SCSCF and forwarded back to
+the originator of the invite.
+
+ 
+
+Regards,
+
+Marius
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070913/200834e3/attachment.html">https://lists.berlios.de/pipermail/openimscore-cscf/attachments/20070913/200834e3/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000950.html">[OpenIMSCore-CSCF] OpenIMSCore fails to apply remaining IFCs when	an AS triggered on the terminating unregistered session case	rewrites the URI
+</A></li>
+	<LI>Next message: <A HREF="000953.html">[OpenIMSCore-CSCF] OpenIMSCore fails to apply remaining IFCs when an AS triggered on the terminating unregistered session case rewrites the URI
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#951">[ date ]</a>
+              <a href="thread.html#951">[ thread ]</a>
+              <a href="subject.html#951">[ subject ]</a>
+              <a href="author.html#951">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

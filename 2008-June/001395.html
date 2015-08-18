@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ISC%20Interface%20%3A%20IMS%20%2B%20Mobicents&In-Reply-To=%3C1D173BE95A814B1AA956FC48157E8577%40notebook%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001394.html">
+   <LINK REL="Next"  HREF="001396.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents</H1>
+    <B>Franz Edler</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20ISC%20Interface%20%3A%20IMS%20%2B%20Mobicents&In-Reply-To=%3C1D173BE95A814B1AA956FC48157E8577%40notebook%3E"
+       TITLE="[OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents">franz.edler at inode.at
+       </A><BR>
+    <I>Mon Jun 23 20:35:18 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001394.html">[OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents
+</A></li>
+        <LI>Next message: <A HREF="001396.html">[OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1395">[ date ]</a>
+              <a href="thread.html#1395">[ thread ]</a>
+              <a href="subject.html#1395">[ subject ]</a>
+              <a href="author.html#1395">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Raphael,
+
+&gt;<i> My problem is that since Mobicents receive the Invite request and respond
+</I>&gt;<i> to IMS by a clone of this request with the Route (excluding Mobicents) and
+</I>&gt;<i> Via Header modified (to specify that Mobicents is at the origin of this
+</I>&gt;<i> request), it then always receive all the requests of the communication.
+</I>&gt;<i> Instead of having only one transaction between IMS and Mobicents, I got a
+</I>&gt;<i> succession of them.
+</I>
+The description of your problem is not clear enough, there are too many
+possibilities. To understand your problem I need a full Wireshark/tcpdump
+trace.
+
+Maybe than I can help.
+
+&gt;<i> I would like to know if it's possible to extract Mobicents of this
+</I>&gt;<i> communication process since it has send a request to IMS. 
+</I>
+This depends on Mobicents behavior. If it behaves as a B2BUA, than it always
+will be involved in the dialog. If it act as a proxy it would be sufficient
+to not record route. 
+
+&gt;<i> If not is there
+</I>&gt;<i> someone who find a way to make Mobicents and OpenIms cohabit well.
+</I>	
+On the user mailing list (<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">openimscore-users at lists.berlios.de</A>) there are a
+lot of posts to Mobicents issues.
+
+Regards
+FRanz
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001394.html">[OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents
+</A></li>
+	<LI>Next message: <A HREF="001396.html">[OpenIMSCore-CSCF] ISC Interface : IMS + Mobicents
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1395">[ date ]</a>
+              <a href="thread.html#1395">[ thread ]</a>
+              <a href="subject.html#1395">[ subject ]</a>
+              <a href="author.html#1395">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+  <HEAD>
+     <title>The OpenIMSCore-CSCF August 2009 Archive by subject</title>
+     <META NAME="robots" CONTENT="noindex,follow">
+     <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+  </HEAD>
+  <BODY BGCOLOR="#ffffff">
+      <a name="start"></A>
+      <h1>August 2009 Archives by subject</h1>
+      <ul>
+         <li> <b>Messages sorted by:</b>
+	        <a href="thread.html#start">[ thread ]</a>
+		
+		<a href="author.html#start">[ author ]</a>
+		<a href="date.html#start">[ date ]</a>
+
+	     <li><b><a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More info on this list...
+                    </a></b></li>
+      </ul>
+      <p><b>Starting:</b> <i>Mon Aug  3 15:05:19 CEST 2009</i><br>
+         <b>Ending:</b> <i>Tue Aug 18 12:08:41 CEST 2009</i><br>
+         <b>Messages:</b> 26<p>
+     <ul>
+
+<LI><A HREF="001768.html">[OpenIMSCore-CSCF]  [OpenIMSCore-Users] Patch for IPSec support
+</A><A NAME="1768">&nbsp;</A>
+<I>Deepak
+</I>
+
+<LI><A HREF="001769.html">[OpenIMSCore-CSCF] [OpenIMSCore-Users] Patch for IPSec support
+</A><A NAME="1769">&nbsp;</A>
+<I>Gemi Tsai &#34081;&#22283;&#27888;
+</I>
+
+<LI><A HREF="001756.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r698 - Merged the	10_persistency_big branch into trunk: - implemented	incremental dump/retrieval of persistence data to/from files	- reorganized and split the functionality - also changes to	allow db operations in sip-router have been kept from the trunk
+</A><A NAME="1756">&nbsp;</A>
+<I>vingarzan at users.berlios.de
+</I>
+
+<LI><A HREF="001757.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r699 - Deleted the	10_persistency_big as patched into the trunk at r698
+</A><A NAME="1757">&nbsp;</A>
+<I>vingarzan at users.berlios.de
+</I>
+
+<LI><A HREF="001758.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r700 - Fixed the list printings	under sip-router.
+</A><A NAME="1758">&nbsp;</A>
+<I>vingarzan at users.berlios.de
+</I>
+
+<LI><A HREF="001759.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r701 - Added discrimination on	peer list debug based on debug level to cdp module.
+</A><A NAME="1759">&nbsp;</A>
+<I>vingarzan at users.berlios.de
+</I>
+
+<LI><A HREF="001760.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r702 - Rewrote the receiver.c for	sip-router adaptation reasons. Also it seems that the old	implementation might have been in conflict with assumptions	on the static nature of the process table in ser. The	receiver processes are no longer dynamic,	but static. There is one receiver process for each initially	configured peer and one for all the other unknown peers.	Potentially all receivers could handle multiple peers,	in case some more advanced load balancing would be required. The file	descriptors of the TCP sockets are passed between processes	to achieve this effect: - from acceptor to respective	receiver - from receiver for unknown peers to dedicated	receiver after capabilities exchange and identification of a	pre-configure peer - from timer process to receiver on	locally initiated connection.
+</A><A NAME="1760">&nbsp;</A>
+<I>vingarzan at users.berlios.de
+</I>
+
+<LI><A HREF="001761.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r703 - Modifications to the cdp	receiver.c - added more safety checks - wrote documentation	comments - removed unused code
+</A><A NAME="1761">&nbsp;</A>
+<I>vingarzan at users.berlios.de
+</I>
+
+<LI><A HREF="001762.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r704 - Fixed the cdp module for	compilation outside of ser (bugs introduced by the changes in	receiver.c from r702-703.
+</A><A NAME="1762">&nbsp;</A>
+<I>vingarzan at users.berlios.de
+</I>
+
+<LI><A HREF="001763.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r706 - Added safety check in	S_update_dialog()
+</A><A NAME="1763">&nbsp;</A>
+<I>vingarzan at users.berlios.de
+</I>
+
+<LI><A HREF="001764.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r707 - Added Diameter realm	routing extra checks in cdp: - if there is a	Auth-Application-Id AVP in the root of the message,	then use that instead of the one inside a	Vendor-Specific-Application-Id AVP - same for the	Acct-Application-Id AVP - a Vendor-Id AVP is also searched	then in the root of the message.
+</A><A NAME="1764">&nbsp;</A>
+<I>vingarzan at users.berlios.de
+</I>
+
+<LI><A HREF="001765.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r709 - added dialog processing in	the LRF, to be used for the LOCSIP interface,	that uses a SUBSCRIBE-NOTIFY mechanism
+</A><A NAME="1765">&nbsp;</A>
+<I>aon at users.berlios.de
+</I>
+
+<LI><A HREF="001766.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r710 - Added to cdp module	possibility to initialize config from string. Fixed bug - cdp	receiver unknown was not forked if cdp set not to accept	unknown peers,	but it was needed for any peer due to new fixed process structure.	Adapted cdp module to be also compilable under Wharf.
+</A><A NAME="1766">&nbsp;</A>
+<I>vingarzan at users.berlios.de
+</I>
+
+<LI><A HREF="001767.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r711 - Fixed svn:ignore on module	cdp
+</A><A NAME="1767">&nbsp;</A>
+<I>vingarzan at users.berlios.de
+</I>
+
+<LI><A HREF="001770.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r712 - added the subscription	engine in the LRF
+</A><A NAME="1770">&nbsp;</A>
+<I>aon at users.berlios.de
+</I>
+
+<LI><A HREF="001771.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r713 - -added information about	the initial OPTIONS transaction in the user_data structure,	to be used while processing the location subscription -added	information about the user_data in the subscription,	to link them -added function &quot;subscription_err_resp&quot; to send error	response to the E-CSCF when an error response to the	SUBSCRIBE is received -added function LRF_process_loc_notif	to retrieve the location information from the request and	switch to the initial OPTIONS transaction -modified the	functions: LRF_get_psap,	LRF_call_query_resp and LRF_del_user_data to be able to use the	current OPTIONS message, or , in case of using LOCSIP,	extract it from the current OPTIONS transaction that the LRF has	switched to -added function LRF_deref_crt_trans to be used	for the OPTIONS transaction after sending the OPTIONS	response after a NOTIFY has been received
+</A><A NAME="1771">&nbsp;</A>
+<I>aon at users.berlios.de
+</I>
+
+<LI><A HREF="001772.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r714 - really last changes before	the merge of the 08_cdp_branch
+</A><A NAME="1772">&nbsp;</A>
+<I>vingarzan at users.berlios.de
+</I>
+
+<LI><A HREF="001773.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r715 - -added comments for the	exported functions -renamed LRF_save_user_loc to	LRF_parse_user_loc -replaced the parameters for the LOCSIP	server with the parameter locsip_srv_uri,	default value &quot;sip:locsip.open-ims.test:9180&quot; -updated the running	script for the LRF and the dns configuration file
+</A><A NAME="1773">&nbsp;</A>
+<I>aon at users.berlios.de
+</I>
+
+<LI><A HREF="001774.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r716 - * added a pointer to the	location subscription in the user_data structure,	used to clean the information when LRF_del_user_data is called
+</A><A NAME="1774">&nbsp;</A>
+<I>aon at users.berlios.de
+</I>
+
+<LI><A HREF="001775.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r717 - *changed the way the	location subscriptions are matched: for every user_data check	it it has the same address of user_data structure,	and for subscription responses and notify requests,	using the callid. This enables using separate subscriptions for every	emergency call.
+</A><A NAME="1775">&nbsp;</A>
+<I>aon at users.berlios.de
+</I>
+
+<LI><A HREF="001776.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r718 - Solution to bug upon	freeing AVP List
+</A><A NAME="1776">&nbsp;</A>
+<I>albertoberlios at users.berlios.de
+</I>
+
+<LI><A HREF="001777.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r719 - Fixed broken compilation	upon cdp wharf adaptations.
+</A><A NAME="1777">&nbsp;</A>
+<I>vingarzan at users.berlios.de
+</I>
+
+<LI><A HREF="001778.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r720 - * P-CSCF - separated the	selection of the E-CSCF in the exported function	P_select_ecscf - modified the running script to allow	forwarding the emergency cancel request to the previous	selected E-CSCF
+</A><A NAME="1778">&nbsp;</A>
+<I>aon at users.berlios.de
+</I>
+
+<LI><A HREF="001781.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r721 - if a cancel request is	received at the e-cscf, no further replies from the LRF will be sent
+</A><A NAME="1781">&nbsp;</A>
+<I>aon at users.berlios.de
+</I>
+
+<LI><A HREF="001779.html">[OpenIMSCore-CSCF] Error when running HSS
+</A><A NAME="1779">&nbsp;</A>
+<I>hk hk
+</I>
+
+<LI><A HREF="001780.html">[OpenIMSCore-CSCF] Error when running HSS
+</A><A NAME="1780">&nbsp;</A>
+<I>Franz Edler
+</I>
+
+    </ul>
+    <p>
+      <a name="end"><b>Last message date:</b></a> 
+       <i>Tue Aug 18 12:08:41 CEST 2009</i><br>
+    <b>Archived on:</b> <i>Wed Mar 14 15:33:24 CET 2012</i>
+    <p>
+   <ul>
+         <li> <b>Messages sorted by:</b>
+	        <a href="thread.html#start">[ thread ]</a>
+		
+		<a href="author.html#start">[ author ]</a>
+		<a href="date.html#start">[ date ]</a>
+	     <li><b><a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More info on this list...
+                    </a></b></li>
+     </ul>
+     <p>
+     <hr>
+     <i>This archive was generated by
+     Pipermail 0.09 (Mailman edition).</i>
+  </BODY>
+</HTML>
+

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r664 - added service name of the	called service in the e_dialog structure modified the	matching request/responses to dialog mechanism,	using from and to uri added E_replace_to_header and	E_replace_from_header to replace the headers (service urn to	PSAP URI or reverse) in order to not mess the SIP stack of	the clients that use the From and To uri to match requests to	dialogs
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-May/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r664%20-%20added%20service%20name%20of%20the%0A%09called%20service%20in%20the%20e_dialog%20structure%20modified%20the%0A%09matching%20request/responses%20to%20dialog%20mechanism%2C%0A%09using%20from%20and%20to%20uri%20added%20E_replace_to_header%20and%0A%09E_replace_from_header%20to%20replace%20the%20headers%20%28service%20urn%20to%0A%09PSAP%20URI%20or%20reverse%29%20in%20order%20to%20not%20mess%20the%20SIP%20stack%20of%0A%09the%20clients%20that%20use%20the%20From%20and%20To%20uri%20to%20match%20requests%20to%0A%09dialogs&In-Reply-To=%3C200905291315.n4TDFv1m008671%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001702.html">
+   <LINK REL="Next"  HREF="001704.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r664 - added service name of the	called service in the e_dialog structure modified the	matching request/responses to dialog mechanism,	using from and to uri added E_replace_to_header and	E_replace_from_header to replace the headers (service urn to	PSAP URI or reverse) in order to not mess the SIP stack of	the clients that use the From and To uri to match requests to	dialogs</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r664%20-%20added%20service%20name%20of%20the%0A%09called%20service%20in%20the%20e_dialog%20structure%20modified%20the%0A%09matching%20request/responses%20to%20dialog%20mechanism%2C%0A%09using%20from%20and%20to%20uri%20added%20E_replace_to_header%20and%0A%09E_replace_from_header%20to%20replace%20the%20headers%20%28service%20urn%20to%0A%09PSAP%20URI%20or%20reverse%29%20in%20order%20to%20not%20mess%20the%20SIP%20stack%20of%0A%09the%20clients%20that%20use%20the%20From%20and%20To%20uri%20to%20match%20requests%20to%0A%09dialogs&In-Reply-To=%3C200905291315.n4TDFv1m008671%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r664 - added service name of the	called service in the e_dialog structure modified the	matching request/responses to dialog mechanism,	using from and to uri added E_replace_to_header and	E_replace_from_header to replace the headers (service urn to	PSAP URI or reverse) in order to not mess the SIP stack of	the clients that use the From and To uri to match requests to	dialogs">aon at users.berlios.de
+       </A><BR>
+    <I>Fri May 29 15:15:57 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001702.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r663 - Commit the path from Bjorn	Persson that make ESP the default protocol.
+</A></li>
+        <LI>Next message: <A HREF="001704.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r665 - updated the scripts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1703">[ date ]</a>
+              <a href="thread.html#1703">[ thread ]</a>
+              <a href="subject.html#1703">[ subject ]</a>
+              <a href="author.html#1703">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2009-05-29 15:15:54 +0200 (Fri, 29 May 2009)
+New Revision: 664 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=664">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=664</A> 
+
+Log:
+added service name of the called service in the e_dialog structure
+modified the matching request/responses to dialog mechanism, using from and to uri
+added E_replace_to_header and E_replace_from_header to replace the headers (service urn to PSAP URI or reverse) in order to not mess the SIP stack of the clients that use the From and To uri to match requests to dialogs
+
+
+Modified:
+   U	ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c?rev=664&amp;view=diff&amp;r1=664&amp;r2=663">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.c?rev=664&amp;view=diff&amp;r1=664&amp;r2=663</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/dlg_state.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.h?rev=664&amp;view=diff&amp;r1=664&amp;r2=663">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/dlg_state.h?rev=664&amp;view=diff&amp;r1=664&amp;r2=663</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/lrf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.c?rev=664&amp;view=diff&amp;r1=664&amp;r2=663">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.c?rev=664&amp;view=diff&amp;r1=664&amp;r2=663</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/mod.c?rev=664&amp;view=diff&amp;r1=664&amp;r2=663">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/mod.c?rev=664&amp;view=diff&amp;r1=664&amp;r2=663</A>
+   U	ser_ims/branches/12_em_services/modules/ecscf/release_call.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/release_call.c?rev=664&amp;view=diff&amp;r1=664&amp;r2=663">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/release_call.c?rev=664&amp;view=diff&amp;r1=664&amp;r2=663</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001702.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r663 - Commit the path from Bjorn	Persson that make ESP the default protocol.
+</A></li>
+	<LI>Next message: <A HREF="001704.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r665 - updated the scripts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1703">[ date ]</a>
+              <a href="thread.html#1703">[ thread ]</a>
+              <a href="subject.html#1703">[ subject ]</a>
+              <a href="author.html#1703">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

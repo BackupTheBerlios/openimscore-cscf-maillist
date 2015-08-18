@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r604 - Fixed the use of barred	IMPUs - a flag per r_public has been introduced - a barred	identity is saved fully, just like normal one,	including the contacts. 24.229 says that the contacts should not be	saved,	but then how can one tell when it is expired? - P-Associated-URI may	be empty now if the only identity in the implicit set is	barred - this is OK according to RFC3455
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r604%20-%20Fixed%20the%20use%20of%20barred%0A%09IMPUs%20-%20a%20flag%20per%20r_public%20has%20been%20introduced%20-%20a%20barred%0A%09identity%20is%20saved%20fully%2C%20just%20like%20normal%20one%2C%0A%09including%20the%20contacts.%2024.229%20says%20that%20the%20contacts%20should%20not%20be%0A%09saved%2C%0A%09but%20then%20how%20can%20one%20tell%20when%20it%20is%20expired%3F%20-%20P-Associated-URI%20may%0A%09be%20empty%20now%20if%20the%20only%20identity%20in%20the%20implicit%20set%20is%0A%09barred%20-%20this%20is%20OK%20according%20to%20RFC3455&In-Reply-To=%3C200811191717.mAJHHr6o031644%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001529.html">
+   <LINK REL="Next"  HREF="001531.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r604 - Fixed the use of barred	IMPUs - a flag per r_public has been introduced - a barred	identity is saved fully, just like normal one,	including the contacts. 24.229 says that the contacts should not be	saved,	but then how can one tell when it is expired? - P-Associated-URI may	be empty now if the only identity in the implicit set is	barred - this is OK according to RFC3455</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r604%20-%20Fixed%20the%20use%20of%20barred%0A%09IMPUs%20-%20a%20flag%20per%20r_public%20has%20been%20introduced%20-%20a%20barred%0A%09identity%20is%20saved%20fully%2C%20just%20like%20normal%20one%2C%0A%09including%20the%20contacts.%2024.229%20says%20that%20the%20contacts%20should%20not%20be%0A%09saved%2C%0A%09but%20then%20how%20can%20one%20tell%20when%20it%20is%20expired%3F%20-%20P-Associated-URI%20may%0A%09be%20empty%20now%20if%20the%20only%20identity%20in%20the%20implicit%20set%20is%0A%09barred%20-%20this%20is%20OK%20according%20to%20RFC3455&In-Reply-To=%3C200811191717.mAJHHr6o031644%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r604 - Fixed the use of barred	IMPUs - a flag per r_public has been introduced - a barred	identity is saved fully, just like normal one,	including the contacts. 24.229 says that the contacts should not be	saved,	but then how can one tell when it is expired? - P-Associated-URI may	be empty now if the only identity in the implicit set is	barred - this is OK according to RFC3455">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Nov 19 18:17:53 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001529.html">[OpenIMSCore-CSCF] [Call Session Control Functions task] wildcard	PSI support in S-CSCF
+</A></li>
+        <LI>Next message: <A HREF="001531.html">[OpenIMSCore-CSCF] registration procedure at P-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1530">[ date ]</a>
+              <a href="thread.html#1530">[ thread ]</a>
+              <a href="subject.html#1530">[ subject ]</a>
+              <a href="author.html#1530">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2008-11-19 18:17:52 +0100 (Wed, 19 Nov 2008)
+New Revision: 604 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=604">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=604</A> 
+
+Log:
+Fixed the use of barred IMPUs
+    - a flag per r_public has been introduced
+    - a barred identity is saved fully, just like normal one, including the contacts. 24.229 says that the contacts should not be saved, but then how can one tell when it is expired?
+    - P-Associated-URI may be empty now if the only identity in the implicit set is barred - this is OK according to RFC3455
+
+
+Modified:
+   U	ser_ims/trunk/modules/scscf/bin_scscf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_scscf.c?rev=604&amp;view=diff&amp;r1=604&amp;r2=603">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/bin_scscf.c?rev=604&amp;view=diff&amp;r1=604&amp;r2=603</A>
+   U	ser_ims/trunk/modules/scscf/registrar.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.c?rev=604&amp;view=diff&amp;r1=604&amp;r2=603">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar.c?rev=604&amp;view=diff&amp;r1=604&amp;r2=603</A>
+   U	ser_ims/trunk/modules/scscf/registrar_storage.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.c?rev=604&amp;view=diff&amp;r1=604&amp;r2=603">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.c?rev=604&amp;view=diff&amp;r1=604&amp;r2=603</A>
+   U	ser_ims/trunk/modules/scscf/registrar_storage.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.h?rev=604&amp;view=diff&amp;r1=604&amp;r2=603">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/registrar_storage.h?rev=604&amp;view=diff&amp;r1=604&amp;r2=603</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001529.html">[OpenIMSCore-CSCF] [Call Session Control Functions task] wildcard	PSI support in S-CSCF
+</A></li>
+	<LI>Next message: <A HREF="001531.html">[OpenIMSCore-CSCF] registration procedure at P-CSCF
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1530">[ date ]</a>
+              <a href="thread.html#1530">[ thread ]</a>
+              <a href="subject.html#1530">[ subject ]</a>
+              <a href="author.html#1530">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

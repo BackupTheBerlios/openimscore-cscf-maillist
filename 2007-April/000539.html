@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [Question]Value of Max-Forwards header afterP-CSCF processing
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DValue%20of%20Max-Forwards%20header%0A%20afterP-CSCF%20processing&In-Reply-To=%3C4630897D.3070701%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000538.html">
+   <LINK REL="Next"  HREF="000513.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header afterP-CSCF processing</H1>
+    <B>Dragos Vingarzan</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BQuestion%5DValue%20of%20Max-Forwards%20header%0A%20afterP-CSCF%20processing&In-Reply-To=%3C4630897D.3070701%40fokus.fraunhofer.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header afterP-CSCF processing">vingarzan at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Apr 26 13:14:05 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000538.html">[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header	afterP-CSCF processing
+</A></li>
+        <LI>Next message: <A HREF="000513.html">[OpenIMSCore-CSCF] Scscf didn't process RTR and PPR in serims?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#539">[ date ]</a>
+              <a href="thread.html#539">[ thread ]</a>
+              <a href="subject.html#539">[ subject ]</a>
+              <a href="author.html#539">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Actually, I think that it is a feature. How you configure it, it's up to
+you.
+
+-Dragos
+
+Hideyuki Yamashita wrote:
+&gt;<i> Hello Dragos,
+</I>&gt;<i>
+</I>&gt;<i> As you advised me, I changed three cfg 
+</I>&gt;<i> files.(scscf.cfg,pcscf.cfg,icscf.cfg)
+</I>&gt;<i>
+</I>&gt;<i> modparam(&quot;maxfwd&quot;,&quot;max_limit&quot;,0)
+</I>&gt;<i>
+</I>&gt;<i> It worked.
+</I>&gt;<i>
+</I>&gt;<i> Thanks for your advice.
+</I>&gt;<i>
+</I>&gt;<i> Is it a know bug or just a configuration problem?
+</I>&gt;<i>
+</I>&gt;<i> Regards,
+</I>&gt;<i> Hideyuki
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>&gt;&gt;<i> Hello Hideyuki,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Your answer is in the maxfwd module in the way that it processes the
+</I>&gt;&gt;<i> Max-Forwards header in this function: mf_process_maxfwd_header():
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>             if (max_limit &amp;&amp; val&gt;max_limit){
+</I>&gt;&gt;<i>                 DBG(&quot;DBG:maxfwd:process_maxfwd_header: &quot;
+</I>&gt;&gt;<i>                     &quot;value %d decreased to %d\n&quot;, val, max_limit);
+</I>&gt;&gt;<i>                 val = max_limit+1;
+</I>&gt;&gt;<i>             }
+</I>&gt;&gt;<i>             if ( decrement_maxfwd(msg, val, &amp;mf_value)!=1 )
+</I>&gt;&gt;<i>                 LOG( L_ERR,&quot;ERROR:maxfwd:process_maxfwd_header: &quot;
+</I>&gt;&gt;<i>                     &quot;decrement failed!\n&quot;);
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> So there is a max_limit, which be default is 16. You can change it by
+</I>&gt;&gt;<i> adding this line to the pcscf.cfg
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> modparam(&quot;maxfwd&quot;,&quot;max_limit&quot;,&quot;100&quot;)
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> If you put 0, then the maximum limit won't be checked.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> -Dragos
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Hideyuki Yamashita wrote:
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> Hi,
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I have attached wireshark capture file.
+</I>&gt;&gt;&gt;<i> The relationship between ip address and IMS entity is like below.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> 172.16.3.155 -&gt; SIP Terminal(Not IMS compliant)
+</I>&gt;&gt;&gt;<i> 172.16.5.11  -&gt; P-CSCF
+</I>&gt;&gt;&gt;<i> 172.16.5.12  -&gt; I-CSCF
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> I am very glad if somebody respond to my question.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Thanks in advance,
+</I>&gt;&gt;&gt;<i> Hideyuki
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;&gt;&gt;<i> Hi,
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> I have question about value of Max-Forwards after P-CSCF 
+</I>&gt;&gt;&gt;&gt;<i> processed a SIP request.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> [Question]
+</I>&gt;&gt;&gt;&gt;<i> After P-CSCF processed a SIP request(REGISTER,initial INVITE)
+</I>&gt;&gt;&gt;&gt;<i> the value of Max-Forwards header changes from 64 to 16.
+</I>&gt;&gt;&gt;&gt;<i> I think the value should be 63.
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Is there any known bug when decrement Max-Forwards header?
+</I>&gt;&gt;&gt;&gt;<i> (I captured loop-back interface of P-CSCF machine but no sign of 
+</I>&gt;&gt;&gt;&gt;<i> loop detected.)
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> [OpenIMSCore Release I use]
+</I>&gt;&gt;&gt;&gt;<i> CSCFs:ser_ims2007327.r0202
+</I>&gt;&gt;&gt;&gt;<i> HSS  :FHoSS2007329.r0204
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;&gt;<i> Best Regards,
+</I>&gt;&gt;&gt;&gt;<i> Hideyuki
+</I>&gt;&gt;&gt;&gt;<i>     
+</I>&gt;&gt;&gt;&gt;<i>         
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i> ------------------------------------------------------------------------
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> _______________________________________________
+</I>&gt;&gt;&gt;<i> OpenIMSCore-CSCF mailing list
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">OpenIMSCore-CSCF at lists.berlios.de</A>
+</I>&gt;&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">https://lists.berlios.de/mailman/listinfo/openimscore-cscf</A>
+</I>&gt;&gt;&gt;<i>   
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;&gt;<i> -- 
+</I>&gt;&gt;<i> -----------------------------------------
+</I>&gt;&gt;<i> Dipl. Eng. Dragos Vingarzan
+</I>&gt;&gt;<i> FOKUS/NGNI
+</I>&gt;&gt;<i> Kaiserin-Augusta-Allee 31
+</I>&gt;&gt;<i> 10589 Berlin,Germany
+</I>&gt;&gt;<i> Phone +49 (0)30 - 3463 - 7385
+</I>&gt;&gt;<i> Mobile +49 (0)163 - 159 - 5221
+</I>&gt;&gt;<i> eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+</I>&gt;&gt;<i> Web www.fokus.fraunhofer.de
+</I>&gt;&gt;<i> We could change the world if God would give us the source code...
+</I>&gt;&gt;<i> -----------------------------------------------------------------
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>     
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+</I>&gt;<i> NTT&#12477;&#12501;&#12488;&#12454;&#12455;&#12450;&#26666;&#24335;&#20250;&#31038;
+</I>&gt;<i> &#24773;&#22577;&#27969;&#36890;&#22522;&#30436;&#32207;&#21512;&#30740;&#31350;&#25152;
+</I>&gt;<i> &#12469;&#12540;&#12499;&#12473;&#12452;&#12531;&#12486;&#12464;&#12524;&#12540;&#12471;&#12519;&#12531;&#22522;&#30436;&#30740;&#31350;&#25152;
+</I>&gt;<i> &#23665;&#19979;&#12288;&#33521;&#20043;
+</I>&gt;<i> TEL(0422)-59-6227
+</I>&gt;<i> &#12306;180-0012 &#26481;&#20140;&#37117;&#27494;&#34101;&#37326;&#24066;&#32209;&#30010;3-9-11 NTT&#27494;&#34101;&#37326;&#30740;&#31350;&#38283;&#30330;&#12475;&#12531;&#12479;&#20869; 7&#21495;&#39208;7-B05A
+</I>&gt;<i> E-mail:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">yamashita.hideyuki at lab.ntt.co.jp</A>
+</I>&gt;<i> _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>   
+</I>
+
+-- 
+-----------------------------------------
+Dipl. Eng. Dragos Vingarzan
+FOKUS/NGNI
+Kaiserin-Augusta-Allee 31
+10589 Berlin,Germany
+Phone +49 (0)30 - 3463 - 7385
+Mobile +49 (0)163 - 159 - 5221
+eMail <A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">vingarzan at fokus.fraunhofer.de</A>
+Web www.fokus.fraunhofer.de
+We could change the world if God would give us the source code...
+-----------------------------------------------------------------
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000538.html">[OpenIMSCore-CSCF] [Question]Value of Max-Forwards header	afterP-CSCF processing
+</A></li>
+	<LI>Next message: <A HREF="000513.html">[OpenIMSCore-CSCF] Scscf didn't process RTR and PPR in serims?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#539">[ date ]</a>
+              <a href="thread.html#539">[ thread ]</a>
+              <a href="subject.html#539">[ subject ]</a>
+              <a href="author.html#539">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r767 - modified the function	get_pidf_lo_body() to return 1 when no request body is found
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2009-November/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r767%20-%20modified%20the%20function%0A%09get_pidf_lo_body%28%29%20to%20return%201%20when%20no%20request%20body%20is%20found&In-Reply-To=%3C200911131329.nADDT00Q010387%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001849.html">
+   <LINK REL="Next"  HREF="001851.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r767 - modified the function	get_pidf_lo_body() to return 1 when no request body is found</H1>
+    <B>aon at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r767%20-%20modified%20the%20function%0A%09get_pidf_lo_body%28%29%20to%20return%201%20when%20no%20request%20body%20is%20found&In-Reply-To=%3C200911131329.nADDT00Q010387%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r767 - modified the function	get_pidf_lo_body() to return 1 when no request body is found">aon at users.berlios.de
+       </A><BR>
+    <I>Fri Nov 13 14:29:00 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001849.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r766 - added SIPp scripts for	emulating a LOCSIP server,	for both cases: the server knows the location information of the user	or not
+</A></li>
+        <LI>Next message: <A HREF="001851.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r768 - killed a bug that was	coming from the lrf running script,	lrf.cfg. the problem comes from the fact that when t_release is	called, the current processed message is considered,	not the current transaction. An when switching from the NOTIFY	transaction to the OPTIONS transaction, problem arise.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1850">[ date ]</a>
+              <a href="thread.html#1850">[ thread ]</a>
+              <a href="subject.html#1850">[ subject ]</a>
+              <a href="author.html#1850">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: aon
+Date: 2009-11-13 14:28:59 +0100 (Fri, 13 Nov 2009)
+New Revision: 767 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=767">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=767</A> 
+
+Log:
+modified the function get_pidf_lo_body() to return 1 when no request body is found
+
+
+Modified:
+   U	ser_ims/branches/12_em_services/modules/ecscf/lrf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.c?rev=767&amp;view=diff&amp;r1=767&amp;r2=766">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/ecscf/lrf.c?rev=767&amp;view=diff&amp;r1=767&amp;r2=766</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/lost.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/lost.c?rev=767&amp;view=diff&amp;r1=767&amp;r2=766">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/lost.c?rev=767&amp;view=diff&amp;r1=767&amp;r2=766</A>
+   U	ser_ims/branches/12_em_services/modules/lrf/multipart_parse.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/multipart_parse.c?rev=767&amp;view=diff&amp;r1=767&amp;r2=766">http://svn.berlios.de/viewcvs/openimscore/ser_ims/branches/12_em_services/modules/lrf/multipart_parse.c?rev=767&amp;view=diff&amp;r1=767&amp;r2=766</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001849.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r766 - added SIPp scripts for	emulating a LOCSIP server,	for both cases: the server knows the location information of the user	or not
+</A></li>
+	<LI>Next message: <A HREF="001851.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r768 - killed a bug that was	coming from the lrf running script,	lrf.cfg. the problem comes from the fact that when t_release is	called, the current processed message is considered,	not the current transaction. An when switching from the NOTIFY	transaction to the OPTIONS transaction, problem arise.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1850">[ date ]</a>
+              <a href="thread.html#1850">[ thread ]</a>
+              <a href="subject.html#1850">[ subject ]</a>
+              <a href="author.html#1850">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

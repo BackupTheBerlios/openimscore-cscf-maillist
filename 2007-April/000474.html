@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r236 - Merged the 02_persistency	branch into trunk r162:235. - support of P-CSCF persitency	with Database - new database SQL dump files for MySQL and	Postgres - deleted the 02_persistency branch.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r236%20-%20Merged%20the%2002_persistency%0A%09branch%20into%20trunk%20r162%3A235.%20-%20support%20of%20P-CSCF%20persitency%0A%09with%20Database%20-%20new%20database%20SQL%20dump%20files%20for%20MySQL%20and%0A%09Postgres%20-%20deleted%20the%2002_persistency%20branch.&In-Reply-To=%3C200704181253.l3ICrldq015566%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000473.html">
+   <LINK REL="Next"  HREF="000475.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r236 - Merged the 02_persistency	branch into trunk r162:235. - support of P-CSCF persitency	with Database - new database SQL dump files for MySQL and	Postgres - deleted the 02_persistency branch.</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r236%20-%20Merged%20the%2002_persistency%0A%09branch%20into%20trunk%20r162%3A235.%20-%20support%20of%20P-CSCF%20persitency%0A%09with%20Database%20-%20new%20database%20SQL%20dump%20files%20for%20MySQL%20and%0A%09Postgres%20-%20deleted%20the%2002_persistency%20branch.&In-Reply-To=%3C200704181253.l3ICrldq015566%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r236 - Merged the 02_persistency	branch into trunk r162:235. - support of P-CSCF persitency	with Database - new database SQL dump files for MySQL and	Postgres - deleted the 02_persistency branch.">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Wed Apr 18 14:53:47 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000473.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r235 - Fixed dialog expirations: -	to value in the Subscription-state for SUBSCRIBE dialogs - to	default expiration time for other dialogs - to be updated	with RFC4028 additions for INVITE - on S-CSCF fixed possible	expires unitialized
+</A></li>
+        <LI>Next message: <A HREF="000475.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r237 - Merged the 03_ratelimit	branch into trunk r203:236.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#474">[ date ]</a>
+              <a href="thread.html#474">[ thread ]</a>
+              <a href="subject.html#474">[ subject ]</a>
+              <a href="author.html#474">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-04-18 14:53:40 +0200 (Wed, 18 Apr 2007)
+New Revision: 236 <A HREF="http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=236">http://svn.berlios.de/viewcvs/openimscore?view=rev&amp;rev=236</A> 
+
+Log:
+Merged the 02_persistency branch into trunk r162:235.
+- support of P-CSCF persitency with Database
+- new database SQL dump files for MySQL and Postgres
+- deleted the 02_persistency branch.
+
+
+Added:
+   A	ser_ims/trunk/cfg/persist_my.sql
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/persist_my.sql?rev=236&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/persist_my.sql?rev=236&amp;view=markup</A>
+   A	ser_ims/trunk/cfg/persist_pg.sql
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/persist_pg.sql?rev=236&amp;view=markup">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/persist_pg.sql?rev=236&amp;view=markup</A>
+Removed:
+   D	ser_ims/branches/02_persistency/
+   D	ser_ims/trunk/cfg/my_scscf.sql
+   D	ser_ims/trunk/cfg/pg_scscf.sql
+Modified:
+   U	ser_ims/trunk/modules/pcscf/bin_pcscf.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_pcscf.c?rev=236&amp;view=diff&amp;r1=236&amp;r2=235">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/bin_pcscf.c?rev=236&amp;view=diff&amp;r1=236&amp;r2=235</A>
+   U	ser_ims/trunk/modules/pcscf/mod.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=236&amp;view=diff&amp;r1=236&amp;r2=235">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/mod.c?rev=236&amp;view=diff&amp;r1=236&amp;r2=235</A>
+   U	ser_ims/trunk/modules/pcscf/p_persistency.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/p_persistency.c?rev=236&amp;view=diff&amp;r1=236&amp;r2=235">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/p_persistency.c?rev=236&amp;view=diff&amp;r1=236&amp;r2=235</A>
+   U	ser_ims/trunk/modules/pcscf/p_persistency.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/p_persistency.h?rev=236&amp;view=diff&amp;r1=236&amp;r2=235">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/pcscf/p_persistency.h?rev=236&amp;view=diff&amp;r1=236&amp;r2=235</A>
+   U	ser_ims/trunk/modules/scscf/s_persistency.c
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/s_persistency.c?rev=236&amp;view=diff&amp;r1=236&amp;r2=235">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/s_persistency.c?rev=236&amp;view=diff&amp;r1=236&amp;r2=235</A>
+   U	ser_ims/trunk/modules/scscf/s_persistency.h
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/s_persistency.h?rev=236&amp;view=diff&amp;r1=236&amp;r2=235">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/modules/scscf/s_persistency.h?rev=236&amp;view=diff&amp;r1=236&amp;r2=235</A>
+   _	ser_ims/trunk/cfg/killser
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/killser?rev=236&amp;view=diff&amp;r1=236&amp;r2=235">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/killser?rev=236&amp;view=diff&amp;r1=236&amp;r2=235</A>
+   _	ser_ims/trunk/cfg/stopser
+		<A HREF="http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/stopser?rev=236&amp;view=diff&amp;r1=236&amp;r2=235">http://svn.berlios.de/viewcvs/openimscore/ser_ims/trunk/cfg/stopser?rev=236&amp;view=diff&amp;r1=236&amp;r2=235</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000473.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r235 - Fixed dialog expirations: -	to value in the Subscription-state for SUBSCRIBE dialogs - to	default expiration time for other dialogs - to be updated	with RFC4028 additions for INVITE - on S-CSCF fixed possible	expires unitialized
+</A></li>
+	<LI>Next message: <A HREF="000475.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r237 - Merged the 03_ratelimit	branch into trunk r203:236.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#474">[ date ]</a>
+              <a href="thread.html#474">[ thread ]</a>
+              <a href="subject.html#474">[ subject ]</a>
+              <a href="author.html#474">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

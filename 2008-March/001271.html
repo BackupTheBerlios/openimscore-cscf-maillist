@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] BUG in REGISTER message trigger point	handling
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20BUG%20in%20REGISTER%20message%20trigger%20point%0A%09handling&In-Reply-To=%3C598c7fdf0803280724u6fcb73fdw2609f61e9ddb6b00%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001270.html">
+   <LINK REL="Next"  HREF="001272.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] BUG in REGISTER message trigger point	handling</H1>
+    <B>Vladimir Romanov</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20BUG%20in%20REGISTER%20message%20trigger%20point%0A%09handling&In-Reply-To=%3C598c7fdf0803280724u6fcb73fdw2609f61e9ddb6b00%40mail.gmail.com%3E"
+       TITLE="[OpenIMSCore-CSCF] BUG in REGISTER message trigger point	handling">vromanov at gmail.com
+       </A><BR>
+    <I>Fri Mar 28 15:24:14 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001270.html">[OpenIMSCore-CSCF] BUG in REGISTER message trigger point	handling
+</A></li>
+        <LI>Next message: <A HREF="001272.html">[OpenIMSCore-CSCF] BUG in REGISTER message trigger	point	handling
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1271">[ date ]</a>
+              <a href="thread.html#1271">[ thread ]</a>
+              <a href="subject.html#1271">[ subject ]</a>
+              <a href="author.html#1271">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Another solution is to count REGISTER calls in r_public structure.
+Increase this counter on each REGISTER.
+If counter ==0 this is initial registration and re-registration in
+another case. Or you can use some bit flag in r_public.
+
+I also found one more bug.. spt-&gt;registration_type always 0. I'll try
+make some debugging on holidays.
+
+
+On Fri, Mar 28, 2008 at 5:05 PM, Dragos Vingarzan
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">Dragos.Vingarzan at fokus.fraunhofer.de</A>&gt; wrote:
+&gt;<i> Hi Vladimir,
+</I>&gt;<i>
+</I>&gt;<i>  That is because ISC_match_filter_reg() is called after the
+</I>&gt;<i>  S_assign_server(). I think that the best way to solve it is to add the
+</I>&gt;<i>  case as a parameter to the ISC_match_filter_reg() (and then to transport
+</I>&gt;<i>  it through the calls) indicating the case because this is called anyway
+</I>&gt;<i>  before and after the S_assign_server(); as such you can then eliminate
+</I>&gt;<i>  the isc_is_registered() call from the lines below...
+</I>&gt;<i>
+</I>&gt;<i>  Cheers,
+</I>&gt;<i>  -Dragos
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>  Vladimir Romanov wrote:
+</I>&gt;<i>  &gt; Hi All!
+</I>&gt;<i>  &gt; I found problem in REGISTER trigger point. Even if I register new user
+</I>&gt;<i>  &gt; isc_is_registered always return true. As result registration_type
+</I>&gt;<i>  &gt; never get value of IFC_INITIAL_REGISTRATION. At this time i don't have
+</I>&gt;<i>  &gt; ideas how to fix this problem fast.
+</I>&gt;<i>  &gt;
+</I>&gt;<i>  &gt; isc_match* isc_checker_find(str uri,char direction,int skip,struct sip_msg *msg)
+</I>&gt;<i>  &gt; {
+</I>&gt;<i>  &gt; ......
+</I>&gt;<i>  &gt;     registered = isc_is_registered(&amp;uri);
+</I>&gt;<i>  &gt;     expires = isc_get_expires(msg);
+</I>&gt;<i>  &gt;     if (!registered) registration_type = IFC_INITIAL_REGISTRATION;
+</I>&gt;<i>  &gt;     else if (expires&gt;0) registration_type = IFC_RE_REGISTRATION;
+</I>&gt;<i>  &gt;          else registration_type = IFC_DE_REGISTRATION;
+</I>&gt;<i>  &gt; ....
+</I>&gt;<i>  &gt;
+</I>&gt;<i>  &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>  --
+</I>&gt;<i>  -----------------------------------------
+</I>&gt;<i>  Dipl. Eng. Dragos Vingarzan
+</I>&gt;<i>  Fraunhofer FOKUS/NGNI
+</I>&gt;<i>  Kaiserin-Augusta-Allee 31
+</I>&gt;<i>  10589 Berlin,Germany
+</I>&gt;<i>  Phone +49 (0)30 - 3463 - 7385
+</I>&gt;<i>  Mobile +49 (0)176 - 48 32 16 00
+</I>&gt;<i>  Web www.fokus.fraunhofer.de www.openimscore.org
+</I>&gt;<i>  We could change the world if God would give us the source code...
+</I>&gt;<i>  -----------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+
+-- 
+Vladimir Romanov
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001270.html">[OpenIMSCore-CSCF] BUG in REGISTER message trigger point	handling
+</A></li>
+	<LI>Next message: <A HREF="001272.html">[OpenIMSCore-CSCF] BUG in REGISTER message trigger	point	handling
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1271">[ date ]</a>
+              <a href="thread.html#1271">[ thread ]</a>
+              <a href="subject.html#1271">[ subject ]</a>
+              <a href="author.html#1271">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>

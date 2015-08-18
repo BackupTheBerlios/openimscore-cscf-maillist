@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [OpenIMSCore-CSCF] [SVN-ser_ims] r131 - ser_ims/trunk/modules/scscf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openimscore-cscf/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r131%20-%20ser_ims/trunk/modules/scscf&In-Reply-To=%3C200702091927.l19JRahC023160%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000193.html">
+   <LINK REL="Next"  HREF="000206.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[OpenIMSCore-CSCF] [SVN-ser_ims] r131 - ser_ims/trunk/modules/scscf</H1>
+    <B>vingarzan at users.berlios.de</B> 
+    <A HREF="mailto:openimscore-cscf%40lists.berlios.de?Subject=Re%3A%20%5BOpenIMSCore-CSCF%5D%20%5BSVN-ser_ims%5D%20r131%20-%20ser_ims/trunk/modules/scscf&In-Reply-To=%3C200702091927.l19JRahC023160%40sheep.berlios.de%3E"
+       TITLE="[OpenIMSCore-CSCF] [SVN-ser_ims] r131 - ser_ims/trunk/modules/scscf">vingarzan at users.berlios.de
+       </A><BR>
+    <I>Fri Feb  9 20:27:36 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000193.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r129 - in	ser_ims/branches/01_persistency/modules: pcscf scscf
+</A></li>
+        <LI>Next message: <A HREF="000206.html">[OpenIMSCore-CSCF] Open Source Java Diameter implementation
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#205">[ date ]</a>
+              <a href="thread.html#205">[ thread ]</a>
+              <a href="subject.html#205">[ subject ]</a>
+              <a href="author.html#205">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: vingarzan
+Date: 2007-02-09 20:27:34 +0100 (Fri, 09 Feb 2007)
+New Revision: 131
+
+Modified:
+   ser_ims/trunk/modules/scscf/registrar.c
+   ser_ims/trunk/modules/scscf/sip.c
+   ser_ims/trunk/modules/scscf/sip.h
+Log:
+Fixes to allow usage of tel uris as IMPU.
+
+
+Modified: ser_ims/trunk/modules/scscf/registrar.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/registrar.c	2007-02-08 18:11:21 UTC (rev 130)
++++ ser_ims/trunk/modules/scscf/registrar.c	2007-02-09 19:27:34 UTC (rev 131)
+@@ -106,9 +106,8 @@
+ 	r_public *p,*pn;
+ 	r_contact *c,*cn;
+ 	r_subscriber *s,*sn;
+-	int i,j,assignment_type,sar_res;
++	int i,assignment_type,sar_res;
+ 	r_hash_slot *r;
+-	str realm;
+ 	
+ 	r = param;
+ 	
+@@ -151,17 +150,7 @@
+ 							if (server_assignment_store_data) 
+ 								assignment_type = AVP_IMS_SAR_TIMEOUT_DEREGISTRATION_STORE_SERVER_NAME;
+ 							else assignment_type = AVP_IMS_SAR_TIMEOUT_DEREGISTRATION;
+-							realm = p-&gt;aor;
+-							while(realm.s[0]!='@' &amp;&amp; realm.len&gt;0){
+-								realm.s ++;
+-								realm.len--;
+-							}
+-							for(j=0;j&lt;realm.len;j++)
+-								if (realm.s[j]==';'||realm.s[j]=='&amp;') {
+-									realm.len = j;
+-									break;
+-								}
+-							sar_res = SAR(0,realm,p-&gt;aor,p-&gt;s-&gt;private_identity,assignment_type,0);
++							sar_res = SAR(0,cscf_get_realm_from_uri(p-&gt;aor),p-&gt;aor,p-&gt;s-&gt;private_identity,assignment_type,0);
+ 							if (sar_res==1){
+ 								LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:registrar_timer: User &lt;%.*s&gt; deregistered.\n&quot;,
+ 									p-&gt;aor.len,p-&gt;aor.s);
+@@ -378,6 +367,9 @@
+ 	int rc=-1,experimental_rc=-1;
+ 	str xml={0,0};
+ 		
++	if (realm.len==0){
++		realm = cscf_get_realm_from_uri(private_identity);
++	}		
+ 	saa = Cx_SAR(msg,public_identity,private_identity,scscf_name_str,realm,
+ 		assignment_type,data_available);
+ 	
+
+Modified: ser_ims/trunk/modules/scscf/sip.c
+===================================================================
+--- ser_ims/trunk/modules/scscf/sip.c	2007-02-08 18:11:21 UTC (rev 130)
++++ ser_ims/trunk/modules/scscf/sip.c	2007-02-09 19:27:34 UTC (rev 131)
+@@ -203,6 +203,7 @@
+ {
+ 	str pu={0,0};
+ 	struct to_body *to;
++	int i;
+ 	
+ 	if (parse_headers(msg,HDR_TO_F,0)!=0) {
+ 		LOG(L_ERR,&quot;ERR:&quot;M_NAME&quot;:cscf_get_public_identity: Error parsing until header To: \n&quot;);
+@@ -218,6 +219,12 @@
+ 
+ 	pu = to-&gt;uri;
+ 	
++	/* truncate to sip:<A HREF="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">username at host</A> or tel:number */
++	for(i=4;i&lt;pu.len;i++)
++		if (pu.s[i]==';' || pu.s[i]=='?' ||pu.s[i]==':'){
++			pu.len = i;
++		}
++	
+ 	LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:cscf_get_public_identity: &lt;%.*s&gt; \n&quot;,
+ 		pu.len,pu.s);	
+ 	return pu;
+@@ -1090,6 +1097,7 @@
+ 	if (!msg-&gt;parsed_orig_ruri_ok)
+ 		if (parse_orig_ruri(msg) &lt; 0) 
+ 			return realm;
++	
+ 	realm = msg-&gt;parsed_orig_ruri.host;
+ 	return realm;	
+ }
+@@ -1471,7 +1479,7 @@
+ 	
+ 	*h=0;
+ 	if (parse_headers(msg,HDR_EOH_F,0)!=0) {
+-		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:cscf_get_public_identity: Error parsing until header EOH: \n&quot;);
++		LOG(L_DBG,&quot;DBG:&quot;M_NAME&quot;:cscf_get_visited_network_id: Error parsing until header EOH: \n&quot;);
+ 		return vnid;
+ 	}
+ 	hdr = msg-&gt;headers;
+@@ -1790,7 +1798,83 @@
+ 	return realm;	
+ }
+ 
++
++static str phone_context_s={&quot;;phone-context=&quot;,15};
+ /**
++ * Extracts the realm from a SIP/TEL URI. 
++ * - SIP - the hostname
++ * - TEL - the phone-context parameter
++ * @param msg - the SIP message
++ * @returns the realm
++ */
++str cscf_get_realm_from_uri(str uri)
++{
++	str realm={0,0};
++	int i;
++	
++	if (uri.len&lt;5) {
++		LOG(L_ERR, &quot;ERR:&quot;M_NAME&quot;:cscf_get_realm_from_uri: Error trying to extra realm from too short URI &lt;%.*s&gt;.\n&quot;,uri.len,uri.s);
++		return realm;
++	}
++   	//LOG(L_INFO, &quot;DBG:&quot;M_NAME&quot;:cscf_get_realm_from_uri: extracting realm from &lt;%.*s&gt;.\n&quot;,uri.len,uri.s);
++	if (strncasecmp(uri.s,&quot;sip:&quot;,4)==0||
++		strncasecmp(uri.s,&quot;sips:&quot;,5)==0) {
++		/* SIP URI */
++		realm = uri;
++		while(realm.s[0]!='@' &amp;&amp; realm.len&gt;0){
++			realm.s ++;
++			realm.len--;
++		}
++		for(i=0;i&lt;realm.len;i++)
++			if (realm.s[i]==';'||realm.s[i]=='&amp;') {
++				realm.len = i;
++				break;
++			}		
++	}else
++	if (strncasecmp(uri.s,&quot;tel:&quot;,4)==0) {
++		/* TEL URI */
++		realm = uri;
++		while(realm.s[0]!=';' &amp;&amp; realm.len&gt;0){
++			realm.s ++;
++			realm.len--;
++		}		
++		if (realm.len&lt;1) {realm.len=0;return realm;}
++		else{
++			while(realm.len&gt;phone_context_s.len){
++				if (strncasecmp(realm.s,phone_context_s.s,phone_context_s.len)==0){
++					realm.s+=phone_context_s.len;
++					realm.len-=phone_context_s.len;
++					for(i=0;i&lt;realm.len;i++)
++						if (realm.s[i]==';' || realm.s[i]=='&amp;'){
++							realm.len = i;
++							break;
++						}
++					break;
++				}					
++				realm.s++;
++				realm.len--;
++			}
++		}		
++	}else{
++		/* unknown... just extract between @ and ;? */
++		realm = uri;
++		while(realm.s[0]!='@' &amp;&amp; realm.len&gt;0){
++			realm.s ++;
++			realm.len--;
++		}
++		if (!realm.len) realm = uri;
++		for(i=0;i&lt;realm.len;i++)
++			if (realm.s[i]==';'||realm.s[i]=='&amp;') {
++				realm.len = i;
++				break;
++			}		
++	}
++
++   	LOG(L_DBG, &quot;DBG:&quot;M_NAME&quot;:cscf_get_realm_from_uri: realm &lt;%.*s&gt;.\n&quot;,realm.len,realm.s);
++	return realm;	
++}
++
++/**
+  * Returns the content of the P-Associated-URI header
+  * Public_id is pkg_alloced and should be later freed.
+  * Inside values are not duplicated.
+
+Modified: ser_ims/trunk/modules/scscf/sip.h
+===================================================================
+--- ser_ims/trunk/modules/scscf/sip.h	2007-02-08 18:11:21 UTC (rev 130)
++++ ser_ims/trunk/modules/scscf/sip.h	2007-02-09 19:27:34 UTC (rev 131)
+@@ -140,6 +140,7 @@
+ struct via_body* cscf_get_ue_via(struct sip_msg *msg,str pcscf_sip2ims_via_host,int pcscf_sip2ims_via_port);
+ 
+ str cscf_get_realm(struct sip_msg *msg);
++str cscf_get_realm_from_uri(str uri);
+ 
+ int cscf_get_p_associated_uri(struct sip_msg *msg,str **public_id,int *public_id_cnt);
+ int cscf_get_first_p_associated_uri(struct sip_msg *msg,str *public_id);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000193.html">[OpenIMSCore-CSCF] [SVN-ser_ims] r129 - in	ser_ims/branches/01_persistency/modules: pcscf scscf
+</A></li>
+	<LI>Next message: <A HREF="000206.html">[OpenIMSCore-CSCF] Open Source Java Diameter implementation
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#205">[ date ]</a>
+              <a href="thread.html#205">[ thread ]</a>
+              <a href="subject.html#205">[ subject ]</a>
+              <a href="author.html#205">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openimscore-cscf">More information about the OpenIMSCore-CSCF
+mailing list</a><br>
+</body></html>
